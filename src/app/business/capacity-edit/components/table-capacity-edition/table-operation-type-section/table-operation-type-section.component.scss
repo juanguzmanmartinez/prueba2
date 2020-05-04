@@ -1,0 +1,47 @@
+.container-section-type-operation {
+  width: 100%;
+  display: flex;
+
+  .section-rad {
+    width: 14%;
+    height: 61px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section-ret {
+    width: 14%;
+    height: 61px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section-calendar-moth {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: Muli;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15.75px;
+    line-height: 100%;
+  }
+
+  .section-drugstore-selected {
+    width: 22%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: Muli;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15.75px;
+    line-height: 100%;
+
+  }
+}

@@ -23,6 +23,10 @@ const routes: Routes = [
         path: 'operations-administrator',
         loadChildren: () => import('./operations-admin/operations-admin.module').then(m => m.OperationsAdminModule),
       },
+      {
+        path: 'capacity-edit',
+        loadChildren: () => import('./capacity-edit/capacity-edit.module').then(m => m.CapacityEditModule),
+      },
     ]
   },
 ];

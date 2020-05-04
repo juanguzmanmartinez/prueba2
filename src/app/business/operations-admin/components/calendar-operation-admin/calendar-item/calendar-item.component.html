@@ -1,0 +1,29 @@
+<div class="container-calendar">
+  <div class="header-item">
+    <div>
+      <div class="checkbox-input-container">
+        <label class="checkbox-input-label">
+          <input type="checkbox"
+            class="checkbox-input"
+            [checked]="checked"
+            [disabled]="isDisabled"
+            (click)="clickInput($event.target)">
+          <span class="check-mark"></span>
+        </label>
+      </div>
+      
+    </div>
+    <div>{{tay}}</div>
+  </div>
+
+  <div class="body-item">
+    <div class="d-item-one">
+      <div (click)="redirectCapacity()"> Ir a Capacidad</div>
+      <!-- <div>400</div> -->
+    </div>
+    <!-- <div class="d-item-two">
+      <div>Pedidos</div>
+      <div>150</div>
+    </div> -->
+  </div>
+</div>

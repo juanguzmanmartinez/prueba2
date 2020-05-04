@@ -1,0 +1,39 @@
+.container-calendar {
+  height: 140px;
+  width: 128px;
+  border-radius: 1px;
+  border: 1px solid #F2F2F2;
+  padding: 22px;
+
+  .header-item {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .body-item {
+    padding-top: 74px;
+
+    .d-item-one {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      cursor: pointer;
+      border-radius: 1px;
+      border: 1px solid #16A2FF;
+      
+
+      :hover {
+        color: #16A2FF;
+      }
+    }
+
+    .d-item-two {
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+
+    }
+  }
+}

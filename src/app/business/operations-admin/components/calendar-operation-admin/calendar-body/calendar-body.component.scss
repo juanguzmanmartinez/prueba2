@@ -1,0 +1,60 @@
+.container-header-body-calendar {
+  display: flex;
+  margin: 10px 41px 10px 42px;
+  .d-buttons-implements-change-moth {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    .lable-month {
+      margin-left: 10px;
+    }
+  }
+  .d-implemenst-dropdown {
+    width: 25%;
+    margin: 0px 10px 0px 10px;
+  }
+  .d-buttons-implements-save {
+    display: flex;
+    justify-content: center;
+    width: 25%;
+    margin: 0px 10px 0px 10px;
+  }
+}
+
+
+
+
+
+
+.container-calendar {
+  margin: 10px 40px 50px 40px;
+  padding-left: 18px;
+  padding-bottom: 40px;
+  background-color: white;
+  
+
+  .calendar-title {
+    display: flex;
+    width: 100%;
+    padding: 5px;
+
+    .item-title {
+      padding: 7px;
+      text-align: center;
+      width: 149px;
+    }
+  }
+
+  .calendar-detail {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .day_number {
+      padding: 0px 19px 0px 4px;
+      width: 150px;
+      text-align: center;
+    }
+  }
+
+}
