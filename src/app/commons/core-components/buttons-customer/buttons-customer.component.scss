@@ -1,0 +1,17 @@
+
+.custom-button-container {
+  width: 200px;
+  .custom-button {
+    
+    color: #28a745;
+    background-color: transparent;
+    background-image: none;
+    border-color: #28a745;
+    width: 144px;
+    height: 41px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -13,16 +13,16 @@ export class DropdownComponent implements OnInit {
   public isDisabled = false;
   public selectedOption: ICustomSelectOption = INITIAL_OPTION as ICustomSelectOption;
 
-  @Input() label = 'text input label';
+  @Input() label = '';
   @Input() size = 'm'; // 's', 'm', 'l'
   @Input() marginBottom = '';
   @Input() customClass = '';
   @Input() hasErrorMessage = false;
   @Input() errorMessage = '';
   @Input() options: ICustomSelectOption[] = [
-    { value: 1, text: 'text 01' },
-    { value: 2, text: 'text 02' },
-    { value: 3, text: 'text 03' },
+    { value: 1, text: 'Botica01 - Flora tristán' },
+    { value: 2, text: 'Botica02 - Raul Ferrero' },
+    { value: 3, text: 'Botica03 - Los Olivos' },
   ];
 
   onChange = (_: any) => { };
