@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import "variables";
 
 body {
   background: #E5E5E5;
@@ -6,4 +7,5 @@ body {
   background: -moz-linear-gradient(left, #E5E5E5, #E5E5E5);
   background: -o-linear-gradient(left, #E5E5E5, #E5E5E5);
   background: linear-gradient(to right,#E5E5E5, #E5E5E5);
+  font-family: $font-family-base;
 }

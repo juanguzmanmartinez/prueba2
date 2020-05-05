@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CalendarButtonComponent } from './calendar-button/calendar-button.component';
 import { CoreComponentsModule } from 'src/app/commons/core-components/core-components.module';
 import { CalendarOperationAdminComponent } from './calendar-operation-admin.component';
+import { OperationsFormsModule } from '../../operations-forms/operations-forms.module';
 
 const COMPONENTS_OPERATION_ADMIN = [
   CalendarBodyComponent,
@@ -23,7 +24,8 @@ const COMPONENTS_OPERATION_ADMIN = [
   imports: [
     CommonModule,
     FormsModule,
-    CoreComponentsModule
+    CoreComponentsModule,
+    OperationsFormsModule
   ]
 })
 export class CalendarOperationAdminModule { }
