@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('WEB-Inka-Dashboard app is running!');
+    expect(page.getTitleText()).toEqual('WEB-admin-operaciones app is running!');
   });
 
   afterEach(async () => {

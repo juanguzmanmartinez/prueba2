@@ -160,18 +160,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "WEB-Inka-Dashboard:build"
+            "browserTarget": "WEB-admin-operaciones:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "WEB-Inka-Dashboard:build:production"
+              "browserTarget": "WEB-admin-operaciones:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "WEB-Inka-Dashboard:build"
+            "browserTarget": "WEB-admin-operaciones:build"
           }
         },
         "test": {
@@ -208,15 +208,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "WEB-Inka-Dashboard:serve"
+            "devServerTarget": "WEB-admin-operaciones:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "WEB-Inka-Dashboard:serve:production"
+              "devServerTarget": "WEB-admin-operaciones:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "WEB-Inka-Dashboard"
+  "defaultProject": "WEB-admin-operaciones"
 }
