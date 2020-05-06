@@ -8,7 +8,7 @@ import { CalendarButtonComponent } from './calendar-button/calendar-button.compo
 import { CoreComponentsModule } from 'src/app/commons/core-components/core-components.module';
 import { CalendarOperationAdminComponent } from './calendar-operation-admin.component';
 import { OperationsFormsModule } from '../../operations-forms/operations-forms.module';
-
+import { CalendarServicesModule } from '../../services/calendar-services.module';
 const COMPONENTS_OPERATION_ADMIN = [
   CalendarBodyComponent,
   CalendarItemComponent,
@@ -25,7 +25,8 @@ const COMPONENTS_OPERATION_ADMIN = [
     CommonModule,
     FormsModule,
     CoreComponentsModule,
-    OperationsFormsModule
+    OperationsFormsModule,
+    CalendarServicesModule
   ]
 })
 export class CalendarOperationAdminModule { }

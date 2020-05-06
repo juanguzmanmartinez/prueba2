@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CalendarImplementService } from '../../services/calendar-implements.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar-operation-admin',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarOperationAdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private scheduleImplement: CalendarImplementService,
+  ) { }
 
   ngOnInit() {
+    this.getStores();
+  }
+
+
+  private getStores() {
+    this.scheduleImplement.getStoreImplements$()
+      .pipe(take(1))
+      .subscribe(schedules => {
+        console.log(schedules, 'sdaadsdasda');
+      });
   }
 
 }
