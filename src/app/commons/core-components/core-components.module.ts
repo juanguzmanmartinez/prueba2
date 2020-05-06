@@ -4,11 +4,13 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { FormsModule } from '@angular/forms';
 import { InputTextCustomerComponent } from './input-text-customer/input-text-customer.component';
 import { ButtonsCustomerComponent } from './buttons-customer/buttons-customer.component';
+import { CheckboxInputComponent } from './checkbox-input/checkbox-input.component';
 
 const COMPONENTES = [
   DropdownComponent,
   InputTextCustomerComponent,
-  ButtonsCustomerComponent
+  ButtonsCustomerComponent,
+  CheckboxInputComponent
 ];
 
 @NgModule({
