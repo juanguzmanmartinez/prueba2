@@ -9,6 +9,6 @@ RUN unlink /etc/localtime
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 COPY /devops/nginx.conf /etc/nginx/nginx.conf
-COPY /dist/web-admin-operaciones /usr/share/nginx/html
+COPY /dist/WEB-admin-operaciones /usr/share/nginx/html
 
 CMD ["/root/setup.sh"]
