@@ -12,9 +12,6 @@ then
     echo "Setting up project $app:$environment"
 
 
-    echo "Setting up Nginx Port 9002"
-    sed -i -e 's/8080/9002/g' /etc/nginx/nginx.conf
-
     echo "Starting Web Server ..."
     nginx -g 'daemon off;'
 
