@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IDrugstore } from 'src/app/shared/services/models/drugstore.model';
 
 @Component({
   selector: 'app-calendar-body',
@@ -7,18 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarBodyComponent implements OnInit {
 
+  @Input()
+  drugstores: IDrugstore = {} as IDrugstore;
+  @Output() dataDrugstore = new EventEmitter();
+  public drugstoreSelected = -1;
 
   title = 'Calendar';
 
   daysName = [
-    {day: 'Lunes'},
-    {day: 'Martes'},
-    {day: 'Miercoles'},
-    {day: 'Jueves'},
-    {day: 'Viernes'},
-    {day: 'Sabado'},
-    {day: 'Domingos'},
+    { day: 'Lunes' },
+    { day: 'Martes' },
+    { day: 'Miercoles' },
+    { day: 'Jueves' },
+    { day: 'Viernes' },
+    { day: 'Sabado' },
+    { day: 'Domingos' },
   ];
+
   daysNumber = [];
   totalDays = 31;
   initDay = 3;
@@ -33,7 +39,8 @@ export class CalendarBodyComponent implements OnInit {
     }
   }
 
-  redirectEditCapacity() {
-    console.log('si llama a la funcion');
+  public drugstoreS($event) {
+    this.dataDrugstore.emit($event);
   }
+
 }

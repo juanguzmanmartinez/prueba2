@@ -1,8 +1,5 @@
-<div class="select-input-container"
-  [ngStyle]="{'margin-bottom': marginBottom ? marginBottom : '0px'}"
-  [ngClass]="{
-    'dn': customClass
-  }">
+
+<div class="select-input-container">
   <div class="select-input-label">
     {{ label }}
   </div>
@@ -14,10 +11,12 @@
       'select-input--l': size === 'l'
     }"
     (change)="changeOption($event.target)"
+    (click)="selectedDrugstore()"
     [value]="selectedOption.value">
     <option value=""></option>
+    
     <option [value]="option.value" *ngFor="let option of options">
-      {{ option.text }}
+      {{ option.code+ " - " + option.text }}
     </option>
   </select>
   <div class="select-input-error"

@@ -6,26 +6,32 @@ import { map } from 'rxjs/operators';
 
 import { ENDPOINTS } from '../../parameters/endpoints';
 import { isArray } from '../../helpers/objects-equal';
-import { IStore, IStoreResponse, Store } from './calendar.model';
+import { IStoreResponse } from '../models/drugstore.model';
 import { GenericService } from '../generic.service';
+import { ICalendarRequestParams } from '../models/calendar.model';
+import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 
 
 @Injectable()
 export class CalendarClientService {
 
-  private readonly STORE_ENDPOINT = ENDPOINTS.GET_STORE;
+  private readonly CALENDAR_ENDPOINT = ENDPOINTS.GET_CALENDAR;
 
   constructor(
     private genericService: GenericService,
   ) { }
 
-  public getStoreClient$(): Observable<IStore[]> {
-    const httpParams = new HttpParams();
+  public getCalendarClient$(params: ICustomSelectOption): Observable<any> {
+    const httpParams = new HttpParams()
+      .set('fulfillmentCenterCode', String(params.fulfillmentCenterCode))
+      .set('serviceTypeCode', String(params.serviceTypeCode))
+      .set('segmentType', String(params.segmentType))
+      .set('channel', String(params.channel));
     const Header = new HttpHeaders();
-    return this.genericService.genericGet<IStoreResponse>(this.STORE_ENDPOINT, httpParams, Header)
+    return this.genericService.genericGet<IStoreResponse>(this.CALENDAR_ENDPOINT, httpParams, Header)
       .pipe(map(response => {
-        const scheduleItems = isArray(response) ? response.elements : [];
-        return scheduleItems.map(item => new Store(item));
+        const calendarResponse = response;
+        return calendarResponse;
       }));
   }
 }

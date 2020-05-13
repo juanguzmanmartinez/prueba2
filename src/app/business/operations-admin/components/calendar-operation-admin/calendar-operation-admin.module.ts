@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarHeaderComponent } from './calendar-header/calendar-header.component';
 import { CalendarItemComponent } from './calendar-item/calendar-item.component';
-import { CalendarBodyComponent } from './calendar-body/calendar-body.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarButtonComponent } from './calendar-button/calendar-button.component';
 import { CoreComponentsModule } from 'src/app/commons/core-components/core-components.module';
 import { CalendarOperationAdminComponent } from './calendar-operation-admin.component';
 import { OperationsFormsModule } from '../../operations-forms/operations-forms.module';
 import { CalendarServicesModule } from '../../services/calendar-services.module';
+
 const COMPONENTS_OPERATION_ADMIN = [
-  CalendarBodyComponent,
   CalendarItemComponent,
   CalendarHeaderComponent,
   CalendarButtonComponent,
@@ -26,6 +25,7 @@ const COMPONENTS_OPERATION_ADMIN = [
     FormsModule,
     CoreComponentsModule,
     OperationsFormsModule,
+    ReactiveFormsModule,
     CalendarServicesModule
   ]
 })

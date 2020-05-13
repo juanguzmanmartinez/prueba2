@@ -9,7 +9,7 @@
   </div>
 
   <div class="d-implemenst-dropdown">
-    <app-dropdown></app-dropdown>
+    <app-dropdown [options]="drugstores" (dataDrugstore)="drugstoreS($event)"></app-dropdown>
   </div>
 
   <div class="d-buttons-implements-save">
@@ -24,7 +24,7 @@
   </div>
   <div class="calendar-detail">
     <div *ngFor="let day of daysNumber" class="day_number">
-      <app-calendar-item [tay]="day" (redirect)="redirectEditCapacity()" >
+      <app-calendar-item [tay]="day" (redirect)="redirectEditCapacity()">
       </app-calendar-item>
     </div>
   </div>

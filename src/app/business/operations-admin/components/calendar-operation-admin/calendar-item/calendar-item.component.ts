@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { IDayList } from 'src/app/shared/services/models/calendar.model';
 
 @Component({
   selector: 'app-calendar-item',
@@ -9,8 +10,9 @@ import { Router } from '@angular/router';
 export class CalendarItemComponent implements OnInit {
 
   @Input()
-  tay = '';
+  dayList: IDayList = {} as IDayList;
   @Output() redirect = new EventEmitter();
+
 
   public isDisabled = false;
   public checked = false;
@@ -23,6 +25,7 @@ export class CalendarItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
   }
 
   writeValue(value: any): void {

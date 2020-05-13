@@ -1,6 +1,6 @@
 import { isObject } from 'util';
 
-export interface IStore {
+export interface IDrugstore {
   id: string;
   name: string;
   description: string;
@@ -11,7 +11,7 @@ export interface IStore {
   address: string;
   services: Array<IServices>;
   company: Array<ICompany>;
-  segmentType: Array<ISegmentType>;
+  segmentType: ISegmentType;
   channel: string;
   enabled: boolean;
 }
@@ -35,7 +35,7 @@ export interface ISegmentType {
 }
 
 
-export class Store {
+export class Drugstore {
   id: string;
   name: string;
   description: string;
@@ -46,12 +46,12 @@ export class Store {
   address: string;
   services: Array<IServices>;
   company: Array<ICompany>;
-  segmentType: Array<ISegmentType>;
+  segmentType: ISegmentType;
   channel: string;
   enabled: boolean;
 
-  constructor(store: IStore) {
-    const currentValue = isObject(store) ? store : {} as IStore;
+  constructor(store: IDrugstore) {
+    const currentValue = isObject(store) ? store : {} as IDrugstore;
     this.id = currentValue.id || '';
     this.name = currentValue.name  || '';
     this.description = currentValue.description  || '';
@@ -62,14 +62,14 @@ export class Store {
     this.address = currentValue.address || '';
     this.services = currentValue.services || [];
     this.company = currentValue.company || [];
-    this.segmentType = currentValue.segmentType || [];
+    this.segmentType = currentValue.segmentType || {} as ISegmentType;
     this.channel = currentValue.channel || '';
     this.enabled = currentValue.enabled || false;
   }
 
 }
 
-// STORE RESPONSE
+// DRUGSTORE RESPONSE
 export interface IStoreResponse {
-  elements: IStore[];
+  elements: IDrugstore[];
 }

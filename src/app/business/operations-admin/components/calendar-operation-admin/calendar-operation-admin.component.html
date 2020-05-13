@@ -1,1 +1,38 @@
-<app-calendar-body></app-calendar-body>
+<!-- <app-calendar-body [drugstores]= "newInfoDrugstore" (dataDrugstore)="getDrugs($event)"></app-calendar-body> -->
+
+<form [formGroup]="formService.form">
+  <div class="container-header-body-calendar">
+
+    <div class="d-buttons-implements-change-moth">
+      <app-calendar-button>
+        <img style="padding: 14px;" src="../../../../../assets/img/next_left.png" alt="">
+      </app-calendar-button>
+      <app-calendar-button>
+        <img style="padding: 14px;" src="../../../../../assets/img/next_rigth.png" alt="">
+      </app-calendar-button>
+      <div class="lable-month">
+      </div>
+    </div>
+
+    <div class="d-implemenst-dropdown">
+      <app-dropdown [options]="newInfoDrugstore" formControlName="dropdow"></app-dropdown>
+    </div>
+
+    <div class="d-buttons-implements-save">
+      <p (click)="save()" class="button-style">Guardar Cambios</p>
+    </div>
+  </div>
+  <div class="container-calendar">
+    <div class="calendar-title">
+      <div *ngFor="let day of daysName" class="item-title">
+        <app-calendar-header [day]="day.day"></app-calendar-header>
+      </div>
+    </div>
+    <div class="calendar-detail">
+      <div *ngFor="let dayLists of calendarResponse[0].daysList" class="day_number">
+        <app-calendar-item [dayList]="dayLists" (redirect)="redirectEditCapacity()">
+        </app-calendar-item>
+      </div>
+    </div>
+  </div>
+</form>
