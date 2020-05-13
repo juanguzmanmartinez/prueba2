@@ -110,4 +110,8 @@ export class CalendarOperationAdminComponent implements OnInit {
     console.log('save');
   }
 
+  redirectEditCapacity() {
+    console.log('capacity');
+  }
+
 }
