@@ -106,4 +106,8 @@ export class CalendarOperationAdminComponent implements OnInit {
     }
   }
 
+  save() {
+    console.log('save');
+  }
+
 }
