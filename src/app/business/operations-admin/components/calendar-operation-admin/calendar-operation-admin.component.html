@@ -28,8 +28,8 @@
         <app-calendar-header [day]="day.day"></app-calendar-header>
       </div>
     </div>
-    <div class="calendar-detail">
-      <div *ngFor="let dayLists of calendarResponse[0].daysList" class="day_number">
+    <div class="calendar-detail" formArrayName="calendarMonth01">
+      <div *ngFor="let dayLists of formService.calendarMonth01Array.controls; let i = index" class="day_number">
         <app-calendar-item [dayList]="dayLists" (redirect)="redirectEditCapacity()">
         </app-calendar-item>
       </div>

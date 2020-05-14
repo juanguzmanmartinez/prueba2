@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CalendarImplementService } from '../../services/calendar-implements.service';
-import { take, switchMap } from 'rxjs/operators';
-import { IDrugstore, IServices } from 'src/app/shared/services/models/drugstore.model';
+import { take, switchMap, map, tap } from 'rxjs/operators';
+import { IDrugstore, IServices, Drugstore } from 'src/app/shared/services/models/drugstore.model';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { OperationAdminCalendarService } from '../../operations-forms/operations-admin-calendar';
 import { ICalendar, Calendar, IDayList } from 'src/app/shared/services/models/calendar.model';
@@ -13,7 +13,7 @@ import { ICalendar, Calendar, IDayList } from 'src/app/shared/services/models/ca
 })
 export class CalendarOperationAdminComponent implements OnInit {
 
-  InfoDrugstores: IDrugstore[] = [] as IDrugstore[];
+  InfoDrugstores: Drugstore[] = [] as Drugstore[];
   newInfoDrugstore: ICustomSelectOption[] = [] as ICustomSelectOption[];
   public calendarResponse: Calendar[] = [] as Calendar[];
   @Output() dataDrugstore = new EventEmitter();
@@ -46,16 +46,19 @@ export class CalendarOperationAdminComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getDrugStores();
+    this.loadDrugStores();
     this.InitialCalendar();
     this.formService.dropdowControl.valueChanges.subscribe(x => {
-      this.drugstoreImplement.getCalendarImplements$(x)
-        .pipe(take(1))
-        .subscribe(response => {
-          this.calendarResponse = response;
-          console.log(this.calendarResponse, 'this.calendarResponse');
-        });
+      this.loadCalendarResponse(x);
     });
+  }
+
+  public loadCalendarResponse(dropdownValue: ICustomSelectOption) {
+    this.drugstoreImplement.getCalendarImplements$(dropdownValue)
+      .pipe(take(1))
+      .subscribe(response => {
+        this.calendarResponse = response[0];
+      });
   }
 
   public InitialCalendar() {
@@ -79,23 +82,37 @@ export class CalendarOperationAdminComponent implements OnInit {
     this.calendarResponse = calendar;
 
   }
-  private getDrugStores() {
+  private loadDrugStores() { // no usar get cuando el método no tiene return
     this.drugstoreImplement.getDrugstoreImplements$()
-      .pipe(take(1))
-      .subscribe(stores => {
+      .pipe(tap(stores => {
         this.InfoDrugstores = stores;
-        this.InfoDrugstores.map((value) => {
-          this.newInfoDrugstore.push({
-            text: value.name,
-            value: value.localCode,
-            code: value.localCode,
-            fulfillmentCenterCode: value.localCode,
-            channel: value.channel,
-            segmentType: value.segmentType.name,
-            serviceTypeCode: this.getTypeService(value.services),
-          });
-        });
+      }))
+      .pipe(switchMap((stores) => {
+        this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
+        const initialDrugstoreOption = this.newInfoDrugstore[31];
+        console.log('initialDrugstoreOption: ', initialDrugstoreOption);
+        return this.drugstoreImplement.getCalendarImplements$(initialDrugstoreOption);
+      }))
+      .pipe(take(1))
+      .subscribe(calendarResponse => {
+        this.calendarResponse = calendarResponse.elements;
+        this.formService.addDayControlsToCalendar01(31);
+        console.log(calendarResponse, 'this.calendarResponse');
       });
+  }
+
+  private getFormattedDrugstoreOptions(drugstores: Drugstore[]) {
+    return drugstores.map(store => {
+      return {
+        text: store.name,
+        value: store.localCode,
+        code: store.localCode,
+        fulfillmentCenterCode: store.localCode,
+        channel: store.channel,
+        segmentType: store.segmentType.name,
+        serviceTypeCode: this.getTypeService(store.services),
+      } as ICustomSelectOption;
+    });
   }
 
   getTypeService(type: IServices[]) {
@@ -107,11 +124,9 @@ export class CalendarOperationAdminComponent implements OnInit {
   }
 
   save() {
-    console.log('save');
   }
 
   redirectEditCapacity() {
-    console.log('capacity');
   }
 
 }

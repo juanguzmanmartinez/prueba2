@@ -1,4 +1,5 @@
 import { isObject } from 'util';
+import { isArray } from '../../helpers/objects-equal';
 
 export interface ICalendarRequestParams {
   fulfillmentCenterCode: string; // D88
@@ -11,6 +12,7 @@ export interface ICalendar {
   year: string;
   month: string;
   dayList: Array<IDayList>;
+  monthNumber?: number;
 }
 
 export interface IDayList {
@@ -26,15 +28,17 @@ export interface IDayList {
 
 
 export class Calendar {
-  year: string;
-  month: string;
-  daysList: Array<IDayList>;
+  public year: string;
+  public month: string;
+  public daysList: Array<IDayList>;
+  public monthNumber: number;
 
   constructor(store: ICalendar) {
     const currentValue = isObject(store) ? store : {} as ICalendar;
     this.year = currentValue.year || '';
     this.month = currentValue.month  || '';
     this.daysList = currentValue.dayList || [];
+    this.monthNumber = currentValue.monthNumber || 0;
   }
 
 }
@@ -42,4 +46,13 @@ export class Calendar {
 // CALENDAR RESPONSE
 export interface ICalendarResponse {
   elements: ICalendar[];
+}
+
+export class CalendarResponse {
+  public elements: Calendar[];
+
+  constructor(response: ICalendarResponse) {
+    const current = isObject(response) ? response : {} as ICalendarResponse;
+    this.elements = isArray(current.elements) ? current.elements.map(e => new Calendar(e)) : [];
+  }
 }

@@ -18,7 +18,6 @@ export class CalendarImplementService {
   }
 
   public getCalendarImplements$(requestparam: ICustomSelectOption) {
-  // console.log(requestparam, 'request para,');
     return this.calendarClient.getCalendarClient$(requestparam);
   }
 }
