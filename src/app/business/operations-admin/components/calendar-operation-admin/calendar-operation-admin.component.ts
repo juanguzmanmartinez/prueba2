@@ -57,7 +57,7 @@ export class CalendarOperationAdminComponent implements OnInit {
     this.drugstoreImplement.getCalendarImplements$(dropdownValue)
       .pipe(take(1))
       .subscribe(response => {
-        this.calendarResponse = response[0];
+        this.calendarResponse = response;
       });
   }
 
@@ -95,7 +95,7 @@ export class CalendarOperationAdminComponent implements OnInit {
       }))
       .pipe(take(1))
       .subscribe(calendarResponse => {
-        this.calendarResponse = calendarResponse.elements;
+        this.calendarResponse = calendarResponse;
         this.formService.addDayControlsToCalendar01(31);
         console.log(calendarResponse, 'this.calendarResponse');
       });

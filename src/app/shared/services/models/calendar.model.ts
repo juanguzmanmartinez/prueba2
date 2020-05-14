@@ -52,6 +52,7 @@ export class CalendarResponse {
   public elements: Calendar[];
 
   constructor(response: ICalendarResponse) {
+    console.log('ICalendarResponse: ', response);
     const current = isObject(response) ? response : {} as ICalendarResponse;
     this.elements = isArray(current.elements) ? current.elements.map(e => new Calendar(e)) : [];
   }

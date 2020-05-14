@@ -5,8 +5,9 @@ import { map } from 'rxjs/operators';
 
 import { ENDPOINTS } from '../../parameters/endpoints';
 import { GenericService } from '../generic.service';
-import { ICalendarResponse, CalendarResponse } from '../models/calendar.model';
+import { ICalendarResponse, CalendarResponse, ICalendar, Calendar } from '../models/calendar.model';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
+import { isArray } from '../../helpers/objects-equal';
 
 
 @Injectable()
@@ -25,9 +26,10 @@ export class CalendarClientService {
       .set('segmentType', String(params.segmentType))
       .set('channel', String(params.channel));
     const Header = new HttpHeaders();
-    return this.genericService.genericGet<ICalendarResponse>(this.CALENDAR_ENDPOINT, httpParams, Header)
+    return this.genericService.genericGet<ICalendar[]>(this.CALENDAR_ENDPOINT, httpParams, Header)
       .pipe(map(response => {
-        return new CalendarResponse(response);
+        const current = isArray(response) ? response : [];
+        return current.map(e => new Calendar(e));
       }));
   }
 }
