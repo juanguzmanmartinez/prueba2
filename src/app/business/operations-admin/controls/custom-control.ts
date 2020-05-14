@@ -15,10 +15,6 @@ export class CustomControl extends FormControl {
     ]);
   }
 
-  public get dniError(): string {
-    return getErrorbyFormControl(this, DNI_ERROR_MESSAGES);
-  }
-
 }
 
 export function getEnableErrorMessages(formControl: FormControl): boolean {
@@ -37,6 +33,3 @@ export function getErrorbyFormControl(formControl: FormControl, errorMessageArra
   return '';
 }
 
-export const DNI_ERROR_MESSAGES = {
-  required: 'Campo requerido',
-};
