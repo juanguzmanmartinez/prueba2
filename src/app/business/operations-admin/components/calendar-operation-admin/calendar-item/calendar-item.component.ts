@@ -63,7 +63,6 @@ export class CalendarItemComponent implements OnInit {
 
   public clickInput(value: HTMLInputElement) {
     this.checked = value.checked;
-    console.log('clickInput:', this.checked, this.item);
 
     this.selectedDay = new SelectedDay();
     this.selectedDay.dayList = this.item;
