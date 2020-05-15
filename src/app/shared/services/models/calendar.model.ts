@@ -15,6 +15,11 @@ export interface ICalendar {
   monthNumber?: number;
 }
 
+export class SelectedDay {
+  isSelected: boolean;
+  dayList: IDayList;
+}
+
 export interface IDayList {
   id: number;
   capacity: number;

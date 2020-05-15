@@ -32,7 +32,9 @@
     </div>
     <div class="calendar-detail" formArrayName="calendarMonth01">
       <div *ngFor="let dayLists of formService.calendarMonth01Array.controls; let i = index">
-        <app-calendar-item [dayList]="i" [frm]="dayLists">
+        <app-calendar-item [dayList]="i" [frm]="dayLists"
+        (messageEvent)="daySelectionEvent($event)"
+        >
         </app-calendar-item>
       </div>
     </div>
