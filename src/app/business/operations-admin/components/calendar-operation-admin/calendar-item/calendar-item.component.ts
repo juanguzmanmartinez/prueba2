@@ -24,6 +24,8 @@ export class CalendarItemComponent implements OnInit {
   frm: FormGroup;
   @Output() redirect = new EventEmitter();
 
+  item :IDayList;
+
   public isDisabled = false;
   public checked = false;
 
@@ -35,10 +37,11 @@ export class CalendarItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.frm.get('day').valueChanges.subscribe(x => {
-      console.log(x);
+    this.item = this.frm.value["day"] as IDayList;
+    this.frm.get('day').setValue(this.item.check);
 
-    });
+    console.log('this.frm.value:' , this.item);
+    console.log('this.frm.get(day):' , this.frm.get('day'));
 
   }
 

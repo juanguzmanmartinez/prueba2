@@ -69,6 +69,7 @@ export class CalendarOperationAdminComponent implements OnInit {
       .pipe(take(1))
       .subscribe(response => {
         this.calendarResponse = response;
+        this.setInfoCheckedSelected();
       });
   }
 
@@ -95,6 +96,28 @@ export class CalendarOperationAdminComponent implements OnInit {
     this.calendarResponse = calendar;
 
   }
+
+  private setInfoCheckedSelected() {
+    let i = 0;
+    this.infoCheckedSelected = [];
+    this.calendarResponse[0].daysList.forEach(value => {
+
+      this.infoCheckedSelected.push({
+        id: i,
+        capacity: value.capacity,
+        check: value.check,
+        day: value.day,
+        dayNumber: value.dayNumber,
+        dayToShow: value.dayToShow,
+        order: value.order,
+        restrictedDay: value.restrictedDay
+      });
+      i++;
+      
+    });
+    this.formService.addItemsToCalendar01(this.infoCheckedSelected);
+  }
+
   private loadDrugStores() {
     this.drugstoreImplement.getDrugstoreImplements$()
       .pipe(tap(stores => {
@@ -109,24 +132,8 @@ export class CalendarOperationAdminComponent implements OnInit {
       .pipe(take(1))
       .subscribe(calendarResponse => {
         this.calendarResponse = calendarResponse;
+        this.setInfoCheckedSelected();
 
-        this.calendarResponse[0].daysList.forEach(value => {
-          this.infoCheckedSelected.push({
-            capacity: value.capacity,
-            check: value.check,
-            day: value.day,
-            dayNumber: value.dayNumber,
-            dayToShow: value.dayToShow,
-            order: value.order,
-            restrictedDay: value.restrictedDay
-          });
-          console.log(this.infoCheckedSelected, 'valor');
-        });
-
-
-        console.log(this.formService.calendarMonth01Array.controls);
-        const a = this.calendarResponse[0].daysList.length;
-        this.formService.addDayControlsToCalendar01(a);
       });
   }
 

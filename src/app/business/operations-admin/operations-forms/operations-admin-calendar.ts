@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CustomControl } from '../controls/custom-control';
 import { CustomSelectControl } from '../controls/custom-select-control';
+import { IDayList } from 'src/app/shared/services/models/calendar.model';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,12 @@ export class OperationAdminCalendarService {
     }
   }
 
+  public addItemsToCalendar01(items: IDayList[]) {
+    for (let index = 0; index < items.length; index++) {
+      this.calendarMonth01Array.push(this.dayControl(items[index]));
+    }
+  }
+
   public addDayControlsToCalendar02(n: number) {
     for (let index = 0; index < n; index++) {
       this.calendarMonth02Array.push(this.dayFormGroup);
@@ -76,4 +83,11 @@ export class OperationAdminCalendarService {
       day: new FormControl(),
     });
   }
+
+  public dayControl(item: IDayList) {
+    return this.formBuilder.group({
+      day: item,
+    });
+  }
+
 }
