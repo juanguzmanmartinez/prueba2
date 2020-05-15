@@ -44,7 +44,7 @@ export class GenericService {
     const options = { headers };
     // tslint:disable-next-line:no-string-literal
     if (params) { options['params'] = params; }
-    return this.http.get<T>(endpoint, options).pipe(
+    return this.http.patch<T>(endpoint, options).pipe(
       tap(response => this.log(`genericPatch ` + endpoint))
     );
   }

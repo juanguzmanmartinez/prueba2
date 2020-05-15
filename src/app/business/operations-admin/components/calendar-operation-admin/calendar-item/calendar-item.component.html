@@ -1,11 +1,11 @@
-<form >
+<form [formGroup]="frm">
   <div class="container-calendar">
     <div class="header-item">
       <div>
         <div class="checkbox-input-container" >
           <label class="checkbox-input-label">
             <input type="checkbox" class="checkbox-input" [checked]="checked" [disabled]="isDisabled"
-              (click)="clickInput($event.target)">
+              (click)="clickInput($event.target)" formControlName="day" >
             <span class="check-mark"></span>
           </label>
         </div>

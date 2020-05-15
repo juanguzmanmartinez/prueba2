@@ -49,6 +49,7 @@ export class CalendarOperationAdminComponent implements OnInit {
   currentDate = 17;
   public dayNumberMonth = [];
   monthActuality = '';
+  infoCheckedSelected: IDayList[] = [] as IDayList[];
 
   constructor(
     private drugstoreImplement: CalendarImplementService,
@@ -108,6 +109,22 @@ export class CalendarOperationAdminComponent implements OnInit {
       .pipe(take(1))
       .subscribe(calendarResponse => {
         this.calendarResponse = calendarResponse;
+
+        this.calendarResponse[0].daysList.forEach(value => {
+          this.infoCheckedSelected.push({
+            capacity: value.capacity,
+            check: value.check,
+            day: value.day,
+            dayNumber: value.dayNumber,
+            dayToShow: value.dayToShow,
+            order: value.order,
+            restrictedDay: value.restrictedDay
+          });
+          console.log(this.infoCheckedSelected, 'valor');
+        });
+
+
+        console.log(this.formService.calendarMonth01Array.controls);
         const a = this.calendarResponse[0].daysList.length;
         this.formService.addDayControlsToCalendar01(a);
       });

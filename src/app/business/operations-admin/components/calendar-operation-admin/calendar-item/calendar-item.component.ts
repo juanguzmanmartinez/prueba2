@@ -35,6 +35,10 @@ export class CalendarItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.frm.get('day').valueChanges.subscribe(x => {
+      console.log(x);
+
+    });
 
   }
 
