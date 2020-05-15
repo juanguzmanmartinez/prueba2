@@ -1,5 +1,5 @@
 .container-calendar {
-  height: 140px;
+  height: 118px;
   width: 128px;
   border-radius: 1px;
   border: 1px solid #F2F2F2;
@@ -11,7 +11,8 @@
   }
 
   .body-item {
-    padding-top: 74px;
+    padding-top: 50px;
+    padding-bottom: 10px;
 
     .d-item-one {
       display: flex;
@@ -22,10 +23,31 @@
       cursor: pointer;
       border-radius: 1px;
       border: 1px solid #16A2FF;
-      
+
 
       :hover {
         color: #16A2FF;
+      }
+    }
+
+    .d-item-bloqued {
+      background-color: #FDCFD8;
+      padding: 10px 5px 10px 6px;
+      border: 1px solid #FDCFD8;
+      border-radius: 15px;
+
+      .d-border-s {
+        display: flex;
+
+        .d-img-bloqued {
+          color: #E74848;
+          font-size: 16px;
+          font-family: Muli;
+          font-weight: bold;
+          margin-left: 10px;
+          ;
+        }
+
       }
     }
 
