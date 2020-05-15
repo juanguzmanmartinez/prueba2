@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { IDayList } from 'src/app/shared/services/models/calendar.model';
+import { IDayList, SelectedDay } from 'src/app/shared/services/models/calendar.model';
 import { NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
 
 @Component({
@@ -21,9 +21,11 @@ export class CalendarItemComponent implements OnInit {
   dayList: IDayList = {} as IDayList;
   @Input()
   frm: FormGroup;
-  @Output() redirect = new EventEmitter();
+
+  @Output() messageEvent = new EventEmitter<SelectedDay>();
 
   item: IDayList;
+  selectedDay: SelectedDay;
 
   public isDisabled = false;
   public checked = false;
@@ -61,6 +63,13 @@ export class CalendarItemComponent implements OnInit {
 
   public clickInput(value: HTMLInputElement) {
     this.checked = value.checked;
+    console.log('clickInput:', this.checked, this.item);
+
+    this.selectedDay = new SelectedDay();
+    this.selectedDay.dayList = this.item;
+    this.selectedDay.isSelected = this.checked;
+    this.messageEvent.emit(this.selectedDay);
+
     this.onChange(this.checked);
     this.onTouch(this.checked);
   }

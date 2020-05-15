@@ -4,7 +4,7 @@ import { take, switchMap, map, tap } from 'rxjs/operators';
 import { IDrugstore, IServices, Drugstore } from 'src/app/shared/services/models/drugstore.model';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { OperationAdminCalendarService } from '../../operations-forms/operations-admin-calendar';
-import { ICalendar, Calendar, IDayList, IDayBlockedRequest } from 'src/app/shared/services/models/calendar.model';
+import { ICalendar, Calendar, IDayList, IDayBlockedRequest, SelectedDay } from 'src/app/shared/services/models/calendar.model';
 
 export interface ICheckboxState {
   isMark: boolean;
@@ -50,6 +50,7 @@ export class CalendarOperationAdminComponent implements OnInit {
   public dayNumberMonth = [];
   monthActuality = '';
   infoCheckedSelected: IDayList[] = [] as IDayList[];
+  selectedDayArray: SelectedDay[] = [] as SelectedDay[];
 
   constructor(
     private drugstoreImplement: CalendarImplementService,
@@ -158,21 +159,38 @@ export class CalendarOperationAdminComponent implements OnInit {
   }
 
   save() {
-    console.log('funciona?');
+
+    let dates = "";
+    let types = "";
+
+    this.selectedDayArray.forEach((value, index) => { 
+      if (index === this.selectedDayArray.length-1) {
+        dates = dates + value.dayList.day;
+        types = types + (value.isSelected?'1':'0');
+      } else {
+        dates = dates + value.dayList.day + ",";
+        types = types + (value.isSelected?'1':'0') + ",";
+      }
+    });
+
+    const selectedDrugstore = String(this.formService.dropdowControl.value.value);
+
     const code = {
-      fulfillmentCenterCode: 'B88'
+      fulfillmentCenterCode: selectedDrugstore
     } as IDayBlockedRequest;
-    const variabe = '2020-05-21,2020-05-22';
-    const type = '0,0';
-    this.drugstoreImplement.patchCalendarImplements$(code, variabe, type)
+    this.drugstoreImplement.patchCalendarImplements$(code, dates, types)
       .pipe(take(1))
       .subscribe(stores => {
-        console.log(stores);
+        console.log('response patchCalendarImplements : ', stores);
       });
 
   }
 
   redirectEditCapacity() {
+  }
+
+  daySelectionEvent(selectedDay) {
+    this.selectedDayArray.push(selectedDay);
   }
 
 }
