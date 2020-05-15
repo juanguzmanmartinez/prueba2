@@ -20,7 +20,7 @@ export class OperationAdminCalendarService {
   ) {
     this.form = this.formBuilder.group({
       checkbox: this.checkbox,
-      dropdow : this.dropdow,
+      dropdow: this.dropdow,
       calendarMonth01: this.formArray,
       calendarMonth02: this.formArray,
     });

@@ -113,7 +113,7 @@ export class CalendarOperationAdminComponent implements OnInit {
         restrictedDay: value.restrictedDay
       });
       i++;
-      
+
     });
     this.formService.addItemsToCalendar01(this.infoCheckedSelected);
   }
@@ -132,8 +132,6 @@ export class CalendarOperationAdminComponent implements OnInit {
       .pipe(take(1))
       .subscribe(calendarResponse => {
         this.calendarResponse = calendarResponse;
-        this.setInfoCheckedSelected();
-
       });
   }
 

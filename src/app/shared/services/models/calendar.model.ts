@@ -16,7 +16,7 @@ export interface ICalendar {
 }
 
 export interface IDayList {
-  id: number
+  id: number;
   capacity: number;
   order: number;
   dayNumber: number;

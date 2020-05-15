@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@ang
 import { Router } from '@angular/router';
 import { IDayList } from 'src/app/shared/services/models/calendar.model';
 import { NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
-import { OperationAdminCalendarService } from '../../../operations-forms/operations-admin-calendar';
 
 @Component({
   selector: 'app-calendar-item',
@@ -24,7 +23,7 @@ export class CalendarItemComponent implements OnInit {
   frm: FormGroup;
   @Output() redirect = new EventEmitter();
 
-  item :IDayList;
+  item: IDayList;
 
   public isDisabled = false;
   public checked = false;
@@ -37,12 +36,9 @@ export class CalendarItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.item = this.frm.value["day"] as IDayList;
+    this.item = this.frm.value['day'] as IDayList;
+    this.checked = this.item.check;
     this.frm.get('day').setValue(this.item.check);
-
-    console.log('this.frm.value:' , this.item);
-    console.log('this.frm.get(day):' , this.frm.get('day'));
-
   }
 
   writeValue(value: any): void {
