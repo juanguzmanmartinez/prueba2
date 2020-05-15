@@ -37,8 +37,7 @@ export class CalendarClientService {
 
 
   public patchCalendarClient$(params: IDayBlockedRequest, days: string, unchecked: string) {
-    const httpParams = new HttpParams()
-      .set('fulfillmentCenterCode', String(params.fulfillmentCenterCode));
+    const httpParams = new HttpParams().set('fulfillmentCenterCode', String(params.fulfillmentCenterCode));
     const ENPOINT = this.BLOCKED_DAY_ENDPONINT + '/' + days + '/checks/' + unchecked;
     const Header = new HttpHeaders();
     return this.genericService.genericPatch<IBlocked[]>(ENPOINT, httpParams, Header)
