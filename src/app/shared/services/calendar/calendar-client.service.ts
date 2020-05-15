@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { ENDPOINTS } from '../../parameters/endpoints';
 import { GenericService } from '../generic.service';
-import { ICalendarResponse, CalendarResponse, ICalendar, Calendar } from '../models/calendar.model';
+import { ICalendarResponse, CalendarResponse, ICalendar, Calendar, IDayBlockedRequest, IBlocked, Blocked } from '../models/calendar.model';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { isArray } from '../../helpers/objects-equal';
 
@@ -14,6 +14,7 @@ import { isArray } from '../../helpers/objects-equal';
 export class CalendarClientService {
 
   private readonly CALENDAR_ENDPOINT = ENDPOINTS.GET_CALENDAR;
+  private readonly BLOCKED_DAY_ENDPONINT = ENDPOINTS.PATCH_CALENDAR;
 
   constructor(
     private genericService: GenericService,
@@ -29,7 +30,22 @@ export class CalendarClientService {
     return this.genericService.genericGet<ICalendar[]>(this.CALENDAR_ENDPOINT, httpParams, Header)
       .pipe(map(response => {
         const current = isArray(response) ? response : [];
-        return current.map(e => new Calendar(e));
+        const responses = current.map(e => new Calendar(e));
+        return responses;
+      }));
+  }
+
+
+  public patchCalendarClient$(params: IDayBlockedRequest, days: string, unchecked: string) {
+    const httpParams = new HttpParams()
+      .set('fulfillmentCenterCode', String(params.fulfillmentCenterCode));
+    const ENPOINT = this.BLOCKED_DAY_ENDPONINT + '/' + days + '/check/' + unchecked;
+    const Header = new HttpHeaders();
+    return this.genericService.genericPatch<IBlocked[]>(ENPOINT, httpParams, Header)
+      .pipe(map(response => {
+        const current = isArray(response) ? response : [];
+        const responses = current.map(e => new Blocked(e));
+        return responses;
       }));
   }
 }

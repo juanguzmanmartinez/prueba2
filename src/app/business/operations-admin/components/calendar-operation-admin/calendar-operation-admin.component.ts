@@ -4,7 +4,16 @@ import { take, switchMap, map, tap } from 'rxjs/operators';
 import { IDrugstore, IServices, Drugstore } from 'src/app/shared/services/models/drugstore.model';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { OperationAdminCalendarService } from '../../operations-forms/operations-admin-calendar';
-import { ICalendar, Calendar, IDayList } from 'src/app/shared/services/models/calendar.model';
+import { ICalendar, Calendar, IDayList, IDayBlockedRequest } from 'src/app/shared/services/models/calendar.model';
+
+export interface ICheckboxState {
+  isMark: boolean;
+}
+
+export const CHECKBOX_STATE = {
+  isMark: false,
+};
+
 
 @Component({
   selector: 'app-calendar-operation-admin',
@@ -38,7 +47,8 @@ export class CalendarOperationAdminComponent implements OnInit {
   initDay = 3;
   monthActive = 3;
   currentDate = 17;
-
+  public dayNumberMonth = [];
+  monthActuality = '';
 
   constructor(
     private drugstoreImplement: CalendarImplementService,
@@ -71,6 +81,7 @@ export class CalendarOperationAdminComponent implements OnInit {
     for (let i = 1; i <= diasMes[mes]; i++) {
       this.daysNumber = [...this.daysNumber, i];
     }
+    this.dayNumberMonth = this.daysNumber;
 
     const month = {
       daysList: this.daysNumber,
@@ -78,11 +89,12 @@ export class CalendarOperationAdminComponent implements OnInit {
       year: f.getFullYear().toString(),
     } as Calendar;
 
+    this.monthActuality = meses[f.getMonth()] + ' ' + f.getFullYear().toString();
     const calendar = [month];
     this.calendarResponse = calendar;
 
   }
-  private loadDrugStores() { // no usar get cuando el método no tiene return
+  private loadDrugStores() {
     this.drugstoreImplement.getDrugstoreImplements$()
       .pipe(tap(stores => {
         this.InfoDrugstores = stores;
@@ -90,14 +102,14 @@ export class CalendarOperationAdminComponent implements OnInit {
       .pipe(switchMap((stores) => {
         this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
         const initialDrugstoreOption = this.newInfoDrugstore[31];
-        console.log('initialDrugstoreOption: ', initialDrugstoreOption);
+        this.formService.dropdowControl.setValue(initialDrugstoreOption);
         return this.drugstoreImplement.getCalendarImplements$(initialDrugstoreOption);
       }))
       .pipe(take(1))
       .subscribe(calendarResponse => {
         this.calendarResponse = calendarResponse;
-        this.formService.addDayControlsToCalendar01(31);
-        console.log(calendarResponse, 'this.calendarResponse');
+        const a = this.calendarResponse[0].daysList.length;
+        this.formService.addDayControlsToCalendar01(a);
       });
   }
 
@@ -124,6 +136,18 @@ export class CalendarOperationAdminComponent implements OnInit {
   }
 
   save() {
+    console.log('funciona?');
+    const code = {
+      fulfillmentCenterCode: 'B88'
+    } as IDayBlockedRequest;
+    const variabe = '2020-05-21,2020-05-22';
+    const type = '0,0';
+    this.drugstoreImplement.patchCalendarImplements$(code, variabe, type)
+      .pipe(take(1))
+      .subscribe(stores => {
+        console.log(stores);
+      });
+
   }
 
   redirectEditCapacity() {
