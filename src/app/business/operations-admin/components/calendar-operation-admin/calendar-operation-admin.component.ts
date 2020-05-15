@@ -100,8 +100,8 @@ export class CalendarOperationAdminComponent implements OnInit {
   private setInfoCheckedSelected() {
     let i = 0;
     this.infoCheckedSelected = [];
-    this.calendarResponse[0].daysList.forEach(value => {
-
+    this.calendarResponse[0].daysList.forEach((value, index) => {
+      this.formService.calendarMonth01Array.removeAt(this.calendarResponse[0].daysList.length - index - 1);
       this.infoCheckedSelected.push({
         id: i,
         capacity: value.capacity,
