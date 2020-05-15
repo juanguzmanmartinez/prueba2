@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableCapacityEditionComponent } from './table-capacity-edition.component';
-import { TableBodyCapacityEditionComponent } from './table-body-capacity-edition/table-body-capacity-edition.component';
 import { TableItemCapacityEditionComponent } from './table-item-capacity-edition/table-item-capacity-edition.component';
 import {
   TableTitleHeaderCapacityEditionComponent
@@ -12,7 +11,6 @@ import { TableOperationTypeSectionComponent } from './table-operation-type-secti
 
 const COMPONENT_CAPACITY = [
   TableCapacityEditionComponent,
-  TableBodyCapacityEditionComponent,
   TableItemCapacityEditionComponent,
   TableTitleHeaderCapacityEditionComponent,
   TableBlockCapacityEditionComponent,

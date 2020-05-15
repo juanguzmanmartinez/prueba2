@@ -41,12 +41,10 @@ export class GenericService {
 
   // tslint:disable-next-line:ban-types
   public genericPatch<T>(endpoint: string, params: HttpParams = null, headers: HttpHeaders) {
-    
-    return this.http.patch<T>(endpoint, {}, {params: params , headers: headers}).pipe(
+    return this.http.patch<T>(endpoint, {}, { params, headers }).pipe(
       tap(response => this.log(`genericPatch ` + endpoint))
     );
 
- 
   }
 
 }
