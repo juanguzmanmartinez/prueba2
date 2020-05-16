@@ -1,6 +1,6 @@
 .container-calendar {
   height: 118px;
-  width: 128px;
+  width: 121px;
   border-radius: 1px;
   border: 1px solid #F2F2F2;
   padding: 22px;
@@ -18,11 +18,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      cursor: pointer;
-      border-radius: 1px;
+      padding: 5px 10px 8px 10px;
+      font-size: 13px;
+      border-radius: 7px;
       border: 1px solid #16A2FF;
+      cursor: pointer;
+
+      .d-strong {
+        color: #16A2FF;
+        font-size: 22px;
+      }
 
 
       :hover {
@@ -41,7 +46,7 @@
 
         .d-img-bloqued {
           color: #E74848;
-          font-size: 16px;
+          font-size: 12px;
           font-family: Muli;
           font-weight: bold;
           margin-left: 10px;
