@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CustomControl } from '../controls/custom-control';
 import { CustomSelectControl } from '../controls/custom-select-control';
+import { IDayList } from 'src/app/shared/services/models/calendar.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,9 @@ export class OperationAdminCalendarService {
   ) {
     this.form = this.formBuilder.group({
       checkbox: this.checkbox,
-      dropdow : this.dropdow
+      dropdow: this.dropdow,
+      calendarMonth01: this.formArray,
+      calendarMonth02: this.formArray,
     });
   }
 
@@ -37,4 +40,54 @@ export class OperationAdminCalendarService {
       dropdow: this.dropdow.value
     };
   }
+
+  // setting for FormArray
+  public get formArray() {
+    return this.formBuilder.array([]);
+  }
+
+  // setting for calendars
+  public get calendarMonth01Array() {
+    return this.form.get('calendarMonth01') as FormArray;
+  }
+
+  public get calendarMonth02Array() {
+    return this.form.get('calendarMonth02') as FormArray;
+  }
+
+  public addDayControlToCalendar01() {
+    this.calendarMonth01Array.push(this.dayFormGroup);
+  }
+
+  public addDayControlsToCalendar01(n: number) {
+    for (let index = 0; index < n; index++) {
+      this.calendarMonth01Array.push(this.dayFormGroup);
+    }
+  }
+
+  public addItemsToCalendar01(items: IDayList[]) {
+    for (let index = 0; index < items.length; index++) {
+      this.calendarMonth01Array.push(this.dayControl(items[index]));
+    }
+  }
+
+  public addDayControlsToCalendar02(n: number) {
+    for (let index = 0; index < n; index++) {
+      this.calendarMonth02Array.push(this.dayFormGroup);
+    }
+  }
+
+  // setting for day controls
+  public get dayFormGroup() {
+    return this.formBuilder.group({
+      day: new FormControl(),
+    });
+  }
+
+  public dayControl(item: IDayList) {
+    return this.formBuilder.group({
+      day: item,
+    });
+  }
+
 }

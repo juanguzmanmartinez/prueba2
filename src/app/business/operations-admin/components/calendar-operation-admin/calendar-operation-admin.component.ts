@@ -1,10 +1,19 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CalendarImplementService } from '../../services/calendar-implements.service';
-import { take, switchMap } from 'rxjs/operators';
-import { IDrugstore, IServices } from 'src/app/shared/services/models/drugstore.model';
+import { take, switchMap, map, tap } from 'rxjs/operators';
+import { IDrugstore, IServices, Drugstore } from 'src/app/shared/services/models/drugstore.model';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { OperationAdminCalendarService } from '../../operations-forms/operations-admin-calendar';
-import { ICalendar, Calendar, IDayList } from 'src/app/shared/services/models/calendar.model';
+import { ICalendar, Calendar, IDayList, IDayBlockedRequest, SelectedDay } from 'src/app/shared/services/models/calendar.model';
+
+export interface ICheckboxState {
+  isMark: boolean;
+}
+
+export const CHECKBOX_STATE = {
+  isMark: false,
+};
+
 
 @Component({
   selector: 'app-calendar-operation-admin',
@@ -13,7 +22,7 @@ import { ICalendar, Calendar, IDayList } from 'src/app/shared/services/models/ca
 })
 export class CalendarOperationAdminComponent implements OnInit {
 
-  InfoDrugstores: IDrugstore[] = [] as IDrugstore[];
+  InfoDrugstores: Drugstore[] = [] as Drugstore[];
   newInfoDrugstore: ICustomSelectOption[] = [] as ICustomSelectOption[];
   public calendarResponse: Calendar[] = [] as Calendar[];
   @Output() dataDrugstore = new EventEmitter();
@@ -38,7 +47,10 @@ export class CalendarOperationAdminComponent implements OnInit {
   initDay = 3;
   monthActive = 3;
   currentDate = 17;
-
+  public dayNumberMonth = [];
+  monthActuality = '';
+  infoCheckedSelected: IDayList[] = [] as IDayList[];
+  selectedDayArray: SelectedDay[] = [] as SelectedDay[];
 
   constructor(
     private drugstoreImplement: CalendarImplementService,
@@ -46,16 +58,20 @@ export class CalendarOperationAdminComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getDrugStores();
+    this.loadDrugStores();
     this.InitialCalendar();
     this.formService.dropdowControl.valueChanges.subscribe(x => {
-      this.drugstoreImplement.getCalendarImplements$(x)
-        .pipe(take(1))
-        .subscribe(response => {
-          this.calendarResponse = response;
-          console.log(this.calendarResponse, 'this.calendarResponse');
-        });
+      this.loadCalendarResponse(x);
     });
+  }
+
+  public loadCalendarResponse(dropdownValue: ICustomSelectOption) {
+    this.drugstoreImplement.getCalendarImplements$(dropdownValue)
+      .pipe(take(1))
+      .subscribe(response => {
+        this.calendarResponse = response;
+        this.setInfoCheckedSelected();
+      });
   }
 
   public InitialCalendar() {
@@ -68,6 +84,7 @@ export class CalendarOperationAdminComponent implements OnInit {
     for (let i = 1; i <= diasMes[mes]; i++) {
       this.daysNumber = [...this.daysNumber, i];
     }
+    this.dayNumberMonth = this.daysNumber;
 
     const month = {
       daysList: this.daysNumber,
@@ -75,27 +92,62 @@ export class CalendarOperationAdminComponent implements OnInit {
       year: f.getFullYear().toString(),
     } as Calendar;
 
+    this.monthActuality = meses[f.getMonth()] + ' ' + f.getFullYear().toString();
     const calendar = [month];
     this.calendarResponse = calendar;
 
   }
-  private getDrugStores() {
-    this.drugstoreImplement.getDrugstoreImplements$()
-      .pipe(take(1))
-      .subscribe(stores => {
-        this.InfoDrugstores = stores;
-        this.InfoDrugstores.map((value) => {
-          this.newInfoDrugstore.push({
-            text: value.name,
-            value: value.localCode,
-            code: value.localCode,
-            fulfillmentCenterCode: value.localCode,
-            channel: value.channel,
-            segmentType: value.segmentType.name,
-            serviceTypeCode: this.getTypeService(value.services),
-          });
-        });
+
+  private setInfoCheckedSelected() {
+    let i = 0;
+    this.infoCheckedSelected = [];
+    this.calendarResponse[0].daysList.forEach((value, index) => {
+      this.formService.calendarMonth01Array.removeAt(this.calendarResponse[0].daysList.length - index - 1);
+      this.infoCheckedSelected.push({
+        id: i,
+        capacity: value.capacity,
+        check: value.check,
+        day: value.day,
+        dayNumber: value.dayNumber,
+        dayToShow: value.dayToShow,
+        order: value.order,
+        restrictedDay: value.restrictedDay
       });
+      i++;
+
+    });
+    this.formService.addItemsToCalendar01(this.infoCheckedSelected);
+  }
+
+  private loadDrugStores() {
+    this.drugstoreImplement.getDrugstoreImplements$()
+      .pipe(tap(stores => {
+        this.InfoDrugstores = stores;
+      }))
+      .pipe(switchMap((stores) => {
+        this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
+        const initialDrugstoreOption = this.newInfoDrugstore[31];
+        this.formService.dropdowControl.setValue(initialDrugstoreOption);
+        return this.drugstoreImplement.getCalendarImplements$(initialDrugstoreOption);
+      }))
+      .pipe(take(1))
+      .subscribe(calendarResponse => {
+        this.calendarResponse = calendarResponse;
+      });
+  }
+
+  private getFormattedDrugstoreOptions(drugstores: Drugstore[]) {
+    return drugstores.map(store => {
+      return {
+        text: store.name,
+        value: store.localCode,
+        code: store.localCode,
+        fulfillmentCenterCode: store.localCode,
+        channel: store.channel,
+        segmentType: store.segmentType.name,
+        serviceTypeCode: this.getTypeService(store.services),
+      } as ICustomSelectOption;
+    });
   }
 
   getTypeService(type: IServices[]) {
@@ -107,11 +159,41 @@ export class CalendarOperationAdminComponent implements OnInit {
   }
 
   save() {
-    console.log('save');
+    if (null !== this.selectedDayArray && undefined !== this.selectedDayArray && [] !== this.selectedDayArray &&
+      0 !== this.selectedDayArray.length) {
+      let dates = '';
+      let types = '';
+
+      this.selectedDayArray.forEach((value, index) => {
+        if (index === this.selectedDayArray.length - 1) {
+          dates = dates + value.dayList.day;
+          types = types + (value.isSelected ? '1' : '0');
+        } else {
+          dates = dates + value.dayList.day + ',';
+          types = types + (value.isSelected ? '1' : '0') + ',';
+        }
+      });
+
+      const selectedDrugstore = String(this.formService.dropdowControl.value.value);
+
+      const code = {
+        fulfillmentCenterCode: selectedDrugstore
+      } as IDayBlockedRequest;
+      this.drugstoreImplement.patchCalendarImplements$(code, dates, types)
+        .pipe(take(1))
+        .subscribe(stores => {
+          console.log('response patchCalendarImplements : ', stores);
+          this.selectedDayArray = [];
+        });
+    }
+
   }
 
   redirectEditCapacity() {
-    console.log('capacity');
+  }
+
+  daySelectionEvent(selectedDay) {
+    this.selectedDayArray.push(selectedDay);
   }
 
 }

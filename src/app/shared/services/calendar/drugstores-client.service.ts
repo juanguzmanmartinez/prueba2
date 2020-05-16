@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { ENDPOINTS } from '../../parameters/endpoints';
 import { isArray } from '../../helpers/objects-equal';
-import { IStoreResponse } from '../models/drugstore.model';
+import { IStoreResponse, IDrugstore, Drugstore } from '../models/drugstore.model';
 import { GenericService } from '../generic.service';
 
 
@@ -19,13 +19,14 @@ export class DrugstoreClientService {
     private genericService: GenericService,
   ) { }
 
-  public getDrugstoreClient$(): Observable<any> {
+  public getDrugstoreClient$() {
     const httpParams = new HttpParams();
     const Header = new HttpHeaders();
-    return this.genericService.genericGet<IStoreResponse>(this.DRUGSTORE_ENDPOINT, httpParams, Header)
+    return this.genericService.genericGet<IDrugstore[]>(this.DRUGSTORE_ENDPOINT, httpParams, Header)
       .pipe(map(response => {
-        const drugstore = response;
-        return drugstore;
+        const current = isArray(response) ? response : [];
+        const drugstores = current.map(store => new Drugstore(store));
+        return drugstores;
       }));
   }
 }
