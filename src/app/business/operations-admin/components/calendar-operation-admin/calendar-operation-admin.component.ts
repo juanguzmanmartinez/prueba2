@@ -192,22 +192,23 @@ export class CalendarOperationAdminComponent implements OnInit {
   }
 
   save() {
-    if (null !== this.selectedDayArray && undefined !== this.selectedDayArray &&  [] !== this.selectedDayArray &&  0 !==this.selectedDayArray.length) {
-      let dates = "";
-      let types = "";
-  
-      this.selectedDayArray.forEach((value, index) => { 
-        if (index === this.selectedDayArray.length-1) {
+    if (null !== this.selectedDayArray && undefined !== this.selectedDayArray && [] !== this.selectedDayArray &&
+      0 !== this.selectedDayArray.length) {
+      let dates = '';
+      let types = '';
+
+      this.selectedDayArray.forEach((value, index) => {
+        if (index === this.selectedDayArray.length - 1) {
           dates = dates + value.dayList.day;
-          types = types + (value.isSelected?'1':'0');
+          types = types + (value.isSelected ? '1' : '0');
         } else {
-          dates = dates + value.dayList.day + ",";
-          types = types + (value.isSelected?'1':'0') + ",";
+          dates = dates + value.dayList.day + ',';
+          types = types + (value.isSelected ? '1' : '0') + ',';
         }
       });
-  
+
       const selectedDrugstore = String(this.formService.dropdowControl.value.value);
-  
+
       const code = {
         fulfillmentCenterCode: selectedDrugstore
       } as IDayBlockedRequest;
@@ -216,8 +217,8 @@ export class CalendarOperationAdminComponent implements OnInit {
         .subscribe(stores => {
           console.log('response patchCalendarImplements : ', stores);
           this.selectedDayArray = [];
-      });
-    } 
+        });
+    }
 
   }
 

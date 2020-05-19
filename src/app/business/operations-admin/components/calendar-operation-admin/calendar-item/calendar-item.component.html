@@ -15,8 +15,18 @@
     </div>
 
     <div class="body-item" *ngIf="item.dayType != 'empty'">
-      <div class="d-item-one">
-        <div (click)="redirectCapacity()"> Ir a Capacidad</div>
+      <div class="d-item-one" *ngIf="checked">
+        <div (click)="redirectCapacity()"><strong class="d-strong">|</strong> Ir a Capacidad</div>
+      </div>
+      <div class="d-item-bloqued" *ngIf="!checked">
+        <div class="d-border-s"> 
+            <div>
+              <img src="../../../../../../assets/img/alert.png" alt="">
+            </div>
+            <div class="d-img-bloqued">
+              Bloqueado
+            </div>
+          </div>
       </div>
     </div>
   </div>
