@@ -1,6 +1,6 @@
 <form [formGroup]="frm">
   <div class="container-calendar">
-    <div class="header-item">
+    <div class="header-item" *ngIf="item.dayType != 'empty'" >
       <div>
         <div class="checkbox-input-container" >
           <label class="checkbox-input-label">
@@ -11,10 +11,10 @@
         </div>
 
       </div>
-      <div>{{dayList}}</div>
+      <div>{{item.dayNumber}}</div>
     </div>
 
-    <div class="body-item">
+    <div class="body-item" *ngIf="item.dayType != 'empty'">
       <div class="d-item-one">
         <div (click)="redirectCapacity()"> Ir a Capacidad</div>
       </div>
