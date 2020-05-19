@@ -20,4 +20,8 @@ export class TableTitleHeaderCapacityEditionComponent implements OnInit {
     this.quantityRegister = 140;
   }
 
+  save() {
+
+  }
+
 }
