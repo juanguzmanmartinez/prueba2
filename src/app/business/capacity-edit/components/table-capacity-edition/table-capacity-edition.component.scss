@@ -1,7 +1,7 @@
 .container-table-body-capacity-edition {
   width: 100%;
   margin-bottom: 20px;
-  height: 1375px;
+  height: 1041px;
   background-color: white;
 
   .d-block-container {
@@ -12,7 +12,6 @@
 
   .d-item-capacity-edition {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    columns: 4;
   }
 }

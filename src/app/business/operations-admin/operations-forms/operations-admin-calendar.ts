@@ -66,6 +66,7 @@ export class OperationAdminCalendarService {
   }
 
   public addItemsToCalendar01(items: IDayList[]) {
+    // tslint:disable-next-line:prefer-for-of
     for (let index = 0; index < items.length; index++) {
       this.calendarMonth01Array.push(this.dayControl(items[index]));
     }

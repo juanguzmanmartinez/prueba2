@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-table-title-header-capacity-edition',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableTitleHeaderCapacityEditionComponent implements OnInit {
 
+  @Input()
+  quantityCapacity: number;
+  @Input()
+  type: string;
+  @Input()
+  quantityRegister: number;
   constructor() { }
 
   ngOnInit() {
+    this.quantityCapacity = 130;
+    this.quantityRegister = 140;
   }
 
 }

@@ -4,6 +4,7 @@ import { CapacityEditComponent } from './capacity-edit.component';
 import { CapacityEditRoutingModule } from './capacity-edit.routing.module';
 import { CoreComponentsModule } from 'src/app/commons/core-components/core-components.module';
 import { TableCapacityEditionModule } from './components/table-capacity-edition/table-capacity-edition.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -13,7 +14,8 @@ import { TableCapacityEditionModule } from './components/table-capacity-edition/
     CommonModule,
     CapacityEditRoutingModule,
     CoreComponentsModule,
-    TableCapacityEditionModule
+    TableCapacityEditionModule,
+    SharedModule
   ]
 })
 export class CapacityEditModule { }

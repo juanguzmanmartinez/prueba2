@@ -9,6 +9,7 @@ export class CalendarHeaderComponent implements OnInit {
 
   @Input()
   day = '';
+
   constructor() { }
 
   ngOnInit() {
