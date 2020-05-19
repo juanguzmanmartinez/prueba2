@@ -5,10 +5,12 @@ import { GenericService } from './services/generic.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CalendarClientService } from './services/calendar/calendar-client.service';
+import { CapacityClientService } from './services/capacity-edition/capacity-edition.service';
 
 const SERVICE = [
   DrugstoreClientService,
   CalendarClientService,
+  CapacityClientService,
   GenericService
 ];
 

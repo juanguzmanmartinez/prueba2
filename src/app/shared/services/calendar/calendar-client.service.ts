@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { ENDPOINTS } from '../../parameters/endpoints';
 import { GenericService } from '../generic.service';
-import { ICalendarResponse, CalendarResponse, ICalendar, Calendar, IDayBlockedRequest, IBlocked, Blocked } from '../models/calendar.model';
+import { ICalendar, Calendar, IDayBlockedRequest, IBlocked, Blocked } from '../models/calendar.model';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { isArray } from '../../helpers/objects-equal';
 

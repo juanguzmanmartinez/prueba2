@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IBlockSchedule } from '../../../models/schedule.model';
 
 @Component({
   selector: 'app-table-block-capacity-edition',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableBlockCapacityEditionComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  block: IBlockSchedule;
+  constructor() {
+    this.block = { block: '', schedule: '' };
+  }
 
   ngOnInit() {
   }

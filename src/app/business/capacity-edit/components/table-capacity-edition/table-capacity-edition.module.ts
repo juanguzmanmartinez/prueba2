@@ -8,13 +8,18 @@ import {
 import { CoreComponentsModule } from 'src/app/commons/core-components/core-components.module';
 import { TableBlockCapacityEditionComponent } from './table-block-capacity-edition/table-block-capacity-edition.component';
 import { TableOperationTypeSectionComponent } from './table-operation-type-section/table-operation-type-section.component';
+import { TableFooterCapacityEditionComponent } from './table-footer-capacity-edition/table-footer-capacity-edition.component';
+import { CapacityEditServicesModule } from '../../services/capacity-edit-services.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CapacityEditFormsModule } from '../../capacity-forms/capacity-edit-forms.module';
 
 const COMPONENT_CAPACITY = [
   TableCapacityEditionComponent,
   TableItemCapacityEditionComponent,
   TableTitleHeaderCapacityEditionComponent,
   TableBlockCapacityEditionComponent,
-  TableOperationTypeSectionComponent
+  TableOperationTypeSectionComponent,
+  TableFooterCapacityEditionComponent
 ];
 
 @NgModule({
@@ -22,7 +27,11 @@ const COMPONENT_CAPACITY = [
   exports: [...COMPONENT_CAPACITY],
   imports: [
     CommonModule,
-    CoreComponentsModule
+    CoreComponentsModule,
+    CapacityEditServicesModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CapacityEditFormsModule,
   ]
 })
 export class TableCapacityEditionModule { }

@@ -2,21 +2,43 @@
   width: 100%;
   display: flex;
 
-  .section-rad {
+  .d-section-active-1 {
     width: 14%;
     height: 61px;
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
 
-  .section-ret {
+  .d-section-disabled-1 {
+    width: 14%;
+    height: 61px;
+    background-color: #F2F2F2;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    align-items: center;
+  }
+
+  .d-section-active-2 {
     width: 14%;
     height: 61px;
     background-color: white;
     display: flex;
     justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .d-section-disabled-2 {
+    width: 14%;
+    height: 61px;
+    background-color: #F2F2F2;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
     align-items: center;
   }
 
