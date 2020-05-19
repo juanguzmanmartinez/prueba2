@@ -4,7 +4,7 @@ import { take, switchMap, map, tap } from 'rxjs/operators';
 import { IDrugstore, IServices, Drugstore } from 'src/app/shared/services/models/drugstore.model';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { OperationAdminCalendarService } from '../../operations-forms/operations-admin-calendar';
-import { ICalendar, Calendar, IDayList, IDayBlockedRequest, SelectedDay } from 'src/app/shared/services/models/calendar.model';
+import { ICalendar, Calendar, IDayList, IDayBlockedRequest, SelectedDay, Week } from 'src/app/shared/services/models/calendar.model';
 
 export interface ICheckboxState {
   isMark: boolean;
@@ -38,7 +38,7 @@ export class CalendarOperationAdminComponent implements OnInit {
     { day: 'Jueves' },
     { day: 'Viernes' },
     { day: 'Sabado' },
-    { day: 'Domingos' },
+    { day: 'Domingo' },
   ];
 
   daysNumber = [];
@@ -52,17 +52,24 @@ export class CalendarOperationAdminComponent implements OnInit {
   infoCheckedSelected: IDayList[] = [] as IDayList[];
   selectedDayArray: SelectedDay[] = [] as SelectedDay[];
 
+  weeks: Week[] = [] as Week[];
+
   constructor(
     private drugstoreImplement: CalendarImplementService,
     public formService: OperationAdminCalendarService,
   ) { }
 
   ngOnInit() {
+
     this.loadDrugStores();
     this.InitialCalendar();
     this.formService.dropdowControl.valueChanges.subscribe(x => {
       this.loadCalendarResponse(x);
     });
+
+
+    
+
   }
 
   public loadCalendarResponse(dropdownValue: ICustomSelectOption) {
@@ -111,12 +118,38 @@ export class CalendarOperationAdminComponent implements OnInit {
         dayNumber: value.dayNumber,
         dayToShow: value.dayToShow,
         order: value.order,
-        restrictedDay: value.restrictedDay
+        restrictedDay: value.restrictedDay,
+        dayType: 'active'
       });
       i++;
 
     });
     this.formService.addItemsToCalendar01(this.infoCheckedSelected);
+
+    for(let j=0; j<this.calendarResponse[0].startDay-1; j++){
+      this.infoCheckedSelected.unshift({
+        id: undefined,
+        capacity: undefined,
+        check: undefined,
+        day: undefined,
+        dayNumber: undefined,
+        dayToShow: undefined,
+        order: undefined,
+        restrictedDay: undefined,
+        dayType: 'empty'
+      });
+    }
+
+    const weeksNumber = this.infoCheckedSelected.length / 7; 
+
+    for(let k=0; k<weeksNumber; k++) {
+      const week = new Week(this.infoCheckedSelected[0],this.infoCheckedSelected[1],this.infoCheckedSelected[2],
+        this.infoCheckedSelected[3],this.infoCheckedSelected[4],
+        this.infoCheckedSelected[5],this.infoCheckedSelected[6]);
+      this.weeks.push(week);
+      this.infoCheckedSelected.splice(0,7);
+    }
+    
   }
 
   private loadDrugStores() {

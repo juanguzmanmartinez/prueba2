@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDayList, SelectedDay } from 'src/app/shared/services/models/calendar.model';
-import { NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-calendar-item',
@@ -18,8 +18,8 @@ import { NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
 export class CalendarItemComponent implements OnInit {
 
   @Input()
-  dayList: IDayList = {} as IDayList;
-  @Input()
+  weekDay: IDayList;
+
   frm: FormGroup;
 
   @Output() messageEvent = new EventEmitter<SelectedDay>();
@@ -35,12 +35,22 @@ export class CalendarItemComponent implements OnInit {
 
   constructor(
     private router: Router,
+    public formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
-    this.item = this.frm.value['day'] as IDayList;
-    this.checked = this.item.check;
-    this.frm.get('day').setValue(this.item.check);
+    this.item = this.weekDay;
+    if(this.item.dayType!='empty'){
+      this.checked = this.item.check;
+      this.frm = this.formBuilder.group({
+        day: this.item
+      });
+    } else {
+      this.frm = this.formBuilder.group({
+        day: undefined
+      });
+    }
+    
   }
 
   writeValue(value: any): void {
