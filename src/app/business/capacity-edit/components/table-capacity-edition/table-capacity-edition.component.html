@@ -1,14 +1,19 @@
 <form [formGroup]="capacityForms.form">
   <div class="table-type-operation">
-    <app-table-operation-type-section  (typeOperation)="valueNumberArray($event)" [showTypeOperations]="quantityOperations"></app-table-operation-type-section>
+    <app-table-operation-type-section  
+      (typeOperation)="valueNumberArray($event)"
+      [showTypeOperations]="quantityOperations">
+    </app-table-operation-type-section>
   </div>
   <div class="container-table-body-capacity-edition">
-    <div class="class">
-      <app-table-title-header-capacity-edition></app-table-title-header-capacity-edition>
+    <div class="">
+      <app-table-title-header-capacity-edition [quantityCapacity]="quantityCapacity">
+      </app-table-title-header-capacity-edition>
     </div>
     <div class="d-block-container">
       <div *ngFor="let schedule of scheduleBlock">
-        <app-table-block-capacity-edition [block]="schedule"> </app-table-block-capacity-edition>
+        <app-table-block-capacity-edition [block]="schedule">
+        </app-table-block-capacity-edition>
       </div>
     </div>
     <div class="d-item-capacity-edition">
@@ -26,7 +31,7 @@
   </div>
 
   <div>
-    <app-table-footer-capacity-edition></app-table-footer-capacity-edition>
+    <app-table-footer-capacity-edition [quantityTotal]="quantityTotal"></app-table-footer-capacity-edition>
   </div>
 
 </form>

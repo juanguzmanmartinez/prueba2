@@ -6,6 +6,8 @@ import { ICapacityRequestParams } from 'src/app/shared/services/models/capacity.
 import { CapacityEditImplementService } from 'src/app/business/capacity-edit/services/capacity-edit-implements.service';
 import { take } from 'rxjs/operators';
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
+import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
+import { CalendarStoreService } from '../../../store/calendar-store.service';
 
 @Component({
   selector: 'app-calendar-item',
@@ -23,6 +25,9 @@ export class CalendarItemComponent implements OnInit {
 
   @Input()
   weekDay: IDayList;
+
+  @Input()
+  chosenDrugstore: ICustomSelectOption;
 
   frm: FormGroup;
 
@@ -42,11 +47,11 @@ export class CalendarItemComponent implements OnInit {
     public formBuilder: FormBuilder,
     private capacityEditImplementService: CapacityEditImplementService,
     private mainLoaderService: MainLoaderService,
+    public calendarStoreService: CalendarStoreService,
   ) { }
 
   ngOnInit() {
     this.item = this.weekDay;
-    console.log(this.weekDay, 'weekDayweekDayweekDay');
 
     if (this.item.dayType !== 'empty') {
       this.checked = this.item.check;
@@ -96,18 +101,18 @@ export class CalendarItemComponent implements OnInit {
 
   redirectCapacity() {
     this.mainLoaderService.isLoaded = false;
+
     const requestParams = {
-      segmentType: 'PROGRAMMED',
-      day: '2020-04-27',
-      fulfillmentCenterCode: 'B88',
-      channel: 'DIGITAL'
+      segmentType: this.chosenDrugstore.segmentType,
+      day: this.item.day,
+      fulfillmentCenterCode: this.chosenDrugstore.fulfillmentCenterCode,
+      channel: this.chosenDrugstore.channel
     } as ICapacityRequestParams;
 
     this.capacityEditImplementService.getBlockScheduleImplements$(requestParams)
       .pipe(take(1))
       .subscribe(response => {
-        console.log(response, 'response');
-        // this.responseCapacity = response;
+        this.calendarStoreService.setSelectedCapacity(response);
         this.router.navigate(['/capacity-edit']);
       });
   }
