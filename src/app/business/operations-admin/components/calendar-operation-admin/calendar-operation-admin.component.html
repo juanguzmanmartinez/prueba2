@@ -40,13 +40,13 @@
       </thead>
       <tbody>
           <tr *ngFor="let week of weeks; let i = index" >
-              <td><app-calendar-item [weekDay]="week.monday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
-              <td><app-calendar-item [weekDay]="week.tuesday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
-              <td><app-calendar-item [weekDay]="week.wednesday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
-              <td><app-calendar-item [weekDay]="week.thursday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
-              <td><app-calendar-item [weekDay]="week.friday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
-              <td><app-calendar-item [weekDay]="week.saturday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
-              <td><app-calendar-item [weekDay]="week.sunday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
+              <td><app-calendar-item [weekDay]="week.monday"    [chosenDrugstore]="this.formService.dropdowControl.value" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
+              <td><app-calendar-item [weekDay]="week.tuesday"   [chosenDrugstore]="this.formService.dropdowControl.value" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
+              <td><app-calendar-item [weekDay]="week.wednesday" [chosenDrugstore]="this.formService.dropdowControl.value" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
+              <td><app-calendar-item [weekDay]="week.thursday"  [chosenDrugstore]="this.formService.dropdowControl.value" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
+              <td><app-calendar-item [weekDay]="week.friday"    [chosenDrugstore]="this.formService.dropdowControl.value" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
+              <td><app-calendar-item [weekDay]="week.saturday"  [chosenDrugstore]="this.formService.dropdowControl.value" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
+              <td><app-calendar-item [weekDay]="week.sunday"    [chosenDrugstore]="this.formService.dropdowControl.value" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
           </tr>
       </tbody>
     </table>

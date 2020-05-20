@@ -6,6 +6,7 @@ import { ICapacityRequestParams } from 'src/app/shared/services/models/capacity.
 import { CapacityEditImplementService } from 'src/app/business/capacity-edit/services/capacity-edit-implements.service';
 import { take } from 'rxjs/operators';
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
+import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 
 @Component({
   selector: 'app-calendar-item',
@@ -23,6 +24,9 @@ export class CalendarItemComponent implements OnInit {
 
   @Input()
   weekDay: IDayList;
+
+  @Input()
+  chosenDrugstore: ICustomSelectOption;
 
   frm: FormGroup;
 
@@ -46,7 +50,8 @@ export class CalendarItemComponent implements OnInit {
 
   ngOnInit() {
     this.item = this.weekDay;
-    console.log(this.weekDay, 'weekDayweekDayweekDay');
+    console.log(this.weekDay, 'weekDay');
+    console.log(this.chosenDrugstore, 'chosenDrugstore');
 
     if (this.item.dayType !== 'empty') {
       this.checked = this.item.check;
@@ -96,11 +101,12 @@ export class CalendarItemComponent implements OnInit {
 
   redirectCapacity() {
     this.mainLoaderService.isLoaded = false;
+
     const requestParams = {
-      segmentType: 'PROGRAMMED',
-      day: '2020-04-27',
-      fulfillmentCenterCode: 'B88',
-      channel: 'DIGITAL'
+      segmentType: this.chosenDrugstore.segmentType,
+      day: this.item.day,
+      fulfillmentCenterCode: this.chosenDrugstore.fulfillmentCenterCode,
+      channel: this.chosenDrugstore.channel
     } as ICapacityRequestParams;
 
     this.capacityEditImplementService.getBlockScheduleImplements$(requestParams)
