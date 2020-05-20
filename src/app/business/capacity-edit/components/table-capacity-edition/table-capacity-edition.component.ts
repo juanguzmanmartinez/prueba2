@@ -53,7 +53,7 @@ export class TableCapacityEditionComponent implements OnInit {
     const requestParams = {
       segmentType: 'PROGRAMMED',
       day: '2020-04-27',
-      fulfillmentCenterCode: '533',
+      fulfillmentCenterCode: 'B88',
       channel: 'DIGITAL'
     } as ICapacityRequestParams;
 
@@ -63,7 +63,9 @@ export class TableCapacityEditionComponent implements OnInit {
         this.responseCapacity = response;
         this.quantityOperations = this.responseCapacity.length;
         this.setInfoCheckedSelectedArray1();
-        this.setInfoCheckedSelectedArray2();
+        if (this.quantityOperations >= 2) {
+          this.setInfoCheckedSelectedArray2();
+        }
       });
   }
 

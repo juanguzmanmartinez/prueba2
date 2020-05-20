@@ -1,6 +1,6 @@
 <form [formGroup]="capacityForms.form">
   <div class="table-type-operation">
-    <app-table-operation-type-section  (typeOperation)="valueNumberArray($event)" (showTypeOperations)="quantityOperations"></app-table-operation-type-section>
+    <app-table-operation-type-section  (typeOperation)="valueNumberArray($event)" [showTypeOperations]="quantityOperations"></app-table-operation-type-section>
   </div>
   <div class="container-table-body-capacity-edition">
     <div class="class">

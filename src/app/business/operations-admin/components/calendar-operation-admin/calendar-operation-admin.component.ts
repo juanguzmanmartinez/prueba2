@@ -5,6 +5,7 @@ import { IDrugstore, IServices, Drugstore } from 'src/app/shared/services/models
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { OperationAdminCalendarService } from '../../operations-forms/operations-admin-calendar';
 import { ICalendar, Calendar, IDayList, IDayBlockedRequest, SelectedDay, Week } from 'src/app/shared/services/models/calendar.model';
+import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 
 export interface ICheckboxState {
   isMark: boolean;
@@ -57,6 +58,7 @@ export class CalendarOperationAdminComponent implements OnInit {
   constructor(
     private drugstoreImplement: CalendarImplementService,
     public formService: OperationAdminCalendarService,
+    private mainLoaderService: MainLoaderService,
   ) { }
 
   ngOnInit() {
@@ -64,12 +66,9 @@ export class CalendarOperationAdminComponent implements OnInit {
     this.loadDrugStores();
     this.InitialCalendar();
     this.formService.dropdowControl.valueChanges.subscribe(x => {
+      this.mainLoaderService.isLoaded = true;
       this.loadCalendarResponse(x);
     });
-
-
-    
-
   }
 
   public loadCalendarResponse(dropdownValue: ICustomSelectOption) {
@@ -77,6 +76,7 @@ export class CalendarOperationAdminComponent implements OnInit {
       .pipe(take(1))
       .subscribe(response => {
         this.calendarResponse = response;
+        this.mainLoaderService.isLoaded = false;
         this.setInfoCheckedSelected();
       });
   }
@@ -126,7 +126,7 @@ export class CalendarOperationAdminComponent implements OnInit {
     });
     this.formService.addItemsToCalendar01(this.infoCheckedSelected);
 
-    for(let j=0; j<this.calendarResponse[0].startDay-1; j++){
+    for (let j = 0; j < this.calendarResponse[0].startDay - 1; j++) {
       this.infoCheckedSelected.unshift({
         id: undefined,
         capacity: undefined,
@@ -140,19 +140,20 @@ export class CalendarOperationAdminComponent implements OnInit {
       });
     }
 
-    const weeksNumber = this.infoCheckedSelected.length / 7; 
+    const weeksNumber = this.infoCheckedSelected.length / 7;
 
-    for(let k=0; k<weeksNumber; k++) {
-      const week = new Week(this.infoCheckedSelected[0],this.infoCheckedSelected[1],this.infoCheckedSelected[2],
-        this.infoCheckedSelected[3],this.infoCheckedSelected[4],
-        this.infoCheckedSelected[5],this.infoCheckedSelected[6]);
+    for (let k = 0; k < weeksNumber; k++) {
+      const week = new Week(this.infoCheckedSelected[0], this.infoCheckedSelected[1], this.infoCheckedSelected[2],
+        this.infoCheckedSelected[3], this.infoCheckedSelected[4],
+        this.infoCheckedSelected[5], this.infoCheckedSelected[6]);
       this.weeks.push(week);
-      this.infoCheckedSelected.splice(0,7);
+      this.infoCheckedSelected.splice(0, 7);
     }
-    
+
   }
 
   private loadDrugStores() {
+    this.mainLoaderService.isLoaded = true;
     this.drugstoreImplement.getDrugstoreImplements$()
       .pipe(tap(stores => {
         this.InfoDrugstores = stores;
@@ -165,6 +166,7 @@ export class CalendarOperationAdminComponent implements OnInit {
       }))
       .pipe(take(1))
       .subscribe(calendarResponse => {
+        this.mainLoaderService.isLoaded = false;
         this.calendarResponse = calendarResponse;
       });
   }
@@ -192,6 +194,7 @@ export class CalendarOperationAdminComponent implements OnInit {
   }
 
   save() {
+    this.mainLoaderService.isLoaded = true;
     if (null !== this.selectedDayArray && undefined !== this.selectedDayArray && [] !== this.selectedDayArray &&
       0 !== this.selectedDayArray.length) {
       let dates = '';
@@ -214,9 +217,10 @@ export class CalendarOperationAdminComponent implements OnInit {
       } as IDayBlockedRequest;
       this.drugstoreImplement.patchCalendarImplements$(code, dates, types)
         .pipe(take(1))
-        .subscribe(stores => {
-          console.log('response patchCalendarImplements : ', stores);
+        .subscribe(response => {
+          this.mainLoaderService.isLoaded = false;
           this.selectedDayArray = [];
+          console.log(response, 'response');
         });
     }
 
