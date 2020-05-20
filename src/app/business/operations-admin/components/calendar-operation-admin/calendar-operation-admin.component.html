@@ -4,16 +4,16 @@
   <div class="container-header-body-calendar">
 
     <div class="d-buttons-implements-change-moth">
-      <app-calendar-button>
+      <app-calendar-button (click)="goToBack()">
         <img style="padding: 14px;" src="../../../../../assets/img/next_left.png" alt="">
       </app-calendar-button>
-      <app-calendar-button>
+      <app-calendar-button  (click)="goToNext()" >
         <img style="padding: 14px;" src="../../../../../assets/img/next_rigth.png" alt="">
       </app-calendar-button>
       <div class="lable-month">
       </div>
 
-      <p style="font-size: 16px; font-family: Muli;">{{monthActuality}}</p>
+      <p style="font-size: 16px; font-family: Muli;">{{currentMonthName}}</p>
     </div>
 
     <div class="d-implemenst-dropdown">
