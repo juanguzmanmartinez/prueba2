@@ -25,19 +25,19 @@ export class Week {
   saturday: IDayList;
   sunday: IDayList;
   constructor(monday: IDayList,
-    tuesday: IDayList,
-    wednesday: IDayList,
-    thursday: IDayList,
-    friday: IDayList,
-    saturday: IDayList,
-    sunday: IDayList) {
-      this.monday = monday;
-      this.tuesday = tuesday;
-      this.wednesday = wednesday;
-      this.thursday = thursday;
-      this.friday = friday;
-      this.saturday = saturday;
-      this.sunday = sunday;
+              tuesday: IDayList,
+              wednesday: IDayList,
+              thursday: IDayList,
+              friday: IDayList,
+              saturday: IDayList,
+              sunday: IDayList) {
+    this.monday = monday;
+    this.tuesday = tuesday;
+    this.wednesday = wednesday;
+    this.thursday = thursday;
+    this.friday = friday;
+    this.saturday = saturday;
+    this.sunday = sunday;
   }
 }
 
@@ -64,7 +64,7 @@ export class Calendar {
   public month: string;
   public daysList: Array<IDayList>;
   public monthNumber: number;
-  public startDay:number;
+  public startDay: number;
 
   constructor(store: ICalendar) {
     const currentValue = isObject(store) ? store : {} as ICalendar;

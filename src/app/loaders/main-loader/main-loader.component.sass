@@ -1,0 +1,36 @@
+.app-main-loader
+  z-index: 3
+  padding-top: 100px
+  position: fixed
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+  overflow: auto
+  background-color: rgba(0,0,0,0.4)
+  .loader-icon-container
+    width: 100%
+    height: 80vh
+    display: flex
+    justify-content: center
+    .loader-icon
+      -webkit-animation: 3s rotate linear infinite
+      animation: 3s rotate linear infinite
+  .loader-message
+    position: absolute
+    width: 100%
+    bottom: 40vh
+    text-align: center
+    color: #1B8F43
+
+@keyframes rotate
+  from
+    transform: rotate(0deg)
+  to
+    transform: rotate(360deg)
+
+@-webkit-keyframes rotate
+  from
+  -webkit-transform: rotate(0deg)
+  to
+  -webkit-transform: rotate(360deg)

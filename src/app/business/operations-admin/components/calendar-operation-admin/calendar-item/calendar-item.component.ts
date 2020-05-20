@@ -2,6 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@ang
 import { Router } from '@angular/router';
 import { IDayList, SelectedDay } from 'src/app/shared/services/models/calendar.model';
 import { NG_VALUE_ACCESSOR, FormGroup, FormBuilder } from '@angular/forms';
+import { ICapacityRequestParams } from 'src/app/shared/services/models/capacity.model';
+import { CapacityEditImplementService } from 'src/app/business/capacity-edit/services/capacity-edit-implements.service';
+import { take } from 'rxjs/operators';
+import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 
 @Component({
   selector: 'app-calendar-item',
@@ -35,12 +39,16 @@ export class CalendarItemComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private capacityEditImplementService: CapacityEditImplementService,
+    private mainLoaderService: MainLoaderService,
   ) { }
 
   ngOnInit() {
     this.item = this.weekDay;
-    if(this.item.dayType!='empty'){
+    console.log(this.weekDay, 'weekDayweekDayweekDay');
+
+    if (this.item.dayType !== 'empty') {
       this.checked = this.item.check;
       this.frm = this.formBuilder.group({
         day: this.item
@@ -50,7 +58,7 @@ export class CalendarItemComponent implements OnInit {
         day: undefined
       });
     }
-    
+
   }
 
   writeValue(value: any): void {
@@ -76,7 +84,10 @@ export class CalendarItemComponent implements OnInit {
 
     this.selectedDay = new SelectedDay();
     this.selectedDay.dayList = this.item;
+    console.log(this.selectedDay.dayList);
     this.selectedDay.isSelected = this.checked;
+    console.log(this.selectedDay.isSelected);
+
     this.messageEvent.emit(this.selectedDay);
 
     this.onChange(this.checked);
@@ -84,7 +95,21 @@ export class CalendarItemComponent implements OnInit {
   }
 
   redirectCapacity() {
-    this.router.navigate(['/capacity-edit']);
+    this.mainLoaderService.isLoaded = false;
+    const requestParams = {
+      segmentType: 'PROGRAMMED',
+      day: '2020-04-27',
+      fulfillmentCenterCode: 'B88',
+      channel: 'DIGITAL'
+    } as ICapacityRequestParams;
+
+    this.capacityEditImplementService.getBlockScheduleImplements$(requestParams)
+      .pipe(take(1))
+      .subscribe(response => {
+        console.log(response, 'response');
+        // this.responseCapacity = response;
+        this.router.navigate(['/capacity-edit']);
+      });
   }
 
 }

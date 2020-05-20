@@ -8,6 +8,7 @@ import { CoreComponentsModule } from 'src/app/commons/core-components/core-compo
 import { CalendarOperationAdminComponent } from './calendar-operation-admin.component';
 import { OperationsFormsModule } from '../../operations-forms/operations-forms.module';
 import { CalendarServicesModule } from '../../services/calendar-services.module';
+import { CapacityEditServicesModule } from 'src/app/business/capacity-edit/services/capacity-edit-services.module';
 
 const COMPONENTS_OPERATION_ADMIN = [
   CalendarItemComponent,
@@ -26,7 +27,8 @@ const COMPONENTS_OPERATION_ADMIN = [
     CoreComponentsModule,
     OperationsFormsModule,
     ReactiveFormsModule,
-    CalendarServicesModule
+    CalendarServicesModule,
+    CapacityEditServicesModule
   ]
 })
 export class CalendarOperationAdminModule { }
