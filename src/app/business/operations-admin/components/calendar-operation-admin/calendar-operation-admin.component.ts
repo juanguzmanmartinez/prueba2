@@ -108,8 +108,10 @@ export class CalendarOperationAdminComponent implements OnInit {
   private setInfoCheckedSelected() {
     let i = 0;
     this.infoCheckedSelected = [];
+    this.weeks = [];
+
     this.calendarResponse[0].daysList.forEach((value, index) => {
-      this.formService.calendarMonth01Array.removeAt(this.calendarResponse[0].daysList.length - index - 1);
+      //this.formService.calendarMonth01Array.removeAt(this.calendarResponse[0].daysList.length - index - 1);
       this.infoCheckedSelected.push({
         id: i,
         capacity: value.capacity,
@@ -124,7 +126,7 @@ export class CalendarOperationAdminComponent implements OnInit {
       i++;
 
     });
-    this.formService.addItemsToCalendar01(this.infoCheckedSelected);
+    //this.formService.addItemsToCalendar01(this.infoCheckedSelected);
 
     for (let j = 0; j < this.calendarResponse[0].startDay - 1; j++) {
       this.infoCheckedSelected.unshift({

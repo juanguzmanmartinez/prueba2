@@ -26,7 +26,6 @@
   </div>
   <div class="container-calendar">
 
-
     <table>
       <thead>
           <tr>
@@ -41,15 +40,6 @@
       </thead>
       <tbody>
           <tr *ngFor="let week of weeks; let i = index" >
-            <!--
-              <td>{{week.monday.dayNumber}}</td>
-              <td>{{week.tuesday.dayNumber}}</td>
-              <td>{{week.wednesday.dayNumber}}</td>
-              <td>{{week.thursday.dayNumber}}</td>
-              <td>{{week.friday.dayNumber}}</td>
-              <td>{{week.saturday.dayNumber}}</td>
-              <td>{{week.sunday.dayNumber}}</td>
-            -->  
               <td><app-calendar-item [weekDay]="week.monday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
               <td><app-calendar-item [weekDay]="week.tuesday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
               <td><app-calendar-item [weekDay]="week.wednesday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
@@ -57,25 +47,9 @@
               <td><app-calendar-item [weekDay]="week.friday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
               <td><app-calendar-item [weekDay]="week.saturday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
               <td><app-calendar-item [weekDay]="week.sunday" (messageEvent)="daySelectionEvent($event)"></app-calendar-item></td>
-              
           </tr>
       </tbody>
     </table>
-
-    <!--
-    <div class="calendar-title">
-      <div *ngFor="let day of daysName" class="item-title">
-        <app-calendar-header [day]="day.day"></app-calendar-header>
-      </div>
-    </div>
-    <div class="calendar-detail" formArrayName="calendarMonth01">
-      <div *ngFor="let dayLists of formService.calendarMonth01Array.controls; let i = index">
-        <app-calendar-item [dayList]="i" [frm]="dayLists" (messageEvent)="daySelectionEvent($event)">
-        </app-calendar-item>
-      </div>
-    </div>
-    -->
-
 
   </div>
 </form>
