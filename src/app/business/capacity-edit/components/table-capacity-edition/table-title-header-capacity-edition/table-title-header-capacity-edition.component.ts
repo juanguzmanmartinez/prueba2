@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { IHeaderCapacity } from '../../../models/schedule.model';
 
 @Component({
   selector: 'app-table-title-header-capacity-edition',
@@ -8,20 +9,17 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TableTitleHeaderCapacityEditionComponent implements OnInit {
 
   @Input()
-  quantityCapacity: number;
+  quantityCapacity: IHeaderCapacity;
   @Input()
   type: string;
-  @Input()
-  quantityRegister: number;
   constructor() { }
 
   ngOnInit() {
-    this.quantityCapacity = 130;
-    this.quantityRegister = 140;
-  }
-
-  save() {
 
   }
+
+  // save() {
+
+  // }
 
 }

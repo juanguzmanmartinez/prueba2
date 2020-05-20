@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IBlockSchedule } from '../../models/schedule.model';
-import { CapacityEditImplementService } from '../../services/capacity-edit-implements.service';
-import { tap, switchMap, take } from 'rxjs/operators';
-import { ICapacityRequestParams, Capacity, ISegment } from 'src/app/shared/services/models/capacity.model';
+import { IBlockSchedule, ITypeOperation, IHeaderCapacity } from '../../models/schedule.model';
+import { Capacity, ISegment } from 'src/app/shared/services/models/capacity.model';
 import { CapacityEditFormsService } from '../../capacity-forms/capacity-edit-forms';
-import { ITypeOperation } from './table-operation-type-section/table-operation-type-section.component';
+import { CalendarStoreService } from 'src/app/business/operations-admin/store/calendar-store.service';
 
 @Component({
   selector: 'app-table-capacity-edition',
@@ -16,12 +14,14 @@ export class TableCapacityEditionComponent implements OnInit {
   scheduleBlock: IBlockSchedule[] = [] as IBlockSchedule[];
   responseCapacity: Capacity[];
   segements: ISegment[] = [] as ISegment[];
+  quantityCapacity: IHeaderCapacity;
   pageRad: boolean;
   pageRet: boolean;
   quantityOperations: number;
+  quantityTotal: number;
   constructor(
-    private capacityEditImplementService: CapacityEditImplementService,
     public capacityForms: CapacityEditFormsService,
+    public calendarStoreService: CalendarStoreService,
   ) { }
 
   ngOnInit() {
@@ -50,28 +50,27 @@ export class TableCapacityEditionComponent implements OnInit {
   }
 
   private loadBlockSchedule() {
-    const requestParams = {
-      segmentType: 'PROGRAMMED',
-      day: '2020-04-27',
-      fulfillmentCenterCode: 'B88',
-      channel: 'DIGITAL'
-    } as ICapacityRequestParams;
-
-    this.capacityEditImplementService.getBlockScheduleImplements$(requestParams)
-      .pipe(take(1))
-      .subscribe(response => {
-        this.responseCapacity = response;
-        this.quantityOperations = this.responseCapacity.length;
-        this.setInfoCheckedSelectedArray1();
-        if (this.quantityOperations >= 2) {
-          this.setInfoCheckedSelectedArray2();
-        }
-      });
+    this.calendarStoreService.selectedDay$.subscribe(value => {
+      this.responseCapacity = value;
+      this.quantityOperations = this.responseCapacity.length;
+      this.setInfoCheckedSelectedArray1();
+      if (this.quantityOperations >= 2) {
+        this.setInfoCheckedSelectedArray2();
+      }
+    });
   }
 
   private setInfoCheckedSelectedArray1() {
     let i = 0;
     this.segements = [];
+    const headerSectionValues = {
+      capacitiesQuantity: this.responseCapacity[0].capacitiesQuantity,
+      ordersQuantity: this.responseCapacity[0].ordersQuantity
+    } as IHeaderCapacity;
+
+    this.quantityCapacity = headerSectionValues;
+    this.quantityTotal = this.responseCapacity[0].capacitiesQuantity;
+
     this.responseCapacity[0].segments.forEach((value, index) => {
       this.capacityForms.timeSegment01Array.removeAt(this.responseCapacity[0].segments.length - index);
       this.segements.push({
@@ -92,6 +91,13 @@ export class TableCapacityEditionComponent implements OnInit {
   private setInfoCheckedSelectedArray2() {
     let i = 0;
     this.segements = [];
+    const headerSectionValues = {
+      capacitiesQuantity: this.responseCapacity[1].capacitiesQuantity,
+      ordersQuantity: this.responseCapacity[1].ordersQuantity
+    } as IHeaderCapacity;
+
+    this.quantityCapacity = headerSectionValues;
+    this.quantityTotal = this.responseCapacity[1].capacitiesQuantity;
     this.responseCapacity[1].segments.forEach((value, index) => {
       this.capacityForms.timeSegment02Array.removeAt(this.responseCapacity[1].segments.length - index);
       this.segements.push({

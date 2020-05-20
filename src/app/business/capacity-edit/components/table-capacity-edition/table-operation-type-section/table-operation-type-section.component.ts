@@ -1,9 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-
-export interface ITypeOperation {
-  code: string;
-  numberArray: number;
-}
+import { ITypeOperation } from '../../../models/schedule.model';
 
 @Component({
   selector: 'app-table-operation-type-section',

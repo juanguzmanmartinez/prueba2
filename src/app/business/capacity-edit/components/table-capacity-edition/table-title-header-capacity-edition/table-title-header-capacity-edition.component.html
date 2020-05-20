@@ -1,7 +1,7 @@
 <div class="container-title-header">
   <div class="d-section-title-one">
     <div class="d-capacity-cuantity">
-      {{quantityCapacity}}
+      {{quantityCapacity.capacitiesQuantity}}
     </div>
     <div class="d-type-operation">
       de capacidad {{type}}
@@ -9,17 +9,16 @@
   </div>
   <div class="d-section-title-two">
     <div class="d-registration-requests">
-      {{quantityRegister}}
+      {{quantityCapacity.ordersQuantity}}
     </div>
     <div class="d-type-operation">
       pedidos de registro
     </div>
   </div>
-
   <div class="d-section-title-three">
-    <app-input-text-customer></app-input-text-customer>
+    <!-- <app-input-text-customer></app-input-text-customer>
     <div class="d-apply-all">
       <p (click)="save()" class="button-header-style">Aplicar para todos</p>
-    </div>
+    </div> -->
   </div>
 </div>

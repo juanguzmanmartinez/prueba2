@@ -43,3 +43,18 @@ export class Capacity {
   }
 
 }
+
+export class ResponseDetailCapacity {
+  public serviceTypeCode: string;
+  public capacitiesQuantity: number;
+  public ordersQuantity: number;
+  public segments: Array<ISegment>;
+
+  constructor(schedules: ICapacity) {
+    const currentValue = isObject(schedules) ? schedules : {} as ICapacity;
+    this.serviceTypeCode = currentValue.serviceTypeCode || '';
+    this.capacitiesQuantity = currentValue.capacitiesQuantity || 0;
+    this.ordersQuantity = currentValue.ordersQuantity || 0;
+    this.segments = currentValue.segments || [];
+  }
+}

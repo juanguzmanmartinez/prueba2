@@ -7,6 +7,7 @@ import { CapacityEditImplementService } from 'src/app/business/capacity-edit/ser
 import { take } from 'rxjs/operators';
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
+import { CalendarStoreService } from '../../../store/calendar-store.service';
 
 @Component({
   selector: 'app-calendar-item',
@@ -46,12 +47,13 @@ export class CalendarItemComponent implements OnInit {
     public formBuilder: FormBuilder,
     private capacityEditImplementService: CapacityEditImplementService,
     private mainLoaderService: MainLoaderService,
+    public calendarStoreService: CalendarStoreService,
   ) { }
 
   ngOnInit() {
     this.item = this.weekDay;
-    console.log(this.weekDay, 'weekDay');
-    console.log(this.chosenDrugstore, 'chosenDrugstore');
+    // console.log(this.weekDay, 'weekDay');
+    // console.log(this.chosenDrugstore, 'chosenDrugstore');
 
     if (this.item.dayType !== 'empty') {
       this.checked = this.item.check;
@@ -114,6 +116,7 @@ export class CalendarItemComponent implements OnInit {
       .subscribe(response => {
         console.log(response, 'response');
         // this.responseCapacity = response;
+        this.calendarStoreService.setSelectedCapacity(response);
         this.router.navigate(['/capacity-edit']);
       });
   }

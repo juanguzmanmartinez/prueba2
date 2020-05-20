@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class TableFooterCapacityEditionComponent implements OnInit {
 
   @Input()
-  quantityTotal: string;
+  quantityTotal: number;
 
 
   constructor(
@@ -17,12 +17,12 @@ export class TableFooterCapacityEditionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.quantityTotal = '1000';
   }
 
   return() {
     this.router.navigate(['/operations-administrator']);
   }
+
   save() {
 
   }
