@@ -55,6 +55,8 @@ export interface IDayList {
   dayToShow: boolean;
   check: boolean;
   restrictedDay: boolean;
+  today: boolean;
+  pastDay: boolean;
   dayType?: 'empty' | 'only_number' | 'active';
 }
 
