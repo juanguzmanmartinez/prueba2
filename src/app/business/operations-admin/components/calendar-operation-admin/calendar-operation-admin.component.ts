@@ -95,6 +95,8 @@ export class CalendarOperationAdminComponent implements OnInit {
         dayToShow: value.dayToShow,
         order: value.order,
         restrictedDay: value.restrictedDay,
+        today: value.today,
+        pastDay: value.pastDay,
         dayType: 'active'
       });
       i++;
@@ -112,6 +114,8 @@ export class CalendarOperationAdminComponent implements OnInit {
           dayToShow: undefined,
           order: undefined,
           restrictedDay: undefined,
+          today: undefined,
+        pastDay: undefined,
           dayType: 'empty'
         });
       }
@@ -147,6 +151,8 @@ export class CalendarOperationAdminComponent implements OnInit {
         dayToShow: undefined,
         order: undefined,
         restrictedDay: undefined,
+        today: undefined,
+        pastDay: undefined,
         dayType: 'empty'
       } as IDayList
     }
