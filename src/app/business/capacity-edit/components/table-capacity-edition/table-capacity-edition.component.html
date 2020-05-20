@@ -1,7 +1,6 @@
 <form [formGroup]="capacityForms.form">
   <div class="table-type-operation">
-    <app-table-operation-type-section  
-      (typeOperation)="valueNumberArray($event)"
+    <app-table-operation-type-section (typeOperation)="valueNumberArray($event)"
       [showTypeOperations]="quantityOperations">
     </app-table-operation-type-section>
   </div>
@@ -30,8 +29,20 @@
     </div>
   </div>
 
-  <div>
+  <!-- <div>
     <app-table-footer-capacity-edition [quantityTotal]="quantityTotal"></app-table-footer-capacity-edition>
-  </div>
+  </div> -->
+  <div class="container-footer">
+    <div class="quantity-total">
+      Capacidad Total del día: <strong>{{quantityTotal}}</strong>
+    </div>
 
+    <div class="d-return-page" (click)="return()">
+      <strong>volver a calendario</strong>
+    </div>
+
+    <div class="d-save-capacity">
+      <p (click)="save()" class="button-capacity-style">Guardar Cambios</p>
+    </div>
+  </div>
 </form>

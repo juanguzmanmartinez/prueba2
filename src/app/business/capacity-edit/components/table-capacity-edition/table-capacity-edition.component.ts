@@ -3,6 +3,7 @@ import { IBlockSchedule, ITypeOperation, IHeaderCapacity } from '../../models/sc
 import { Capacity, ISegment } from 'src/app/shared/services/models/capacity.model';
 import { CapacityEditFormsService } from '../../capacity-forms/capacity-edit-forms';
 import { CalendarStoreService } from 'src/app/business/operations-admin/store/calendar-store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table-capacity-edition',
@@ -22,6 +23,7 @@ export class TableCapacityEditionComponent implements OnInit {
   constructor(
     public capacityForms: CapacityEditFormsService,
     public calendarStoreService: CalendarStoreService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -124,5 +126,13 @@ export class TableCapacityEditionComponent implements OnInit {
       this.pageRet = false;
 
     }
+  }
+
+  return() {
+    this.router.navigate(['/operations-administrator']);
+  }
+
+  save() {
+
   }
 }
