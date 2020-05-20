@@ -26,30 +26,10 @@ export class CalendarOperationAdminComponent implements OnInit {
   InfoDrugstores: Drugstore[] = [] as Drugstore[];
   newInfoDrugstore: ICustomSelectOption[] = [] as ICustomSelectOption[];
   public calendarResponse: Calendar[] = [] as Calendar[];
-  @Output() dataDrugstore = new EventEmitter();
 
-  public drugstoreSelected = -1;
+  currentMonthNumber = 0;
+  currentMonthName = "";
 
-  title = 'Calendar';
-
-  daysName = [
-    { day: 'Lunes' },
-    { day: 'Martes' },
-    { day: 'Miercoles' },
-    { day: 'Jueves' },
-    { day: 'Viernes' },
-    { day: 'Sabado' },
-    { day: 'Domingo' },
-  ];
-
-  daysNumber = [];
-  data = [];
-  totalDays = 31;
-  initDay = 3;
-  monthActive = 3;
-  currentDate = 17;
-  public dayNumberMonth = [];
-  monthActuality = '';
   infoCheckedSelected: IDayList[] = [] as IDayList[];
   selectedDayArray: SelectedDay[] = [] as SelectedDay[];
 
@@ -64,7 +44,6 @@ export class CalendarOperationAdminComponent implements OnInit {
   ngOnInit() {
 
     this.loadDrugStores();
-    this.InitialCalendar();
     this.formService.dropdowControl.valueChanges.subscribe(x => {
       this.mainLoaderService.isLoaded = true;
       this.loadCalendarResponse(x);
@@ -81,28 +60,22 @@ export class CalendarOperationAdminComponent implements OnInit {
       });
   }
 
-  public InitialCalendar() {
-    const f = new Date();
-    const meses = new Array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
-      'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
-    const mes = f.getMonth();
-    const diasMes = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-
-    for (let i = 1; i <= diasMes[mes]; i++) {
-      this.daysNumber = [...this.daysNumber, i];
+  public goToBack(){
+    this.currentMonthNumber -= 1;
+    if(this.currentMonthNumber < 0){
+      alert('May and June only, going to May');
+      this.currentMonthNumber = 0;
     }
-    this.dayNumberMonth = this.daysNumber;
+    this.setInfoCheckedSelected();
+  }
 
-    const month = {
-      daysList: this.daysNumber,
-      month: meses[f.getMonth()],
-      year: f.getFullYear().toString(),
-    } as Calendar;
-
-    this.monthActuality = meses[f.getMonth()] + ' ' + f.getFullYear().toString();
-    const calendar = [month];
-    this.calendarResponse = calendar;
-
+  public goToNext(){
+    this.currentMonthNumber += 1;
+    if(this.currentMonthNumber > 1){
+      alert('May and June only, going back to May');
+      this.currentMonthNumber = 0;
+    }
+    this.setInfoCheckedSelected();
   }
 
   private setInfoCheckedSelected() {
@@ -110,8 +83,9 @@ export class CalendarOperationAdminComponent implements OnInit {
     this.infoCheckedSelected = [];
     this.weeks = [];
 
-    this.calendarResponse[0].daysList.forEach((value, index) => {
-      //this.formService.calendarMonth01Array.removeAt(this.calendarResponse[0].daysList.length - index - 1);
+    this.currentMonthName = this.calendarResponse[this.currentMonthNumber].month;
+
+    this.calendarResponse[this.currentMonthNumber].daysList.forEach((value, index) => {
       this.infoCheckedSelected.push({
         id: i,
         capacity: value.capacity,
@@ -126,10 +100,45 @@ export class CalendarOperationAdminComponent implements OnInit {
       i++;
 
     });
-    //this.formService.addItemsToCalendar01(this.infoCheckedSelected);
 
-    for (let j = 0; j < this.calendarResponse[0].startDay - 1; j++) {
-      this.infoCheckedSelected.unshift({
+    if(this.calendarResponse[this.currentMonthNumber].startDay>1){
+      for (let j = 0; j < this.calendarResponse[this.currentMonthNumber].startDay - 1; j++) {
+        this.infoCheckedSelected.unshift({
+          id: undefined,
+          capacity: undefined,
+          check: undefined,
+          day: undefined,
+          dayNumber: undefined,
+          dayToShow: undefined,
+          order: undefined,
+          restrictedDay: undefined,
+          dayType: 'empty'
+        });
+      }
+    }
+
+    const weeksNumber = this.infoCheckedSelected.length / 7;
+
+    for (let k = 0; k < weeksNumber; k++) {
+      const week = new Week(
+        this.dayValidator(this.infoCheckedSelected[0]), 
+        this.dayValidator(this.infoCheckedSelected[1]),
+        this.dayValidator(this.infoCheckedSelected[2]),
+        this.dayValidator(this.infoCheckedSelected[3]),
+        this.dayValidator(this.infoCheckedSelected[4]),
+        this.dayValidator(this.infoCheckedSelected[5]),
+        this.dayValidator(this.infoCheckedSelected[6]));
+      this.weeks.push(week);
+      this.infoCheckedSelected.splice(0, 7);
+    }
+
+  }
+
+  private dayValidator(day: IDayList){
+    if(day != undefined){
+      return day;
+    } else {
+      return {
         id: undefined,
         capacity: undefined,
         check: undefined,
@@ -139,19 +148,8 @@ export class CalendarOperationAdminComponent implements OnInit {
         order: undefined,
         restrictedDay: undefined,
         dayType: 'empty'
-      });
+      } as IDayList
     }
-
-    const weeksNumber = this.infoCheckedSelected.length / 7;
-
-    for (let k = 0; k < weeksNumber; k++) {
-      const week = new Week(this.infoCheckedSelected[0], this.infoCheckedSelected[1], this.infoCheckedSelected[2],
-        this.infoCheckedSelected[3], this.infoCheckedSelected[4],
-        this.infoCheckedSelected[5], this.infoCheckedSelected[6]);
-      this.weeks.push(week);
-      this.infoCheckedSelected.splice(0, 7);
-    }
-
   }
 
   private loadDrugStores() {
@@ -226,9 +224,6 @@ export class CalendarOperationAdminComponent implements OnInit {
         });
     }
 
-  }
-
-  redirectEditCapacity() {
   }
 
   daySelectionEvent(selectedDay) {

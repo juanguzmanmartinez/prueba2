@@ -52,8 +52,6 @@ export class CalendarItemComponent implements OnInit {
 
   ngOnInit() {
     this.item = this.weekDay;
-    // console.log(this.weekDay, 'weekDay');
-    // console.log(this.chosenDrugstore, 'chosenDrugstore');
 
     if (this.item.dayType !== 'empty') {
       this.checked = this.item.check;
@@ -114,8 +112,6 @@ export class CalendarItemComponent implements OnInit {
     this.capacityEditImplementService.getBlockScheduleImplements$(requestParams)
       .pipe(take(1))
       .subscribe(response => {
-        console.log(response, 'response');
-        // this.responseCapacity = response;
         this.calendarStoreService.setSelectedCapacity(response);
         this.router.navigate(['/capacity-edit']);
       });
