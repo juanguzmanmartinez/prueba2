@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IBlockSchedule, ITypeOperation, IHeaderCapacity } from '../../models/schedule.model';
-import { Capacity, ISegment } from 'src/app/shared/services/models/capacity.model';
+import { Capacity, ISegment, ICapacityRequestParams } from 'src/app/shared/services/models/capacity.model';
 import { CapacityEditFormsService } from '../../capacity-forms/capacity-edit-forms';
 import { CalendarStoreService } from 'src/app/business/operations-admin/store/calendar-store.service';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+import { CapacityEditImplementService } from '../../services/capacity-edit-implements.service';
 
 @Component({
   selector: 'app-table-capacity-edition',
@@ -23,7 +25,8 @@ export class TableCapacityEditionComponent implements OnInit {
   constructor(
     public capacityForms: CapacityEditFormsService,
     public calendarStoreService: CalendarStoreService,
-    private router: Router
+    private router: Router,
+    public capacityEditImplementService: CapacityEditImplementService,
   ) { }
 
   ngOnInit() {
@@ -133,6 +136,24 @@ export class TableCapacityEditionComponent implements OnInit {
   }
 
   save() {
+    const dataFormArray = this.capacityForms.timeSegment01Array;
+    dataFormArray.value.map((value) => {
+      console.log(value, 'capas funciona');
+
+    });
+    console.log(dataFormArray, 'dadasdasdasds');
+    const request = {
+      fulfillmentCenterCode: '',
+      serviceTypeCode: '',
+      segmentType: '',
+      day: '',
+      channel: ''
+    } as ICapacityRequestParams;
+    this.capacityEditImplementService.patchScheduleDetailImplements$(request, '', '')
+      .pipe(take(1))
+      .subscribe(response => {
+        console.log(response, 'response');
+      });
 
   }
 }

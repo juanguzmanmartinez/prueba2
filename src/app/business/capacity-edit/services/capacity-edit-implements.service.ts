@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CapacityClientService } from 'src/app/shared/services/capacity-edition/capacity-edition.service';
 import { ICapacityRequestParams } from 'src/app/shared/services/models/capacity.model';
+import { CapacityClientService } from 'src/app/shared/services/capacity-edition/capacity-edition.service';
 
 @Injectable()
 export class CapacityEditImplementService {
@@ -11,6 +11,10 @@ export class CapacityEditImplementService {
 
   public getBlockScheduleImplements$(requestparam: ICapacityRequestParams) {
     return this.blockClient.getBlockScheduleClient$(requestparam);
+  }
+
+  public patchScheduleDetailImplements$(requestparam: ICapacityRequestParams, hours: string, quantities: string) {
+    return this.blockClient.patchScheduleDetail$(requestparam, hours, quantities);
   }
 
 }

@@ -25,7 +25,7 @@ export class TableItemCapacityEditionComponent implements OnInit {
 
 
   public isDisabled = false;
-  public value = 0;
+  public value = {};
 
   @Input() label = '';
   @Input() size = 'm'; // 's', 'm', 'l'
@@ -42,9 +42,10 @@ export class TableItemCapacityEditionComponent implements OnInit {
 
   ngOnInit() {
     this.segments = '00:00 - 00:30';
+    // tslint:disable-next-line:no-string-literal
     this.item = this.frm.value['schedule'] as ISegment;
-    this.value = this.item.capacity;
-    this.frm.get('schedule').setValue(this.item.capacity);
+    this.value = { value: this.item.capacity, hour: this.item.hour};
+    // this.frm.get('schedule').setValue(this.item.capacity, this.item.hour);
     this.isDisabled = this.item.enabled;
   }
 
@@ -74,6 +75,5 @@ export class TableItemCapacityEditionComponent implements OnInit {
     this.onChange(Number(value));
     this.onTouch(true);
   }
-
 
 }

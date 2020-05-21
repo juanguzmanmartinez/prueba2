@@ -12,7 +12,7 @@
           'text-input--s': size === 's',
           'text-input--m': size === 'm',
           'text-input--l': size === 'l'
-        }" maxlength="100" [value]="value" (input)="changeInput($event.target)" [placeholder]="placeholder"
+        }" maxlength="100" [value]="value.value" (input)="changeInput($event.target)" [placeholder]="placeholder"
           autocomplete="none" formControlName="schedule" >
         <div class="text-input-error" *ngIf="hasErrorMessage && errorMessage">
           {{ errorMessage }}
