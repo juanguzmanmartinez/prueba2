@@ -143,13 +143,13 @@ export class TableCapacityEditionComponent implements OnInit {
     });
     console.log(dataFormArray, 'dadasdasdasds');
     const request = {
-      fulfillmentCenterCode: '',
-      serviceTypeCode: '',
-      segmentType: '',
-      day: '',
-      channel: ''
+      fulfillmentCenterCode: 'B88',
+      serviceTypeCode: 'RAD',
+      segmentType: 'PROGRAMMED',
+      day: '2020-05-20',
+      channel: 'DIGITAL'
     } as ICapacityRequestParams;
-    this.capacityEditImplementService.patchScheduleDetailImplements$(request, '', '')
+    this.capacityEditImplementService.patchScheduleDetailImplements$(request, '16:00:00,16:30:00', '20,30')
       .pipe(take(1))
       .subscribe(response => {
         console.log(response, 'response');
