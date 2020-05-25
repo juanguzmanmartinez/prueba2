@@ -9,14 +9,11 @@ import { IHeaderCapacity } from '../../../models/schedule.model';
 export class TableTitleHeaderCapacityEditionComponent implements OnInit {
 
   @Input()
-  quantityCapacity: IHeaderCapacity;
+  quantityCapacity = { capacitiesQuantity: 0, ordersQuantity: 0 } as IHeaderCapacity;
   @Input()
   type: string;
   constructor() { }
 
-  ngOnInit() {
-    this.quantityCapacity.capacitiesQuantity = 0;
-    this.quantityCapacity.ordersQuantity = 0;
-  }
+  ngOnInit() {  }
 
 }

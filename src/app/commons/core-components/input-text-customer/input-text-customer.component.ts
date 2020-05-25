@@ -17,7 +17,7 @@ export class InputTextCustomerComponent implements OnInit {
 
   public isDisabled = false;
   public value = '';
-
+  @Input() label = '';
   @Input() hasErrorMessage = false;
   @Input() errorMessage = '';
   @Input() width = '';
