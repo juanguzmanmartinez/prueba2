@@ -37,14 +37,10 @@ export class CapacityClientService {
 
 
   public patchScheduleDetail$(params: ICapacityRequestParams, hours: string, quantities: string) {
-    const httpParams = new HttpParams()
-      .set('segmentType', String(params.segmentType))
-      .set('day', String(params.day))
-      .set('fulfillmentCenterCode', String(params.fulfillmentCenterCode))
-      .set('channel', String(params.channel));
-    const ENPOINT = this.CAPACITY_ENDPOINT + '/' + hours + '/quantities/' + quantities;
+    const httpParams = new HttpParams();
+    const ENPOINT = this.CAPACITY_ENDPOINT + '' + hours + '/quantities/' + quantities;
     const Header = new HttpHeaders();
-    return this.genericService.genericPatch<ICapacity[]>(ENPOINT, httpParams, Header)
+    return this.genericService.genericPatchBody<ICapacity[]>(ENPOINT, params, Header)
       .pipe(map(response => {
         const current = isArray(response) ? response : [];
         const responses = current.map(e => new ResponseDetailCapacity(e));

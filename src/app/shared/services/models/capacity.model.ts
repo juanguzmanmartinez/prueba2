@@ -2,9 +2,10 @@ import { isObject } from 'util';
 import { isArray } from '../../helpers/objects-equal';
 
 export interface ICapacityRequestParams {
+  fulfillmentCenterCode: string; // B88
+  serviceTypeCode: string; // RAD o RET
   segmentType: string; // PROGRAMMED
   day: string; // '2020-04-27'
-  fulfillmentCenterCode: string; // B88
   channel: string; // DIGITAL, CALL
 }
 

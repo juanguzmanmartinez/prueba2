@@ -47,4 +47,12 @@ export class GenericService {
 
   }
 
+  // tslint:disable-next-line:ban-types
+  public genericPatchBody<T>(endpoint: string, body: Object, headers: HttpHeaders) {
+    const options = { headers};
+    return this.http.patch<T>(endpoint, body, options).pipe(
+      tap(response => this.log(`Post ` + endpoint))
+    );
+  }
+
 }

@@ -18,16 +18,11 @@ export class InputTextCustomerComponent implements OnInit {
   public isDisabled = false;
   public value = '';
 
-  @Input() label = '';
-  @Input() size = 'm'; // 's', 'm', 'l'
-  @Input() marginBottom = '';
-  @Input() customClass = '';
   @Input() hasErrorMessage = false;
   @Input() errorMessage = '';
   @Input() width = '';
   @Input() maxLength = 100;
   @Input() placeholder = '';
-  @Input() icon = '';
 
   onChange = (_: any) => { };
   onTouch = (_: any) => { };

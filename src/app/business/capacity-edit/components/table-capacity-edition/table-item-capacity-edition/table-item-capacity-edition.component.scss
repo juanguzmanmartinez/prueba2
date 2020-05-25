@@ -1,54 +1,40 @@
 .container-item-capacity-edition {
   display: flex;
-  width: 151px;
+  width: 100%;
+  padding: 15px 0px;
   justify-content: center;
-  padding: 15px;
+  align-items: center;
 
   .d-segement-hours {
-    display: flex;
-    align-items: center;
-    padding-right: 14px;
-    font-family: Muli;
-    font-style: normal;
     font-weight: bold;
     font-size: 11.83111px;
     line-height: 100%;
+    width: 50%;
   }
 
-  .d-space-text {
-    width: 40px;
+  .text-input-container {
+    width: 20%;
 
-    .text-input-container {
+    .text-input {
       width: 100%;
+      height: 35px;
 
-      .text-input-label {
-        width: 100%;
-        font-size: 12px;
+      &--s {
+        height: 32px;
       }
 
-      .text-input {
-        width: 100%;
-        padding-left: 6px;
-
-        &--s {
-          height: 32px;
-        }
-
-        &--m {
-          height: 36px;
-        }
-
-        &--l {
-          height: 40px;
-        }
+      &--m {
+        height: 36px;
       }
 
-      .text-input-error {
-        width: 100%;
+      &--l {
+        height: 40px;
       }
     }
+
+    .text-input-error {
+      width: 100%;
+    }
   }
-
-
 
 }

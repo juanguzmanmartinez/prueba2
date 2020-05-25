@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { IDayList } from 'src/app/shared/services/models/calendar.model';
-import { CustomSelectControl } from '../../operations-admin/controls/custom-select-control';
 import { CustomControl } from '../controls/custom-control';
 import { ISegment } from 'src/app/shared/services/models/capacity.model';
 
@@ -12,7 +10,6 @@ import { ISegment } from 'src/app/shared/services/models/capacity.model';
 export class CapacityEditFormsService {
   public form: FormGroup = new FormGroup({});
 
-  private checkbox = new CustomControl();
   private inputs = new CustomControl();
 
   private subscriptions: Subscription[] = [];
@@ -20,15 +17,10 @@ export class CapacityEditFormsService {
     public formBuilder: FormBuilder,
   ) {
     this.form = this.formBuilder.group({
-      checkbox: this.checkbox,
       inputs: this.inputs,
       timeSegment01: this.formArray,
       timeSegment02: this.formArray,
     });
-  }
-
-  public get checkboxControl() {
-    return this.form.get('checkbox') as CustomControl;
   }
 
   public get inputGeneralControl() {
@@ -37,7 +29,6 @@ export class CapacityEditFormsService {
 
   public get formValues() {
     return {
-      checkbox: this.checkbox.value,
       inputs: this.inputs.value
     };
   }
@@ -69,26 +60,30 @@ export class CapacityEditFormsService {
   public addItemsToBlock01(items: ISegment[]) {
     // tslint:disable-next-line:prefer-for-of
     for (let index = 0; index < items.length; index++) {
-      this.timeSegment01Array.push(this.scheduleControl(items[index]));
+      // console.log(items[index].enabled, 'items');
+
+      this.timeSegment01Array.push(this.scheduleControl(items[index], items[index].enabled));
+      // console.log(items[index].enabled, 'items');
+
     }
   }
   public addItemsToBlock02(items: ISegment[]) {
     // tslint:disable-next-line:prefer-for-of
     for (let index = 0; index < items.length; index++) {
-      this.timeSegment02Array.push(this.scheduleControl(items[index]));
+      this.timeSegment02Array.push(this.scheduleControl(items[index], items[index].enabled));
     }
   }
 
   // setting for day controls
   public get scheduleFormGroup() {
     return this.formBuilder.group({
-      day: new FormControl(),
+      hour: new FormControl(),
     });
   }
 
-  public scheduleControl(item: ISegment) {
+  public scheduleControl(item: ISegment, valid: boolean) {
     return this.formBuilder.group({
-      schedule: item,
+      schedule: [{ value: item, disabled: !valid }],
     });
   }
 

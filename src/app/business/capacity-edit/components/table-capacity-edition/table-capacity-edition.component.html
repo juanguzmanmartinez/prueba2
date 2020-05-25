@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="d-item-capacity-edition">
-      <div [hidden]="pageRad">
+      <div [hidden]="pageRad" class="item-columns">
         <div *ngFor="let segments of capacityForms.timeSegment01Array.controls; let i = index">
           <app-table-item-capacity-edition [frm]="segments"></app-table-item-capacity-edition>
         </div>

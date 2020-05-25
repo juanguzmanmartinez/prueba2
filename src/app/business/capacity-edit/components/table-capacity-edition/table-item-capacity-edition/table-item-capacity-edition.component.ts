@@ -25,27 +25,22 @@ export class TableItemCapacityEditionComponent implements OnInit {
 
 
   public isDisabled = false;
-  public value = 0;
+  public value = {};
 
-  @Input() label = '';
-  @Input() size = 'm'; // 's', 'm', 'l'
-  @Input() marginBottom = '';
-  @Input() customClass = '';
   @Input() hasErrorMessage = false;
   @Input() errorMessage = '';
-  @Input() width = '';
   @Input() maxLength = 100;
   @Input() placeholder = '';
-  @Input() icon = '';
 
   constructor() { }
 
   ngOnInit() {
     this.segments = '00:00 - 00:30';
+    // tslint:disable-next-line:no-string-literal
     this.item = this.frm.value['schedule'] as ISegment;
-    this.value = this.item.capacity;
-    this.frm.get('schedule').setValue(this.item.capacity);
-    this.isDisabled = this.item.enabled;
+    this.value = { value: this.item.capacity, hour: this.item.hour};
+    // this.frm.get('schedule').setValue(this.item.capacity, this.item.hour);
+    // this.isDisabled = this.item.enabled;
   }
 
   onChange = (_: any) => { };
@@ -74,6 +69,5 @@ export class TableItemCapacityEditionComponent implements OnInit {
     this.onChange(Number(value));
     this.onTouch(true);
   }
-
 
 }
