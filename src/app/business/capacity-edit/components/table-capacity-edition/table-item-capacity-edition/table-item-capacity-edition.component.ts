@@ -20,12 +20,11 @@ export class TableItemCapacityEditionComponent implements OnInit {
   segments: string;
   @Input()
   frm: FormGroup;
-
   item: ISegment;
 
 
   public isDisabled = false;
-  public value = {};
+  public value = 0;
 
   @Input() hasErrorMessage = false;
   @Input() errorMessage = '';
@@ -38,9 +37,8 @@ export class TableItemCapacityEditionComponent implements OnInit {
     this.segments = '00:00 - 00:30';
     // tslint:disable-next-line:no-string-literal
     this.item = this.frm.value['schedule'] as ISegment;
-    this.value = { value: this.item.capacity, hour: this.item.hour};
-    // this.frm.get('schedule').setValue(this.item.capacity, this.item.hour);
-    // this.isDisabled = this.item.enabled;
+    this.value = this.item.capacity;
+    this.frm.get('schedule').setValue(this.item.capacity);
   }
 
   onChange = (_: any) => { };
