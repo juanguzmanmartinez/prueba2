@@ -15,11 +15,8 @@ export class TableTitleHeaderCapacityEditionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
+    this.quantityCapacity.capacitiesQuantity = 0;
+    this.quantityCapacity.ordersQuantity = 0;
   }
-
-  // save() {
-
-  // }
 
 }

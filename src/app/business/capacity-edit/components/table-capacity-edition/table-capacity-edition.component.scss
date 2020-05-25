@@ -1,18 +1,29 @@
 .container-table-body-capacity-edition {
   width: 100%;
   margin-bottom: 20px;
-  height: 1041px;
+  height: 1050px;
   background-color: white;
 
   .d-block-container {
     display: flex;
-    margin-top: 30px;
+    margin: 30px 0px;
     justify-content: space-around;
   }
 
   .d-item-capacity-edition {
     width: 100%;
     columns: 4;
+
+    .item-columns :nth-child(odd) {
+      /* filas pares */
+      background-color: #f5f5f5;
+    }
+
+    .item-columns:nth-child(even) {
+      /* filas impares */
+      background-color: #e5e5e5;
+    }
+
   }
 
 

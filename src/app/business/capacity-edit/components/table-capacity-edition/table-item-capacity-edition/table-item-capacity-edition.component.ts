@@ -27,16 +27,10 @@ export class TableItemCapacityEditionComponent implements OnInit {
   public isDisabled = false;
   public value = {};
 
-  @Input() label = '';
-  @Input() size = 'm'; // 's', 'm', 'l'
-  @Input() marginBottom = '';
-  @Input() customClass = '';
   @Input() hasErrorMessage = false;
   @Input() errorMessage = '';
-  @Input() width = '';
   @Input() maxLength = 100;
   @Input() placeholder = '';
-  @Input() icon = '';
 
   constructor() { }
 
@@ -46,7 +40,7 @@ export class TableItemCapacityEditionComponent implements OnInit {
     this.item = this.frm.value['schedule'] as ISegment;
     this.value = { value: this.item.capacity, hour: this.item.hour};
     // this.frm.get('schedule').setValue(this.item.capacity, this.item.hour);
-    this.isDisabled = this.item.enabled;
+    // this.isDisabled = this.item.enabled;
   }
 
   onChange = (_: any) => { };

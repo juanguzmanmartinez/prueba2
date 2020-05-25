@@ -4,7 +4,7 @@ import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 @Component({
   selector: 'app-main-loader',
   templateUrl: './main-loader.component.html',
-  styleUrls: ['./main-loader.component.sass']
+  styleUrls: ['./main-loader.component.scss']
 })
 export class MainLoaderComponent {
 
