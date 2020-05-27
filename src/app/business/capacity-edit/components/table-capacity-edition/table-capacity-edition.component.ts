@@ -151,7 +151,6 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(response => {
         this.calendarStoreService.setCapacitiesForDay(response);
-        console.log(response, 'response');
       });
 
   }

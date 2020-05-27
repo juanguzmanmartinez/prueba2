@@ -24,8 +24,6 @@ export class TableTitleHeaderCapacityEditionComponent implements OnInit, OnDestr
   ngOnInit() {
     const totalSub = this.capacityEditForms.getTotalCapacitySegment01$()
       .subscribe(total => this.totalCapacity = total);
-    this.capacityAllEditForm.allCapacitiesControl.valueChanges
-      .subscribe(value => console.log(value));
     this.subscriptions.push(totalSub);
   }
 

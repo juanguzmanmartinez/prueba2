@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ITypeOperation } from '../../../models/schedule.model';
+import { CompanyDrugstoresStoreService } from 'src/app/commons/business-factories/factories-stores/company-drugstores-store.service';
+import { MONTHS } from 'src/app/commons/parameters/date.parameters';
 
 @Component({
   selector: 'app-table-operation-type-section',
@@ -8,8 +10,8 @@ import { ITypeOperation } from '../../../models/schedule.model';
 })
 export class TableOperationTypeSectionComponent implements OnInit {
 
-  @Input() day: string;
-  @Input() drugstore: string;
+  public day = '';
+  public drugstore = '';
   @Input() showTypeOperations: number;
   @Output() typeOperation = new EventEmitter();
 
@@ -19,11 +21,23 @@ export class TableOperationTypeSectionComponent implements OnInit {
   sectionDisabledTwo = false;
   values: ITypeOperation = {} as ITypeOperation;
 
-  constructor() { }
+  constructor(
+    public companyDrugstoresStore: CompanyDrugstoresStoreService,
+  ) { }
 
   ngOnInit() {
-    this.day = '8 abr - 2020';
-    this.drugstore = 'BoticaID01 - Flora Tristán';
+    this.companyDrugstoresStore.selectedDrugstore$
+      .subscribe(selectedDrugstore => {
+        this.drugstore = `${selectedDrugstore.localCode} - ${selectedDrugstore.name}`;
+      });
+    this.companyDrugstoresStore.configForCapacities$
+      .subscribe(config => {
+        if (config.selectedDay && config.selectedDay.length) {
+          const elements = config.selectedDay.split('-');
+          const [ year, month, day ] = elements;
+          this.day = `${Number(day)} ${MONTHS[Number(month) - 1]} - ${year}`;
+        }
+      });
   }
 
   getRad() {
