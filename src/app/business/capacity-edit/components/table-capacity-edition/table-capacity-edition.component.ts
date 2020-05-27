@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IBlockSchedule, ITypeOperation, IHeaderCapacity } from '../../models/schedule.model';
 import { Capacity, ISegment, ICapacityRequestParams } from 'src/app/shared/services/models/capacity.model';
 import { CapacityEditFormsService } from '../../capacity-forms/capacity-edit-forms';
@@ -7,13 +7,14 @@ import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { CapacityEditImplementService } from '../../services/capacity-edit-implements.service';
 import { CompanyDrugstoresStoreService } from 'src/app/commons/business-factories/factories-stores/company-drugstores-store.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-table-capacity-edition',
   templateUrl: './table-capacity-edition.component.html',
   styleUrls: ['./table-capacity-edition.component.scss']
 })
-export class TableCapacityEditionComponent implements OnInit {
+export class TableCapacityEditionComponent implements OnInit, OnDestroy {
 
   scheduleBlock: IBlockSchedule[] = [] as IBlockSchedule[];
   responseCapacity: Capacity[];
@@ -23,6 +24,9 @@ export class TableCapacityEditionComponent implements OnInit {
   pageRet: boolean;
   quantityOperations: number;
   quantityTotal: number;
+
+  private subscriptions: Subscription[] = [];
+
   constructor(
     public capacityForms: CapacityEditFormsService,
     public calendarStoreService: CalendarStoreService,
@@ -53,6 +57,15 @@ export class TableCapacityEditionComponent implements OnInit {
       },
     ];
     this.loadBlockSchedule();
+    const totalSub = this.capacityForms.getTotalCapacitySegment01$()
+      .subscribe(totalCapacity => {
+        this.quantityTotal = totalCapacity;
+      });
+    this.subscriptions.push(totalSub);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   private loadBlockSchedule() {
