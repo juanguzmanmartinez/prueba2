@@ -92,7 +92,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
       this.quantityTotal = this.responseCapacity[0].capacitiesQuantity;
 
       this.responseCapacity[0].segments.forEach((value, index) => {
-        this.capacityForms.timeSegment01Array.removeAt(this.responseCapacity[0].segments.length - index);
+        this.capacityForms.timeSegment01Array.removeAt(this.responseCapacity[0].segments.length - 1 - index);
         this.segements.push({
           id: i,
           capacity: value.capacity,
