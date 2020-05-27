@@ -6,21 +6,16 @@ import { ISegment } from 'src/app/shared/services/models/capacity.model';
 import { ICapacityGroupControl } from '../interfaces/controls.interface';
 import { map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CapacityEditFormsService {
   public form: FormGroup = new FormGroup({});
 
   private inputs = new CustomControl();
 
-  private subscriptions: Subscription[] = [];
-
-  private totalCapacitySegment01Subject = new BehaviorSubject<number>(0);
-
   constructor(
     public formBuilder: FormBuilder,
   ) {
+    console.log('CapacityEditFormsService');
     this.form = this.formBuilder.group({
       inputs: this.inputs,
       timeSegment01: this.formArray,
@@ -144,5 +139,17 @@ export class CapacityEditFormsService {
       .pipe(map((capacityValues) => {
         return capacityValues.reduce((acc, cur) => acc + cur, 0);
       }));
+  }
+
+  public setAllCapacitiesOfSegment01(valueForAll: number) {
+    const { timeSegment01Array } = this;
+    const { length } = timeSegment01Array;
+    for (let index = 0; index < length; index++) {
+      const groupControl = timeSegment01Array.at(index) as FormGroup;
+      const capacityControl = groupControl.get('schedule');
+      if (capacityControl.enabled) {
+        capacityControl.setValue(valueForAll);
+      }
+    }
   }
 }

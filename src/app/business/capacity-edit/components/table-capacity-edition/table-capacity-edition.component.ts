@@ -19,7 +19,6 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
   scheduleBlock: IBlockSchedule[] = [] as IBlockSchedule[];
   responseCapacity: Capacity[];
   segements: ISegment[] = [] as ISegment[];
-  quantityCapacity: IHeaderCapacity = { capacitiesQuantity: 0, ordersQuantity: 0 } as IHeaderCapacity;
   pageRad: boolean;
   pageRet: boolean;
   quantityOperations: number;
@@ -83,14 +82,6 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
     if (this.responseCapacity[0] !== undefined) {
       let i = 0;
       this.segements = [];
-      const headerSectionValues = {
-        capacitiesQuantity: this.responseCapacity[0].capacitiesQuantity,
-        ordersQuantity: this.responseCapacity[0].ordersQuantity
-      } as IHeaderCapacity;
-
-      this.quantityCapacity = headerSectionValues;
-      this.quantityTotal = this.responseCapacity[0].capacitiesQuantity;
-
       this.responseCapacity[0].segments.forEach((value, index) => {
         this.capacityForms.timeSegment01Array.removeAt(this.responseCapacity[0].segments.length - index);
         this.segements.push({
@@ -103,7 +94,6 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
           group: value.group
         });
         i++;
-
       });
       this.capacityForms.addItemsToBlock01(this.segements);
     }
@@ -113,13 +103,6 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
   private setInfoCheckedSelectedArray2() {
     let i = 0;
     this.segements = [];
-    const headerSectionValues = {
-      capacitiesQuantity: this.responseCapacity[1].capacitiesQuantity,
-      ordersQuantity: this.responseCapacity[1].ordersQuantity
-    } as IHeaderCapacity;
-
-    this.quantityCapacity = headerSectionValues;
-    this.quantityTotal = this.responseCapacity[1].capacitiesQuantity;
     this.responseCapacity[1].segments.forEach((value, index) => {
       this.capacityForms.timeSegment02Array.removeAt(this.responseCapacity[1].segments.length - index);
       this.segements.push({

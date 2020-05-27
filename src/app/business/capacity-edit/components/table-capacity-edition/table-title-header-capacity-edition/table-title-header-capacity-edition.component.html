@@ -1,7 +1,7 @@
 <div class="container-title-header">
   <div class="d-section-title-one">
     <div class="d-capacity-cuantity">
-      {{quantityCapacity.capacitiesQuantity}}
+      {{ totalCapacity }}
     </div>
     <div class="d-type-operation">
       de capacidad {{type}}
@@ -9,16 +9,17 @@
   </div>
   <div class="d-section-title-two">
     <div class="d-registration-requests">
-      {{quantityCapacity.ordersQuantity}}
+      0
     </div>
     <div class="d-type-operation">
       pedidos de registro
     </div>
   </div>
-  <div class="d-section-title-three">
-    <!-- <app-input-text-customer></app-input-text-customer>
+  <div [formGroup]="capacityAllEditForm.form" class="d-section-title-three">
+    <app-input-text-customer formControlName="allCapacities">
+    </app-input-text-customer>
     <div class="d-apply-all">
-      <p (click)="save()" class="button-header-style">Aplicar para todos</p>
-    </div> -->
+      <p (click)="updateAllCapacities()" class="button-header-style">Aplicar para todos</p>
+    </div>
   </div>
 </div>
