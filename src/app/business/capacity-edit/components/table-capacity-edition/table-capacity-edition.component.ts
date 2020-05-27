@@ -139,7 +139,6 @@ export class TableCapacityEditionComponent implements OnInit {
   save() {
     const formValues = this.capacityForms.getCapacitiesAndHoursFromSegment01();
     const { selectedDrugstore, configForCapacities } = this.companyDrugstoresStore;
-    console.log(selectedDrugstore, configForCapacities);
     const request = {
       fulfillmentCenterCode: selectedDrugstore.localCode,
       serviceTypeCode: !this.pageRad ? 'RAD' : !this.pageRet ? 'RET' : '',
