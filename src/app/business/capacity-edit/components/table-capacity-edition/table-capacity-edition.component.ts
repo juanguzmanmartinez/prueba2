@@ -6,6 +6,7 @@ import { CalendarStoreService } from 'src/app/business/operations-admin/store/ca
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { CapacityEditImplementService } from '../../services/capacity-edit-implements.service';
+import { CompanyDrugstoresStoreService } from 'src/app/commons/business-factories/factories-stores/company-drugstores-store.service';
 
 @Component({
   selector: 'app-table-capacity-edition',
@@ -17,7 +18,7 @@ export class TableCapacityEditionComponent implements OnInit {
   scheduleBlock: IBlockSchedule[] = [] as IBlockSchedule[];
   responseCapacity: Capacity[];
   segements: ISegment[] = [] as ISegment[];
-  quantityCapacity: IHeaderCapacity;
+  quantityCapacity: IHeaderCapacity = { capacitiesQuantity: 0, ordersQuantity: 0 } as IHeaderCapacity;
   pageRad: boolean;
   pageRet: boolean;
   quantityOperations: number;
@@ -27,6 +28,7 @@ export class TableCapacityEditionComponent implements OnInit {
     public calendarStoreService: CalendarStoreService,
     private router: Router,
     public capacityEditImplementService: CapacityEditImplementService,
+    private companyDrugstoresStore: CompanyDrugstoresStoreService,
   ) { }
 
   ngOnInit() {
@@ -51,12 +53,11 @@ export class TableCapacityEditionComponent implements OnInit {
       },
     ];
     this.loadBlockSchedule();
-
   }
 
   private loadBlockSchedule() {
-    this.calendarStoreService.selectedDay$.subscribe(value => {
-      this.responseCapacity = value;
+    this.calendarStoreService.capacitiesForDay$.subscribe(capacities => {
+      this.responseCapacity = capacities;
       this.quantityOperations = this.responseCapacity.length;
       this.setInfoCheckedSelectedArray1();
       if (this.quantityOperations >= 2) {
@@ -136,20 +137,18 @@ export class TableCapacityEditionComponent implements OnInit {
   }
 
   save() {
-    const dataFormArray = this.capacityForms.timeSegment01Array;
-    dataFormArray.value.map((value) => {
-      console.log(value, 'capas funciona');
-
-    });
-    console.log(dataFormArray, 'dadasdasdasds');
+    const formValues = this.capacityForms.getCapacitiesAndHoursFromSegment01();
+    const { selectedDrugstore, configForCapacities } = this.companyDrugstoresStore;
     const request = {
-      fulfillmentCenterCode: 'B88',
-      serviceTypeCode: 'RAD',
+      fulfillmentCenterCode: selectedDrugstore.localCode,
+      serviceTypeCode: !this.pageRad ? 'RAD' : !this.pageRet ? 'RET' : '',
       segmentType: 'PROGRAMMED',
-      day: '2020-05-20',
-      channel: 'DIGITAL'
+      day: configForCapacities.selectedDay,
+      channel: selectedDrugstore.channel,
+      quantities: formValues.capacitiesString,
+      hours: formValues.hoursString,
     } as ICapacityRequestParams;
-    this.capacityEditImplementService.patchScheduleDetailImplements$(request, '16:00:00,16:30:00', '20,30')
+    this.capacityEditImplementService.patchScheduleDetailImplements$(request)
       .pipe(take(1))
       .subscribe(response => {
         console.log(response, 'response');

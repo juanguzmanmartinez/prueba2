@@ -36,9 +36,8 @@ export class CapacityClientService {
   }
 
 
-  public patchScheduleDetail$(params: ICapacityRequestParams, hours: string, quantities: string) {
-    const httpParams = new HttpParams();
-    const ENPOINT = this.CAPACITY_ENDPOINT + '' + hours + '/quantities/' + quantities;
+  public patchScheduleDetail$(params: ICapacityRequestParams) {
+    const ENPOINT = this.CAPACITY_ENDPOINT;
     const Header = new HttpHeaders();
     return this.genericService.genericPatchBody<ICapacity[]>(ENPOINT, params, Header)
       .pipe(map(response => {

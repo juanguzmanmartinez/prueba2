@@ -20,7 +20,7 @@ export class TableItemCapacityEditionComponent implements OnInit {
   segments: string;
   @Input()
   frm: FormGroup;
-  item: ISegment;
+  item: ISegment = {} as ISegment;
 
 
   public isDisabled = false;
@@ -35,8 +35,7 @@ export class TableItemCapacityEditionComponent implements OnInit {
 
   ngOnInit() {
     this.segments = '00:00 - 00:30';
-    // tslint:disable-next-line:no-string-literal
-    this.item = this.frm.value['schedule'] as ISegment;
+    this.item = this.frm.get('schedule').value ? this.frm.get('schedule').value as ISegment : {} as ISegment;
     this.value = this.item.capacity;
     this.frm.get('schedule').setValue(this.item.capacity);
   }
