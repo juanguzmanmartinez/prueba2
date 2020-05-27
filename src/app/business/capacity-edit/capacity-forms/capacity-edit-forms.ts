@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { CustomControl } from '../controls/custom-control';
 import { ISegment } from 'src/app/shared/services/models/capacity.model';
 import { ICapacityGroupControl } from '../interfaces/controls.interface';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,9 @@ export class CapacityEditFormsService {
   private inputs = new CustomControl();
 
   private subscriptions: Subscription[] = [];
+
+  private totalCapacitySegment01Subject = new BehaviorSubject<number>(0);
+
   constructor(
     public formBuilder: FormBuilder,
   ) {
@@ -122,5 +126,23 @@ export class CapacityEditFormsService {
     const { timeSegment02Array } = this;
     const capacitiesAndHoursStrings = this.getUpdatedCapacitiesValuesForSegmentArray(timeSegment02Array);
     return capacitiesAndHoursStrings;
+  }
+
+  public getTotalCapacitySegment01$() {
+    const { timeSegment01Array } = this;
+    const { length } = timeSegment01Array;
+    const capacityControls$: Observable<number>[] = [];
+    for (let index = 0; index < length; index++) {
+      const groupControl = timeSegment01Array.at(index) as FormGroup;
+      const capacityControl = groupControl.get('schedule');
+      if (capacityControl.enabled) {
+        const capacityControl$ = capacityControl.valueChanges as Observable<number>;
+        capacityControls$.push(capacityControl$);
+      }
+    }
+    return combineLatest(capacityControls$)
+      .pipe(map((capacityValues) => {
+        return capacityValues.reduce((acc, cur) => acc + cur, 0);
+      }));
   }
 }
