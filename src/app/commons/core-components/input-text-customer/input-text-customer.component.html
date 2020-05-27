@@ -2,7 +2,7 @@
   <div class="text-input-label">
     {{ label }}
   </div>
-  <input type="text" class="text-input" maxlength="100" [value]="value" (input)="changeInput($event.target)"
+  <input type="number" class="text-input" maxlength="100" [value]="value" (input)="changeInput($event.target)"
     [placeholder]="placeholder" autocomplete="none">
   <div class="text-input-error" *ngIf="hasErrorMessage && errorMessage">
     {{ errorMessage }}
