@@ -1,12 +1,18 @@
 .container-header-body-calendar {
   display: flex;
-  margin: 29px 47px 30px 61px;
+  margin: 29px 47px 30px 26px;
 
   .d-buttons-implements-change-moth {
     display: flex;
     align-items: center;
     width: 50%;
 
+    .button-one {
+      margin-right: 30px;
+    }
+    .button-two {
+      margin-right: 10px;
+    }
     .lable-month {
       margin-left: 10px;
     }
@@ -23,6 +29,7 @@
     width: 25%;
     margin: 0px 10px 0px 10px;
     .button-style {
+      height: 18px;
       font-family: Muli;
       font-size: 12px;
       border: 1px solid #1B8F43;
@@ -41,11 +48,14 @@
 
 
 
-.container-calendar {
+.container-calendar-admin {
   margin: 10px 66px 50px 61px;
+  padding-top: 20px;
   padding-left: 0px;
   padding-bottom: 40px;
   background-color: white;
+  display: flex;
+  justify-content: center;
 
 
   .calendar-title {
@@ -72,4 +82,36 @@
     }
   }
 
+}
+@media(min-width: 768px) and (max-width: 1023px) { 
+  
+  .container-calendar-admin {
+    margin: 10px 10px 50px 10px;
+    padding-left: 0px;
+    padding-bottom: 40px;
+    background-color: white;
+  }
+}
+
+
+@media(min-width: 1024px) and (max-width: 1225px) {
+
+  .container-calendar-admin {
+    margin: 10px 24px 50px 24px;
+    padding-left: 0px;
+    padding-bottom: 40px;
+    background-color: white;
+  }
+  
+}
+
+@media(min-width: 1225px) and (max-width: 1500px) {
+
+  .container-calendar-admin {
+    margin: 10px 24px 50px 24px;
+    padding-left: 0px;
+    padding-bottom: 40px;
+    background-color: white;
+  }
+  
 }

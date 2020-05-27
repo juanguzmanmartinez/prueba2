@@ -50,7 +50,7 @@
           font-family: Muli;
           font-weight: bold;
           margin-left: 10px;
-          ;
+          padding-top: 2px;
         }
 
       }
@@ -61,6 +61,52 @@
       justify-content: space-between;
       cursor: pointer;
 
+    }
+  }
+}
+
+@media(min-width: 768px) and (max-width: 1023px) {
+  .container-calendar {
+    height: 118px;
+    width: 50px;
+    border-radius: 1px;
+    border: 1px solid #F2F2F2;
+    padding: 22px;
+
+    .d-item-one {
+      font-size: 8px;
+    }
+
+    .d-item-bloqued {
+      .d-border-s {
+        .d-img-bloqued {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+
+@media(min-width: 1024px) and (max-width: 1225px) {
+
+  .container-calendar {
+    height: 118px;
+    width: 86px;
+    border-radius: 1px;
+    border: 1px solid #F2F2F2;
+    padding: 22px;
+
+    .d-item-one {
+      font-size: 8px;
+    }
+
+    .d-item-bloqued {
+      .d-border-s {
+        .d-img-bloqued {
+          margin-left: 10px;
+        }
+      }
     }
   }
 }

@@ -153,7 +153,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
           order: undefined,
           restrictedDay: undefined,
           today: undefined,
-        pastDay: undefined,
+          pastDay: undefined,
           dayType: 'empty'
         });
       }
