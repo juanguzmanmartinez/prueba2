@@ -67,31 +67,34 @@ export class TableCapacityEditionComponent implements OnInit {
   }
 
   private setInfoCheckedSelectedArray1() {
-    let i = 0;
-    this.segements = [];
-    const headerSectionValues = {
-      capacitiesQuantity: this.responseCapacity[0].capacitiesQuantity,
-      ordersQuantity: this.responseCapacity[0].ordersQuantity
-    } as IHeaderCapacity;
+    if (this.responseCapacity[0] !== undefined) {
+      let i = 0;
+      this.segements = [];
+      const headerSectionValues = {
+        capacitiesQuantity: this.responseCapacity[0].capacitiesQuantity,
+        ordersQuantity: this.responseCapacity[0].ordersQuantity
+      } as IHeaderCapacity;
 
-    this.quantityCapacity = headerSectionValues;
-    this.quantityTotal = this.responseCapacity[0].capacitiesQuantity;
+      this.quantityCapacity = headerSectionValues;
+      this.quantityTotal = this.responseCapacity[0].capacitiesQuantity;
 
-    this.responseCapacity[0].segments.forEach((value, index) => {
-      this.capacityForms.timeSegment01Array.removeAt(this.responseCapacity[0].segments.length - index);
-      this.segements.push({
-        id: i,
-        capacity: value.capacity,
-        orders: value.orders,
-        hour: value.hour,
-        scheduleSegment: value.scheduleSegment,
-        enabled: value.enabled,
-        group: value.group
+      this.responseCapacity[0].segments.forEach((value, index) => {
+        this.capacityForms.timeSegment01Array.removeAt(this.responseCapacity[0].segments.length - index);
+        this.segements.push({
+          id: i,
+          capacity: value.capacity,
+          orders: value.orders,
+          hour: value.hour,
+          scheduleSegment: value.scheduleSegment,
+          enabled: value.enabled,
+          group: value.group
+        });
+        i++;
+
       });
-      i++;
+      this.capacityForms.addItemsToBlock01(this.segements);
+    }
 
-    });
-    this.capacityForms.addItemsToBlock01(this.segements);
   }
 
   private setInfoCheckedSelectedArray2() {
@@ -151,6 +154,7 @@ export class TableCapacityEditionComponent implements OnInit {
     this.capacityEditImplementService.patchScheduleDetailImplements$(request)
       .pipe(take(1))
       .subscribe(response => {
+        this.calendarStoreService.setCapacitiesForDay(response);
         console.log(response, 'response');
       });
 
