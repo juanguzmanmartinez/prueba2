@@ -7,6 +7,8 @@ export interface ICapacityRequestParams {
   segmentType: string; // PROGRAMMED
   day: string; // '2020-04-27'
   channel: string; // DIGITAL, CALL
+  hours: string;
+  quantities: string;
 }
 
 

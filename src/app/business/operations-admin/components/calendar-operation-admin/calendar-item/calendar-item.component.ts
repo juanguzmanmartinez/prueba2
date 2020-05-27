@@ -8,6 +8,7 @@ import { take } from 'rxjs/operators';
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { CalendarStoreService } from '../../../store/calendar-store.service';
+import { CompanyDrugstoresStoreService } from 'src/app/commons/business-factories/factories-stores/company-drugstores-store.service';
 
 @Component({
   selector: 'app-calendar-item',
@@ -48,6 +49,7 @@ export class CalendarItemComponent implements OnInit {
     private capacityEditImplementService: CapacityEditImplementService,
     private mainLoaderService: MainLoaderService,
     public calendarStoreService: CalendarStoreService,
+    private companyDrugstoresStore: CompanyDrugstoresStoreService,
   ) { }
 
   ngOnInit() {
@@ -89,9 +91,7 @@ export class CalendarItemComponent implements OnInit {
 
     this.selectedDay = new SelectedDay();
     this.selectedDay.dayList = this.item;
-    console.log(this.selectedDay.dayList);
     this.selectedDay.isSelected = this.checked;
-    console.log(this.selectedDay.isSelected);
 
     this.messageEvent.emit(this.selectedDay);
 
@@ -108,11 +108,12 @@ export class CalendarItemComponent implements OnInit {
       fulfillmentCenterCode: this.chosenDrugstore.fulfillmentCenterCode,
       channel: this.chosenDrugstore.channel
     } as ICapacityRequestParams;
+    this.companyDrugstoresStore.setSelectedDayForCapacitites(this.item.day);
 
     this.capacityEditImplementService.getBlockScheduleImplements$(requestParams)
       .pipe(take(1))
       .subscribe(response => {
-        this.calendarStoreService.setSelectedCapacity(response);
+        this.calendarStoreService.setCapacitiesForDay(response);
         this.router.navigate(['/capacity-edit']);
       });
   }

@@ -7,32 +7,18 @@ import { Capacity } from 'src/app/shared/services/models/capacity.model';
 })
 export class CalendarStoreService {
 
-  private schedule: Capacity[];
-  private selectedDaySubject = new BehaviorSubject<Capacity[]>({} as Capacity[]);
-
-  private subscriptions: Subscription[] = [];
-
-  public selectedDay$ = this.selectedDaySubject.asObservable();
+  private _capacitiesForDay: Capacity[];
+  private _capacitiesForDaySubject = new BehaviorSubject<Capacity[]>([] as Capacity[]);
+  public capacitiesForDay$ = this._capacitiesForDaySubject.asObservable();
+  public get capacitiesForDay() {
+    return this._capacitiesForDay;
+  }
 
   constructor() {
-
-    const selectedActiveOrderSubscription = this.selectedDay$
-      .subscribe(blockschedule => this.schedule = blockschedule);
-    this.subscriptions.push(selectedActiveOrderSubscription);
+    this.capacitiesForDay$.subscribe(capacitiesForDay => this._capacitiesForDay = capacitiesForDay);
   }
 
-
-
-  public get schedules() {
-    return this.schedule;
-  }
-
-  public setSelectedCapacity(schedule: Capacity[]) {
-    this.selectedDaySubject.next(schedule);
-  }
-
-
-  public unsubscribeObservers() {
-    this.subscriptions.map(subscription => subscription.unsubscribe());
+  public setCapacitiesForDay(capacities: Capacity[]) {
+    this._capacitiesForDaySubject.next(capacities);
   }
 }

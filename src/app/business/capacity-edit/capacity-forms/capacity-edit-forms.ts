@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CustomControl } from '../controls/custom-control';
 import { ISegment } from 'src/app/shared/services/models/capacity.model';
+import { ICapacityGroupControl } from '../interfaces/controls.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -58,33 +59,68 @@ export class CapacityEditFormsService {
   }
 
   public addItemsToBlock01(items: ISegment[]) {
-    // tslint:disable-next-line:prefer-for-of
     for (let index = 0; index < items.length; index++) {
-      // console.log(items[index].enabled, 'items');
-
       this.timeSegment01Array.push(this.scheduleControl(items[index], items[index].enabled));
-      // console.log(items[index].enabled, 'items');
-
     }
   }
   public addItemsToBlock02(items: ISegment[]) {
-    // tslint:disable-next-line:prefer-for-of
     for (let index = 0; index < items.length; index++) {
       this.timeSegment02Array.push(this.scheduleControl(items[index], items[index].enabled));
     }
   }
 
   // setting for day controls
-  public get scheduleFormGroup() {
+  private get scheduleFormGroup() {
     return this.formBuilder.group({
       hour: new FormControl(),
     });
   }
 
-  public scheduleControl(item: ISegment, valid: boolean) {
-    return this.formBuilder.group({
-      schedule: [{ value: item, disabled: !valid }],
+  private scheduleControl(item: ISegment, enabled: boolean) {
+    const formControl = new FormControl(item ? item : {} as ISegment);
+    const hourFormControl = new FormControl(item.hour ? item.hour : '');
+    if (!enabled) {
+      formControl.disable();
+    }
+    const groupControl = this.formBuilder.group({
+      schedule: formControl,
+      hour: hourFormControl,
     });
+    return groupControl;
   }
 
+  private getUpdatedCapacitiesValuesForSegmentArray(capacitiesSegmentArray: FormArray) {
+    const { length } = capacitiesSegmentArray;
+    // here we get necessary values
+    const values: ICapacityGroupControl[] = [];
+    for (let index = 0; index < length; index++) {
+      const groupControl = capacitiesSegmentArray.at(index) as FormGroup;
+      const capacityControl = groupControl.get('schedule');
+      const hourControl = groupControl.get('hour');
+      if (capacityControl.enabled) {
+        values.push({
+          capacity: capacityControl.value,
+          hour: hourControl.value,
+        } as ICapacityGroupControl);
+      }
+    }
+    const capacitiesArray = values.map(value => value.capacity);
+    const hourArray = values.map(value => value.hour);
+    return {
+      capacitiesString: capacitiesArray.join(','),
+      hoursString: hourArray.join(','),
+    };
+  }
+
+  public getCapacitiesAndHoursFromSegment01() {
+    const { timeSegment01Array } = this;
+    const capacitiesAndHoursStrings = this.getUpdatedCapacitiesValuesForSegmentArray(timeSegment01Array);
+    return capacitiesAndHoursStrings;
+  }
+
+  public getCapacitiesAndHoursFromSegment02() {
+    const { timeSegment02Array } = this;
+    const capacitiesAndHoursStrings = this.getUpdatedCapacitiesValuesForSegmentArray(timeSegment02Array);
+    return capacitiesAndHoursStrings;
+  }
 }
