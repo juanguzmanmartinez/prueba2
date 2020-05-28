@@ -4,7 +4,7 @@ import { CompanyDrugstoresStoreService } from './factories-stores/company-drugst
 @NgModule()
 export class BusinessFactoriesModule {
 
-  static forChild(): ModuleWithProviders {
+  static forChild(): ModuleWithProviders<BusinessFactoriesModule> {
     return {
       ngModule: BusinessFactoriesModule,
       providers: [
