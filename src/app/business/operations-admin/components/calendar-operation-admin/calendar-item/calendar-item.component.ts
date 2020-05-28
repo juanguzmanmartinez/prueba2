@@ -53,6 +53,8 @@ export class CalendarItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.weekDay, ' this.weekDay;');
+
     this.item = this.weekDay;
 
     if (this.item.dayType !== 'empty') {
@@ -91,6 +93,7 @@ export class CalendarItemComponent implements OnInit {
 
     this.selectedDay = new SelectedDay();
     this.selectedDay.dayList = this.item;
+
     this.selectedDay.isSelected = this.checked;
 
     this.messageEvent.emit(this.selectedDay);

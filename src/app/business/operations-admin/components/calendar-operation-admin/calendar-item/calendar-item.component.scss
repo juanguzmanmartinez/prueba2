@@ -11,26 +11,67 @@
   }
 
   .body-item {
-    padding-top: 50px;
+    padding-top: 38px;
     padding-bottom: 10px;
 
     .d-item-one {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 5px 10px 8px 10px;
+      padding: 11px 0px 0px 0px;
       font-size: 13px;
       border-radius: 7px;
-      border: 1px solid #16A2FF;
       cursor: pointer;
 
-      .d-strong {
-        color: #16A2FF;
-        font-size: 22px;
+      .d-capacity-item-one-green {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 5px;
+        color: green;
+
+        strong {
+          font-size: 15px;
+        }
+      }
+
+      .d-capacity-item-one-red {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: red;
+        padding-bottom: 5px;
+
+
+        strong {
+          font-size: 15px;
+        }
+      }
+
+      .d-order-item-two-red {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: red;
+
+        strong {
+          font-size: 15px;
+        }
+      }
+
+      .d-order-item-two-green {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: green;
+
+        strong {
+          font-size: 15px;
+        }
       }
 
 
       :hover {
+        border-radius: 7px;
+        border: 1px solid #16A2FF;
+        padding: 5px;
         color: #16A2FF;
       }
     }

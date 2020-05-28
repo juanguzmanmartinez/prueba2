@@ -24,6 +24,8 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
   pageRet: boolean;
   quantityOperations: number;
   quantityTotal: number;
+  quantityOrders: number;
+  typeOperation: string;
 
   private subscriptions: Subscription[] = [];
 
@@ -38,6 +40,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.mainLoaderService.isLoaded = false;
+    this.typeOperation = 'RAD';
     window.scrollTo(0, 0);
     this.pageRad = false;
     this.pageRet = true;
@@ -88,6 +91,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
       this.segements = [];
       this.responseCapacity[0].segments.forEach((value, index) => {
         this.capacityForms.timeSegment01Array.removeAt(this.responseCapacity[0].segments.length - 1 - index);
+        this.quantityOrders = this.responseCapacity[0].ordersQuantity;
         this.segements.push({
           id: i,
           capacity: value.capacity,
@@ -109,6 +113,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
     this.segements = [];
     this.responseCapacity[1].segments.forEach((value, index) => {
       this.capacityForms.timeSegment02Array.removeAt(this.responseCapacity[1].segments.length - index);
+      this.quantityOrders = this.responseCapacity[1].ordersQuantity;
       this.segements.push({
         id: i,
         capacity: value.capacity,
@@ -128,10 +133,11 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
     if ($event.code === 'RAD' && $event.numberArray === 0) {
       this.pageRad = false;
       this.pageRet = true;
+      this.typeOperation = $event.code;
     } else if ($event.code === 'RET' && $event.numberArray === 1) {
       this.pageRad = true;
       this.pageRet = false;
-
+      this.typeOperation = $event.code;
     }
   }
 
@@ -156,7 +162,6 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(response => {
         this.mainLoaderService.isLoaded = false;
-        this.calendarStoreService.setCapacitiesForDay(response);
       });
 
   }

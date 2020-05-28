@@ -1,5 +1,5 @@
 <div class="container-title-header">
-  <div class="d-section-title-one">
+  <div [ngClass]="{'d-section-title-one': totalCapacity >= order, 'd-section-title-one-red': order > totalCapacity }">
     <div class="d-capacity-cuantity">
       {{ totalCapacity }}
     </div>
@@ -7,9 +7,9 @@
       de capacidad {{type}}
     </div>
   </div>
-  <div class="d-section-title-two">
+  <div [ngClass]="{'d-section-title-two': totalCapacity >= order, 'd-section-title-two-red': order > totalCapacity }">
     <div class="d-registration-requests">
-      0
+      {{order}}
     </div>
     <div class="d-type-operation">
       pedidos de registro
