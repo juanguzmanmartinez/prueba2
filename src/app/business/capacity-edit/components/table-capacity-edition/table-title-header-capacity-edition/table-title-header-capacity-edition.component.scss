@@ -9,10 +9,36 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 2px solid green;
+    border-bottom: 2px solid #1B8F43;
     margin: 0px 5px 0px 5px;
 
     .d-capacity-cuantity {
+      color: #1B8F43;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 26.4212px;
+    }
+
+    .d-type-operation {
+      font-family: Arial;
+      font-style: normal;
+      font-weight: normal;
+      padding-left: 5px;
+      font-size: 14px;
+      line-height: 100%;
+    }
+  }
+
+  .d-section-title-one-red {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid #E74848;
+    margin: 0px 5px 0px 5px;
+
+    .d-capacity-cuantity {
+      color: #E74848;
       font-style: normal;
       font-weight: bold;
       font-size: 26.4212px;
@@ -33,10 +59,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid #1B8F43;
     margin: 0px 5px 0px 5px;
 
     .d-registration-requests {
+      color: #1B8F43;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 26.4212px;
+    }
+
+    .d-type-operation {
+      font-family: Arial;
+      font-style: normal;
+      font-weight: normal;
+      padding-left: 5px;
+      font-size: 14px;
+      line-height: 100%;
+    }
+
+  }
+
+  .d-section-title-two-red {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid #E74848;
+    margin: 0px 5px 0px 5px;
+
+    .d-registration-requests {
+      color: #E74848;
       font-style: normal;
       font-weight: bold;
       font-size: 26.4212px;
@@ -62,7 +115,7 @@
     .d-apply-all {
       display: flex;
       justify-content: center;
-      
+
       margin: 0px 10px 0px 10px;
       display: flex;
       justify-content: flex-end;

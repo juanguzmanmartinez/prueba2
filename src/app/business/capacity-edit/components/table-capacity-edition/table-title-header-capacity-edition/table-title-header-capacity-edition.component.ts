@@ -12,6 +12,8 @@ export class TableTitleHeaderCapacityEditionComponent implements OnInit, OnDestr
 
   @Input()
   type: string;
+  @Input()
+  order: number;
 
   public totalCapacity = 0;
   public subscriptions: Subscription[] = [];
