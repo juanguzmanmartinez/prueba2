@@ -65,7 +65,9 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
     this.loadBlockSchedule();
     const totalSub = this.capacityForms.getTotalCapacitySegment01$()
       .subscribe(totalCapacity => {
-        this.quantityTotal = totalCapacity;
+        setTimeout(() => {
+          this.quantityTotal = totalCapacity;
+        });
       });
     this.subscriptions.push(totalSub);
   }
