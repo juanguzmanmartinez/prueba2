@@ -100,7 +100,7 @@ export class CalendarItemComponent implements OnInit {
   }
 
   redirectCapacity() {
-    this.mainLoaderService.isLoaded = false;
+    this.mainLoaderService.isLoaded = true;
 
     const requestParams = {
       segmentType: this.chosenDrugstore.segmentType,

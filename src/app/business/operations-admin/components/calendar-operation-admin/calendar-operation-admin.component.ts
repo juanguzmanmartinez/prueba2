@@ -34,6 +34,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
 
   infoCheckedSelected: IDayList[] = [] as IDayList[];
   selectedDayArray: SelectedDay[] = [] as SelectedDay[];
+  initialDrugstoreOption: ICustomSelectOption = {} as ICustomSelectOption;
 
   weeks: Week[] = [] as Week[];
 
@@ -48,13 +49,14 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-
+    window.scrollTo(0, 0);
     this.loadDrugStores();
     const dropdownSub = this.formService.dropdowControl.valueChanges
-      .subscribe(x => {
+      .subscribe(drugstore => {
         if (this.isDoneFirstLoad) {
           this.mainLoaderService.isLoaded = true;
-          this.loadCalendarResponse(x);
+          this.initialDrugstoreOption = drugstore;
+          this.loadCalendarResponse(this.initialDrugstoreOption);
         }
       });
     this.subscription.push(dropdownSub);
@@ -73,10 +75,10 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
       }))
       .pipe(switchMap((stores) => {
         this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
-        const initialDrugstoreOption = this.newInfoDrugstore[31];
+        this.initialDrugstoreOption = this.newInfoDrugstore[31];
         this.companyDrugstoresStore.setSelectedDrugstore(stores[31]);
-        this.formService.dropdowControl.setValue(initialDrugstoreOption);
-        return this.drugstoreImplement.getCalendarImplements$(initialDrugstoreOption);
+        this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
+        return this.drugstoreImplement.getCalendarImplements$(this.initialDrugstoreOption);
       }))
       .pipe(take(1))
       .subscribe(calendarResponse => {
@@ -100,6 +102,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
 
   public goToBack() {
     this.currentMonthNumber -= 1;
+    this.loadCalendarResponse(this.initialDrugstoreOption);
     if (this.currentMonthNumber < 0) {
       alert('May and June only, going to May');
       this.currentMonthNumber = 0;
@@ -109,6 +112,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
 
   public goToNext() {
     this.currentMonthNumber += 1;
+    this.loadCalendarResponse(this.initialDrugstoreOption);
     if (this.currentMonthNumber > 1) {
       alert('May and June only, going back to May');
       this.currentMonthNumber = 0;
