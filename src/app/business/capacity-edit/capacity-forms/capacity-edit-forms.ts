@@ -15,7 +15,6 @@ export class CapacityEditFormsService {
   constructor(
     public formBuilder: FormBuilder,
   ) {
-    console.log('CapacityEditFormsService');
     this.form = this.formBuilder.group({
       inputs: this.inputs,
       timeSegment01: this.formArray,

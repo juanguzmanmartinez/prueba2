@@ -32,7 +32,7 @@ export class CompanyDrugstoresStoreService {
   }
 
   public setSelectedDrugstore(drugstore: Drugstore) {
-    this._selectedDrugstore = drugstore;
+    this._selectedDrugstoreSubject.next(drugstore);
   }
 
   public setSelectedDrugstoreByLocalCode(code: string) {
