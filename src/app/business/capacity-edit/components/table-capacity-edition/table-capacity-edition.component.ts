@@ -8,6 +8,7 @@ import { take } from 'rxjs/operators';
 import { CapacityEditImplementService } from '../../services/capacity-edit-implements.service';
 import { CompanyDrugstoresStoreService } from 'src/app/commons/business-factories/factories-stores/company-drugstores-store.service';
 import { Subscription } from 'rxjs';
+import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 
 @Component({
   selector: 'app-table-capacity-edition',
@@ -32,9 +33,12 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
     private router: Router,
     public capacityEditImplementService: CapacityEditImplementService,
     private companyDrugstoresStore: CompanyDrugstoresStoreService,
+    private mainLoaderService: MainLoaderService,
   ) { }
 
   ngOnInit() {
+    this.mainLoaderService.isLoaded = false;
+    window.scrollTo(0, 0);
     this.pageRad = false;
     this.pageRet = true;
     this.scheduleBlock = [
@@ -136,6 +140,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
   }
 
   save() {
+    this.mainLoaderService.isLoaded = true;
     const formValues = this.capacityForms.getCapacitiesAndHoursFromSegment01();
     const { selectedDrugstore, configForCapacities } = this.companyDrugstoresStore;
     const request = {
@@ -150,6 +155,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
     this.capacityEditImplementService.patchScheduleDetailImplements$(request)
       .pipe(take(1))
       .subscribe(response => {
+        this.mainLoaderService.isLoaded = false;
         this.calendarStoreService.setCapacitiesForDay(response);
       });
 
