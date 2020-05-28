@@ -47,9 +47,12 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
     private mainLoaderService: MainLoaderService,
     private companyDrugstoresStore: CompanyDrugstoresStoreService,
     private ngZone: NgZone,
-  ) { }
+  ) {
+    this.getFormattedDrugstore = this.getFormattedDrugstore.bind(this);
+  }
 
   ngOnInit() {
+    this.isDoneFirstLoad = false;
     window.scrollTo(0, 0);
     const dropdownSub = this.formService.dropdowControl.valueChanges
       .subscribe(drugstore => {
@@ -69,7 +72,22 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
 
   private loadDrugStores() {
     this.mainLoaderService.isLoaded = true;
-    this.drugstoreImplement.getDrugstoreImplements$()
+    const { drugstores, selectedDrugstore } = this.companyDrugstoresStore;
+    if (drugstores && drugstores.length) {
+      this.newInfoDrugstore = this.getFormattedDrugstoreOptions(drugstores);
+      const _currentDrugstore = selectedDrugstore.localCode ? selectedDrugstore : drugstores[0];
+      const _formattedCurrentDrugstore = this.getFormattedDrugstore(_currentDrugstore);
+      this.formService.dropdowControl.setValue(_formattedCurrentDrugstore);
+      this.drugstoreImplement.getCalendarImplements$(_formattedCurrentDrugstore)
+        .pipe(take(1))
+        .subscribe(calendarResponse => {
+          this.mainLoaderService.isLoaded = false;
+          this.isDoneFirstLoad = true;
+          this.calendarResponse = calendarResponse;
+          this.setInfoCheckedSelected();
+        });
+    } else {
+      this.drugstoreImplement.getDrugstoreImplements$()
       .pipe(tap(stores => {
         this.InfoDrugstores = stores;
         this.companyDrugstoresStore.setDrugstores(stores);
@@ -88,6 +106,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
         this.calendarResponse = calendarResponse;
         this.setInfoCheckedSelected();
       });
+    }
   }
 
   public loadCalendarResponse(dropdownValue: ICustomSelectOption) {
@@ -202,17 +221,19 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   }
 
   private getFormattedDrugstoreOptions(drugstores: Drugstore[]) {
-    return drugstores.map(store => {
-      return {
-        text: store.name,
-        value: store.localCode,
-        code: store.localCode,
-        fulfillmentCenterCode: store.localCode,
-        channel: store.channel,
-        segmentType: store.segmentType.name,
-        serviceTypeCode: this.getTypeService(store.services),
-      } as ICustomSelectOption;
-    });
+    return drugstores.map(this.getFormattedDrugstore);
+  }
+
+  private getFormattedDrugstore(drugstore: Drugstore) {
+    return {
+      text: drugstore.name,
+      value: drugstore.localCode,
+      code: drugstore.localCode,
+      fulfillmentCenterCode: drugstore.localCode,
+      channel: drugstore.channel,
+      segmentType: drugstore.segmentType.name,
+      serviceTypeCode: this.getTypeService(drugstore.services),
+    } as ICustomSelectOption;
   }
 
   getTypeService(type: IServices[]) {
