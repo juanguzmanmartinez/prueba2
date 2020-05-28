@@ -49,7 +49,7 @@ export class SelectedDay {
 export interface IDayList {
   id: number;
   capacity: number;
-  order: number;
+  orders: number;
   dayNumber: number;
   day: string;
   dayToShow: boolean;
