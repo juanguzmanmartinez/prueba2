@@ -15,7 +15,9 @@
     [value]="selectedOption.value">
     <option value=""></option>
     
-    <option [value]="option.value" *ngFor="let option of options">
+    <option *ngFor="let option of options"
+      [value]="option.value"
+      [selected]="option.value === selectedOption.value">
       {{ option.code+ " - " + option.text }}
     </option>
   </select>

@@ -4,12 +4,12 @@ import { CUSTOM_SELECT_DEFAULT_VALUE } from './initial-control-values';
 
 export class CustomSelectControl extends FormControl {
 
-  public value: ICustomSelectOption = {} as ICustomSelectOption;
+  public value: ICustomSelectOption;
 
   constructor() {
     super('');
     this.settingNameValidators();
-    this.setValue(CUSTOM_SELECT_DEFAULT_VALUE);
+    // this.setValue(CUSTOM_SELECT_DEFAULT_VALUE);
   }
 
   private settingNameValidators() {

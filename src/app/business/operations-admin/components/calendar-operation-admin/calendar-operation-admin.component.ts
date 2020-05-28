@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { CalendarImplementService } from '../../services/calendar-implements.service';
 import { take, switchMap, map, tap } from 'rxjs/operators';
 import { IDrugstore, IServices, Drugstore } from 'src/app/shared/services/models/drugstore.model';
@@ -34,7 +34,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
 
   infoCheckedSelected: IDayList[] = [] as IDayList[];
   selectedDayArray: SelectedDay[] = [] as SelectedDay[];
-  initialDrugstoreOption: ICustomSelectOption = {} as ICustomSelectOption;
+  public initialDrugstoreOption: ICustomSelectOption = {} as ICustomSelectOption;
 
   weeks: Week[] = [] as Week[];
 
@@ -46,11 +46,11 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
     public formService: OperationAdminCalendarService,
     private mainLoaderService: MainLoaderService,
     private companyDrugstoresStore: CompanyDrugstoresStoreService,
+    private ngZone: NgZone,
   ) { }
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    this.loadDrugStores();
     const dropdownSub = this.formService.dropdowControl.valueChanges
       .subscribe(drugstore => {
         if (this.isDoneFirstLoad) {
@@ -59,6 +59,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
           this.loadCalendarResponse(this.initialDrugstoreOption);
         }
       });
+    this.loadDrugStores();
     this.subscription.push(dropdownSub);
   }
 
@@ -75,7 +76,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
       }))
       .pipe(switchMap((stores) => {
         this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
-        this.initialDrugstoreOption = this.newInfoDrugstore[31];
+        this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[31])) as ICustomSelectOption;
         this.companyDrugstoresStore.setSelectedDrugstore(stores[31]);
         this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
         return this.drugstoreImplement.getCalendarImplements$(this.initialDrugstoreOption);

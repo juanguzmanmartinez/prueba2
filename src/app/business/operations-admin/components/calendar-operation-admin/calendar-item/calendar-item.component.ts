@@ -53,8 +53,6 @@ export class CalendarItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.weekDay, ' this.weekDay;');
-
     this.item = this.weekDay;
 
     if (this.item.dayType !== 'empty') {
