@@ -30,7 +30,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   public calendarResponse: Calendar[] = [] as Calendar[];
 
   currentMonthNumber = 0;
-  nextMonth = '';
   currentMonthName = '';
   showButtonSave = false;
   showButtonActive = true;
@@ -144,8 +143,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   public goToBack() {
     this.currentMonthNumber -= 1;
     if (this.currentMonthNumber < 0) {
-      this.nextMonth = this.calendarResponse[1].month;
-      alert('Solo puedes editar los meses de ' + this.currentMonthName + ' y ' + this.nextMonth);
+      alert('Solo puedes editar los meses de ' + this.calendarResponse[0].month + ' y ' + this.calendarResponse[1].month);
       this.currentMonthNumber = 0;
     } else {
       this.loadOtherCalendarMonth();
@@ -155,8 +153,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   public goToNext() {
     this.currentMonthNumber += 1;
     if (this.currentMonthNumber > 1) {
-      this.nextMonth = this.calendarResponse[1].month;
-      alert('Solo puedes editar los meses de ' + this.currentMonthName + ' y ' + this.nextMonth);
+      alert('Solo puedes editar los meses de ' + this.calendarResponse[0].month + ' y ' + this.calendarResponse[1].month);
       this.currentMonthNumber = 1;
     } else {
       this.loadOtherCalendarMonth();
