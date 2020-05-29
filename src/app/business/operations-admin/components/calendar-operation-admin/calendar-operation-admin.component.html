@@ -22,10 +22,17 @@
     </div>
 
     <div class="d-buttons-implements-save" *ngIf="showButtonSave">
-      <p (click)="save()" class="button-style">Guardar Cambios</p>
+      <p (click)="save()"
+        class="button-style"
+        [ngClass]="{'disabled-button': selectedDayArray.length === 0}">
+        Guardar Cambios
+      </p>
     </div>
     <div class="d-buttons-implements-save" *ngIf="showButtonActive">
-      <p (click)="showActive()" class="button-style-active">Activar Edición</p>
+      <p (click)="showActive()"
+        class="button-style-active">
+        Activar Edición
+      </p>
     </div>
     
   </div>

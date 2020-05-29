@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDayList, SelectedDay } from 'src/app/shared/services/models/calendar.model';
-import { NG_VALUE_ACCESSOR, FormGroup, FormBuilder } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ICapacityRequestParams } from 'src/app/shared/services/models/capacity.model';
 import { CapacityEditImplementService } from 'src/app/business/capacity-edit/services/capacity-edit-implements.service';
 import { take } from 'rxjs/operators';
@@ -61,10 +61,11 @@ export class CalendarItemComponent implements OnInit {
   ngOnInit() {
     this.item = this.weekDay;
     if (this.item.dayType !== 'empty') {
-      this.checked = this.item.check;
+      const control = new FormControl(this.item.check);
       this.frm = this.formBuilder.group({
-        day: this.item
+        day: control
       });
+      this.checked = this.item.check;
     } else {
       this.frm = this.formBuilder.group({
         day: undefined

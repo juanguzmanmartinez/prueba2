@@ -268,7 +268,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    console.log('this.selectedDayArray: ', this.selectedDayArray);
     if (this.selectedDayArray.length) {
       this.mainLoaderService.isLoaded = true;
       let dates = '';
@@ -303,7 +302,12 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   }
 
   daySelectionEvent(selectedDay: SelectedDay) {
-    this.selectedDayArray.push(selectedDay);
+    const matchedDayIndex = this.selectedDayArray.findIndex(day => day.dayList.day === selectedDay.dayList.day);
+    if (matchedDayIndex === -1) {
+      this.selectedDayArray.push(selectedDay);
+    } else {
+      this.selectedDayArray.splice(matchedDayIndex, 1);
+    }
   }
   showActive() {
     this.showButtonSave = true;

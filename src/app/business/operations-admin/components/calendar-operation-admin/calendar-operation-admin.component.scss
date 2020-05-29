@@ -39,6 +39,9 @@
       background: #1B8F43;
       cursor: pointer;
       color: #FFFFFF;
+      &.disabled-button {
+        opacity: 0.3;
+      }
     }
     .button-style-active {
       height: 18px;

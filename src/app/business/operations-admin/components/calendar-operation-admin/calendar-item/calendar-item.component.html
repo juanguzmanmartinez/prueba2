@@ -4,7 +4,7 @@
       <div *ngIf="!item.pastDay">
         <div class="checkbox-input-container">
           <label class="checkbox-input-label" [hidden]="showActiveChecks">
-            <input type="checkbox" class="checkbox-input" [checked]="checked" [disabled]="isDisabled"
+            <input type="checkbox" class="checkbox-input" [disabled]="isDisabled"
               (click)="clickInput($event.target)" formControlName="day">
             <span class="check-mark"></span>
           </label>
