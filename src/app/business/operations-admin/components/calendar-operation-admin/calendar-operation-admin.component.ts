@@ -125,34 +125,42 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
       });
   }
 
+  private loadOtherCalendarMonth() {
+    const { selectedDrugstore } = this.companyDrugstoresStore;
+    const _formattedCurrentDrugstore = this.getFormattedDrugstore(selectedDrugstore);
+    this.drugstoreImplement.getCalendarImplements$(_formattedCurrentDrugstore)
+      .pipe(take(1))
+      .subscribe(response => {
+        this.showButtonSave = false;
+        this.showButtonActive = true;
+        this.showActiveChecks = true;
+        this.showLinks = false;
+
+        this.calendarResponse = response;
+        this.setInfoCheckedSelected();
+      });
+  }
+
   public goToBack() {
     this.currentMonthNumber -= 1;
-    this.loadCalendarResponse(this.initialDrugstoreOption);
-    this.showButtonSave = false;
-    this.showButtonActive = true;
-    this.showActiveChecks = true;
-    this.showLinks = false;
     if (this.currentMonthNumber < 0) {
       this.nextMonth = this.calendarResponse[1].month;
       alert('Solo puedes editar los meses de ' + this.currentMonthName + ' y ' + this.nextMonth);
       this.currentMonthNumber = 0;
+    } else {
+      this.loadOtherCalendarMonth();
     }
-    this.setInfoCheckedSelected();
   }
 
   public goToNext() {
     this.currentMonthNumber += 1;
-    this.loadCalendarResponse(this.initialDrugstoreOption);
-    this.showButtonSave = false;
-    this.showButtonActive = true;
-    this.showActiveChecks = true;
-    this.showLinks = false;
     if (this.currentMonthNumber > 1) {
       this.nextMonth = this.calendarResponse[1].month;
       alert('Solo puedes editar los meses de ' + this.currentMonthName + ' y ' + this.nextMonth);
-      this.currentMonthNumber = 0;
+      this.currentMonthNumber = 1;
+    } else {
+      this.loadOtherCalendarMonth();
     }
-    this.setInfoCheckedSelected();
   }
 
   private setInfoCheckedSelected() {
@@ -260,9 +268,9 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.mainLoaderService.isLoaded = true;
-    if (null !== this.selectedDayArray && undefined !== this.selectedDayArray && [] !== this.selectedDayArray &&
-      0 !== this.selectedDayArray.length) {
+    console.log('this.selectedDayArray: ', this.selectedDayArray);
+    if (this.selectedDayArray.length) {
+      this.mainLoaderService.isLoaded = true;
       let dates = '';
       let types = '';
 
@@ -294,7 +302,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
 
   }
 
-  daySelectionEvent(selectedDay) {
+  daySelectionEvent(selectedDay: SelectedDay) {
     this.selectedDayArray.push(selectedDay);
   }
   showActive() {
