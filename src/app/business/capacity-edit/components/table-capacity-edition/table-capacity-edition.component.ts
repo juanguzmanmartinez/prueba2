@@ -164,6 +164,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(response => {
         this.mainLoaderService.isLoaded = false;
+        this.router.navigate(['/operations-administrator']);
       });
 
   }

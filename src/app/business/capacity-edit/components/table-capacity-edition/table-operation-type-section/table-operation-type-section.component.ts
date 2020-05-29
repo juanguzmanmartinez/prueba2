@@ -1,14 +1,15 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { ITypeOperation } from '../../../models/schedule.model';
 import { CompanyDrugstoresStoreService } from 'src/app/commons/business-factories/factories-stores/company-drugstores-store.service';
 import { MONTHS } from 'src/app/commons/parameters/date.parameters';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-table-operation-type-section',
   templateUrl: './table-operation-type-section.component.html',
   styleUrls: ['./table-operation-type-section.component.scss']
 })
-export class TableOperationTypeSectionComponent implements OnInit {
+export class TableOperationTypeSectionComponent implements OnInit, OnDestroy {
 
   public day = '';
   public drugstore = '';
@@ -20,24 +21,27 @@ export class TableOperationTypeSectionComponent implements OnInit {
   sectionDisabledOne = true;
   sectionDisabledTwo = false;
   values: ITypeOperation = {} as ITypeOperation;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     public companyDrugstoresStore: CompanyDrugstoresStoreService,
   ) { }
 
   ngOnInit() {
-    this.companyDrugstoresStore.selectedDrugstore$
+    const drugstoreSelected = this.companyDrugstoresStore.selectedDrugstore$
       .subscribe(selectedDrugstore => {
         this.drugstore = `${selectedDrugstore.localCode} - ${selectedDrugstore.name}`;
       });
-    this.companyDrugstoresStore.configForCapacities$
+    const configCompany = this.companyDrugstoresStore.configForCapacities$
       .subscribe(config => {
         if (config.selectedDay && config.selectedDay.length) {
           const elements = config.selectedDay.split('-');
-          const [ year, month, day ] = elements;
+          const [year, month, day] = elements;
           this.day = `${Number(day)} ${MONTHS[Number(month) - 1]} - ${year}`;
         }
       });
+
+    this.subscriptions.push(drugstoreSelected, configCompany);
   }
 
   getRad() {
@@ -62,5 +66,9 @@ export class TableOperationTypeSectionComponent implements OnInit {
       numberArray: 1
     } as ITypeOperation;
     this.typeOperation.emit(this.values);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

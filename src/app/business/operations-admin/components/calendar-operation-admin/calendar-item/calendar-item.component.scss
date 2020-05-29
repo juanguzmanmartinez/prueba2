@@ -18,18 +18,33 @@
       padding: 11px 0px 0px 0px;
       font-size: 13px;
       border-radius: 7px;
-      cursor: pointer;
 
-      .d-capacity-item-one-green {
+      .d-capacity-item-one {
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding-bottom: 5px;
-        color: green;
+        color: black;
+        border-radius: 0px;
+        border: 0px solid #16A2FF;
+        padding: 0px;
+        margin-bottom: 8px;
+        font-size: 12.44px;
 
-        strong {
-          font-size: 15px;
-        }
+      }
+
+      .d-capacity-item-one-active {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 5px;
+        color: black;
+        border-radius: 5px;
+        border: 1px solid #16A2FF;
+        padding: 5px;
+        margin-bottom: 8px;
+        cursor: pointer;
+
       }
 
       .d-capacity-item-one-red {
@@ -38,42 +53,8 @@
         justify-content: space-between;
         color: red;
         padding-bottom: 5px;
-
-
-        strong {
-          font-size: 15px;
-        }
       }
 
-      .d-order-item-two-red {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: red;
-
-        strong {
-          font-size: 15px;
-        }
-      }
-
-      .d-order-item-two-green {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: green;
-
-        strong {
-          font-size: 15px;
-        }
-      }
-
-
-      :hover {
-        border-radius: 7px;
-        border: 1px solid #16A2FF;
-        padding: 5px;
-        color: #16A2FF;
-      }
     }
 
     .d-item-bloqued {
@@ -104,6 +85,24 @@
 
     }
   }
+
+
+  .d-order-item-two-red {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12.44px;
+    color: red;
+  }
+
+
+  .d-order-item-two-green {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12.44px;
+    color: green;
+  }
 }
 
 @media(min-width: 768px) and (max-width: 1023px) {
@@ -133,7 +132,7 @@
 
   .container-calendar {
     height: 118px;
-    width: 86px;
+    width: 94px;
     border-radius: 1px;
     border: 1px solid #F2F2F2;
     padding: 22px;

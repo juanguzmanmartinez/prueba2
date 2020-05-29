@@ -30,6 +30,12 @@ export class CalendarItemComponent implements OnInit {
   @Input()
   chosenDrugstore: ICustomSelectOption;
 
+  @Input()
+  showActiveChecks: boolean;
+
+  @Input()
+  showLinks: boolean;
+
   frm: FormGroup;
 
   @Output() messageEvent = new EventEmitter<SelectedDay>();
@@ -54,7 +60,6 @@ export class CalendarItemComponent implements OnInit {
 
   ngOnInit() {
     this.item = this.weekDay;
-
     if (this.item.dayType !== 'empty') {
       this.checked = this.item.check;
       this.frm = this.formBuilder.group({
