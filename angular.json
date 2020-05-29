@@ -22,7 +22,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -30,10 +30,7 @@
             "styles": [
               "src/assets/styles.scss"
             ],
-            "scripts": [
-              "./node_modules/jquery/dist/jquery.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -48,7 +45,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -77,7 +73,6 @@
               "sourceMap": true,
               "extractCss": false,
               "namedChunks": true,
-              "aot": false,
               "extractLicenses": false,
               "vendorChunk": true,
               "buildOptimizer": false,
@@ -86,6 +81,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             },
@@ -101,7 +100,6 @@
               "sourceMap": true,
               "extractCss": false,
               "namedChunks": true,
-              "aot": false,
               "extractLicenses": false,
               "vendorChunk": true,
               "buildOptimizer": false,
@@ -110,6 +108,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             },
@@ -119,7 +121,6 @@
               "sourceMap": true,
               "extractCss": false,
               "namedChunks": true,
-              "aot": false,
               "extractLicenses": false,
               "vendorChunk": true,
               "buildOptimizer": false,
@@ -128,6 +129,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             },
@@ -143,7 +148,6 @@
               "sourceMap": true,
               "extractCss": false,
               "namedChunks": true,
-              "aot": false,
               "extractLicenses": false,
               "vendorChunk": true,
               "buildOptimizer": false,
@@ -152,6 +156,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -217,6 +225,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "WEB-admin-operaciones"
+    }
+  },
+  "defaultProject": "WEB-admin-operaciones",
+  "cli": {
+    "analytics": "d58b31c2-3643-4bfc-b711-674dfa0ed368"
+  }
 }
