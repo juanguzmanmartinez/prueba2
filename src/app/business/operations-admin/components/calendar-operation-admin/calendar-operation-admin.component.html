@@ -21,9 +21,13 @@
       <app-dropdown [options]="newInfoDrugstore" formControlName="dropdow"></app-dropdown>
     </div>
 
-    <div class="d-buttons-implements-save">
+    <div class="d-buttons-implements-save" *ngIf="showButtonSave">
       <p (click)="save()" class="button-style">Guardar Cambios</p>
     </div>
+    <div class="d-buttons-implements-save" *ngIf="showButtonActive">
+      <p (click)="showActive()" class="button-style-active">Activar Edición</p>
+    </div>
+    
   </div>
   <div class="container-calendar-admin">
 
@@ -43,31 +47,31 @@
         <tr *ngFor="let week of weeks; let i = index">
           <td>
             <app-calendar-item [weekDay]="week.monday" [chosenDrugstore]="this.formService.dropdowControl.value"
-              (messageEvent)="daySelectionEvent($event)"></app-calendar-item>
+              (messageEvent)="daySelectionEvent($event)" [showActiveChecks]="showActiveChecks" [showLinks]="showLinks"></app-calendar-item>
           </td>
           <td>
             <app-calendar-item [weekDay]="week.tuesday" [chosenDrugstore]="this.formService.dropdowControl.value"
-              (messageEvent)="daySelectionEvent($event)"></app-calendar-item>
+              (messageEvent)="daySelectionEvent($event)" [showActiveChecks]="showActiveChecks" [showLinks]="showLinks"></app-calendar-item>
           </td>
           <td>
             <app-calendar-item [weekDay]="week.wednesday" [chosenDrugstore]="this.formService.dropdowControl.value"
-              (messageEvent)="daySelectionEvent($event)"></app-calendar-item>
+              (messageEvent)="daySelectionEvent($event)" [showActiveChecks]="showActiveChecks" [showLinks]="showLinks"></app-calendar-item>
           </td>
           <td>
             <app-calendar-item [weekDay]="week.thursday" [chosenDrugstore]="this.formService.dropdowControl.value"
-              (messageEvent)="daySelectionEvent($event)"></app-calendar-item>
+              (messageEvent)="daySelectionEvent($event)" [showActiveChecks]="showActiveChecks" [showLinks]="showLinks"></app-calendar-item>
           </td>
           <td>
             <app-calendar-item [weekDay]="week.friday" [chosenDrugstore]="this.formService.dropdowControl.value"
-              (messageEvent)="daySelectionEvent($event)"></app-calendar-item>
+              (messageEvent)="daySelectionEvent($event)" [showActiveChecks]="showActiveChecks" [showLinks]="showLinks"></app-calendar-item>
           </td>
           <td>
             <app-calendar-item [weekDay]="week.saturday" [chosenDrugstore]="this.formService.dropdowControl.value"
-              (messageEvent)="daySelectionEvent($event)"></app-calendar-item>
+              (messageEvent)="daySelectionEvent($event)" [showActiveChecks]="showActiveChecks" [showLinks]="showLinks"></app-calendar-item>
           </td>
           <td>
             <app-calendar-item [weekDay]="week.sunday" [chosenDrugstore]="this.formService.dropdowControl.value"
-              (messageEvent)="daySelectionEvent($event)"></app-calendar-item>
+              (messageEvent)="daySelectionEvent($event)" [showActiveChecks]="showActiveChecks" [showLinks]="showLinks"></app-calendar-item>
           </td>
         </tr>
       </tbody>

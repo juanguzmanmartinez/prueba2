@@ -30,7 +30,12 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   public calendarResponse: Calendar[] = [] as Calendar[];
 
   currentMonthNumber = 0;
+  nextMonth = '';
   currentMonthName = '';
+  showButtonSave = false;
+  showButtonActive = true;
+  showActiveChecks = true;
+  showLinks = false;
 
   infoCheckedSelected: IDayList[] = [] as IDayList[];
   selectedDayArray: SelectedDay[] = [] as SelectedDay[];
@@ -88,24 +93,24 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
         });
     } else {
       this.drugstoreImplement.getDrugstoreImplements$()
-      .pipe(tap(stores => {
-        this.InfoDrugstores = stores;
-        this.companyDrugstoresStore.setDrugstores(stores);
-      }))
-      .pipe(switchMap((stores) => {
-        this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
-        this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[31])) as ICustomSelectOption;
-        this.companyDrugstoresStore.setSelectedDrugstore(stores[31]);
-        this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
-        return this.drugstoreImplement.getCalendarImplements$(this.initialDrugstoreOption);
-      }))
-      .pipe(take(1))
-      .subscribe(calendarResponse => {
-        this.mainLoaderService.isLoaded = false;
-        this.isDoneFirstLoad = true;
-        this.calendarResponse = calendarResponse;
-        this.setInfoCheckedSelected();
-      });
+        .pipe(tap(stores => {
+          this.InfoDrugstores = stores;
+          this.companyDrugstoresStore.setDrugstores(stores);
+        }))
+        .pipe(switchMap((stores) => {
+          this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
+          this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[31])) as ICustomSelectOption;
+          this.companyDrugstoresStore.setSelectedDrugstore(stores[31]);
+          this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
+          return this.drugstoreImplement.getCalendarImplements$(this.initialDrugstoreOption);
+        }))
+        .pipe(take(1))
+        .subscribe(calendarResponse => {
+          this.mainLoaderService.isLoaded = false;
+          this.isDoneFirstLoad = true;
+          this.calendarResponse = calendarResponse;
+          this.setInfoCheckedSelected();
+        });
     }
   }
 
@@ -123,8 +128,13 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   public goToBack() {
     this.currentMonthNumber -= 1;
     this.loadCalendarResponse(this.initialDrugstoreOption);
+    this.showButtonSave = false;
+    this.showButtonActive = true;
+    this.showActiveChecks = true;
+    this.showLinks = false;
     if (this.currentMonthNumber < 0) {
-      alert('May and June only, going to May');
+      this.nextMonth = this.calendarResponse[1].month;
+      alert('Solo puedes editar los meses de ' + this.currentMonthName + ' y ' + this.nextMonth);
       this.currentMonthNumber = 0;
     }
     this.setInfoCheckedSelected();
@@ -133,8 +143,13 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   public goToNext() {
     this.currentMonthNumber += 1;
     this.loadCalendarResponse(this.initialDrugstoreOption);
+    this.showButtonSave = false;
+    this.showButtonActive = true;
+    this.showActiveChecks = true;
+    this.showLinks = false;
     if (this.currentMonthNumber > 1) {
-      alert('May and June only, going back to May');
+      this.nextMonth = this.calendarResponse[1].month;
+      alert('Solo puedes editar los meses de ' + this.currentMonthName + ' y ' + this.nextMonth);
       this.currentMonthNumber = 0;
     }
     this.setInfoCheckedSelected();
@@ -270,6 +285,10 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
         .subscribe(response => {
           this.mainLoaderService.isLoaded = false;
           this.selectedDayArray = [];
+          this.showButtonSave = false;
+          this.showButtonActive = true;
+          this.showActiveChecks = true;
+          this.showLinks = false;
         });
     }
 
@@ -277,6 +296,12 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
 
   daySelectionEvent(selectedDay) {
     this.selectedDayArray.push(selectedDay);
+  }
+  showActive() {
+    this.showButtonSave = true;
+    this.showButtonActive = false;
+    this.showActiveChecks = false;
+    this.showLinks = true;
   }
 
 }
