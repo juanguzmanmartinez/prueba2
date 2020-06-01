@@ -347,8 +347,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
         });
     }
     //  else {
-    //   console.log('paso 2');
-
     //   const requestParams = {
     //     segmentType: this.initialDrugstoreOption.segmentType,
     //     fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
