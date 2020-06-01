@@ -27,6 +27,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
   quantityOrders: number;
   typeOperation: string;
   showActiveCapacityDefault: boolean;
+  totalCapacity = 0;
 
   private subscriptions: Subscription[] = [];
 
@@ -99,6 +100,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
       this.segements = [];
       this.responseCapacity[0].segments.forEach((value, index) => {
         this.capacityForms.timeSegment01Array.removeAt(this.responseCapacity[0].segments.length - 1 - index);
+        this.totalCapacity = this.responseCapacity[0].capacitiesQuantity;
         this.quantityOrders = this.responseCapacity[0].ordersQuantity;
         this.segements.push({
           id: i,
@@ -122,6 +124,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
     this.responseCapacity[1].segments.forEach((value, index) => {
       this.capacityForms.timeSegment02Array.removeAt(this.responseCapacity[1].segments.length - 1 - index);
       this.quantityOrders = this.responseCapacity[1].ordersQuantity;
+
       this.segements.push({
         id: i,
         capacity: value.capacity,
@@ -142,12 +145,30 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
       this.pageRad = false;
       this.pageRet = true;
       this.typeOperation = $event.code;
+      this.totalCapacity = this.responseCapacity[0].capacitiesQuantity;
+      this.quantityTotal = this.responseCapacity[0].capacitiesQuantity;
+      const totalSub = this.capacityForms.getTotalCapacitySegment01$()
+        .subscribe(totalCapacity => {
+          setTimeout(() => {
+            this.quantityTotal = totalCapacity;
+          });
+        });
     } else if ($event.code === 'RET' && $event.numberArray === 1) {
       this.pageRad = true;
       this.pageRet = false;
       this.typeOperation = $event.code;
+      this.totalCapacity = this.responseCapacity[1].capacitiesQuantity;
+      this.quantityTotal = this.responseCapacity[1].capacitiesQuantity;
+
+      const totalSub = this.capacityForms.getTotalCapacitySegment02$()
+        .subscribe(totalCapacity => {
+          setTimeout(() => {
+            this.quantityTotal = totalCapacity;
+          });
+        });
     }
   }
+
 
   return() {
     this.router.navigate(['/operations-administrator']);

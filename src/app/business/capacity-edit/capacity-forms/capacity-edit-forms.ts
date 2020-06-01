@@ -140,11 +140,40 @@ export class CapacityEditFormsService {
       }));
   }
 
+  public getTotalCapacitySegment02$() {
+    const { timeSegment02Array } = this;
+    const { length } = timeSegment02Array;
+    const capacityControls$: Observable<number>[] = [];
+    for (let index = 0; index < length; index++) {
+      const groupControl = timeSegment02Array.at(index) as FormGroup;
+      const capacityControl = groupControl.get('schedule');
+      if (capacityControl.enabled) {
+        const capacityControl$ = capacityControl.valueChanges as Observable<number>;
+        capacityControls$.push(capacityControl$);
+      }
+    }
+    return combineLatest(capacityControls$)
+      .pipe(map((capacityValues) => {
+        return capacityValues.reduce((acc, cur) => acc + cur, 0);
+      }));
+  }
+
   public setAllCapacitiesOfSegment01(valueForAll: number) {
     const { timeSegment01Array } = this;
     const { length } = timeSegment01Array;
     for (let index = 0; index < length; index++) {
       const groupControl = timeSegment01Array.at(index) as FormGroup;
+      const capacityControl = groupControl.get('schedule');
+      if (capacityControl.enabled) {
+        capacityControl.setValue(valueForAll);
+      }
+    }
+  }
+  public setAllCapacitiesOfSegment02(valueForAll: number) {
+    const { timeSegment02Array } = this;
+    const { length } = timeSegment02Array;
+    for (let index = 0; index < length; index++) {
+      const groupControl = timeSegment02Array.at(index) as FormGroup;
       const capacityControl = groupControl.get('schedule');
       if (capacityControl.enabled) {
         capacityControl.setValue(valueForAll);

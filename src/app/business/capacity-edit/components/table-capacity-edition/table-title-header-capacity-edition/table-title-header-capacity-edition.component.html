@@ -19,7 +19,8 @@
     <app-input-text-customer formControlName="allCapacities">
     </app-input-text-customer>
     <div class="d-apply-all">
-      <p (click)="updateAllCapacities()" class="button-header-style">Aplicar para todos</p>
+      <p (click)="updateAllCapacities1()" class="button-header-style" *ngIf="type === 'RAD'">Aplicar para todos</p>
+      <p (click)="updateAllCapacities2()" class="button-header-style" *ngIf="type === 'RET'">Aplicar para todos</p>
     </div>
   </div>
 </div>

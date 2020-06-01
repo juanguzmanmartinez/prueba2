@@ -14,8 +14,9 @@ export class TableTitleHeaderCapacityEditionComponent implements OnInit, OnDestr
   type: string;
   @Input()
   order: number;
+  @Input()
+  totalCapacity: number;
 
-  public totalCapacity = 0;
   public subscriptions: Subscription[] = [];
 
   constructor(
@@ -24,18 +25,25 @@ export class TableTitleHeaderCapacityEditionComponent implements OnInit, OnDestr
   ) { }
 
   ngOnInit() {
-    const totalSub = this.capacityEditForms.getTotalCapacitySegment01$()
-      .subscribe(total => this.totalCapacity = total);
-    this.subscriptions.push(totalSub);
+    // this.capacityEditForms.getTotalCapacitySegment01$()
+    //   .subscribe(total => {
+    //     this.totalCapacity = total;
+    //   });
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    // this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  public updateAllCapacities() {
+  public updateAllCapacities1() {
     const { allCapacitiesControl } = this.capacityAllEditForm;
     const capacity = Number(allCapacitiesControl.value);
     this.capacityEditForms.setAllCapacitiesOfSegment01(capacity);
+  }
+
+  public updateAllCapacities2() {
+    const { allCapacitiesControl } = this.capacityAllEditForm;
+    const capacity = Number(allCapacitiesControl.value);
+    this.capacityEditForms.setAllCapacitiesOfSegment02(capacity);
   }
 }
