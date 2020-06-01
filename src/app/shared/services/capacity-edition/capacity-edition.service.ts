@@ -15,6 +15,7 @@ export class CapacityClientService {
 
   private readonly BLOCKSCHEDULE_ENDPOINT = ENDPOINTS.GET_BLOCKSCHEDULE;
   private readonly CAPACITY_ENDPOINT = ENDPOINTS.PATCH_CAPACITY;
+  private readonly CAPACITY_DEFAULT_ENDPOINT = ENDPOINTS.PATCH_CAPACITY_MONTH_DEFAULT;
 
   constructor(
     private genericService: GenericService,
@@ -36,8 +37,8 @@ export class CapacityClientService {
   }
 
 
-  public patchScheduleDetail$(params: ICapacityRequestParams) {
-    const ENPOINT = this.CAPACITY_ENDPOINT;
+  public patchScheduleDetail$(params: ICapacityRequestParams, showActiveCapacityDefault: boolean) {
+    const ENPOINT = showActiveCapacityDefault ? this.CAPACITY_DEFAULT_ENDPOINT : this.CAPACITY_ENDPOINT;
     const Header = new HttpHeaders();
     return this.genericService.genericPatchBody<ICapacity[]>(ENPOINT, params, Header)
       .pipe(map(response => {

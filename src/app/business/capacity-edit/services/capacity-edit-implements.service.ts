@@ -13,8 +13,8 @@ export class CapacityEditImplementService {
     return this.blockClient.getBlockScheduleClient$(requestparam);
   }
 
-  public patchScheduleDetailImplements$(requestparam: ICapacityRequestParams) {
-    return this.blockClient.patchScheduleDetail$(requestparam);
+  public patchScheduleDetailImplements$(requestparam: ICapacityRequestParams, showActiveCapacityDefault: boolean) {
+    return this.blockClient.patchScheduleDetail$(requestparam, showActiveCapacityDefault);
   }
 
 }

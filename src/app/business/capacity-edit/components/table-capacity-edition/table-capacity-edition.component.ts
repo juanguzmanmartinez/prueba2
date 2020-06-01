@@ -26,6 +26,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
   quantityTotal: number;
   quantityOrders: number;
   typeOperation: string;
+  showActiveCapacityDefault: boolean;
 
   private subscriptions: Subscription[] = [];
 
@@ -77,7 +78,11 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
   }
 
   private loadBlockSchedule() {
-    this.calendarStoreService.capacitiesForDay$.subscribe(capacities => {
+    const valueDefaultCapacity = this.calendarStoreService.showActiveCapacityDefault$.subscribe(showActiveCapacityDefault => {
+      this.showActiveCapacityDefault = showActiveCapacityDefault;
+    });
+
+    const valueCalendarStore = this.calendarStoreService.capacitiesForDay$.subscribe(capacities => {
       this.responseCapacity = capacities;
       this.quantityOperations = this.responseCapacity.length;
       this.setInfoCheckedSelectedArray1();
@@ -85,6 +90,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
         this.setInfoCheckedSelectedArray2();
       }
     });
+    this.subscriptions.push(valueDefaultCapacity, valueCalendarStore);
   }
 
   private setInfoCheckedSelectedArray1() {
@@ -114,7 +120,7 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
     let i = 0;
     this.segements = [];
     this.responseCapacity[1].segments.forEach((value, index) => {
-      this.capacityForms.timeSegment02Array.removeAt(this.responseCapacity[1].segments.length - index);
+      this.capacityForms.timeSegment02Array.removeAt(this.responseCapacity[1].segments.length - 1 - index);
       this.quantityOrders = this.responseCapacity[1].ordersQuantity;
       this.segements.push({
         id: i,
@@ -160,12 +166,13 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
       quantities: formValues.capacitiesString,
       hours: formValues.hoursString,
     } as ICapacityRequestParams;
-    this.capacityEditImplementService.patchScheduleDetailImplements$(request)
+    const endpoint = this.capacityEditImplementService.patchScheduleDetailImplements$(request, this.showActiveCapacityDefault)
       .pipe(take(1))
       .subscribe(response => {
         this.mainLoaderService.isLoaded = false;
         this.router.navigate(['/operations-administrator']);
       });
-
+    this.subscriptions.push(endpoint);
   }
+
 }

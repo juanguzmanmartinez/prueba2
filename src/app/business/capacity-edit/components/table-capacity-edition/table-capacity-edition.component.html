@@ -22,7 +22,9 @@
           <app-table-item-capacity-edition [frm]="segments"></app-table-item-capacity-edition>
         </div>
       </div>
-      <div [hidden]="pageRet">
+    </div>
+    <div class="d-item-capacity-edition">
+      <div [hidden]="pageRet" class="item-columns">
         <div *ngFor="let segments of capacityForms.timeSegment02Array.controls; let i = index">
           <app-table-item-capacity-edition [frm]="segments"></app-table-item-capacity-edition>
         </div>
@@ -39,7 +41,7 @@
       <strong>volver a calendario</strong>
     </div>
 
-    <div class="d-save-capacity">
+    <div class="d-save-capacity" >
       <p (click)="save()" class="button-capacity-style">Guardar Cambios</p>
     </div>
   </div>

@@ -8,6 +8,10 @@ import { ICalendar, Calendar, IDayList, IDayBlockedRequest, SelectedDay, Week } 
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 import { Subscription } from 'rxjs';
 import { CompanyDrugstoresStoreService } from 'src/app/commons/business-factories/factories-stores/company-drugstores-store.service';
+import { Router } from '@angular/router';
+import { ICapacityRequestParams } from 'src/app/shared/services/models/capacity.model';
+import { CapacityEditImplementService } from 'src/app/business/capacity-edit/services/capacity-edit-implements.service';
+import { CalendarStoreService } from '../../store/calendar-store.service';
 
 export interface ICheckboxState {
   isMark: boolean;
@@ -50,7 +54,10 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
     public formService: OperationAdminCalendarService,
     private mainLoaderService: MainLoaderService,
     private companyDrugstoresStore: CompanyDrugstoresStoreService,
+    private capacityEditImplementService: CapacityEditImplementService,
+    public calendarStoreService: CalendarStoreService,
     private ngZone: NgZone,
+    private router: Router,
   ) {
     this.getFormattedDrugstore = this.getFormattedDrugstore.bind(this);
   }
@@ -81,6 +88,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
       this.newInfoDrugstore = this.getFormattedDrugstoreOptions(drugstores);
       const _currentDrugstore = selectedDrugstore.localCode ? selectedDrugstore : drugstores[0];
       const _formattedCurrentDrugstore = this.getFormattedDrugstore(_currentDrugstore);
+
       this.formService.dropdowControl.setValue(_formattedCurrentDrugstore);
       this.drugstoreImplement.getCalendarImplements$(_formattedCurrentDrugstore)
         .pipe(take(1))
@@ -91,6 +99,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
           this.setInfoCheckedSelected();
         });
     } else {
+
       this.drugstoreImplement.getDrugstoreImplements$()
         .pipe(tap(stores => {
           this.InfoDrugstores = stores;
@@ -260,7 +269,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
     if (type.length === 1) {
       return type[0].code;
     } else if (type.length === 2) {
-      return type[0].code + ', ' + type[1].code;
+      return type[0].code + ',' + type[1].code;
     }
   }
 
@@ -311,6 +320,50 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
     this.showButtonActive = false;
     this.showActiveChecks = false;
     this.showLinks = true;
+  }
+
+  showDefault() {
+    this.mainLoaderService.isLoaded = true;
+    const { drugstores, selectedDrugstore } = this.companyDrugstoresStore;
+    if (drugstores && drugstores.length) {
+
+      this.newInfoDrugstore = this.getFormattedDrugstoreOptions(drugstores);
+      const _currentDrugstore = selectedDrugstore.localCode ? selectedDrugstore : drugstores[0];
+      const _formattedCurrentDrugstore = this.getFormattedDrugstore(_currentDrugstore);
+
+      const requestParams = {
+        segmentType: _formattedCurrentDrugstore.segmentType,
+        fulfillmentCenterCode: _formattedCurrentDrugstore.fulfillmentCenterCode,
+        channel: _formattedCurrentDrugstore.channel
+      } as ICapacityRequestParams;
+
+      this.capacityEditImplementService.getBlockScheduleImplements$(requestParams)
+        .pipe(take(1))
+        .subscribe(response => {
+          const showActivePageDefault = true;
+          this.calendarStoreService.setCapacitiesForDay(response);
+          this.calendarStoreService.setShowCapacityDefault(showActivePageDefault);
+          this.router.navigate(['/capacity-edit']);
+        });
+    }
+    //  else {
+    //   console.log('paso 2');
+
+    //   const requestParams = {
+    //     segmentType: this.initialDrugstoreOption.segmentType,
+    //     fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
+    //     channel: this.initialDrugstoreOption.channel
+    //   } as ICapacityRequestParams;
+
+    //   this.capacityEditImplementService.getBlockScheduleImplements$(requestParams)
+    //     .pipe(take(1))
+    //     .subscribe(response => {
+    //       const showActivePageDefault = true;
+    //       this.calendarStoreService.setCapacitiesForDay(response);
+    //       this.calendarStoreService.setShowCapacityDefault(showActivePageDefault);
+    //       this.router.navigate(['/capacity-edit']);
+    //     });
+    // }
   }
 
 }

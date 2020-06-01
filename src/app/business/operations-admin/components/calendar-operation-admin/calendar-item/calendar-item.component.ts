@@ -120,6 +120,8 @@ export class CalendarItemComponent implements OnInit {
     this.capacityEditImplementService.getBlockScheduleImplements$(requestParams)
       .pipe(take(1))
       .subscribe(response => {
+        const showActivePageDefault = false;
+        this.calendarStoreService.setShowCapacityDefault(showActivePageDefault);
         this.calendarStoreService.setCapacitiesForDay(response);
         this.router.navigate(['/capacity-edit']);
       });

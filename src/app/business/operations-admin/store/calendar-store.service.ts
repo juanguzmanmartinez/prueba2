@@ -8,8 +8,12 @@ import { Capacity } from 'src/app/shared/services/models/capacity.model';
 export class CalendarStoreService {
 
   private _capacitiesForDay: Capacity[];
+  private _pageDefault: boolean;
   private _capacitiesForDaySubject = new BehaviorSubject<Capacity[]>([] as Capacity[]);
+  private _pagefaultSubject = new BehaviorSubject(this._pageDefault);
+
   public capacitiesForDay$ = this._capacitiesForDaySubject.asObservable();
+  public showActiveCapacityDefault$ = this._pagefaultSubject.asObservable();
   public get capacitiesForDay() {
     return this._capacitiesForDay;
   }
@@ -20,5 +24,9 @@ export class CalendarStoreService {
 
   public setCapacitiesForDay(capacities: Capacity[]) {
     this._capacitiesForDaySubject.next(capacities);
+  }
+
+  public setShowCapacityDefault(pageDefaul: boolean) {
+    this._pagefaultSubject.next(pageDefaul);
   }
 }
