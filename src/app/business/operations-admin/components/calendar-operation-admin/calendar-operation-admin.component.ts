@@ -346,22 +346,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
           this.router.navigate(['/capacity-edit']);
         });
     }
-    //  else {
-    //   const requestParams = {
-    //     segmentType: this.initialDrugstoreOption.segmentType,
-    //     fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
-    //     channel: this.initialDrugstoreOption.channel
-    //   } as ICapacityRequestParams;
-
-    //   this.capacityEditImplementService.getBlockScheduleImplements$(requestParams)
-    //     .pipe(take(1))
-    //     .subscribe(response => {
-    //       const showActivePageDefault = true;
-    //       this.calendarStoreService.setCapacitiesForDay(response);
-    //       this.calendarStoreService.setShowCapacityDefault(showActivePageDefault);
-    //       this.router.navigate(['/capacity-edit']);
-    //     });
-    // }
   }
 
 }

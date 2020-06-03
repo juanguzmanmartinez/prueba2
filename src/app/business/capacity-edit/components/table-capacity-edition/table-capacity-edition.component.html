@@ -1,13 +1,13 @@
 <form [formGroup]="capacityForms.form">
   <div class="table-type-operation">
-    <app-table-operation-type-section
-      (typeOperation)="valueNumberArray($event)"
-      [showTypeOperations]="quantityOperations">
+    <app-table-operation-type-section (typeOperation)="valueNumberArray($event)"
+      [showTypeOperations]="quantityOperations" [showActiveCapacityDefault]="showActiveCapacityDefault">
     </app-table-operation-type-section>
   </div>
   <div class="container-table-body-capacity-edition">
     <div>
-      <app-table-title-header-capacity-edition [order]="quantityOrders" [type]="typeOperation" [totalCapacity]="totalCapacity">
+      <app-table-title-header-capacity-edition [order]="quantityOrders" [type]="typeOperation"
+        [totalCapacity]="totalCapacity">
       </app-table-title-header-capacity-edition>
     </div>
     <div class="d-block-container">
@@ -33,15 +33,28 @@
   </div>
 
   <div class="container-footer">
-    <div class="quantity-total">
-      Capacidad Total del día: <strong class="quantity-total-value">{{quantityTotal}}</strong>
+    <div class="quantity-total" *ngIf="typeOperation === 'RAD'">
+      <span *ngIf="showActiveCapacityDefault">
+        Nueva capacidad del mes: <strong class="quantity-total-value">{{quantityTotalRAD}}</strong>
+      </span>
+      <span *ngIf="!showActiveCapacityDefault">
+        Nueva capacidad del día: <strong class="quantity-total-value">{{quantityTotalRAD}}</strong>
+      </span>
+    </div>
+    <div class="quantity-total" *ngIf="typeOperation === 'RET'">
+      <span *ngIf="showActiveCapacityDefault">
+        Nueva capacidad del mes: <strong class="quantity-total-value">{{quantityTotalRET}}</strong>
+      </span>
+      <span *ngIf="!showActiveCapacityDefault">
+        Nueva capacidad del día: <strong class="quantity-total-value">{{quantityTotalRET}}</strong>
+      </span>
     </div>
 
     <div class="d-return-page" (click)="return()">
       <strong>volver a calendario</strong>
     </div>
 
-    <div class="d-save-capacity" >
+    <div class="d-save-capacity">
       <p (click)="save()" class="button-capacity-style">Guardar Cambios</p>
     </div>
   </div>

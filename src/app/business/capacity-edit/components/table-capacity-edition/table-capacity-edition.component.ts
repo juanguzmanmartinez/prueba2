@@ -23,7 +23,8 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
   pageRad: boolean;
   pageRet: boolean;
   quantityOperations: number;
-  quantityTotal: number;
+  quantityTotalRAD: number;
+  quantityTotalRET: number;
   quantityOrders: number;
   typeOperation: string;
   showActiveCapacityDefault: boolean;
@@ -68,10 +69,17 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
     const totalSub = this.capacityForms.getTotalCapacitySegment01$()
       .subscribe(totalCapacity => {
         setTimeout(() => {
-          this.quantityTotal = totalCapacity;
+          this.quantityTotalRAD = totalCapacity;
         });
       });
-    this.subscriptions.push(totalSub);
+
+    const totalSub2 = this.capacityForms.getTotalCapacitySegment02$()
+      .subscribe(totalCapacity => {
+        setTimeout(() => {
+          this.quantityTotalRET = totalCapacity;
+        });
+      });
+    this.subscriptions.push(totalSub, totalSub2);
   }
 
   ngOnDestroy() {
@@ -142,30 +150,21 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
 
   valueNumberArray($event: ITypeOperation) {
     if ($event.code === 'RAD' && $event.numberArray === 0) {
+      this.setInfoCheckedSelectedArray1();
       this.pageRad = false;
       this.pageRet = true;
       this.typeOperation = $event.code;
       this.totalCapacity = this.responseCapacity[0].capacitiesQuantity;
-      this.quantityTotal = this.responseCapacity[0].capacitiesQuantity;
-      const totalSub = this.capacityForms.getTotalCapacitySegment01$()
-        .subscribe(totalCapacity => {
-          setTimeout(() => {
-            this.quantityTotal = totalCapacity;
-          });
-        });
+      this.quantityTotalRAD = this.responseCapacity[0].capacitiesQuantity;
+
     } else if ($event.code === 'RET' && $event.numberArray === 1) {
+      this.setInfoCheckedSelectedArray2();
       this.pageRad = true;
       this.pageRet = false;
       this.typeOperation = $event.code;
       this.totalCapacity = this.responseCapacity[1].capacitiesQuantity;
-      this.quantityTotal = this.responseCapacity[1].capacitiesQuantity;
+      this.quantityTotalRET = this.responseCapacity[1].capacitiesQuantity;
 
-      const totalSub = this.capacityForms.getTotalCapacitySegment02$()
-        .subscribe(totalCapacity => {
-          setTimeout(() => {
-            this.quantityTotal = totalCapacity;
-          });
-        });
     }
   }
 

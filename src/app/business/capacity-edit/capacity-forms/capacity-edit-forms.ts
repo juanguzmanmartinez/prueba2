@@ -50,7 +50,7 @@ export class CapacityEditFormsService {
     this.timeSegment01Array.push(this.scheduleFormGroup);
   }
 
-  public addScheduleControlsToBlock01(n: number) {
+  public addScheduleControlToBlock02(n: number) {
     for (let index = 0; index < n; index++) {
       this.timeSegment02Array.push(this.scheduleFormGroup);
     }

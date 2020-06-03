@@ -14,6 +14,7 @@ export class TableOperationTypeSectionComponent implements OnInit, OnDestroy {
   public day = '';
   public drugstore = '';
   @Input() showTypeOperations: number;
+  @Input() showActiveCapacityDefault: boolean;
   @Output() typeOperation = new EventEmitter();
 
   sectionOne = false;

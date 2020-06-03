@@ -8,11 +8,10 @@
   <div [ngClass]="{
     'd-section-active-2': sectionDisabledTwo,
     'd-section-disabled-2': sectionTwo
-  }" (click)="getRet()"
-  *ngIf="showTypeOperations >= 2">
+  }" (click)="getRet()" *ngIf="showTypeOperations >= 2">
     RET
   </div>
-  <div class="section-calendar-moth">
+  <div class="section-calendar-moth" *ngIf="!showActiveCapacityDefault">
     <img src="../../../../../../assets/img/icon-calendar.png" alt="" style="margin-right: 10px;">
     {{day}}
   </div>
