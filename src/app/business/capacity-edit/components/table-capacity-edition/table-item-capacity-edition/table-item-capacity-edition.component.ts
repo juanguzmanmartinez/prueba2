@@ -28,7 +28,6 @@ export class TableItemCapacityEditionComponent implements OnInit {
 
   @Input() hasErrorMessage = false;
   @Input() errorMessage = '';
-  @Input() maxLength = 3;
   @Input() placeholder = '';
 
   constructor() { }
