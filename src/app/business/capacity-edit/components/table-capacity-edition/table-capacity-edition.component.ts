@@ -156,7 +156,13 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
       this.typeOperation = $event.code;
       this.totalCapacity = this.responseCapacity[0].capacitiesQuantity;
       this.quantityTotalRAD = this.responseCapacity[0].capacitiesQuantity;
-
+      const totalSubRAD = this.capacityForms.getTotalCapacitySegment01$()
+        .subscribe(totalCapacity => {
+          setTimeout(() => {
+            this.quantityTotalRAD = totalCapacity;
+          });
+        });
+      this.subscriptions.push(totalSubRAD);
     } else if ($event.code === 'RET' && $event.numberArray === 1) {
       this.setInfoCheckedSelectedArray2();
       this.pageRad = true;
@@ -164,7 +170,13 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
       this.typeOperation = $event.code;
       this.totalCapacity = this.responseCapacity[1].capacitiesQuantity;
       this.quantityTotalRET = this.responseCapacity[1].capacitiesQuantity;
-
+      const totalSubRET = this.capacityForms.getTotalCapacitySegment02$()
+        .subscribe(totalCapacity => {
+          setTimeout(() => {
+            this.quantityTotalRET = totalCapacity;
+          });
+        });
+      this.subscriptions.push(totalSubRET);
     }
   }
 
