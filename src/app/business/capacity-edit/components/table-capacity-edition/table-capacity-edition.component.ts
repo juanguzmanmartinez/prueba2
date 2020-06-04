@@ -185,9 +185,31 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
     this.router.navigate(['/operations-administrator']);
   }
 
-  save() {
+  saveRAD() {
     this.mainLoaderService.isLoaded = true;
     const formValues = this.capacityForms.getCapacitiesAndHoursFromSegment01();
+    const { selectedDrugstore, configForCapacities } = this.companyDrugstoresStore;
+    const request = {
+      fulfillmentCenterCode: selectedDrugstore.localCode,
+      serviceTypeCode: !this.pageRad ? 'RAD' : !this.pageRet ? 'RET' : '',
+      segmentType: 'PROGRAMMED',
+      day: configForCapacities.selectedDay,
+      channel: selectedDrugstore.channel,
+      quantities: formValues.capacitiesString,
+      hours: formValues.hoursString,
+    } as ICapacityRequestParams;
+    const endpoint = this.capacityEditImplementService.patchScheduleDetailImplements$(request, this.showActiveCapacityDefault)
+      .pipe(take(1))
+      .subscribe(response => {
+        this.mainLoaderService.isLoaded = false;
+        this.router.navigate(['/operations-administrator']);
+      });
+    this.subscriptions.push(endpoint);
+  }
+
+  saveRET() {
+    this.mainLoaderService.isLoaded = true;
+    const formValues = this.capacityForms.getCapacitiesAndHoursFromSegment02();
     const { selectedDrugstore, configForCapacities } = this.companyDrugstoresStore;
     const request = {
       fulfillmentCenterCode: selectedDrugstore.localCode,

@@ -55,7 +55,8 @@
     </div>
 
     <div class="d-save-capacity">
-      <p (click)="save()" class="button-capacity-style">Guardar Cambios</p>
+      <p (click)="saveRAD()" class="button-capacity-style" *ngIf="typeOperation === 'RAD'">Guardar Cambios</p>
+      <p (click)="saveRET()" class="button-capacity-style" *ngIf="typeOperation === 'RET'">Guardar Cambios</p>
     </div>
   </div>
 </form>
