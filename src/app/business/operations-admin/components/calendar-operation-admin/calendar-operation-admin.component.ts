@@ -35,6 +35,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
 
   currentMonthNumber = 0;
   currentMonthName = '';
+  currentYear = '';
   showButtonSave = false;
   showButtonActive = true;
   showActiveChecks = true;
@@ -96,6 +97,8 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
           this.mainLoaderService.isLoaded = false;
           this.isDoneFirstLoad = true;
           this.calendarResponse = calendarResponse;
+          this.currentYear = this.calendarResponse[0].year;
+
           this.setInfoCheckedSelected();
         });
     } else {
@@ -117,6 +120,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
           this.mainLoaderService.isLoaded = false;
           this.isDoneFirstLoad = true;
           this.calendarResponse = calendarResponse;
+          this.currentYear = this.calendarResponse[0].year;
           this.setInfoCheckedSelected();
         });
     }
@@ -151,6 +155,8 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
 
   public goToBack() {
     this.currentMonthNumber -= 1;
+    this.currentYear = this.calendarResponse[0].year;
+
     if (this.currentMonthNumber < 0) {
       alert('Solo puedes editar los meses de ' + this.calendarResponse[0].month + ' y ' + this.calendarResponse[1].month);
       this.currentMonthNumber = 0;
@@ -161,6 +167,7 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
 
   public goToNext() {
     this.currentMonthNumber += 1;
+    this.currentYear = this.calendarResponse[1].year;
     if (this.currentMonthNumber > 1) {
       alert('Solo puedes editar los meses de ' + this.calendarResponse[0].month + ' y ' + this.calendarResponse[1].month);
       this.currentMonthNumber = 1;
