@@ -186,47 +186,56 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
   }
 
   saveRAD() {
-    this.mainLoaderService.isLoaded = true;
-    const formValues = this.capacityForms.getCapacitiesAndHoursFromSegment01();
-    const { selectedDrugstore, configForCapacities } = this.companyDrugstoresStore;
-    const request = {
-      fulfillmentCenterCode: selectedDrugstore.localCode,
-      serviceTypeCode: !this.pageRad ? 'RAD' : !this.pageRet ? 'RET' : '',
-      segmentType: 'PROGRAMMED',
-      day: configForCapacities.selectedDay,
-      channel: selectedDrugstore.channel,
-      quantities: formValues.capacitiesString,
-      hours: formValues.hoursString,
-    } as ICapacityRequestParams;
-    const endpoint = this.capacityEditImplementService.patchScheduleDetailImplements$(request, this.showActiveCapacityDefault)
-      .pipe(take(1))
-      .subscribe(response => {
-        this.mainLoaderService.isLoaded = false;
-        this.router.navigate(['/operations-administrator']);
-      });
-    this.subscriptions.push(endpoint);
+    if (this.capacityForms.form.controls.timeSegment01.status === 'VALID') {
+      this.mainLoaderService.isLoaded = true;
+      const formValues = this.capacityForms.getCapacitiesAndHoursFromSegment01();
+      const { selectedDrugstore, configForCapacities } = this.companyDrugstoresStore;
+      const request = {
+        fulfillmentCenterCode: selectedDrugstore.localCode,
+        serviceTypeCode: !this.pageRad ? 'RAD' : !this.pageRet ? 'RET' : '',
+        segmentType: 'PROGRAMMED',
+        day: configForCapacities.selectedDay,
+        channel: selectedDrugstore.channel,
+        quantities: formValues.capacitiesString,
+        hours: formValues.hoursString,
+      } as ICapacityRequestParams;
+      const endpoint = this.capacityEditImplementService.patchScheduleDetailImplements$(request, this.showActiveCapacityDefault)
+        .pipe(take(1))
+        .subscribe(response => {
+          this.mainLoaderService.isLoaded = false;
+          this.router.navigate(['/operations-administrator']);
+        });
+      this.subscriptions.push(endpoint);
+    } else if (this.capacityForms.form.controls.timeSegment01.status === 'INVALID') {
+      alert('Es necesario que todos los horarios tengan una capacidad asignada. Recuerda que la capacidad mínima es 0');
+    }
+
   }
 
   saveRET() {
-    this.mainLoaderService.isLoaded = true;
-    const formValues = this.capacityForms.getCapacitiesAndHoursFromSegment02();
-    const { selectedDrugstore, configForCapacities } = this.companyDrugstoresStore;
-    const request = {
-      fulfillmentCenterCode: selectedDrugstore.localCode,
-      serviceTypeCode: !this.pageRad ? 'RAD' : !this.pageRet ? 'RET' : '',
-      segmentType: 'PROGRAMMED',
-      day: configForCapacities.selectedDay,
-      channel: selectedDrugstore.channel,
-      quantities: formValues.capacitiesString,
-      hours: formValues.hoursString,
-    } as ICapacityRequestParams;
-    const endpoint = this.capacityEditImplementService.patchScheduleDetailImplements$(request, this.showActiveCapacityDefault)
-      .pipe(take(1))
-      .subscribe(response => {
-        this.mainLoaderService.isLoaded = false;
-        this.router.navigate(['/operations-administrator']);
-      });
-    this.subscriptions.push(endpoint);
+    if (this.capacityForms.form.controls.timeSegment02.status === 'VALID') {
+      this.mainLoaderService.isLoaded = true;
+      const formValues = this.capacityForms.getCapacitiesAndHoursFromSegment02();
+      const { selectedDrugstore, configForCapacities } = this.companyDrugstoresStore;
+      const request = {
+        fulfillmentCenterCode: selectedDrugstore.localCode,
+        serviceTypeCode: !this.pageRad ? 'RAD' : !this.pageRet ? 'RET' : '',
+        segmentType: 'PROGRAMMED',
+        day: configForCapacities.selectedDay,
+        channel: selectedDrugstore.channel,
+        quantities: formValues.capacitiesString,
+        hours: formValues.hoursString,
+      } as ICapacityRequestParams;
+      const endpoint = this.capacityEditImplementService.patchScheduleDetailImplements$(request, this.showActiveCapacityDefault)
+        .pipe(take(1))
+        .subscribe(response => {
+          this.mainLoaderService.isLoaded = false;
+          this.router.navigate(['/operations-administrator']);
+        });
+      this.subscriptions.push(endpoint);
+    } else if (this.capacityForms.form.controls.timeSegment02.status === 'INVALID') {
+      alert('Es necesario que todos los horarios tengan una capacidad asignada. Recuerda que la capacidad mínima es 0');
+    }
   }
 
 }
