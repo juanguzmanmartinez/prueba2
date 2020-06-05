@@ -25,6 +25,10 @@
       -moz-appearance: textfield;
     }
 
+    input:required:invalid {
+      border-color: red;
+    }
+
     .text-input {
       width: 100%;
       height: 35px;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { Subscription, BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { CustomControl } from '../controls/custom-control';
 import { ISegment } from 'src/app/shared/services/models/capacity.model';
@@ -75,7 +75,7 @@ export class CapacityEditFormsService {
   }
 
   private scheduleControl(item: ISegment, enabled: boolean) {
-    const formControl = new FormControl(item ? item : {} as ISegment);
+    const formControl = new FormControl(item ? item : {} as ISegment, Validators.maxLength(2));
     const hourFormControl = new FormControl(item.hour ? item.hour : '');
     if (!enabled) {
       formControl.disable();

@@ -2,8 +2,8 @@
   <div class="container-item-capacity-edition">
     <div class="d-segement-hours">{{item.scheduleSegment}}</div>
     <div class="text-input-container">
-      <input type="number" class="text-input" maxlength="2" [value]="value" (input)="changeInput($event.target)"
-        [placeholder]="placeholder" inputNumberCapacity autocomplete="none" formControlName="schedule">
+      <input type="number" class="text-input" [value]="value" (input)="changeInput($event.target)"
+        [placeholder]="placeholder" inputNumberCapacity autocomplete="none" formControlName="schedule" required>
       <div class="text-input-error" *ngIf="hasErrorMessage && errorMessage">
         {{ errorMessage }}
       </div>

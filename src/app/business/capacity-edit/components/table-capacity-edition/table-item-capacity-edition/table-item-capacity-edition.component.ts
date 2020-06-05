@@ -17,9 +17,8 @@ import { ISegment } from 'src/app/shared/services/models/capacity.model';
 export class TableItemCapacityEditionComponent implements OnInit {
 
   @Input()
-  segments: string;
-  @Input()
   frm: FormGroup;
+
   item: ISegment = {} as ISegment;
 
 
@@ -33,7 +32,6 @@ export class TableItemCapacityEditionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.segments = '00:00 - 00:30';
     this.item = this.frm.get('schedule').value ? this.frm.get('schedule').value as ISegment : {} as ISegment;
     this.value = this.item.capacity;
     this.frm.get('schedule').setValue(this.item.capacity);
