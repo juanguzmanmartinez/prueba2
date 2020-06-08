@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Injectable()
 export class CapacityAllEditFormService {
@@ -10,7 +10,7 @@ export class CapacityAllEditFormService {
     private formBuilder: FormBuilder,
   ) {
     this.form = this.formBuilder.group({
-      allCapacities: new FormControl('')
+      allCapacities: new FormControl('', Validators.required)
     });
   }
 

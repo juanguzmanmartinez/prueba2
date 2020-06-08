@@ -24,26 +24,30 @@ export class TableTitleHeaderCapacityEditionComponent implements OnInit, OnDestr
     public capacityAllEditForm: CapacityAllEditFormService,
   ) { }
 
-  ngOnInit() {
-    // this.capacityEditForms.getTotalCapacitySegment01$()
-    //   .subscribe(total => {
-    //     this.totalCapacity = total;
-    //   });
-  }
+  ngOnInit() { }
 
   ngOnDestroy() {
-    // this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.capacityAllEditForm.allCapacitiesControl.setValue('');
   }
 
   public updateAllCapacities1() {
-    const { allCapacitiesControl } = this.capacityAllEditForm;
-    const capacity = Number(allCapacitiesControl.value);
-    this.capacityEditForms.setAllCapacitiesOfSegment01(capacity);
+    if (this.capacityAllEditForm.form.status === 'VALID') {
+      const { allCapacitiesControl } = this.capacityAllEditForm;
+      const capacity = Number(allCapacitiesControl.value);
+      this.capacityEditForms.setAllCapacitiesOfSegment01(capacity);
+    } else if (this.capacityAllEditForm.form.status === 'INVALID') {
+      alert('La capacidad mínima  es 0, recuerda que al aplicar a todos afectara a todas las capacidades');
+    }
+
   }
 
   public updateAllCapacities2() {
-    const { allCapacitiesControl } = this.capacityAllEditForm;
-    const capacity = Number(allCapacitiesControl.value);
-    this.capacityEditForms.setAllCapacitiesOfSegment02(capacity);
+    if (this.capacityAllEditForm.form.status === 'VALID') {
+      const { allCapacitiesControl } = this.capacityAllEditForm;
+      const capacity = Number(allCapacitiesControl.value);
+      this.capacityEditForms.setAllCapacitiesOfSegment02(capacity);
+    } else if (this.capacityAllEditForm.form.status === 'INVALID') {
+      alert('La capacidad mínima es 0, recuerda que al aplicar a todos afectara a todas las capacidades');
+    }
   }
 }
