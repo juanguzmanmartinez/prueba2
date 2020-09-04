@@ -13,7 +13,7 @@ export class BusinessComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.router.navigate(['/operations-administrator']);
+    this.router.navigate(['/home']);
   }
 
 }

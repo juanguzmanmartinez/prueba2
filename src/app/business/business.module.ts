@@ -5,7 +5,6 @@ import { BusinessRoutingModule } from './business-routing.module';
 import { BusinessFactoriesModule } from '../commons/business-factories/business-factories.module';
 
 
-
 @NgModule({
   declarations: [BusinessComponent],
   imports: [

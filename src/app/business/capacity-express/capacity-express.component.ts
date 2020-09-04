@@ -1,24 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
-import { Router } from '@angular/router';
-@Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
-})
-export class HomeComponent implements OnInit {
 
+@Component({
+  selector: 'app-capacity-express',
+  templateUrl: './capacity-express.component.html',
+  styleUrls: ['./capacity-express.component.scss']
+})
+export class CapacityExpressComponent implements OnInit {
+  panelOpenState = false;
+  labelPosition: 'before' | 'after' = 'after';
   constructor(
     private mainLoaderService: MainLoaderService,
-    private router: Router,
   ) { }
 
   ngOnInit() {
     this.mainLoaderService.isLoaded = false;
-  }
 
-  redirect() {
-    this.router.navigate(['/capacity-manager']);
   }
 
 }

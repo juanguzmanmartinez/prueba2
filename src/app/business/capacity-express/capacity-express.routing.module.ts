@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home.component';
+import { CapacityExpressComponent } from './capacity-express.component';
+
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' }
+  {
+    path: '', component: CapacityExpressComponent, pathMatch: 'full'
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class HomeRoutingModule { }
-
+export class CapacityAMPMRoutingModule {
+}

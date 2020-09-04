@@ -1,0 +1,59 @@
+@import "../../../../assets/_variables.sass";
+
+.radio-control-container {
+  .radio-control {
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: initial;
+
+    .check-mark {
+      position: absolute;
+      top: auto;
+      left: 0;
+      height: 16px;
+      width: 16px;
+      border: 1px solid $dark;
+      border-radius: 50%;
+
+      .check-mark:after {
+        content: "";
+        position: absolute;
+        display: none;
+        top: 4px;
+        left: 4px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: white;
+      }
+
+
+      .input-radio {
+
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      .input-radio:checked~.check-mark {
+
+        background-color: $support-two;
+        border: 1px solid $support-two;
+      }
+
+      .input-radio:checked~.check-mark:after {
+        display: block;
+      }
+
+      .input-radio[disabled]~.check-mark {
+        border: 1px solid $gray;
+      }
+    }
+
+  }
+
+}
