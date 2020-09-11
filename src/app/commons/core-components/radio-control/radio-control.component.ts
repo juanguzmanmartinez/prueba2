@@ -13,7 +13,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
     }
   ]
 })
-export class RadioControlComponent implements OnInit  {
+export class RadioControlComponent implements OnInit {
 
   public isDisabled: boolean;
   public value: any; // = '-1';
@@ -54,6 +54,7 @@ export class RadioControlComponent implements OnInit  {
       event.stopPropagation();
     } else {
       this.value = this.radioOptionValue;
+
       this.onChange(this.value);
     }
     this.onTouch(this.value);

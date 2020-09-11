@@ -1,122 +1,164 @@
-<div class="row d-content-title-home">
-  <div class="subTitle-module-home"> <img src="../../../assets/img/vector-left.png" alt=""> VOLVER A OPCIONES</div>
-  <div class="title-module-home">Editar capacidad Express</div>
-</div>
+<section>
 
-
-<mat-accordion>
-  <div class="group-or-local-step1">
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <div class="number-action-capacity-one">
-            1
-          </div>
-          <div class="number-action-capacity-two">
-            GRUPO O LOCAL
-          </div>
-        </mat-panel-title>
-        <mat-panel-description>
-          <div class="number-action-capacity-two">
-
-          </div>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="d-section-description">
-        <div class="d-group-buttons">
-          <mat-button-toggle-group>
-            <mat-button-toggle value="group">Grupo</mat-button-toggle>
-            <mat-button-toggle value="local">Local</mat-button-toggle>
-          </mat-button-toggle-group>
-        </div>
-        <div class="d-implements-dropdown">
-          <app-dropdown formControlName="dropdow"></app-dropdown>
-        </div>
-      </div>
-      <div class="d-buttons-action-save">
-        <div class="d-buttons-implements-save">
-          <p class="button-style">
-            Cancelar edición
-          </p>
-        </div>
-        <div class="d-buttons-implements-save">
-          <p class="button-style">
-            Continuar
-          </p>
-        </div>
-      </div>
-    </mat-expansion-panel>
+  <div class="row d-content-title-home">
+    <div class="subTitle-module-home"> <img src="../../../assets/img/vector-left.png" alt=""> VOLVER A OPCIONES</div>
+    <div class="title-module-home">Editar capacidad Express</div>
   </div>
 
+  <form [formGroup]="formService.form">
+    <mat-accordion>
+      <div class="section-general">
+        <div class="section-one">
+          <div class="group-or-local-step1">
+            <mat-expansion-panel hideToggle [(expanded)]="stepOne">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div class="number-action-capacity-one">
+                    1
+                  </div>
+                  <div class="number-action-capacity-two">
+                    GRUPO O LOCAL
+                  </div>
+                </mat-panel-title>
+                <mat-panel-description>
+                  <div class="number-action-capacity-two">
 
-  <div class="group-or-local-step2">
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <div class="number-action-capacity-one">
-            2
+                  </div>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="d-section-description">
+                <div class="d-group-buttons">
+                  <mat-button-toggle-group #group="matButtonToggleGroup" [value]="selectedVal"
+                    (change)="onValChange(group.value)">
+                    <mat-button-toggle value="group">Grupo</mat-button-toggle>
+                    <mat-button-toggle value="local">Local</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+                <div class="d-implements-dropdown">
+                  <app-dropdown></app-dropdown>
+                </div>
+              </div>
+              <div class="d-buttons-action-save">
+                <div class="d-buttons-implements-save">
+                  <p class="button-style">
+                    Cancelar edición
+                  </p>
+                </div>
+                <div class="d-buttons-implements-save" (click)="nextOne()">
+                  <p class="button-style">
+                    Continuar
+                  </p>
+                </div>
+              </div>
+            </mat-expansion-panel>
           </div>
-          <div class="number-action-capacity-two">
-            MODO DE EDICIÓN
+
+
+          <div class="group-or-local-step2">
+            <mat-expansion-panel hideToggle [(expanded)]="stepTwo">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div class="number-action-capacity-one">
+                    2
+                  </div>
+                  <div class="number-action-capacity-two">
+                    MODO DE EDICIÓN
+                  </div>
+                </mat-panel-title>
+                <mat-panel-description>
+                  editar
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="encapsulate-cards">
+
+                <div class="card-checkbox-one">
+                  <app-radio-control formControlName="radio" [radioOptionValue]="'default'"
+                    [hasStopPropagation]="false">
+                  </app-radio-control>
+                  <div class="title-card">Por defecto</div>
+                  <div class="subtitle-card">Capacidad default para un día</div>
+                </div>
+                <div class="card-checkbox-two">
+                  <app-radio-control formControlName="radio" [radioOptionValue]="'calendar'"
+                    [hasStopPropagation]="false">
+                  </app-radio-control>
+                  <div class="title-card">Calendario</div>
+                  <div class="subtitle-card">Capacidad Programada</div>
+                </div>
+
+              </div>
+              <div class="d-buttons-action-save">
+                <div class="d-buttons-implements-save">
+                  <p class="button-style">
+                    Cancelar edición
+                  </p>
+                </div>
+                <div class="d-buttons-implements-save" (click)="nextTwo()">
+                  <p class="button-style">
+                    Continuar
+                  </p>
+                </div>
+              </div>
+            </mat-expansion-panel>
+
           </div>
-        </mat-panel-title>
-        <mat-panel-description>
-          editar
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="encapsulate-cards">
-
-        <div class="card-checkbox-one">
-          <app-radio-control></app-radio-control>
-          <div class="title-card">Por defecto</div>
-          <div class="subtitle-card">Capacidad defauld para un día</div>
         </div>
-        <div class="card-checkbox-two">
-          <app-radio-control></app-radio-control>
-          <div class="title-card">Calendario</div>
-          <div class="subtitle-card">Capacidad Programada</div>
-        </div>
+        <div class="section-two">
+          <div class="group-or-local-step3">
+            <mat-expansion-panel hideToggle [(expanded)]="stepThree">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div class="number-action-capacity-one">
+                    3
+                  </div>
+                  <div class="number-action-capacity-two">
+                    CAPACIDAD
+                  </div>
+                </mat-panel-title>
+                <mat-panel-description>
+                  <div class="number-action-capacity-two">
 
+                  </div>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="d-section-descriptions-step3">
+
+                <div class="section-calendar" *ngIf="false">
+                  <!-- <mat-form-field appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate placeholder="Start date">
+                  <input matEndDate placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field> -->
+                </div>
+                <div class="section-default" *ngIf="true">
+                  <div class="d-inputs">
+                    <div class="d-input-one">
+                      <app-input-text-customer [label]="'Nro. de motorizados'"></app-input-text-customer>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-buttons-action-save">
+                <div class="d-buttons-implements-save">
+                  <p class="button-style">
+                    Cancelar edición
+                  </p>
+                </div>
+                <div class="d-buttons-implements-save" (click)="nextTwo()">
+                  <p class="button-style">
+                    Continuar
+                  </p>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </div>
+        </div>
       </div>
-      <div class="d-buttons-action-save">
-        <div class="d-buttons-implements-save">
-          <p class="button-style">
-            Cancelar edición
-          </p>
-        </div>
-        <div class="d-buttons-implements-save">
-          <p class="button-style">
-            Continuar
-          </p>
-        </div>
-      </div>
-    </mat-expansion-panel>
-
-  </div>
-
-  <div class="group-or-local-step3">
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <div class="number-action-capacity-one">
-            3
-          </div>
-          <div class="number-action-capacity-two">
-            CAPACIDAD
-          </div>
-        </mat-panel-title>
-        <mat-panel-description>
-          <div class="number-action-capacity-two">
-
-          </div>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="d-section-description">
-
-      </div>
-    </mat-expansion-panel>
-
-  </div>
-
-
-</mat-accordion>
+    </mat-accordion>
+  </form>
+</section>
