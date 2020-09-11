@@ -4,6 +4,7 @@ import { CapacityImplementService } from './services/capacity-implements.service
 import { tap, take } from 'rxjs/operators';
 import { Drugstore } from 'src/app/shared/services/models/drugstore.model';
 import { CapacityAmPmService } from './operations-forms/capacity-am-pm-form.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-capacity-am-pm',
@@ -24,6 +25,7 @@ export class CapacityAmPmComponent implements OnInit {
     private mainLoaderService: MainLoaderService,
     private service: CapacityImplementService,
     public formService: CapacityAmPmService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -80,6 +82,10 @@ export class CapacityAmPmComponent implements OnInit {
     this.stepOne = false;
     this.stepTwo = false;
     this.stepThree = true;
+  }
+
+  return() {
+    this.router.navigate(['/capacity-manager']);
   }
 
 }
