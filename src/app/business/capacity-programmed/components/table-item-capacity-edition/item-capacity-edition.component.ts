@@ -9,12 +9,12 @@ import { ISegment } from 'src/app/shared/services/models/capacity.model';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ItemCapacityEditionComponent),
+      useExisting: forwardRef(() => ItemCapacityComponent),
       multi: true
     }
   ]
 })
-export class ItemCapacityEditionComponent implements OnInit {
+export class ItemCapacityComponent implements OnInit {
 
   @Input()
   frm: FormGroup;

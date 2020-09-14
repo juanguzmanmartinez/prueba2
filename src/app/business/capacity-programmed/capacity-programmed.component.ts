@@ -51,7 +51,7 @@ export class CapacityProgrammedComponent implements OnInit {
       console.log('1');
     } else if (val === 'local') {
       console.log('2');
-      this.serviceType = 'AM_PM';
+      this.serviceType = '/PROG';
       this.service.getLocalImplements$(this.serviceType)
         .pipe(take(1))
         .subscribe(value => {

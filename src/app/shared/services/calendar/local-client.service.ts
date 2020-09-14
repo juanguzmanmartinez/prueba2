@@ -11,7 +11,7 @@ import { ILocal, Local } from '../models/local.model';
 @Injectable()
 export class LocalClientService {
 
-  private readonly LOCAL_ENDPOINT = ENDPOINTS.GET_DRUGSTORE;
+  private readonly LOCAL_ENDPOINT = ENDPOINTS.GET_LOCAL;
 
   constructor(
     private genericService: GenericService,

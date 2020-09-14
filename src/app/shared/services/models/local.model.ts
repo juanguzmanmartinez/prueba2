@@ -24,7 +24,6 @@ export class Local {
 
   constructor(store: ILocal) {
     const currentValue = isObject(store) ? store : {} as ILocal;
-    debugger;
     this.localCode = currentValue.localCode || '';
     this.name = currentValue.name  || '';
     this.description = currentValue.description  || '';

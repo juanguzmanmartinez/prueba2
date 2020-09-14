@@ -47,9 +47,6 @@ export class CapacityAmPmComponent implements OnInit {
   public onValChange(val: string) {
     this.selectedVal = val;
     if (val === 'group') {
-      // this.service.getLocalImplements$().subscribe(valor => {
-      //   console.log(valor);
-      // });
       console.log('1');
     } else if (val === 'local') {
       console.log('2');
