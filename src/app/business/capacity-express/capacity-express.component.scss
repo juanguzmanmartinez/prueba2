@@ -1,3 +1,5 @@
+@import '../../../assets/variables/colors';
+
 section {
   padding: 10px 100px;
 }
@@ -19,7 +21,7 @@ section {
     font-style: normal;
     font-size: 10px;
     line-height: 100%;
-    color: #748494;
+    color: $dark-one;
     margin: 30px 0px;
     cursor: pointer;
   }
@@ -35,15 +37,47 @@ section {
 
       .number-action-capacity-one {
         padding: 10px 14px;
-        background: #0065FF;
+        background: $blue-one;
         border-radius: 5px;
         font-family: Inter;
-        color: white;
+        color: $white;
+      }
+
+      .number-action-capacity-one-disabled {
+        padding: 10px 14px;
+        background: $dark-two;
+        border-radius: 5px;
+        font-family: Inter;
+        color: $white;
       }
 
       .number-action-capacity-two {
         padding: 10px;
-        color: blue;
+        color: $blue-one;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .number-action-capacity-two-disabled {
+        padding: 10px;
+        color: $dark-two;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .number-action-capacity-description {
+        padding: 10px;
+        color: #003D99;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -56,8 +90,8 @@ section {
       .d-section-description {
         display: flex;
         justify-content: space-between;
-        border-top: 1px solid #F1F3F5;
-        border-bottom: 1px solid #F1F3F5;
+        border-top: 1px solid $white-one;
+        border-bottom: 1px solid $white-one;
         padding: 22px 0px;
 
         .d-group-buttons {
@@ -88,16 +122,16 @@ section {
             padding: 11px;
             border-radius: 11px;
             margin: 0px;
-            background: #F1F3F5;
+            background: $white-one;
             cursor: pointer;
-            color: #405261;
+            color: $dark-two;
 
             &.disabled-button {
               opacity: 0.3;
             }
 
             &.focus {
-              background-color: #0065FF;
+              background-color: $blue-one;
             }
           }
         }
@@ -111,26 +145,66 @@ section {
 
       .number-action-capacity-one {
         padding: 10px 14px;
-        background: #0065FF;
+        background: $blue-one;
         border-radius: 5px;
         font-family: Inter;
-        color: white;
+        color: $white;
       }
+
+      .number-action-capacity-one-disabled {
+        padding: 10px 14px;
+        background: $dark-two;
+        border-radius: 5px;
+        font-family: Inter;
+        color: $white;
+      }
+
 
       .number-action-capacity-two {
         padding: 10px;
-        color: blue;
+        color: $blue-one;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .number-action-capacity-two-disabled {
+        padding: 10px;
+        color: $dark-two;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .number-action-capacity-description {
+        padding: 10px;
+        color: #003D99;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 100%;
+        display: flex;
+        align-items: center;
       }
 
       .encapsulate-cards {
         display: flex;
-        border-top: 1px solid #F1F3F5;
-        border-bottom: 1px solid #F1F3F5;
+        border-top: 1px solid $white-one;
+        border-bottom: 1px solid $white-one;
         padding-top: 22px;
         padding-bottom: 10px;
 
         .card-checkbox-one {
-          border: 1px solid #D5DCE1;
+          border: 1px solid $white-two;
           border-radius: 10px;
           // padding: 16px;
           margin-right: 10px;
@@ -143,7 +217,7 @@ section {
             font-weight: normal;
             font-size: 14px;
             line-height: 100%;
-            color: #A5B2BD;
+            color: $grey-one;
             text-align: center;
             padding-bottom: 4px;
           }
@@ -154,14 +228,14 @@ section {
             font-weight: normal;
             font-size: 14px;
             line-height: 100%;
-            color: #A5B2BD;
+            color: $grey-one;
             text-align: center;
             padding: 0px 10px;
           }
         }
 
         .card-checkbox-two {
-          border: 1px solid #D5DCE1;
+          border: 1px solid $white-two;
           border-radius: 10px;
           padding: 10px;
 
@@ -171,7 +245,7 @@ section {
             font-weight: normal;
             font-size: 14px;
             line-height: 100%;
-            color: #A5B2BD;
+            color: $grey-one;
             text-align: center;
             padding-bottom: 4px;
           }
@@ -182,7 +256,7 @@ section {
             font-weight: normal;
             font-size: 14px;
             line-height: 100%;
-            color: #A5B2BD;
+            color: $grey-one;
             text-align: center;
             padding: 0px 10px;
           }
@@ -206,16 +280,16 @@ section {
             padding: 11px;
             border-radius: 11px;
             margin: 0px;
-            background: #F1F3F5;
+            background: $white-one;
             cursor: pointer;
-            color: #405261;
+            color: $dark-two;
 
             &.disabled-button {
               opacity: 0.3;
             }
 
             &.focus {
-              background-color: #0065FF;
+              background-color: $blue-one;
             }
           }
         }
@@ -231,15 +305,15 @@ section {
 
       .number-action-capacity-one {
         padding: 10px 14px;
-        background: #0065FF;
+        background: $blue-one;
         border-radius: 5px;
         font-family: Inter;
-        color: white;
+        color: $white;
       }
 
       .number-action-capacity-two {
         padding: 10px;
-        color: blue;
+        color: $blue-one;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -252,8 +326,8 @@ section {
       .d-section-descriptions-step3 {
 
         justify-content: space-between;
-        border-top: 1px solid #F1F3F5;
-        border-bottom: 1px solid #F1F3F5;
+        border-top: 1px solid $white-one;
+        border-bottom: 1px solid $white-one;
         padding: 22px 0px;
 
         .section-calendar {
@@ -263,12 +337,15 @@ section {
         .section-default {
           display: flex;
           margin-bottom: 18px;
+
           .d-inputs {
             display: flex;
+
             .d-input-one {
               width: 150px;
               margin-right: 20px;
             }
+
             .d-input-two {
               width: 150px;
             }
@@ -293,16 +370,16 @@ section {
             padding: 11px;
             border-radius: 11px;
             margin: 0px;
-            background: #F1F3F5;
+            background: $white-one;
             cursor: pointer;
-            color: #405261;
+            color: $dark-two;
 
             &.disabled-button {
               opacity: 0.3;
             }
 
             &.focus {
-              background-color: #0065FF;
+              background-color: $blue-one;
             }
           }
         }

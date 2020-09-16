@@ -1,5 +1,10 @@
+section {
+  padding: 10px 100px;
+}
+
 .d-content-title-manager {
   margin-left: 25px;
+
   .title-module-manager {
     font-family: Inter;
     font-style: normal;
@@ -8,7 +13,7 @@
     line-height: 100%;
     margin: 15px 0px;
   }
-  
+
   .subTitle-module-manager {
     font-family: Inter;
     font-style: normal;
@@ -23,6 +28,7 @@
   display: flex;
 
 }
+
 .d-card-home {
   width: 400px;
   height: 108px;
@@ -51,6 +57,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     .label-title-card {
       font-family: Inter;
       font-style: normal;

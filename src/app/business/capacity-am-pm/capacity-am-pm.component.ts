@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 import { CapacityImplementService } from './services/capacity-implements.service';
 import { tap, take } from 'rxjs/operators';
@@ -7,13 +7,14 @@ import { CapacityAmPmService } from './operations-forms/capacity-am-pm-form.serv
 import { Router } from '@angular/router';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { ILocal } from 'src/app/shared/services/models/local.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-capacity-am-pm',
   templateUrl: './capacity-am-pm.component.html',
   styleUrls: ['./capacity-am-pm.component.scss']
 })
-export class CapacityAmPmComponent implements OnInit {
+export class CapacityAmPmComponent implements OnInit, OnDestroy {
 
   InfoDrugstores: Drugstore[] = [] as Drugstore[];
   selectedVal: string;
@@ -26,6 +27,7 @@ export class CapacityAmPmComponent implements OnInit {
   newInfoDrugstore: ICustomSelectOption[] = [] as ICustomSelectOption[];
   public initialDrugstoreOption: ICustomSelectOption = {} as ICustomSelectOption;
   serviceTypeCode: string;
+  private subscription: Subscription[] = [];
 
   constructor(
     private mainLoaderService: MainLoaderService,
@@ -60,7 +62,13 @@ export class CapacityAmPmComponent implements OnInit {
         console.log(val);
         this.initialDrugstoreOption = val;
       });
+
+    this.subscription.push(radioSubs, dropdowSubs);
   }
+  ngOnDestroy() {
+    this.subscription.forEach(sub => sub.unsubscribe());
+  }
+
 
   public onValChange(val: string) {
     this.selectedVal = val;
@@ -68,9 +76,11 @@ export class CapacityAmPmComponent implements OnInit {
       console.log('1');
     } else if (val === 'local') {
       this.serviceType = 'AM_PM';
+      this.mainLoaderService.isLoaded = true;
       this.service.getLocalImplements$(this.serviceType)
         .pipe(take(1))
         .subscribe(value => {
+          this.mainLoaderService.isLoaded = false;
           this.newInfoDrugstore = this.getFormattedDrugstoreOptions(value);
         });
     }
@@ -85,17 +95,23 @@ export class CapacityAmPmComponent implements OnInit {
 
   nextTwo() {
     if (this.modeEdition === 'DEFAULT') {
+      this.selectedRadioButton = 'Defecto';
+      this.mainLoaderService.isLoaded = true;
       this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
         .pipe(take(1))
         .subscribe(value => {
-          console.log(value, 'ingreso?');
+          this.mainLoaderService.isLoaded = false;
+          console.log(value);
         });
 
     } else if (this.modeEdition === 'CALENDAR') {
+      this.selectedRadioButton = 'Calendario';
+      this.mainLoaderService.isLoaded = true;
       this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
         .pipe(take(1))
         .subscribe(value => {
-          console.log(value, 'ingreso?');
+          this.mainLoaderService.isLoaded = false;
+          console.log(value);
         });
 
     }

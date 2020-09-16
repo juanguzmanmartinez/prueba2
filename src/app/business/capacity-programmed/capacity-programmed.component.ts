@@ -1,23 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 import { take } from 'rxjs/internal/operators/take';
 import { CapacityImplementService } from '../capacity-am-pm/services/capacity-implements.service';
 import { CapacityAmPmService } from '../capacity-am-pm/operations-forms/capacity-am-pm-form.service';
 import { Router } from '@angular/router';
+import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
+import { ILocal } from 'src/app/shared/services/models/local.model';
+import { Subscription } from 'rxjs';
+import { Drugstore } from 'src/app/shared/services/models/drugstore.model';
 
 @Component({
   selector: 'app-capacity-programmed',
   templateUrl: './capacity-programmed.component.html',
   styleUrls: ['./capacity-programmed.component.scss']
 })
-export class CapacityProgrammedComponent implements OnInit {
+export class CapacityProgrammedComponent implements OnInit, OnDestroy {
 
+  InfoDrugstores: Drugstore[] = [] as Drugstore[];
   selectedVal: string;
   modeEdition: string;
+  selectedRadioButton: string;
   stepOne: boolean;
   stepTwo: boolean;
   stepThree: boolean;
   serviceType: string;
+  newInfoDrugstore: ICustomSelectOption[] = [] as ICustomSelectOption[];
+  public initialDrugstoreOption: ICustomSelectOption = {} as ICustomSelectOption;
+  serviceTypeCode: string;
+  private subscription: Subscription[] = [];
 
   constructor(
     private mainLoaderService: MainLoaderService,
@@ -27,6 +37,7 @@ export class CapacityProgrammedComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.serviceTypeCode = 'PROG';
     this.stepOne = true;
     this.stepTwo = false;
     this.stepThree = false;
@@ -38,25 +49,38 @@ export class CapacityProgrammedComponent implements OnInit {
     this.formService.radioControl.setValue('default');
     const radioSubs = this.formService.radioControl.valueChanges
       .subscribe(edition => {
+        if (this.modeEdition === 'DEFAULT') {
+          this.selectedRadioButton = 'Defecto';
+        } else if (this.modeEdition === 'CALENDAR') {
+          this.selectedRadioButton = 'Calendario';
+        }
         this.modeEdition = edition;
       });
+
+    const dropdowSubs = this.formService.dropdowControl.valueChanges
+      .subscribe(val => {
+        console.log(val);
+        this.initialDrugstoreOption = val;
+      });
+    this.subscription.push(radioSubs, dropdowSubs);
+  }
+
+  ngOnDestroy() {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   public onValChange(val: string) {
     this.selectedVal = val;
     if (val === 'group') {
-      // this.service.getLocalImplements$().subscribe(valor => {
-      //   console.log(valor);
-      // });
       console.log('1');
     } else if (val === 'local') {
-      console.log('2');
-      this.serviceType = '/PROG';
+      this.serviceType = 'EXP';
+      this.mainLoaderService.isLoaded = true;
       this.service.getLocalImplements$(this.serviceType)
         .pipe(take(1))
         .subscribe(value => {
-          console.log('ingreso?');
-
+          this.mainLoaderService.isLoaded = false;
+          this.newInfoDrugstore = this.getFormattedDrugstoreOptions(value);
         });
     }
   }
@@ -69,11 +93,25 @@ export class CapacityProgrammedComponent implements OnInit {
   }
 
   nextTwo() {
-    if (this.modeEdition === 'default') {
-      console.log('mode 1');
+    if (this.modeEdition === 'DEFAULT') {
+      this.selectedRadioButton = 'Defecto';
+      this.mainLoaderService.isLoaded = true;
+      this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
+        .pipe(take(1))
+        .subscribe(value => {
+          this.mainLoaderService.isLoaded = false;
+          console.log(value);
+        });
 
-    } else if (this.modeEdition === 'calendar') {
-      console.log('mode 2');
+    } else if (this.modeEdition === 'CALENDAR') {
+      this.selectedRadioButton = 'Calendario';
+      this.mainLoaderService.isLoaded = true;
+      this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
+        .pipe(take(1))
+        .subscribe(value => {
+          this.mainLoaderService.isLoaded = false;
+          console.log(value);
+        });
 
     }
 
@@ -85,4 +123,21 @@ export class CapacityProgrammedComponent implements OnInit {
   return() {
     this.router.navigate(['/capacity-manager']);
   }
+
+  private getFormattedDrugstoreOptions(local: ILocal[]) {
+    return local.map(this.getFormattedDrugstore);
+  }
+
+  private getFormattedDrugstore(local: ILocal) {
+    return {
+      text: local.name,
+      value: local.localCode,
+      code: local.localCode,
+      fulfillmentCenterCode: local.localCode,
+      // channel: local.channel,
+      // segmentType: local.segmentType.name,
+      // serviceTypeCode: this.getTypeService(local.services),
+    } as ICustomSelectOption;
+  }
+
 }
