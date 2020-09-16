@@ -32,11 +32,11 @@ export class CapacityAmPmService {
     return this.form.get('dropdow') as CustomSelectControl;
   }
 
-  public get formValues() {
-    return {
-      radio: this.radio.value,
-      dropdow: this.dropdow.value
-    };
-  }
+  // public get formValues() {
+  //   return {
+  //     radio: this.radio.value,
+  //     dropdow: this.dropdow.value
+  //   };
+  // }
 
 }

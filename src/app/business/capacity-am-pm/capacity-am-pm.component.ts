@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 import { CapacityImplementService } from './services/capacity-implements.service';
 import { tap, take } from 'rxjs/operators';
-import { Drugstore } from 'src/app/shared/services/models/drugstore.model';
+import { Drugstore, IServices } from 'src/app/shared/services/models/drugstore.model';
 import { CapacityAmPmService } from './operations-forms/capacity-am-pm-form.service';
 import { Router } from '@angular/router';
+import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
+import { ILocal } from 'src/app/shared/services/models/local.model';
 
 @Component({
   selector: 'app-capacity-am-pm',
@@ -16,10 +18,14 @@ export class CapacityAmPmComponent implements OnInit {
   InfoDrugstores: Drugstore[] = [] as Drugstore[];
   selectedVal: string;
   modeEdition: string;
+  selectedRadioButton: string;
   stepOne: boolean;
   stepTwo: boolean;
   stepThree: boolean;
   serviceType: string;
+  newInfoDrugstore: ICustomSelectOption[] = [] as ICustomSelectOption[];
+  public initialDrugstoreOption: ICustomSelectOption = {} as ICustomSelectOption;
+  serviceTypeCode: string;
 
   constructor(
     private mainLoaderService: MainLoaderService,
@@ -29,6 +35,7 @@ export class CapacityAmPmComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.serviceTypeCode = 'AM_PM';
     this.stepOne = true;
     this.stepTwo = false;
     this.stepThree = false;
@@ -40,7 +47,18 @@ export class CapacityAmPmComponent implements OnInit {
     this.formService.radioControl.setValue('default');
     const radioSubs = this.formService.radioControl.valueChanges
       .subscribe(edition => {
+        if (this.modeEdition === 'DEFAULT') {
+          this.selectedRadioButton = 'Defecto';
+        } else if (this.modeEdition === 'CALENDAR') {
+          this.selectedRadioButton = 'Calendario';
+        }
         this.modeEdition = edition;
+      });
+
+    const dropdowSubs = this.formService.dropdowControl.valueChanges
+      .subscribe(val => {
+        console.log(val);
+        this.initialDrugstoreOption = val;
       });
   }
 
@@ -49,13 +67,11 @@ export class CapacityAmPmComponent implements OnInit {
     if (val === 'group') {
       console.log('1');
     } else if (val === 'local') {
-      console.log('2');
       this.serviceType = 'AM_PM';
       this.service.getLocalImplements$(this.serviceType)
         .pipe(take(1))
         .subscribe(value => {
-          console.log('ingreso?');
-
+          this.newInfoDrugstore = this.getFormattedDrugstoreOptions(value);
         });
     }
   }
@@ -68,11 +84,19 @@ export class CapacityAmPmComponent implements OnInit {
   }
 
   nextTwo() {
-    if (this.modeEdition === 'default') {
-      console.log('mode 1');
+    if (this.modeEdition === 'DEFAULT') {
+      this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
+        .pipe(take(1))
+        .subscribe(value => {
+          console.log(value, 'ingreso?');
+        });
 
-    } else if (this.modeEdition === 'calendar') {
-      console.log('mode 2');
+    } else if (this.modeEdition === 'CALENDAR') {
+      this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
+        .pipe(take(1))
+        .subscribe(value => {
+          console.log(value, 'ingreso?');
+        });
 
     }
 
@@ -83,6 +107,30 @@ export class CapacityAmPmComponent implements OnInit {
 
   return() {
     this.router.navigate(['/capacity-manager']);
+  }
+
+  private getFormattedDrugstoreOptions(local: ILocal[]) {
+    return local.map(this.getFormattedDrugstore);
+  }
+
+  private getFormattedDrugstore(local: ILocal) {
+    return {
+      text: local.name,
+      value: local.localCode,
+      code: local.localCode,
+      fulfillmentCenterCode: local.localCode,
+      // channel: local.channel,
+      // segmentType: local.segmentType.name,
+      // serviceTypeCode: this.getTypeService(local.services),
+    } as ICustomSelectOption;
+  }
+
+  getTypeService(type: IServices[]) {
+    if (type.length === 1) {
+      return type[0].code;
+    } else if (type.length === 2) {
+      return type[0].code + ',' + type[1].code;
+    }
   }
 
 }

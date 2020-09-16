@@ -1,6 +1,7 @@
 <section>
   <div class="row d-content-title-home">
-    <div class="subTitle-module-home" (click)="return()"> <img src="../../../assets/img/vector-left.png" alt=""> VOLVER A OPCIONES</div>
+    <div class="subTitle-module-home" (click)="return()"> <img src="../../../assets/img/vector-left.png" alt=""> VOLVER
+      A OPCIONES</div>
     <div class="title-module-home">Editar capacidad AM/PM</div>
   </div>
   <form [formGroup]="formService.form">
@@ -19,8 +20,11 @@
                   </div>
                 </mat-panel-title>
                 <mat-panel-description>
-                  <div class="number-action-capacity-two">
-
+                  <div class="number-action-capacity-description" *ngIf="!stepOne">
+                    {{initialDrugstoreOption.text }}
+                  </div>
+                  <div  class="number-action-capacity-description" *ngIf="!stepOne">
+                    <img src="../../../assets/img/pencil.png">
                   </div>
                 </mat-panel-description>
               </mat-expansion-panel-header>
@@ -33,7 +37,7 @@
                   </mat-button-toggle-group>
                 </div>
                 <div class="d-implements-dropdown">
-                  <app-dropdown></app-dropdown>
+                  <app-dropdown [options]="newInfoDrugstore" formControlName="dropdow"></app-dropdown>
                 </div>
               </div>
               <div class="d-buttons-action-save">
@@ -53,7 +57,7 @@
 
 
           <div class="group-or-local-step2">
-            <mat-expansion-panel hideToggle [(expanded)]="stepTwo">
+            <mat-expansion-panel hideToggle [(expanded)]="stepTwo" disabled="stepTwo"> 
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <div class="number-action-capacity-one">
@@ -64,20 +68,25 @@
                   </div>
                 </mat-panel-title>
                 <mat-panel-description>
-                  editar
+                  <div class="number-action-capacity-description" *ngIf="!stepOne && !stepTwo">
+                    {{ selectedRadioButton }}
+                  </div>
+                  <div  class="number-action-capacity-description" *ngIf="!stepOne && !stepTwo">
+                    <img src="../../../assets/img/pencil.png">
+                  </div>
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div class="encapsulate-cards">
 
                 <div class="card-checkbox-one">
-                  <app-radio-control formControlName="radio" [radioOptionValue]="'default'"
+                  <app-radio-control formControlName="radio" [radioOptionValue]="'DEFAULT'"
                     [hasStopPropagation]="false">
                   </app-radio-control>
                   <div class="title-card">Por defecto</div>
                   <div class="subtitle-card">Capacidad default para un día</div>
                 </div>
                 <div class="card-checkbox-two">
-                  <app-radio-control formControlName="radio" [radioOptionValue]="'calendar'"
+                  <app-radio-control formControlName="radio" [radioOptionValue]="'CALENDAR'"
                     [hasStopPropagation]="false">
                   </app-radio-control>
                   <div class="title-card">Calendario</div>
@@ -98,12 +107,11 @@
                 </div>
               </div>
             </mat-expansion-panel>
-
           </div>
         </div>
         <div class="section-two">
           <div class="group-or-local-step3">
-            <mat-expansion-panel hideToggle [(expanded)]="stepThree">
+            <mat-expansion-panel hideToggle [(expanded)]="stepThree" disabled="stepThree">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <div class="number-action-capacity-one">

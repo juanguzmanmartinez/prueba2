@@ -43,7 +43,19 @@ section {
 
       .number-action-capacity-two {
         padding: 10px;
-        color: blue;
+        color: #0065FF;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .number-action-capacity-description {
+        padding: 10px;
+        color: #003D99;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -120,6 +132,25 @@ section {
       .number-action-capacity-two {
         padding: 10px;
         color: blue;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .number-action-capacity-description {
+        padding: 10px;
+        color: #003D99;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 100%;
+        display: flex;
+        align-items: center;
       }
 
       .encapsulate-cards {
@@ -263,12 +294,15 @@ section {
         .section-default {
           display: flex;
           margin-bottom: 18px;
+
           .d-inputs {
             display: flex;
+
             .d-input-one {
               width: 150px;
               margin-right: 20px;
             }
+
             .d-input-two {
               width: 150px;
             }
