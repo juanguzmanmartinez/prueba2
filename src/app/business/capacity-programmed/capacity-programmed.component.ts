@@ -74,7 +74,7 @@ export class CapacityProgrammedComponent implements OnInit, OnDestroy {
     if (val === 'group') {
       console.log('1');
     } else if (val === 'local') {
-      this.serviceType = 'EXP';
+      this.serviceType = 'PROG';
       this.mainLoaderService.isLoaded = true;
       this.service.getLocalImplements$(this.serviceType)
         .pipe(take(1))
