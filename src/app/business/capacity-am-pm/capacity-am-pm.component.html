@@ -134,16 +134,9 @@
               <div class="d-section-descriptions-step3">
 
                 <div class="section-calendar" *ngIf="false">
-                  <!-- <mat-form-field appearance="fill">
-                    <mat-label>Enter a date range</mat-label>
-                    <mat-date-range-input [rangePicker]="picker">
-                      <input matStartDate placeholder="Start date">
-                      <input matEndDate placeholder="End date">
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #picker></mat-date-range-picker>
-                  </mat-form-field> -->
+                  
                 </div>
+
                 <div class="section-default" *ngIf="true">
                   <div class="d-inputs">
                     <div class="d-input-one">
@@ -155,8 +148,22 @@
                   </div>
                 </div>
                 <div class="section-horary">
+
+                  <mat-form-field appearance="fill">
+                    <mat-label>Enter a date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                      <input matStartDate placeholder="Start date">
+                      <input matEndDate placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </mat-form-field>
+                  
+                  <!-- 
                   <p>AM: 08:00 a.m - 02:00 pm</p>
                   <p>PM: 02:00 pm a.m - 08:00 pm</p>
+                  -->
+                  
                 </div>
               </div>
 

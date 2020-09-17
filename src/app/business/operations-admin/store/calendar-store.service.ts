@@ -8,7 +8,7 @@ import { Capacity } from 'src/app/shared/services/models/capacity.model';
 export class CalendarStoreService {
 
   private _capacitiesForDay: Capacity[];
-  private _pageDefault: boolean;
+  private _pageDefault: boolean = false;
   private _capacitiesForDaySubject = new BehaviorSubject<Capacity[]>([] as Capacity[]);
   private _pagefaultSubject = new BehaviorSubject(this._pageDefault);
 
