@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpParams, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
 
 import { ENDPOINTS } from '../../parameters/endpoints';
 import { isArray, isObject } from '../../helpers/objects-equal';
@@ -8,7 +8,12 @@ import { GenericService } from '../generic.service';
 import { ILocal, Local } from '../models/local.model';
 import { ITypeService, TypeService } from '../models/type-service.model';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
+import { of } from 'rxjs';
+import { IGlobalSuccessfulResponse } from '../models/client-services.interface';
 
+export interface IGenericResponse {
+  [key: string]: string | number | IGenericResponse;
+}
 
 @Injectable()
 export class LocalClientService {
@@ -34,7 +39,7 @@ export class LocalClientService {
 
   public getTypeOperationClient$(serviceType: string, selectedLocal: ICustomSelectOption, serviceTypeCode: string) {
     const httpParams = new HttpParams()
-      .set('fulfillmentCenterCode', String('106'))
+      .set('fulfillmentCenterCode', String(selectedLocal.fulfillmentCenterCode)) // selectedLocal.fulfillmentCenterCode
       .set('channel', String('DIGITAL'))
       .set('serviceTypeCode', String(serviceTypeCode))
       .set('detailType', String(serviceType));
@@ -43,6 +48,11 @@ export class LocalClientService {
       .pipe(map(response => {
         const service = isObject(response) ? response : [];
         return service;
+      })).pipe(catchError((response: HttpErrorResponse) => {
+        return of({
+          data: {},
+          status: response.status,
+        } as IGlobalSuccessfulResponse<IGenericResponse>);
       }));
   }
 }
