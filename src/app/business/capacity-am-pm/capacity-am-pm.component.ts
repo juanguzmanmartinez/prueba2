@@ -6,8 +6,8 @@ import { Drugstore, IServices } from 'src/app/shared/services/models/drugstore.m
 import { CapacityAmPmService } from './operations-forms/capacity-am-pm-form.service';
 import { Router } from '@angular/router';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
-import { ILocal } from 'src/app/shared/services/models/local.model';
 import { Subscription } from 'rxjs';
+import { ILocal } from 'src/app/shared/services/models/local.model';
 
 @Component({
   selector: 'app-capacity-am-pm',
@@ -15,6 +15,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./capacity-am-pm.component.scss']
 })
 export class CapacityAmPmComponent implements OnInit, OnDestroy {
+
+  defaultStartDate = new Date();
 
   InfoDrugstores: Drugstore[] = [] as Drugstore[];
   selectedVal: string;
@@ -45,6 +47,8 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
     this.selectedVal = 'group';
     this.modeEdition = 'default';
 
+
+    this.formService.startDateControl.setValue(this.defaultStartDate);
 
     this.formService.radioControl.setValue('default');
     const radioSubs = this.formService.radioControl.valueChanges
