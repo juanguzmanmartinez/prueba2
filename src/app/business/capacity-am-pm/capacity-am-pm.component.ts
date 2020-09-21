@@ -21,6 +21,13 @@ import { CapacityStoreService } from 'src/app/commons/business-factories/factori
 export class CapacityAmPmComponent implements OnInit, OnDestroy {
 
   defaultStartDate = new Date();
+  defaultMaxDate = new Date().setMonth(new Date().getMonth() + 2);
+
+  public currentYear: number = this.defaultStartDate.getFullYear();
+  public currentMonth: number = this.defaultStartDate.getMonth();
+  public currentDay: number = this.defaultStartDate.getDate();
+
+  public maxDate: Object =  new Date(this.currentYear, this.currentMonth+2, this.currentDay);
 
   InfoDrugstores: Drugstore[] = [] as Drugstore[];
   selectedVal: string;
@@ -55,6 +62,12 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
     this.mainLoaderService.isLoaded = false;
     this.selectedVal = 'group';
     this.modeEdition = 'default';
+
+    let dateString = '2020-09-21';
+    console.log('dateString:' , dateString);
+
+    let newDate = new Date(dateString);
+    console.log('newDate:' , newDate);
 
 
     this.formService.startDateControl.setValue(this.defaultStartDate);

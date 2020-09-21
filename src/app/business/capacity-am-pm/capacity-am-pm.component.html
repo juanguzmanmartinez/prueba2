@@ -147,9 +147,9 @@
 
                 <mat-form-field appearance="fill">
                   <mat-label>Enter a date range</mat-label>
-                  <mat-date-range-input [formGroup]="formService.form" [rangePicker]="picker">
+                  <mat-date-range-input [formGroup]="formService.form" [min]="defaultStartDate" [max]="maxDate" [rangePicker]="picker">
                     <input matStartDate formControlName="startDate" placeholder="Start date">
-                    <input matEndDate formControlName="endDate" placeholder="End date">
+                    <input matEndDate formControlName="endDate" [min]="formService.form.controls['startDate'].value" placeholder="End date">
                   </mat-date-range-input>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-date-range-picker #picker></mat-date-range-picker>
@@ -171,7 +171,7 @@
 
 
 
-
+                  maxDate : {{maxDate}}
                   formService.startDate : {{ formService.form.controls['startDate'].value  }}
                   formService.endDate : {{ formService.form.controls['endDate'].value  }}
 
