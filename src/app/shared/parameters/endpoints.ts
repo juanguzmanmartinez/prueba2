@@ -17,4 +17,5 @@ export class ENDPOINTS {
   public static PATCH_CAPACITY_MONTH_DEFAULT = `${API_GATEWAY_CALENDAR}/schedule/calendar/template/detail/hours/quantities`;
   public static GET_LOCAL = `${API_GATEWAY}/store/serviceType/`;
   public static GET_TYPESERVICE = `${API_GATEWAY_CALENDAR}/calendar/template`;
+  public static GET_CALENDAR_UPDATE =  `${API_GATEWAY_CALENDAR}/calendar/template/detail/hours/quantities`;
 }

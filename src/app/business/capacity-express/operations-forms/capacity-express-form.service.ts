@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DefaultRadioControl } from '../controls/default-radio.control';
 import { CustomSelectControl } from '../../operations-admin/controls/custom-select-control';
@@ -7,13 +7,12 @@ import { CustomSelectControl } from '../../operations-admin/controls/custom-sele
 @Injectable({
   providedIn: 'root'
 })
-export class CapacityAmPmService {
+export class CapacityExpressService {
   public form: FormGroup = new FormGroup({});
 
   private radio = new DefaultRadioControl();
   private dropdow = new CustomSelectControl();
-  private am = new FormControl();
-  private pm = new FormControl();
+  private quantity = new FormControl();
 
   private subscriptions: Subscription[] = [];
   constructor(
@@ -22,8 +21,7 @@ export class CapacityAmPmService {
     this.form = this.formBuilder.group({
       radio: this.radio,
       dropdow: this.dropdow,
-      am: this.am,
-      pm: this.pm
+      quantity: this.quantity,
     });
   }
 
@@ -36,19 +34,8 @@ export class CapacityAmPmService {
     return this.form.get('dropdow') as CustomSelectControl;
   }
 
-  public get inputAMControl() {
-    return this.form.get('am') as CustomSelectControl;
+  public get quantityControl() {
+    return this.form.get('quantity') as FormControl;
   }
-
-  public get inputPMControl() {
-    return this.form.get('pm') as CustomSelectControl;
-  }
-
-  // public get formValues() {
-  //   return {
-  //     radio: this.radio.value,
-  //     dropdow: this.dropdow.value
-  //   };
-  // }
 
 }

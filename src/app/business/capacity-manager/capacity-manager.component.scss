@@ -84,3 +84,34 @@ section {
   }
 
 }
+
+.alert-success {
+  display: flex;
+  justify-content: center;
+
+  .alert-content {
+    width: 50%;
+    background-color: #50B83C;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    padding: 12px;
+
+    .div-img {
+      width: 10px;
+      margin-right: 18px;
+    }
+
+    .text-alert {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+}

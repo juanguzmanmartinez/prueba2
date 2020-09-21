@@ -8,6 +8,7 @@ import { CalendarClientService } from './services/calendar/calendar-client.servi
 import { CapacityClientService } from './services/capacity-edition/capacity-edition.service';
 import { LocalClientService } from './services/calendar/local-client.service';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { CapacityImplementService } from './services/capacity-edition/capacity-implements.service';
 
 const SERVICE = [
   DrugstoreClientService,
@@ -15,6 +16,7 @@ const SERVICE = [
   CapacityClientService,
   GenericService,
   LocalClientService,
+  CapacityImplementService
 ];
 
 

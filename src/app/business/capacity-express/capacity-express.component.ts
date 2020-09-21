@@ -1,13 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 import { take } from 'rxjs/operators';
-import { CapacityImplementService } from '../capacity-am-pm/services/capacity-implements.service';
-import { CapacityAmPmService } from '../capacity-am-pm/operations-forms/capacity-am-pm-form.service';
 import { Router } from '@angular/router';
 import { Drugstore } from 'src/app/shared/services/models/drugstore.model';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
-import { ILocal } from 'src/app/shared/services/models/local.model';
+import { IAlert, ILocal } from 'src/app/shared/services/models/local.model';
 import { Subscription } from 'rxjs';
+import { CapacityImplementService } from 'src/app/shared/services/capacity-edition/capacity-implements.service';
+import { CapacityExpressService } from './operations-forms/capacity-express-form.service';
+import { ITypeService } from 'src/app/shared/services/models/type-service.model';
+import { ICalendarUpdateRequestParams } from 'src/app/shared/services/models/capacity.model';
+import { CapacityStoreService } from 'src/app/commons/business-factories/factories-stores/capacity-store.service';
 
 @Component({
   selector: 'app-capacity-express',
@@ -26,14 +29,18 @@ export class CapacityExpressComponent implements OnInit, OnDestroy {
   serviceType: string;
   newInfoDrugstore: ICustomSelectOption[] = [] as ICustomSelectOption[];
   public initialDrugstoreOption: ICustomSelectOption = {} as ICustomSelectOption;
+  setInputValue: ITypeService = {} as ITypeService;
   serviceTypeCode: string;
   private subscription: Subscription[] = [];
+  selectedStepOne: string;
+
 
   constructor(
     private mainLoaderService: MainLoaderService,
     private service: CapacityImplementService,
-    public formService: CapacityAmPmService,
+    public formService: CapacityExpressService,
     private router: Router,
+    private capacityStoreService: CapacityStoreService
   ) { }
 
   ngOnInit() {
@@ -72,8 +79,10 @@ export class CapacityExpressComponent implements OnInit, OnDestroy {
   public onValChange(val: string) {
     this.selectedVal = val;
     if (val === 'group') {
+      this.selectedStepOne = 'Grupo';
       console.log('1');
     } else if (val === 'local') {
+      this.selectedStepOne = 'Local';
       this.serviceType = 'EXP';
       this.mainLoaderService.isLoaded = true;
       this.service.getLocalImplements$(this.serviceType)
@@ -100,7 +109,10 @@ export class CapacityExpressComponent implements OnInit, OnDestroy {
         .pipe(take(1))
         .subscribe(value => {
           this.mainLoaderService.isLoaded = false;
+          this.setInputValue = value;
           console.log(value);
+          console.log(this.setInputValue, 'this.setInputValue');
+          this.formService.quantityControl.setValue(this.setInputValue.segments[0].capacity.toString());
         });
 
     } else if (this.modeEdition === 'CALENDAR') {
@@ -118,6 +130,30 @@ export class CapacityExpressComponent implements OnInit, OnDestroy {
     this.stepOne = false;
     this.stepTwo = false;
     this.stepThree = true;
+  }
+
+  save() {
+    this.mainLoaderService.isLoaded = true;
+    const request = {
+      fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
+      serviceTypeCode: this.serviceType,
+      channel: 'DIGITAL',
+      quantities: this.formService.quantityControl.value,
+    } as ICalendarUpdateRequestParams;
+    const endpoint = this.service.patchCalendarUpdateClient$(request)
+      .pipe(take(1))
+      .subscribe(response => {
+        this.mainLoaderService.isLoaded = false;
+        this.router.navigate(['/capacity-manager']);
+        const alertValues =  {
+          nameLocal: this.initialDrugstoreOption.text,
+          selectedStepOne: this.selectedStepOne,
+          typeService: this.serviceType,
+          showAlert: true,
+        } as IAlert;
+        this.capacityStoreService.setSelectedDrugstore(alertValues);
+      });
+    this.subscription.push(endpoint);
   }
 
   return() {

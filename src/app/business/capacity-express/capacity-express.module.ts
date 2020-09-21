@@ -1,9 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CapacityAMPMRoutingModule } from './capacity-express.routing.module';
+import { CapacityExpressRoutingModule } from './capacity-express.routing.module';
 import { CapacityExpressComponent } from './capacity-express.component';
 import { CoreComponentsModule } from 'src/app/commons/core-components/core-components.module';
-import { CapacityServicesModule } from '../capacity-am-pm/services/capacity-services.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CapacityFormsModule } from '../capacity-am-pm/operations-forms/capacity-am-pm-forms.module';
@@ -15,15 +14,16 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CapacityExpressFormsModule } from './operations-forms/capacity-express-forms.module';
 
 @NgModule({
   declarations: [CapacityExpressComponent],
   imports: [
     CommonModule,
-    CapacityAMPMRoutingModule,
+    CapacityExpressRoutingModule,
+    CapacityExpressFormsModule,
     CoreComponentsModule,
     CoreComponentsModule,
-    CapacityServicesModule,
     SharedModule,
     FormsModule,
     CapacityFormsModule,
@@ -37,7 +37,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatDividerModule,
     MatExpansionModule,
     MatButtonToggleModule,
-    MatSlideToggleModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

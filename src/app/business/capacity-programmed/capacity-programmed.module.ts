@@ -1,7 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CoreComponentsModule } from 'src/app/commons/core-components/core-components.module';
-import { CapacityServicesModule } from '../capacity-am-pm/services/capacity-services.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CapacityFormsModule } from '../capacity-am-pm/operations-forms/capacity-am-pm-forms.module';
@@ -23,7 +22,6 @@ import { CapacityProgrammedRoutingModule } from './capacity-programmed.routing.m
     CapacityProgrammedRoutingModule,
     CoreComponentsModule,
     CoreComponentsModule,
-    CapacityServicesModule,
     SharedModule,
     FormsModule,
     CapacityFormsModule,

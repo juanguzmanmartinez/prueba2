@@ -135,21 +135,21 @@
               </mat-expansion-panel-header>
               <div class="d-section-descriptions-step3">
 
-                <div class="section-calendar" *ngIf="false">
-                  <!-- <mat-form-field appearance="fill">
-                <mat-label>Enter a date range</mat-label>
-                <mat-date-range-input [rangePicker]="picker">
-                  <input matStartDate placeholder="Start date">
-                  <input matEndDate placeholder="End date">
-                </mat-date-range-input>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
-              </mat-form-field> -->
+                <div class="section-calendar" *ngIf="this.modeEdition === 'CALENDAR'">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Enter a date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                      <input matStartDate placeholder="Start date">
+                      <input matEndDate placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </mat-form-field>
                 </div>
-                <div class="section-default" *ngIf="true">
+                <div class="section-default" *ngIf="this.modeEdition === 'DEFAULT' || this.modeEdition === 'CALENDAR'">
                   <div class="d-inputs">
                     <div class="d-input-one">
-                      <app-input-text-customer [label]="'Nro. de motorizados'"></app-input-text-customer>
+                      <app-input-text-customer [label]="'Nro. de motorizados'" formControlName="quantity"></app-input-text-customer>
                     </div>
                   </div>
                 </div>
@@ -161,7 +161,7 @@
                     Cancelar edición
                   </p>
                 </div>
-                <div class="d-buttons-implements-save" (click)="nextTwo()">
+                <div class="d-buttons-implements-save" (click)="save()">
                   <p class="button-style">
                     Continuar
                   </p>

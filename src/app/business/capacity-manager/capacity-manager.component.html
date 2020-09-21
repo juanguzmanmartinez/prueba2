@@ -50,4 +50,15 @@
       </div>
     </div>
   </div>
+
+  <div class="alert-success" *ngIf="showAlert">
+    <div class="alert-content">
+      <div class="div-img">
+        <img src="../../../assets/img/check-success.png" alt="">
+      </div>
+      <div class="text-alert"> Se guardó con exito la edición de
+        capacidad {{typeService}} para {{selectedStepOne}} {{local}}
+      </div>
+    </div>
+  </div>
 </section>

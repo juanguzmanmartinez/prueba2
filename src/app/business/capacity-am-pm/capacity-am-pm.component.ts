@@ -1,13 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
-import { CapacityImplementService } from './services/capacity-implements.service';
 import { tap, take } from 'rxjs/operators';
 import { Drugstore, IServices } from 'src/app/shared/services/models/drugstore.model';
 import { CapacityAmPmService } from './operations-forms/capacity-am-pm-form.service';
 import { Router } from '@angular/router';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
-import { ILocal } from 'src/app/shared/services/models/local.model';
+import { IAlert, ILocal } from 'src/app/shared/services/models/local.model';
 import { Subscription } from 'rxjs';
+import { CapacityImplementService } from 'src/app/shared/services/capacity-edition/capacity-implements.service';
+import { ICalendarUpdateRequestParams } from 'src/app/shared/services/models/capacity.model';
+import { ITypeService } from 'src/app/shared/services/models/type-service.model';
+import { CapacityStoreService } from 'src/app/commons/business-factories/factories-stores/capacity-store.service';
 
 @Component({
   selector: 'app-capacity-am-pm',
@@ -28,12 +31,17 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
   public initialDrugstoreOption: ICustomSelectOption = {} as ICustomSelectOption;
   serviceTypeCode: string;
   private subscription: Subscription[] = [];
+  setInputValue: ITypeService = {} as ITypeService;
+  segmentOne: string;
+  segmentTwo: string;
+  selectedStepOne: string;
 
   constructor(
     private mainLoaderService: MainLoaderService,
     private service: CapacityImplementService,
     public formService: CapacityAmPmService,
     private router: Router,
+    private capacityStoreService: CapacityStoreService
   ) { }
 
   ngOnInit() {
@@ -44,8 +52,6 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
     this.mainLoaderService.isLoaded = false;
     this.selectedVal = 'group';
     this.modeEdition = 'default';
-
-
     this.formService.radioControl.setValue('default');
     const radioSubs = this.formService.radioControl.valueChanges
       .subscribe(edition => {
@@ -73,8 +79,9 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
   public onValChange(val: string) {
     this.selectedVal = val;
     if (val === 'group') {
-      console.log('1');
+      this.selectedStepOne = 'Grupo';
     } else if (val === 'local') {
+      this.selectedStepOne = 'Local';
       this.serviceType = 'AM_PM';
       this.mainLoaderService.isLoaded = true;
       this.service.getLocalImplements$(this.serviceType)
@@ -97,28 +104,67 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
     if (this.modeEdition === 'DEFAULT') {
       this.selectedRadioButton = 'Defecto';
       this.mainLoaderService.isLoaded = true;
-      this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
+      const defaultSubs = this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
         .pipe(take(1))
         .subscribe(value => {
           this.mainLoaderService.isLoaded = false;
-          console.log(value);
+          this.setInputValue = value;
+          this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
+          this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
+          this.segmentOne = this.setInputValue.segments[0].hour || '';
+          this.segmentTwo = this.setInputValue.segments[1].hour || '';
         });
+      this.subscription.push(defaultSubs);
 
     } else if (this.modeEdition === 'CALENDAR') {
       this.selectedRadioButton = 'Calendario';
       this.mainLoaderService.isLoaded = true;
-      this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
+      const calendarSubs = this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
         .pipe(take(1))
         .subscribe(value => {
           this.mainLoaderService.isLoaded = false;
-          console.log(value);
+          this.setInputValue = value;
+          this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
+          this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
+          this.segmentOne = this.setInputValue.segments[0].hour || '';
+          this.segmentTwo = this.setInputValue.segments[1].hour || '';
         });
+      this.subscription.push(calendarSubs);
+
 
     }
 
     this.stepOne = false;
     this.stepTwo = false;
     this.stepThree = true;
+  }
+
+  save() {
+    this.mainLoaderService.isLoaded = true;
+    const quantitus = this.formService.inputAMControl.value + ',' + this.formService.inputPMControl.value;
+    const hours = this.setInputValue.segments[0].hour + ',' + this.setInputValue.segments[0].hour;
+    // debugger;
+    const request = {
+      fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
+      serviceTypeCode: this.serviceType,
+      channel: 'DIGITAL',
+      hours: hours || '',
+      quantities: quantitus
+    } as ICalendarUpdateRequestParams;
+    const endpoint = this.service.patchCalendarUpdateClient$(request)
+      .pipe(take(1))
+      .subscribe(response => {
+        this.mainLoaderService.isLoaded = false;
+        this.router.navigate(['/capacity-manager']);
+        const alertValues =  {
+          nameLocal: this.initialDrugstoreOption.text,
+          selectedStepOne: this.selectedStepOne,
+          typeService: this.serviceType,
+          showAlert: true,
+        } as IAlert;
+        this.capacityStoreService.setSelectedDrugstore(alertValues);
+      });
+    this.subscription.push(endpoint);
   }
 
   return() {
@@ -141,12 +187,12 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
     } as ICustomSelectOption;
   }
 
-  getTypeService(type: IServices[]) {
-    if (type.length === 1) {
-      return type[0].code;
-    } else if (type.length === 2) {
-      return type[0].code + ',' + type[1].code;
-    }
-  }
+  // getTypeService(type: IServices[]) {
+  //   if (type.length === 1) {
+  //     return type[0].code;
+  //   } else if (type.length === 2) {
+  //     return type[0].code + ',' + type[1].code;
+  //   }
+  // }
 
 }

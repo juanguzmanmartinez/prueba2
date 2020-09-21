@@ -4,7 +4,6 @@ import { CapacityAMPMRoutingModule } from './capacity-am-pm.routing.module';
 import { CapacityAmPmComponent } from './capacity-am-pm.component';
 
 import { CoreComponentsModule } from 'src/app/commons/core-components/core-components.module';
-import { CapacityServicesModule } from './services/capacity-services.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,7 +23,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CommonModule,
     CapacityAMPMRoutingModule,
     CoreComponentsModule,
-    CapacityServicesModule,
     SharedModule,
     FormsModule,
     CapacityFormsModule,
@@ -38,7 +36,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatDividerModule,
     MatExpansionModule,
     MatButtonToggleModule,
-    MatSlideToggleModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

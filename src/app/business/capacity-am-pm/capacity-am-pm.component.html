@@ -133,22 +133,7 @@
               </mat-expansion-panel-header>
               <div class="d-section-descriptions-step3">
 
-                <div class="section-calendar" *ngIf="false">
-                  
-                </div>
-
-                <div class="section-default" *ngIf="true">
-                  <div class="d-inputs">
-                    <div class="d-input-one">
-                      <app-input-text-customer [label]="'AM'"></app-input-text-customer>
-                    </div>
-                    <div class="d-input-two">
-                      <app-input-text-customer [label]="'PM'"></app-input-text-customer>
-                    </div>
-                  </div>
-                </div>
-                <div class="section-horary">
-
+                <div class="section-calendar" *ngIf="this.modeEdition === 'CALENDAR'">
                   <mat-form-field appearance="fill">
                     <mat-label>Enter a date range</mat-label>
                     <mat-date-range-input [rangePicker]="picker">
@@ -158,12 +143,21 @@
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
                   </mat-form-field>
-                  
-                  <!-- 
-                  <p>AM: 08:00 a.m - 02:00 pm</p>
-                  <p>PM: 02:00 pm a.m - 08:00 pm</p>
-                  -->
-                  
+                </div>
+
+                <div class="section-default"  *ngIf="this.modeEdition === 'DEFAULT' || this.modeEdition === 'CALENDAR'">
+                  <div class="d-inputs">
+                    <div class="d-input-one">
+                      <app-input-text-customer [label]="'AM'" formControlName="am"></app-input-text-customer>
+                    </div>
+                    <div class="d-input-two">
+                      <app-input-text-customer [label]="'PM'" formControlName="pm"></app-input-text-customer>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p>AM:{{ segmentOne}}</p>
+                <p>PM: {{ segmentTwo}}</p>
                 </div>
               </div>
 
@@ -173,7 +167,7 @@
                     Cancelar edición
                   </p>
                 </div>
-                <div class="d-buttons-implements-save" (click)="nextTwo()">
+                <div class="d-buttons-implements-save" (click)="save()">
                   <p class="button-style">
                     Continuar
                   </p>

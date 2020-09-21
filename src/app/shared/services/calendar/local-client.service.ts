@@ -46,13 +46,8 @@ export class LocalClientService {
     const Header = new HttpHeaders();
     return this.genericService.genericGet<ITypeService>(this.TYPE_SERVICE_ENDPOINT, httpParams, Header)
       .pipe(map(response => {
-        const service = isObject(response) ? response : [];
+        const service = isObject(response) ? response : response;
         return service;
-      })).pipe(catchError((response: HttpErrorResponse) => {
-        return of({
-          data: {},
-          status: response.status,
-        } as IGlobalSuccessfulResponse<IGenericResponse>);
       }));
   }
 }

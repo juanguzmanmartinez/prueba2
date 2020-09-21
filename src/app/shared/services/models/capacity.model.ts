@@ -12,6 +12,15 @@ export interface ICapacityRequestParams {
 }
 
 
+export interface ICalendarUpdateRequestParams {
+  fulfillmentCenterCode: string;
+  serviceTypeCode: string;
+  days: string;
+  channel: string;
+  hours: string;
+  quantities: string;
+}
+
 export interface ICapacity {
   serviceTypeCode: string;
   capacitiesQuantity: number;

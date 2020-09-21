@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 import { take } from 'rxjs/internal/operators/take';
-import { CapacityImplementService } from '../capacity-am-pm/services/capacity-implements.service';
 import { CapacityAmPmService } from '../capacity-am-pm/operations-forms/capacity-am-pm-form.service';
 import { Router } from '@angular/router';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { ILocal } from 'src/app/shared/services/models/local.model';
 import { Subscription } from 'rxjs';
 import { Drugstore } from 'src/app/shared/services/models/drugstore.model';
+import { CapacityImplementService } from 'src/app/shared/services/capacity-edition/capacity-implements.service';
 
 @Component({
   selector: 'app-capacity-programmed',
