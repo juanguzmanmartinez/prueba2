@@ -120,10 +120,12 @@
             <mat-expansion-panel hideToggle [(expanded)]="stepThree" disabled="stepThree">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  <div class="number-action-capacity-one">
+                  <div
+                    [ngClass]="{'number-action-capacity-one': stepThree, 'number-action-capacity-one-disabled': !stepThree}">
                     3
                   </div>
-                  <div class="number-action-capacity-two">
+                  <div
+                    [ngClass]="{'number-action-capacity-two': stepThree, 'number-action-capacity-two-disabled ': !stepThree}">
                     CAPACIDAD
                   </div>
                 </mat-panel-title>
@@ -149,7 +151,8 @@
                 <div class="section-default" *ngIf="this.modeEdition === 'DEFAULT' || this.modeEdition === 'CALENDAR'">
                   <div class="d-inputs">
                     <div class="d-input-one">
-                      <app-input-text-customer [label]="'Nro. de motorizados'" formControlName="quantity"></app-input-text-customer>
+                      <app-input-text-customer [label]="'Nro. de motorizados'" formControlName="quantity">
+                      </app-input-text-customer>
                     </div>
                   </div>
                 </div>

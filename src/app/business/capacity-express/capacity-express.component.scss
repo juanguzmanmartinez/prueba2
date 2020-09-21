@@ -311,9 +311,29 @@ section {
         color: $white;
       }
 
+      .number-action-capacity-one-disabled {
+        padding: 10px 14px;
+        background: $dark-two;
+        border-radius: 5px;
+        font-family: Inter;
+        color: $white;
+      }
+
       .number-action-capacity-two {
         padding: 10px;
         color: $blue-one;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .number-action-capacity-two-disabled {
+        padding: 10px;
+        color: $dark-two;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;

@@ -16,7 +16,8 @@ export class CalendarClientService {
 
   private readonly CALENDAR_ENDPOINT = ENDPOINTS.GET_CALENDAR;
   private readonly BLOCKED_DAY_ENDPONINT = ENDPOINTS.PATCH_CALENDAR;
-  private readonly CALENDAR_UPDATE_ENDPOINT = ENDPOINTS.GET_CALENDAR_UPDATE;
+  private readonly CALENDAR_UPDATE_ENDPOINT = ENDPOINTS.PATCH_CALENDAR_UPDATE;
+  private readonly CALENDAR_UPDATE_RANGE_ENDPOINT = ENDPOINTS.PATCH_CALENDAR_RANGE_UPDATE;
 
   constructor(
     private genericService: GenericService,
@@ -53,6 +54,16 @@ export class CalendarClientService {
   public patchCalendarUpdateClient$(request: ICalendarUpdateRequestParams) {
     const Header = new HttpHeaders();
     return this.genericService.genericPatchBody<IBlocked[]>(this.CALENDAR_UPDATE_ENDPOINT, request, Header)
+      .pipe(map(response => {
+        const current = isArray(response) ? response : [];
+        const responses = current.map(e => new Blocked(e));
+        return responses;
+      }));
+  }
+
+  public patchCalendarRangeUpdateClient$(request: ICalendarUpdateRequestParams) {
+    const Header = new HttpHeaders();
+    return this.genericService.genericPatchBody<IBlocked[]>(this.CALENDAR_UPDATE_RANGE_ENDPOINT, request, Header)
       .pipe(map(response => {
         const current = isArray(response) ? response : [];
         const responses = current.map(e => new Blocked(e));

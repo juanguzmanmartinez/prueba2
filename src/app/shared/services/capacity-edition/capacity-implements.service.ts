@@ -24,4 +24,8 @@ export class CapacityImplementService {
     return this.calendarClient.patchCalendarUpdateClient$(request);
   }
 
+  public patchCalendarRangeUpdateClient$(request: ICalendarUpdateRequestParams) {
+    return this.calendarClient.patchCalendarRangeUpdateClient$(request);
+  }
+
 }
