@@ -133,6 +133,7 @@
               </mat-expansion-panel-header>
               <div class="d-section-descriptions-step3">
 
+                <!-- 
                 <div class="section-calendar" *ngIf="this.modeEdition === 'CALENDAR'">
                   <mat-form-field appearance="fill">
                     <mat-label>Choose a end date</mat-label>
@@ -142,6 +143,21 @@
                     <mat-datepicker #endpicker></mat-datepicker>
                   </mat-form-field>
                 </div>
+                -->
+
+                <mat-form-field appearance="fill">
+                  <mat-label>Choose a start date</mat-label>
+                  <input matInput [matDatepicker]="picker" [min]="defaultStartDate" formControlName="startDate"  >
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker  ></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                  <mat-label>Choose a end date</mat-label>
+                  <input matInput [matDatepicker]="endpicker" [min]="formService.form.controls['startDate'].value" formControlName="endDate"  >
+                  <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+                  <mat-datepicker #endpicker  ></mat-datepicker>
+                </mat-form-field>
 
                 <div class="section-default" *ngIf="this.modeEdition === 'DEFAULT' || this.modeEdition === 'CALENDAR'">
                   <div class="d-inputs">
