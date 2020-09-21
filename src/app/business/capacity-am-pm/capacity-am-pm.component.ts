@@ -12,12 +12,15 @@ import { ICalendarUpdateRequestParams } from 'src/app/shared/services/models/cap
 import { ITypeService } from 'src/app/shared/services/models/type-service.model';
 import { CapacityStoreService } from 'src/app/commons/business-factories/factories-stores/capacity-store.service';
 
+
 @Component({
   selector: 'app-capacity-am-pm',
   templateUrl: './capacity-am-pm.component.html',
   styleUrls: ['./capacity-am-pm.component.scss']
 })
 export class CapacityAmPmComponent implements OnInit, OnDestroy {
+
+  defaultStartDate = new Date();
 
   InfoDrugstores: Drugstore[] = [] as Drugstore[];
   selectedVal: string;
@@ -52,6 +55,10 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
     this.mainLoaderService.isLoaded = false;
     this.selectedVal = 'group';
     this.modeEdition = 'default';
+
+
+    this.formService.startDateControl.setValue(this.defaultStartDate);
+
     this.formService.radioControl.setValue('default');
     const radioSubs = this.formService.radioControl.valueChanges
       .subscribe(edition => {

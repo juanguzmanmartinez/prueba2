@@ -135,17 +135,15 @@
 
                 <div class="section-calendar" *ngIf="this.modeEdition === 'CALENDAR'">
                   <mat-form-field appearance="fill">
-                    <mat-label>Enter a date range</mat-label>
-                    <mat-date-range-input [rangePicker]="picker">
-                      <input matStartDate placeholder="Start date">
-                      <input matEndDate placeholder="End date">
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #picker></mat-date-range-picker>
+                    <mat-label>Choose a end date</mat-label>
+                    <input matInput [matDatepicker]="endpicker" [min]="formService.form.controls['startDate'].value"
+                      formControlName="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endpicker></mat-datepicker>
                   </mat-form-field>
                 </div>
 
-                <div class="section-default"  *ngIf="this.modeEdition === 'DEFAULT' || this.modeEdition === 'CALENDAR'">
+                <div class="section-default" *ngIf="this.modeEdition === 'DEFAULT' || this.modeEdition === 'CALENDAR'">
                   <div class="d-inputs">
                     <div class="d-input-one">
                       <app-input-text-customer [label]="'AM'" formControlName="am"></app-input-text-customer>
@@ -157,7 +155,19 @@
                 </div>
                 <div>
                   <p>AM:{{ segmentOne}}</p>
-                <p>PM: {{ segmentTwo}}</p>
+                  <p>PM: {{ segmentTwo}}</p>
+
+
+
+
+                  formService.startDate : {{ formService.form.controls['startDate'].value  }}
+                  formService.endDate : {{ formService.form.controls['endDate'].value  }}
+
+                  <!-- 
+                  <p>AM: 08:00 a.m - 02:00 pm</p>
+                  <p>PM: 02:00 pm a.m - 08:00 pm</p>
+                  -->
+
                 </div>
               </div>
 
