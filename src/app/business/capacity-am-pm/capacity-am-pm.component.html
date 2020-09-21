@@ -146,17 +146,13 @@
                 -->
 
                 <mat-form-field appearance="fill">
-                  <mat-label>Choose a start date</mat-label>
-                  <input matInput [matDatepicker]="picker" [min]="defaultStartDate" formControlName="startDate"  >
+                  <mat-label>Enter a date range</mat-label>
+                  <mat-date-range-input [formGroup]="formService.form" [rangePicker]="picker">
+                    <input matStartDate formControlName="startDate" placeholder="Start date">
+                    <input matEndDate formControlName="endDate" placeholder="End date">
+                  </mat-date-range-input>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker  ></mat-datepicker>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill">
-                  <mat-label>Choose a end date</mat-label>
-                  <input matInput [matDatepicker]="endpicker" [min]="formService.form.controls['startDate'].value" formControlName="endDate"  >
-                  <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
-                  <mat-datepicker #endpicker  ></mat-datepicker>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
 
                 <div class="section-default" *ngIf="this.modeEdition === 'DEFAULT' || this.modeEdition === 'CALENDAR'">
