@@ -118,10 +118,12 @@
             <mat-expansion-panel hideToggle [(expanded)]="stepThree" disabled="stepThree">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  <div class="number-action-capacity-one">
+                  <div
+                    [ngClass]="{'number-action-capacity-one': stepThree, 'number-action-capacity-one-disabled': !stepThree}">
                     3
                   </div>
-                  <div class="number-action-capacity-two">
+                  <div
+                    [ngClass]="{'number-action-capacity-two': stepThree, 'number-action-capacity-two-disabled' : !stepThree}">
                     CAPACIDAD
                   </div>
                 </mat-panel-title>
@@ -133,27 +135,17 @@
               </mat-expansion-panel-header>
               <div class="d-section-descriptions-step3">
 
-                <!-- 
                 <div class="section-calendar" *ngIf="this.modeEdition === 'CALENDAR'">
                   <mat-form-field appearance="fill">
-                    <mat-label>Choose a end date</mat-label>
-                    <input matInput [matDatepicker]="endpicker" [min]="formService.form.controls['startDate'].value"
-                      formControlName="endDate">
-                    <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
-                    <mat-datepicker #endpicker></mat-datepicker>
+                    <mat-label>Seleccione días</mat-label>
+                    <mat-date-range-input [formGroup]="formService.form" [rangePicker]="picker">
+                      <input matStartDate formControlName="startDate" placeholder="Start date">
+                      <input matEndDate formControlName="endDate" placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
                   </mat-form-field>
                 </div>
-                -->
-
-                <mat-form-field appearance="fill">
-                  <mat-label>Enter a date range</mat-label>
-                  <mat-date-range-input [formGroup]="formService.form" [rangePicker]="picker">
-                    <input matStartDate formControlName="startDate" placeholder="Start date">
-                    <input matEndDate formControlName="endDate" placeholder="End date">
-                  </mat-date-range-input>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-date-range-picker #picker></mat-date-range-picker>
-                </mat-form-field>
 
                 <div class="section-default" *ngIf="this.modeEdition === 'DEFAULT' || this.modeEdition === 'CALENDAR'">
                   <div class="d-inputs">
@@ -168,17 +160,6 @@
                 <div>
                   <p>AM:{{ segmentOne}}</p>
                   <p>PM: {{ segmentTwo}}</p>
-
-
-
-
-                  formService.startDate : {{ formService.form.controls['startDate'].value  }}
-                  formService.endDate : {{ formService.form.controls['endDate'].value  }}
-
-                  <!-- 
-                  <p>AM: 08:00 a.m - 02:00 pm</p>
-                  <p>PM: 02:00 pm a.m - 08:00 pm</p>
-                  -->
 
                 </div>
               </div>

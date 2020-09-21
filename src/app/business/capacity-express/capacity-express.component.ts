@@ -145,7 +145,7 @@ export class CapacityExpressComponent implements OnInit, OnDestroy {
       .subscribe(response => {
         this.mainLoaderService.isLoaded = false;
         this.router.navigate(['/capacity-manager']);
-        const alertValues =  {
+        const alertValues = {
           nameLocal: this.initialDrugstoreOption.text,
           selectedStepOne: this.selectedStepOne,
           typeService: this.serviceType,
@@ -157,6 +157,13 @@ export class CapacityExpressComponent implements OnInit, OnDestroy {
   }
 
   return() {
+    const alertValues = {
+      nameLocal: this.initialDrugstoreOption.text,
+      selectedStepOne: this.selectedStepOne,
+      typeService: this.serviceType,
+      showAlert: false,
+    } as IAlert;
+    this.capacityStoreService.setSelectedDrugstore(alertValues);
     this.router.navigate(['/capacity-manager']);
   }
 

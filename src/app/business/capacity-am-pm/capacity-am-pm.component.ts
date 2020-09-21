@@ -55,8 +55,6 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
     this.mainLoaderService.isLoaded = false;
     this.selectedVal = 'group';
     this.modeEdition = 'default';
-
-
     this.formService.startDateControl.setValue(this.defaultStartDate);
 
     this.formService.radioControl.setValue('default');
@@ -71,9 +69,8 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
       });
 
     const dropdowSubs = this.formService.dropdowControl.valueChanges
-      .subscribe(val => {
-        console.log(val);
-        this.initialDrugstoreOption = val;
+      .subscribe(local => {
+        this.initialDrugstoreOption = local;
       });
 
     this.subscription.push(radioSubs, dropdowSubs);
@@ -83,11 +80,11 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
   }
 
 
-  public onValChange(val: string) {
-    this.selectedVal = val;
-    if (val === 'group') {
+  public onValChange(type: string) {
+    this.selectedVal = type;
+    if (type === 'group') {
       this.selectedStepOne = 'Grupo';
-    } else if (val === 'local') {
+    } else if (type === 'local') {
       this.selectedStepOne = 'Local';
       this.serviceType = 'AM_PM';
       this.mainLoaderService.isLoaded = true;
@@ -131,6 +128,15 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
         .subscribe(value => {
           this.mainLoaderService.isLoaded = false;
           this.setInputValue = value;
+          const startDay = this.setInputValue.startDay;
+          const formatterStartDay = new Date(startDay);
+          const endDay = this.setInputValue.endDay;
+          const formatterEndDay = new Date(endDay);
+          console.log(value);
+
+          this.formService.startDateControl.setValue(formatterStartDay);
+          this.formService.endDateControl.setValue(formatterEndDay);
+
           this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
           this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
           this.segmentOne = this.setInputValue.segments[0].hour || '';
@@ -150,31 +156,64 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
     this.mainLoaderService.isLoaded = true;
     const quantitus = this.formService.inputAMControl.value + ',' + this.formService.inputPMControl.value;
     const hours = this.setInputValue.segments[0].hour + ',' + this.setInputValue.segments[0].hour;
-    // debugger;
-    const request = {
-      fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
-      serviceTypeCode: this.serviceType,
-      channel: 'DIGITAL',
-      hours: hours || '',
-      quantities: quantitus
-    } as ICalendarUpdateRequestParams;
-    const endpoint = this.service.patchCalendarUpdateClient$(request)
-      .pipe(take(1))
-      .subscribe(response => {
-        this.mainLoaderService.isLoaded = false;
-        this.router.navigate(['/capacity-manager']);
-        const alertValues =  {
-          nameLocal: this.initialDrugstoreOption.text,
-          selectedStepOne: this.selectedStepOne,
-          typeService: this.serviceType,
-          showAlert: true,
-        } as IAlert;
-        this.capacityStoreService.setSelectedDrugstore(alertValues);
-      });
-    this.subscription.push(endpoint);
+    if (this.modeEdition === 'DEFAULT') {
+      const request = {
+        fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
+        serviceTypeCode: this.serviceType,
+        channel: 'DIGITAL',
+        hours: hours || '',
+        quantities: quantitus
+      } as ICalendarUpdateRequestParams;
+      const endpoint = this.service.patchCalendarUpdateClient$(request)
+        .pipe(take(1))
+        .subscribe(() => {
+          this.mainLoaderService.isLoaded = false;
+          this.router.navigate(['/capacity-manager']);
+          const alertValues = {
+            nameLocal: this.initialDrugstoreOption.text,
+            selectedStepOne: this.selectedStepOne,
+            typeService: this.serviceType,
+            showAlert: true,
+          } as IAlert;
+          this.capacityStoreService.setSelectedDrugstore(alertValues);
+        });
+      this.subscription.push(endpoint);
+
+    } else if (this.modeEdition === 'CALENDAR') {
+      const request = {
+        fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
+        serviceTypeCode: this.serviceType,
+        channel: 'DIGITAL',
+        days: '2020-05-20,2020-05-21,2020-05-22',
+        hours: hours || '',
+        quantities: quantitus
+      } as ICalendarUpdateRequestParams;
+      const endpoint = this.service.patchCalendarRangeUpdateClient$(request)
+        .pipe(take(1))
+        .subscribe(() => {
+          this.mainLoaderService.isLoaded = false;
+          this.router.navigate(['/capacity-manager']);
+          const alertValues = {
+            nameLocal: this.initialDrugstoreOption.text,
+            selectedStepOne: this.selectedStepOne,
+            typeService: this.serviceType,
+            showAlert: true,
+          } as IAlert;
+          this.capacityStoreService.setSelectedDrugstore(alertValues);
+        });
+      this.subscription.push(endpoint);
+
+    }
   }
 
   return() {
+    const alertValues = {
+      nameLocal: this.initialDrugstoreOption.text,
+      selectedStepOne: this.selectedStepOne,
+      typeService: this.serviceType,
+      showAlert: false,
+    } as IAlert;
+    this.capacityStoreService.setSelectedDrugstore(alertValues);
     this.router.navigate(['/capacity-manager']);
   }
 
