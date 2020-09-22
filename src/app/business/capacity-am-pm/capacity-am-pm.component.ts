@@ -27,7 +27,8 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
   public currentMonth: number = this.defaultStartDate.getMonth();
   public currentDay: number = this.defaultStartDate.getDate();
 
-  public maxDate: Object =  new Date(this.currentYear, this.currentMonth+2, this.currentDay);
+  // tslint:disable-next-line:ban-types
+  public maxDate: Object = new Date(this.currentYear, this.currentMonth + 2, this.currentDay);
 
   InfoDrugstores: Drugstore[] = [] as Drugstore[];
   selectedVal: string;
@@ -139,10 +140,6 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
           const formatterStartDay = new Date(startDay);
           const endDay = this.setInputValue.endDay;
           const formatterEndDay = new Date(endDay);
-          console.log(value);
-
-          this.formService.startDateControl.setValue(formatterStartDay);
-          this.formService.endDateControl.setValue(formatterEndDay);
 
           this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
           this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
@@ -211,6 +208,10 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
       this.subscription.push(endpoint);
 
     }
+  }
+
+  showEditStepTwo() {
+    this.stepTwo = true;
   }
 
   return() {

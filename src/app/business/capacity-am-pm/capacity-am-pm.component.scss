@@ -77,7 +77,7 @@ section {
 
       .number-action-capacity-description {
         padding: 10px;
-        color: #003D99;
+        color: $blue-two;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -122,7 +122,7 @@ section {
             padding: 11px;
             border-radius: 11px;
             margin: 0px;
-            background: $white-one;
+            background-color: $white-one;
             cursor: pointer;
             color: $dark-two;
 
@@ -130,7 +130,7 @@ section {
               opacity: 0.3;
             }
 
-            &.focus {
+            &:focus {
               background-color: $blue-one;
             }
           }
@@ -186,7 +186,7 @@ section {
 
       .number-action-capacity-description {
         padding: 10px;
-        color: #003D99;
+        color: $blue-two;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -194,6 +194,7 @@ section {
         line-height: 100%;
         display: flex;
         align-items: center;
+        cursor: pointer;
       }
 
       .encapsulate-cards {
@@ -206,7 +207,6 @@ section {
         .card-checkbox-one {
           border: 1px solid $white-two;
           border-radius: 10px;
-          // padding: 16px;
           margin-right: 10px;
           width: 175px;
           padding: 10px 10px 25px 10px;
@@ -398,7 +398,7 @@ section {
               opacity: 0.3;
             }
 
-            &.focus {
+            &:focus {
               background-color: $blue-one;
             }
           }

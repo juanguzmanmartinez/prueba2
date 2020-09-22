@@ -41,4 +41,8 @@ export class CapacityManagerComponent implements OnInit {
   redirectProgrammed() {
     this.router.navigate(['/capacity-programmed']);
   }
+
+  return() {
+    this.router.navigate(['/home']);
+  }
 }
