@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
-import { tap, take } from 'rxjs/operators';
+import { tap, take, switchMap } from 'rxjs/operators';
 import { Drugstore, IServices } from 'src/app/shared/services/models/drugstore.model';
 import { CapacityAmPmService } from './operations-forms/capacity-am-pm-form.service';
 import { Router } from '@angular/router';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
-import { IAlert, ILocal } from 'src/app/shared/services/models/local.model';
+import { IAlert, ILocal, Local } from 'src/app/shared/services/models/local.model';
 import { Subscription } from 'rxjs';
 import { CapacityImplementService } from 'src/app/shared/services/capacity-edition/capacity-implements.service';
 import { ICalendarUpdateRequestParams } from 'src/app/shared/services/models/capacity.model';
@@ -30,7 +30,7 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:ban-types
   public maxDate: Object = new Date(this.currentYear, this.currentMonth + 2, this.currentDay);
 
-  InfoDrugstores: Drugstore[] = [] as Drugstore[];
+  InfoLocal: Local[] = [] as Local[];
   selectedVal: string;
   modeEdition: string;
   selectedRadioButton: string;
@@ -53,7 +53,9 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
     public formService: CapacityAmPmService,
     private router: Router,
     private capacityStoreService: CapacityStoreService
-  ) { }
+  ) {
+    this.getFormattedDrugstore = this.getFormattedDrugstore.bind(this);
+  }
 
   ngOnInit() {
     this.serviceTypeCode = 'AM_PM';
@@ -63,8 +65,6 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
     this.mainLoaderService.isLoaded = false;
     this.selectedVal = 'group';
     this.modeEdition = 'default';
-    this.formService.startDateControl.setValue(this.defaultStartDate);
-
     this.formService.radioControl.setValue('default');
     const radioSubs = this.formService.radioControl.valueChanges
       .subscribe(edition => {
@@ -84,6 +84,7 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
     this.subscription.push(radioSubs, dropdowSubs);
   }
   ngOnDestroy() {
+    this.formService.dropdowControl.setValue('');
     this.subscription.forEach(sub => sub.unsubscribe());
   }
 
@@ -96,11 +97,17 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
       this.selectedStepOne = 'Local';
       this.serviceType = 'AM_PM';
       this.mainLoaderService.isLoaded = true;
+      this.formService.dropdowControl.setValue('');
       this.service.getLocalImplements$(this.serviceType)
-        .pipe(take(1))
-        .subscribe(value => {
+        .pipe(tap(value => {
           this.mainLoaderService.isLoaded = false;
-          this.newInfoDrugstore = this.getFormattedDrugstoreOptions(value);
+          this.InfoLocal = value;
+        }))
+        .pipe(take(1))
+        .subscribe((stores) => {
+          this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
+          this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[0])) as ICustomSelectOption;
+          this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
         });
     }
   }
@@ -159,7 +166,7 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
   save() {
     this.mainLoaderService.isLoaded = true;
     const quantitus = this.formService.inputAMControl.value + ',' + this.formService.inputPMControl.value;
-    const hours = this.setInputValue.segments[0].hour + ',' + this.setInputValue.segments[0].hour;
+    const hours = this.setInputValue.segments[0].hour + ',' + this.setInputValue.segments[1].hour;
     if (this.modeEdition === 'DEFAULT') {
       const request = {
         fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
@@ -188,7 +195,7 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
         fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
         serviceTypeCode: this.serviceType,
         channel: 'DIGITAL',
-        days: '2020-05-20,2020-05-21,2020-05-22',
+        days: this.getDaysRange(),
         hours: hours || '',
         quantities: quantitus
       } as ICalendarUpdateRequestParams;
@@ -209,6 +216,27 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
 
     }
   }
+
+  getDaysRange() {
+    const dateFrom = new Date(this.formService.startDateControl.value);
+    const dateTo = new Date(this.formService.endDateControl.value);
+    const MS_PER_DAY: number = 1000 * 60 * 60 * 24;
+    const start: number = dateFrom.getTime();
+    const end: number = dateTo.getTime();
+    const daysBetweenDates: number = Math.ceil((end - start) / MS_PER_DAY);
+    const dates: Date[] = Array.from(new Array(daysBetweenDates + 1),
+      (v, i) => new Date(start + (i * MS_PER_DAY)));
+    const formatDays = dates.map(date => `${date.getFullYear()}-${this.getMonthFormmater(date.getMonth())}-${date.getDate()}`);
+    console.log(formatDays);
+
+    return formatDays.join(',');
+  }
+
+  getMonthFormmater(date) {
+    const month = date + 1;
+    return month < 10 ? '0' + month : '' + month;
+  }
+
 
   showEditStepTwo() {
     this.stepTwo = true;
@@ -235,18 +263,6 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
       value: local.localCode,
       code: local.localCode,
       fulfillmentCenterCode: local.localCode,
-      // channel: local.channel,
-      // segmentType: local.segmentType.name,
-      // serviceTypeCode: this.getTypeService(local.services),
     } as ICustomSelectOption;
   }
-
-  // getTypeService(type: IServices[]) {
-  //   if (type.length === 1) {
-  //     return type[0].code;
-  //   } else if (type.length === 2) {
-  //     return type[0].code + ',' + type[1].code;
-  //   }
-  // }
-
 }

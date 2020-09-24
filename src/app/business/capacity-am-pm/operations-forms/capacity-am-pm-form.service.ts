@@ -49,11 +49,11 @@ export class CapacityAmPmService {
     return this.form.get('pm') as CustomSelectControl;
   }
   public get startDateControl() {
-    return this.form.get('startDate') as CustomSelectControl;
+    return this.form.get('startDate') as FormControl;
   }
 
   public get endDateControl() {
-    return this.form.get('endDate') as CustomSelectControl;
+    return this.form.get('endDate') as FormControl;
   }
 
   // public get formValues() {
