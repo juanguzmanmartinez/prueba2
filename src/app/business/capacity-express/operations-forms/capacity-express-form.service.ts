@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { Subscription } from 'rxjs';
 import { DefaultRadioControl } from '../controls/default-radio.control';
 import { CustomSelectControl } from '../../operations-admin/controls/custom-select-control';
+import { CustomControl } from '../../operations-admin/controls/custom-control';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ export class CapacityExpressService {
   private radio = new DefaultRadioControl();
   private dropdow = new CustomSelectControl();
   private quantity = new FormControl();
+  private startDate = new CustomControl();
+  private endDate = new CustomControl();
 
   private subscriptions: Subscription[] = [];
   constructor(
@@ -22,6 +25,8 @@ export class CapacityExpressService {
       radio: this.radio,
       dropdow: this.dropdow,
       quantity: this.quantity,
+      startDate: this.startDate,
+      endDate: this.endDate
     });
   }
 
@@ -36,6 +41,14 @@ export class CapacityExpressService {
 
   public get quantityControl() {
     return this.form.get('quantity') as FormControl;
+  }
+
+  public get startDateControl() {
+    return this.form.get('startDate') as FormControl;
+  }
+
+  public get endDateControl() {
+    return this.form.get('endDate') as FormControl;
   }
 
 }

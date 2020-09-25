@@ -1,5 +1,20 @@
+@import '../../../assets/variables/colors';
 section {
   padding: 10px 100px;
+}
+
+.d-content-title-home {
+  margin-left: 25px;
+
+  .subTitle-module-home {
+    font-family: Inter;
+    font-style: normal;
+    font-size: 10px;
+    line-height: 100%;
+    color: $dark-one;
+    margin: 0px 0px 30px 0px;
+    cursor: pointer;
+  }
 }
 
 .d-content-title-manager {
