@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {IAlert, ILocal, Local} from '../../../../../../shared/services/models/local.model';
 import {ICustomSelectOption} from '../../../../../../commons/interfaces/custom-controls.interface';
 import {Subscription} from 'rxjs';
@@ -16,7 +16,7 @@ import {ICalendarUpdateRequestParams} from '../../../../../../shared/services/mo
   templateUrl: './operations-capacity-am-pm.component.html',
   styleUrls: ['./operations-capacity-am-pm.component.scss']
 })
-export class OperationsCapacityAmPmComponent implements OnInit {
+export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
 
   defaultStartDate = new Date();
   defaultMaxDate = new Date().setMonth(new Date().getMonth() + 2);
