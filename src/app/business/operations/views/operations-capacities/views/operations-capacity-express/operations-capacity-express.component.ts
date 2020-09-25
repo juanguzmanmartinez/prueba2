@@ -1,16 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Drugstore} from '../../../../../../shared/services/models/drugstore.model';
-import {ICustomSelectOption} from '../../../../../../commons/interfaces/custom-controls.interface';
-import {ITypeService} from '../../../../../../shared/services/models/type-service.model';
-import {Subscription} from 'rxjs';
-import {MainLoaderService} from '../../../../../../shared/helpers/main-loader.service';
-import {CapacityImplementService} from '../../../../../../shared/services/capacity-edition/capacity-implements.service';
-import {Router} from '@angular/router';
-import {CapacityStoreService} from '../../../../../../commons/business-factories/factories-stores/capacity-store.service';
-import {take} from 'rxjs/operators';
-import {ICalendarUpdateRequestParams} from '../../../../../../shared/services/models/capacity.model';
-import {IAlert, ILocal} from '../../../../../../shared/services/models/local.model';
-import {CapacityExpressService} from './operations-forms/capacity-express-form.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ICustomSelectOption } from '../../../../../../commons/interfaces/custom-controls.interface';
+import { ITypeService } from '../../../../../../shared/services/models/type-service.model';
+import { Subscription } from 'rxjs';
+import { MainLoaderService } from '../../../../../../shared/helpers/main-loader.service';
+import { CapacityImplementService } from '../../../../../../shared/services/capacity-edition/capacity-implements.service';
+import { Router } from '@angular/router';
+import { CapacityStoreService } from '../../../../../../commons/business-factories/factories-stores/capacity-store.service';
+import { take, tap } from 'rxjs/operators';
+import { ICalendarUpdateRequestParams } from '../../../../../../shared/services/models/capacity.model';
+import { IAlert, ILocal, Local } from '../../../../../../shared/services/models/local.model';
+import { CapacityExpressService } from './operations-forms/capacity-express-form.service';
 
 @Component({
   selector: 'app-operations-capacity-express',
@@ -19,7 +18,17 @@ import {CapacityExpressService} from './operations-forms/capacity-express-form.s
 })
 export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
 
-  InfoDrugstores: Drugstore[] = [] as Drugstore[];
+  defaultStartDate = new Date();
+  defaultMaxDate = new Date().setMonth(new Date().getMonth() + 2);
+
+  public currentYear: number = this.defaultStartDate.getFullYear();
+  public currentMonth: number = this.defaultStartDate.getMonth();
+  public currentDay: number = this.defaultStartDate.getDate();
+
+  // tslint:disable-next-line:ban-types
+  public maxDate: Object = new Date(this.currentYear, this.currentMonth + 2, this.currentDay);
+
+  InfoLocal: Local[] = [] as Local[];
   selectedVal: string;
   modeEdition: string;
   selectedRadioButton: string;
@@ -29,10 +38,13 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
   serviceType: string;
   newInfoDrugstore: ICustomSelectOption[] = [] as ICustomSelectOption[];
   public initialDrugstoreOption: ICustomSelectOption = {} as ICustomSelectOption;
-  setInputValue: ITypeService = {} as ITypeService;
   serviceTypeCode: string;
   private subscription: Subscription[] = [];
+  setInputValue: ITypeService = {} as ITypeService;
+  segmentOne: string;
+  segmentTwo: string;
   selectedStepOne: string;
+
 
 
   constructor(
@@ -41,7 +53,9 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
     public formService: CapacityExpressService,
     private router: Router,
     private capacityStoreService: CapacityStoreService
-  ) { }
+  ) {
+    this.getFormattedDrugstore = this.getFormattedDrugstore.bind(this);
+  }
 
   ngOnInit() {
     this.serviceTypeCode = 'EXP';
@@ -51,8 +65,6 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
     this.mainLoaderService.isLoaded = false;
     this.selectedVal = 'group';
     this.modeEdition = 'default';
-
-
     this.formService.radioControl.setValue('default');
     const radioSubs = this.formService.radioControl.valueChanges
       .subscribe(edition => {
@@ -65,31 +77,37 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
       });
 
     const dropdowSubs = this.formService.dropdowControl.valueChanges
-      .subscribe(val => {
-        console.log(val);
-        this.initialDrugstoreOption = val;
+      .subscribe(local => {
+        this.initialDrugstoreOption = local;
       });
+
     this.subscription.push(radioSubs, dropdowSubs);
   }
-
   ngOnDestroy() {
+    this.formService.dropdowControl.setValue('');
     this.subscription.forEach(sub => sub.unsubscribe());
   }
 
-  public onValChange(val: string) {
-    this.selectedVal = val;
-    if (val === 'group') {
+
+  public onValChange(type: string) {
+    this.selectedVal = type;
+    if (type === 'group') {
       this.selectedStepOne = 'Grupo';
-      console.log('1');
-    } else if (val === 'local') {
+    } else if (type === 'local') {
       this.selectedStepOne = 'Local';
       this.serviceType = 'EXP';
       this.mainLoaderService.isLoaded = true;
+      this.formService.dropdowControl.setValue('');
       this.service.getLocalImplements$(this.serviceType)
-        .pipe(take(1))
-        .subscribe(value => {
+        .pipe(tap(value => {
           this.mainLoaderService.isLoaded = false;
-          this.newInfoDrugstore = this.getFormattedDrugstoreOptions(value);
+          this.InfoLocal = value;
+        }))
+        .pipe(take(1))
+        .subscribe((stores) => {
+          this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
+          this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[0])) as ICustomSelectOption;
+          this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
         });
     }
   }
@@ -105,26 +123,26 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
     if (this.modeEdition === 'DEFAULT') {
       this.selectedRadioButton = 'Defecto';
       this.mainLoaderService.isLoaded = true;
-      this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
+      const defaultSubs = this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
         .pipe(take(1))
         .subscribe(value => {
           this.mainLoaderService.isLoaded = false;
           this.setInputValue = value;
-          console.log(value);
-          console.log(this.setInputValue, 'this.setInputValue');
           this.formService.quantityControl.setValue(this.setInputValue.segments[0].capacity.toString());
         });
+      this.subscription.push(defaultSubs);
 
     } else if (this.modeEdition === 'CALENDAR') {
       this.selectedRadioButton = 'Calendario';
       this.mainLoaderService.isLoaded = true;
-      this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
+      const calendarSubs = this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
         .pipe(take(1))
         .subscribe(value => {
           this.mainLoaderService.isLoaded = false;
-          console.log(value);
+          this.setInputValue = value;
+          this.formService.quantityControl.setValue(this.setInputValue.segments[0].capacity.toString());
         });
-
+      this.subscription.push(calendarSubs);
     }
 
     this.stepOne = false;
@@ -134,26 +152,77 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
 
   save() {
     this.mainLoaderService.isLoaded = true;
-    const request = {
-      fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
-      serviceTypeCode: this.serviceType,
-      channel: 'DIGITAL',
-      quantities: this.formService.quantityControl.value,
-    } as ICalendarUpdateRequestParams;
-    const endpoint = this.service.patchCalendarUpdateClient$(request)
-      .pipe(take(1))
-      .subscribe(response => {
-        this.mainLoaderService.isLoaded = false;
-        this.router.navigate(['../']);
-        const alertValues = {
-          nameLocal: this.initialDrugstoreOption.text,
-          selectedStepOne: this.selectedStepOne,
-          typeService: this.serviceType,
-          showAlert: true,
-        } as IAlert;
-        this.capacityStoreService.setSelectedDrugstore(alertValues);
-      });
-    this.subscription.push(endpoint);
+    const quantitus = this.formService.quantityControl.value;
+    if (this.modeEdition === 'DEFAULT') {
+      const request = {
+        fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
+        serviceTypeCode: this.serviceType,
+        channel: 'DIGITAL',
+        quantities: quantitus
+      } as ICalendarUpdateRequestParams;
+      const endpoint = this.service.patchCalendarUpdateClient$(request)
+        .pipe(take(1))
+        .subscribe(() => {
+          this.mainLoaderService.isLoaded = false;
+          this.router.navigate(['../']);
+          const alertValues = {
+            nameLocal: this.initialDrugstoreOption.text,
+            selectedStepOne: this.selectedStepOne,
+            typeService: this.serviceType,
+            showAlert: true,
+          } as IAlert;
+          this.capacityStoreService.setSelectedDrugstore(alertValues);
+        });
+      this.subscription.push(endpoint);
+
+    } else if (this.modeEdition === 'CALENDAR') {
+      const request = {
+        fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
+        serviceTypeCode: this.serviceType,
+        channel: 'DIGITAL',
+        days: this.getDaysRange(),
+        quantities: quantitus
+      } as ICalendarUpdateRequestParams;
+      const endpoint = this.service.patchCalendarRangeUpdateClient$(request)
+        .pipe(take(1))
+        .subscribe(() => {
+          this.mainLoaderService.isLoaded = false;
+          this.router.navigate(['../']);
+          const alertValues = {
+            nameLocal: this.initialDrugstoreOption.text,
+            selectedStepOne: this.selectedStepOne,
+            typeService: this.serviceType,
+            showAlert: true,
+          } as IAlert;
+          this.capacityStoreService.setSelectedDrugstore(alertValues);
+        });
+      this.subscription.push(endpoint);
+
+    }
+  }
+
+  getDaysRange() {
+    const dateFrom = new Date(this.formService.startDateControl.value);
+    const dateTo = new Date(this.formService.endDateControl.value);
+    const MS_PER_DAY: number = 1000 * 60 * 60 * 24;
+    const start: number = dateFrom.getTime();
+    const end: number = dateTo.getTime();
+    const daysBetweenDates: number = Math.ceil((end - start) / MS_PER_DAY);
+    const dates: Date[] = Array.from(new Array(daysBetweenDates + 1),
+      (v, i) => new Date(start + (i * MS_PER_DAY)));
+    const formatDays = dates.map(date => `${date.getFullYear()}-${this.getMonthFormmater(date.getMonth())}-${date.getDate()}`);
+
+    return formatDays.join(',');
+  }
+
+  getMonthFormmater(date) {
+    const month = date + 1;
+    return month < 10 ? '0' + month : '' + month;
+  }
+
+
+  showEditStepTwo() {
+    this.stepTwo = true;
   }
 
   return() {
@@ -177,10 +246,6 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
       value: local.localCode,
       code: local.localCode,
       fulfillmentCenterCode: local.localCode,
-      // channel: local.channel,
-      // segmentType: local.segmentType.name,
-      // serviceTypeCode: this.getTypeService(local.services),
     } as ICustomSelectOption;
   }
-
 }
