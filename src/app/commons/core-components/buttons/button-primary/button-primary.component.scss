@@ -1,0 +1,22 @@
+@import "src/sass/variables/variables";
+@import "src/sass/utilities/text";
+
+:host {
+  ::ng-deep .button.button-primary {
+    color: $white;
+    background-color: $primary;
+    border-color: $primary;
+
+    &:hover {
+      color: $white;
+      background-color: $dark-primary;
+      border-color: $dark-primary;
+    }
+
+    &.button-disabled {
+      color: $gray-4;
+      background-color: $gray-2;
+      border-color: $gray-2;
+    }
+  }
+}

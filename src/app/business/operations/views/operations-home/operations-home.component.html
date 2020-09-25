@@ -21,11 +21,18 @@
       <h5>holi</h5>
 
       <app-button>
-        button
+        Normal
       </app-button>
-      <app-button>
-        test
-      </app-button>
+      <app-button-primary>
+        Normal
+      </app-button-primary>
+      <app-button-primary [buttonDisabled]="true">
+        Disabled
+      </app-button-primary>
+
+      <app-button-icon buttonIcon="visibility">
+        Normal
+      </app-button-icon>
     </div>
     <div class="col-6 col-sm-4 mt-1 m-2 m-3 m-4">.col-6 .col-sm-4</div>
 
