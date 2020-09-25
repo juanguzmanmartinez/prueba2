@@ -1,0 +1,8 @@
+<app-button
+  buttonClass="button-primary
+  d-{{buttonDisplay}}
+  {{buttonDisabled ? 'button-disabled': ''}}"
+  [buttonType]="buttonType"
+  [buttonDisabled]="buttonDisabled">
+  <ng-content></ng-content>
+</app-button>

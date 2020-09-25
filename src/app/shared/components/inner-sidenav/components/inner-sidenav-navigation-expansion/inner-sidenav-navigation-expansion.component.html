@@ -1,0 +1,28 @@
+<a [routerLink]="navigationRoute"
+   routerLinkActive="inner-sidenav-navigation-expansion-active"
+   [routerLinkActiveOptions]="navigationRouteOptions"
+   class="inner-sidenav-navigation-expansion-container">
+  <mat-expansion-panel hideToggle="true"
+                       #innerSidenavNavigationExpansion
+                       class="inner-sidenav-navigation-expansion">
+    <mat-expansion-panel-header collapsedHeight="40px"
+                                expandedHeight="40px"
+                                class="inner-sidenav-navigation-expansion-header">
+      <mat-panel-title class="align-items-center">
+        <app-icon class="inner-sidenav-navigation-expansion-icon"
+                  [iconFontName]="navigationIcon"></app-icon>
+        <span class="inner-sidenav-text">{{navigationText}}</span>
+      </mat-panel-title>
+      <mat-panel-description *ngIf="activeRoute">
+        <app-icon class="inner-sidenav-navigation-expansion-icon"
+                  [class.inner-sidenav-navigation-expansion-icon-close]="!innerSidenavNavigationExpansion.expanded"
+                  iconFontName="keyboard_arrow_down"></app-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="inner-sidenav-navigation-expansion-content"
+         (click)="$event.stopPropagation()">
+      <ng-content></ng-content>
+    </div>
+  </mat-expansion-panel>
+</a>

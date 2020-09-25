@@ -1,4 +1,4 @@
-### fp-radio-control implementation
+### app-radio-control implementation
 
 1. Para formularios reactivos
 
@@ -59,16 +59,16 @@
 
   ```html
   <div [formGroup]="NAME_OF_YOUR_FORM">
-    <fp-radio-control
+    <app-radio-control
       formControlName="NAME_OF_YOUR_RADIO_CONTROL"
       [radioOptionValue]="'1'"
       [name]="name">
-    </fp-radio-control>
-    <fp-radio-control
+    </app-radio-control>
+    <app-radio-control
       formControlName="NAME_OF_YOUR_RADIO_CONTROL"
       [radioOptionValue]="'2'"
       [name]="name">
-    </fp-radio-control>
+    </app-radio-control>
   </div>
 
   <!--

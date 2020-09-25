@@ -1,0 +1,8 @@
+<app-button
+  buttonClass="btn-ghost{{buttonColor ? '-red' : ''}}
+  btn-spacer-{{buttonSize}}
+  label-black{{buttonSize === 'small' ? '--1' : ''}}
+  btn-{{buttonDisplay}}"
+  [buttonType]="buttonType">
+  <ng-content></ng-content>
+</app-button>

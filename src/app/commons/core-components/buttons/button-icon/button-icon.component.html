@@ -1,0 +1,12 @@
+<app-button
+  [buttonClass]="'button-icon ' +
+   'd-' + buttonDisplay +
+  (buttonDisabled ? ' button-disabled': '')"
+  [buttonType]="buttonType"
+  [buttonDisabled]="buttonDisabled">
+
+  <span><app-icon class="mr-2"
+                  [iconFontName]="buttonIcon"
+                  iconFontSize="16px"></app-icon></span>
+  <span><ng-content></ng-content></span>
+</app-button>

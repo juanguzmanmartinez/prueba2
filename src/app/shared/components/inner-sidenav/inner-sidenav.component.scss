@@ -1,0 +1,50 @@
+@import "src/sass/variables/colors";
+
+.inner-sidenav-container {
+  height: 100%;
+
+  .inner-sidenav {
+    overflow-y: initial;
+  }
+
+  .inner-sidenav-content-close {
+    margin-left: 16px;
+  }
+
+  .inner-sidenav-close {
+    visibility: visible !important;
+    transform: translate3d(calc(-100% + 16px), 0, 0);
+  }
+}
+
+
+.inner-sidenav-menu {
+  width: 240px;
+  height: 100%;
+  background: $gray-1;
+
+  .inner-sidenav-button {
+    position: absolute;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid $gray-3;
+    background-color: $white;
+    height: 24px;
+    width: 24px;
+    right: -12px;
+    top: 58px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+
+    &.inner-sidenav-button-close {
+      transform: rotate(180deg);
+    }
+
+    .inner-sidenav-icon{
+      color: $gray-4;
+    }
+  }
+}
