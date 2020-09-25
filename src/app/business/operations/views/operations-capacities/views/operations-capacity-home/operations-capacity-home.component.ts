@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CapacityStoreService} from '../../../../../../commons/business-factories/factories-stores/capacity-store.service';
 
 @Component({
   selector: 'app-operations-capacity-home',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OperationsCapacityHomeComponent implements OnInit {
 
-  constructor() { }
+  typeService: string;
+  local: string;
+  selectedStepOne: string;
+  showAlert: boolean;
 
-  ngOnInit(): void {
+  constructor(
+    private capacityStoreService: CapacityStoreService
+  ) {
   }
 
+  ngOnInit(): void {
+    this.showAlert = false;
+    const {selectedDrugstore} = this.capacityStoreService;
+    this.typeService = selectedDrugstore.typeService;
+    this.local = selectedDrugstore.nameLocal;
+    this.selectedStepOne = selectedDrugstore.selectedStepOne;
+    this.showAlert = selectedDrugstore.showAlert;
+
+  }
 }

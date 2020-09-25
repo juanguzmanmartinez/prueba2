@@ -1,64 +1,74 @@
-<p>operations-home works!</p>
+<section>
+  <div class="row d-content-title-home">
+    <div class="title-module-home">Hola admin,</div>
+    <div class="subTitle-module-home">¿Qué módulo quieres gestionar?</div>
+  </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-6 col-sm-4">
-      <app-icon iconFontName="keyboard_arrow_down"
-                iconFontSize="48px"></app-icon>
-      <app-icon iconFontName="visibility"
-                iconClass="text-primary"
-                iconFontSize="40"></app-icon>
-      <app-icon iconSvgName="truck" iconSvgWidth="48px"></app-icon>
-      <app-router router="/home"
-                  routerTarget="_blank">
-        <app-icon iconSvgName="main-logo"
-                  iconSvgWidth="32px"></app-icon>
-      </app-router>
-      <h1>holi</h1>
-      <h2>holi</h2>
-      <h3>holi</h3>
-      <h4>holi</h4>
-      <h5>holi</h5>
 
-      <app-button>
-        Normal
-      </app-button>
-      <app-button-primary>
-        Normal
-      </app-button-primary>
-      <app-button-primary [buttonDisabled]="true">
-        Disabled
-      </app-button-primary>
-
-      <app-button-icon buttonIcon="visibility">
-        Normal
-      </app-button-icon>
-    </div>
-    <div class="col-6 col-sm-4 mt-1 m-2 m-3 m-4">.col-6 .col-sm-4</div>
-
-    <!-- Force next columns to break to new line at md breakpoint and up -->
-    <div class="w-100 d-none d-md-block"></div>
-
-    <div class="col-6 col-sm-4">
-      <app-icon iconSvgName="assigned-orders" iconSvgWidth="200px"></app-icon>
-      <app-icon iconSvgName="search-store" iconSvgWidth="200px"></app-icon>
-    </div>
-    <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
-
-    <div class="col-12">
-      <div class="content">
-        <div class="row">
-          <div class="col-md-4">.col-md-4</div>
-          <div class="col-md-4 offset-md-4">.col-md-4 .offset-md-4</div>
+  <div class="row d-row-column">
+    <app-router router="locales">
+      <div class="d-card-home">
+        <div class="block-left">
+          <img src="../../../assets/img/drugstores.png" alt="100px" width="40px">
         </div>
-        <div class="row">
-          <div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3</div>
-          <div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3</div>
+        <div class="block-center">
+          <p class="label-title-card">Locales</p>
+          <p class="label-sub-title-card"> Visualiza todos los locales y edita algunos de sus características</p>
         </div>
-        <div class="row">
-          <div class="col-md-6 offset-md-3">.col-md-6 .offset-md-3</div>
+        <div class="block-rigth">
+          <img src="../../../assets/img/next_rigth.png" alt="">
         </div>
       </div>
-    </div>
+    </app-router>
+
+
+    <app-router router="zonas">
+      <div class="d-card-home">
+        <div class="block-left">
+          <img src="../../../assets/img/map.png" alt="100px" width="40px">
+        </div>
+        <div class="block-center">
+          <p class="label-title-card">Zonas</p>
+          <p class="label-sub-title-card">Visualiza todas las zonas, edita los tipos de despacho y exporta csv.</p>
+        </div>
+        <div class="block-rigth">
+          <img src="../../../assets/img/next_rigth.png" alt="">
+        </div>
+      </div>
+    </app-router>
+
   </div>
-</div>
+
+  <div class="row d-row-column">
+    <app-router router="capacidades">
+      <div class="d-card-home">
+        <div class="block-left">
+          <img src="../../../assets/img/truck.png" alt="100px" width="40px">
+        </div>
+        <div class="block-center">
+          <p class="label-title-card">Capacidades</p>
+          <p class="label-sub-title-card">Visualiza reportes y edita capacidades por tipo de despacho.</p>
+        </div>
+        <div class="block-rigth">
+          <img src="../../../assets/img/next_rigth.png" alt="">
+        </div>
+      </div>
+    </app-router>
+
+    <app-router router="configuraciones">
+      <div class="d-card-home">
+        <div class="block-left">
+          <img src="../../../assets/img/config.png" alt="100px" width="40px">
+        </div>
+        <div class="block-center">
+          <p class="label-title-card">Configuraciones</p>
+          <p class="label-sub-title-card">Conoce los parámentros generales acerca de los tipos de despacho.</p>
+        </div>
+        <div class="block-rigth">
+          <img src="../../../assets/img/next_rigth.png" alt="">
+        </div>
+      </div>
+    </app-router>
+  </div>
+
+</section>

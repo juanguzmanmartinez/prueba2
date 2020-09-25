@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DefaultRadioControl } from '../controls/default-radio.control';
-import { CustomSelectControl } from '../../operations-admin/controls/custom-select-control';
-import { CustomControl } from '../../operations-admin/controls/custom-control';
+import { CustomSelectControl } from '../../../../../../operations-admin/controls/custom-select-control';
+import { CustomControl } from '../../../../../../operations-admin/controls/custom-control';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CapacityExpressService {
+export class CapacityAmPmService {
   public form: FormGroup = new FormGroup({});
 
   private radio = new DefaultRadioControl();
   private dropdow = new CustomSelectControl();
-  private quantity = new FormControl();
+  private am = new FormControl();
+  private pm = new FormControl();
   private startDate = new CustomControl();
   private endDate = new CustomControl();
 
@@ -24,7 +25,8 @@ export class CapacityExpressService {
     this.form = this.formBuilder.group({
       radio: this.radio,
       dropdow: this.dropdow,
-      quantity: this.quantity,
+      am: this.am,
+      pm: this.pm,
       startDate: this.startDate,
       endDate: this.endDate
     });
@@ -39,10 +41,13 @@ export class CapacityExpressService {
     return this.form.get('dropdow') as CustomSelectControl;
   }
 
-  public get quantityControl() {
-    return this.form.get('quantity') as FormControl;
+  public get inputAMControl() {
+    return this.form.get('am') as CustomSelectControl;
   }
 
+  public get inputPMControl() {
+    return this.form.get('pm') as CustomSelectControl;
+  }
   public get startDateControl() {
     return this.form.get('startDate') as FormControl;
   }
@@ -50,5 +55,12 @@ export class CapacityExpressService {
   public get endDateControl() {
     return this.form.get('endDate') as FormControl;
   }
+
+  // public get formValues() {
+  //   return {
+  //     radio: this.radio.value,
+  //     dropdow: this.dropdow.value
+  //   };
+  // }
 
 }
