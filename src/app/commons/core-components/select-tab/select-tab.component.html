@@ -1,0 +1,10 @@
+<div class="select-tab" [formGroup]="_selectTabFormGroup">
+  <ng-container *ngFor="let selectTab of selectTabList">
+    <app-radio [radioValue]="selectTab"
+               [formControlName]="_selectTabFormControlName"
+               radioClass="select-tab-radio"
+               class="select-tab-content">
+      {{selectTab}}
+    </app-radio>
+  </ng-container>
+</div>

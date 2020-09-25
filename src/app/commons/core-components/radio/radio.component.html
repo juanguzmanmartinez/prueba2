@@ -1,0 +1,17 @@
+<label class="radio-container">
+  <input
+    type="radio"
+    class="radio"
+    [ngClass]="radioClass"
+    [name]="_radioName"
+    [value]="radioValue"
+    [disabled]="_radioDisabled"
+    [checked]="radioValue === _radioValue"
+    (change)="chooseRadio()">
+
+  <span class="radio-mark"></span>
+
+  <span class="radio-content">
+      <ng-content></ng-content>
+  </span>
+</label>

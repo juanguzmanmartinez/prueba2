@@ -1,0 +1,20 @@
+@import "src/sass/variables/variables"
+@import "src/sass/utilities/text"
+@import "src/sass/mixins"
+
+.input-search-container
+  position: relative
+
+  .input-search-icon
+    display: inline-flex
+    position: absolute
+    left: 16px
+    top: 13px
+
+\:host .input-search-container
+  ::ng-deep .input-search
+    padding: 12px 16px 12px 36px
+
+    &:disabled::-webkit-search-cancel-button
+      display: none
+

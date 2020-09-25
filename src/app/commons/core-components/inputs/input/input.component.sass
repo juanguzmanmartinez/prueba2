@@ -1,0 +1,38 @@
+@import "src/sass/variables/variables"
+@import "src/sass/utilities/text"
+@import "src/sass/mixins"
+
+.input-label
+  margin-bottom: 0
+
+.input-basic
+  background-color: $white
+  padding: 12px 16px
+  border: 1px solid $gray-3
+  border-radius: 4px
+  width: 100%
+  color: $black
+  height: 38px
+  @extend .text-label
+
+  @include placeholder
+    color: $gray-4
+    @extend .text-label
+
+  &:-webkit-autofill
+    -webkit-text-fill-color: $black
+
+  &.input-error
+    border-color: $error
+    color: $error
+
+    &:focus
+      border-color: $error
+      color: $black
+
+  &:disabled
+    background-color: $gray-2
+    border-color: $gray-3
+    color: $gray-4
+
+

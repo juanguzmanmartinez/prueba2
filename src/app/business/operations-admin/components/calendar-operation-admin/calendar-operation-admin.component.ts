@@ -5,7 +5,6 @@ import { IDrugstore, IServices, Drugstore } from 'src/app/shared/services/models
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { OperationAdminCalendarService } from '../../operations-forms/operations-admin-calendar';
 import { ICalendar, Calendar, IDayList, IDayBlockedRequest, SelectedDay, Week } from 'src/app/shared/services/models/calendar.model';
-import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 import { Subscription } from 'rxjs';
 import { CompanyDrugstoresStoreService } from 'src/app/commons/business-factories/factories-stores/company-drugstores-store.service';
 import { Router } from '@angular/router';
@@ -53,7 +52,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   constructor(
     private drugstoreImplement: CalendarImplementService,
     public formService: OperationAdminCalendarService,
-    private mainLoaderService: MainLoaderService,
     private companyDrugstoresStore: CompanyDrugstoresStoreService,
     private capacityEditImplementService: CapacityEditImplementService,
     public calendarStoreService: CalendarStoreService,
@@ -69,7 +67,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
     const dropdownSub = this.formService.dropdowControl.valueChanges
       .subscribe(drugstore => {
         if (this.isDoneFirstLoad) {
-          this.mainLoaderService.isLoaded = true;
           this.initialDrugstoreOption = drugstore;
           this.loadCalendarResponse(this.initialDrugstoreOption);
         }
@@ -83,7 +80,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   }
 
   private loadDrugStores() {
-    this.mainLoaderService.isLoaded = true;
     const { drugstores, selectedDrugstore } = this.companyDrugstoresStore;
     if (drugstores && drugstores.length) {
       this.newInfoDrugstore = this.getFormattedDrugstoreOptions(drugstores);
@@ -94,7 +90,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
       this.drugstoreImplement.getCalendarImplements$(_formattedCurrentDrugstore)
         .pipe(take(1))
         .subscribe(calendarResponse => {
-          this.mainLoaderService.isLoaded = false;
           this.isDoneFirstLoad = true;
           this.calendarResponse = calendarResponse;
           this.currentYear = this.calendarResponse[0].year;
@@ -117,7 +112,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
         }))
         .pipe(take(1))
         .subscribe(calendarResponse => {
-          this.mainLoaderService.isLoaded = false;
           this.isDoneFirstLoad = true;
           this.calendarResponse = calendarResponse;
           this.currentYear = this.calendarResponse[0].year;
@@ -132,7 +126,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(response => {
         this.calendarResponse = response;
-        this.mainLoaderService.isLoaded = false;
         this.setInfoCheckedSelected();
       });
   }
@@ -282,7 +275,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
 
   save() {
     if (this.selectedDayArray.length) {
-      this.mainLoaderService.isLoaded = true;
       let dates = '';
       let types = '';
 
@@ -303,7 +295,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
       this.drugstoreImplement.patchCalendarImplements$(code, dates, types)
         .pipe(take(1))
         .subscribe(response => {
-          this.mainLoaderService.isLoaded = false;
           this.selectedDayArray = [];
           this.showButtonSave = false;
           this.showButtonActive = true;
@@ -330,7 +321,6 @@ export class CalendarOperationAdminComponent implements OnInit, OnDestroy {
   }
 
   showDefault() {
-    this.mainLoaderService.isLoaded = true;
     const { drugstores, selectedDrugstore } = this.companyDrugstoresStore;
     if (drugstores && drugstores.length) {
 

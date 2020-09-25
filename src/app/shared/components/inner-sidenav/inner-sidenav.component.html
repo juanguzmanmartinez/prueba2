@@ -1,0 +1,21 @@
+<mat-drawer-container class="inner-sidenav-container">
+  <mat-drawer #innerSidenav
+               mode="side"
+               opened
+               class="inner-sidenav"
+               [class.inner-sidenav-close]="!innerSidenav.opened">
+    <div class="inner-sidenav-menu">
+      <button class="inner-sidenav-button"
+              [class.inner-sidenav-button-close]="!innerSidenav.opened"
+              (click)="innerSidenav.toggle()">
+        <app-icon class="inner-sidenav-icon"
+                  iconFontName="keyboard_arrow_right"></app-icon>
+      </button>
+      <ng-content select="[sidenav]"></ng-content>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content
+    [class.inner-sidenav-content-close]="!innerSidenav.opened">
+    <ng-content select="[sidenav-content]"></ng-content>
+  </mat-drawer-content>
+</mat-drawer-container>

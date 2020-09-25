@@ -1,0 +1,15 @@
+<ng-container *ngIf="iconFontName">
+  <mat-icon aria-hidden="false"
+            class="icon-font"
+            [ngClass]="iconClass"
+            [style.color]="iconFontColor"
+            [style.font-size]="iconFontSize">{{iconFontName}}</mat-icon>
+</ng-container>
+
+<ng-container *ngIf="iconSvgName">
+  <mat-icon class="icon-svg"
+            [ngClass]="iconClass"
+            [svgIcon]="iconSvgName"
+            [style.width]="iconSvgWidth"
+            [style.height]="(iconSvgHeight || iconSvgWidth)"></mat-icon>
+</ng-container>

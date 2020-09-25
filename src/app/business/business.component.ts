@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-business',
@@ -8,12 +7,10 @@ import { Router } from '@angular/router';
 })
 export class BusinessComponent implements OnInit {
 
-  constructor(
-    private router: Router
-  ) { }
+  constructor() {
+  }
 
   ngOnInit() {
-    this.router.navigate(['/home']);
   }
 
 }

@@ -1,0 +1,13 @@
+<div class="card-radio">
+  <app-radio [radioValue]="radioValue"
+             radioClass="card-radio"
+             [(ngModel)]="_radioValue"
+             (change)="chooseRadio()">
+    <h4 class="card-radio-title">
+      <ng-content select="[card-title]"></ng-content>
+    </h4>
+    <p class="card-radio-description">
+      <ng-content select="[card-description]"></ng-content>
+    </p>
+  </app-radio>
+</div>

@@ -9,6 +9,15 @@ import { CapacityClientService } from './services/capacity-edition/capacity-edit
 import { LocalClientService } from './services/calendar/local-client.service';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { CapacityImplementService } from './services/capacity-edition/capacity-implements.service';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {RouterModule} from '@angular/router';
+import { InnerSidenavComponent } from './components/inner-sidenav/inner-sidenav.component';
+import {CoreComponentsModule} from '../commons/core-components/core-components.module';
+import {IconsModule} from '../commons/core-components/icons/icons.module';
+import { InnerSidenavNavigationComponent } from './components/inner-sidenav/components/inner-sidenav-navigation/inner-sidenav-navigation.component';
+import { InnerSidenavNavigationExpansionComponent } from './components/inner-sidenav/components/inner-sidenav-navigation-expansion/inner-sidenav-navigation-expansion.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {TooltipModule} from '../commons/core-components/tooltip/tooltip.module';
 
 const SERVICE = [
   DrugstoreClientService,
@@ -21,13 +30,19 @@ const SERVICE = [
 
 
 @NgModule({
-  declarations: [SidenavComponent],
-  exports: [SidenavComponent],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-  ],
+  declarations: [SidenavComponent, InnerSidenavComponent, InnerSidenavNavigationComponent, InnerSidenavNavigationExpansionComponent],
+  exports: [SidenavComponent, InnerSidenavComponent, InnerSidenavNavigationComponent, InnerSidenavNavigationExpansionComponent],
+    imports: [
+        CommonModule,
+        HttpClientModule,
+        FormsModule,
+        MatSidenavModule,
+        RouterModule,
+        CoreComponentsModule,
+        IconsModule,
+        MatExpansionModule,
+        TooltipModule,
+    ],
   providers: [
     ...SERVICE
   ]

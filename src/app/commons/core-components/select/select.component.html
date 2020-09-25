@@ -1,0 +1,29 @@
+<div class="select" [formGroup]="selectFormGroup">
+  <mat-select
+    disableRipple
+    disableOptionCentering
+    panelClass="select-component"
+    [formControlName]="selectFormControlName"
+    [placeholder]="selectPlaceholder"
+    (selectionChange)="selectionChange()">
+
+    <div class="option-container">
+      <mat-option class="select-basic-option select-basic-option-clear"
+                  *ngIf="selectClearValue">{{selectClearValue}}</mat-option>
+      <mat-option
+        class="select-basic-option"
+        *ngFor="let option of optionList"
+        [value]="option">
+        <ng-template [ngTemplateOutlet]="templateRef"
+                     [ngTemplateOutletContext]="{$implicit: option}">
+        </ng-template>
+      </mat-option>
+    </div>
+
+  </mat-select>
+
+  <app-icon class="select-icon"
+            iconFontName="keyboard_arrow_down"
+            iconClass="text-gray-5"
+            iconFontSize="14px"></app-icon>
+</div>

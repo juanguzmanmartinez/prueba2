@@ -1,1 +1,23 @@
-<p>sidenav works!</p>
+<mat-sidenav-container class="static-sidenav-container">
+  <mat-sidenav mode="side"
+               opened>
+    <div class="static-sidenav">
+      <a routerLink="/">
+        <app-icon iconSvgName="main-logo"
+                  iconSvgWidth="32px"></app-icon>
+      </a>
+
+      <div class="sidenav-taps">
+        <app-tooltip>
+          <a class="sidenav-button"
+             [routerLink]="'/operaciones'">OP </a>
+        </app-tooltip>
+      </div>
+    </div>
+  </mat-sidenav>
+
+
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

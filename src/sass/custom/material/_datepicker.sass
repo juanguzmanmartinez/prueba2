@@ -1,0 +1,45 @@
+@import "src/sass/variables/colors"
+@import "src/sass/utilities/text"
+
+mat-datepicker-content.mat-datepicker-content
+  box-shadow: 0 20px 40px rgba(9, 39, 85, 0.08)
+  border: 0.5px solid $gray-1
+  border-radius: 4px
+  color: $black
+  background-color: $white
+
+  .mat-calendar
+    min-height: 260px
+    height: auto
+
+  .mat-calendar-content
+    padding: 12px 8px
+
+  .mat-calendar-table-header-divider
+    display: none
+
+  .mat-calendar-table-header th
+    color: $gray-5
+    @extend .text-label
+
+
+  .mat-calendar-body-label:not(:last-of-type)
+    visibility: hidden
+
+  .mat-calendar-body-label:last-of-type
+    display: none
+
+  .mat-calendar-body-today:not(.mat-calendar-body-selected)
+    border: 1px solid $gray-3
+    background-color: transparent
+    color: $black
+
+  .mat-calendar-body-selected
+    background-color: $primary
+    @extend .text-subtitle-2
+
+  .mat-calendar-body-in-range::before
+    background-color: $light-primary
+
+  .mat-calendar-body-disabled > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected)
+    color: $gray-4
