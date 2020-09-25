@@ -1,0 +1,11 @@
+<app-button
+  buttonClass="btn-primary
+  btn-spacer-{{buttonSize}}
+  label-black{{buttonSize === 'small' ? '--1': buttonSize === 'large' ? '-1' : ''}}
+  btn-{{buttonDisplay}}
+  {{buttonDisabled ? 'btn-disabled': ''}}"
+  [buttonType]="buttonType"
+  [buttonDisabled]="buttonDisabled"
+  [buttonStyle]="buttonStyle">
+  <ng-content></ng-content>
+</app-button>

@@ -36,11 +36,17 @@ const CAPACITY_PROGRAMMED: Route = {
   loadChildren: () => import('./capacity-programmed/capacity-programmed.module').then(m => m.CapacityProgrammedModule),
 };
 
+const OPERATIONS: Route = {
+  path: 'operaciones',
+  loadChildren: () => import('./operations/operations.module').then(m => m.OperationsModule),
+};
+
 const routes: Routes = [
   {
     path: '',
     component: BusinessComponent,
     children: [
+      OPERATIONS,
       HOME_MODULE_ROUTE,
       ADMINISTRATOR_CAPACITY,
       CAPACITY_EDIT,

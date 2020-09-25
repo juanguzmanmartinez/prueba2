@@ -1,0 +1,66 @@
+@import "../functions";
+
+/*Brand*/
+$light-blue: #DBE9FF;
+$blue: #1265E5;
+$dark-blue: #003D99;
+
+//Neutrals
+$white: #FFFFFF;
+$gray-1: #F1F3F5;
+$gray-2: #E5E9EC;
+$gray-3: #D5DCE1;
+$gray-4: #A5B2BD;
+$gray-5: #748494;
+$gray-6: #405261;
+$black: #1D2B36;
+
+/*Semantics*/
+$light-success: #BBE5B3;
+$success: #50B83C;
+$dark-success: #108043;
+$light-warning: #FFEA8A;
+$warning: #EEC200;
+$dark-warning: #C68B20;
+$light-error: #FEAD9A;
+$error: #DE3618;
+$dark-error: #BF0711;
+
+
+/*Primary Colors*/
+$light-primary: $light-blue;
+$primary: $blue;
+$dark-primary: $dark-blue;
+
+
+$primary-colors-map: (
+  "light-primary": $light-primary,
+  "primary": $primary,
+  "dark-primary": $dark-primary
+);
+
+$neutral-colors-map: (
+  "white": $white,
+  "gray-1": $gray-1,
+  "gray-2": $gray-2,
+  "gray-3": $gray-3,
+  "gray-4": $gray-4,
+  "gray-5": $gray-5,
+  "gray-6": $gray-6,
+  "black": $black
+);
+
+$semantic-colors-map: (
+  "light-success": $light-success,
+  "success": $success,
+  "dark-success": $dark-success,
+  "light-warning": $light-warning,
+  "warning": $warning,
+  "dark-warning": $dark-warning,
+  "light-error": $light-error,
+  "error": $error,
+  "dark-error": $dark-error
+);
+
+$colors: map-collect($primary-colors-map, $semantic-colors-map, $neutral-colors-map);
+$theme-colors: map-collect($primary-colors-map, $semantic-colors-map, $neutral-colors-map);

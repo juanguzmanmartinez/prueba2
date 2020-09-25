@@ -1,4 +1,4 @@
-@import "../../../../assets/_variables.sass";
+@import "src/sass/variables/variables";
 
 .radio-control-container {
   .radio-control {
@@ -16,7 +16,7 @@
       left: 2px;
       height: 16px;
       width: 16px;
-      border: 1px solid $dark;
+      border: 1px solid $gray-6;
       border-radius: 50%;
 
       .check-mark:after {
@@ -41,8 +41,8 @@
 
       .input-radio:checked~.check-mark {
 
-        background-color: $support-two;
-        border: 1px solid $support-two;
+        background-color: $primary;
+        border: 1px solid $light-primary;
       }
 
       .input-radio:checked~.check-mark:after {
@@ -50,7 +50,7 @@
       }
 
       .input-radio[disabled]~.check-mark {
-        border: 1px solid $gray;
+        border: 1px solid $gray-4;
       }
     }
 

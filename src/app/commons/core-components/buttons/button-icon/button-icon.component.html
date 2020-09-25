@@ -1,0 +1,10 @@
+<app-button
+  [buttonClass]="'btn-icon p-3  label-black  btn-' + buttonDisplay + ' ' +buttonClass "
+  [buttonType]="buttonType">
+
+  <span class="mr-2">
+  <app-icon [iconFontName]="buttonIcon" iconFontSize="16px"></app-icon>
+  </span>
+
+  <ng-content></ng-content>
+</app-button>

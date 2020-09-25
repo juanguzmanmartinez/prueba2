@@ -1,4 +1,4 @@
-@import '../../../assets/variables/colors';
+@import 'src/sass/variables/colors';
 
 section {
   padding: 10px 100px;
@@ -21,7 +21,7 @@ section {
     font-style: normal;
     font-size: 10px;
     line-height: 100%;
-    color: $dark-one;
+    color: $gray-5;
     margin: 30px 0px;
     cursor: pointer;
   }
@@ -37,7 +37,7 @@ section {
 
       .number-action-capacity-one {
         padding: 10px 14px;
-        background: $blue-one;
+        background: $primary;
         border-radius: 5px;
         font-family: Inter;
         color: $white;
@@ -45,7 +45,7 @@ section {
 
       .number-action-capacity-one-disabled {
         padding: 10px 14px;
-        background: $dark-two;
+        background: $gray-6;
         border-radius: 5px;
         font-family: Inter;
         color: $white;
@@ -53,7 +53,7 @@ section {
 
       .number-action-capacity-two {
         padding: 10px;
-        color: $blue-one;
+        color: $primary;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -65,7 +65,7 @@ section {
 
       .number-action-capacity-two-disabled {
         padding: 10px;
-        color: $dark-two;
+        color: $gray-6;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -90,8 +90,8 @@ section {
       .d-section-description {
         display: flex;
         justify-content: space-between;
-        border-top: 1px solid $white-one;
-        border-bottom: 1px solid $white-one;
+        border-top: 1px solid $gray-1;
+        border-bottom: 1px solid $gray-1;
         padding: 22px 0px;
 
         .d-group-buttons {
@@ -122,16 +122,16 @@ section {
             padding: 11px;
             border-radius: 11px;
             margin: 0px;
-            background: $white-one;
+            background: $gray-1;
             cursor: pointer;
-            color: $dark-two;
+            color: $gray-6;
 
             &.disabled-button {
               opacity: 0.3;
             }
 
             &.focus {
-              background-color: $blue-one;
+              background-color: $primary;
             }
           }
         }
@@ -145,7 +145,7 @@ section {
 
       .number-action-capacity-one {
         padding: 10px 14px;
-        background: $blue-one;
+        background: $primary;
         border-radius: 5px;
         font-family: Inter;
         color: $white;
@@ -153,7 +153,7 @@ section {
 
       .number-action-capacity-one-disabled {
         padding: 10px 14px;
-        background: $dark-two;
+        background: $gray-6;
         border-radius: 5px;
         font-family: Inter;
         color: $white;
@@ -162,7 +162,7 @@ section {
 
       .number-action-capacity-two {
         padding: 10px;
-        color: $blue-one;
+        color: $primary;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -174,7 +174,7 @@ section {
 
       .number-action-capacity-two-disabled {
         padding: 10px;
-        color: $dark-two;
+        color: $gray-6;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -198,13 +198,13 @@ section {
 
       .encapsulate-cards {
         display: flex;
-        border-top: 1px solid $white-one;
-        border-bottom: 1px solid $white-one;
+        border-top: 1px solid $gray-1;
+        border-bottom: 1px solid $gray-1;
         padding-top: 22px;
         padding-bottom: 10px;
 
         .card-checkbox-one {
-          border: 1px solid $white-two;
+          border: 1px solid $gray-3;
           border-radius: 10px;
           // padding: 16px;
           margin-right: 10px;
@@ -217,7 +217,7 @@ section {
             font-weight: normal;
             font-size: 14px;
             line-height: 100%;
-            color: $grey-one;
+            color: $gray-4;
             text-align: center;
             padding-bottom: 4px;
           }
@@ -228,14 +228,14 @@ section {
             font-weight: normal;
             font-size: 14px;
             line-height: 100%;
-            color: $grey-one;
+            color: $gray-4;
             text-align: center;
             padding: 0px 10px;
           }
         }
 
         .card-checkbox-two {
-          border: 1px solid $white-two;
+          border: 1px solid $gray-3;
           border-radius: 10px;
           padding: 10px;
 
@@ -245,7 +245,7 @@ section {
             font-weight: normal;
             font-size: 14px;
             line-height: 100%;
-            color: $grey-one;
+            color: $gray-4;
             text-align: center;
             padding-bottom: 4px;
           }
@@ -256,7 +256,7 @@ section {
             font-weight: normal;
             font-size: 14px;
             line-height: 100%;
-            color: $grey-one;
+            color: $gray-4;
             text-align: center;
             padding: 0px 10px;
           }
@@ -280,16 +280,16 @@ section {
             padding: 11px;
             border-radius: 11px;
             margin: 0px;
-            background: $white-one;
+            background: $gray-1;
             cursor: pointer;
-            color: $dark-two;
+            color: $gray-6;
 
             &.disabled-button {
               opacity: 0.3;
             }
 
             &.focus {
-              background-color: $blue-one;
+              background-color: $primary;
             }
           }
         }
@@ -305,7 +305,7 @@ section {
 
       .number-action-capacity-one {
         padding: 10px 14px;
-        background: $blue-one;
+        background: $primary;
         border-radius: 5px;
         font-family: Inter;
         color: $white;
@@ -313,7 +313,7 @@ section {
 
       .number-action-capacity-one-disabled {
         padding: 10px 14px;
-        background: $dark-two;
+        background: $gray-6;
         border-radius: 5px;
         font-family: Inter;
         color: $white;
@@ -321,7 +321,7 @@ section {
 
       .number-action-capacity-two {
         padding: 10px;
-        color: $blue-one;
+        color: $primary;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -333,7 +333,7 @@ section {
 
       .number-action-capacity-two-disabled {
         padding: 10px;
-        color: $dark-two;
+        color: $gray-6;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -346,8 +346,8 @@ section {
       .d-section-descriptions-step3 {
 
         justify-content: space-between;
-        border-top: 1px solid $white-one;
-        border-bottom: 1px solid $white-one;
+        border-top: 1px solid $gray-1;
+        border-bottom: 1px solid $gray-1;
         padding: 22px 0px;
 
         .section-calendar {
@@ -390,16 +390,16 @@ section {
             padding: 11px;
             border-radius: 11px;
             margin: 0px;
-            background: $white-one;
+            background: $gray-1;
             cursor: pointer;
-            color: $dark-two;
+            color: $gray-6;
 
             &.disabled-button {
               opacity: 0.3;
             }
 
             &.focus {
-              background-color: $blue-one;
+              background-color: $primary;
             }
           }
         }

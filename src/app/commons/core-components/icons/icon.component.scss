@@ -1,0 +1,16 @@
+@import "src/sass/variables/colors";
+
+:host {
+  display: contents;
+  color: $black;
+}
+
+.icon-font {
+  width: fit-content;
+  height: fit-content;
+  color: inherit;
+}
+
+.icon-svg {
+  display: inline-flex;
+}

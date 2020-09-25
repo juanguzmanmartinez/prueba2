@@ -7,6 +7,8 @@ import { ButtonsCustomerComponent } from './buttons-customer/buttons-customer.co
 import { CheckboxInputComponent } from './checkbox-input/checkbox-input.component';
 import { InputNumberGenericDirective } from './input-text-customer/input-number.directive';
 import { RadioControlComponent } from './radio-control/radio-control.component';
+import { TooltipComponent } from './tooltip/tooltip.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 const COMPONENTES = [
   DropdownComponent,
@@ -15,14 +17,16 @@ const COMPONENTES = [
   CheckboxInputComponent,
   InputNumberGenericDirective,
   RadioControlComponent,
+  TooltipComponent,
 ];
 
 @NgModule({
   declarations: [...COMPONENTES],
   exports: [...COMPONENTES],
-  imports: [
-    CommonModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatTooltipModule
+    ]
 })
 export class CoreComponentsModule { }

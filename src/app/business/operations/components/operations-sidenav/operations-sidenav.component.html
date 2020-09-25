@@ -1,0 +1,50 @@
+<app-inner-sidenav>
+  <section sidenav
+           class="operations-sidenav">
+
+    <div class="operations-sidenav-header">
+      <h1 class="operations-sidenav-title">Operaciones</h1>
+    </div>
+    <hr class="separator">
+
+    <div class="operations-sidenav-content">
+      <app-inner-sidenav-navigation navigationIcon="home"
+                                    navigationRoute="/operaciones"
+                                    navigationText="Home">
+      </app-inner-sidenav-navigation>
+
+      <app-inner-sidenav-navigation navigationIcon="store"
+                                    navigationRoute="/operaciones/locales"
+                                    navigationText="Locales">
+      </app-inner-sidenav-navigation>
+
+      <app-inner-sidenav-navigation navigationIcon="location_on"
+                                    navigationRoute="/operaciones/zonas"
+                                    navigationText="Zonas">
+      </app-inner-sidenav-navigation>
+
+      <app-inner-sidenav-navigation-expansion navigationIcon="date_range"
+                                              navigationRoute="/operaciones/capacidades"
+                                              navigationText="Capacidades"
+                                              [navigationRouteOptions]="{exact: false}">
+        <a routerLink="/operaciones/capacidades/am-pm"
+           routerLinkActive="inner-sidenav-navigation-active"
+           [routerLinkActiveOptions]="{exact:true}">Editar AM/PM</a>
+        <a routerLink="/operaciones/capacidades/programado"
+           routerLinkActive="inner-sidenav-navigation-active"
+           [routerLinkActiveOptions]="{exact:true}">Editar Programado</a>
+        <a routerLink="/operaciones/capacidades/express"
+           routerLinkActive="inner-sidenav-navigation-active"
+           [routerLinkActiveOptions]="{exact:true}">Editar Express</a>
+      </app-inner-sidenav-navigation-expansion>
+
+      <app-inner-sidenav-navigation navigationIcon="settings"
+                                    navigationRoute="/operaciones/configuraciones"
+                                    navigationText="Configuraciones">
+      </app-inner-sidenav-navigation>
+    </div>
+
+  </section>
+
+  <ng-content sidenav-content></ng-content>
+</app-inner-sidenav>
