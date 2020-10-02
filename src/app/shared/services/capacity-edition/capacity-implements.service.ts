@@ -16,8 +16,16 @@ export class CapacityImplementService {
     return this.localClient.getLocalClient$(serviceType);
   }
 
+  public getGroupLocalImplements$(serviceType: string) {
+    return this.localClient.getGroupLocalClient$(serviceType);
+  }
+
   public getTypeOperationImplements$(serviceType: string, selectedLocal: ICustomSelectOption, serviceTypeCode: string) {
     return this.localClient.getTypeOperationClient$(serviceType, selectedLocal, serviceTypeCode);
+  }
+
+  public getTypeOperationGroupImplements$(serviceType: string, selectedLocal: ICustomSelectOption, serviceTypeCode: string) {
+    return this.localClient.getTypeOperationGroupClient$(serviceType, selectedLocal, serviceTypeCode);
   }
 
   public patchCalendarUpdateClient$(request: ICalendarUpdateRequestParams) {

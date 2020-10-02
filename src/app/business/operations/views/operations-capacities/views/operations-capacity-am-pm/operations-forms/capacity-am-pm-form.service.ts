@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DefaultRadioControl } from '../controls/default-radio.control';
 import { CustomSelectControl } from '../../../../../../operations-admin/controls/custom-select-control';
@@ -13,10 +13,10 @@ export class CapacityAmPmService {
 
   private radio = new DefaultRadioControl();
   private dropdow = new CustomSelectControl();
-  private am = new FormControl();
-  private pm = new FormControl();
-  private startDate = new CustomControl();
-  private endDate = new CustomControl();
+  private am = new FormControl('', [Validators.required]);
+  private pm = new FormControl('', [Validators.required]);
+  private startDate = new FormControl();
+  private endDate = new FormControl();
 
   private subscriptions: Subscription[] = [];
   constructor(

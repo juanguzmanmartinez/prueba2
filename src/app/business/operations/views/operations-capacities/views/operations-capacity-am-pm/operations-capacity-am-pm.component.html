@@ -2,7 +2,7 @@
   <div class="row d-content-title-home">
     <div class="subTitle-module-home" (click)="return()"> <img src="../../../assets/img/vector-left.png" alt=""> VOLVER
       A OPCIONES</div>
-    <div class="title-module-home">Editar capacidad AM/PM</div>
+    <div class="text-h3">Editar capacidad AM/PM</div>
   </div>
   <form [formGroup]="formService.form">
     <mat-accordion>
@@ -33,7 +33,7 @@
               <div class="d-section-description">
                 <div class="d-group-buttons">
                   <mat-button-toggle-group #group="matButtonToggleGroup" [value]="selectedVal"
-                                           (change)="onValChange(group.value)">
+                    (change)="onValChange(group.value)">
                     <mat-button-toggle value="group">Grupo</mat-button-toggle>
                     <mat-button-toggle value="local">Local</mat-button-toggle>
                   </mat-button-toggle-group>
@@ -84,14 +84,14 @@
 
                 <div class="card-checkbox-one">
                   <app-radio-control formControlName="radio" [radioOptionValue]="'DEFAULT'"
-                                     [hasStopPropagation]="false">
+                    [hasStopPropagation]="false">
                   </app-radio-control>
                   <div class="title-card">Por defecto</div>
                   <div class="subtitle-card">Capacidad default para un día</div>
                 </div>
                 <div class="card-checkbox-two">
                   <app-radio-control formControlName="radio" [radioOptionValue]="'CALENDAR'"
-                                     [hasStopPropagation]="false">
+                    [hasStopPropagation]="false">
                   </app-radio-control>
                   <div class="title-card">Calendario</div>
                   <div class="subtitle-card">Capacidad Programada</div>
@@ -141,7 +141,7 @@
                     <mat-date-range-input [min]="defaultStartDate" [max]="maxDate" [rangePicker]="picker">
                       <input matStartDate formControlName="startDate" placeholder="Start date">
                       <input matEndDate formControlName="endDate" [min]="formService.form.controls['startDate'].value"
-                             placeholder="End date">
+                        placeholder="End date">
                     </mat-date-range-input>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>

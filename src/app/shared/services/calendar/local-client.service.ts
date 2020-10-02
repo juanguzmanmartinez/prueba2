@@ -37,12 +37,40 @@ export class LocalClientService {
       }));
   }
 
+  public getGroupLocalClient$(serviceType: string) {
+    const httpParams = new HttpParams()
+      .set('filter', String('GROUP'));
+    const Header = new HttpHeaders();
+    const endpoint = this.LOCAL_ENDPOINT + serviceType;
+    return this.genericService.genericGet<ILocal[]>(endpoint, httpParams, Header)
+      .pipe(map(response => {
+        const current = isArray(response) ? response : [];
+        const locales = current.map(store => new Local(store));
+        return locales;
+      }));
+  }
+
   public getTypeOperationClient$(serviceType: string, selectedLocal: ICustomSelectOption, serviceTypeCode: string) {
     const httpParams = new HttpParams()
       .set('fulfillmentCenterCode', String(selectedLocal.fulfillmentCenterCode)) // selectedLocal.fulfillmentCenterCode
       .set('channel', String('DIGITAL'))
       .set('serviceTypeCode', String(serviceTypeCode))
       .set('detailType', String(serviceType));
+    const Header = new HttpHeaders();
+    return this.genericService.genericGet<ITypeService>(this.TYPE_SERVICE_ENDPOINT, httpParams, Header)
+      .pipe(map(response => {
+        const service = isObject(response) ? response : response;
+        return service;
+      }));
+  }
+
+  public getTypeOperationGroupClient$(serviceType: string, selectedLocal: ICustomSelectOption, serviceTypeCode: string) {
+    const httpParams = new HttpParams()
+      .set('fulfillmentCenterCode', String(selectedLocal.fulfillmentCenterCode)) // selectedLocal.fulfillmentCenterCode
+      .set('channel', String('DIGITAL'))
+      .set('serviceTypeCode', String(serviceTypeCode))
+      .set('detailType', String(serviceType))
+      .set('filter', String('GROUP'));
     const Header = new HttpHeaders();
     return this.genericService.genericGet<ITypeService>(this.TYPE_SERVICE_ENDPOINT, httpParams, Header)
       .pipe(map(response => {
