@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {IAlert, ILocal, Local} from '../../../../../../shared/services/models/local.model';
-import {ICustomSelectOption} from '../../../../../../commons/interfaces/custom-controls.interface';
-import {Subscription} from 'rxjs';
-import {ITypeService} from '../../../../../../shared/services/models/type-service.model';
-import {MainLoaderService} from '../../../../../../shared/helpers/main-loader.service';
-import {CapacityImplementService} from '../../../../../../shared/services/capacity-edition/capacity-implements.service';
-import {CapacityAmPmService} from './operations-forms/capacity-am-pm-form.service';
-import {Router} from '@angular/router';
-import {CapacityStoreService} from '../../../../../../commons/business-factories/factories-stores/capacity-store.service';
-import {take, tap} from 'rxjs/operators';
-import {ICalendarUpdateRequestParams} from '../../../../../../shared/services/models/capacity.model';
+import { IAlert, ILocal, Local } from '../../../../../../shared/services/models/local.model';
+import { ICustomSelectOption } from '../../../../../../commons/interfaces/custom-controls.interface';
+import { Subscription } from 'rxjs';
+import { ITypeService } from '../../../../../../shared/services/models/type-service.model';
+import { MainLoaderService } from '../../../../../../shared/helpers/main-loader.service';
+import { CapacityImplementService } from '../../../../../../shared/services/capacity-edition/capacity-implements.service';
+import { CapacityAmPmService } from './operations-forms/capacity-am-pm-form.service';
+import { Router } from '@angular/router';
+import { CapacityStoreService } from '../../../../../../commons/business-factories/factories-stores/capacity-store.service';
+import { take, tap } from 'rxjs/operators';
+import { ICalendarUpdateRequestParams } from '../../../../../../shared/services/models/capacity.model';
 
 @Component({
   selector: 'app-operations-capacity-am-pm',
@@ -44,6 +44,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
   segmentOne: string;
   segmentTwo: string;
   selectedStepOne: string;
+  customRequest: ICalendarUpdateRequestParams;
 
   constructor(
     private mainLoaderService: MainLoaderService,
@@ -61,9 +62,9 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
     this.stepTwo = false;
     this.stepThree = false;
     this.mainLoaderService.isLoaded = false;
-    this.selectedVal = 'group';
+    this.selectedVal = 'local';
     this.modeEdition = 'default';
-    this.formService.radioControl.setValue('default');
+    this.settValueDropdowOnInit();
     const radioSubs = this.formService.radioControl.valueChanges
       .subscribe(edition => {
         if (this.modeEdition === 'DEFAULT') {
@@ -83,20 +84,38 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.formService.dropdowControl.setValue('');
+    this.formService.radioControl.setValue('');
+    this.formService.startDateControl.setValue('');
+    this.formService.endDateControl.setValue('');
     this.subscription.forEach(sub => sub.unsubscribe());
   }
 
+  settValueDropdowOnInit() {
+    this.selectedStepOne = 'Local';
+    this.serviceType = 'AM_PM';
+    this.mainLoaderService.isLoaded = true;
+    this.formService.dropdowControl.setValue('');
+    this.service.getLocalImplements$(this.serviceType)
+      .pipe(tap(value => {
+        this.mainLoaderService.isLoaded = false;
+        this.InfoLocal = value;
+      }))
+      .pipe(take(1))
+      .subscribe((stores) => {
+        this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
+        this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[0])) as ICustomSelectOption;
+        this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
+      });
+  }
 
   public onValChange(type: string) {
     this.selectedVal = type;
     if (type === 'group') {
       this.selectedStepOne = 'Grupo';
-    } else if (type === 'local') {
-      this.selectedStepOne = 'Local';
       this.serviceType = 'AM_PM';
       this.mainLoaderService.isLoaded = true;
       this.formService.dropdowControl.setValue('');
-      this.service.getLocalImplements$(this.serviceType)
+      this.service.getGroupLocalImplements$(this.serviceType)
         .pipe(tap(value => {
           this.mainLoaderService.isLoaded = false;
           this.InfoLocal = value;
@@ -104,80 +123,130 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
         .pipe(take(1))
         .subscribe((stores) => {
           this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
-          this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[0])) as ICustomSelectOption;
-          this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
+          if (this.newInfoDrugstore.length !== 0) {
+            this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[0])) as ICustomSelectOption;
+            this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
+          }
+
         });
+    } else if (type === 'local') {
+      this.settValueDropdowOnInit();
     }
   }
 
   nextOne() {
-    this.stepOne = false;
-    this.stepTwo = true;
-    this.stepThree = false;
-
+    if (this.formService.dropdowControl.valid === true) {
+      this.stepOne = false;
+      this.stepTwo = true;
+      this.stepThree = false;
+    }
   }
 
   nextTwo() {
-    if (this.modeEdition === 'DEFAULT') {
-      this.selectedRadioButton = 'Defecto';
-      this.mainLoaderService.isLoaded = true;
-      const defaultSubs = this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
-        .pipe(take(1))
-        .subscribe(value => {
-          this.mainLoaderService.isLoaded = false;
-          this.setInputValue = value;
-          this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
-          this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
-          this.segmentOne = this.setInputValue.segments[0].hour || '';
-          this.segmentTwo = this.setInputValue.segments[1].hour || '';
-        });
-      this.subscription.push(defaultSubs);
+    if (this.formService.radioControl.valid === true) {
+      if (this.modeEdition === 'DEFAULT') {
+        this.selectedRadioButton = 'Defecto';
+        this.mainLoaderService.isLoaded = true;
+        console.log('dadas');
 
-    } else if (this.modeEdition === 'CALENDAR') {
-      this.selectedRadioButton = 'Calendario';
-      this.mainLoaderService.isLoaded = true;
-      const calendarSubs = this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
-        .pipe(take(1))
-        .subscribe(value => {
-          this.mainLoaderService.isLoaded = false;
-          this.setInputValue = value;
-          const startDay = this.setInputValue.startDay;
-          const formatterStartDay = new Date(startDay);
-          const endDay = this.setInputValue.endDay;
-          const formatterEndDay = new Date(endDay);
+        if (this.selectedStepOne === 'Local') {
+          this.callGetTypeOperationLocalDefault();
+        } else if (this.selectedStepOne === 'Grupo') {
+          this.callGetTypeOperationGroupDefault();
+        }
+      } else if (this.modeEdition === 'CALENDAR') {
+        console.log(this.selectedStepOne);
+        this.selectedRadioButton = 'Calendario';
+        this.mainLoaderService.isLoaded = true;
 
-          this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
-          this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
-          this.segmentOne = this.setInputValue.segments[0].hour || '';
-          this.segmentTwo = this.setInputValue.segments[1].hour || '';
-        });
-      this.subscription.push(calendarSubs);
+        if (this.selectedStepOne === 'Local') {
+          this.callGetTypeOperationLocalCalendar();
+        } else if (this.selectedStepOne === 'Grupo') {
+          this.callGetTypeOperationGroupCalendar();
+        }
 
+      }
 
+      this.stepOne = false;
+      this.stepTwo = false;
+      this.stepThree = true;
     }
+  }
 
-    this.stepOne = false;
-    this.stepTwo = false;
-    this.stepThree = true;
+  private callGetTypeOperationLocalDefault() {
+    const defaultSubs = this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
+      .pipe(take(1))
+      .subscribe(value => {
+        this.mainLoaderService.isLoaded = false;
+        this.setInputValue = value;
+        this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
+        this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
+        this.segmentOne = this.setInputValue.segments[0].hour || '';
+        this.segmentTwo = this.setInputValue.segments[1].hour || '';
+      });
+    this.subscription.push(defaultSubs);
+  }
+
+  private callGetTypeOperationLocalCalendar() {
+    const calendarSubs = this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
+      .pipe(take(1))
+      .subscribe(value => {
+        this.mainLoaderService.isLoaded = false;
+        this.setInputValue = value;
+        this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
+        this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
+        this.segmentOne = this.setInputValue.segments[0].hour || '';
+        this.segmentTwo = this.setInputValue.segments[1].hour || '';
+      });
+    this.subscription.push(calendarSubs);
+  }
+
+  private callGetTypeOperationGroupDefault() {
+    const defaultSubs = this.service.getTypeOperationGroupImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
+      .pipe(take(1))
+      .subscribe(value => {
+        this.mainLoaderService.isLoaded = false;
+        this.setInputValue = value;
+        this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
+        this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
+        this.segmentOne = this.setInputValue.segments[0].hour || '';
+        this.segmentTwo = this.setInputValue.segments[1].hour || '';
+      });
+
+    this.subscription.push(defaultSubs);
+  }
+
+  private callGetTypeOperationGroupCalendar() {
+    const calendarSubs = this.service.getTypeOperationGroupImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
+      .pipe(take(1))
+      .subscribe(value => {
+        this.mainLoaderService.isLoaded = false;
+        this.setInputValue = value;
+        this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
+        this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
+        this.segmentOne = this.setInputValue.segments[0].hour || '';
+        this.segmentTwo = this.setInputValue.segments[1].hour || '';
+      });
+    this.subscription.push(calendarSubs);
   }
 
   save() {
-    this.mainLoaderService.isLoaded = true;
     const quantitus = this.formService.inputAMControl.value + ',' + this.formService.inputPMControl.value;
     const hours = this.setInputValue.segments[0].hour + ',' + this.setInputValue.segments[1].hour;
+
     if (this.modeEdition === 'DEFAULT') {
-      const request = {
-        fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
-        serviceTypeCode: this.serviceType,
-        channel: 'DIGITAL',
-        hours: hours || '',
-        quantities: quantitus
-      } as ICalendarUpdateRequestParams;
-      const endpoint = this.service.patchCalendarUpdateClient$(request)
+      this.mainLoaderService.isLoaded = true;
+
+      if (this.selectedStepOne === 'Local') {
+        this.customRequest = this.requestWithLocalDefault(quantitus, hours);
+      } else if (this.selectedStepOne === 'Grupo') {
+        this.customRequest = this.requestWithGroupDefault(quantitus, hours);
+      }
+      const endpoint = this.service.patchCalendarUpdateClient$(this.customRequest)
         .pipe(take(1))
         .subscribe(() => {
           this.mainLoaderService.isLoaded = false;
-          this.router.navigate(['../']);
+          this.router.navigate(['/operaciones/capacidades']);
           const alertValues = {
             nameLocal: this.initialDrugstoreOption.text,
             selectedStepOne: this.selectedStepOne,
@@ -188,20 +257,18 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
         });
       this.subscription.push(endpoint);
 
-    } else if (this.modeEdition === 'CALENDAR') {
-      const request = {
-        fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
-        serviceTypeCode: this.serviceType,
-        channel: 'DIGITAL',
-        days: this.getDaysRange(),
-        hours: hours || '',
-        quantities: quantitus
-      } as ICalendarUpdateRequestParams;
-      const endpoint = this.service.patchCalendarRangeUpdateClient$(request)
+    } else if (this.modeEdition === 'CALENDAR' && this.formService.startDateControl.valid && this.formService.endDateControl.valid) {
+      this.mainLoaderService.isLoaded = true;
+      if (this.selectedStepOne === 'Local') {
+        this.customRequest = this.requestWithLocalCalendar(quantitus, hours);
+      } else if (this.selectedStepOne === 'Grupo') {
+        this.customRequest = this.requestWithGroupCalendar(quantitus, hours);
+      }
+      const endpoint = this.service.patchCalendarRangeUpdateClient$(this.customRequest)
         .pipe(take(1))
         .subscribe(() => {
           this.mainLoaderService.isLoaded = false;
-          this.router.navigate(['../']);
+          this.router.navigate(['/operaciones/capacidades']);
           const alertValues = {
             nameLocal: this.initialDrugstoreOption.text,
             selectedStepOne: this.selectedStepOne,
@@ -214,6 +281,53 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
 
     }
   }
+
+  private requestWithLocalCalendar(quantitus: string, hours: string) {
+    return {
+      fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
+      serviceTypeCode: this.serviceType,
+      channel: 'DIGITAL',
+      days: this.formService.startDateControl.valid ? this.getDaysRange() : '',
+      hours: hours || '',
+      quantities: quantitus,
+    } as ICalendarUpdateRequestParams;
+  }
+
+
+  private requestWithLocalDefault(quantitus: string, hours: string) {
+    return {
+      fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
+      serviceTypeCode: this.serviceType,
+      channel: 'DIGITAL',
+      hours: hours || '',
+      quantities: quantitus,
+    } as ICalendarUpdateRequestParams;
+  }
+
+  private requestWithGroupCalendar(quantitus: string, hours: string) {
+    return {
+      fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
+      serviceTypeCode: this.serviceType,
+      channel: 'DIGITAL',
+      days: this.formService.startDateControl.valid ? this.getDaysRange() : '',
+      hours: hours || '',
+      quantities: quantitus,
+      filter: 'GROUP'
+    } as ICalendarUpdateRequestParams;
+  }
+
+
+  private requestWithGroupDefault(quantitus: string, hours: string) {
+    return {
+      fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
+      serviceTypeCode: this.serviceType,
+      channel: 'DIGITAL',
+      hours: hours || '',
+      quantities: quantitus,
+      filter: 'GROUP'
+    } as ICalendarUpdateRequestParams;
+  }
+
 
   getDaysRange() {
     const dateFrom = new Date(this.formService.startDateControl.value);
@@ -231,7 +345,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
   }
 
   getMonthFormmater(date) {
-    const month = date + 1;
+    const month = date;
     return month < 10 ? '0' + month : '' + month;
   }
 
@@ -257,7 +371,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
 
   private getFormattedDrugstore(local: ILocal) {
     return {
-      text: local.name,
+      text: local.description,
       value: local.localCode,
       code: local.localCode,
       fulfillmentCenterCode: local.localCode,

@@ -19,6 +19,7 @@ export interface ICalendarUpdateRequestParams {
   channel: string;
   hours: string;
   quantities: string;
+  filter: string;
 }
 
 export interface ICapacity {

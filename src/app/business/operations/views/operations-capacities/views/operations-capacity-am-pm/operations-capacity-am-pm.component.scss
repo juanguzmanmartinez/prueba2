@@ -5,16 +5,10 @@ section {
 }
 
 .d-content-title-home {
-  margin-left: 25px;
-
-  .title-module-home {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 26px;
-    line-height: 100%;
-    margin: 15px 0px;
-  }
+  display: flex;
+  margin-left: 9px;
+  margin-bottom: 20px;
+  flex-direction: column;
 
   .subTitle-module-home {
     font-family: Inter;

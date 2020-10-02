@@ -7,15 +7,9 @@ section {
 }
 
 .d-content-title-home {
-  margin-left: 25px;
-  .title-module-home {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 26px;
-    line-height: 100%;
-    margin: 15px 0px;
-  }
+  display: flex;
+  margin-left: 9px;
+  flex-direction: column;
 
   .subTitle-module-home {
     font-family: Inter;
@@ -23,6 +17,7 @@ section {
     font-size: 16px;
     line-height: 100%;
     color: #748494;
+    margin-top: 10px;
   }
 }
 
