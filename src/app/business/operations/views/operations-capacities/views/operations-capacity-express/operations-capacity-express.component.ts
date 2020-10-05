@@ -66,7 +66,6 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
     this.selectedVal = 'local';
     this.modeEdition = 'default';
     this.settValueDropdowOnInit();
-    this.formService.radioControl.setValue('default');
     const radioSubs = this.formService.radioControl.valueChanges
       .subscribe(edition => {
         if (this.modeEdition === 'DEFAULT') {
@@ -84,6 +83,7 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
 
     this.subscription.push(radioSubs, dropdowSubs);
   }
+
   ngOnDestroy() {
     this.formService.dropdowControl.setValue('');
     this.formService.radioControl.setValue('');
@@ -146,11 +146,11 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
   }
 
   nextTwo() {
+    console.log(this.formService, 'paso 2');
     if (this.formService.radioControl.valid === true) {
       if (this.modeEdition === 'DEFAULT') {
         this.selectedRadioButton = 'Defecto';
         this.mainLoaderService.isLoaded = true;
-        console.log('dadas');
 
         if (this.selectedStepOne === 'Local') {
           this.callGetTypeOperationLocalDefault();
@@ -251,6 +251,7 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
       this.subscription.push(endpoint);
 
     } else if (this.modeEdition === 'CALENDAR' && this.formService.startDateControl.valid && this.formService.endDateControl.valid) {
+      console.log(this.formService);
       this.mainLoaderService.isLoaded = true;
       if (this.selectedStepOne === 'Local') {
         this.customRequest = this.requestWithLocalCalendar(quantitus);
