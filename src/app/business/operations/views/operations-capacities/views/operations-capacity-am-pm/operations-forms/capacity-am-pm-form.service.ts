@@ -15,8 +15,8 @@ export class CapacityAmPmService {
   private dropdow = new CustomSelectControl();
   private am = new FormControl('', [Validators.required]);
   private pm = new FormControl('', [Validators.required]);
-  private startDate = new FormControl();
-  private endDate = new FormControl();
+  private startDate = new CustomControl();
+  private endDate = new CustomControl();
 
   private subscriptions: Subscription[] = [];
   constructor(

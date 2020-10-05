@@ -82,11 +82,14 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
 
     this.subscription.push(radioSubs, dropdowSubs);
   }
+
   ngOnDestroy() {
     this.formService.dropdowControl.setValue('');
     this.formService.radioControl.setValue('');
     this.formService.startDateControl.setValue('');
     this.formService.endDateControl.setValue('');
+    this.formService.inputAMControl.setValue('');
+    this.formService.inputPMControl.setValue('');
     this.subscription.forEach(sub => sub.unsubscribe());
   }
 
@@ -143,6 +146,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
   }
 
   nextTwo() {
+    console.log(this.formService, 'paso 2');
     if (this.formService.radioControl.valid === true) {
       if (this.modeEdition === 'DEFAULT') {
         this.selectedRadioButton = 'Defecto';
@@ -250,7 +254,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
           const alertValues = {
             nameLocal: this.initialDrugstoreOption.text,
             selectedStepOne: this.selectedStepOne,
-            typeService: this.serviceType,
+            typeService: 'AM/PM',
             showAlert: true,
           } as IAlert;
           this.capacityStoreService.setSelectedDrugstore(alertValues);
@@ -258,6 +262,10 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
       this.subscription.push(endpoint);
 
     } else if (this.modeEdition === 'CALENDAR' && this.formService.startDateControl.valid && this.formService.endDateControl.valid) {
+      console.log(this.formService);
+
+      console.log('paso');
+
       this.mainLoaderService.isLoaded = true;
       if (this.selectedStepOne === 'Local') {
         this.customRequest = this.requestWithLocalCalendar(quantitus, hours);
@@ -272,7 +280,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
           const alertValues = {
             nameLocal: this.initialDrugstoreOption.text,
             selectedStepOne: this.selectedStepOne,
-            typeService: this.serviceType,
+            typeService: 'AM/PM',
             showAlert: true,
           } as IAlert;
           this.capacityStoreService.setSelectedDrugstore(alertValues);
@@ -338,7 +346,8 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
     const daysBetweenDates: number = Math.ceil((end - start) / MS_PER_DAY);
     const dates: Date[] = Array.from(new Array(daysBetweenDates + 1),
       (v, i) => new Date(start + (i * MS_PER_DAY)));
-    const formatDays = dates.map(date => `${date.getFullYear()}-${this.getMonthFormmater(date.getMonth())}-${date.getDate()}`);
+    const formatDays = dates.
+      map(date => `${date.getFullYear()}-${this.getMonthFormmater(date.getMonth())}-${this.getMonthFormmater(date.getDate())}`);
     console.log(formatDays);
 
     return formatDays.join(',');
