@@ -1,11 +1,9 @@
 <app-button
-  buttonClass="btn-outline
-  btn-border-bold
-  btn-spacer-regular
-  label-black
-  btn-{{buttonDisplay}}
-  {{buttonClass}}"
+  buttonClass="button-outline"
   [buttonType]="buttonType"
-  [buttonStyle]="buttonStyle">
+  [buttonStyle]="buttonStyle"
+  [buttonDisplay]="buttonDisplay"
+  [buttonDisabled]="buttonDisabled"
+  (buttonClick)="buttonClick.emit()">
   <ng-content></ng-content>
 </app-button>

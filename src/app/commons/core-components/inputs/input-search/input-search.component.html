@@ -1,0 +1,27 @@
+<ng-container [formGroup]="inputFormGroup">
+  <div class="input-search-container"
+         [ngClass]="'d-' + inputDisplay">
+    <app-input
+      inputLabelClass="input-search-label"
+      [inputClass]="'input-search ' + inputClass"
+      [inputError]="inputError"
+      [inputId]="inputId"
+      [inputName]="inputName"
+      [inputType]="inputType"
+      [inputFormGroup]="inputFormGroup"
+      [inputFormControlName]="inputFormControlName"
+      [inputRequired]="inputRequired"
+      [inputValue]="inputValue"
+      [inputDisplay]="inputDisplay"
+      [inputPlaceholder]="inputPlaceholder"
+      [inputMaxLength]="inputMaxLength"
+      [inputMinLength]="inputMinLength"
+      (inputBlurEvent)="inputBlurEvent.emit($event)"
+      (inputFocusEvent)="inputFocusEvent.emit($event)">
+    </app-input>
+
+    <app-icon class="input-search-icon"
+              iconSvgName="search"
+              iconSvgWidth="12px"></app-icon>
+  </div>
+</ng-container>

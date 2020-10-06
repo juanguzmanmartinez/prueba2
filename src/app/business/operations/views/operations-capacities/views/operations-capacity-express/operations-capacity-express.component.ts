@@ -3,7 +3,6 @@ import {Drugstore} from '../../../../../../shared/services/models/drugstore.mode
 import {ICustomSelectOption} from '../../../../../../commons/interfaces/custom-controls.interface';
 import {ITypeService} from '../../../../../../shared/services/models/type-service.model';
 import {Subscription} from 'rxjs';
-import {MainLoaderService} from '../../../../../../shared/helpers/main-loader.service';
 import {CapacityImplementService} from '../../../../../../shared/services/capacity-edition/capacity-implements.service';
 import {Router} from '@angular/router';
 import {CapacityStoreService} from '../../../../../../commons/business-factories/factories-stores/capacity-store.service';
@@ -36,7 +35,6 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private mainLoaderService: MainLoaderService,
     private service: CapacityImplementService,
     public formService: CapacityExpressService,
     private router: Router,
@@ -48,7 +46,6 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
     this.stepOne = true;
     this.stepTwo = false;
     this.stepThree = false;
-    this.mainLoaderService.isLoaded = false;
     this.selectedVal = 'group';
     this.modeEdition = 'default';
 
@@ -84,11 +81,9 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
     } else if (val === 'local') {
       this.selectedStepOne = 'Local';
       this.serviceType = 'EXP';
-      this.mainLoaderService.isLoaded = true;
       this.service.getLocalImplements$(this.serviceType)
         .pipe(take(1))
         .subscribe(value => {
-          this.mainLoaderService.isLoaded = false;
           this.newInfoDrugstore = this.getFormattedDrugstoreOptions(value);
         });
     }
@@ -104,11 +99,9 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
   nextTwo() {
     if (this.modeEdition === 'DEFAULT') {
       this.selectedRadioButton = 'Defecto';
-      this.mainLoaderService.isLoaded = true;
       this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
         .pipe(take(1))
         .subscribe(value => {
-          this.mainLoaderService.isLoaded = false;
           this.setInputValue = value;
           console.log(value);
           console.log(this.setInputValue, 'this.setInputValue');
@@ -117,11 +110,9 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
 
     } else if (this.modeEdition === 'CALENDAR') {
       this.selectedRadioButton = 'Calendario';
-      this.mainLoaderService.isLoaded = true;
       this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
         .pipe(take(1))
         .subscribe(value => {
-          this.mainLoaderService.isLoaded = false;
           console.log(value);
         });
 
@@ -133,7 +124,6 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.mainLoaderService.isLoaded = true;
     const request = {
       fulfillmentCenterCode: this.initialDrugstoreOption.fulfillmentCenterCode,
       serviceTypeCode: this.serviceType,
@@ -143,7 +133,6 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
     const endpoint = this.service.patchCalendarUpdateClient$(request)
       .pipe(take(1))
       .subscribe(response => {
-        this.mainLoaderService.isLoaded = false;
         this.router.navigate(['../']);
         const alertValues = {
           nameLocal: this.initialDrugstoreOption.text,

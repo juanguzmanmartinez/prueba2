@@ -1,0 +1,41 @@
+@import "src/sass/variables/colors";
+@import "src/sass/utilities/text";
+
+:host .select-tab {
+  ::ng-deep .select-tab-radio {
+    & + .radio-mark {
+      opacity: 0;
+    }
+
+    & ~ .radio-content {
+      background-color: $white;
+      border: 1px solid $gray-2;
+      padding: 12px 14px;
+      @extend .text-label
+    }
+
+    &:checked ~ .radio-content {
+      background-color: $black;
+      border-color: $black;
+      color: $white;
+      @extend .text-button
+    }
+
+  }
+
+  .select-tab-content {
+    &:first-child {
+      ::ng-deep .select-tab-radio ~ .radio-content {
+        border-radius: 4px 0 0 4px;
+      }
+    }
+
+    &:last-child {
+      ::ng-deep .select-tab-radio ~ .radio-content {
+        border-radius: 0 4px 4px 0;
+      }
+    }
+  }
+
+
+}

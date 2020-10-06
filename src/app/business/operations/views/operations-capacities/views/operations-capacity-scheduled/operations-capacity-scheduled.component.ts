@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Drugstore} from '../../../../../../shared/services/models/drugstore.model';
 import {ICustomSelectOption} from '../../../../../../commons/interfaces/custom-controls.interface';
 import {Subscription} from 'rxjs';
-import {MainLoaderService} from '../../../../../../shared/helpers/main-loader.service';
 import {CapacityImplementService} from '../../../../../../shared/services/capacity-edition/capacity-implements.service';
 import {CapacityAmPmService} from '../operations-capacity-am-pm/operations-forms/capacity-am-pm-form.service';
 import {Router} from '@angular/router';
@@ -30,7 +29,6 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
   private subscription: Subscription[] = [];
 
   constructor(
-    private mainLoaderService: MainLoaderService,
     private service: CapacityImplementService,
     public formService: CapacityAmPmService,
     private router: Router,
@@ -41,7 +39,6 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
     this.stepOne = true;
     this.stepTwo = false;
     this.stepThree = false;
-    this.mainLoaderService.isLoaded = false;
     this.selectedVal = 'group';
     this.modeEdition = 'default';
 
@@ -75,11 +72,9 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
       console.log('1');
     } else if (val === 'local') {
       this.serviceType = 'PROG';
-      this.mainLoaderService.isLoaded = true;
       this.service.getLocalImplements$(this.serviceType)
         .pipe(take(1))
         .subscribe(value => {
-          this.mainLoaderService.isLoaded = false;
           this.newInfoDrugstore = this.getFormattedDrugstoreOptions(value);
         });
     }
@@ -95,21 +90,17 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
   nextTwo() {
     if (this.modeEdition === 'DEFAULT') {
       this.selectedRadioButton = 'Defecto';
-      this.mainLoaderService.isLoaded = true;
       this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
         .pipe(take(1))
         .subscribe(value => {
-          this.mainLoaderService.isLoaded = false;
           console.log(value);
         });
 
     } else if (this.modeEdition === 'CALENDAR') {
       this.selectedRadioButton = 'Calendario';
-      this.mainLoaderService.isLoaded = true;
       this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
         .pipe(take(1))
         .subscribe(value => {
-          this.mainLoaderService.isLoaded = false;
           console.log(value);
         });
 

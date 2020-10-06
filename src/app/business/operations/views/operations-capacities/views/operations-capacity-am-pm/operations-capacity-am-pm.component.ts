@@ -3,7 +3,6 @@ import {IAlert, ILocal, Local} from '../../../../../../shared/services/models/lo
 import {ICustomSelectOption} from '../../../../../../commons/interfaces/custom-controls.interface';
 import {Subscription} from 'rxjs';
 import {ITypeService} from '../../../../../../shared/services/models/type-service.model';
-import {MainLoaderService} from '../../../../../../shared/helpers/main-loader.service';
 import {CapacityImplementService} from '../../../../../../shared/services/capacity-edition/capacity-implements.service';
 import {CapacityAmPmService} from './operations-forms/capacity-am-pm-form.service';
 import {Router} from '@angular/router';
@@ -46,7 +45,6 @@ export class OperationsCapacityAmPmComponent implements OnInit {
   selectedStepOne: string;
 
   constructor(
-    private mainLoaderService: MainLoaderService,
     private service: CapacityImplementService,
     public formService: CapacityAmPmService,
     private router: Router,
@@ -60,7 +58,6 @@ export class OperationsCapacityAmPmComponent implements OnInit {
     this.stepOne = true;
     this.stepTwo = false;
     this.stepThree = false;
-    this.mainLoaderService.isLoaded = false;
     this.selectedVal = 'group';
     this.modeEdition = 'default';
     this.formService.radioControl.setValue('default');
@@ -94,11 +91,9 @@ export class OperationsCapacityAmPmComponent implements OnInit {
     } else if (type === 'local') {
       this.selectedStepOne = 'Local';
       this.serviceType = 'AM_PM';
-      this.mainLoaderService.isLoaded = true;
       this.formService.dropdowControl.setValue('');
       this.service.getLocalImplements$(this.serviceType)
         .pipe(tap(value => {
-          this.mainLoaderService.isLoaded = false;
           this.InfoLocal = value;
         }))
         .pipe(take(1))
@@ -120,11 +115,9 @@ export class OperationsCapacityAmPmComponent implements OnInit {
   nextTwo() {
     if (this.modeEdition === 'DEFAULT') {
       this.selectedRadioButton = 'Defecto';
-      this.mainLoaderService.isLoaded = true;
       const defaultSubs = this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
         .pipe(take(1))
         .subscribe(value => {
-          this.mainLoaderService.isLoaded = false;
           this.setInputValue = value;
           this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
           this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
@@ -135,11 +128,9 @@ export class OperationsCapacityAmPmComponent implements OnInit {
 
     } else if (this.modeEdition === 'CALENDAR') {
       this.selectedRadioButton = 'Calendario';
-      this.mainLoaderService.isLoaded = true;
       const calendarSubs = this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
         .pipe(take(1))
         .subscribe(value => {
-          this.mainLoaderService.isLoaded = false;
           this.setInputValue = value;
           const startDay = this.setInputValue.startDay;
           const formatterStartDay = new Date(startDay);
@@ -162,7 +153,6 @@ export class OperationsCapacityAmPmComponent implements OnInit {
   }
 
   save() {
-    this.mainLoaderService.isLoaded = true;
     const quantitus = this.formService.inputAMControl.value + ',' + this.formService.inputPMControl.value;
     const hours = this.setInputValue.segments[0].hour + ',' + this.setInputValue.segments[1].hour;
     if (this.modeEdition === 'DEFAULT') {
@@ -176,7 +166,6 @@ export class OperationsCapacityAmPmComponent implements OnInit {
       const endpoint = this.service.patchCalendarUpdateClient$(request)
         .pipe(take(1))
         .subscribe(() => {
-          this.mainLoaderService.isLoaded = false;
           this.router.navigate(['../']);
           const alertValues = {
             nameLocal: this.initialDrugstoreOption.text,
@@ -200,7 +189,6 @@ export class OperationsCapacityAmPmComponent implements OnInit {
       const endpoint = this.service.patchCalendarRangeUpdateClient$(request)
         .pipe(take(1))
         .subscribe(() => {
-          this.mainLoaderService.isLoaded = false;
           this.router.navigate(['../']);
           const alertValues = {
             nameLocal: this.initialDrugstoreOption.text,

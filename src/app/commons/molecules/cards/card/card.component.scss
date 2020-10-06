@@ -1,0 +1,31 @@
+@import "src/sass/variables/colors";
+@import "src/sass/utilities/display";
+
+.card {
+  background-color: $white;
+  padding: 31px 24px;
+  border: 1px solid $gray-1;
+  border-radius: 8px;
+  cursor: pointer;
+  @extend .d-flex-vertical-center;
+
+  &:hover {
+    box-shadow: 0 20px 40px rgba(9, 39, 85, 0.08);
+  }
+
+  .card-icon {
+    display: inline-flex;
+    margin-right: 16px;
+  }
+
+  .card-content {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+  }
+
+  .card-arrow {
+    display: inline-flex;
+    margin-left: 16px;
+  }
+}

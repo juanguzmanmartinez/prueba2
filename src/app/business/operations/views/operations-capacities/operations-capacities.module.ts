@@ -16,6 +16,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {CapacityFormsModule} from './views/operations-capacity-am-pm/operations-forms/capacity-am-pm-forms.module';
 import {LinksModule} from '../../../../commons/core-components/links/links.module';
 import {CapacityExpressFormsModule} from './views/operations-capacity-express/operations-forms/capacity-express-forms.module';
+import {RadioModule} from '../../../../commons/core-components/radio/radio.module';
 
 
 @NgModule({
@@ -26,19 +27,20 @@ import {CapacityExpressFormsModule} from './views/operations-capacity-express/op
     OperationsCapacityExpressComponent,
     OperationsCapacityHomeComponent,
   ],
-  imports: [
-    CommonModule,
-    OperationsCapacitiesRoutingModule,
-    ReactiveFormsModule,
-    MatExpansionModule,
-    MatButtonToggleModule,
-    CoreComponentsModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    CapacityFormsModule,
-    LinksModule,
-    CapacityExpressFormsModule
-  ],
+    imports: [
+        CommonModule,
+        OperationsCapacitiesRoutingModule,
+        ReactiveFormsModule,
+        MatExpansionModule,
+        MatButtonToggleModule,
+        CoreComponentsModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        CapacityFormsModule,
+        LinksModule,
+        CapacityExpressFormsModule,
+        RadioModule
+    ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OperationsCapacitiesModule {

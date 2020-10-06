@@ -14,9 +14,13 @@
     }
 
     &.button-disabled {
-      color: $gray-4;
-      background-color: $gray-2;
-      border-color: $gray-2;
+      .icon-font {
+        color: $gray-4 !important;
+      }
     }
   }
+}
+
+.button-icon-icon {
+  margin-top: -1px;
 }

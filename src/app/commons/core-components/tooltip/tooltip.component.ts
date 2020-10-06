@@ -1,10 +1,9 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-tooltip',
   templateUrl: './tooltip.component.html',
-  styleUrls: ['./tooltip.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./tooltip.component.scss']
 })
 export class TooltipComponent implements OnInit {
 

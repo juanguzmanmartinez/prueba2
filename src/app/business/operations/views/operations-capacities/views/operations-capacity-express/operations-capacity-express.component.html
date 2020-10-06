@@ -83,16 +83,14 @@
               <div class="encapsulate-cards">
 
                 <div class="card-checkbox-one">
-                  <app-radio-control formControlName="radio" [radioOptionValue]="'DEFAULT'"
-                                     [hasStopPropagation]="false">
-                  </app-radio-control>
+                  <app-radio formControlName="radio" [radioValue]="'DEFAULT'">
+                  </app-radio>
                   <div class="title-card">Por defecto</div>
                   <div class="subtitle-card">Capacidad default para un día</div>
                 </div>
                 <div class="card-checkbox-two">
-                  <app-radio-control formControlName="radio" [radioOptionValue]="'CALENDAR'"
-                                     [hasStopPropagation]="false">
-                  </app-radio-control>
+                  <app-radio formControlName="radio" [radioValue]="'CALENDAR'">
+                  </app-radio>
                   <div class="title-card">Calendario</div>
                   <div class="subtitle-card">Capacidad Programada</div>
                 </div>

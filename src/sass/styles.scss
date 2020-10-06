@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "functions";
 @import "variables/variables";
-@import "utilities/utilities";
 @import "custom/custom";
+@import "utilities/utilities";
+@import "mixins";
+@import "builder";
 
 
 * {
