@@ -1,78 +1,45 @@
-<section>
-
-  <div class="row d-content-title-home">
-    <app-router router="/operaciones">
-      <div class="subTitle-module-home"><img src="../../../assets/img/vector-left.png" alt=""> VOLVER
-        A OPCIONES
-      </div>
-    </app-router>
-  </div>
-
-  <div class="row d-content-title-manager">
-    <div class="title-module-manager">Capacidades</div>
-    <div class="subTitle-module-manager">Selecciona el tipo de despacho comenzar a editar las capacidades.</div>
-  </div>
-
-
-  <div class="row d-row-column">
-    <app-router router="am-pm">
-      <div class="d-card-home">
-        <div class="block-left">
-          <img src="../../../assets/img/AMPM.png" alt="100px" width="40px">
-        </div>
-        <div class="block-center">
-          <p class="label-title-card">AM/PM</p>
-          <p class="label-sub-title-card"> Edita las capacidades del rango de la mañana y tarde</p>
-        </div>
-        <div class="block-rigth">
-          <img src="../../../assets/img/next_rigth.png" alt="">
-        </div>
-      </div>
-    </app-router>
-
-
-    <app-router router="express">
-      <div class="d-card-home">
-        <div class="block-left">
-          <img src="../../../assets/img/Moto.png" alt="100px" width="40px">
-        </div>
-        <div class="block-center">
-          <p class="label-title-card">EXPRESS</p>
-          <p class="label-sub-title-card"> Edita la disponibilidad de recursos para este servicio en el día</p>
-        </div>
-        <div class="block-rigth">
-          <img src="../../../assets/img/next_rigth.png" alt="">
-        </div>
-      </div>
-    </app-router>
-
-  </div>
-
-  <div class="row d-row-column">
-    <app-router router="programado">
-      <div class="d-card-home">
-        <div class="block-left">
-          <img src="../../../assets/img/Calendar.png" alt="100px" width="40px">
-        </div>
-        <div class="block-center">
-          <p class="label-title-card">PROGRAMADO</p>
-          <p class="label-sub-title-card">Edita las capacidades por rangos de horas en el día</p>
-        </div>
-        <div class="block-rigth">
-          <img src="../../../assets/img/next_rigth.png" alt="">
-        </div>
-      </div>
-    </app-router>
-  </div>
-
-  <div class="alert-success" *ngIf="showAlert">
-    <div class="alert-content">
-      <div class="div-img">
-        <img src="../../../assets/img/check-success.png" alt="">
-      </div>
-      <div class="text-alert"> Se guardó con exito la edición de
-        capacidad {{typeService}} para {{selectedStepOne}} {{local}}
-      </div>
+<section class="operations-capacity-home">
+  <div class="row mb-4">
+    <div class="col">
+      <app-back-router>Home</app-back-router>
     </div>
   </div>
+
+  <div class="row mb-9">
+    <div class="col">
+      <h1 class="text-h3 text-black mb-5">Capacidades</h1>
+      <p class="text-subtitle-1 text-gray-6">Selecciona el tipo de despacho para comenzar a editar las capacidades.</p>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col">
+      <app-router router="am-pm">
+        <app-card cardIcon="ampm">
+          <span card-title>AM/PM</span>
+          <span card-description>Edita las capacidades del rango de la mañana y tarde</span>
+        </app-card>
+      </app-router>
+    </div>
+    <div class="col">
+      <app-router router="express">
+        <app-card cardIcon="moto">
+          <span card-title>Express</span>
+          <span card-description>Edita la disponibilidad de recursos para este servicio en el día</span>
+        </app-card>
+      </app-router>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <app-router router="programado">
+        <app-card cardIcon="calendar">
+          <span card-title>Programado</span>
+          <span card-description>Edita las capacidades por rangos de horas en el día</span>
+        </app-card>
+      </app-router>
+    </div>
+  </div>
+
 </section>

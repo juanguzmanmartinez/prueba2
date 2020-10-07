@@ -3,7 +3,8 @@
                        class="steps-panel"
                        [disabled]="stepDisabled"
                        (closed)="stepClose = true"
-                       (opened)="stepClose = false">
+                       (opened)="stepClose = false"
+                       [(expanded)]="stepExpandedToggle">
     <mat-expansion-panel-header class="step-header"
                                 expandedHeight="64px"
                                 collapsedHeight="72px">
@@ -28,11 +29,11 @@
 
       <div class="step-body-actions">
         <app-button-secondary class="mr-4"
-                              (buttonClick)="cancelStepEvent.emit()">
+                              (buttonClick)="cancelButtonEvent.emit()">
           {{cancelButtonText}}
         </app-button-secondary>
-        <app-button-primary [buttonDisabled]="saveDisabled"
-                            (buttonClick)="saveStepEvent.emit()">
+        <app-button-primary [buttonDisabled]="saveButtonDisabled"
+                            (buttonClick)="saveButtonEvent.emit()">
           {{saveButtonText}}
         </app-button-primary>
       </div>

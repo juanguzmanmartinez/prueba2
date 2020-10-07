@@ -1,0 +1,23 @@
+<app-card-step stepId="1"
+               stepTitle="Grupo o Local"
+               saveButtonText="Continuar"
+               [stepExpandedToggle]="groupOrLocalExpanded"
+               [stepDescription]="groupOrLocalSelection ? groupOrLocalSelection.code + ' - ' + groupOrLocalSelection.text : ''"
+               [saveButtonDisabled]="!groupOrLocalSelection"
+               (saveButtonEvent)="saveGroupOrLocal()">
+  <div class="card-step-content d-flex-vertical-center">
+    <div class="mr-4">
+      <app-select-tab [selectTabList]="groupOrLocalTabList"
+                      [selectTabValue]="groupOrLocalTabList[0]"
+                      (change)="changeGroupOrLocal($event)">
+      </app-select-tab>
+    </div>
+    <div class="w-100">
+      <app-select [optionList]="groupOrLocalList"
+                  selectPlaceholder="Selecciona una"
+                  (optionSelected)="groupOrLocalSelected($event)">
+        <ng-template let-option>{{option.code + " - " + option.text}}</ng-template>
+      </app-select>
+    </div>
+  </div>
+</app-card-step>

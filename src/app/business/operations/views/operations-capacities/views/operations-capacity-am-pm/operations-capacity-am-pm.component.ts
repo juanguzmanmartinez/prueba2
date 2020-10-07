@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {IAlert, ILocal, Local} from '../../../../../../shared/services/models/local.model';
 import {ICustomSelectOption} from '../../../../../../commons/interfaces/custom-controls.interface';
 import {Subscription} from 'rxjs';
@@ -15,7 +15,15 @@ import {ICalendarUpdateRequestParams} from '../../../../../../shared/services/mo
   templateUrl: './operations-capacity-am-pm.component.html',
   styleUrls: ['./operations-capacity-am-pm.component.scss']
 })
-export class OperationsCapacityAmPmComponent implements OnInit {
+export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
+
+  public groupOrLocalExpanded = true;
+  public groupOrLocalTabList: Array<'Grupo' | 'Local'> = ['Grupo', 'Local'];
+  public groupOrLocalList: ICustomSelectOption[] = [] as ICustomSelectOption[];
+  public groupOrLocalSelection: ICustomSelectOption;
+
+  daterange = null;
+
 
   defaultStartDate = new Date();
   defaultMaxDate = new Date().setMonth(new Date().getMonth() + 2);
@@ -30,7 +38,7 @@ export class OperationsCapacityAmPmComponent implements OnInit {
   InfoLocal: Local[] = [] as Local[];
   selectedVal: string;
   modeEdition: string;
-  selectedRadioButton: string;
+  selectedRadioButton = 'CALENDAR';
   stepOne: boolean;
   stepTwo: boolean;
   stepThree: boolean;
@@ -44,6 +52,7 @@ export class OperationsCapacityAmPmComponent implements OnInit {
   segmentTwo: string;
   selectedStepOne: string;
 
+
   constructor(
     private service: CapacityImplementService,
     public formService: CapacityAmPmService,
@@ -54,6 +63,8 @@ export class OperationsCapacityAmPmComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getGroupOrLocalList(this.groupOrLocalTabList[0]);
+
     this.serviceTypeCode = 'AM_PM';
     this.stepOne = true;
     this.stepTwo = false;
@@ -78,11 +89,47 @@ export class OperationsCapacityAmPmComponent implements OnInit {
 
     this.subscription.push(radioSubs, dropdowSubs);
   }
+
   ngOnDestroy() {
     this.formService.dropdowControl.setValue('');
     this.subscription.forEach(sub => sub.unsubscribe());
   }
 
+  saveGroupOrLocal() {
+    this.groupOrLocalExpanded = false;
+  }
+
+  changeGroupOrLocal(event) {
+    this.getGroupOrLocalList(event.target.value);
+  }
+
+  getGroupOrLocalList(groupOrLocalTabSelected: 'Grupo' | 'Local') {
+    switch (groupOrLocalTabSelected) {
+      case 'Grupo':
+        console.log('Group tab');
+        break;
+      case 'Local':
+        this.getLocalList();
+        break;
+    }
+  }
+
+  getLocalList() {
+    this.service.getLocalImplements$('AM_PM')
+      .pipe(take(1))
+      .subscribe((stores) => {
+        console.log(stores);
+        this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
+        this.groupOrLocalList = this.getFormattedDrugstoreOptions(stores);
+        this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[0])) as ICustomSelectOption;
+        this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
+      });
+  }
+
+  groupOrLocalSelected(value: ICustomSelectOption) {
+    console.log(value);
+    this.groupOrLocalSelection = value;
+  }
 
   public onValChange(type: string) {
     this.selectedVal = type;
@@ -99,6 +146,7 @@ export class OperationsCapacityAmPmComponent implements OnInit {
         .pipe(take(1))
         .subscribe((stores) => {
           this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
+          this.groupOrLocalList = this.getFormattedDrugstoreOptions(stores);
           this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[0])) as ICustomSelectOption;
           this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
         });

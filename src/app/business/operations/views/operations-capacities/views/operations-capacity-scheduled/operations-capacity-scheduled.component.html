@@ -1,3 +1,78 @@
+<section class="operations-capacity-scheduled">
+  <div class="row mb-4">
+    <div class="col">
+      <app-back-router>Opciones</app-back-router>
+    </div>
+  </div>
+
+  <div class="row mb-9">
+    <div class="col">
+      <h1 class="text-h3 text-black mb-5">Editar capacidad Express</h1>
+    </div>
+  </div>
+
+
+  <mat-accordion>
+    <div class="row">
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12 mb-4">
+            <app-operations-capacities-step-group-or-local>
+            </app-operations-capacities-step-group-or-local>
+          </div>
+
+          <div class="col-12">
+            <app-card-step stepId="2"
+                           stepTitle="Modo de edición"
+                           saveButtonText="Continuar">
+              <div class="card-step-content d-flex justify-content-around">
+                <div class="mr-4">
+                  <app-card-radio radioValue="DEFAULT" [(ngModel)]="selectedRadioButton">
+                    <span card-title>Por defecto</span>
+                    <span card-description>Capacidad default para un día</span>
+                  </app-card-radio>
+                </div>
+                <div class=" d-flex-horizontal-center">
+                  <app-card-radio radioValue="CALENDAR" [(ngModel)]="selectedRadioButton">
+                    <span card-title>Calendario</span>
+                    <span card-description>Capacidad programada</span>
+                  </app-card-radio>
+                </div>
+              </div>
+            </app-card-step>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-6">
+        <app-card-step stepId="3"
+                       stepTitle="capacidad">
+          <div class="card-step-content">
+            <div class="row">
+              <div class="col-12 mb-5">
+                <label class="text-caption text-gray-5 mb-2">Selecciona días</label>
+                <app-input-datepicker-range [(ngModel)]="daterange">
+                </app-input-datepicker-range>
+              </div>
+
+              <div class="col-12 mb-5">
+                <label class="text-caption text-gray-5 mb-2 d-block">Edita capacidades</label>
+                <div class="d-flex-vertical-center">
+                  <app-input class="capacity-scheduled-input-capacities"
+                    inputPlaceholder="10"></app-input>
+                  <app-button-outline [buttonDisabled]="true">Aplicar a selección</app-button-outline>
+                </div>
+              </div>
+            </div>
+          </div>
+        </app-card-step>
+      </div>
+    </div>
+  </mat-accordion>
+
+</section>
+
 <section>
   <div class="row d-content-title-home">
     <app-router router="/operaciones/capacidades">

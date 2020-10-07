@@ -1,9 +1,106 @@
-<section>
-  <div class="row d-content-title-home">
-    <div class="subTitle-module-home" (click)="return()"> <img src="../../../assets/img/vector-left.png" alt=""> VOLVER
-      A OPCIONES</div>
-    <div class="title-module-home">Editar capacidad AM/PM</div>
+<section class="operations-capacity-am-pm">
+  <div class="row mb-4">
+    <div class="col">
+      <app-back-router>Opciones</app-back-router>
+    </div>
   </div>
+
+  <div class="row mb-9">
+    <div class="col">
+      <h1 class="text-h3 text-black mb-5">Editar capacidad AM/PM</h1>
+    </div>
+  </div>
+
+  <mat-accordion>
+    <div class="row">
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12 mb-4">
+            <app-card-step stepId="1"
+                           stepTitle="Grupo o Local"
+                           saveButtonText="Continuar"
+                           [stepExpandedToggle]="groupOrLocalExpanded"
+                           [stepDescription]="groupOrLocalSelection ? groupOrLocalSelection.code + ' - ' + groupOrLocalSelection.text : ''"
+                           [saveButtonDisabled]="!groupOrLocalSelection"
+                           (saveButtonEvent)="saveGroupOrLocal()">
+              <div class="card-step-content d-flex-vertical-center">
+                <div class="mr-4">
+                  <app-select-tab [selectTabList]="groupOrLocalTabList"
+                                  [selectTabValue]="groupOrLocalTabList[0]"
+                                  (change)="changeGroupOrLocal($event)">
+                  </app-select-tab>
+                </div>
+                <div class="w-100">
+                  <app-select [optionList]="groupOrLocalList"
+                              selectPlaceholder="Selecciona una"
+                              (optionSelected)="groupOrLocalSelected($event)">
+                    <ng-template let-option>{{option.code + " - " + option.text}}</ng-template>
+                  </app-select>
+                </div>
+              </div>
+            </app-card-step>
+          </div>
+
+          <div class="col-12">
+            <app-card-step stepId="2"
+                           stepTitle="Modo de edición"
+                           saveButtonText="Continuar">
+              <div class="card-step-content d-flex justify-content-around">
+                <div class="mr-4">
+                  <app-card-radio radioValue="DEFAULT" [(ngModel)]="selectedRadioButton">
+                    <span card-title>Por defecto</span>
+                    <span card-description>Capacidad default para un día</span>
+                  </app-card-radio>
+                </div>
+                <div class=" d-flex-horizontal-center">
+                  <app-card-radio radioValue="CALENDAR" [(ngModel)]="selectedRadioButton">
+                    <span card-title>Calendario</span>
+                    <span card-description>Capacidad programada</span>
+                  </app-card-radio>
+                </div>
+              </div>
+            </app-card-step>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-6">
+        <app-card-step stepId="3"
+                       stepTitle="Capacidad">
+          <div class="card-step-content">
+            <div class="row">
+              <div class="col-12 mb-5">
+                <label class="text-caption text-gray-5 mb-2">Selecciona días</label>
+                <app-input-datepicker-range [(ngModel)]="daterange">
+                </app-input-datepicker-range>
+              </div>
+
+              <div class="col-6 mb-5">
+                <label class="text-caption text-gray-5 mb-2">AM</label>
+                <app-input inputPlaceholder="100"></app-input>
+              </div>
+
+              <div class="col-6 mb-5">
+                <label class="text-caption text-gray-5 mb-2">PM</label>
+                <app-input inputPlaceholder="100"></app-input>
+              </div>
+
+              <div class="col-12">
+                <p class="text-caption text-gray-5">
+                  <span class="text-black">AM:</span> 08:00 a.m. - 02:00 p.m.</p>
+                <p class="text-caption text-gray-5 mb-0">
+                  <span class="text-black">PM:</span> 02:00 p.m. - 08:00 p.m.</p>
+              </div>
+            </div>
+          </div>
+        </app-card-step>
+      </div>
+    </div>
+  </mat-accordion>
+</section>
+
+<section>
   <form [formGroup]="formService.form">
     <mat-accordion>
       <div class="section-general">

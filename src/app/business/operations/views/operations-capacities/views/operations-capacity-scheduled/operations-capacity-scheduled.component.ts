@@ -15,6 +15,15 @@ import {ILocal} from '../../../../../../shared/services/models/local.model';
 })
 export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
 
+
+  public groupOrLocalExpanded = true;
+  public groupOrLocalTabList: Array<'Grupo' | 'Local'> = ['Grupo', 'Local'];
+  public groupOrLocalList: ICustomSelectOption[] = [] as ICustomSelectOption[];
+  public groupOrLocalSelection: ICustomSelectOption;
+
+  daterange = null;
+
+
   InfoDrugstores: Drugstore[] = [] as Drugstore[];
   selectedVal: string;
   modeEdition: string;
@@ -35,6 +44,9 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.getGroupOrLocalList(this.groupOrLocalTabList[0]);
+
+
     this.serviceTypeCode = 'PROG';
     this.stepOne = true;
     this.stepTwo = false;
@@ -64,6 +76,44 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.forEach(sub => sub.unsubscribe());
+  }
+
+
+
+  saveGroupOrLocal() {
+    this.groupOrLocalExpanded = false;
+  }
+
+  changeGroupOrLocal(event) {
+    this.getGroupOrLocalList(event.target.value);
+  }
+
+  getGroupOrLocalList(groupOrLocalTabSelected: 'Grupo' | 'Local') {
+    switch (groupOrLocalTabSelected) {
+      case 'Grupo':
+        console.log('Group tab');
+        break;
+      case 'Local':
+        this.getLocalList();
+        break;
+    }
+  }
+
+  getLocalList() {
+    this.service.getLocalImplements$('AM_PM')
+      .pipe(take(1))
+      .subscribe((stores) => {
+        console.log(stores);
+        this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
+        this.groupOrLocalList = this.getFormattedDrugstoreOptions(stores);
+        this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[0])) as ICustomSelectOption;
+        this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
+      });
+  }
+
+  groupOrLocalSelected(value: ICustomSelectOption) {
+    console.log(value);
+    this.groupOrLocalSelection = value;
   }
 
   public onValChange(val: string) {

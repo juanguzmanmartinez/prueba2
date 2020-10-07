@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StepsComponent } from './steps.component';
+import { CardStepComponent } from './card-step.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {IconsModule} from '../../core-components/icons/icons.module';
 import {ButtonsModule} from '../../core-components/buttons/buttons.module';
@@ -8,9 +8,9 @@ import {ButtonsModule} from '../../core-components/buttons/buttons.module';
 
 
 @NgModule({
-    declarations: [StepsComponent],
+    declarations: [CardStepComponent],
     exports: [
-        StepsComponent
+        CardStepComponent
     ],
   imports: [
     CommonModule,
@@ -19,4 +19,4 @@ import {ButtonsModule} from '../../core-components/buttons/buttons.module';
     ButtonsModule
   ]
 })
-export class StepsModule { }
+export class CardStepModule { }

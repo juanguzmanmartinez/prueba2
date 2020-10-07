@@ -1,6 +1,11 @@
 @import "src/sass/variables/colors";
 @import "src/sass/utilities/text";
 
+.select-tab{
+  flex-wrap: nowrap;
+  display: flex;
+}
+
 :host .select-tab {
   ::ng-deep .select-tab-radio {
     & + .radio-mark {
