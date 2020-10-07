@@ -150,10 +150,10 @@
                 </mat-panel-title>
                 <mat-panel-description>
                   <div class="number-action-capacity-description" *ngIf="!stepOne && !stepTwo">
-                    {{ selectedRadioButton }}
+                    <a (click)="showEditStepTwo()">{{ selectedRadioButton }}</a>
                   </div>
                   <div class="number-action-capacity-description" *ngIf="!stepOne && !stepTwo">
-                    <img src="../../../assets/img/pencil.png">
+                    <a (click)="showEditStepTwo()"><img src="../../../assets/img/pencil.png"></a>
                   </div>
                 </mat-panel-description>
               </mat-expansion-panel-header>
@@ -189,16 +189,17 @@
           </div>
         </div>
         <div class="section-two">
-
-
           <div class="group-or-local-step3">
-            <mat-expansion-panel hideToggle [(expanded)]="stepThree" disabled="stepThree">
+            <mat-expansion-panel hideToggle [(expanded)]="stepThree">
+              <!--disabled="stepThree"-->
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  <div class="number-action-capacity-one">
+                  <div
+                    [ngClass]="{'number-action-capacity-one': stepThree, 'number-action-capacity-one-disabled': !stepThree}">
                     3
                   </div>
-                  <div class="number-action-capacity-two">
+                  <div
+                    [ngClass]="{'number-action-capacity-two': stepThree, 'number-action-capacity-two-disabled' : !stepThree}">
                     CAPACIDAD
                   </div>
                 </mat-panel-title>
@@ -209,24 +210,17 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div class="d-section-descriptions-step3">
-
-                <div class="section-calendar" *ngIf="false">
-                  <!-- <mat-form-field appearance="fill">
-                <mat-label>Enter a date range</mat-label>
-                <mat-date-range-input [rangePicker]="picker">
-                  <input matStartDate placeholder="Start date">
-                  <input matEndDate placeholder="End date">
-                </mat-date-range-input>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
-              </mat-form-field> -->
-                </div>
-                <div class="section-default" *ngIf="true">
-                  <div class="d-inputs">
-                    <div class="d-input-one">
-                      <app-input-text-customer [label]="'Nro. de motorizados'"></app-input-text-customer>
-                    </div>
-                  </div>
+                <div class="section-calendar" *ngIf="this.modeEdition === 'CALENDAR'">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Seleccione días</mat-label>
+                    <mat-date-range-input [min]="defaultStartDate" [max]="maxDate" [rangePicker]="picker">
+                      <input matStartDate formControlName="startDate" placeholder="Start date">
+                      <input matEndDate formControlName="endDate" [min]="formService.form.controls['startDate'].value"
+                        placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </mat-form-field>
                 </div>
               </div>
 
@@ -236,7 +230,7 @@
                     Cancelar edición
                   </p>
                 </div>
-                <div class="d-buttons-implements-save" (click)="nextTwo()">
+                <div class="d-buttons-implements-save" (click)="save()">
                   <p class="button-style">
                     Continuar
                   </p>

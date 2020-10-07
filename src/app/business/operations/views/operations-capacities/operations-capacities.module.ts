@@ -27,6 +27,7 @@ import {InputsModule} from '../../../../commons/core-components/inputs/inputs.mo
 import {ButtonsModule} from '../../../../commons/core-components/buttons/buttons.module';
 import { OperationsCapacitiesStepGroupOrLocalComponent } from './components/operations-capacities-step-group-or-local/operations-capacities-step-group-or-local.component';
 import { OperationsCapacitiesStepEditionModeComponent } from './components/operations-capacities-step-edition-mode/operations-capacities-step-edition-mode.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { OperationsCapacitiesStepEditionModeComponent } from './components/opera
     CoreComponentsModule,
     MatFormFieldModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     CapacityFormsModule,
     LinksModule,
     CapacityExpressFormsModule,
@@ -60,7 +62,7 @@ import { OperationsCapacitiesStepEditionModeComponent } from './components/opera
     FormsModule,
     InputDatepickerModule,
     InputsModule,
-    ButtonsModule
+    ButtonsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

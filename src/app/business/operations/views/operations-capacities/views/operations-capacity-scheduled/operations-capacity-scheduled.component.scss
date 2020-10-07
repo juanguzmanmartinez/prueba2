@@ -16,16 +16,10 @@
 }
 
 .d-content-title-home {
-  margin-left: 25px;
-
-  .title-module-home {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 26px;
-    line-height: 100%;
-    margin: 15px 0px;
-  }
+  display: flex;
+  margin-left: 9px;
+  margin-bottom: 20px;
+  flex-direction: column;
 
   .subTitle-module-home {
     font-family: Inter;
@@ -88,7 +82,7 @@
 
       .number-action-capacity-description {
         padding: 10px;
-        color: #003D99;
+        color: $dark-primary;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -197,7 +191,7 @@
 
       .number-action-capacity-description {
         padding: 10px;
-        color: #003D99;
+        color: $dark-primary;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -205,6 +199,7 @@
         line-height: 100%;
         display: flex;
         align-items: center;
+        cursor: pointer;
       }
 
       .encapsulate-cards {
@@ -217,7 +212,6 @@
         .card-checkbox-one {
           border: 1px solid $gray-3;
           border-radius: 10px;
-          // padding: 16px;
           margin-right: 10px;
           width: 175px;
           padding: 10px 10px 25px 10px;
@@ -322,9 +316,29 @@
         color: $white;
       }
 
+      .number-action-capacity-one-disabled {
+        padding: 10px 14px;
+        background: $gray-6;
+        border-radius: 5px;
+        font-family: Inter;
+        color: $white;
+      }
+
       .number-action-capacity-two {
         padding: 10px;
         color: $primary;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .number-action-capacity-two-disabled {
+        padding: 10px;
+        color: $gray-6;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -389,7 +403,7 @@
               opacity: 0.3;
             }
 
-            &.focus {
+            &:focus {
               background-color: $primary;
             }
           }

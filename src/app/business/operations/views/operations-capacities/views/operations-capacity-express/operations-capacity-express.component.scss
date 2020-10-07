@@ -10,7 +10,10 @@
 }
 
 .d-content-title-home {
-  margin-left: 25px;
+  display: flex;
+  margin-left: 9px;
+  margin-bottom: 20px;
+  flex-direction: column;
 
   .title-module-home {
     font-family: Inter;
