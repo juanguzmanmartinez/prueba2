@@ -135,7 +135,7 @@
               opacity: 0.3;
             }
 
-            &.focus {
+            &:focus {
               background-color: $primary;
             }
           }
