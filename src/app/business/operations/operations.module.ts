@@ -10,6 +10,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { OperationsHomeComponent } from './views/operations-home/operations-home.component';
 import {LinksModule} from '../../commons/core-components/links/links.module';
 import {ButtonsModule} from '../../commons/core-components/buttons/buttons.module';
+import {CardModule} from '../../commons/molecules/cards/card.module';
 
 
 @NgModule({
@@ -18,15 +19,16 @@ import {ButtonsModule} from '../../commons/core-components/buttons/buttons.modul
     OperationsSidenavComponent,
     OperationsHomeComponent
   ],
-  imports: [
-    CommonModule,
-    OperationsRoutingModule,
-    SharedModule,
-    IconsModule,
-    MatExpansionModule,
-    LinksModule,
-    ButtonsModule
-  ]
+    imports: [
+        CommonModule,
+        OperationsRoutingModule,
+        SharedModule,
+        IconsModule,
+        MatExpansionModule,
+        LinksModule,
+        ButtonsModule,
+        CardModule
+    ]
 })
 export class OperationsModule {
 }

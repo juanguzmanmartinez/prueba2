@@ -5,7 +5,6 @@ import { NG_VALUE_ACCESSOR, FormGroup, FormBuilder, FormControl } from '@angular
 import { ICapacityRequestParams } from 'src/app/shared/services/models/capacity.model';
 import { CapacityEditImplementService } from 'src/app/business/capacity-edit/services/capacity-edit-implements.service';
 import { take } from 'rxjs/operators';
-import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { CalendarStoreService } from '../../../store/calendar-store.service';
 import { CompanyDrugstoresStoreService } from 'src/app/commons/business-factories/factories-stores/company-drugstores-store.service';
@@ -53,7 +52,6 @@ export class CalendarItemComponent implements OnInit {
     private router: Router,
     public formBuilder: FormBuilder,
     private capacityEditImplementService: CapacityEditImplementService,
-    private mainLoaderService: MainLoaderService,
     public calendarStoreService: CalendarStoreService,
     private companyDrugstoresStore: CompanyDrugstoresStoreService,
   ) { }
@@ -107,7 +105,6 @@ export class CalendarItemComponent implements OnInit {
   }
 
   redirectCapacity() {
-    this.mainLoaderService.isLoaded = true;
 
     const requestParams = {
       segmentType: this.chosenDrugstore.segmentType,

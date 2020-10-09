@@ -1,0 +1,32 @@
+@import "src/sass/variables/colors";
+@import "src/sass/utilities/text";
+
+.datepicker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.datepicker-header-actions {
+  display: inline-flex;
+
+  .datepicker-header-previous {
+    margin-right: 16px;
+  }
+
+  .datepicker-header-previous,
+  .datepicker-header-next {
+    cursor: pointer;
+    display: inline-flex;
+  }
+}
+
+.datepicker-header-label {
+  color: $black;
+  @extend .text-subtitle-2;
+}
+
+.example-double-arrow .mat-icon {
+  margin: -22%;
+}

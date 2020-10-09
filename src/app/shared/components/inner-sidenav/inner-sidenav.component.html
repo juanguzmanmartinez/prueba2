@@ -1,5 +1,5 @@
-<mat-sidenav-container class="inner-sidenav-container">
-  <mat-sidenav #innerSidenav
+<mat-drawer-container class="inner-sidenav-container">
+  <mat-drawer #innerSidenav
                mode="side"
                opened
                class="inner-sidenav"
@@ -13,9 +13,9 @@
       </button>
       <ng-content select="[sidenav]"></ng-content>
     </div>
-  </mat-sidenav>
-  <mat-sidenav-content
+  </mat-drawer>
+  <mat-drawer-content
     [class.inner-sidenav-content-close]="!innerSidenav.opened">
     <ng-content select="[sidenav-content]"></ng-content>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </mat-drawer-content>
+</mat-drawer-container>

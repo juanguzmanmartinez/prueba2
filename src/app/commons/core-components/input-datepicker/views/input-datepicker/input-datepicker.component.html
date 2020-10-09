@@ -1,0 +1,22 @@
+<div class="input-datepicker-container">
+  <label class="input-datepicker-label">
+    <input class="input-datepicker-input"
+           [placeholder]="inputPlaceholder"
+           [matDatepicker]="picker"
+           [name]="datepickerName"
+           [min]="datepickerMin"
+           [max]="datepickerMax"
+           [value]="datepickerValue"
+           (dateChange)="changeDatepicker($event)">
+    <mat-datepicker-toggle class="input-datepicker-icon"
+                           [for]="picker"
+                           [disableRipple]="true">
+      <app-icon iconSvgName="datepicker"
+                iconSvgWidth="12px"
+                matDatepickerToggleIcon></app-icon>
+    </mat-datepicker-toggle>
+  </label>
+  <mat-datepicker #picker
+                  [calendarHeaderComponent]="datepickerHeader">
+  </mat-datepicker>
+</div>

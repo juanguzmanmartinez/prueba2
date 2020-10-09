@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-operations-capacities',
-  templateUrl: './operations-capacities.component.html',
-  styleUrls: ['./operations-capacities.component.scss']
+  template: '<router-outlet></router-outlet>'
 })
-export class OperationsCapacitiesComponent implements OnInit {
+export class OperationsCapacitiesComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
   }
-
 }

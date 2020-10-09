@@ -8,7 +8,6 @@ import { take } from 'rxjs/operators';
 import { CapacityEditImplementService } from '../../services/capacity-edit-implements.service';
 import { CompanyDrugstoresStoreService } from 'src/app/commons/business-factories/factories-stores/company-drugstores-store.service';
 import { Subscription } from 'rxjs';
-import { MainLoaderService } from 'src/app/shared/helpers/main-loader.service';
 
 @Component({
   selector: 'app-table-capacity-edition',
@@ -38,11 +37,9 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
     private router: Router,
     public capacityEditImplementService: CapacityEditImplementService,
     private companyDrugstoresStore: CompanyDrugstoresStoreService,
-    private mainLoaderService: MainLoaderService,
   ) { }
 
   ngOnInit() {
-    this.mainLoaderService.isLoaded = false;
     this.typeOperation = 'RAD';
     window.scrollTo(0, 0);
     this.pageRad = false;
@@ -187,7 +184,6 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
 
   saveRAD() {
     if (this.capacityForms.form.controls.timeSegment01.status === 'VALID') {
-      this.mainLoaderService.isLoaded = true;
       const formValues = this.capacityForms.getCapacitiesAndHoursFromSegment01();
       const { selectedDrugstore, configForCapacities } = this.companyDrugstoresStore;
       const request = {
@@ -202,7 +198,6 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
       const endpoint = this.capacityEditImplementService.patchScheduleDetailImplements$(request, this.showActiveCapacityDefault)
         .pipe(take(1))
         .subscribe(response => {
-          this.mainLoaderService.isLoaded = false;
           this.router.navigate(['/operations-administrator']);
         });
       this.subscriptions.push(endpoint);
@@ -214,7 +209,6 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
 
   saveRET() {
     if (this.capacityForms.form.controls.timeSegment02.status === 'VALID') {
-      this.mainLoaderService.isLoaded = true;
       const formValues = this.capacityForms.getCapacitiesAndHoursFromSegment02();
       const { selectedDrugstore, configForCapacities } = this.companyDrugstoresStore;
       const request = {
@@ -229,7 +223,6 @@ export class TableCapacityEditionComponent implements OnInit, OnDestroy {
       const endpoint = this.capacityEditImplementService.patchScheduleDetailImplements$(request, this.showActiveCapacityDefault)
         .pipe(take(1))
         .subscribe(response => {
-          this.mainLoaderService.isLoaded = false;
           this.router.navigate(['/operations-administrator']);
         });
       this.subscriptions.push(endpoint);

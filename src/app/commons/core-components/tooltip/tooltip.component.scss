@@ -1,32 +1,35 @@
 $white: #FFFFFF;
 $dark-blue: #1D2B36;
 $blue: #0065FF;
-.sidenav-tooltip{
+.sidenav-tooltip {
   display: unset;
 }
-.mat-tooltip.sidenav-tooltip {
-  display: unset;
-  position: relative;
-  margin-left: 25px;
-  background: $dark-blue;
-  border-radius: 4px;
-  padding: 9px 8px;
 
-  color: $white;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 120%;
-
-  &:after {
-    content: "";
-    height: 10px;
-    width: 10px;
-    position: absolute;
+:host {
+  ::ng-deep .mat-tooltip.sidenav-tooltip {
+    display: unset;
+    position: relative;
+    margin-left: 25px;
     background: $dark-blue;
-    left: -5px;
-    top: calc(50% - 5px);
-    transform: rotate(45deg);
-    transition: width 1s;
+    border-radius: 4px;
+    padding: 9px 8px;
+
+    color: $white;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 120%;
+
+    &:after {
+      content: "";
+      height: 10px;
+      width: 10px;
+      position: absolute;
+      background: $dark-blue;
+      left: -5px;
+      top: calc(50% - 5px);
+      transform: rotate(45deg);
+      transition: width 1s;
+    }
   }
 }

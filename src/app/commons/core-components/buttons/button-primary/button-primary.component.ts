@@ -1,18 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {ButtonComponent} from '../button/button.component';
 
 @Component({
   selector: 'app-button-primary',
   templateUrl: './button-primary.component.html',
   styleUrls: ['./button-primary.component.scss']
 })
-export class ButtonPrimaryComponent {
+export class ButtonPrimaryComponent extends ButtonComponent {
 
-  @Input()
-  buttonDisplay: 'block' | 'flex' | 'inline-block' = 'inline-block';
-
-  @Input()
-  buttonType: 'button' | 'submit' | 'reset' = 'button';
-
-  @Input()
-  buttonDisabled = false;
 }

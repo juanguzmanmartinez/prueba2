@@ -2,8 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Drugstore } from '../../../../../../shared/services/models/drugstore.model';
 import { ICustomSelectOption } from '../../../../../../commons/interfaces/custom-controls.interface';
 import { Subscription } from 'rxjs';
-import { MainLoaderService } from '../../../../../../shared/helpers/main-loader.service';
-import { CapacityImplementService } from '../../../../../../shared/services/capacity-edition/capacity-implements.service';
+import {  CapacityImplementService } from '../../../../../../shared/services/capacity-edition/capacity-implements.service';
 import { CapacityAmPmService } from '../operations-capacity-am-pm/operations-forms/capacity-am-pm-form.service';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/internal/operators/take';
@@ -20,6 +19,16 @@ import { CapacityStoreService } from 'src/app/commons/business-factories/factori
 })
 export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
 
+
+  public groupOrLocalExpanded = true;
+  public groupOrLocalTabList: Array<'Grupo' | 'Local'> = ['Grupo', 'Local'];
+  public groupOrLocalList: ICustomSelectOption[] = [] as ICustomSelectOption[];
+  public groupOrLocalSelection: ICustomSelectOption;
+
+  daterange = null;
+
+
+  InfoDrugstores: Drugstore[] = [] as Drugstore[];
   defaultStartDate = new Date();
   defaultMaxDate = new Date().setMonth(new Date().getMonth() + 2);
 
@@ -49,7 +58,6 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
   customRequest: ICalendarUpdateRequestParams;
 
   constructor(
-    private mainLoaderService: MainLoaderService,
     private service: CapacityImplementService,
     public formService: CapacityAmPmService,
     private router: Router,
@@ -59,11 +67,13 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.serviceTypeCode = 'AM_PM';
+    this.getGroupOrLocalList(this.groupOrLocalTabList[0]);
+
+
+    this.serviceTypeCode = 'PROG';
     this.stepOne = true;
     this.stepTwo = false;
     this.stepThree = false;
-    this.mainLoaderService.isLoaded = false;
     this.selectedVal = 'local';
     this.modeEdition = 'default';
     this.settValueDropdowOnInit();
@@ -95,14 +105,49 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
     this.subscription.forEach(sub => sub.unsubscribe());
   }
 
+
+
+  saveGroupOrLocal() {
+    this.groupOrLocalExpanded = false;
+  }
+
+  changeGroupOrLocal(event) {
+    this.getGroupOrLocalList(event.target.value);
+  }
+
+  getGroupOrLocalList(groupOrLocalTabSelected: 'Grupo' | 'Local') {
+    switch (groupOrLocalTabSelected) {
+      case 'Grupo':
+        console.log('Group tab');
+        break;
+      case 'Local':
+        this.getLocalList();
+        break;
+    }
+  }
+
+  getLocalList() {
+    this.service.getLocalImplements$('AM_PM')
+      .pipe(take(1))
+      .subscribe((stores) => {
+        console.log(stores);
+        this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
+        this.groupOrLocalList = this.getFormattedDrugstoreOptions(stores);
+        this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[0])) as ICustomSelectOption;
+        this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
+      });
+  }
+
+  groupOrLocalSelected(value: ICustomSelectOption) {
+    console.log(value);
+    this.groupOrLocalSelection = value;
+  }
   settValueDropdowOnInit() {
     this.selectedStepOne = 'Local';
     this.serviceType = 'PROG';
-    this.mainLoaderService.isLoaded = true;
     this.formService.dropdowControl.setValue('');
     this.service.getLocalImplements$(this.serviceType)
       .pipe(tap(value => {
-        this.mainLoaderService.isLoaded = false;
         this.InfoLocal = value;
       }))
       .pipe(take(1))
@@ -118,11 +163,9 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
     if (type === 'group') {
       this.selectedStepOne = 'Grupo';
       this.serviceType = 'AM_PM';
-      this.mainLoaderService.isLoaded = true;
       this.formService.dropdowControl.setValue('');
       this.service.getGroupLocalImplements$(this.serviceType)
         .pipe(tap(value => {
-          this.mainLoaderService.isLoaded = false;
           this.InfoLocal = value;
         }))
         .pipe(take(1))
@@ -152,7 +195,6 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
     if (this.formService.radioControl.valid === true) {
       if (this.modeEdition === 'DEFAULT') {
         this.selectedRadioButton = 'Defecto';
-        this.mainLoaderService.isLoaded = true;
         if (this.selectedStepOne === 'Local') {
           this.callGetTypeOperationLocalDefault();
         } else if (this.selectedStepOne === 'Grupo') {
@@ -161,7 +203,6 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
       } else if (this.modeEdition === 'CALENDAR') {
         console.log(this.selectedStepOne);
         this.selectedRadioButton = 'Calendario';
-        this.mainLoaderService.isLoaded = true;
 
         if (this.selectedStepOne === 'Local') {
           this.callGetTypeOperationLocalCalendar();
@@ -182,7 +223,6 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
     const defaultSubs = this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
       .pipe(take(1))
       .subscribe(value => {
-        this.mainLoaderService.isLoaded = false;
         this.setInputValue = value;
         this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
         this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
@@ -196,7 +236,6 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
     const calendarSubs = this.service.getTypeOperationImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
       .pipe(take(1))
       .subscribe(value => {
-        this.mainLoaderService.isLoaded = false;
         this.setInputValue = value;
         this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
         this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
@@ -210,7 +249,6 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
     const defaultSubs = this.service.getTypeOperationGroupImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
       .pipe(take(1))
       .subscribe(value => {
-        this.mainLoaderService.isLoaded = false;
         this.setInputValue = value;
         this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
         this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());
@@ -225,7 +263,6 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
     const calendarSubs = this.service.getTypeOperationGroupImplements$(this.modeEdition, this.initialDrugstoreOption, this.serviceTypeCode)
       .pipe(take(1))
       .subscribe(value => {
-        this.mainLoaderService.isLoaded = false;
         this.setInputValue = value;
         this.formService.inputAMControl.setValue(this.setInputValue.segments[0].capacity.toString());
         this.formService.inputPMControl.setValue(this.setInputValue.segments[1].capacity.toString());

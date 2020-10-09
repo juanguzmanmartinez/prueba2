@@ -6,6 +6,7 @@ import { MainLoaderComponent } from './loaders/main-loader/main-loader.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import {IconsModule} from './commons/core-components/icons/icons.module';
+import {MAT_DATE_LOCALE} from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,9 @@ import {IconsModule} from './commons/core-components/icons/icons.module';
     MatSliderModule,
     IconsModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'es'},
+  ],
   bootstrap: [
     AppComponent,
     MainLoaderComponent]

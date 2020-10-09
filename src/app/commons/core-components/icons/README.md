@@ -74,6 +74,8 @@
   ![](../../../../assets/icons/navigation.svg) | navigation
   ![](../../../../assets/icons/stores.svg) | stores
   ![](../../../../assets/icons/truck.svg) | truck
+  ![](../../../../assets/icons/search.svg) | search
+  ![](../../../../assets/icons/datepicker.svg) | datepicker
   ---------------------------------------|---------------------------
   ![](../../../../assets/illustrations/assigned-orders.svg) | assigned-orders
   ![](../../../../assets/illustrations/empty-orders-1.svg) | empty-orders-1

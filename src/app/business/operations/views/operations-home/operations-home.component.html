@@ -1,74 +1,46 @@
-<section>
-  <div class="row d-content-title-home">
-    <div class="text-h3">Hola admin,</div>
-    <div class="subTitle-module-home">¿Qué módulo quieres gestionar?</div>
+<section class="operations-home-container">
+  <div class="row mb-9">
+    <div class="col">
+      <h1 class="text-h3 text-black mb-5">Hola admin,</h1>
+      <p class="text-subtitle-1 text-gray-6">¿Qué módulo quieres gestionar?</p>
+    </div>
   </div>
 
-
-  <div class="row d-row-column">
-    <app-router router="locales">
-      <div class="d-card-home">
-        <div class="block-left">
-          <img src="../../../assets/img/drugstores.png" alt="100px" width="40px">
-        </div>
-        <div class="block-center">
-          <p class="text-subtitle-1">Locales</p>
-          <p class="text-caption"> Visualiza todos los locales y edita algunos de sus características</p>
-        </div>
-        <div class="block-rigth">
-          <img src="../../../assets/img/next_rigth.png" alt="">
-        </div>
-      </div>
-    </app-router>
-
-
-    <app-router router="zonas">
-      <div class="d-card-home">
-        <div class="block-left">
-          <img src="../../../assets/img/map.png" alt="100px" width="40px">
-        </div>
-        <div class="block-center">
-          <p class="text-subtitle-1">Zonas</p>
-          <p class="text-caption">Visualiza todas las zonas, edita los tipos de despacho y exporta csv.</p>
-        </div>
-        <div class="block-rigth">
-          <img src="../../../assets/img/next_rigth.png" alt="">
-        </div>
-      </div>
-    </app-router>
-
+  <div class="row mb-4">
+    <div class="col">
+      <app-router router="locales">
+        <app-card cardIcon="stores">
+          <span card-title>Locales</span>
+          <span card-description>Visualiza todos los locales y edita algunos de sus características.</span>
+        </app-card>
+      </app-router>
+    </div>
+    <div class="col">
+      <app-router router="zonas">
+        <app-card cardIcon="navigation">
+          <span card-title>Zonas</span>
+          <span card-description>Visualiza todas las zonas, edita los tipos de despacho y exporta csv.</span>
+        </app-card>
+      </app-router>
+    </div>
   </div>
 
-  <div class="row d-row-column">
-    <app-router router="capacidades">
-      <div class="d-card-home">
-        <div class="block-left">
-          <img src="../../../assets/img/truck.png" alt="100px" width="40px">
-        </div>
-        <div class="block-center">
-          <p class="text-subtitle-1">Capacidades</p>
-          <p class="text-caption">Visualiza reportes y edita capacidades por tipo de despacho.</p>
-        </div>
-        <div class="block-rigth">
-          <img src="../../../assets/img/next_rigth.png" alt="">
-        </div>
-      </div>
-    </app-router>
-
-    <app-router router="configuraciones">
-      <div class="d-card-home">
-        <div class="block-left">
-          <img src="../../../assets/img/config.png" alt="100px" width="40px">
-        </div>
-        <div class="block-center">
-          <p class="text-subtitle-1">Configuraciones</p>
-          <p class="text-caption">Conoce los parámentros generales acerca de los tipos de despacho.</p>
-        </div>
-        <div class="block-rigth">
-          <img src="../../../assets/img/next_rigth.png" alt="">
-        </div>
-      </div>
-    </app-router>
+  <div class="row">
+    <div class="col">
+      <app-router router="capacidades">
+        <app-card cardIcon="truck">
+          <span card-title>Capacidades</span>
+          <span card-description>Visualiza reportes y edita capacidades por tipo de despacho.</span>
+        </app-card>
+      </app-router>
+    </div>
+    <div class="col">
+      <app-router router="configuraciones">
+        <app-card cardIcon="configuration">
+          <span card-title>Configuraciones</span>
+          <span card-description>Conoce los parámentros generales acerca de los tipos de despacho.</span>
+        </app-card>
+      </app-router>
+    </div>
   </div>
-
 </section>

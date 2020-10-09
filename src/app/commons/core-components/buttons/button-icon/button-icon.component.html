@@ -1,12 +1,15 @@
 <app-button
-  [buttonClass]="'button-icon ' +
-   'd-' + buttonDisplay +
-  (buttonDisabled ? ' button-disabled': '')"
+  buttonClass="button-icon"
   [buttonType]="buttonType"
-  [buttonDisabled]="buttonDisabled">
-
-  <span><app-icon class="mr-2"
-                  [iconFontName]="buttonIcon"
-                  iconFontSize="16px"></app-icon></span>
-  <span><ng-content></ng-content></span>
+  [buttonStyle]="buttonStyle"
+  [buttonDisplay]="buttonDisplay"
+  [buttonDisabled]="buttonDisabled"
+  (buttonClick)="buttonClick.emit()">
+  <span class="d-inline-flex">
+    <app-icon class="d-inline-block mr-2 button-icon-icon"
+              [iconFontName]="buttonIcon"
+              iconFontSize="16px"
+              iconFontColor="white"></app-icon>
+    <ng-content></ng-content>
+  </span>
 </app-button>

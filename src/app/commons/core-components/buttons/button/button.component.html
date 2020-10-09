@@ -1,8 +1,10 @@
 <button
-  class="button"
+  class="button d-{{buttonDisplay}}"
+  [class.button-disabled]="buttonDisabled"
   [type]="buttonType"
   [ngClass]="buttonClass"
   [disabled]="buttonDisabled"
-  [ngStyle]="buttonStyle">
+  [ngStyle]="buttonStyle"
+  (click)="buttonClick.emit()">
   <ng-content></ng-content>
 </button>

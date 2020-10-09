@@ -1,0 +1,23 @@
+@import 'src/sass/variables/colors';
+@import 'src/sass/utilities/display';
+@import 'src/sass/utilities/text';
+
+::ng-deep .mat-snack-bar-container.alert {
+  padding: 0;
+  box-shadow: none;
+  background-color: transparent;
+  max-width: 609px;
+  margin-bottom: 40px;
+}
+
+.alert-container {
+  padding: 18px 24px;
+  border-radius: 8px;
+  @extend .d-flex-vertical-center;
+
+  .alert-text {
+    color: $white;
+    margin-left: 12px;
+    @extend .text-label;
+  }
+}

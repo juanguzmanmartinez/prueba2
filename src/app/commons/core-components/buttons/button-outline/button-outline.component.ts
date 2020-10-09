@@ -1,21 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {ButtonComponent} from '../button/button.component';
 
 @Component({
   selector: 'app-button-outline',
-  templateUrl: './button-outline.component.html'
+  templateUrl: './button-outline.component.html',
+  styleUrls: ['./button-outline.component.scss']
 })
-export class ButtonOutlineComponent {
-
-  @Input()
-  buttonDisplay: 'block' | 'flex' | 'inline-block' = 'inline-block';
-
-  @Input()
-  buttonType: 'button' | 'submit' | 'reset' = 'button';
-
-  @Input()
-  buttonClass: string;
-
-  @Input()
-  buttonStyle: { [klass: string]: any; } | null;
+export class ButtonOutlineComponent extends ButtonComponent {
 
 }
