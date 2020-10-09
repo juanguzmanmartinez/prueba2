@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import {Component, OnInit, Self} from '@angular/core';
+import {NgControl} from '@angular/forms';
 import {InputComponent} from '../input/input.component';
 
 @Component({
@@ -11,11 +11,12 @@ export class InputSearchComponent extends InputComponent implements OnInit {
 
   public inputType = 'search';
 
-  constructor(public _formBuilder: FormBuilder) {
-    super(_formBuilder);
+  constructor(@Self() public ngControl: NgControl) {
+    super(ngControl);
+    ngControl.valueAccessor = this;
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     super.ngOnInit();
   }
 

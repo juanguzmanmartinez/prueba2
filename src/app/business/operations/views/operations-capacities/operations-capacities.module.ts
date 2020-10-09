@@ -25,10 +25,16 @@ import {SelectModule} from '../../../../commons/core-components/select/select.mo
 import {InputDatepickerModule} from '../../../../commons/core-components/input-datepicker/input-datepicker.module';
 import {InputsModule} from '../../../../commons/core-components/inputs/inputs.module';
 import {ButtonsModule} from '../../../../commons/core-components/buttons/buttons.module';
-import { OperationsCapacitiesStepGroupOrLocalComponent } from './components/operations-capacities-step-group-or-local/operations-capacities-step-group-or-local.component';
-import { OperationsCapacitiesStepEditionModeComponent } from './components/operations-capacities-step-edition-mode/operations-capacities-step-edition-mode.component';
-import { MatNativeDateModule } from '@angular/material/core';
-
+import {OperationsCapacitiesStepGroupOrLocalComponent} from './components/operations-capacities-step-group-or-local/operations-capacities-step-group-or-local.component';
+import {OperationsCapacitiesStepEditionModeComponent} from './components/operations-capacities-step-edition-mode/operations-capacities-step-edition-mode.component';
+import {MatNativeDateModule} from '@angular/material/core';
+import {OperationsCapacityAmPmImplementService} from './views/operations-capacity-am-pm/services/operations-capacity-am-pm-implement.service';
+import {OperationsCapacitiesStepGroupOrLocalService} from './components/operations-capacities-step-group-or-local/operations-capacities-step-group-or-local.service';
+import {OperationsCapacitiesStepEditionModeService} from './components/operations-capacities-step-edition-mode/operations-capacities-step-edition-mode.service';
+import {OperationsCapacitiesStepAmPmCapacityComponent} from './components/operations-capacities-step-am-pm-capacity/operations-capacities-step-am-pm-capacity.component';
+import {OperationsCapacitiesStepScheduledCapacityComponent} from './components/operations-capacities-step-scheduled-capacity/operations-capacities-step-scheduled-capacity.component';
+import {OperationsCapacitiesStepExpressResourcesComponent} from './components/operations-capacities-step-express-resources/operations-capacities-step-express-resources.component';
+import {OperationsCapacitiesStepAmPmCapacityService} from './components/operations-capacities-step-am-pm-capacity/operations-capacities-step-am-pm-capacity.service';
 
 @NgModule({
   declarations: [
@@ -39,6 +45,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     OperationsCapacityHomeComponent,
     OperationsCapacitiesStepGroupOrLocalComponent,
     OperationsCapacitiesStepEditionModeComponent,
+    OperationsCapacitiesStepAmPmCapacityComponent,
+    OperationsCapacitiesStepScheduledCapacityComponent,
+    OperationsCapacitiesStepExpressResourcesComponent,
   ],
   imports: [
     CommonModule,
@@ -63,6 +72,12 @@ import { MatNativeDateModule } from '@angular/material/core';
     InputDatepickerModule,
     InputsModule,
     ButtonsModule,
+  ],
+  providers: [
+    OperationsCapacityAmPmImplementService,
+    OperationsCapacitiesStepGroupOrLocalService,
+    OperationsCapacitiesStepEditionModeService,
+    OperationsCapacitiesStepAmPmCapacityService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

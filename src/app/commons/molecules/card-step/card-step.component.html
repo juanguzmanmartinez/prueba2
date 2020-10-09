@@ -2,9 +2,9 @@
   <mat-expansion-panel hideToggle
                        class="steps-panel"
                        [disabled]="stepDisabled"
-                       (closed)="stepClose = true"
-                       (opened)="stepClose = false"
-                       [(expanded)]="stepExpandedToggle">
+                       [(expanded)]="stepExpanded"
+                       (opened)="stepOpenEvent.emit()"
+                       (closed)="stepCloseEvent.emit()">
     <mat-expansion-panel-header class="step-header"
                                 expandedHeight="64px"
                                 collapsedHeight="72px">
@@ -14,7 +14,7 @@
           <span class="step-header-title">{{stepTitle}}</span>
         </mat-panel-title>
         <mat-panel-description class="step-header-description-container"
-                               *ngIf="stepClose && !stepDisabled && stepDescription">
+                               *ngIf="!stepExpanded && !stepDisabled && stepDescription">
           <span class="step-header-description">{{stepDescription}}</span>
           <app-icon iconClass="text-dark-primary"
                     iconFontName="edit"

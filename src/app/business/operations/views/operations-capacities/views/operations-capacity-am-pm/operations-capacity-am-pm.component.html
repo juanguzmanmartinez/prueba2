@@ -16,266 +16,201 @@
       <div class="col-6">
         <div class="row">
           <div class="col-12 mb-4">
-            <app-card-step stepId="1"
-                           stepTitle="Grupo o Local"
-                           saveButtonText="Continuar"
-                           [stepExpandedToggle]="groupOrLocalExpanded"
-                           [stepDescription]="groupOrLocalSelection ? groupOrLocalSelection.code + ' - ' + groupOrLocalSelection.text : ''"
-                           [saveButtonDisabled]="!groupOrLocalSelection"
-                           (saveButtonEvent)="saveGroupOrLocal()">
-              <div class="card-step-content d-flex-vertical-center">
-                <div class="mr-4">
-                  <app-select-tab [selectTabList]="groupOrLocalTabList"
-                                  [selectTabValue]="groupOrLocalTabList[0]"
-                                  (change)="changeGroupOrLocal($event)">
-                  </app-select-tab>
-                </div>
-                <div class="w-100">
-                  <app-select [optionList]="groupOrLocalList"
-                              selectPlaceholder="Selecciona una"
-                              (optionSelected)="groupOrLocalSelected($event)">
-                    <ng-template let-option>{{option.code + " - " + option.text}}</ng-template>
-                  </app-select>
-                </div>
-              </div>
-            </app-card-step>
+            <app-operations-capacities-step-group-or-local>
+            </app-operations-capacities-step-group-or-local>
           </div>
 
           <div class="col-12">
-            <app-card-step stepId="2"
-                           stepTitle="Modo de edición"
-                           saveButtonText="Continuar">
-              <div class="card-step-content d-flex justify-content-around">
-                <div class="mr-4">
-                  <app-card-radio radioValue="DEFAULT" [(ngModel)]="selectedRadioButton">
-                    <span card-title>Por defecto</span>
-                    <span card-description>Capacidad default para un día</span>
-                  </app-card-radio>
-                </div>
-                <div class=" d-flex-horizontal-center">
-                  <app-card-radio radioValue="CALENDAR" [(ngModel)]="selectedRadioButton">
-                    <span card-title>Calendario</span>
-                    <span card-description>Capacidad programada</span>
-                  </app-card-radio>
-                </div>
-              </div>
-            </app-card-step>
+            <app-operations-capacities-step-edition-mode>
+            </app-operations-capacities-step-edition-mode>
           </div>
-
         </div>
       </div>
 
       <div class="col-6">
-        <app-card-step stepId="3"
-                       stepTitle="Capacidad">
-          <div class="card-step-content">
-            <div class="row">
-              <div class="col-12 mb-5">
-                <label class="text-caption text-gray-5 mb-2">Selecciona días</label>
-                <app-input-datepicker-range [(ngModel)]="daterange">
-                </app-input-datepicker-range>
-              </div>
-
-              <div class="col-6 mb-5">
-                <label class="text-caption text-gray-5 mb-2">AM</label>
-                <app-input inputPlaceholder="100"></app-input>
-              </div>
-
-              <div class="col-6 mb-5">
-                <label class="text-caption text-gray-5 mb-2">PM</label>
-                <app-input inputPlaceholder="100"></app-input>
-              </div>
-
-              <div class="col-12">
-                <p class="text-caption text-gray-5">
-                  <span class="text-black">AM:</span> 08:00 a.m. - 02:00 p.m.</p>
-                <p class="text-caption text-gray-5 mb-0">
-                  <span class="text-black">PM:</span> 02:00 p.m. - 08:00 p.m.</p>
-              </div>
-            </div>
-          </div>
-        </app-card-step>
+        <app-operations-capacities-step-am-pm-capacity>
+        </app-operations-capacities-step-am-pm-capacity>
       </div>
     </div>
   </mat-accordion>
 </section>
 
-<section>
-  <form [formGroup]="formService.form">
-    <mat-accordion>
-      <div class="section-general">
-        <div class="section-one">
-          <div class="group-or-local-step1">
-            <mat-expansion-panel hideToggle [(expanded)]="stepOne">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <div
-                    [ngClass]="{'number-action-capacity-one': stepOne, 'number-action-capacity-one-disabled': !stepOne}">
-                    1
-                  </div>
-                  <div
-                    [ngClass]="{'number-action-capacity-two': stepOne, 'number-action-capacity-two-disabled ': !stepOne}">
-                    GRUPO O LOCAL
-                  </div>
-                </mat-panel-title>
-                <mat-panel-description>
-                  <div class="number-action-capacity-description" *ngIf="!stepOne">
-                    {{initialDrugstoreOption.text }}
-                  </div>
-                  <div class="number-action-capacity-description" *ngIf="!stepOne">
-                    <img src="../../../assets/img/pencil.png">
-                  </div>
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              <div class="d-section-description">
-                <div class="d-group-buttons">
-                  <mat-button-toggle-group #group="matButtonToggleGroup" [value]="selectedVal"
-                                           (change)="onValChange(group.value)">
-                    <mat-button-toggle value="group">Grupo</mat-button-toggle>
-                    <mat-button-toggle value="local">Local</mat-button-toggle>
-                  </mat-button-toggle-group>
-                </div>
-                <div class="d-implements-dropdown">
-                  <app-dropdown [options]="newInfoDrugstore" formControlName="dropdow"></app-dropdown>
-                </div>
-              </div>
-              <div class="d-buttons-action-save">
-                <div class="d-buttons-implements-save" (click)="return()">
-                  <p class="button-style">
-                    Cancelar edición
-                  </p>
-                </div>
-                <div class="d-buttons-implements-save" (click)="nextOne()">
-                  <p class="button-style">
-                    Continuar
-                  </p>
-                </div>
-              </div>
-            </mat-expansion-panel>
-          </div>
+<!--<section>-->
+<!--  <form [formGroup]="formService.form">-->
+<!--    <mat-accordion>-->
+<!--      <div class="section-general">-->
+<!--        <div class="section-one">-->
+<!--          <div class="group-or-local-step1">-->
+<!--            <mat-expansion-panel hideToggle [(expanded)]="stepOne">-->
+<!--              <mat-expansion-panel-header>-->
+<!--                <mat-panel-title>-->
+<!--                  <div-->
+<!--                    [ngClass]="{'number-action-capacity-one': stepOne, 'number-action-capacity-one-disabled': !stepOne}">-->
+<!--                    1-->
+<!--                  </div>-->
+<!--                  <div-->
+<!--                    [ngClass]="{'number-action-capacity-two': stepOne, 'number-action-capacity-two-disabled ': !stepOne}">-->
+<!--                    GRUPO O LOCAL-->
+<!--                  </div>-->
+<!--                </mat-panel-title>-->
+<!--                <mat-panel-description>-->
+<!--                  <div class="number-action-capacity-description" *ngIf="!stepOne">-->
+<!--                    {{initialDrugstoreOption.text }}-->
+<!--                  </div>-->
+<!--                  <div class="number-action-capacity-description" *ngIf="!stepOne">-->
+<!--                    <img src="../../../assets/img/pencil.png">-->
+<!--                  </div>-->
+<!--                </mat-panel-description>-->
+<!--              </mat-expansion-panel-header>-->
+<!--              <div class="d-section-description">-->
+<!--                <div class="d-group-buttons">-->
+<!--                  <mat-button-toggle-group #group="matButtonToggleGroup" [value]="selectedVal"-->
+<!--                                           (change)="onValChange(group.value)">-->
+<!--                    <mat-button-toggle value="group">Grupo</mat-button-toggle>-->
+<!--                    <mat-button-toggle value="local">Local</mat-button-toggle>-->
+<!--                  </mat-button-toggle-group>-->
+<!--                </div>-->
+<!--                <div class="d-implements-dropdown">-->
+<!--                  <app-dropdown [options]="newInfoDrugstore" formControlName="dropdow"></app-dropdown>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="d-buttons-action-save">-->
+<!--                <div class="d-buttons-implements-save" (click)="return()">-->
+<!--                  <p class="button-style">-->
+<!--                    Cancelar edición-->
+<!--                  </p>-->
+<!--                </div>-->
+<!--                <div class="d-buttons-implements-save" (click)="nextOne()">-->
+<!--                  <p class="button-style">-->
+<!--                    Continuar-->
+<!--                  </p>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </mat-expansion-panel>-->
+<!--          </div>-->
 
 
-          <div class="group-or-local-step2">
-            <mat-expansion-panel hideToggle [(expanded)]="stepTwo" disabled="stepTwo">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <div
-                    [ngClass]="{'number-action-capacity-one': stepTwo, 'number-action-capacity-one-disabled': !stepTwo}">
-                    2
-                  </div>
-                  <div
-                    [ngClass]="{'number-action-capacity-two': stepTwo, 'number-action-capacity-two-disabled ': !stepTwo}">
-                    MODO DE EDICIÓN
-                  </div>
-                </mat-panel-title>
-                <mat-panel-description>
-                  <div class="number-action-capacity-description" *ngIf="!stepOne && !stepTwo">
-                    <a (click)="showEditStepTwo()">{{ selectedRadioButton }}</a>
-                  </div>
-                  <div class="number-action-capacity-description" *ngIf="!stepOne && !stepTwo">
-                    <a (click)="showEditStepTwo()"><img src="../../../assets/img/pencil.png"></a>
-                  </div>
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              <div class="encapsulate-cards">
+<!--          <div class="group-or-local-step2">-->
+<!--            <mat-expansion-panel hideToggle [(expanded)]="stepTwo" disabled="stepTwo">-->
+<!--              <mat-expansion-panel-header>-->
+<!--                <mat-panel-title>-->
+<!--                  <div-->
+<!--                    [ngClass]="{'number-action-capacity-one': stepTwo, 'number-action-capacity-one-disabled': !stepTwo}">-->
+<!--                    2-->
+<!--                  </div>-->
+<!--                  <div-->
+<!--                    [ngClass]="{'number-action-capacity-two': stepTwo, 'number-action-capacity-two-disabled ': !stepTwo}">-->
+<!--                    MODO DE EDICIÓN-->
+<!--                  </div>-->
+<!--                </mat-panel-title>-->
+<!--                <mat-panel-description>-->
+<!--                  <div class="number-action-capacity-description" *ngIf="!stepOne && !stepTwo">-->
+<!--                    <a (click)="showEditStepTwo()">{{ selectedRadioButton }}</a>-->
+<!--                  </div>-->
+<!--                  <div class="number-action-capacity-description" *ngIf="!stepOne && !stepTwo">-->
+<!--                    <a (click)="showEditStepTwo()"><img src="../../../assets/img/pencil.png"></a>-->
+<!--                  </div>-->
+<!--                </mat-panel-description>-->
+<!--              </mat-expansion-panel-header>-->
+<!--              <div class="encapsulate-cards">-->
 
-                <div class="card-checkbox-one">
-                  <app-radio formControlName="radio" [radioValue]="'DEFAULT'">
-                  </app-radio>
-                  <div class="title-card">Por defecto</div>
-                  <div class="subtitle-card">Capacidad default para un día</div>
-                </div>
-                <div class="card-checkbox-two">
-                  <app-radio formControlName="radio" [radioValue]="'CALENDAR'">
-                  </app-radio>
-                  <div class="title-card">Calendario</div>
-                  <div class="subtitle-card">Capacidad Programada</div>
-                </div>
+<!--                <div class="card-checkbox-one">-->
+<!--                  <app-radio formControlName="radio" [radioValue]="'DEFAULT'">-->
+<!--                  </app-radio>-->
+<!--                  <div class="title-card">Por defecto</div>-->
+<!--                  <div class="subtitle-card">Capacidad default para un día</div>-->
+<!--                </div>-->
+<!--                <div class="card-checkbox-two">-->
+<!--                  <app-radio formControlName="radio" [radioValue]="'CALENDAR'">-->
+<!--                  </app-radio>-->
+<!--                  <div class="title-card">Calendario</div>-->
+<!--                  <div class="subtitle-card">Capacidad Programada</div>-->
+<!--                </div>-->
 
-              </div>
-              <div class="d-buttons-action-save">
-                <div class="d-buttons-implements-save">
-                  <p class="button-style" (click)="return()">
-                    Cancelar edición
-                  </p>
-                </div>
-                <div class="d-buttons-implements-save" (click)="nextTwo()">
-                  <p class="button-style">
-                    Continuar
-                  </p>
-                </div>
-              </div>
-            </mat-expansion-panel>
-          </div>
-        </div>
-        <div class="section-two">
-          <div class="group-or-local-step3">
-            <mat-expansion-panel hideToggle [(expanded)]="stepThree" disabled="stepThree">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <div
-                    [ngClass]="{'number-action-capacity-one': stepThree, 'number-action-capacity-one-disabled': !stepThree}">
-                    3
-                  </div>
-                  <div
-                    [ngClass]="{'number-action-capacity-two': stepThree, 'number-action-capacity-two-disabled' : !stepThree}">
-                    CAPACIDAD
-                  </div>
-                </mat-panel-title>
-                <mat-panel-description>
-                  <div class="number-action-capacity-two">
+<!--              </div>-->
+<!--              <div class="d-buttons-action-save">-->
+<!--                <div class="d-buttons-implements-save">-->
+<!--                  <p class="button-style" (click)="return()">-->
+<!--                    Cancelar edición-->
+<!--                  </p>-->
+<!--                </div>-->
+<!--                <div class="d-buttons-implements-save" (click)="nextTwo()">-->
+<!--                  <p class="button-style">-->
+<!--                    Continuar-->
+<!--                  </p>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </mat-expansion-panel>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="section-two">-->
+<!--          <div class="group-or-local-step3">-->
+<!--            <mat-expansion-panel hideToggle [(expanded)]="stepThree" disabled="stepThree">-->
+<!--              <mat-expansion-panel-header>-->
+<!--                <mat-panel-title>-->
+<!--                  <div-->
+<!--                    [ngClass]="{'number-action-capacity-one': stepThree, 'number-action-capacity-one-disabled': !stepThree}">-->
+<!--                    3-->
+<!--                  </div>-->
+<!--                  <div-->
+<!--                    [ngClass]="{'number-action-capacity-two': stepThree, 'number-action-capacity-two-disabled' : !stepThree}">-->
+<!--                    CAPACIDAD-->
+<!--                  </div>-->
+<!--                </mat-panel-title>-->
+<!--                <mat-panel-description>-->
+<!--                  <div class="number-action-capacity-two">-->
 
-                  </div>
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              <div class="d-section-descriptions-step3">
+<!--                  </div>-->
+<!--                </mat-panel-description>-->
+<!--              </mat-expansion-panel-header>-->
+<!--              <div class="d-section-descriptions-step3">-->
 
-                <div class="section-calendar" *ngIf="this.modeEdition === 'CALENDAR'">
-                  <mat-form-field appearance="fill">
-                    <mat-label>Seleccione días</mat-label>
-                    <mat-date-range-input [min]="defaultStartDate" [max]="maxDate" [rangePicker]="picker">
-                      <input matStartDate formControlName="startDate" placeholder="Start date">
-                      <input matEndDate formControlName="endDate" [min]="formService.form.controls['startDate'].value"
-                             placeholder="End date">
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #picker></mat-date-range-picker>
-                  </mat-form-field>
-                </div>
+<!--                <div class="section-calendar" *ngIf="this.modeEdition === 'CALENDAR'">-->
+<!--                  <mat-form-field appearance="fill">-->
+<!--                    <mat-label>Seleccione días</mat-label>-->
+<!--                    <mat-date-range-input [min]="defaultStartDate" [max]="maxDate" [rangePicker]="picker">-->
+<!--                      <input matStartDate formControlName="startDate" placeholder="Start date">-->
+<!--                      <input matEndDate formControlName="endDate" [min]="formService.form.controls['startDate'].value"-->
+<!--                             placeholder="End date">-->
+<!--                    </mat-date-range-input>-->
+<!--                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--                    <mat-date-range-picker #picker></mat-date-range-picker>-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
 
-                <div class="section-default" *ngIf="this.modeEdition === 'DEFAULT' || this.modeEdition === 'CALENDAR'">
-                  <div class="d-inputs">
-                    <div class="d-input-one">
-                      <app-input-text-customer [label]="'AM'" formControlName="am"></app-input-text-customer>
-                    </div>
-                    <div class="d-input-two">
-                      <app-input-text-customer [label]="'PM'" formControlName="pm"></app-input-text-customer>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <p>AM:{{ segmentOne}}</p>
-                  <p>PM: {{ segmentTwo}}</p>
+<!--                <div class="section-default" *ngIf="this.modeEdition === 'DEFAULT' || this.modeEdition === 'CALENDAR'">-->
+<!--                  <div class="d-inputs">-->
+<!--                    <div class="d-input-one">-->
+<!--                      <app-input-text-customer [label]="'AM'" formControlName="am"></app-input-text-customer>-->
+<!--                    </div>-->
+<!--                    <div class="d-input-two">-->
+<!--                      <app-input-text-customer [label]="'PM'" formControlName="pm"></app-input-text-customer>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <p>AM:{{ segmentOne}}</p>-->
+<!--                  <p>PM: {{ segmentTwo}}</p>-->
 
-                </div>
-              </div>
+<!--                </div>-->
+<!--              </div>-->
 
-              <div class="d-buttons-action-save">
-                <div class="d-buttons-implements-save" (click)="return()">
-                  <p class="button-style">
-                    Cancelar edición
-                  </p>
-                </div>
-                <div class="d-buttons-implements-save" (click)="save()">
-                  <p class="button-style">
-                    Continuar
-                  </p>
-                </div>
-              </div>
-            </mat-expansion-panel>
-          </div>
-        </div>
-      </div>
-    </mat-accordion>
-  </form>
-</section>
+<!--              <div class="d-buttons-action-save">-->
+<!--                <div class="d-buttons-implements-save" (click)="return()">-->
+<!--                  <p class="button-style">-->
+<!--                    Cancelar edición-->
+<!--                  </p>-->
+<!--                </div>-->
+<!--                <div class="d-buttons-implements-save" (click)="save()">-->
+<!--                  <p class="button-style">-->
+<!--                    Continuar-->
+<!--                  </p>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </mat-expansion-panel>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </mat-accordion>-->
+<!--  </form>-->
+<!--</section>-->

@@ -25,7 +25,7 @@ export class SelectComponent implements OnInit {
 
 
   @Input()
-  set selectValue(value: string) {
+  set selectValue(value: any) {
     if (value && this.selectFormControl) {
       this.selectFormControl.setValue(value);
       this.selectValueControl = value;

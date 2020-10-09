@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {MatExpansionPanel} from '@angular/material/expansion';
 
 @Component({
@@ -6,7 +6,7 @@ import {MatExpansionPanel} from '@angular/material/expansion';
   templateUrl: './card-step.component.html',
   styleUrls: ['./card-step.component.scss']
 })
-export class CardStepComponent implements OnInit {
+export class CardStepComponent {
 
   @Input() stepTitle = 'Título';
   @Input() stepDescription: string;
@@ -18,19 +18,25 @@ export class CardStepComponent implements OnInit {
   @Input() saveButtonText = 'Guardar cambios';
   @Input() saveButtonDisabled = true;
 
+  @Output() stepOpenEvent = new EventEmitter();
+  @Output() stepCloseEvent = new EventEmitter();
+
   @Output() cancelButtonEvent = new EventEmitter();
   @Output() saveButtonEvent = new EventEmitter();
 
-  @Input() stepExpandedToggle: boolean;
+  @Input('stepExpandedToggle')
+  set stepExpandedToggle(expandedToggle: boolean) {
+    if (expandedToggle) {
+      this.matExpansionPanel.open();
+    } else {
+      this.matExpansionPanel.close();
+    }
+  }
 
-  stepClose = true;
+  stepExpanded = false;
 
-  @ViewChild(MatExpansionPanel) matExpansionPanel: MatExpansionPanel;
+  @ViewChild(MatExpansionPanel, {static: true}) matExpansionPanel: MatExpansionPanel;
 
   constructor() {
   }
-
-  ngOnInit(): void {
-  }
-
 }

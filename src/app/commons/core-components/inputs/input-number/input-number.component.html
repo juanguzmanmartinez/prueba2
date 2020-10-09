@@ -1,0 +1,17 @@
+<label class="input-number-container">
+  <app-input
+    inputLabelClass="input-number-label"
+    [inputClass]="'input-number ' + inputClass"
+    [inputError]="inputError"
+    [inputId]="inputId"
+    [inputName]="inputName"
+    [inputType]="inputType"
+    [(ngModel)]="inputValue"
+    (ngModelChange)="changeInputValue()"
+    [inputPlaceholder]="inputPlaceholder"
+    (blur)="onBlur($event)"
+    (focus)="onFocus($event)"
+    [inputDigitOnlyPipe]="true">
+  </app-input>
+
+</label>

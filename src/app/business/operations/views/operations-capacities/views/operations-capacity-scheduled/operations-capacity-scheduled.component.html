@@ -60,6 +60,7 @@
                 <label class="text-caption text-gray-5 mb-2 d-block">Edita capacidades</label>
                 <div class="d-flex-vertical-center">
                   <app-input class="capacity-scheduled-input-capacities"
+                             [(ngModel)]="daterange"
                     inputPlaceholder="10"></app-input>
                   <app-button-outline [buttonDisabled]="true">Aplicar a selección</app-button-outline>
                 </div>

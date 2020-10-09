@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, Input, OnDestroy, OnInit, Self} from '@angular/core';
+import {ControlValueAccessor, NgControl} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -7,91 +8,75 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.sass']
 })
-export class InputComponent implements OnInit {
 
-  @Output() inputBlurEvent = new EventEmitter();
-  @Output() inputFocusEvent = new EventEmitter();
+export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
+
+  public subscriptions: Subscription[] = [];
+  public inputValue: string | number = '';
+  public inputDisabled: boolean;
 
   @Input() inputId = '';
-  @Input() inputName = '';
+  @Input() inputName: string | number = 'input';
   @Input() inputType = 'text';
   @Input() inputPlaceholder = '';
   @Input() inputClass = '';
   @Input() inputLabelClass = '';
-  @Input() inputDisplay: 'block' |'inline-block' = 'inline-block';
-
-  @Input() inputFormGroup: FormGroup = new FormGroup({});
-  @Input() inputFormControlName = 'input';
-  @Input() inputRequired: boolean;
-  @Input() inputValue = '';
-
-  public inputFormControl: FormControl;
-  public inputDisabledControl: boolean;
-
-  @Input()
-  set inputDisabled(disabled: boolean) {
-    this.inputDisabledControl = !!disabled;
-    const action = disabled ? 'disable' : 'enable';
-    if (this.inputFormControl) {
-      this.inputFormControl[action]();
-    }
-  }
-
-  @Input()
-  set inputFormSetValue(value: string) {
-    if (value && this.inputFormControl) {
-      this.inputFormControl.setValue(value);
-      this.inputValue = value;
-    }
-  }
-
-  @Input() inputMaxLength: number;
-  @Input() inputMinLength: number;
   @Input() inputError: boolean;
+  @Input() inputDigitOnlyPipe: boolean;
 
-
-  constructor(public _formBuilder: FormBuilder) {
+  onChange = (_: any) => {
   }
+  onTouch = (_: any) => {
+  }
+  onBlur = (_: any) => {
+  }
+  onFocus = (_: any) => {
+  }
+
+
+  constructor(@Self() public ngControl: NgControl) {
+    ngControl.valueAccessor = this;
+  }
+
 
   ngOnInit(): void {
-    const controlValue = this.setControlValues();
-    const controlValidations = this.setControlValidations();
+    if (this.ngControl.name) {
+      this.inputName = this.ngControl.name;
+    }
 
-    this.inputFormControl = this._formBuilder.control(
-      controlValue,
-      controlValidations
-    );
-
-    this.inputFormGroup.addControl(this.inputFormControlName, this.inputFormControl);
+    const subscription = this.ngControl.control.valueChanges
+      .subscribe((value) => {
+        if (this.inputValue === value) {
+          return;
+        }
+        this.writeValue(value);
+      });
+    this.subscriptions.push(subscription);
   }
 
-  get formGroup() {
-    return this.inputFormGroup.controls;
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  setControlValidations() {
-    let controlValidation = [];
-
-    if (this.inputRequired) {
-      controlValidation = [...controlValidation, Validators.required];
-    }
-    if (!!this.inputMaxLength) {
-      controlValidation = [...controlValidation, Validators.maxLength(this.inputMaxLength)];
-    }
-    if (!!this.inputMinLength) {
-      controlValidation = [...controlValidation, Validators.minLength(this.inputMinLength)];
-    }
-
-    return controlValidation;
+  writeValue(value: string | number): void {
+    this.inputValue = value || '';
   }
 
-  setControlValues() {
-    let controlValue: any = this.inputValue;
-    if (this.inputDisabledControl) {
-      controlValue = {value: this.inputValue, disabled: this.inputDisabledControl};
-    }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
 
-    return controlValue;
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.inputDisabled = isDisabled;
+  }
+
+  changeInputValue() {
+    this.onChange(this.inputValue);
+    this.onTouch(this.inputValue);
   }
 
 }

@@ -7,26 +7,20 @@ import {CapacityImplementService} from '../../../../../../shared/services/capaci
 import {CapacityAmPmService} from './operations-forms/capacity-am-pm-form.service';
 import {Router} from '@angular/router';
 import {CapacityStoreService} from '../../../../../../commons/business-factories/factories-stores/capacity-store.service';
-import {take, tap} from 'rxjs/operators';
+import {take} from 'rxjs/operators';
 import {ICalendarUpdateRequestParams} from '../../../../../../shared/services/models/capacity.model';
+import {OperationsCapacityAmPmStoreService} from './store/operations-capacity-am-pm-store.service';
 
 @Component({
   selector: 'app-operations-capacity-am-pm',
   templateUrl: './operations-capacity-am-pm.component.html',
-  styleUrls: ['./operations-capacity-am-pm.component.scss']
+  styleUrls: ['./operations-capacity-am-pm.component.scss'],
+  providers: [OperationsCapacityAmPmStoreService]
 })
 export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
 
-  public groupOrLocalExpanded = true;
-  public groupOrLocalTabList: Array<'Grupo' | 'Local'> = ['Grupo', 'Local'];
-  public groupOrLocalList: ICustomSelectOption[] = [] as ICustomSelectOption[];
-  public groupOrLocalSelection: ICustomSelectOption;
-
-  daterange = null;
-
 
   defaultStartDate = new Date();
-  defaultMaxDate = new Date().setMonth(new Date().getMonth() + 2);
 
   public currentYear: number = this.defaultStartDate.getFullYear();
   public currentMonth: number = this.defaultStartDate.getMonth();
@@ -35,7 +29,6 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:ban-types
   public maxDate: Object = new Date(this.currentYear, this.currentMonth + 2, this.currentDay);
 
-  InfoLocal: Local[] = [] as Local[];
   selectedVal: string;
   modeEdition: string;
   selectedRadioButton = 'CALENDAR';
@@ -46,7 +39,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
   newInfoDrugstore: ICustomSelectOption[] = [] as ICustomSelectOption[];
   public initialDrugstoreOption: ICustomSelectOption = {} as ICustomSelectOption;
   serviceTypeCode: string;
-  private subscription: Subscription[] = [];
+  private subscriptions: Subscription[] = [];
   setInputValue: ITypeService = {} as ITypeService;
   segmentOne: string;
   segmentTwo: string;
@@ -55,6 +48,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    private _operationsCapacityAmPmStoreService: OperationsCapacityAmPmStoreService,
     private service: CapacityImplementService,
     public formService: CapacityAmPmService,
     private router: Router,
@@ -64,8 +58,6 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getGroupOrLocalList(this.groupOrLocalTabList[0]);
-
     this.serviceTypeCode = 'AM_PM';
     this.stepOne = true;
     this.stepTwo = false;
@@ -88,7 +80,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
         this.initialDrugstoreOption = local;
       });
 
-    this.subscription.push(radioSubs, dropdowSubs);
+    this.subscriptions.push(radioSubs, dropdowSubs);
   }
 
   ngOnDestroy() {
@@ -96,27 +88,10 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
     this.formService.radioControl.setValue('');
     this.formService.startDateControl.setValue('');
     this.formService.endDateControl.setValue('');
-    this.subscription.forEach(sub => sub.unsubscribe());
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this._operationsCapacityAmPmStoreService.destroyOperationsCapacityAmPmStore();
   }
 
-  saveGroupOrLocal() {
-    this.groupOrLocalExpanded = false;
-  }
-
-  changeGroupOrLocal(event) {
-    this.getGroupOrLocalList(event.target.value);
-  }
-
-  getGroupOrLocalList(groupOrLocalTabSelected: 'Grupo' | 'Local') {
-    switch (groupOrLocalTabSelected) {
-      case 'Grupo':
-        console.log('Group tab');
-        break;
-      case 'Local':
-        this.getLocalList();
-        break;
-    }
-  }
 
   getLocalList() {
     this.service.getLocalImplements$('AM_PM')
@@ -124,15 +99,9 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
       .subscribe((stores) => {
         console.log(stores);
         this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
-        this.groupOrLocalList = this.getFormattedDrugstoreOptions(stores);
         this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[0])) as ICustomSelectOption;
         this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
       });
-  }
-
-  groupOrLocalSelected(value: ICustomSelectOption) {
-    console.log(value);
-    this.groupOrLocalSelection = value;
   }
 
   settValueDropdowOnInit() {
@@ -140,9 +109,6 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
     this.serviceType = 'AM_PM';
     this.formService.dropdowControl.setValue('');
     this.service.getLocalImplements$(this.serviceType)
-      .pipe(tap(value => {
-        this.InfoLocal = value;
-      }))
       .pipe(take(1))
       .subscribe((stores) => {
         this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
@@ -158,13 +124,9 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
       this.serviceType = 'AM_PM';
       this.formService.dropdowControl.setValue('');
       this.service.getGroupLocalImplements$(this.serviceType)
-        .pipe(tap(value => {
-          this.InfoLocal = value;
-        }))
         .pipe(take(1))
         .subscribe((stores) => {
           this.newInfoDrugstore = this.getFormattedDrugstoreOptions(stores);
-          this.groupOrLocalList = this.getFormattedDrugstoreOptions(stores);
           if (this.newInfoDrugstore.length !== 0) {
             this.initialDrugstoreOption = JSON.parse(JSON.stringify(this.newInfoDrugstore[0])) as ICustomSelectOption;
             this.formService.dropdowControl.setValue(this.initialDrugstoreOption);
@@ -223,7 +185,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
         this.segmentOne = this.setInputValue.segments[0].hour || '';
         this.segmentTwo = this.setInputValue.segments[1].hour || '';
       });
-    this.subscription.push(defaultSubs);
+    this.subscriptions.push(defaultSubs);
   }
 
   private callGetTypeOperationLocalCalendar() {
@@ -236,7 +198,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
         this.segmentOne = this.setInputValue.segments[0].hour || '';
         this.segmentTwo = this.setInputValue.segments[1].hour || '';
       });
-    this.subscription.push(calendarSubs);
+    this.subscriptions.push(calendarSubs);
   }
 
   private callGetTypeOperationGroupDefault() {
@@ -250,7 +212,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
         this.segmentTwo = this.setInputValue.segments[1].hour || '';
       });
 
-    this.subscription.push(defaultSubs);
+    this.subscriptions.push(defaultSubs);
   }
 
   private callGetTypeOperationGroupCalendar() {
@@ -263,7 +225,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
         this.segmentOne = this.setInputValue.segments[0].hour || '';
         this.segmentTwo = this.setInputValue.segments[1].hour || '';
       });
-    this.subscription.push(calendarSubs);
+    this.subscriptions.push(calendarSubs);
   }
 
   save() {
@@ -289,7 +251,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
           } as IAlert;
           this.capacityStoreService.setSelectedDrugstore(alertValues);
         });
-      this.subscription.push(endpoint);
+      this.subscriptions.push(endpoint);
 
     } else if (this.modeEdition === 'CALENDAR' && this.formService.startDateControl.valid && this.formService.endDateControl.valid) {
       if (this.selectedStepOne === 'Local') {
@@ -309,7 +271,7 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
           } as IAlert;
           this.capacityStoreService.setSelectedDrugstore(alertValues);
         });
-      this.subscription.push(endpoint);
+      this.subscriptions.push(endpoint);
 
     }
   }

@@ -20,7 +20,7 @@ export class CustomDateAdapter extends MomentDateAdapter {
 
 export const MY_FORMATS = {
   parse: {
-    dateInput: 'LL',
+    dateInput: 'DD/MM/YYYY',
   },
   display: {
     dateInput: 'DD/MM/YYYY',

@@ -28,13 +28,6 @@ export class RadioComponent implements ControlValueAccessor, OnInit {
     if (this.ngControl.name) {
       this._radioName = this.ngControl.name;
     }
-
-    this.ngControl.control.valueChanges.subscribe(value => {
-      if (this._radioValue === value) {
-        return;
-      }
-      this.writeValue(value);
-    });
   }
 
   registerOnChange(fn: any): void {

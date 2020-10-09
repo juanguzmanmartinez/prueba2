@@ -5,6 +5,7 @@
                           [min]="datepickerRangeMin"
                           [max]="datepickerRangeMax"
                           [formGroup]="datepickerRangeGroup"
+                          [disabled]="datepickerDisabled"
                           separator="-">
       <input matStartDate
              class="input-datepicker-range-input text-label"
@@ -26,6 +27,7 @@
     </mat-datepicker-toggle>
   </label>
   <mat-date-range-picker #pickerRange
-                         [calendarHeaderComponent]="datepickerRangeHeader">
+                         [calendarHeaderComponent]="datepickerRangeHeader"
+                         [disabled]="datepickerIconDisabled">
   </mat-date-range-picker>
 </div>

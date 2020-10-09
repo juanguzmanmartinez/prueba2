@@ -35,7 +35,7 @@ export class SelectTabComponent implements OnInit, OnDestroy {
 
 
   onChange = (_: any) => {
-  }
+  };
 
   constructor(private _formBuilder: FormBuilder) {
   }
@@ -49,7 +49,9 @@ export class SelectTabComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.selectTabSubscribe.unsubscribe();
+    if (this.selectTabSubscribe) {
+      this.selectTabSubscribe.unsubscribe();
+    }
   }
 
   get selectTabControl() {

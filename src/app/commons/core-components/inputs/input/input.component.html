@@ -1,18 +1,19 @@
-<ng-container [formGroup]="inputFormGroup">
-  <label class="input-label"
-         [ngClass]="'d-' + inputDisplay + ' ' + inputLabelClass">
-    <input
-      class="input-basic"
-      [ngClass]="inputClass"
-      [class.input-error]="inputError ||
-       formGroup[inputFormControlName].invalid && inputFormGroup.touched"
-      [id]="inputId"
-      [name]="inputName"
-      [formControlName]="inputFormControlName"
-      [type]="inputType"
-      [placeholder]="inputPlaceholder"
-      [maxlength]="inputMaxLength"
-      (blur)="inputBlurEvent.emit($event)"
-      (focus)="inputFocusEvent.emit($event)"/>
-  </label>
-</ng-container>
+<label class="input-label"
+       [ngClass]="inputLabelClass">
+  <input
+    class="input-basic"
+    [class.input-error]="inputError"
+    [ngClass]="inputClass"
+    [id]="inputId"
+    [name]="inputName"
+    [type]="inputType"
+    [placeholder]="inputPlaceholder"
+    [disabled]="inputDisabled"
+    [(ngModel)]="inputValue"
+    (ngModelChange)="changeInputValue()"
+    (blur)="onBlur($event)"
+    (focus)="onFocus($event)"
+
+    appDigitsOnly
+    [disableDigitsOnly]="!inputDigitOnlyPipe"/>
+</label>

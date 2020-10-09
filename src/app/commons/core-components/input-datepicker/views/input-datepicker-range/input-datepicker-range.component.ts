@@ -39,6 +39,8 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor, OnIn
   @Input() datepickerRangeOutputFormat = 'DD/MM/YYYY';
   @Input() datepickerRangeMin = moment();
   @Input() datepickerRangeMax: moment.Moment;
+  @Input() datepickerDisabled = false;
+  @Input() datepickerIconDisabled = false;
 
   @Input('datepickerStartValue')
   set _datepickerStartValue(value: string) {
@@ -102,8 +104,8 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor, OnIn
   changeDatepickerRangeValue() {
     const datepickerRangeSubscribe = this.datepickerRangeGroup.valueChanges
       .subscribe((value) => {
-        this.datepickerRangeValue.startDate = value && value.startDate ? moment(value.startDate).format(this.datepickerRangeOutputFormat) : null;
-        this.datepickerRangeValue.endDate = value && value.endDate ? moment(value.endDate).format(this.datepickerRangeOutputFormat) : null;
+        this.datepickerRangeValue.startDate = value && value.startDate ? moment(value.startDate, this.datepickerRangeInputFormat).format(this.datepickerRangeOutputFormat) : null;
+        this.datepickerRangeValue.endDate = value && value.endDate ? moment(value.endDate, this.datepickerRangeInputFormat).format(this.datepickerRangeOutputFormat) : null;
         this.onChange(this.datepickerRangeValue);
       });
     this.datepickerRangeSubscribe.push(datepickerRangeSubscribe);

@@ -28,6 +28,7 @@ export class CheckboxComponent implements OnInit {
 
   chooseCheckbox() {
     this.onChange(this.checkboxValue);
+    this.onTouched(this.checkboxValue);
   }
 
 }

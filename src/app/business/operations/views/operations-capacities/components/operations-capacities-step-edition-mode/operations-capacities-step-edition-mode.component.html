@@ -1,1 +1,29 @@
-<p>operations-capacities-step-edition-mode works!</p>
+<app-card-step stepId="2"
+               stepTitle="Modo de edición"
+               saveButtonText="Continuar"
+               [class.card-tep-content-disabled]="editionModeSaveLoad"
+               [stepExpandedToggle]="editionModeStepStatus === eCapacityStepStatus.open"
+               [stepDisabled]="editionModeStepStatus === eCapacityStepStatus.disabled || editionModeSaveLoad"
+               [stepDescription]="editionModeSaveSelected === eEditionMode.calendar ? 'Calendario': 'Por defecto'"
+               [saveButtonDisabled]="!editionModeSelected || editionModeSaveLoad"
+               (stepOpenEvent)="openEditionModeStep()"
+               (stepCloseEvent)="closeEditionModeStep()"
+               (saveButtonEvent)="saveEditionMode()"
+               (cancelButtonEvent)="cancelEditionMode()">
+  <div class="card-step-content d-flex justify-content-around">
+    <div class="mr-4">
+      <app-card-radio [radioValue]="eEditionMode.default"
+                      [(ngModel)]="editionModeSelected">
+        <span card-title>Por defecto</span>
+        <span card-description>Capacidad default para un día</span>
+      </app-card-radio>
+    </div>
+    <div class=" d-flex-horizontal-center">
+      <app-card-radio [radioValue]="eEditionMode.calendar"
+                      [(ngModel)]="editionModeSelected">
+        <span card-title>Calendario</span>
+        <span card-description>Capacidad programada</span>
+      </app-card-radio>
+    </div>
+  </div>
+</app-card-step>

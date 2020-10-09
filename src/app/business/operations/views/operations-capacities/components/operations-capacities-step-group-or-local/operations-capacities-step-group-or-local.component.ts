@@ -1,53 +1,112 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ECapacityStepGroupOrLocal, OperationsCapacitiesStepGroupOrLocalService} from './operations-capacities-step-group-or-local.service';
+import {Subscription} from 'rxjs';
 import {ICustomSelectOption} from '../../../../../../commons/interfaces/custom-controls.interface';
+import {ECapacityStepStatus} from '../../models/capacity-step-status.model';
 
 @Component({
   selector: 'app-operations-capacities-step-group-or-local',
   templateUrl: './operations-capacities-step-group-or-local.component.html',
   styleUrls: ['./operations-capacities-step-group-or-local.component.scss']
 })
-export class OperationsCapacitiesStepGroupOrLocalComponent implements OnInit {
+export class OperationsCapacitiesStepGroupOrLocalComponent implements OnInit, OnDestroy {
 
+  public eCapacityStepStatus = ECapacityStepStatus;
+  public groupOrLocalStepStatus: ECapacityStepStatus = ECapacityStepStatus.open;
 
-  public groupOrLocalExpanded = true;
-  public groupOrLocalTabList: Array<'Grupo' | 'Local'> = ['Grupo', 'Local'];
+  public groupOrLocalTabList: ECapacityStepGroupOrLocal[] = [ECapacityStepGroupOrLocal.group, ECapacityStepGroupOrLocal.local];
+  public groupOrLocalTabSelection: ECapacityStepGroupOrLocal = ECapacityStepGroupOrLocal.group;
+  public groupOrLocalTabReadonly = true;
+
   public groupOrLocalList: ICustomSelectOption[] = [] as ICustomSelectOption[];
   public groupOrLocalSelection: ICustomSelectOption;
+  public groupOrLocalStepDescription: string;
 
-  constructor() {
+  private subscriptions: Subscription[] = [];
+
+  constructor(
+    private _operationsCapacitiesStepGroupOrLocal: OperationsCapacitiesStepGroupOrLocalService
+  ) {
   }
 
   ngOnInit(): void {
-    this.getGroupOrLocalList(this.groupOrLocalTabList[0]);
+    this.updateGroupOrLocalList();
+    this.updateEditionModeStepStatus();
+    this.changeGroupOrLocalTabSelection(this.groupOrLocalTabSelection);
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  openGroupOrLocalStep() {
+    this._operationsCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = this.eCapacityStepStatus.open;
+  }
+
+  closeGroupOrLocalStep() {
+    this._operationsCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = this.eCapacityStepStatus.close;
+  }
+
+  updateEditionModeStepStatus() {
+    const subscription = this._operationsCapacitiesStepGroupOrLocal.groupOrLocalStepStatus$
+      .subscribe((eCapacityStepStatus: ECapacityStepStatus) => {
+        if (this.groupOrLocalStepStatus !== eCapacityStepStatus) {
+          this.groupOrLocalStepStatus = eCapacityStepStatus;
+        }
+      });
+    this.subscriptions.push(subscription);
+  }
+
+  updateGroupOrLocalList() {
+    const subscription = this._operationsCapacitiesStepGroupOrLocal.groupOrLocalList$
+      .subscribe((local: ICustomSelectOption[]) => {
+        if (local) {
+          this.groupOrLocalList = local;
+          this.resetGroupOrLocalSelection();
+        }
+      });
+    this.subscriptions.push(subscription);
+  }
+
+  resetGroupOrLocalSelection() {
+    // reset
+    this.groupOrLocalTabReadonly = false;
+    this.groupOrLocalSelection = null;
+    this.groupOrLocalStepDescription = null;
+  }
 
   saveGroupOrLocal() {
-    this.groupOrLocalExpanded = false;
+    this._operationsCapacitiesStepGroupOrLocal.groupOrLocalSave = this.groupOrLocalSelection;
   }
 
-  changeGroupOrLocal(event) {
-    this.getGroupOrLocalList(event.target.value);
+  cancelGroupOrLocal() {
+    this._operationsCapacitiesStepGroupOrLocal.groupOrLocalCancel = true;
   }
 
-  getGroupOrLocalList(groupOrLocalTabSelected: 'Grupo' | 'Local') {
-    switch (groupOrLocalTabSelected) {
-      case 'Grupo':
-        console.log('Group tab');
-        break;
-      case 'Local':
-        this.getLocalList();
-        break;
-    }
+  changeGroupOrLocalTab(event) {
+    this.resetGroupOrLocalSelection();
+
+    this.groupOrLocalTabReadonly = true;
+    this.groupOrLocalTabSelection = event.target.value;
+    this.changeGroupOrLocalTabSelection(event.target.value);
   }
 
-  getLocalList() {
-    console.log('getList');
+  changeGroupOrLocalTabSelection(groupOrLocalTabSelected: ECapacityStepGroupOrLocal) {
+    this._operationsCapacitiesStepGroupOrLocal.groupOrLocalTab = groupOrLocalTabSelected;
   }
 
-  groupOrLocalSelected(value: ICustomSelectOption) {
-    console.log(value);
+  changeGroupOrLocalSelection(value: ICustomSelectOption) {
     this.groupOrLocalSelection = value;
+    this.groupOrLocalStepDescription = this.groupOrLocalSelectionName(this.groupOrLocalSelection);
+  }
+
+  groupOrLocalSelectionName(option: ICustomSelectOption) {
+    switch (this.groupOrLocalTabSelection) {
+      case ECapacityStepGroupOrLocal.local:
+        return `${option.code} - ${option.text}`;
+      case ECapacityStepGroupOrLocal.group :
+        return `${option.code}`;
+    }
   }
 
 }
