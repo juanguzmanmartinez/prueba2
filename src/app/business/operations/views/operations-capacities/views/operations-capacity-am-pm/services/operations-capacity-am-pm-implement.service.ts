@@ -8,7 +8,8 @@ import {map, take} from 'rxjs/operators';
 
 @Injectable()
 export class OperationsCapacityAmPmImplementService {
-  private capacityId = 'AM_PM';
+  private amPmCapacityId = 'AM_PM';
+  private amPmChannel = 'DIGITAL';
 
   constructor(
     private localClient: LocalClientService,
@@ -18,7 +19,7 @@ export class OperationsCapacityAmPmImplementService {
   }
 
   public getLocalImplements$() {
-    return this._capacityImplementService.getLocalImplements$(this.capacityId)
+    return this._capacityImplementService.getLocalImplements$(this.amPmCapacityId)
       .pipe(take(1),
         map((locals) => {
           return locals ? locals.map(store => {
@@ -33,7 +34,7 @@ export class OperationsCapacityAmPmImplementService {
   }
 
   public getLocalGroupImplements$() {
-    return this._capacityImplementService.getGroupLocalImplements$(this.capacityId)
+    return this._capacityImplementService.getGroupLocalImplements$(this.amPmCapacityId)
       .pipe(take(1),
         map((locals) => {
           return locals ? locals.map(store => {
@@ -48,19 +49,27 @@ export class OperationsCapacityAmPmImplementService {
   }
 
   public getTypeOperationImplements$(editionMode: string, selectedLocal: ICustomSelectOption) {
-    return this._capacityImplementService.getTypeOperationImplements$(editionMode, selectedLocal, this.capacityId);
+    return this._capacityImplementService.getTypeOperationImplements$(editionMode, selectedLocal, this.amPmCapacityId)
+      .pipe(take(1));
   }
 
   public getTypeOperationGroupImplements$(editionMode: string, selectedLocal: ICustomSelectOption) {
-    return this._capacityImplementService.getTypeOperationGroupImplements$(editionMode, selectedLocal, this.capacityId);
+    return this._capacityImplementService.getTypeOperationGroupImplements$(editionMode, selectedLocal, this.amPmCapacityId)
+      .pipe(take(1));
   }
 
   public patchCalendarUpdateClient$(request: ICalendarUpdateRequestParams) {
-    return this.calendarClient.patchCalendarUpdateClient$(request);
+    request.serviceTypeCode = this.amPmCapacityId;
+    request.channel = this.amPmChannel;
+    return this._capacityImplementService.patchCalendarUpdateClient$(request)
+      .pipe(take(1));
   }
 
   public patchCalendarRangeUpdateClient$(request: ICalendarUpdateRequestParams) {
-    return this.calendarClient.patchCalendarRangeUpdateClient$(request);
+    request.serviceTypeCode = this.amPmCapacityId;
+    request.channel = this.amPmChannel;
+    return this._capacityImplementService.patchCalendarRangeUpdateClient$(request)
+      .pipe(take(1));
   }
 
 }

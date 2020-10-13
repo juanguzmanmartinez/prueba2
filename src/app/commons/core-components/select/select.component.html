@@ -14,6 +14,7 @@
         class="select-basic-option"
         *ngFor="let option of optionList"
         [value]="option">
+        <ng-container *ngIf="!templateRef">{{option}}</ng-container>
         <ng-template [ngTemplateOutlet]="templateRef"
                      [ngTemplateOutletContext]="{$implicit: option}">
         </ng-template>

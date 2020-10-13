@@ -3,7 +3,6 @@ import { Drugstore } from '../../../../../../shared/services/models/drugstore.mo
 import { ICustomSelectOption } from '../../../../../../commons/interfaces/custom-controls.interface';
 import { Subscription } from 'rxjs';
 import {  CapacityImplementService } from '../../../../../../shared/services/capacity-edition/capacity-implements.service';
-import { CapacityAmPmService } from '../operations-capacity-am-pm/operations-forms/capacity-am-pm-form.service';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/internal/operators/take';
 import { IAlert, ILocal, Local } from '../../../../../../shared/services/models/local.model';
@@ -11,6 +10,7 @@ import { ICalendarUpdateRequestParams } from 'src/app/shared/services/models/cap
 import { tap } from 'rxjs/operators';
 import { ITypeService } from 'src/app/shared/services/models/type-service.model';
 import { CapacityStoreService } from 'src/app/commons/business-factories/factories-stores/capacity-store.service';
+import {CapacityAmPmService} from './operations-forms/capacity-scheduled-form.service';
 
 @Component({
   selector: 'app-operations-capacity-scheduled',

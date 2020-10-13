@@ -15,6 +15,7 @@
                       [selectTabDisabled]="groupOrLocalTabReadonly"
                       [selectTabValue]="groupOrLocalTabSelection"
                       (change)="changeGroupOrLocalTab($event)">
+        <ng-template let-tab>{{groupOrLocalTabName[tab]}}</ng-template>
       </app-select-tab>
     </div>
     <div class="w-100">

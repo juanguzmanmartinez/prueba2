@@ -1,15 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ECapacitiesStepAmPmCapacity, ICapacityStepAmPmCapacitySegments, OperationsCapacitiesStepAmPmCapacityService} from './operations-capacities-step-am-pm-capacity.service';
+import {Component, OnDestroy, OnInit, Optional, SkipSelf} from '@angular/core';
+import {ECapacitiesStepAmPmCapacity, OperationsCapacitiesStepAmPmCapacityService} from './operations-capacities-step-am-pm-capacity.service';
 import {OperationsCapacitiesStepAmPmCapacityFormService} from './form/operations-capacities-step-am-pm-capacity-form.service';
 import {Subscription} from 'rxjs';
 import * as moment from 'moment';
-import {ECapacityStepStatus} from '../../models/capacity-step-status.model';
+import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
+import {ICapacityStepAmPmCapacityFormValue, ICapacityStepAmPmCapacitySegments, FromFormToCapacityStepAmPmCapacitySegments} from './models/operations-capacities-step-am-pm-capacity.model';
 
 @Component({
   selector: 'app-operations-capacities-step-am-pm-capacity',
   templateUrl: './operations-capacities-step-am-pm-capacity.component.html',
   styleUrls: ['./operations-capacities-step-am-pm-capacity.component.scss'],
-  providers: [OperationsCapacitiesStepAmPmCapacityFormService]
+  providers: [
+    OperationsCapacitiesStepAmPmCapacityFormService,
+    OperationsCapacitiesStepAmPmCapacityService
+  ]
 })
 export class OperationsCapacitiesStepAmPmCapacityComponent implements OnInit, OnDestroy {
 
@@ -24,13 +28,13 @@ export class OperationsCapacitiesStepAmPmCapacityComponent implements OnInit, On
   public ampmCapacitySegments: ICapacityStepAmPmCapacitySegments;
 
   constructor(
-    private _operationsCapacitiesStepAmPmCapacity: OperationsCapacitiesStepAmPmCapacityService,
+    @Optional() @SkipSelf() private _operationsCapacitiesStepAmPmCapacity: OperationsCapacitiesStepAmPmCapacityService,
     public _operationsCapacitiesStepAmPmCapacityForm: OperationsCapacitiesStepAmPmCapacityFormService,
   ) {
   }
 
   ngOnInit(): void {
-    this.updateAmPmCapacityForm();
+    this.updateAmPmCapacityFormView();
     this.updateAmPmCapacitySegments();
     this.resetEditionModeStep();
     this.updateEditionModeStepStatus();
@@ -53,7 +57,10 @@ export class OperationsCapacitiesStepAmPmCapacityComponent implements OnInit, On
   saveAmPmCapacity() {
     if (this._operationsCapacitiesStepAmPmCapacityForm.amPmCapacityForm$.valid) {
       this.amPmCapacitySaveLoad = true;
-      this._operationsCapacitiesStepAmPmCapacity.amPmCapacitySave = this._operationsCapacitiesStepAmPmCapacityForm.amPmCapacityForm$.value;
+      this._operationsCapacitiesStepAmPmCapacity.amPmCapacitySave = new FromFormToCapacityStepAmPmCapacitySegments(
+        this._operationsCapacitiesStepAmPmCapacityForm.amPmCapacityForm$.value as ICapacityStepAmPmCapacityFormValue,
+        this.ampmCapacitySegments
+      );
     }
   }
 
@@ -96,7 +103,7 @@ export class OperationsCapacitiesStepAmPmCapacityComponent implements OnInit, On
     this.subscriptions.push(subscription);
   }
 
-  updateAmPmCapacityForm() {
+  updateAmPmCapacityFormView() {
     const subscription = this._operationsCapacitiesStepAmPmCapacity.amPmCapacityFormView$
       .subscribe((eCapacitiesStepAmPmCapacity: ECapacitiesStepAmPmCapacity) => {
         switch (eCapacitiesStepAmPmCapacity) {

@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import {ICustomSelectOption} from '../../../../../../commons/interfaces/custom-controls.interface';
-import {ECapacityStepStatus} from '../../models/capacity-step-status.model';
+import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
 
 export enum ECapacityStepGroupOrLocal {
-  group = 'Grupo',
-  local = 'Local'
+  group = 'GROUP',
+  local = 'LOCAL'
 }
 
 
@@ -22,7 +22,6 @@ export class OperationsCapacitiesStepGroupOrLocalService {
 
   constructor() {
   }
-
 
   get groupOrLocalStepStatus$(): Observable<ECapacityStepStatus> {
     return this.groupOrLocalStepStatusSubject.asObservable()

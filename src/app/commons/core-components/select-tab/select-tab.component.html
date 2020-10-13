@@ -4,7 +4,10 @@
                [formControlName]="_selectTabFormControlName"
                radioClass="select-tab-radio"
                class="select-tab-content">
-      {{selectTab}}
+      <ng-container *ngIf="!templateRef">{{selectTab}}</ng-container>
+      <ng-template [ngTemplateOutlet]="templateRef"
+                   [ngTemplateOutletContext]="{$implicit: selectTab}">
+      </ng-template>
     </app-radio>
   </ng-container>
 </div>

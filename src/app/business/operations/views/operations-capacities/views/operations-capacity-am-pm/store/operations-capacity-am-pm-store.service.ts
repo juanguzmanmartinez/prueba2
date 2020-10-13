@@ -1,39 +1,49 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import {OperationsCapacityAmPmImplementService} from '../services/operations-capacity-am-pm-implement.service';
 import {ECapacityStepGroupOrLocal, OperationsCapacitiesStepGroupOrLocalService} from '../../../components/operations-capacities-step-group-or-local/operations-capacities-step-group-or-local.service';
 import {ECapacitiesStepEditionMode, OperationsCapacitiesStepEditionModeService} from '../../../components/operations-capacities-step-edition-mode/operations-capacities-step-edition-mode.service';
 import {
   ECapacitiesStepAmPmCapacity,
-  ICapacityStepAmPmCapacityFormValue,
   OperationsCapacitiesStepAmPmCapacityService
 } from '../../../components/operations-capacities-step-am-pm-capacity/operations-capacities-step-am-pm-capacity.service';
-import {ECapacityStepStatus} from '../../../models/capacity-step-status.model';
+import {ECapacityStepStatus} from '../../../models/operations-capacity-step-status.model';
 import {ICustomSelectOption} from '../../../../../../../commons/interfaces/custom-controls.interface';
 import {ITypeService} from '../../../../../../../shared/services/models/type-service.model';
-import {Router} from '@angular/router';
+import {AlertService} from '../../../../../../../commons/molecules/alert/alert.service';
+import {ICapacityStepAmPmCapacitySegments} from '../../../components/operations-capacities-step-am-pm-capacity/models/operations-capacities-step-am-pm-capacity.model';
+import {ToCapacityStepAmPmCapacitySegments} from '../../../models/operations-capacity-converter.model';
+import {ICalendarUpdateRequestParams} from '../../../../../../../shared/services/models/capacity.model';
+import {getDaysRangeBetweenDates} from '../../../../../../../shared/helpers/dates.helper';
+
 
 @Injectable()
-export class OperationsCapacityAmPmStoreService {
+export class OperationsCapacityAmPmStoreService implements OnDestroy {
 
   private subscriptions: Subscription[] = [];
+  private operationsCapacityAmPmCancelSubject = new BehaviorSubject<boolean>(false);
   private operationsCapacityAmPmSaveSubject = new BehaviorSubject<boolean>(false);
 
   private groupOrLocalTabSelection: ECapacityStepGroupOrLocal;
   private groupOrLocalSelection: ICustomSelectOption;
   private editionModeSelection: ECapacitiesStepEditionMode;
+  private amPmCapacitySelection: ICapacityStepAmPmCapacitySegments;
 
   constructor(
     private _operationsCapacityAmPmImplement: OperationsCapacityAmPmImplementService,
     private _operationsCapacitiesStepGroupOrLocal: OperationsCapacitiesStepGroupOrLocalService,
     private _operationsCapacitiesStepEditionMode: OperationsCapacitiesStepEditionModeService,
     private _operationsCapacitiesStepAmPmCapacity: OperationsCapacitiesStepAmPmCapacityService,
-    private _router: Router
+    private  _alertService: AlertService,
   ) {
     this.groupOrLocalTab();
     this.groupOrLocalActions();
     this.editionModeActions();
     this.amPmCapacityActions();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   /**
@@ -84,7 +94,7 @@ export class OperationsCapacityAmPmStoreService {
 
     const subscriptionCancel = this._operationsCapacitiesStepGroupOrLocal.groupOrLocalCancel$
       .subscribe(() => {
-        this.operationsCapacityAmPmCancel();
+        this.operationsCapacityAmPmCancel = true;
       });
     this.subscriptions.push(subscriptionSave, subscriptionCancel);
   }
@@ -111,7 +121,7 @@ export class OperationsCapacityAmPmStoreService {
 
     const subscriptionCancel = this._operationsCapacitiesStepEditionMode.editionModeCancel$
       .subscribe(() => {
-        this.operationsCapacityAmPmCancel();
+        this.operationsCapacityAmPmCancel = true;
       });
     this.subscriptions.push(subscriptionSave, subscriptionCancel);
   }
@@ -120,31 +130,21 @@ export class OperationsCapacityAmPmStoreService {
     switch (this.groupOrLocalTabSelection) {
       case ECapacityStepGroupOrLocal.local:
         this._operationsCapacityAmPmImplement.getTypeOperationImplements$(this.editionModeSelection, this.groupOrLocalSelection)
-          .subscribe((data) => {
-            this.editionModeAndCapacity(data);
-          });
+          .subscribe(
+            (data) => this.editionModeAndCapacity(data),
+            (error) => this.editionModeAndCapacityError(error));
         break;
       case ECapacityStepGroupOrLocal.group:
         this._operationsCapacityAmPmImplement.getTypeOperationGroupImplements$(this.editionModeSelection, this.groupOrLocalSelection)
-          .subscribe((data) => {
-            this.editionModeAndCapacity(data);
-          });
+          .subscribe(
+            (data) => this.editionModeAndCapacity(data),
+            (error) => this.editionModeAndCapacityError(error));
         break;
     }
   }
 
   editionModeAndCapacity(data: ITypeService) {
-    this._operationsCapacitiesStepAmPmCapacity.amPmCapacitySegments = {
-      amSegment: {
-        segmentCapacity: data.segments[0].capacity,
-        segmentHour: data.segments[0].hour
-      },
-      pmSegment: {
-        segmentCapacity: data.segments[1].capacity,
-        segmentHour: data.segments[1].hour
-      }
-    };
-    console.log(this.groupOrLocalTabSelection + ' ' + this.editionModeSelection, data);
+    this._operationsCapacitiesStepAmPmCapacity.amPmCapacitySegments = new ToCapacityStepAmPmCapacitySegments(data);
     this._operationsCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.open;
 
     switch (this.editionModeSelection) {
@@ -155,6 +155,12 @@ export class OperationsCapacityAmPmStoreService {
         this.amPmCapacityFormView(ECapacitiesStepAmPmCapacity.hourlyCapacity);
         break;
     }
+  }
+
+  editionModeAndCapacityError(error) {
+    const message = error ? error.message || 'Error' : 'Error';
+    this._alertService.alertError(message);
+    this._operationsCapacitiesStepEditionMode.editionModeResetStepStatus = true;
   }
 
   /**
@@ -168,16 +174,70 @@ export class OperationsCapacityAmPmStoreService {
 
   amPmCapacityActions() {
     const subscriptionSave = this._operationsCapacitiesStepAmPmCapacity.amPmCapacitySave$
-      .subscribe((amPmCapacityFormValue: ICapacityStepAmPmCapacityFormValue) => {
+      .subscribe((amPmCapacitySegments: ICapacityStepAmPmCapacitySegments) => {
+        this.amPmCapacitySelection = amPmCapacitySegments;
         this._operationsCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.disabled;
         this._operationsCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
+        this.saveCapacityAmPm();
       });
 
     const subscriptionCancel = this._operationsCapacitiesStepAmPmCapacity.amPmCapacityCancel$
       .subscribe(() => {
-        this.operationsCapacityAmPmCancel();
+        this.operationsCapacityAmPmCancel = true;
       });
     this.subscriptions.push(subscriptionSave, subscriptionCancel);
+  }
+
+
+  /**
+   * Save Capacity Am - pm
+   */
+  get capacityAmPmRequest() {
+    const request = {} as ICalendarUpdateRequestParams;
+    request.fulfillmentCenterCode = this.groupOrLocalSelection.fulfillmentCenterCode;
+    request.quantities = `${this.amPmCapacitySelection.amSegment.segmentCapacity},${this.amPmCapacitySelection.pmSegment.segmentCapacity}`;
+    request.hours = `${this.amPmCapacitySelection.amSegment.segmentValue},${this.amPmCapacitySelection.pmSegment.segmentValue}`;
+    if (this.editionModeSelection === ECapacitiesStepEditionMode.calendar && this.amPmCapacitySelection.capacityRange) {
+      request.days = getDaysRangeBetweenDates(this.amPmCapacitySelection.capacityRange.endDate, this.amPmCapacitySelection.capacityRange.startDate);
+    }
+    if (this.groupOrLocalTabSelection === ECapacityStepGroupOrLocal.group) {
+      request.filter = ECapacityStepGroupOrLocal.group;
+    }
+    return request;
+  }
+
+  saveCapacityAmPm() {
+    const capacityAmPmRequest = this.capacityAmPmRequest;
+
+    switch (this.editionModeSelection) {
+      case ECapacitiesStepEditionMode.default:
+        this._operationsCapacityAmPmImplement.patchCalendarUpdateClient$(capacityAmPmRequest)
+          .subscribe(
+            () => this.capacityAmPmSaveSuccess(),
+            (error) => this.capacityAmPmSaveError(error));
+        break;
+      case ECapacitiesStepEditionMode.calendar:
+        this._operationsCapacityAmPmImplement.patchCalendarRangeUpdateClient$(capacityAmPmRequest)
+          .subscribe(
+            () => this.capacityAmPmSaveSuccess(),
+            (error) => this.capacityAmPmSaveError(error));
+        break;
+    }
+  }
+
+  capacityAmPmSaveSuccess() {
+    const message = `Se guardó con éxito la edición de capacidades AM/PM para ${this.groupOrLocalSelection.text}.`;
+    this._alertService.alertSuccess(message);
+    this.operationsCapacityAmPmSave = true;
+  }
+
+  capacityAmPmSaveError(error) {
+    const message = error && error.message ? error.message : 'Hubo un error';
+    this._alertService.alertError(message);
+
+    this._operationsCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.disabled;
+    this._operationsCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
+    this._operationsCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.open;
   }
 
 
@@ -185,10 +245,6 @@ export class OperationsCapacityAmPmStoreService {
    * Store Actions
    */
 
-
-  operationsCapacityAmPmCancel() {
-    this._router.navigate(['/operaciones/capacidades']);
-  }
 
   get operationsCapacityAmPmSave$(): Observable<boolean> {
     return this.operationsCapacityAmPmSaveSubject.asObservable();
@@ -198,8 +254,12 @@ export class OperationsCapacityAmPmStoreService {
     this.operationsCapacityAmPmSaveSubject.next(amPmSave);
   }
 
-  destroyOperationsCapacityAmPmStore() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  get operationsCapacityAmPmCancel$(): Observable<boolean> {
+    return this.operationsCapacityAmPmCancelSubject.asObservable();
+  }
+
+  set operationsCapacityAmPmCancel(amPmSave: boolean) {
+    this.operationsCapacityAmPmCancelSubject.next(amPmSave);
   }
 
 }
