@@ -2,6 +2,7 @@ import {ITypeService} from '../../../../../shared/services/models/type-service.m
 import {
   ICapacityStepAmPmCapacitySegment, ICapacityStepAmPmCapacitySegments,
 } from '../components/operations-capacities-step-am-pm-capacity/models/operations-capacities-step-am-pm-capacity.model';
+import {ICapacityStepExpressResourceSegments} from '../components/operations-capacities-step-express-resource/models/operations-capacities-step-express-resource.model';
 
 export class ToCapacityStepAmPmCapacitySegments implements ICapacityStepAmPmCapacitySegments {
   amSegment: ICapacityStepAmPmCapacitySegment;
@@ -27,4 +28,15 @@ export class ToCapacityStepAmPmCapacitySegments implements ICapacityStepAmPmCapa
   }
 
 
+}
+
+export class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {
+  expressResource: number;
+
+  constructor(iTypeService: ITypeService) {
+    if (iTypeService && iTypeService.segments && iTypeService.segments.length) {
+      const expressResourceSegment = iTypeService.segments[0];
+      this.expressResource = expressResourceSegment ? expressResourceSegment.capacity : 0;
+    }
+  }
 }

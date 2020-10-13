@@ -14,7 +14,6 @@ import {CoreComponentsModule} from '../../../../commons/core-components/core-com
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LinksModule} from '../../../../commons/core-components/links/links.module';
-import {CapacityExpressFormsModule} from './views/operations-capacity-express/operations-forms/capacity-express-forms.module';
 import {RadioModule} from '../../../../commons/core-components/radio/radio.module';
 import {CardModule} from '../../../../commons/molecules/cards/card.module';
 import {BackRouterModule} from '../../../../commons/molecules/back-router/back-router.module';
@@ -27,10 +26,9 @@ import {ButtonsModule} from '../../../../commons/core-components/buttons/buttons
 import {OperationsCapacitiesStepGroupOrLocalComponent} from './components/operations-capacities-step-group-or-local/operations-capacities-step-group-or-local.component';
 import {OperationsCapacitiesStepEditionModeComponent} from './components/operations-capacities-step-edition-mode/operations-capacities-step-edition-mode.component';
 import {MatNativeDateModule} from '@angular/material/core';
-import {OperationsCapacityAmPmImplementService} from './views/operations-capacity-am-pm/services/operations-capacity-am-pm-implement.service';
 import {OperationsCapacitiesStepAmPmCapacityComponent} from './components/operations-capacities-step-am-pm-capacity/operations-capacities-step-am-pm-capacity.component';
 import {OperationsCapacitiesStepScheduledCapacityComponent} from './components/operations-capacities-step-scheduled-capacity/operations-capacities-step-scheduled-capacity.component';
-import {OperationsCapacitiesStepExpressResourcesComponent} from './components/operations-capacities-step-express-resources/operations-capacities-step-express-resources.component';
+import {OperationsCapacitiesStepExpressResourceComponent} from './components/operations-capacities-step-express-resource/operations-capacities-step-express-resource.component';
 import {AlertModule} from '../../../../commons/molecules/alert/alert.module';
 
 @NgModule({
@@ -44,7 +42,7 @@ import {AlertModule} from '../../../../commons/molecules/alert/alert.module';
     OperationsCapacitiesStepEditionModeComponent,
     OperationsCapacitiesStepAmPmCapacityComponent,
     OperationsCapacitiesStepScheduledCapacityComponent,
-    OperationsCapacitiesStepExpressResourcesComponent,
+    OperationsCapacitiesStepExpressResourceComponent,
   ],
   imports: [
     CommonModule,
@@ -57,7 +55,6 @@ import {AlertModule} from '../../../../commons/molecules/alert/alert.module';
     MatDatepickerModule,
     MatNativeDateModule,
     LinksModule,
-    CapacityExpressFormsModule,
     RadioModule,
     CardModule,
     BackRouterModule,
@@ -69,9 +66,6 @@ import {AlertModule} from '../../../../commons/molecules/alert/alert.module';
     InputsModule,
     ButtonsModule,
     AlertModule
-  ],
-  providers: [
-    OperationsCapacityAmPmImplementService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

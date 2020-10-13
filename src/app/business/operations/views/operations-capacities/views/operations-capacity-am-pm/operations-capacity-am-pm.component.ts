@@ -22,15 +22,15 @@ export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private _operationsCapacityAmPmStoreService: OperationsCapacityAmPmStoreService,
+    private _operationsCapacityAmPmStore: OperationsCapacityAmPmStoreService,
     private _router: Router,
   ) {
   }
 
   ngOnInit() {
     const subscription = combineLatest([
-      this._operationsCapacityAmPmStoreService.operationsCapacityAmPmCancel$,
-      this._operationsCapacityAmPmStoreService.operationsCapacityAmPmSave$
+      this._operationsCapacityAmPmStore.operationsCapacityAmPmCancel$,
+      this._operationsCapacityAmPmStore.operationsCapacityAmPmSave$
     ])
       .subscribe(([save, cancel]) => {
         if (save || cancel) {

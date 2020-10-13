@@ -36,12 +36,11 @@ export class OperationsCapacitiesStepAmPmCapacityComponent implements OnInit, On
   ngOnInit(): void {
     this.updateAmPmCapacityFormView();
     this.updateAmPmCapacitySegments();
-    this.resetEditionModeStep();
-    this.updateEditionModeStepStatus();
+    this.resetAmPmCapacityStep();
+    this.updateAmPmCapacityStepStatus();
   }
 
   ngOnDestroy() {
-    this._operationsCapacitiesStepAmPmCapacityForm.resetForm();
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
@@ -68,7 +67,7 @@ export class OperationsCapacitiesStepAmPmCapacityComponent implements OnInit, On
     this._operationsCapacitiesStepAmPmCapacity.amPmCapacityCancel = true;
   }
 
-  updateEditionModeStepStatus() {
+  updateAmPmCapacityStepStatus() {
     const subscription = this._operationsCapacitiesStepAmPmCapacity.amPmCapacityStepStatus$
       .subscribe((eCapacityStepStatus: ECapacityStepStatus) => {
         if (this.amPmCapacityStepStatus !== eCapacityStepStatus) {
@@ -78,7 +77,7 @@ export class OperationsCapacitiesStepAmPmCapacityComponent implements OnInit, On
     this.subscriptions.push(subscription);
   }
 
-  resetEditionModeStep() {
+  resetAmPmCapacityStep() {
     const subscription = this._operationsCapacitiesStepAmPmCapacity.amPmCapacityResetStepStatus$
       .subscribe(() => {
         this.ampmCapacityDateRange = false;

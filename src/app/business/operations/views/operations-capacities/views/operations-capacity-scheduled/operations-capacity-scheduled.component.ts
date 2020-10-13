@@ -164,7 +164,7 @@ export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
       this.selectedStepOne = 'Grupo';
       this.serviceType = 'AM_PM';
       this.formService.dropdowControl.setValue('');
-      this.service.getGroupLocalImplements$(this.serviceType)
+      this.service.getLocalGroupImplements$(this.serviceType)
         .pipe(tap(value => {
           this.InfoLocal = value;
         }))
