@@ -1,13 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, Optional, SkipSelf} from '@angular/core';
 import {ECapacityStepGroupOrLocal, OperationsCapacitiesStepGroupOrLocalService} from './operations-capacities-step-group-or-local.service';
 import {Subscription} from 'rxjs';
 import {ICustomSelectOption} from '../../../../../../commons/interfaces/custom-controls.interface';
-import {ECapacityStepStatus} from '../../models/capacity-step-status.model';
+import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
+
+const CCapacityStepGroupOrLocalName = {
+  [ECapacityStepGroupOrLocal.group]: 'Grupo',
+  [ECapacityStepGroupOrLocal.local]: 'Local',
+};
 
 @Component({
   selector: 'app-operations-capacities-step-group-or-local',
   templateUrl: './operations-capacities-step-group-or-local.component.html',
-  styleUrls: ['./operations-capacities-step-group-or-local.component.scss']
+  styleUrls: ['./operations-capacities-step-group-or-local.component.scss'],
+  providers: [OperationsCapacitiesStepGroupOrLocalService]
 })
 export class OperationsCapacitiesStepGroupOrLocalComponent implements OnInit, OnDestroy {
 
@@ -15,6 +21,7 @@ export class OperationsCapacitiesStepGroupOrLocalComponent implements OnInit, On
   public groupOrLocalStepStatus: ECapacityStepStatus = ECapacityStepStatus.open;
 
   public groupOrLocalTabList: ECapacityStepGroupOrLocal[] = [ECapacityStepGroupOrLocal.group, ECapacityStepGroupOrLocal.local];
+  public groupOrLocalTabName = CCapacityStepGroupOrLocalName;
   public groupOrLocalTabSelection: ECapacityStepGroupOrLocal = ECapacityStepGroupOrLocal.group;
   public groupOrLocalTabReadonly = true;
 
@@ -25,7 +32,7 @@ export class OperationsCapacitiesStepGroupOrLocalComponent implements OnInit, On
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private _operationsCapacitiesStepGroupOrLocal: OperationsCapacitiesStepGroupOrLocalService
+    @Optional() @SkipSelf() private _operationsCapacitiesStepGroupOrLocal: OperationsCapacitiesStepGroupOrLocalService
   ) {
   }
 

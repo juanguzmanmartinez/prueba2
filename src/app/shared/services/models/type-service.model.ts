@@ -15,6 +15,7 @@ export interface ISegement {
   orders: number;
   enabled: boolean;
   hour?: string;
+  value?: string;
 }
 
 export class TypeService {

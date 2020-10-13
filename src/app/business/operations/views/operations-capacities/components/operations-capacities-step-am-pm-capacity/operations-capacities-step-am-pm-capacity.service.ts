@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {filter} from 'rxjs/operators';
-import {ECapacityStepStatus} from '../../models/capacity-step-status.model';
-import {IDatepickerRange} from '../../../../../../commons/core-components/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
+import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
+import {ICapacityStepAmPmCapacitySegments} from './models/operations-capacities-step-am-pm-capacity.model';
 
 
 export enum ECapacitiesStepAmPmCapacity {
@@ -10,32 +10,16 @@ export enum ECapacitiesStepAmPmCapacity {
   hourlyCapacity = 'hourlyCapacity'
 }
 
-export interface ICapacityStepAmPmCapacitySegment {
-  segmentHour: string;
-  segmentCapacity: number;
-}
-
-export interface ICapacityStepAmPmCapacitySegments {
-  amSegment: ICapacityStepAmPmCapacitySegment;
-  pmSegment: ICapacityStepAmPmCapacitySegment;
-}
-
-export interface ICapacityStepAmPmCapacityFormValue {
-  capacityRange: IDatepickerRange;
-  amCapacity: number;
-  pmCapacity: number;
-}
-
 @Injectable()
 export class OperationsCapacitiesStepAmPmCapacityService {
 
   private amPmCapacityFormViewSubject = new BehaviorSubject<ECapacitiesStepAmPmCapacity>(ECapacitiesStepAmPmCapacity.daysRange);
   private amPmCapacitySegmentsSubject = new BehaviorSubject<ICapacityStepAmPmCapacitySegments>(null);
-  private amPmCapacitySaveSubject = new BehaviorSubject<ICapacityStepAmPmCapacityFormValue>(null);
-  private amPmCapacityCancelSubject = new BehaviorSubject<boolean>(false);
 
   private amPmCapacityStepStatusSubject = new BehaviorSubject<ECapacityStepStatus>(null);
   private amPmCapacityResetStepStatusSubject = new BehaviorSubject<boolean>(null);
+  private amPmCapacitySaveSubject = new BehaviorSubject<ICapacityStepAmPmCapacitySegments>(null);
+  private amPmCapacityCancelSubject = new BehaviorSubject<boolean>(false);
 
   constructor() {
   }
@@ -86,12 +70,12 @@ export class OperationsCapacitiesStepAmPmCapacityService {
     this.amPmCapacityCancelSubject.next(amPmCapacityCancel);
   }
 
-  get amPmCapacitySave$(): Observable<ICapacityStepAmPmCapacityFormValue> {
+  get amPmCapacitySave$(): Observable<ICapacityStepAmPmCapacitySegments> {
     return this.amPmCapacitySaveSubject.asObservable()
       .pipe(filter((value) => !!value));
   }
 
-  set amPmCapacitySave(amPmCapacityFormValue: ICapacityStepAmPmCapacityFormValue) {
+  set amPmCapacitySave(amPmCapacityFormValue: ICapacityStepAmPmCapacitySegments) {
     this.amPmCapacitySaveSubject.next(amPmCapacityFormValue);
   }
 

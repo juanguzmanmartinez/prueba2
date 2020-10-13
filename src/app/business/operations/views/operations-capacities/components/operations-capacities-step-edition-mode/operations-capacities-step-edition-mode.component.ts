@@ -1,12 +1,18 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, Optional, SkipSelf} from '@angular/core';
 import {ECapacitiesStepEditionMode, OperationsCapacitiesStepEditionModeService} from './operations-capacities-step-edition-mode.service';
-import {ECapacityStepStatus} from '../../models/capacity-step-status.model';
+import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
 import {Subscription} from 'rxjs';
+
+const CCapacitiesStepEditionModeName = {
+  [ECapacitiesStepEditionMode.calendar]: 'Calendario',
+  [ECapacitiesStepEditionMode.default]: 'Por defecto',
+};
 
 @Component({
   selector: 'app-operations-capacities-step-edition-mode',
   templateUrl: './operations-capacities-step-edition-mode.component.html',
-  styleUrls: ['./operations-capacities-step-edition-mode.component.scss']
+  styleUrls: ['./operations-capacities-step-edition-mode.component.scss'],
+  providers: [OperationsCapacitiesStepEditionModeService]
 })
 export class OperationsCapacitiesStepEditionModeComponent implements OnInit, OnDestroy {
 
@@ -15,12 +21,13 @@ export class OperationsCapacitiesStepEditionModeComponent implements OnInit, OnD
   eCapacityStepStatus = ECapacityStepStatus;
   editionModeStepStatus: ECapacityStepStatus = ECapacityStepStatus.disabled;
   eEditionMode = ECapacitiesStepEditionMode;
+  eEditionModeName = CCapacitiesStepEditionModeName;
   editionModeSaveSelected: ECapacitiesStepEditionMode;
   editionModeSelected = ECapacitiesStepEditionMode.calendar;
   editionModeSaveLoad: boolean;
 
   constructor(
-    private _operationsCapacitiesStepEditionMode: OperationsCapacitiesStepEditionModeService,
+    @Optional() @SkipSelf() private _operationsCapacitiesStepEditionMode: OperationsCapacitiesStepEditionModeService,
     private _changeDetectorRef: ChangeDetectorRef
   ) {
   }

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, ContentChild, Input, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 
@@ -21,6 +21,7 @@ export class SelectTabComponent implements OnInit, OnDestroy {
 
   @Input('selectTabDisabled')
   set selectTabDisabled(disabled: boolean) {
+    this._selectTabDisabled = disabled || false;
     if (this.selectTabControl) {
       disabled ?
         this.selectTabControl.disable() :
@@ -31,18 +32,20 @@ export class SelectTabComponent implements OnInit, OnDestroy {
   public _selectTabFormGroup = new FormGroup({});
   public _selectTabFormControlName = 'selectTabRadio';
   public _selectTabValue = '';
+  public _selectTabDisabled = false;
   private selectTabSubscribe: Subscription;
 
+  @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
   onChange = (_: any) => {
-  };
+  }
 
   constructor(private _formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
     this._selectTabFormGroup = this._formBuilder.group({
-      selectTabRadio: this._selectTabValue
+      selectTabRadio: {value: this._selectTabValue, disabled: this._selectTabDisabled}
     });
 
     this.changeSelectTabValue();

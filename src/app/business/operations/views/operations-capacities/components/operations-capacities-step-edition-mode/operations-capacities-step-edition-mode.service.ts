@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {filter} from 'rxjs/operators';
-import {ECapacityStepStatus} from '../../models/capacity-step-status.model';
+import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
 
 export enum ECapacitiesStepEditionMode {
   calendar = 'CALENDAR',
