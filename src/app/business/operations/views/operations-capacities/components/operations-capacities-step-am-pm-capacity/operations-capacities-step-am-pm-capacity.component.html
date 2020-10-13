@@ -10,8 +10,8 @@
                (cancelButtonEvent)="cancelAmPmCapacity()">
   <div class="card-step-content">
     <form [formGroup]="_operationsCapacitiesStepAmPmCapacityForm.amPmCapacityForm$">
-
       <div class="row">
+
         <div class="col-12 mb-5" *ngIf="ampmCapacityDateRange">
           <label class="text-caption text-gray-5 mb-2">Selecciona días</label>
           <app-input-datepicker-range
@@ -22,14 +22,14 @@
         </div>
 
         <div class="col-6 mb-5">
-          <label class="text-caption text-gray-5 mb-2">AM</label>
+          <label class="text-caption text-gray-5 mb-2 d-block">AM</label>
           <app-input-number
             formControlName="amCapacity"
             inputPlaceholder="100"></app-input-number>
         </div>
 
         <div class="col-6 mb-5">
-          <label class="text-caption text-gray-5 mb-2">PM</label>
+          <label class="text-caption text-gray-5 mb-2 d-block">PM</label>
           <app-input-number
             formControlName="pmCapacity"
             inputPlaceholder="100"></app-input-number>
@@ -41,6 +41,7 @@
           <p class="text-caption text-gray-5 mb-0">
             <span class="text-black">PM:</span> {{ampmCapacitySegments.pmSegment?.segmentHour}}</p>
         </div>
+
       </div>
     </form>
   </div>

@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {CapacityRangeControl} from '../controls/capacity-range.control';
+import {CapacityRangeControl} from '../../../controls/capacity-range.control';
 import {AmPmCapacityControl} from '../controls/am-pm-capacity.control';
 
 @Injectable()
-export class OperationsCapacitiesStepAmPmCapacityFormService {
+export class OperationsCapacitiesStepAmPmCapacityFormService implements OnDestroy {
+
   private readonly ampmCapacityForm: FormGroup;
 
   private _capacityRangeControl: FormControl = new CapacityRangeControl();
@@ -53,5 +54,7 @@ export class OperationsCapacitiesStepAmPmCapacityFormService {
     this.pmCapacity.setValue(null);
   }
 
-
+  ngOnDestroy(): void {
+    this.resetForm();
+  }
 }
