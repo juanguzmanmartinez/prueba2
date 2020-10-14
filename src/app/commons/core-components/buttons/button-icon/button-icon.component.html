@@ -4,7 +4,7 @@
   [buttonStyle]="buttonStyle"
   [buttonDisplay]="buttonDisplay"
   [buttonDisabled]="buttonDisabled"
-  (buttonClick)="buttonClick.emit()">
+  (click)="onClick($event)">
   <span class="d-inline-flex">
     <app-icon class="d-inline-block mr-2 button-icon-icon"
               [iconFontName]="buttonIcon"

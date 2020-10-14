@@ -26,12 +26,12 @@ export class FromFormToCapacityStepAmPmCapacitySegments implements ICapacityStep
   constructor(amPmCapacityForm: ICapacityStepAmPmCapacityFormValue, segments: ICapacityStepAmPmCapacitySegments) {
     this.capacityRange = amPmCapacityForm.capacityRange;
     this.amSegment = {
-      segmentCapacity: amPmCapacityForm.amCapacity,
+      segmentCapacity: amPmCapacityForm.amCapacity || 0,
       segmentHour: segments && segments.amSegment ? segments.amSegment.segmentHour : '',
       segmentValue: segments && segments.amSegment ? segments.amSegment.segmentValue : ''
     };
     this.pmSegment = {
-      segmentCapacity: amPmCapacityForm.pmCapacity,
+      segmentCapacity: amPmCapacityForm.pmCapacity || 0,
       segmentHour: segments && segments.pmSegment ? segments.pmSegment.segmentHour : '',
       segmentValue: segments && segments.amSegment ? segments.amSegment.segmentValue : ''
     };

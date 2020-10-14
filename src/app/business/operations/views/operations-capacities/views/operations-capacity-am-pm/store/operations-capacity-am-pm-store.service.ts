@@ -15,6 +15,7 @@ import {ICapacityStepAmPmCapacitySegments} from '../../../components/operations-
 import {ToCapacityStepAmPmCapacitySegments} from '../../../models/operations-capacity-converter.model';
 import {ICalendarUpdateRequestParams} from '../../../../../../../shared/services/models/capacity.model';
 import {getDaysRangeBetweenDates} from '../../../../../../../shared/helpers/dates.helper';
+import {capacityAlertSuccessMessage} from '../../../models/operations-capacity-alert-message.parameter';
 
 
 @Injectable()
@@ -201,7 +202,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
     request.fulfillmentCenterCode = this.groupOrLocalSelection.fulfillmentCenterCode;
     request.quantities = `${this.amPmCapacitySelection.amSegment.segmentCapacity},${this.amPmCapacitySelection.pmSegment.segmentCapacity}`;
     request.hours = `${this.amPmCapacitySelection.amSegment.segmentValue},${this.amPmCapacitySelection.pmSegment.segmentValue}`;
-    if (this.editionModeSelection === ECapacitiesStepEditionMode.calendar && this.amPmCapacitySelection.capacityRange) {
+    if (this.editionModeSelection === ECapacitiesStepEditionMode.calendar && this.amPmCapacitySelection?.capacityRange) {
       request.days = getDaysRangeBetweenDates(this.amPmCapacitySelection.capacityRange.endDate, this.amPmCapacitySelection.capacityRange.startDate);
     }
     if (this.groupOrLocalTabSelection === ECapacityStepGroupOrLocal.group) {
@@ -230,7 +231,9 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   }
 
   capacityAmPmSaveSuccess() {
-    const message = `Se guardó con éxito la edición de capacidades AM/PM para ${this.groupOrLocalSelection.text}.`;
+    const message = capacityAlertSuccessMessage(
+      'AM/PM',
+      `${this.groupOrLocalSelection.fulfillmentCenterCode} ${this.groupOrLocalSelection.text}`);
     this._alertService.alertSuccess(message);
     this.operationsCapacityAmPmSave = true;
   }

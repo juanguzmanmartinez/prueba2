@@ -1,0 +1,10 @@
+.card-step-content {
+  padding: 20px 16px;
+}
+
+.card-step-content-disabled {
+  pointer-events: none;
+  filter: grayscale(100%);
+  opacity: 0.8;
+  display: block;
+}

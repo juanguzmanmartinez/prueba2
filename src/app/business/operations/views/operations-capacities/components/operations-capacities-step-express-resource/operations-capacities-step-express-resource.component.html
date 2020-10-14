@@ -1,13 +1,13 @@
-<app-card-step stepId="3"
-               stepTitle="recursos"
-               [class.card-tep-content-disabled]="expressResourceSaveLoad"
-               [stepExpandedToggle]="expressResourceStepStatus === eCapacityStepStatus.open"
-               [stepDisabled]="expressResourceStepStatus === eCapacityStepStatus.disabled  || expressResourceSaveLoad"
-               [saveButtonDisabled]="!_operationsCapacitiesStepExpressResourceForm.expressResourceForm$.valid || expressResourceSaveLoad"
-               (stepOpenEvent)="openExpressResourceStep()"
-               (stepCloseEvent)="closeExpressResourceStep()"
-               (saveButtonEvent)="saveExpressResource()"
-               (cancelButtonEvent)="cancelExpressResource()">
+<app-step stepId="3"
+          stepTitle="recursos"
+          [class.card-step-content-disabled]="expressResourceSaveLoad"
+          [stepExpandedToggle]="expressResourceStepStatus === eCapacityStepStatus.open"
+          [stepDisabled]="expressResourceStepStatus === eCapacityStepStatus.disabled  || expressResourceSaveLoad"
+          [saveButtonDisabled]="!_operationsCapacitiesStepExpressResourceForm.expressResourceForm$.valid || expressResourceSaveLoad"
+          (stepOpenEvent)="openExpressResourceStep()"
+          (stepCloseEvent)="closeExpressResourceStep()"
+          (saveButtonEvent)="saveExpressResource()"
+          (cancelButtonEvent)="cancelExpressResource()">
   <div class="card-step-content">
     <form [formGroup]="_operationsCapacitiesStepExpressResourceForm.expressResourceForm$">
 
@@ -29,4 +29,4 @@
       </div>
     </form>
   </div>
-</app-card-step>
+</app-step>

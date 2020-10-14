@@ -2,11 +2,11 @@ import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {MatExpansionPanel} from '@angular/material/expansion';
 
 @Component({
-  selector: 'app-card-step',
-  templateUrl: './card-step.component.html',
-  styleUrls: ['./card-step.component.scss']
+  selector: 'app-step',
+  templateUrl: './step.component.html',
+  styleUrls: ['./step.component.scss']
 })
-export class CardStepComponent {
+export class StepComponent {
 
   @Input() stepTitle = 'Título';
   @Input() stepDescription: string;

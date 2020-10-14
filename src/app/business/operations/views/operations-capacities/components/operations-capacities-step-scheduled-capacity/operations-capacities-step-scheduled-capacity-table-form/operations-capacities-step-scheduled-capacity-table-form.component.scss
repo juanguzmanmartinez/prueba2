@@ -1,0 +1,15 @@
+.capacity-scheduled-input {
+  display: inline-block;
+  width: 60px;
+}
+
+.capacity-scheduled-table {
+  .mat-column-value {
+    width: 64px;
+  }
+
+  .mat-column-capacity {
+    width: 110px;
+    text-align: center;
+  }
+}

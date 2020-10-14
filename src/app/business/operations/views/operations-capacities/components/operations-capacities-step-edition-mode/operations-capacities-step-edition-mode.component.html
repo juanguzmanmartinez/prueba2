@@ -1,15 +1,15 @@
-<app-card-step stepId="2"
-               stepTitle="Modo de edición"
-               saveButtonText="Continuar"
-               [class.card-tep-content-disabled]="editionModeSaveLoad"
-               [stepExpandedToggle]="editionModeStepStatus === eCapacityStepStatus.open"
-               [stepDisabled]="editionModeStepStatus === eCapacityStepStatus.disabled || editionModeSaveLoad"
-               [stepDescription]="eEditionModeName[editionModeSaveSelected]"
-               [saveButtonDisabled]="!editionModeSelected || editionModeSaveLoad"
-               (stepOpenEvent)="openEditionModeStep()"
-               (stepCloseEvent)="closeEditionModeStep()"
-               (saveButtonEvent)="saveEditionMode()"
-               (cancelButtonEvent)="cancelEditionMode()">
+<app-step stepId="2"
+          stepTitle="Modo de edición"
+          saveButtonText="Continuar"
+          [class.card-step-content-disabled]="editionModeSaveLoad"
+          [stepExpandedToggle]="editionModeStepStatus === eCapacityStepStatus.open"
+          [stepDisabled]="editionModeStepStatus === eCapacityStepStatus.disabled || editionModeSaveLoad"
+          [stepDescription]="eEditionModeName[editionModeSaveSelected]"
+          [saveButtonDisabled]="!editionModeSelected || editionModeSaveLoad"
+          (stepOpenEvent)="openEditionModeStep()"
+          (stepCloseEvent)="closeEditionModeStep()"
+          (saveButtonEvent)="saveEditionMode()"
+          (cancelButtonEvent)="cancelEditionMode()">
   <div class="card-step-content d-flex justify-content-around">
     <div class="mr-4">
       <app-card-radio [radioValue]="eEditionMode.default"
@@ -26,4 +26,4 @@
       </app-card-radio>
     </div>
   </div>
-</app-card-step>
+</app-step>

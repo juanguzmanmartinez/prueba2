@@ -1,6 +1,6 @@
 import {FormControl, Validators} from '@angular/forms';
 
-export class ExpressResourceControl extends FormControl {
+export class CapacityQuantityControl extends FormControl {
   constructor() {
     super(null);
     this.settingValidators();
@@ -9,7 +9,6 @@ export class ExpressResourceControl extends FormControl {
   private settingValidators() {
     this.setValidators([
       Validators.required,
-      Validators.minLength(1),
     ]);
   }
 }
