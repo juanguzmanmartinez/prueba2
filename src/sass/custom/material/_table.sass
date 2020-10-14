@@ -1,0 +1,28 @@
+table.mat-table
+  width: 100%
+
+  .mat-row:nth-child(even)
+    background-color: $gray-1
+
+  .mat-header-row
+    background-color: $gray-5
+    height: 50px
+
+  .mat-cell,
+  .mat-header-cell
+    border: 0
+
+  .mat-header-cell:first-child
+    border-top-left-radius: 12px
+
+  .mat-header-cell:last-child
+    border-top-right-radius: 12px
+
+  .mat-header-cell
+    @extend .text-label
+    color: $white
+
+
+  .mat-cell
+    @extend .text-caption
+    color: $black

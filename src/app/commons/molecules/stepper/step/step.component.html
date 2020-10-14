@@ -29,11 +29,11 @@
 
       <div class="step-body-actions">
         <app-button-secondary class="mr-4"
-                              (buttonClick)="cancelButtonEvent.emit()">
+                              (click)="cancelButtonEvent.emit()">
           {{cancelButtonText}}
         </app-button-secondary>
         <app-button-primary [buttonDisabled]="saveButtonDisabled"
-                            (buttonClick)="saveButtonEvent.emit()">
+                            (click)="saveButtonEvent.emit()">
           {{saveButtonText}}
         </app-button-primary>
       </div>

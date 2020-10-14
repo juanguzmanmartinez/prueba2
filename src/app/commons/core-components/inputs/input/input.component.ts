@@ -59,7 +59,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   }
 
   writeValue(value: string | number): void {
-    this.inputValue = value || '';
+    this.inputValue = `${value}` || '';
   }
 
   registerOnChange(fn: any): void {

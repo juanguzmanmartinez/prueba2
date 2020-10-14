@@ -1,17 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CardStepComponent } from './card-step.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {StepComponent} from './step/step.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {IconsModule} from '../../core-components/icons/icons.module';
 import {ButtonsModule} from '../../core-components/buttons/buttons.module';
 
 
-
 @NgModule({
-    declarations: [CardStepComponent],
-    exports: [
-        CardStepComponent
-    ],
+  declarations: [
+    StepComponent
+  ],
+  exports: [
+    StepComponent,
+  ],
   imports: [
     CommonModule,
     MatExpansionModule,
@@ -19,4 +20,5 @@ import {ButtonsModule} from '../../core-components/buttons/buttons.module';
     ButtonsModule
   ]
 })
-export class CardStepModule { }
+export class StepperModule {
+}

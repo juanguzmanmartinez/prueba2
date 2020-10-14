@@ -21,6 +21,12 @@
       height: 10px
       background-color: $primary
 
+    &.checkbox-indeterminate ~ .checkbox-mark:after
+      top: 5px
+      left: 2px
+      height: 4px
+      width: 10px
+      background-color: $primary
 
     &[disabled] ~ .checkbox-mark
       border: 1px solid $gray-2
@@ -51,7 +57,7 @@
       height: 6px
       background: white
       border: 0
-      transition: top 0.2s, left 0.2s, width 0.2s, height 0.2s
+      transition: top 0.3s, left 0.3s, width 0.3s, height 0.3s
 
 
   .checkbox-content

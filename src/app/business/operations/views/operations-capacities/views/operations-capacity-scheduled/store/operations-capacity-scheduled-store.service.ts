@@ -1,49 +1,48 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {BehaviorSubject, Observable, Subscription} from 'rxjs';
+import {CapacityImplementService} from '../../../../../../../shared/services/capacity-edition/capacity-implements.service';
 import {ECapacityStepGroupOrLocal, OperationsCapacitiesStepGroupOrLocalService} from '../../../components/operations-capacities-step-group-or-local/operations-capacities-step-group-or-local.service';
 import {ECapacitiesStepEditionMode, OperationsCapacitiesStepEditionModeService} from '../../../components/operations-capacities-step-edition-mode/operations-capacities-step-edition-mode.service';
+import {
+  ECapacitiesStepScheduledCapacity,
+  OperationsCapacitiesStepScheduledCapacityService
+} from '../../../components/operations-capacities-step-scheduled-capacity/operations-capacities-step-scheduled-capacity.service';
 import {ECapacityStepStatus} from '../../../models/operations-capacity-step-status.model';
 import {ICustomSelectOption} from '../../../../../../../commons/interfaces/custom-controls.interface';
 import {ITypeService} from '../../../../../../../shared/services/models/type-service.model';
 import {AlertService} from '../../../../../../../commons/molecules/alert/alert.service';
-import {ToCapacityStepExpressResourceSegments} from '../../../models/operations-capacity-converter.model';
+import {ToCapacityStepScheduledCapacitySegments} from '../../../models/operations-capacity-converter.model';
 import {ICalendarUpdateRequestParams} from '../../../../../../../shared/services/models/capacity.model';
 import {getDaysRangeBetweenDates} from '../../../../../../../shared/helpers/dates.helper';
-
-import {
-  ECapacitiesStepExpressResource,
-  OperationsCapacitiesStepExpressResourceService
-} from '../../../components/operations-capacities-step-express-resource/operations-capacities-step-express-resource.service';
-import {ICapacityStepExpressResourceSegments} from '../../../components/operations-capacities-step-express-resource/models/operations-capacities-step-express-resource.model';
-import {CapacityImplementService} from '../../../../../../../shared/services/capacity-edition/capacity-implements.service';
+import {ICapacityStepScheduledCapacitySegments} from '../../../components/operations-capacities-step-scheduled-capacity/models/operations-capacities-step-scheduled-capacity.model';
 import {capacityAlertSuccessMessage} from '../../../models/operations-capacity-alert-message.parameter';
 
 
 @Injectable()
-export class OperationsCapacityExpressStoreService implements OnDestroy {
-  private readonly expressCapacityId = 'EXP';
-  private readonly expressChannel = 'DIGITAL';
+export class OperationsCapacityScheduledStoreService implements OnDestroy {
+  private readonly scheduledCapacityId = 'PROG';
+  private readonly scheduledChannel = 'DIGITAL';
 
   private subscriptions: Subscription[] = [];
-  private operationsCapacityExpressCancelSubject = new BehaviorSubject<boolean>(false);
-  private operationsCapacityExpressSaveSubject = new BehaviorSubject<boolean>(false);
+  private operationsCapacityScheduledCancelSubject = new BehaviorSubject<boolean>(false);
+  private operationsCapacityScheduledSaveSubject = new BehaviorSubject<boolean>(false);
 
   private groupOrLocalTabSelection: ECapacityStepGroupOrLocal;
   private groupOrLocalSelection: ICustomSelectOption;
   private editionModeSelection: ECapacitiesStepEditionMode;
-  private expressResourceSelection: ICapacityStepExpressResourceSegments;
+  private scheduledCapacitySelection: ICapacityStepScheduledCapacitySegments;
 
   constructor(
     private _operationsCapacityImplement: CapacityImplementService,
     private _operationsCapacitiesStepGroupOrLocal: OperationsCapacitiesStepGroupOrLocalService,
     private _operationsCapacitiesStepEditionMode: OperationsCapacitiesStepEditionModeService,
-    private _operationsCapacitiesStepExpressResource: OperationsCapacitiesStepExpressResourceService,
+    private _operationsCapacitiesStepScheduledCapacity: OperationsCapacitiesStepScheduledCapacityService,
     private  _alertService: AlertService,
   ) {
     this.groupOrLocalTab();
     this.groupOrLocalActions();
     this.editionModeActions();
-    this.expressResourceActions();
+    this.scheduledCapacityActions();
   }
 
   ngOnDestroy(): void {
@@ -71,7 +70,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
   }
 
   getLocalGroupList() {
-    const subscription = this._operationsCapacityImplement.getLocalGroupImplements$(this.expressCapacityId)
+    const subscription = this._operationsCapacityImplement.getLocalGroupImplements$(this.scheduledCapacityId)
       .subscribe((stores: ICustomSelectOption[]) => {
         this._operationsCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
       });
@@ -79,7 +78,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
   }
 
   getLocalList() {
-    const subscription = this._operationsCapacityImplement.getLocalImplements$(this.expressCapacityId)
+    const subscription = this._operationsCapacityImplement.getLocalImplements$(this.scheduledCapacityId)
       .subscribe((stores: ICustomSelectOption[]) => {
         this._operationsCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
       });
@@ -91,14 +90,14 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
       .subscribe((local: ICustomSelectOption) => {
         this.groupOrLocalSelection = local;
         this._operationsCapacitiesStepEditionMode.editionModeResetStepStatus = true;
-        this._operationsCapacitiesStepExpressResource.expressResourceResetStepStatus = true;
+        this._operationsCapacitiesStepScheduledCapacity.scheduledCapacityResetStepStatus = true;
         this._operationsCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.open;
-        this._operationsCapacitiesStepExpressResource.expressResourceStepStatus = ECapacityStepStatus.disabled;
+        this._operationsCapacitiesStepScheduledCapacity.scheduledCapacityStepStatus = ECapacityStepStatus.disabled;
       });
 
     const subscriptionCancel = this._operationsCapacitiesStepGroupOrLocal.groupOrLocalCancel$
       .subscribe(() => {
-        this.operationsCapacityExpressCancel = true;
+        this.operationsCapacityScheduledCancel = true;
       });
     this.subscriptions.push(subscriptionSave, subscriptionCancel);
   }
@@ -112,7 +111,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
     const subscriptionSave = this._operationsCapacitiesStepEditionMode.editionModeSave$
       .subscribe((editionMode: ECapacitiesStepEditionMode) => {
         this.editionModeSelection = editionMode;
-        this._operationsCapacitiesStepExpressResource.expressResourceResetStepStatus = true;
+        this._operationsCapacitiesStepScheduledCapacity.scheduledCapacityResetStepStatus = true;
         switch (editionMode) {
           case ECapacitiesStepEditionMode.calendar:
             this.editionModeAndGroupOrLocal();
@@ -125,7 +124,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
 
     const subscriptionCancel = this._operationsCapacitiesStepEditionMode.editionModeCancel$
       .subscribe(() => {
-        this.operationsCapacityExpressCancel = true;
+        this.operationsCapacityScheduledCancel = true;
       });
     this.subscriptions.push(subscriptionSave, subscriptionCancel);
   }
@@ -133,13 +132,13 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
   editionModeAndGroupOrLocal() {
     switch (this.groupOrLocalTabSelection) {
       case ECapacityStepGroupOrLocal.local:
-        this._operationsCapacityImplement.getTypeOperationImplements$(this.editionModeSelection, this.groupOrLocalSelection, this.expressCapacityId)
+        this._operationsCapacityImplement.getTypeOperationImplements$(this.editionModeSelection, this.groupOrLocalSelection, this.scheduledCapacityId)
           .subscribe(
             (data) => this.editionModeAndCapacity(data),
             (error) => this.editionModeAndCapacityError(error));
         break;
       case ECapacityStepGroupOrLocal.group:
-        this._operationsCapacityImplement.getTypeOperationGroupImplements$(this.editionModeSelection, this.groupOrLocalSelection, this.expressCapacityId)
+        this._operationsCapacityImplement.getTypeOperationGroupImplements$(this.editionModeSelection, this.groupOrLocalSelection, this.scheduledCapacityId)
           .subscribe(
             (data) => this.editionModeAndCapacity(data),
             (error) => this.editionModeAndCapacityError(error));
@@ -148,15 +147,15 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
   }
 
   editionModeAndCapacity(data: ITypeService) {
-    this._operationsCapacitiesStepExpressResource.expressResourceSegments = new ToCapacityStepExpressResourceSegments(data);
-    this._operationsCapacitiesStepExpressResource.expressResourceStepStatus = ECapacityStepStatus.open;
+    this._operationsCapacitiesStepScheduledCapacity.scheduledCapacitySegments = new ToCapacityStepScheduledCapacitySegments(data);
+    this._operationsCapacitiesStepScheduledCapacity.scheduledCapacityStepStatus = ECapacityStepStatus.open;
 
     switch (this.editionModeSelection) {
       case ECapacitiesStepEditionMode.calendar:
-        this.expressResourceFormView(ECapacitiesStepExpressResource.daysRange);
+        this.scheduledCapacityFormView(ECapacitiesStepScheduledCapacity.daysRange);
         break;
       case ECapacitiesStepEditionMode.default:
-        this.expressResourceFormView(ECapacitiesStepExpressResource.hourlyCapacity);
+        this.scheduledCapacityFormView(ECapacitiesStepScheduledCapacity.hourlyCapacity);
         break;
     }
   }
@@ -168,42 +167,49 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
   }
 
   /**
-   * Step 3: Express Resource
+   * Step 3: Schedule Capacity
    */
 
-  expressResourceFormView(eCapacitiesStepExpressResource: ECapacitiesStepExpressResource) {
-    this._operationsCapacitiesStepExpressResource.expressResourceFormView = eCapacitiesStepExpressResource;
+  scheduledCapacityFormView(eCapacitiesStepScheduledCapacity: ECapacitiesStepScheduledCapacity) {
+    this._operationsCapacitiesStepScheduledCapacity.scheduledCapacityFormView = eCapacitiesStepScheduledCapacity;
   }
 
 
-  expressResourceActions() {
-    const subscriptionSave = this._operationsCapacitiesStepExpressResource.expressResourceSave$
-      .subscribe((expressResourceSegments: ICapacityStepExpressResourceSegments) => {
-        this.expressResourceSelection = expressResourceSegments;
+  scheduledCapacityActions() {
+    const subscriptionSave = this._operationsCapacitiesStepScheduledCapacity.scheduledCapacitySave$
+      .subscribe((scheduledCapacitySegments: ICapacityStepScheduledCapacitySegments) => {
+        this.scheduledCapacitySelection = scheduledCapacitySegments;
         this._operationsCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.disabled;
         this._operationsCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
-        this.saveCapacityExpress();
+        this.saveCapacityScheduled();
       });
 
-    const subscriptionCancel = this._operationsCapacitiesStepExpressResource.expressResourceCancel$
+    const subscriptionCancel = this._operationsCapacitiesStepScheduledCapacity.scheduledCapacityCancel$
       .subscribe(() => {
-        this.operationsCapacityExpressCancel = true;
+        this.operationsCapacityScheduledCancel = true;
       });
     this.subscriptions.push(subscriptionSave, subscriptionCancel);
   }
 
 
   /**
-   * Save Capacity Express
+   * Save Capacity Scheduled
    */
-  get capacityExpressRequest() {
+  get capacityScheduledRequest() {
     const request = {} as ICalendarUpdateRequestParams;
-    request.serviceTypeCode = this.expressCapacityId;
-    request.channel = this.expressChannel;
+    request.serviceTypeCode = this.scheduledCapacityId;
+    request.channel = this.scheduledChannel;
     request.fulfillmentCenterCode = this.groupOrLocalSelection.fulfillmentCenterCode;
-    request.quantities = `${this.expressResourceSelection.expressResource}`;
-    if (this.editionModeSelection === ECapacitiesStepEditionMode.calendar && this.expressResourceSelection?.capacityRange) {
-      request.days = getDaysRangeBetweenDates(this.expressResourceSelection.capacityRange.endDate, this.expressResourceSelection.capacityRange.startDate);
+    request.quantities = this.scheduledCapacitySelection?.scheduledSegmentList ?
+      this.scheduledCapacitySelection.scheduledSegmentList
+        .map(segment => segment.segmentCapacity || 0).join(',') : '';
+    request.hours = this.scheduledCapacitySelection?.scheduledSegmentList ?
+      this.scheduledCapacitySelection.scheduledSegmentList
+        .map(segment => segment.segmentValue || '').join(',') : '';
+    if (this.editionModeSelection === ECapacitiesStepEditionMode.calendar && this.scheduledCapacitySelection?.capacityRange) {
+      request.days = getDaysRangeBetweenDates(
+        this.scheduledCapacitySelection.capacityRange.endDate,
+        this.scheduledCapacitySelection.capacityRange.startDate);
     }
     if (this.groupOrLocalTabSelection === ECapacityStepGroupOrLocal.group) {
       request.filter = ECapacityStepGroupOrLocal.group;
@@ -211,38 +217,37 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
     return request;
   }
 
-  saveCapacityExpress() {
-    const capacityExpressRequest = this.capacityExpressRequest;
-
+  saveCapacityScheduled() {
+    const capacityScheduledRequest = this.capacityScheduledRequest;
     switch (this.editionModeSelection) {
       case ECapacitiesStepEditionMode.default:
-        this._operationsCapacityImplement.patchCalendarUpdateClient$(capacityExpressRequest)
+        this._operationsCapacityImplement.patchCalendarUpdateClient$(capacityScheduledRequest)
           .subscribe(
-            () => this.capacityExpressSaveSuccess(),
-            (error) => this.capacityExpressSaveError(error));
+            () => this.capacityScheduledSaveSuccess(),
+            (error) => this.capacityScheduledSaveError(error));
         break;
       case ECapacitiesStepEditionMode.calendar:
-        this._operationsCapacityImplement.patchCalendarRangeUpdateClient$(capacityExpressRequest)
+        this._operationsCapacityImplement.patchCalendarRangeUpdateClient$(capacityScheduledRequest)
           .subscribe(
-            () => this.capacityExpressSaveSuccess(),
-            (error) => this.capacityExpressSaveError(error));
+            () => this.capacityScheduledSaveSuccess(),
+            (error) => this.capacityScheduledSaveError(error));
         break;
     }
   }
 
-  capacityExpressSaveSuccess() {
+  capacityScheduledSaveSuccess() {
     const message = capacityAlertSuccessMessage(
-      'Express',
+      'Programadas',
       `${this.groupOrLocalSelection.fulfillmentCenterCode} ${this.groupOrLocalSelection.text}`);
     this._alertService.alertSuccess(message);
-    this.operationsCapacityExpressSave = true;
+    this.operationsCapacityScheduledSave = true;
   }
 
-  capacityExpressSaveError(error) {
+  capacityScheduledSaveError(error) {
     const message = error && error.message ? error.message : 'Hubo un error';
     this._alertService.alertError(message);
 
-    this._operationsCapacitiesStepExpressResource.expressResourceStepStatus = ECapacityStepStatus.disabled;
+    this._operationsCapacitiesStepScheduledCapacity.scheduledCapacityStepStatus = ECapacityStepStatus.disabled;
     this._operationsCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
     this._operationsCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.open;
   }
@@ -253,20 +258,20 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
    */
 
 
-  get operationsCapacityExpressSave$(): Observable<boolean> {
-    return this.operationsCapacityExpressSaveSubject.asObservable();
+  get operationsCapacityScheduledSave$(): Observable<boolean> {
+    return this.operationsCapacityScheduledSaveSubject.asObservable();
   }
 
-  set operationsCapacityExpressSave(amPmSave: boolean) {
-    this.operationsCapacityExpressSaveSubject.next(amPmSave);
+  set operationsCapacityScheduledSave(amPmSave: boolean) {
+    this.operationsCapacityScheduledSaveSubject.next(amPmSave);
   }
 
-  get operationsCapacityExpressCancel$(): Observable<boolean> {
-    return this.operationsCapacityExpressCancelSubject.asObservable();
+  get operationsCapacityScheduledCancel$(): Observable<boolean> {
+    return this.operationsCapacityScheduledCancelSubject.asObservable();
   }
 
-  set operationsCapacityExpressCancel(amPmSave: boolean) {
-    this.operationsCapacityExpressCancelSubject.next(amPmSave);
+  set operationsCapacityScheduledCancel(amPmSave: boolean) {
+    this.operationsCapacityScheduledCancelSubject.next(amPmSave);
   }
 
 }

@@ -21,15 +21,16 @@ export class InputNumberComponent extends InputComponent implements OnInit, OnDe
     if (this.ngControl.name) {
       this.inputName = this.ngControl.name;
     }
-
-    const subscription = this.ngControl.control.valueChanges
-      .subscribe((value) => {
-        if (this.inputValue === value) {
-          return;
-        }
-        this.writeValue(value);
-      });
-    this.subscriptions.push(subscription);
+    if (this.ngControl.control) {
+      const subscription = this.ngControl.control.valueChanges
+        .subscribe((value) => {
+          if (this.inputValue === value) {
+            return;
+          }
+          this.writeValue(value);
+        });
+      this.subscriptions.push(subscription);
+    }
   }
 
   ngOnDestroy() {
@@ -37,13 +38,14 @@ export class InputNumberComponent extends InputComponent implements OnInit, OnDe
   }
 
   writeValue(value: number): void {
-    this.inputValue = value || 0;
+    this.inputValue = value;
   }
 
 
   changeInputValue() {
     if (typeof this.inputValue === 'string') {
-      this.inputValue = parseInt(this.inputValue, 10);
+      const parseNumber = parseInt(this.inputValue, 10);
+      this.inputValue = isNaN(parseNumber) ? null : parseNumber;
     }
     this.onChange(this.inputValue);
     this.onTouch(this.inputValue);

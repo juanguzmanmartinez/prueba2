@@ -5,6 +5,6 @@
   [ngClass]="buttonClass"
   [disabled]="buttonDisabled"
   [ngStyle]="buttonStyle"
-  (click)="buttonClick.emit()">
+  (click)="onClick($event)">
   <ng-content></ng-content>
 </button>

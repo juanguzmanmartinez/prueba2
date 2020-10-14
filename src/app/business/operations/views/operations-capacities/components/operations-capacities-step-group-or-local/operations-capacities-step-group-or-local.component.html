@@ -1,14 +1,14 @@
-<app-card-step stepId="1"
-               stepTitle="Grupo o Local"
-               saveButtonText="Continuar"
-               [stepDescription]="groupOrLocalStepDescription"
-               [saveButtonDisabled]="!groupOrLocalSelection"
-               [stepExpandedToggle]="groupOrLocalStepStatus === eCapacityStepStatus.open"
-               [stepDisabled]="groupOrLocalStepStatus === eCapacityStepStatus.disabled"
-               (stepOpenEvent)="openGroupOrLocalStep()"
-               (stepCloseEvent)="closeGroupOrLocalStep()"
-               (saveButtonEvent)="saveGroupOrLocal()"
-               (cancelButtonEvent)="cancelGroupOrLocal()">
+<app-step stepId="1"
+          stepTitle="Grupo o Local"
+          saveButtonText="Continuar"
+          [stepDescription]="groupOrLocalStepDescription"
+          [saveButtonDisabled]="!groupOrLocalSelection"
+          [stepExpandedToggle]="groupOrLocalStepStatus === eCapacityStepStatus.open"
+          [stepDisabled]="groupOrLocalStepStatus === eCapacityStepStatus.disabled"
+          (stepOpenEvent)="openGroupOrLocalStep()"
+          (stepCloseEvent)="closeGroupOrLocalStep()"
+          (saveButtonEvent)="saveGroupOrLocal()"
+          (cancelButtonEvent)="cancelGroupOrLocal()">
   <div class="card-step-content d-flex-vertical-center">
     <div class="mr-4">
       <app-select-tab [selectTabList]="groupOrLocalTabList"
@@ -21,10 +21,10 @@
     <div class="w-100">
       <app-select [optionList]="groupOrLocalList"
                   [selectValue]="groupOrLocalSelection"
-                  selectPlaceholder="Selecciona una"
+                  [selectPlaceholder]="'Elige un ' + groupOrLocalTabName[groupOrLocalTabSelection]"
                   (optionSelected)="changeGroupOrLocalSelection($event)">
-          <ng-template let-option>{{groupOrLocalSelectionName(option)}}</ng-template>
+        <ng-template let-option>{{groupOrLocalSelectionName(option)}}</ng-template>
       </app-select>
     </div>
   </div>
-</app-card-step>
+</app-step>

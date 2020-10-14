@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CheckboxComponent} from './checkbox.component';
-import {MatRadioModule} from '@angular/material/radio';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +13,7 @@ import {MatRadioModule} from '@angular/material/radio';
   ],
   imports: [
     CommonModule,
-    MatRadioModule
+    FormsModule
   ]
 })
 export class CheckboxModule {

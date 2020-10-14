@@ -5,7 +5,7 @@ import {ExpressResourceControl} from '../controls/express-resource.control';
 
 @Injectable()
 export class OperationsCapacitiesStepExpressResourceFormService implements OnDestroy {
-  private readonly expressCapacityForm: FormGroup;
+  private readonly expressResourceForm: FormGroup;
 
   private _capacityRangeControl: FormControl = new CapacityRangeControl();
   private _expressResourceControl: FormControl = new ExpressResourceControl();
@@ -13,14 +13,14 @@ export class OperationsCapacitiesStepExpressResourceFormService implements OnDes
   constructor(
     private _formBuilder: FormBuilder
   ) {
-    this.expressCapacityForm = this._formBuilder.group({
+    this.expressResourceForm = this._formBuilder.group({
       capacityRange: this._capacityRangeControl,
       expressResource: this._expressResourceControl,
     });
   }
 
   get expressResourceForm$() {
-    return this.expressCapacityForm;
+    return this.expressResourceForm;
   }
 
   get capacityRange() {

@@ -4,6 +4,6 @@
   [buttonStyle]="buttonStyle"
   [buttonDisplay]="buttonDisplay"
   [buttonDisabled]="buttonDisabled"
-  (buttonClick)="buttonClick.emit()">
+  (click)="onClick($event)">
   <ng-content></ng-content>
 </app-button>

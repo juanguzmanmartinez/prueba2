@@ -1,13 +1,13 @@
-<app-card-step stepId="3"
-               stepTitle="Capacidad"
-               [class.card-tep-content-disabled]="amPmCapacitySaveLoad"
-               [stepExpandedToggle]="amPmCapacityStepStatus === eCapacityStepStatus.open"
-               [stepDisabled]="amPmCapacityStepStatus === eCapacityStepStatus.disabled  || amPmCapacitySaveLoad"
-               [saveButtonDisabled]="!_operationsCapacitiesStepAmPmCapacityForm.amPmCapacityForm$.valid || amPmCapacitySaveLoad"
-               (stepOpenEvent)="openAmPmCapacityStep()"
-               (stepCloseEvent)="closeAmPmCapacityStep()"
-               (saveButtonEvent)="saveAmPmCapacity()"
-               (cancelButtonEvent)="cancelAmPmCapacity()">
+<app-step stepId="3"
+          stepTitle="Capacidad"
+          [class.card-step-content-disabled]="amPmCapacitySaveLoad"
+          [stepExpandedToggle]="amPmCapacityStepStatus === eCapacityStepStatus.open"
+          [stepDisabled]="amPmCapacityStepStatus === eCapacityStepStatus.disabled  || amPmCapacitySaveLoad"
+          [saveButtonDisabled]="!_operationsCapacitiesStepAmPmCapacityForm.amPmCapacityForm$.valid || amPmCapacitySaveLoad"
+          (stepOpenEvent)="openAmPmCapacityStep()"
+          (stepCloseEvent)="closeAmPmCapacityStep()"
+          (saveButtonEvent)="saveAmPmCapacity()"
+          (cancelButtonEvent)="cancelAmPmCapacity()">
   <div class="card-step-content">
     <form [formGroup]="_operationsCapacitiesStepAmPmCapacityForm.amPmCapacityForm$">
       <div class="row">
@@ -45,4 +45,4 @@
       </div>
     </form>
   </div>
-</app-card-step>
+</app-step>

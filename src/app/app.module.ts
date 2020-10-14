@@ -7,10 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import {IconsModule} from './commons/core-components/icons/icons.module';
 import {MAT_DATE_LOCALE} from '@angular/material/core';
+import { NotSupportedComponent } from './core/not-supported/not-supported.component';
 @NgModule({
   declarations: [
     AppComponent,
-    MainLoaderComponent
+    MainLoaderComponent,
+    NotSupportedComponent
   ],
   imports: [
     BrowserModule,
