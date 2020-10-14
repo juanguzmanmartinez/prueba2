@@ -19,15 +19,15 @@ import {SelectModule} from '../../../../commons/core-components/select/select.mo
 import {InputDatepickerModule} from '../../../../commons/core-components/input-datepicker/input-datepicker.module';
 import {InputsModule} from '../../../../commons/core-components/inputs/inputs.module';
 import {ButtonsModule} from '../../../../commons/core-components/buttons/buttons.module';
-import {OperationsCapacitiesStepGroupOrLocalComponent} from './components/operations-capacities-step-group-or-local/operations-capacities-step-group-or-local.component';
-import {OperationsCapacitiesStepEditionModeComponent} from './components/operations-capacities-step-edition-mode/operations-capacities-step-edition-mode.component';
-import {OperationsCapacitiesStepAmPmCapacityComponent} from './components/operations-capacities-step-am-pm-capacity/operations-capacities-step-am-pm-capacity.component';
-import {OperationsCapacitiesStepScheduledCapacityComponent} from './components/operations-capacities-step-scheduled-capacity/operations-capacities-step-scheduled-capacity.component';
-import {OperationsCapacitiesStepExpressResourceComponent} from './components/operations-capacities-step-express-resource/operations-capacities-step-express-resource.component';
+import {OpCapacitiesStepGroupOrLocalComponent} from './components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.component';
+import {OpCapacitiesStepEditionModeComponent} from './components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.component';
+import {OpCapacitiesStepAmPmCapacityComponent} from './components/op-capacities-step-am-pm-capacity/op-capacities-step-am-pm-capacity.component';
+import {OpCapacitiesStepCapacityTableComponent} from './components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.component';
+import {OpCapacitiesStepExpressResourceComponent} from './components/op-capacities-step-express-resource/op-capacities-step-express-resource.component';
 import {AlertModule} from '../../../../commons/molecules/alert/alert.module';
 import {
-  OperationsCapacitiesStepScheduledCapacityTableFormComponent
-} from './components/operations-capacities-step-scheduled-capacity/operations-capacities-step-scheduled-capacity-table-form/operations-capacities-step-scheduled-capacity-table-form.component';
+  OpCapacitiesStepCapacityTableFormComponent
+} from './components/op-capacities-step-capacity-table-form/op-capacities-step-capacity-table-form.component';
 import {MatTableModule} from '@angular/material/table';
 import {CheckboxModule} from '../../../../commons/core-components/checkox/checkbox.module';
 
@@ -38,12 +38,12 @@ import {CheckboxModule} from '../../../../commons/core-components/checkox/checkb
     OperationsCapacityScheduledComponent,
     OperationsCapacityExpressComponent,
     OperationsCapacityHomeComponent,
-    OperationsCapacitiesStepGroupOrLocalComponent,
-    OperationsCapacitiesStepEditionModeComponent,
-    OperationsCapacitiesStepAmPmCapacityComponent,
-    OperationsCapacitiesStepScheduledCapacityComponent,
-    OperationsCapacitiesStepExpressResourceComponent,
-    OperationsCapacitiesStepScheduledCapacityTableFormComponent,
+    OpCapacitiesStepGroupOrLocalComponent,
+    OpCapacitiesStepEditionModeComponent,
+    OpCapacitiesStepAmPmCapacityComponent,
+    OpCapacitiesStepCapacityTableComponent,
+    OpCapacitiesStepExpressResourceComponent,
+    OpCapacitiesStepCapacityTableFormComponent,
   ],
   imports: [
     CommonModule,

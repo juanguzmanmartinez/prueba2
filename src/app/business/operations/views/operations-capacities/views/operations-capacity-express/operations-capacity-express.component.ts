@@ -2,9 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {combineLatest, Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {OperationsCapacityExpressStoreService} from './store/operations-capacity-express-store.service';
-import {OperationsCapacitiesStepGroupOrLocalService} from '../../components/operations-capacities-step-group-or-local/operations-capacities-step-group-or-local.service';
-import {OperationsCapacitiesStepEditionModeService} from '../../components/operations-capacities-step-edition-mode/operations-capacities-step-edition-mode.service';
-import {OperationsCapacitiesStepExpressResourceService} from '../../components/operations-capacities-step-express-resource/operations-capacities-step-express-resource.service';
+import {OpCapacitiesStepGroupOrLocalService} from '../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
+import {OpCapacitiesStepEditionModeService} from '../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
+import {OpCapacitiesStepExpressResourceService} from '../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
 
 @Component({
   selector: 'app-operations-capacity-express',
@@ -12,9 +12,9 @@ import {OperationsCapacitiesStepExpressResourceService} from '../../components/o
   styleUrls: ['./operations-capacity-express.component.scss'],
   providers: [
     OperationsCapacityExpressStoreService,
-    OperationsCapacitiesStepGroupOrLocalService,
-    OperationsCapacitiesStepEditionModeService,
-    OperationsCapacitiesStepExpressResourceService
+    OpCapacitiesStepGroupOrLocalService,
+    OpCapacitiesStepEditionModeService,
+    OpCapacitiesStepExpressResourceService
   ]
 })
 export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {

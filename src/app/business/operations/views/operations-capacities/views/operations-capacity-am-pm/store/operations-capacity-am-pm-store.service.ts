@@ -1,17 +1,17 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import {CapacityImplementService} from '../../../../../../../shared/services/capacity-edition/capacity-implements.service';
-import {ECapacityStepGroupOrLocal, OperationsCapacitiesStepGroupOrLocalService} from '../../../components/operations-capacities-step-group-or-local/operations-capacities-step-group-or-local.service';
-import {ECapacitiesStepEditionMode, OperationsCapacitiesStepEditionModeService} from '../../../components/operations-capacities-step-edition-mode/operations-capacities-step-edition-mode.service';
+import {ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService} from '../../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
+import {ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService} from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import {
   ECapacitiesStepAmPmCapacity,
-  OperationsCapacitiesStepAmPmCapacityService
-} from '../../../components/operations-capacities-step-am-pm-capacity/operations-capacities-step-am-pm-capacity.service';
+  OpCapacitiesStepAmPmCapacityService
+} from '../../../components/op-capacities-step-am-pm-capacity/op-capacities-step-am-pm-capacity.service';
 import {ECapacityStepStatus} from '../../../models/operations-capacity-step-status.model';
 import {ICustomSelectOption} from '../../../../../../../commons/interfaces/custom-controls.interface';
 import {ITypeService} from '../../../../../../../shared/services/models/type-service.model';
 import {AlertService} from '../../../../../../../commons/molecules/alert/alert.service';
-import {ICapacityStepAmPmCapacitySegments} from '../../../components/operations-capacities-step-am-pm-capacity/models/operations-capacities-step-am-pm-capacity.model';
+import {ICapacityStepAmPmCapacitySegments} from '../../../components/op-capacities-step-am-pm-capacity/models/op-capacities-step-am-pm-capacity.model';
 import {ToCapacityStepAmPmCapacitySegments} from '../../../models/operations-capacity-converter.model';
 import {ICalendarUpdateRequestParams} from '../../../../../../../shared/services/models/capacity.model';
 import {getDaysRangeBetweenDates} from '../../../../../../../shared/helpers/dates.helper';
@@ -34,9 +34,9 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
 
   constructor(
     private _operationsCapacityImplement: CapacityImplementService,
-    private _operationsCapacitiesStepGroupOrLocal: OperationsCapacitiesStepGroupOrLocalService,
-    private _operationsCapacitiesStepEditionMode: OperationsCapacitiesStepEditionModeService,
-    private _operationsCapacitiesStepAmPmCapacity: OperationsCapacitiesStepAmPmCapacityService,
+    private _opCapacitiesStepGroupOrLocal: OpCapacitiesStepGroupOrLocalService,
+    private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
+    private _opCapacitiesStepAmPmCapacity: OpCapacitiesStepAmPmCapacityService,
     private  _alertService: AlertService,
   ) {
     this.groupOrLocalTab();
@@ -54,7 +54,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
    */
 
   groupOrLocalTab() {
-    const subscription = this._operationsCapacitiesStepGroupOrLocal.groupOrLocalTab$
+    const subscription = this._opCapacitiesStepGroupOrLocal.groupOrLocalTab$
       .subscribe((groupOrLocal: ECapacityStepGroupOrLocal) => {
         this.groupOrLocalTabSelection = groupOrLocal;
         switch (groupOrLocal) {
@@ -72,7 +72,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   getLocalGroupList() {
     const subscription = this._operationsCapacityImplement.getLocalGroupImplements$(this.amPmCapacityId)
       .subscribe((stores: ICustomSelectOption[]) => {
-        this._operationsCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
+        this._opCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
       });
     this.subscriptions.push(subscription);
   }
@@ -80,22 +80,22 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   getLocalList() {
     const subscription = this._operationsCapacityImplement.getLocalImplements$(this.amPmCapacityId)
       .subscribe((stores: ICustomSelectOption[]) => {
-        this._operationsCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
+        this._opCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
       });
     this.subscriptions.push(subscription);
   }
 
   groupOrLocalActions() {
-    const subscriptionSave = this._operationsCapacitiesStepGroupOrLocal.groupOrLocalSave$
+    const subscriptionSave = this._opCapacitiesStepGroupOrLocal.groupOrLocalSave$
       .subscribe((local: ICustomSelectOption) => {
         this.groupOrLocalSelection = local;
-        this._operationsCapacitiesStepEditionMode.editionModeResetStepStatus = true;
-        this._operationsCapacitiesStepAmPmCapacity.amPmCapacityResetStepStatus = true;
-        this._operationsCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.open;
-        this._operationsCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.disabled;
+        this._opCapacitiesStepEditionMode.editionModeResetStepStatus = true;
+        this._opCapacitiesStepAmPmCapacity.amPmCapacityResetStepStatus = true;
+        this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.open;
+        this._opCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.disabled;
       });
 
-    const subscriptionCancel = this._operationsCapacitiesStepGroupOrLocal.groupOrLocalCancel$
+    const subscriptionCancel = this._opCapacitiesStepGroupOrLocal.groupOrLocalCancel$
       .subscribe(() => {
         this.operationsCapacityAmPmCancel = true;
       });
@@ -108,10 +108,10 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
    */
 
   editionModeActions() {
-    const subscriptionSave = this._operationsCapacitiesStepEditionMode.editionModeSave$
+    const subscriptionSave = this._opCapacitiesStepEditionMode.editionModeSave$
       .subscribe((editionMode: ECapacitiesStepEditionMode) => {
         this.editionModeSelection = editionMode;
-        this._operationsCapacitiesStepAmPmCapacity.amPmCapacityResetStepStatus = true;
+        this._opCapacitiesStepAmPmCapacity.amPmCapacityResetStepStatus = true;
         switch (editionMode) {
           case ECapacitiesStepEditionMode.calendar:
             this.editionModeAndGroupOrLocal();
@@ -122,7 +122,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
         }
       });
 
-    const subscriptionCancel = this._operationsCapacitiesStepEditionMode.editionModeCancel$
+    const subscriptionCancel = this._opCapacitiesStepEditionMode.editionModeCancel$
       .subscribe(() => {
         this.operationsCapacityAmPmCancel = true;
       });
@@ -147,8 +147,8 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   }
 
   editionModeAndCapacity(data: ITypeService) {
-    this._operationsCapacitiesStepAmPmCapacity.amPmCapacitySegments = new ToCapacityStepAmPmCapacitySegments(data);
-    this._operationsCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.open;
+    this._opCapacitiesStepAmPmCapacity.amPmCapacitySegments = new ToCapacityStepAmPmCapacitySegments(data);
+    this._opCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.open;
 
     switch (this.editionModeSelection) {
       case ECapacitiesStepEditionMode.calendar:
@@ -163,7 +163,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   editionModeAndCapacityError(error) {
     const message = error ? error.message || 'Error' : 'Error';
     this._alertService.alertError(message);
-    this._operationsCapacitiesStepEditionMode.editionModeResetStepStatus = true;
+    this._opCapacitiesStepEditionMode.editionModeResetStepStatus = true;
   }
 
   /**
@@ -171,20 +171,20 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
    */
 
   amPmCapacityFormView(eCapacitiesStepAmPmCapacity: ECapacitiesStepAmPmCapacity) {
-    this._operationsCapacitiesStepAmPmCapacity.amPmCapacityFormView = eCapacitiesStepAmPmCapacity;
+    this._opCapacitiesStepAmPmCapacity.amPmCapacityFormView = eCapacitiesStepAmPmCapacity;
   }
 
 
   amPmCapacityActions() {
-    const subscriptionSave = this._operationsCapacitiesStepAmPmCapacity.amPmCapacitySave$
+    const subscriptionSave = this._opCapacitiesStepAmPmCapacity.amPmCapacitySave$
       .subscribe((amPmCapacitySegments: ICapacityStepAmPmCapacitySegments) => {
         this.amPmCapacitySelection = amPmCapacitySegments;
-        this._operationsCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.disabled;
-        this._operationsCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
+        this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.disabled;
+        this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
         this.saveCapacityAmPm();
       });
 
-    const subscriptionCancel = this._operationsCapacitiesStepAmPmCapacity.amPmCapacityCancel$
+    const subscriptionCancel = this._opCapacitiesStepAmPmCapacity.amPmCapacityCancel$
       .subscribe(() => {
         this.operationsCapacityAmPmCancel = true;
       });
@@ -242,9 +242,9 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
     const message = error && error.message ? error.message : 'Hubo un error';
     this._alertService.alertError(message);
 
-    this._operationsCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.disabled;
-    this._operationsCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
-    this._operationsCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.open;
+    this._opCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.disabled;
+    this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
+    this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.open;
   }
 
 

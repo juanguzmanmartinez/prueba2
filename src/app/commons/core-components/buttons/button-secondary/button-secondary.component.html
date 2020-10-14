@@ -1,9 +1,8 @@
 <app-button
-  buttonClass="button-secondary"
+  [buttonClass]="'button-secondary ' + buttonClass"
   [buttonType]="buttonType"
   [buttonStyle]="buttonStyle"
-  [buttonDisplay]="buttonDisplay"
   [buttonDisabled]="buttonDisabled"
-  (click)="onClick($event)">
+  (click)="buttonClick($event)">
   <ng-content></ng-content>
 </app-button>

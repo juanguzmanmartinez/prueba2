@@ -13,13 +13,15 @@ export class ButtonComponent {
   buttonStyle: { [klass: string]: any; } | null;
 
   @Input()
-  buttonDisplay: 'block' | 'flex' | 'inline-block' | 'inline-flex' = 'inline-block';
-
-  @Input()
   buttonType: 'button' | 'submit' | 'reset' = 'button';
 
   @Input()
   buttonDisabled = false;
 
-  onClick = (_: any) => { };
+  onClick = (_: any) => {
+  }
+
+  buttonClick(event) {
+    this.onClick(event);
+  }
 }

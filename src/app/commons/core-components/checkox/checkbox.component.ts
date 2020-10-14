@@ -51,6 +51,10 @@ export class CheckboxComponent implements OnInit, ControlValueAccessor {
   ngOnInit(): void {
   }
 
+  checkboxClick(event) {
+    this.onClick(event);
+  }
+
   chooseCheckbox() {
     this.onChange(this._checkboxChecked);
     this._checkboxIndeterminate = false;

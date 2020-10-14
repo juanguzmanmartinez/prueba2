@@ -1,12 +1,12 @@
 import {ITypeService} from '../../../../../shared/services/models/type-service.model';
 import {
   ICapacityStepAmPmCapacitySegment, ICapacityStepAmPmCapacitySegments,
-} from '../components/operations-capacities-step-am-pm-capacity/models/operations-capacities-step-am-pm-capacity.model';
-import {ICapacityStepExpressResourceSegments} from '../components/operations-capacities-step-express-resource/models/operations-capacities-step-express-resource.model';
+} from '../components/op-capacities-step-am-pm-capacity/models/op-capacities-step-am-pm-capacity.model';
+import {ICapacityStepExpressResourceSegments} from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';
 import {
-  ICapacityStepScheduledCapacitySegment,
-  ICapacityStepScheduledCapacitySegments
-} from '../components/operations-capacities-step-scheduled-capacity/models/operations-capacities-step-scheduled-capacity.model';
+  ICapacityStepCapacityTableSegment,
+  ICapacityStepCapacityTableSegments
+} from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 
 
 export class ToCapacityStepAmPmCapacitySegments implements ICapacityStepAmPmCapacitySegments {
@@ -47,17 +47,17 @@ export class ToCapacityStepExpressResourceSegments implements ICapacityStepExpre
 }
 
 
-export class ToCapacityStepScheduledCapacitySegments implements ICapacityStepScheduledCapacitySegments {
-  scheduledSegmentList: ICapacityStepScheduledCapacitySegment[] = [];
+export class ToCapacityStepScheduledCapacitySegments implements ICapacityStepCapacityTableSegments {
+  capacitySegmentList: ICapacityStepCapacityTableSegment[] = [];
 
   constructor(iTypeService: ITypeService) {
     if (iTypeService && iTypeService.segments && iTypeService.segments.length) {
-      this.scheduledSegmentList = iTypeService.segments.map(segment => {
+      this.capacitySegmentList = iTypeService.segments.map(segment => {
         return {
           segmentCapacity: segment.capacity || 0,
           segmentHour: segment.hour || '',
           segmentValue: segment.value || ''
-        } as ICapacityStepScheduledCapacitySegment;
+        } as ICapacityStepCapacityTableSegment;
       });
     }
   }

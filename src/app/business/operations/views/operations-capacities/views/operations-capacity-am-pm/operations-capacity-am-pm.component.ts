@@ -2,9 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {combineLatest, Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {OperationsCapacityAmPmStoreService} from './store/operations-capacity-am-pm-store.service';
-import {OperationsCapacitiesStepGroupOrLocalService} from '../../components/operations-capacities-step-group-or-local/operations-capacities-step-group-or-local.service';
-import {OperationsCapacitiesStepEditionModeService} from '../../components/operations-capacities-step-edition-mode/operations-capacities-step-edition-mode.service';
-import {OperationsCapacitiesStepAmPmCapacityService} from '../../components/operations-capacities-step-am-pm-capacity/operations-capacities-step-am-pm-capacity.service';
+import {OpCapacitiesStepGroupOrLocalService} from '../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
+import {OpCapacitiesStepEditionModeService} from '../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
+import {OpCapacitiesStepAmPmCapacityService} from '../../components/op-capacities-step-am-pm-capacity/op-capacities-step-am-pm-capacity.service';
 
 @Component({
   selector: 'app-operations-capacity-am-pm',
@@ -12,9 +12,9 @@ import {OperationsCapacitiesStepAmPmCapacityService} from '../../components/oper
   styleUrls: ['./operations-capacity-am-pm.component.scss'],
   providers: [
     OperationsCapacityAmPmStoreService,
-    OperationsCapacitiesStepGroupOrLocalService,
-    OperationsCapacitiesStepEditionModeService,
-    OperationsCapacitiesStepAmPmCapacityService,
+    OpCapacitiesStepGroupOrLocalService,
+    OpCapacitiesStepEditionModeService,
+    OpCapacitiesStepAmPmCapacityService,
   ]
 })
 export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {

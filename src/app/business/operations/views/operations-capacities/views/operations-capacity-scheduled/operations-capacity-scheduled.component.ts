@@ -2,9 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {combineLatest, Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {OperationsCapacityScheduledStoreService} from './store/operations-capacity-scheduled-store.service';
-import {OperationsCapacitiesStepGroupOrLocalService} from '../../components/operations-capacities-step-group-or-local/operations-capacities-step-group-or-local.service';
-import {OperationsCapacitiesStepEditionModeService} from '../../components/operations-capacities-step-edition-mode/operations-capacities-step-edition-mode.service';
-import {OperationsCapacitiesStepScheduledCapacityService} from '../../components/operations-capacities-step-scheduled-capacity/operations-capacities-step-scheduled-capacity.service';
+import {OpCapacitiesStepGroupOrLocalService} from '../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
+import {OpCapacitiesStepEditionModeService} from '../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
+import {OpCapacitiesStepCapacityTableService} from '../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
 
 @Component({
   selector: 'app-operations-capacity-scheduled',
@@ -12,9 +12,9 @@ import {OperationsCapacitiesStepScheduledCapacityService} from '../../components
   styleUrls: ['./operations-capacity-scheduled.component.scss'],
   providers: [
     OperationsCapacityScheduledStoreService,
-    OperationsCapacitiesStepGroupOrLocalService,
-    OperationsCapacitiesStepEditionModeService,
-    OperationsCapacitiesStepScheduledCapacityService
+    OpCapacitiesStepGroupOrLocalService,
+    OpCapacitiesStepEditionModeService,
+    OpCapacitiesStepCapacityTableService
   ]
 })
 export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {

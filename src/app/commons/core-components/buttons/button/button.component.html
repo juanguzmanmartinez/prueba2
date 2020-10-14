@@ -1,10 +1,10 @@
 <button
-  class="button d-{{buttonDisplay}}"
+  class="button"
   [class.button-disabled]="buttonDisabled"
   [type]="buttonType"
   [ngClass]="buttonClass"
   [disabled]="buttonDisabled"
   [ngStyle]="buttonStyle"
-  (click)="onClick($event)">
+  (click)="buttonClick($event)">
   <ng-content></ng-content>
 </button>

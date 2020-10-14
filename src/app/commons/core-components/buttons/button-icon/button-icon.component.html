@@ -1,10 +1,9 @@
 <app-button
-  buttonClass="button-icon"
+  [buttonClass]="'button-icon ' + buttonClass"
   [buttonType]="buttonType"
   [buttonStyle]="buttonStyle"
-  [buttonDisplay]="buttonDisplay"
   [buttonDisabled]="buttonDisabled"
-  (click)="onClick($event)">
+  (click)="buttonClick($event)">
   <span class="d-inline-flex">
     <app-icon class="d-inline-block mr-2 button-icon-icon"
               [iconFontName]="buttonIcon"
