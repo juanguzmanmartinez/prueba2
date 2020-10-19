@@ -11,11 +11,11 @@ import {ECapacityStepStatus} from '../../../models/operations-capacity-step-stat
 import {ICustomSelectOption} from '../../../../../../../commons/interfaces/custom-controls.interface';
 import {ITypeService} from '../../../../../../../shared/services/models/type-service.model';
 import {AlertService} from '../../../../../../../commons/molecules/alert/alert.service';
-import {ToCapacityStepScheduledCapacitySegments} from '../../../models/operations-capacity-converter.model';
 import {ICalendarUpdateRequestParams} from '../../../../../../../shared/services/models/capacity.model';
 import {getDaysRangeBetweenDates} from '../../../../../../../shared/helpers/dates.helper';
 import {ICapacityStepCapacityTableSegments} from '../../../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 import {capacityAlertSuccessMessage} from '../../../models/operations-capacity-alert-message.parameter';
+import { ToCapacityStepScheduledCapacitySegments } from '../../../models/operations-capacity-converter.model';
 
 
 @Injectable()
@@ -152,10 +152,10 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
 
     switch (this.editionModeSelection) {
       case ECapacitiesStepEditionMode.calendar:
-        this.scheduledCapacityFormView(ECapacitiesStepCapacityTable.daysRange);
+        this.retCapacityFormView(ECapacitiesStepCapacityTable.daysRange);
         break;
       case ECapacitiesStepEditionMode.default:
-        this.scheduledCapacityFormView(ECapacitiesStepCapacityTable.hourlyCapacity);
+        this.retCapacityFormView(ECapacitiesStepCapacityTable.hourlyCapacity);
         break;
     }
   }
@@ -167,18 +167,18 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
   }
 
   /**
-   * Step 3: Schedule Capacity
+   * Step 3: RET Capacity
    */
 
-  scheduledCapacityFormView(eCapacitiesStepScheduledCapacity: ECapacitiesStepCapacityTable) {
-    this._opCapacitiesStepRetCapacity.capacityTableFormView = eCapacitiesStepScheduledCapacity;
+  retCapacityFormView(eCapacitiesStepRetCapacity: ECapacitiesStepCapacityTable) {
+    this._opCapacitiesStepRetCapacity.capacityTableFormView = eCapacitiesStepRetCapacity;
   }
 
 
   retCapacityActions() {
     const subscriptionSave = this._opCapacitiesStepRetCapacity.capacityTableSave$
-      .subscribe((scheduledCapacitySegments: ICapacityStepCapacityTableSegments) => {
-        this.retCapacitySelection = scheduledCapacitySegments;
+      .subscribe((retCapacitySegments: ICapacityStepCapacityTableSegments) => {
+        this.retCapacitySelection = retCapacitySegments;
         this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.disabled;
         this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
         this.saveCapacityRet();
@@ -237,7 +237,7 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
 
   capacityRetSaveSuccess() {
     const message = capacityAlertSuccessMessage(
-      'Programadas',
+      'RET',
       `${this.groupOrLocalSelection.fulfillmentCenterCode} ${this.groupOrLocalSelection.text}`);
     this._alertService.alertSuccess(message);
     this.operationsCapacityRetSave = true;
