@@ -30,6 +30,7 @@ import {
 } from './components/op-capacities-step-capacity-table-form/op-capacities-step-capacity-table-form.component';
 import {MatTableModule} from '@angular/material/table';
 import {CheckboxModule} from '../../../../commons/core-components/checkox/checkbox.module';
+import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {CheckboxModule} from '../../../../commons/core-components/checkox/checkb
     OpCapacitiesStepCapacityTableComponent,
     OpCapacitiesStepExpressResourceComponent,
     OpCapacitiesStepCapacityTableFormComponent,
+    OperationsCapacityRetComponent
   ],
   imports: [
     CommonModule,
