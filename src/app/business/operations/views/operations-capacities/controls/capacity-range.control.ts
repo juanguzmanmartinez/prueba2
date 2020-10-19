@@ -21,7 +21,7 @@ export class CapacityRangeControl extends FormControl {
       const datepickerRange = control.value as IDatepickerRange;
       const yesterday = moment().subtract(1, 'days').startOf('day');
       const validStartDate = moment(datepickerRange.startDate, dateFormat).isAfter(yesterday, 'd');
-      const validEndDate = moment(datepickerRange.endDate, dateFormat).isAfter(moment(datepickerRange.startDate, dateFormat), 'd');
+      const validEndDate = moment(datepickerRange.endDate, dateFormat).isSameOrAfter(moment(datepickerRange.startDate, dateFormat), 'd');
       const validDateRange = validStartDate && validEndDate;
       return validDateRange ? null : {validDateRange};
     }
