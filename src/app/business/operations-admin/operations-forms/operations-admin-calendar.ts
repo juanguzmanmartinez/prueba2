@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CustomControl } from '../controls/custom-control';
 import { CustomSelectControl } from '../controls/custom-select-control';
-import { IDayList } from 'src/app/shared/services/models/calendar.model';
+import { IDayList } from 'src/app/shared/models/calendar/calendar.model';
 
 @Injectable({
   providedIn: 'root'

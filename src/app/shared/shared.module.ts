@@ -8,7 +8,6 @@ import {CalendarClientService} from './services/calendar/calendar-client.service
 import {CapacityClientService} from './services/capacity-edition/capacity-edition.service';
 import {LocalClientService} from './services/calendar/local-client.service';
 import {SidenavComponent} from './components/sidenav/sidenav.component';
-import {CapacityImplementService} from './services/capacity-edition/capacity-implements.service';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {RouterModule} from '@angular/router';
 import {InnerSidenavComponent} from './components/inner-sidenav/inner-sidenav.component';
@@ -26,7 +25,6 @@ const SERVICE = [
   CapacityClientService,
   GenericService,
   LocalClientService,
-  CapacityImplementService
 ];
 
 

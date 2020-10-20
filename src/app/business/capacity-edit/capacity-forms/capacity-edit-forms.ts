@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { Subscription, BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { CustomControl } from '../controls/custom-control';
-import { ISegment } from 'src/app/shared/services/models/capacity.model';
+import { ISegment } from 'src/app/shared/models/calendar/capacity.model';
 import { ICapacityGroupControl } from '../interfaces/controls.interface';
 import { map } from 'rxjs/operators';
 

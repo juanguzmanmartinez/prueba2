@@ -1,4 +1,4 @@
-import {ITypeService} from '../../../../../shared/services/models/type-service.model';
+import {IServiceType} from '../../../../../shared/models/local/service-type.model';
 import {
   ICapacityStepAmPmCapacitySegment, ICapacityStepAmPmCapacitySegments,
 } from '../components/op-capacities-step-am-pm-capacity/models/op-capacities-step-am-pm-capacity.model';
@@ -13,7 +13,7 @@ export class ToCapacityStepAmPmCapacitySegments implements ICapacityStepAmPmCapa
   amSegment: ICapacityStepAmPmCapacitySegment;
   pmSegment: ICapacityStepAmPmCapacitySegment;
 
-  constructor(iTypeService: ITypeService) {
+  constructor(iTypeService: IServiceType) {
     if (iTypeService && iTypeService.segments && iTypeService.segments.length) {
       const amSegment = iTypeService.segments[0];
       const pmSegment = iTypeService.segments[1];
@@ -38,7 +38,7 @@ export class ToCapacityStepAmPmCapacitySegments implements ICapacityStepAmPmCapa
 export class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {
   expressResource: number;
 
-  constructor(iTypeService: ITypeService) {
+  constructor(iTypeService: IServiceType) {
     if (iTypeService && iTypeService.segments && iTypeService.segments.length) {
       const expressResourceSegment = iTypeService.segments[0];
       this.expressResource = expressResourceSegment ? expressResourceSegment.capacity : 0;
@@ -50,7 +50,7 @@ export class ToCapacityStepExpressResourceSegments implements ICapacityStepExpre
 export class ToCapacityStepScheduledCapacitySegments implements ICapacityStepCapacityTableSegments {
   capacitySegmentList: ICapacityStepCapacityTableSegment[] = [];
 
-  constructor(iTypeService: ITypeService) {
+  constructor(iTypeService: IServiceType) {
     if (iTypeService && iTypeService.segments && iTypeService.segments.length) {
       this.capacitySegmentList = iTypeService.segments.map(segment => {
         return {

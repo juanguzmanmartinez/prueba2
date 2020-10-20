@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DrugstoreClientService } from 'src/app/shared/services/calendar/drugstores-client.service';
 import { CalendarClientService } from 'src/app/shared/services/calendar/calendar-client.service';
-import { ICalendarRequestParams, IDayBlockedRequest } from 'src/app/shared/services/models/calendar.model';
+import { ICalendarRequestParams, IDayBlockedRequest } from 'src/app/shared/models/calendar/calendar.model';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 
 @Injectable()

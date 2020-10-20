@@ -20,9 +20,7 @@ export class DrugstoreClientService {
   ) { }
 
   public getDrugstoreClient$() {
-    const httpParams = new HttpParams();
-    const Header = new HttpHeaders();
-    return this.genericService.genericGet<IDrugstore[]>(this.DRUGSTORE_ENDPOINT, httpParams, Header)
+    return this.genericService.genericGet<IDrugstore[]>(this.DRUGSTORE_ENDPOINT)
       .pipe(map(response => {
         const current = isArray(response) ? response : [];
         const drugstores = current.map(store => new Drugstore(store));

@@ -4,10 +4,10 @@ import {ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService} from '..
 import {ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService} from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import {ECapacityStepStatus} from '../../../models/operations-capacity-step-status.model';
 import {ICustomSelectOption} from '../../../../../../../commons/interfaces/custom-controls.interface';
-import {ITypeService} from '../../../../../../../shared/services/models/type-service.model';
+import {IServiceType} from '../../../../../../../shared/models/local/service-type.model';
 import {AlertService} from '../../../../../../../commons/molecules/alert/alert.service';
 import {ToCapacityStepExpressResourceSegments} from '../../../models/operations-capacity-converter.model';
-import {ICalendarUpdateRequestParams} from '../../../../../../../shared/services/models/capacity.model';
+import {ICalendarUpdateRequestParams} from '../../../../../../../shared/models/calendar/capacity.model';
 import {getDaysRangeBetweenDates} from '../../../../../../../shared/helpers/dates.helper';
 
 import {
@@ -15,13 +15,14 @@ import {
   OpCapacitiesStepExpressResourceService
 } from '../../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
 import {ICapacityStepExpressResourceSegments} from '../../../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';
-import {CapacityImplementService} from '../../../../../../../shared/services/capacity-edition/capacity-implements.service';
+import {OperationsCapacitiesImplementService} from '../../../services/operations-capacities-implement.service';
 import {capacityAlertSuccessMessage} from '../../../models/operations-capacity-alert-message.parameter';
+import {ECapacitiesServiceType} from '../../../../../../../shared/models/capacities/capacities-service-type.model';
 
 
 @Injectable()
 export class OperationsCapacityExpressStoreService implements OnDestroy {
-  private readonly expressCapacityId = 'EXP';
+  private readonly expressCapacityId = ECapacitiesServiceType.express;
   private readonly expressChannel = 'DIGITAL';
 
   private subscriptions: Subscription[] = [];
@@ -34,7 +35,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
   private expressResourceSelection: ICapacityStepExpressResourceSegments;
 
   constructor(
-    private _operationsCapacityImplement: CapacityImplementService,
+    private _operationsCapacityImplement: OperationsCapacitiesImplementService,
     private _opCapacitiesStepGroupOrLocal: OpCapacitiesStepGroupOrLocalService,
     private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
     private _opCapacitiesStepExpressResource: OpCapacitiesStepExpressResourceService,
@@ -79,7 +80,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
   }
 
   getLocalList() {
-    const subscription = this._operationsCapacityImplement.getLocalImplements$(this.expressCapacityId)
+    const subscription = this._operationsCapacityImplement.getLocalByServiceTypeImplement$(this.expressCapacityId)
       .subscribe((stores: ICustomSelectOption[]) => {
         this._opCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
       });
@@ -147,7 +148,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
     }
   }
 
-  editionModeAndCapacity(data: ITypeService) {
+  editionModeAndCapacity(data: IServiceType) {
     this._opCapacitiesStepExpressResource.expressResourceSegments = new ToCapacityStepExpressResourceSegments(data);
     this._opCapacitiesStepExpressResource.expressResourceStepStatus = ECapacityStepStatus.open;
 

@@ -1,0 +1,13 @@
+<app-button
+  [buttonClass]="'button-action ' + buttonClass"
+  [buttonType]="buttonType"
+  [buttonStyle]="buttonStyle"
+  [buttonDisabled]="buttonDisabled"
+  (click)="buttonClick($event)">
+  <span class="d-inline-flex">
+    <app-icon class="button-action-icon"
+              [iconFontName]="buttonIcon"
+              iconFontSize="16px"
+              iconFontColor="white"></app-icon>
+  </span>
+</app-button>

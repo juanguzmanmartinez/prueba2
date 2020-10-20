@@ -30,6 +30,10 @@ import {
 } from './components/op-capacities-step-capacity-table-form/op-capacities-step-capacity-table-form.component';
 import {MatTableModule} from '@angular/material/table';
 import {CheckboxModule} from '../../../../commons/core-components/checkox/checkbox.module';
+import {OpCapacitiesLocalDefaultCapacityComponent} from './components/op-capacities-local-default-capacity/op-capacities-local-default-capacity.component';
+import {TooltipModule} from '../../../../commons/core-components/tooltip/tooltip.module';
+import { OpCapacitiesLocalDefaultCapacityCardComponent } from './components/op-capacities-local-default-capacity-card/op-capacities-local-default-capacity-card.component';
+import {OperationsCapacitiesImplementService} from './services/operations-capacities-implement.service';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,8 @@ import {CheckboxModule} from '../../../../commons/core-components/checkox/checkb
     OpCapacitiesStepCapacityTableComponent,
     OpCapacitiesStepExpressResourceComponent,
     OpCapacitiesStepCapacityTableFormComponent,
+    OpCapacitiesLocalDefaultCapacityComponent,
+    OpCapacitiesLocalDefaultCapacityCardComponent,
   ],
   imports: [
     CommonModule,
@@ -63,7 +69,11 @@ import {CheckboxModule} from '../../../../commons/core-components/checkox/checkb
     ButtonsModule,
     AlertModule,
     MatTableModule,
-    CheckboxModule
+    CheckboxModule,
+    TooltipModule
+  ],
+  providers: [
+    OperationsCapacitiesImplementService
   ]
 })
 export class OperationsCapacitiesModule {

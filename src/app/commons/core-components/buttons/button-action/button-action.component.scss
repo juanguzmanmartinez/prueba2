@@ -1,0 +1,38 @@
+@import "src/sass/variables/variables";
+@import "src/sass/utilities/display";
+
+:host {
+  ::ng-deep .button.button-action {
+    background-color: $light-primary;
+    border-color: $light-primary;
+    padding: 0;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    @extend .d-flex-center;
+    display: inline-flex;
+
+    .icon-font {
+      color: $primary !important;
+    }
+
+    &:hover {
+      background-color: $primary;
+      border-color: $primary;
+
+      .icon-font {
+        color: $white !important;
+      }
+    }
+
+    &.button-disabled {
+      .icon-font {
+        color: $gray-4 !important;
+      }
+    }
+  }
+}
+
+.button-action-icon {
+  margin-top: -1px;
+}

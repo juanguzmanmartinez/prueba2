@@ -5,28 +5,35 @@
     </div>
   </div>
 
-  <div class="row mb-9">
-    <div class="col">
-      <h1 class="text-h3 text-black mb-5">Capacidades</h1>
-      <p class="text-subtitle-1 text-gray-6">Selecciona el tipo de despacho para comenzar a editar las capacidades.</p>
+  <div class="row mb-10">
+    <div class="col-12 mb-6">
+      <h1 class="text-h3 text-black mb-0">Capacidades</h1>
+    </div>
+
+    <div class="col-12">
+      <app-op-capacities-local-default-capacity></app-op-capacities-local-default-capacity>
     </div>
   </div>
 
   <div class="row mb-4">
+    <div class="col-12 mb-7">
+      <h2 class="text-h4 text-black mb-0">Más opciones de capacidades</h2>
+    </div>
+
     <div class="col-12 col-xl-6 mb-4 mb-xl-0">
       <app-router router="am-pm">
-        <app-card cardIcon="ampm">
+        <app-card-action cardIcon="ampm">
           <span card-title>AM/PM</span>
           <span card-description>Edita las capacidades del rango de la mañana y tarde</span>
-        </app-card>
+        </app-card-action>
       </app-router>
     </div>
     <div class="col-12 col-xl-6">
       <app-router router="express">
-        <app-card cardIcon="moto">
+        <app-card-action cardIcon="moto">
           <span card-title>Express</span>
           <span card-description>Edita la disponibilidad de recursos para este servicio en el día</span>
-        </app-card>
+        </app-card-action>
       </app-router>
     </div>
   </div>
@@ -34,10 +41,10 @@
   <div class="row">
     <div class="col-12 col-xl-6">
       <app-router router="programado">
-        <app-card cardIcon="calendar">
+        <app-card-action cardIcon="calendar">
           <span card-title>Programado</span>
           <span card-description>Edita las capacidades por rangos de horas en el día</span>
-        </app-card>
+        </app-card-action>
       </app-router>
     </div>
   </div>

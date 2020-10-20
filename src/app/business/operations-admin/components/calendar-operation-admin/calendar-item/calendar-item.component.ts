@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { IDayList, SelectedDay } from 'src/app/shared/services/models/calendar.model';
+import { IDayList, SelectedDay } from 'src/app/shared/models/calendar/calendar.model';
 import { NG_VALUE_ACCESSOR, FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { ICapacityRequestParams } from 'src/app/shared/services/models/capacity.model';
+import { ICapacityRequestParams } from 'src/app/shared/models/calendar/capacity.model';
 import { CapacityEditImplementService } from 'src/app/business/capacity-edit/services/capacity-edit-implements.service';
 import { take } from 'rxjs/operators';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
