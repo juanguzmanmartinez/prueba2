@@ -34,6 +34,7 @@ import {OpCapacitiesLocalDefaultCapacityComponent} from './components/op-capacit
 import {TooltipModule} from '../../../../commons/core-components/tooltip/tooltip.module';
 import { OpCapacitiesLocalDefaultCapacityCardComponent } from './components/op-capacities-local-default-capacity-card/op-capacities-local-default-capacity-card.component';
 import {OperationsCapacitiesImplementService} from './services/operations-capacities-implement.service';
+import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {OperationsCapacitiesImplementService} from './services/operations-capaci
     OpCapacitiesStepCapacityTableFormComponent,
     OpCapacitiesLocalDefaultCapacityComponent,
     OpCapacitiesLocalDefaultCapacityCardComponent,
+    OperationsCapacityRetComponent
   ],
   imports: [
     CommonModule,

@@ -17,12 +17,13 @@ import {ICalendarUpdateRequestParams} from '../../../../../../../shared/models/c
 import {getDaysRangeBetweenDates} from '../../../../../../../shared/helpers/dates.helper';
 import {capacityAlertSuccessMessage} from '../../../models/operations-capacity-alert-message.parameter';
 import {ECapacitiesServiceType} from '../../../../../../../shared/models/capacities/capacities-service-type.model';
+import {EChannel} from '../../../../../../../shared/models/channel/channel.model';
 
 
 @Injectable()
 export class OperationsCapacityAmPmStoreService implements OnDestroy {
   private readonly amPmCapacityId = ECapacitiesServiceType.amPm;
-  private readonly amPmChannel = 'DIGITAL';
+  private readonly amPmChannel = EChannel.digital;
 
   private subscriptions: Subscription[] = [];
   private operationsCapacityAmPmCancelSubject = new BehaviorSubject<boolean>(false);
