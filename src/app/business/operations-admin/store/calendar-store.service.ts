@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription, Subject } from 'rxjs';
-import { Capacity } from 'src/app/shared/services/models/capacity.model';
+import { Capacity } from 'src/app/shared/models/calendar/capacity.model';
 
 @Injectable({
   providedIn: 'root'

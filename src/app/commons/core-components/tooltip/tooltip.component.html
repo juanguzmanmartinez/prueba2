@@ -1,7 +1,10 @@
-<div class="sidenav-tooltip"
-     matTooltip="Operaciones"
-     matTooltipClass="sidenav-tooltip"
-     matTooltipPosition="right"
-     aria-label="Operaciones">
+<div class="tooltip"
+     [matTooltipClass]="tooltipClass + ' tooltip ' + tooltipPosition"
+     [matTooltip]="tooltipValue"
+     [matTooltipPosition]="tooltipPosition"
+     [matTooltipTouchGestures]="tooltipTouchGestures"
+     [matTooltipShowDelay]="tooltipShowDelay"
+     [matTooltipHideDelay]="tooltipHideDelay"
+     [matTooltipDisabled]="tooltipDisabled">
   <ng-content></ng-content>
 </div>

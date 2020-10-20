@@ -1,0 +1,47 @@
+<section class="op-capacities-home-local-capacity">
+  <div class="row mb-6">
+    <div class="col-12">
+      <app-select class="local-capacity-select"
+                  selectPlaceholder="Elije un local"
+                  [selectValue]="capacitiesLocalSelected"
+                  [optionList]="capacitiesLocalList"
+                  (optionSelected)="changeCapacitiesLocalSelection($event)">
+        <ng-template let-option>{{option.localCode}} {{option.name}}</ng-template>
+      </app-select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <app-op-capacities-local-default-capacity-card
+        localCapacityName="AM/PM"
+        [localCapacityQuantity]="capacityLocalServiceAmPm?.capacityQuantity"
+        [localCapacityDisabled]="!capacityLocalServiceAmPm"
+        [localCapacityDetail]="true">
+      </app-op-capacities-local-default-capacity-card>
+    </div>
+    <div class="col-3">
+      <app-op-capacities-local-default-capacity-card
+        localCapacityName="Programado"
+        [localCapacityQuantity]="capacityLocalServiceScheduled?.capacityQuantity"
+        [localCapacityDisabled]="!capacityLocalServiceScheduled"
+        [localCapacityDetail]="true">
+      </app-op-capacities-local-default-capacity-card>
+    </div>
+    <div class="col-3">
+      <app-op-capacities-local-default-capacity-card
+        localCapacityName="Express"
+        [localCapacityQuantity]="capacityLocalServiceExpress?.capacityQuantity"
+        [localCapacityDisabled]="!capacityLocalServiceExpress">
+      </app-op-capacities-local-default-capacity-card>
+    </div>
+    <div class="col-3">
+      <app-op-capacities-local-default-capacity-card
+        [localCapacityQuantity]="capacityLocalServiceRet?.capacityQuantity"
+        [localCapacityDisabled]="!capacityLocalServiceRet"
+        [localCapacityDetail]="true"
+        localCapacityName="RET">
+      </app-op-capacities-local-default-capacity-card>
+    </div>
+  </div>
+</section>

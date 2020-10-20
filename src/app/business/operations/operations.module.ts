@@ -17,7 +17,7 @@ import {CardModule} from '../../commons/molecules/cards/card.module';
   declarations: [
     OperationsComponent,
     OperationsSidenavComponent,
-    OperationsHomeComponent
+    OperationsHomeComponent,
   ],
     imports: [
         CommonModule,

@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {TooltipPosition, TooltipTouchGestures} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-tooltip',
@@ -7,7 +8,16 @@ import {Component, OnInit} from '@angular/core';
 })
 export class TooltipComponent implements OnInit {
 
-  constructor() { }
+  @Input() tooltipValue = 'tooltip';
+  @Input() tooltipClass = '';
+  @Input() tooltipPosition: TooltipPosition = 'right';
+  @Input() tooltipTouchGestures: TooltipTouchGestures;
+  @Input() tooltipShowDelay: number;
+  @Input() tooltipHideDelay: number;
+  @Input() tooltipDisabled: boolean;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

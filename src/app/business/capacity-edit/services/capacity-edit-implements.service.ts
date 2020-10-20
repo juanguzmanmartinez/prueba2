@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ICapacityRequestParams } from 'src/app/shared/services/models/capacity.model';
+import { ICapacityRequestParams } from 'src/app/shared/models/calendar/capacity.model';
 import { CapacityClientService } from 'src/app/shared/services/capacity-edition/capacity-edition.service';
 
 @Injectable()

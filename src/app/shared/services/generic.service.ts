@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {tap} from 'rxjs/operators';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,23 +11,76 @@ export class GenericService {
   constructor(private http: HttpClient) {
   }
 
-  public genericGetWithoutHeader<T>(endpoint: string, params: HttpParams = null) {
-    const options = {};
+  public genericGet<T>(
+    endpoint: string,
+    params: HttpParams = null,
+    headers: HttpHeaders = new HttpHeaders()
+  ) {
+    const options = {headers};
     // tslint:disable-next-line:no-string-literal
     if (params) { options['params'] = params; }
-    return this.http.get<T>(endpoint, options).pipe(
-      tap(response => this.log(`Get ` + endpoint))
-    );
+    return this.http.get<T>(endpoint, options)
+      .pipe(tap(() => this.log(`Get ` + endpoint)));
+  }
+
+  public genericPost<T>(
+    endpoint: string,
+    // tslint:disable-next-line:ban-types
+    body: Object,
+    params: HttpParams = null,
+    headers: HttpHeaders = new HttpHeaders()
+  ) {
+    const options = {headers};
+    // tslint:disable-next-line:no-string-literal
+    if (params) { options['params'] = params; }
+    return this.http.post<T>(endpoint, body, options)
+      .pipe(tap(() => this.log(`Post ` + endpoint)));
   }
 
 
-  public genericGet<T>(endpoint: string, params: HttpParams = null, headers: HttpHeaders) {
-    const options = { headers };
+  public genericPut<T>(
+    endpoint: string,
+    // tslint:disable-next-line:ban-types
+    body: Object,
+    headers: HttpHeaders = new HttpHeaders()
+  ) {
+    return this.http.put<T>(endpoint, body, {headers})
+      .pipe(tap(() => this.log(`Put ` + endpoint)));
+  }
+
+  public genericDelete<T>(
+    endpoint: string,
+    headers: HttpHeaders = new HttpHeaders()
+  ) {
+    return this.http.delete<T>(endpoint, {headers})
+      .pipe(tap(() => this.log(`Delete ` + endpoint)));
+  }
+
+  public genericPatch<T>(
+    endpoint: string,
+    // tslint:disable-next-line:ban-types
+    body: Object = {},
+    params: HttpParams = null,
+    headers: HttpHeaders = new HttpHeaders()
+  ) {
+    const options = {headers};
     // tslint:disable-next-line:no-string-literal
     if (params) { options['params'] = params; }
-    return this.http.get<T>(endpoint, options).pipe(
-      tap(response => this.log(`Get ` + endpoint))
-    );
+    return this.http.patch<T>(endpoint, body, options)
+      .pipe(tap(() => this.log(`Patch ` + endpoint)));
+  }
+
+  public genericPatchWithoutBody<T>(
+    endpoint: string,
+    params: HttpParams = null,
+    headers: HttpHeaders = new HttpHeaders()
+  ) {
+    const options = {headers};
+    // tslint:disable-next-line:no-string-literal
+    if (params) { options['params'] = params; }
+    return this.http.patch<T>(endpoint, {}, options)
+      .pipe(tap(() => this.log(`Patch without body ` + endpoint)));
+
   }
 
   /** Log a HeroService message with the MessageService */
@@ -36,21 +89,4 @@ export class GenericService {
       return true;
     }
   }
-
-  // tslint:disable-next-line:ban-types
-  public genericPatch<T>(endpoint: string, params: HttpParams = null, headers: HttpHeaders) {
-    return this.http.patch<T>(endpoint, {}, { params, headers }).pipe(
-      tap(response => this.log(`genericPatch ` + endpoint))
-    );
-
-  }
-
-  // tslint:disable-next-line:ban-types
-  public genericPatchBody<T>(endpoint: string, body: Object, headers: HttpHeaders) {
-    const options = { headers};
-    return this.http.patch<T>(endpoint, body, options).pipe(
-      tap(response => this.log(`Post ` + endpoint))
-    );
-  }
-
 }
