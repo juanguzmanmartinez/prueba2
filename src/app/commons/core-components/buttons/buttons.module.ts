@@ -7,6 +7,7 @@ import {ButtonGhostComponent} from './button-ghost/button-ghost.component';
 import {ButtonOutlineComponent} from './button-outline/button-outline.component';
 import {ButtonIconComponent} from './button-icon/button-icon.component';
 import {IconsModule} from '../icons/icons.module';
+import {ButtonActionComponent} from './button-action/button-action.component';
 
 
 const COMPONENTS = [
@@ -16,6 +17,7 @@ const COMPONENTS = [
   ButtonGhostComponent,
   ButtonOutlineComponent,
   ButtonIconComponent,
+  ButtonActionComponent,
 ];
 
 

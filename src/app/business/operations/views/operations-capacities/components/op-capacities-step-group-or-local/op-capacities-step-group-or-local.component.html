@@ -2,7 +2,7 @@
           stepTitle="Grupo o Local"
           saveButtonText="Continuar"
           [stepDescription]="groupOrLocalStepDescription"
-          [saveButtonDisabled]="!groupOrLocalSelection"
+          [saveButtonDisabled]="!groupOrLocalSelection || groupOrLocalTabReadonly"
           [stepExpandedToggle]="groupOrLocalStepStatus === eCapacityStepStatus.open"
           [stepDisabled]="groupOrLocalStepStatus === eCapacityStepStatus.disabled"
           (stepOpenEvent)="openGroupOrLocalStep()"

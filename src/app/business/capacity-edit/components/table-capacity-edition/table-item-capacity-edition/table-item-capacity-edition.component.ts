@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ISegment } from 'src/app/shared/services/models/capacity.model';
+import { ISegment } from 'src/app/shared/models/calendar/capacity.model';
 
 @Component({
   selector: 'app-table-item-capacity-edition',

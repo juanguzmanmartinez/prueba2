@@ -4,10 +4,9 @@ import {ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService} from '..
 import {ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService} from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import {ECapacityStepStatus} from '../../../models/operations-capacity-step-status.model';
 import {ICustomSelectOption} from '../../../../../../../commons/interfaces/custom-controls.interface';
-import {ITypeService} from '../../../../../../../shared/services/models/type-service.model';
 import {AlertService} from '../../../../../../../commons/molecules/alert/alert.service';
 import {ToCapacityStepExpressResourceSegments} from '../../../models/operations-capacity-converter.model';
-import {ICalendarUpdateRequestParams} from '../../../../../../../shared/services/models/capacity.model';
+import {ICalendarUpdateRequestParams} from '../../../../../../../shared/models/calendar/capacity.model';
 import {getDaysRangeBetweenDates} from '../../../../../../../shared/helpers/dates.helper';
 
 import {
@@ -15,14 +14,17 @@ import {
   OpCapacitiesStepExpressResourceService
 } from '../../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
 import {ICapacityStepExpressResourceSegments} from '../../../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';
-import {CapacityImplementService} from '../../../../../../../shared/services/capacity-edition/capacity-implements.service';
-import {capacityAlertSuccessMessage} from '../../../models/operations-capacity-alert-message.parameter';
+import {OperationsCapacitiesImplementService} from '../../../services/operations-capacities-implement.service';
+import {capacityAlertSuccessMessage} from '../../../parameters/operations-capacities-alert-message.parameter';
+import {ECapacitiesServiceType} from '../../../../../../../shared/models/capacities/capacities-service-type.model';
+import {EChannel} from '../../../../../../../shared/models/channel/channel.model';
+import {CapacitiesServiceType} from '../../../models/operations-capacities-responses.model';
 
 
 @Injectable()
 export class OperationsCapacityExpressStoreService implements OnDestroy {
-  private readonly expressCapacityId = 'EXP';
-  private readonly expressChannel = 'DIGITAL';
+  private readonly expressCapacityId = ECapacitiesServiceType.express;
+  private readonly expressChannel = EChannel.digital;
 
   private subscriptions: Subscription[] = [];
   private operationsCapacityExpressCancelSubject = new BehaviorSubject<boolean>(false);
@@ -34,7 +36,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
   private expressResourceSelection: ICapacityStepExpressResourceSegments;
 
   constructor(
-    private _operationsCapacityImplement: CapacityImplementService,
+    private _operationsCapacityImplement: OperationsCapacitiesImplementService,
     private _opCapacitiesStepGroupOrLocal: OpCapacitiesStepGroupOrLocalService,
     private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
     private _opCapacitiesStepExpressResource: OpCapacitiesStepExpressResourceService,
@@ -79,7 +81,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
   }
 
   getLocalList() {
-    const subscription = this._operationsCapacityImplement.getLocalImplements$(this.expressCapacityId)
+    const subscription = this._operationsCapacityImplement.getLocalByServiceTypeImplement$(this.expressCapacityId)
       .subscribe((stores: ICustomSelectOption[]) => {
         this._opCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
       });
@@ -147,8 +149,8 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
     }
   }
 
-  editionModeAndCapacity(data: ITypeService) {
-    this._opCapacitiesStepExpressResource.expressResourceSegments = new ToCapacityStepExpressResourceSegments(data);
+  editionModeAndCapacity(capacitiesServiceType: CapacitiesServiceType) {
+    this._opCapacitiesStepExpressResource.expressResourceSegments = new ToCapacityStepExpressResourceSegments(capacitiesServiceType);
     this._opCapacitiesStepExpressResource.expressResourceStepStatus = ECapacityStepStatus.open;
 
     switch (this.editionModeSelection) {
@@ -257,16 +259,16 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
     return this.operationsCapacityExpressSaveSubject.asObservable();
   }
 
-  set operationsCapacityExpressSave(amPmSave: boolean) {
-    this.operationsCapacityExpressSaveSubject.next(amPmSave);
+  set operationsCapacityExpressSave(expressSave: boolean) {
+    this.operationsCapacityExpressSaveSubject.next(expressSave);
   }
 
   get operationsCapacityExpressCancel$(): Observable<boolean> {
     return this.operationsCapacityExpressCancelSubject.asObservable();
   }
 
-  set operationsCapacityExpressCancel(amPmSave: boolean) {
-    this.operationsCapacityExpressCancelSubject.next(amPmSave);
+  set operationsCapacityExpressCancel(expressSave: boolean) {
+    this.operationsCapacityExpressCancelSubject.next(expressSave);
   }
 
 }

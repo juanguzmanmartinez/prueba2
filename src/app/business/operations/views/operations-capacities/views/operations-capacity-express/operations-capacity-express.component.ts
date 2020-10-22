@@ -1,16 +1,20 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {combineLatest, Subscription} from 'rxjs';
-import {Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 import {OperationsCapacityExpressStoreService} from './store/operations-capacity-express-store.service';
 import {OpCapacitiesStepGroupOrLocalService} from '../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
 import {OpCapacitiesStepEditionModeService} from '../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import {OpCapacitiesStepExpressResourceService} from '../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
+import {IOpCapacitiesServiceTypeQueryParams} from '../../models/operations-capacities-service-type-query-params.model';
+import {objectHasElements} from '../../../../../../shared/helpers/objects-equal';
+import {OperationsCapacityExpressService} from './operations-capacity-express.service';
 
 @Component({
   selector: 'app-operations-capacity-express',
   templateUrl: './operations-capacity-express.component.html',
   styleUrls: ['./operations-capacity-express.component.scss'],
   providers: [
+    OperationsCapacityExpressService,
     OperationsCapacityExpressStoreService,
     OpCapacitiesStepGroupOrLocalService,
     OpCapacitiesStepEditionModeService,
@@ -22,22 +26,18 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private _operationsCapacityExpressStore: OperationsCapacityExpressStoreService,
-    private _router: Router,
+    private _operationsCapacityExpress: OperationsCapacityExpressService,
+    private _activatedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
-    const subscription = combineLatest([
-      this._operationsCapacityExpressStore.operationsCapacityExpressCancel$,
-      this._operationsCapacityExpressStore.operationsCapacityExpressSave$
-    ])
-      .subscribe(([save, cancel]) => {
-        if (save || cancel) {
-          this._router.navigate(['/operaciones/capacidades']);
+    const subscription = this._activatedRoute.queryParams
+      .subscribe((serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+        if (objectHasElements(serviceTypeQueryParams)) {
+          this._operationsCapacityExpress.serviceQueryParams = serviceTypeQueryParams;
         }
       });
-
     this.subscriptions.push(subscription);
   }
 

@@ -9,6 +9,10 @@ export enum ECapacityStepGroupOrLocal {
   local = 'LOCAL'
 }
 
+export const CCapacityStepGroupOrLocalName = {
+  [ECapacityStepGroupOrLocal.group]: 'Grupo',
+  [ECapacityStepGroupOrLocal.local]: 'Local',
+};
 
 @Injectable()
 export class OpCapacitiesStepGroupOrLocalService {
@@ -17,8 +21,12 @@ export class OpCapacitiesStepGroupOrLocalService {
   private getGroupOrLocalTabSubject = new BehaviorSubject<ECapacityStepGroupOrLocal>(null);
   private groupOrLocalCancelSubject = new BehaviorSubject<boolean>(null);
   private groupOrLocalSaveSubject = new BehaviorSubject<ICustomSelectOption>(null);
-
   private groupOrLocalStepStatusSubject = new BehaviorSubject<ECapacityStepStatus>(null);
+
+  public defaultGroupOrLocalTabSelection: ECapacityStepGroupOrLocal = ECapacityStepGroupOrLocal.group;
+  public defaultGroupOrLocalSelection: ICustomSelectOption;
+  public defaultGroupOrLocalSelectionSaved: boolean;
+
 
   constructor() {
   }

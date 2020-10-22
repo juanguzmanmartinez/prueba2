@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "functions";
 @import "variables/variables";
-@import "custom/custom";
 @import "utilities/utilities";
+@import "custom/custom";
 @import "mixins";
 @import "builder";
 
@@ -23,4 +23,12 @@ body {
 
 html, body {
   height: 100%;
+}
+
+
+button,
+[type=button],
+[type=reset],
+[type=submit] {
+  -webkit-appearance: none
 }

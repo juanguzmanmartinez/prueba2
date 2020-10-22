@@ -1,6 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {BehaviorSubject, Observable, Subscription} from 'rxjs';
-import {CapacityImplementService} from '../../../../../../../shared/services/capacity-edition/capacity-implements.service';
+import {OperationsCapacitiesImplementService} from '../../../services/operations-capacities-implement.service';
 import {ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService} from '../../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
 import {ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService} from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import {
@@ -9,19 +9,21 @@ import {
 } from '../../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
 import {ECapacityStepStatus} from '../../../models/operations-capacity-step-status.model';
 import {ICustomSelectOption} from '../../../../../../../commons/interfaces/custom-controls.interface';
-import {ITypeService} from '../../../../../../../shared/services/models/type-service.model';
 import {AlertService} from '../../../../../../../commons/molecules/alert/alert.service';
-import {ICalendarUpdateRequestParams} from '../../../../../../../shared/services/models/capacity.model';
+import {ICalendarUpdateRequestParams} from '../../../../../../../shared/models/calendar/capacity.model';
 import {getDaysRangeBetweenDates} from '../../../../../../../shared/helpers/dates.helper';
 import {ICapacityStepCapacityTableSegments} from '../../../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
-import {capacityAlertSuccessMessage} from '../../../models/operations-capacity-alert-message.parameter';
-import { ToCapacityStepScheduledCapacitySegments } from '../../../models/operations-capacity-converter.model';
+import {capacityAlertSuccessMessage} from '../../../parameters/operations-capacities-alert-message.parameter';
+import { ToCapacityStepRetCapacitySegments } from '../../../models/operations-capacity-converter.model';
+import {ECapacitiesServiceType} from '../../../../../../../shared/models/capacities/capacities-service-type.model';
+import {EChannel} from '../../../../../../../shared/models/channel/channel.model';
+import {CapacitiesServiceType} from '../../../models/operations-capacities-responses.model';
 
 
 @Injectable()
 export class OperationsCapacityRetStoreService implements OnDestroy {
-  private readonly retCapacityId = 'RET';
-  private readonly retChannel = 'DIGITAL';
+  private readonly retCapacityId = ECapacitiesServiceType.ret;
+  private readonly retChannel = EChannel.digital;
 
   private subscriptions: Subscription[] = [];
   private opCapacityRetCancelSubject = new BehaviorSubject<boolean>(false);
@@ -33,7 +35,7 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
   private retCapacitySelection: ICapacityStepCapacityTableSegments;
 
   constructor(
-    private _operationsCapacityImplement: CapacityImplementService,
+    private _operationsCapacityImplement: OperationsCapacitiesImplementService,
     private _opCapacitiesStepGroupOrLocal: OpCapacitiesStepGroupOrLocalService,
     private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
     private _opCapacitiesStepRetCapacity: OpCapacitiesStepCapacityTableService,
@@ -78,7 +80,7 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
   }
 
   getLocalList() {
-    const subscription = this._operationsCapacityImplement.getLocalImplements$(this.retCapacityId)
+    const subscription = this._operationsCapacityImplement.getLocalByServiceTypeImplement$(this.retCapacityId)
       .subscribe((stores: ICustomSelectOption[]) => {
         this._opCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
       });
@@ -146,8 +148,8 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
     }
   }
 
-  editionModeAndCapacity(data: ITypeService) {
-    this._opCapacitiesStepRetCapacity.capacityTableSegments = new ToCapacityStepScheduledCapacitySegments(data);
+  editionModeAndCapacity(capacitiesServiceType: CapacitiesServiceType) {
+    this._opCapacitiesStepRetCapacity.capacityTableSegments = new ToCapacityStepRetCapacitySegments(capacitiesServiceType);
     this._opCapacitiesStepRetCapacity.capacityTableStepStatus = ECapacityStepStatus.open;
 
     switch (this.editionModeSelection) {
@@ -262,16 +264,16 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
     return this.opCapacityRetSaveSubject.asObservable();
   }
 
-  set operationsCapacityRetSave(amPmSave: boolean) {
-    this.opCapacityRetSaveSubject.next(amPmSave);
+  set operationsCapacityRetSave(retSave: boolean) {
+    this.opCapacityRetSaveSubject.next(retSave);
   }
 
   get operationsCapacityRetCancel$(): Observable<boolean> {
     return this.opCapacityRetCancelSubject.asObservable();
   }
 
-  set operationsCapacityRetCancel(amPmSave: boolean) {
-    this.opCapacityRetCancelSubject.next(amPmSave);
+  set operationsCapacityRetCancel(retCancel: boolean) {
+    this.opCapacityRetCancelSubject.next(retCancel);
   }
 
 }

@@ -10,6 +10,6 @@ export const isArray = (element: Object) => {
 
 // tslint:disable-next-line:ban-types
 export const objectHasElements = (element: Object) => {
-  return element && Object.entries(element).length > 0 && isObject(element);
+  return element && isObject(element) && Object.entries(element).length > 0 && isObject(element);
 };
 

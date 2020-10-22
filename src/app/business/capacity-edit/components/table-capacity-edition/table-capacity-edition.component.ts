@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IBlockSchedule, ITypeOperation, IHeaderCapacity } from '../../models/schedule.model';
-import { Capacity, ISegment, ICapacityRequestParams } from 'src/app/shared/services/models/capacity.model';
+import { Capacity, ISegment, ICapacityRequestParams } from 'src/app/shared/models/calendar/capacity.model';
 import { CapacityEditFormsService } from '../../capacity-forms/capacity-edit-forms';
 import { CalendarStoreService } from 'src/app/business/operations-admin/store/calendar-store.service';
 import { Router } from '@angular/router';
