@@ -18,9 +18,8 @@ elif [ "$environment" == "qa" ]
 then
     echo "Setting up project $app:$environment"
 
-    echo "CONTENTFUL CONFIG Settings for CIQA enviroment"
-    sed -i -e 's/environment:"develop"/environment:"UAT"/g' /usr/share/nginx/html/main*.js
-    sed -i -e 's/lRJsUxGhkBIAV5QNk-5lB7I1e51kod_pQbZm_eu3xaQ/M7z44pJlDaQPRM3__pjFwCunPWuv6suOxsnibluRkRg/g' /usr/share/nginx/html/main*.js
+    sed -i -e 's/https:\/\/radxzrb1ok.execute-api.us-east-1.amazonaws.com\/CI02/https:\/\/radxzrb1ok.execute-api.us-east-1.amazonaws.com\/QA01/g' /usr/share/nginx/html/main*.js
+    sed -i -e 's/https:\/\/r7540g00k4.execute-api.us-east-1.amazonaws.com\/CI02/https:\/\/r7540g00k4.execute-api.us-east-1.amazonaws.com\/QA01/g' /usr/share/nginx/html/main*.js
 
     echo "Starting Web Server ..."
     nginx -g 'daemon off;'
@@ -31,10 +30,6 @@ then
 
     sed -i -e 's/https:\/\/radxzrb1ok.execute-api.us-east-1.amazonaws.com\/CI02/https:\/\/radxzrb1ok.execute-api.us-east-1.amazonaws.com\/QA02/g' /usr/share/nginx/html/main*.js
     sed -i -e 's/https:\/\/r7540g00k4.execute-api.us-east-1.amazonaws.com\/CI02/https:\/\/r7540g00k4.execute-api.us-east-1.amazonaws.com\/QA02/g' /usr/share/nginx/html/main*.js
-
-    echo "CONTENTFUL CONFIG Settings for CIQA enviroment"
-    sed -i -e 's/environment:"develop"/environment:"UAT"/g' /usr/share/nginx/html/main*.js
-    sed -i -e 's/lRJsUxGhkBIAV5QNk-5lB7I1e51kod_pQbZm_eu3xaQ/M7z44pJlDaQPRM3__pjFwCunPWuv6suOxsnibluRkRg/g' /usr/share/nginx/html/main*.js
 
     echo "Starting Web Server ..."
     nginx -g 'daemon off;'
