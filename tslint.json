@@ -29,7 +29,12 @@
     "max-classes-per-file": false,
     "max-line-length": [
       true,
-      200
+      {
+        "limit": 150,
+        "ignore-pattern": "^import |^export {(.*?)}",
+        "check-strings": true,
+        "check-regex": true
+      }
     ],
     "member-access": false,
     "member-ordering": [
@@ -92,7 +97,8 @@
         "allow-leading-underscore",
         "allow-pascal-case"
       ]
-    }
+    },
+    "whitespace": [true, "check-branch", "check-operator", "check-module"]
   },
   "rulesDirectory": [
     "codelyzer"

@@ -1,7 +1,7 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit, Optional, SkipSelf} from '@angular/core';
-import {ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService} from './op-capacities-step-edition-mode.service';
-import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
-import {Subscription} from 'rxjs';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
+import { ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService } from './op-capacities-step-edition-mode.service';
+import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
+import { Subscription } from 'rxjs';
 
 const CCapacitiesStepEditionModeName = {
   [ECapacitiesStepEditionMode.calendar]: 'Calendario',

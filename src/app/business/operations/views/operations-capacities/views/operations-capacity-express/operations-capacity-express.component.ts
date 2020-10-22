@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
-import {OperationsCapacityExpressStoreService} from './store/operations-capacity-express-store.service';
-import {OpCapacitiesStepGroupOrLocalService} from '../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
-import {OpCapacitiesStepEditionModeService} from '../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
-import {OpCapacitiesStepExpressResourceService} from '../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
-import {IOpCapacitiesServiceTypeQueryParams} from '../../models/operations-capacities-service-type-query-params.model';
-import {objectHasElements} from '../../../../../../shared/helpers/objects-equal';
-import {OperationsCapacityExpressService} from './operations-capacity-express.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { OperationsCapacityExpressStoreService } from './store/operations-capacity-express-store.service';
+import { OpCapacitiesStepGroupOrLocalService } from '../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
+import { OpCapacitiesStepEditionModeService } from '../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
+import { OpCapacitiesStepExpressResourceService } from '../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
+import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-capacities-service-type-query-params.model';
+import { objectHasElements } from '../../../../../../shared/helpers/objects-equal';
+import { OperationsCapacityExpressService } from './operations-capacity-express.service';
 
 @Component({
   selector: 'app-operations-capacity-express',
