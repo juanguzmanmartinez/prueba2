@@ -12,6 +12,11 @@
     @extend .d-flex-center;
     display: inline-flex;
 
+    &-large {
+      height: 32px;
+      width: 32px;
+    }
+
     .icon-font {
       color: $primary !important;
     }

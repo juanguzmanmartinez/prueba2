@@ -1,5 +1,3 @@
-import { isObject } from '../../helpers/objects-equal';
-
 export interface IServiceType {
   capacitiesQuantity: number;
   endDay: string;
@@ -18,6 +16,14 @@ export interface IServiceTypeSegment {
   value?: string;
 }
 
+export class ServiceTypeSegment {
+  segmentCapacity: number;
+  segmentHour: string;
+  segmentValue: string;
+  segmentEnabled: boolean;
+  segmentOrders: number;
+}
+
 export class ServiceType {
   serviceTypeCode: string;
   capacitiesQuantity: number;
@@ -25,17 +31,5 @@ export class ServiceType {
   selectDaysQuantity: number;
   startDay: string;
   endDay: string;
-  segments: Array<IServiceTypeSegment>;
-
-  constructor(store: IServiceType) {
-    const currentValue = isObject(store) ? store : {} as IServiceType;
-    this.capacitiesQuantity = currentValue.capacitiesQuantity || 0;
-    this.endDay = currentValue.endDay || '';
-    this.ordersQuantity = currentValue.ordersQuantity || 0;
-    this.segments = currentValue.segments || [];
-    this.selectDaysQuantity = currentValue.selectDaysQuantity || 0;
-    this.serviceTypeCode = currentValue.serviceTypeCode || '';
-    this.startDay = currentValue.startDay || '';
-  }
-
+  segmentList: Array<ServiceTypeSegment>;
 }

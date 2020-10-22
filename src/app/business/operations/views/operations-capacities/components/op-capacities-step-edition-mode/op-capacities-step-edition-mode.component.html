@@ -5,7 +5,7 @@
           [stepExpandedToggle]="editionModeStepStatus === eCapacityStepStatus.open"
           [stepDisabled]="editionModeStepStatus === eCapacityStepStatus.disabled || editionModeSaveLoad"
           [stepDescription]="eEditionModeName[editionModeSaveSelected]"
-          [saveButtonDisabled]="!editionModeSelected || editionModeSaveLoad"
+          [saveButtonDisabled]="!editionModeSelection || editionModeSaveLoad"
           (stepOpenEvent)="openEditionModeStep()"
           (stepCloseEvent)="closeEditionModeStep()"
           (saveButtonEvent)="saveEditionMode()"
@@ -13,14 +13,14 @@
   <div class="card-step-content d-flex justify-content-around">
     <div class="mr-4">
       <app-card-radio [radioValue]="eEditionMode.default"
-                      [(ngModel)]="editionModeSelected">
+                      [(ngModel)]="editionModeSelection">
         <span card-title>{{eEditionModeName[eEditionMode.default]}}</span>
         <span card-description>Capacidad default para un día</span>
       </app-card-radio>
     </div>
     <div class=" d-flex-horizontal-center">
       <app-card-radio [radioValue]="eEditionMode.calendar"
-                      [(ngModel)]="editionModeSelected">
+                      [(ngModel)]="editionModeSelection">
         <span card-title>{{eEditionModeName[eEditionMode.calendar]}}</span>
         <span card-description>Capacidad programada</span>
       </app-card-radio>

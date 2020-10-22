@@ -11,6 +11,9 @@ export class ButtonActionComponent extends ButtonComponent implements OnInit {
   @Input()
   buttonIcon: string;
 
+  @Input()
+  buttonActionSize: 'small' | 'large' = 'small';
+
   constructor() {
     super();
   }

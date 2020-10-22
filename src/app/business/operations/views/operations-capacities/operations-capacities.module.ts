@@ -35,6 +35,10 @@ import {TooltipModule} from '../../../../commons/core-components/tooltip/tooltip
 import { OpCapacitiesLocalDefaultCapacityCardComponent } from './components/op-capacities-local-default-capacity-card/op-capacities-local-default-capacity-card.component';
 import {OperationsCapacitiesImplementService} from './services/operations-capacities-implement.service';
 import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
+import { OpCapacitiesLocalDefaultCapacityDialogComponent } from './components/op-capacities-local-default-capacity-dialog/op-capacities-local-default-capacity-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {IconsModule} from '../../../../commons/core-components/icons/icons.module';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,8 @@ import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/
     OpCapacitiesStepCapacityTableFormComponent,
     OpCapacitiesLocalDefaultCapacityComponent,
     OpCapacitiesLocalDefaultCapacityCardComponent,
-    OperationsCapacityRetComponent
+    OperationsCapacityRetComponent,
+    OpCapacitiesLocalDefaultCapacityDialogComponent
   ],
   imports: [
     CommonModule,
@@ -72,7 +77,10 @@ import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/
     AlertModule,
     MatTableModule,
     CheckboxModule,
-    TooltipModule
+    TooltipModule,
+    MatDialogModule,
+    IconsModule,
+    MatTabsModule
   ],
   providers: [
     OperationsCapacitiesImplementService

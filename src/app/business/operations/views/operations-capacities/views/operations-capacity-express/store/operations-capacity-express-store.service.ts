@@ -4,7 +4,6 @@ import {ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService} from '..
 import {ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService} from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import {ECapacityStepStatus} from '../../../models/operations-capacity-step-status.model';
 import {ICustomSelectOption} from '../../../../../../../commons/interfaces/custom-controls.interface';
-import {IServiceType} from '../../../../../../../shared/models/local/service-type.model';
 import {AlertService} from '../../../../../../../commons/molecules/alert/alert.service';
 import {ToCapacityStepExpressResourceSegments} from '../../../models/operations-capacity-converter.model';
 import {ICalendarUpdateRequestParams} from '../../../../../../../shared/models/calendar/capacity.model';
@@ -16,9 +15,10 @@ import {
 } from '../../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
 import {ICapacityStepExpressResourceSegments} from '../../../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';
 import {OperationsCapacitiesImplementService} from '../../../services/operations-capacities-implement.service';
-import {capacityAlertSuccessMessage} from '../../../models/operations-capacity-alert-message.parameter';
+import {capacityAlertSuccessMessage} from '../../../parameters/operations-capacities-alert-message.parameter';
 import {ECapacitiesServiceType} from '../../../../../../../shared/models/capacities/capacities-service-type.model';
 import {EChannel} from '../../../../../../../shared/models/channel/channel.model';
+import {CapacitiesServiceType} from '../../../models/operations-capacities-responses.model';
 
 
 @Injectable()
@@ -149,8 +149,8 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
     }
   }
 
-  editionModeAndCapacity(data: IServiceType) {
-    this._opCapacitiesStepExpressResource.expressResourceSegments = new ToCapacityStepExpressResourceSegments(data);
+  editionModeAndCapacity(capacitiesServiceType: CapacitiesServiceType) {
+    this._opCapacitiesStepExpressResource.expressResourceSegments = new ToCapacityStepExpressResourceSegments(capacitiesServiceType);
     this._opCapacitiesStepExpressResource.expressResourceStepStatus = ECapacityStepStatus.open;
 
     switch (this.editionModeSelection) {

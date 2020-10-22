@@ -7,7 +7,7 @@ import {Component, Input} from '@angular/core';
 })
 export class ButtonComponent {
   @Input()
-  buttonClass: string;
+  buttonClass = '';
 
   @Input()
   buttonStyle: { [klass: string]: any; } | null;

@@ -9,15 +9,15 @@ import {
 } from '../../../components/op-capacities-step-am-pm-capacity/op-capacities-step-am-pm-capacity.service';
 import {ECapacityStepStatus} from '../../../models/operations-capacity-step-status.model';
 import {ICustomSelectOption} from '../../../../../../../commons/interfaces/custom-controls.interface';
-import {IServiceType} from '../../../../../../../shared/models/local/service-type.model';
 import {AlertService} from '../../../../../../../commons/molecules/alert/alert.service';
 import {ICapacityStepAmPmCapacitySegments} from '../../../components/op-capacities-step-am-pm-capacity/models/op-capacities-step-am-pm-capacity.model';
 import {ToCapacityStepAmPmCapacitySegments} from '../../../models/operations-capacity-converter.model';
 import {ICalendarUpdateRequestParams} from '../../../../../../../shared/models/calendar/capacity.model';
 import {getDaysRangeBetweenDates} from '../../../../../../../shared/helpers/dates.helper';
-import {capacityAlertSuccessMessage} from '../../../models/operations-capacity-alert-message.parameter';
+import {capacityAlertSuccessMessage} from '../../../parameters/operations-capacities-alert-message.parameter';
 import {ECapacitiesServiceType} from '../../../../../../../shared/models/capacities/capacities-service-type.model';
 import {EChannel} from '../../../../../../../shared/models/channel/channel.model';
+import {CapacitiesServiceType} from '../../../models/operations-capacities-responses.model';
 
 
 @Injectable()
@@ -136,20 +136,20 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
       case ECapacityStepGroupOrLocal.local:
         this._operationsCapacityImplement.getTypeOperationImplements$(this.editionModeSelection, this.groupOrLocalSelection, this.amPmCapacityId)
           .subscribe(
-            (data) => this.editionModeAndCapacity(data),
+            (capacitiesServiceType: CapacitiesServiceType) => this.editionModeAndCapacity(capacitiesServiceType),
             (error) => this.editionModeAndCapacityError(error));
         break;
       case ECapacityStepGroupOrLocal.group:
         this._operationsCapacityImplement.getTypeOperationGroupImplements$(this.editionModeSelection, this.groupOrLocalSelection, this.amPmCapacityId)
           .subscribe(
-            (data) => this.editionModeAndCapacity(data),
+            (capacitiesServiceType: CapacitiesServiceType) => this.editionModeAndCapacity(capacitiesServiceType),
             (error) => this.editionModeAndCapacityError(error));
         break;
     }
   }
 
-  editionModeAndCapacity(data: IServiceType) {
-    this._opCapacitiesStepAmPmCapacity.amPmCapacitySegments = new ToCapacityStepAmPmCapacitySegments(data);
+  editionModeAndCapacity(capacitiesServiceType: CapacitiesServiceType) {
+    this._opCapacitiesStepAmPmCapacity.amPmCapacitySegments = new ToCapacityStepAmPmCapacitySegments(capacitiesServiceType);
     this._opCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.open;
 
     switch (this.editionModeSelection) {

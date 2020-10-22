@@ -1,0 +1,50 @@
+:host .operations-capacities-local-default-capacity-dialog .dialog-tab-group {
+  ::ng-deep .mat-tab-labels {
+    padding: 0 40px;
+  }
+}
+
+.operations-capacities-local-default-capacity-dialog {
+  padding: 35px 0 24px;
+
+  .dialog-close,
+  .dialog-edit-action {
+    position: absolute;
+    right: 24px;
+    z-index: 2;
+  }
+
+  .dialog-close {
+    top: 20px;
+  }
+
+  .dialog-edit-action {
+    bottom: 42px;
+  }
+
+  .dialog-tab-group {
+    .dialog-tab-body {
+      padding: 28px 40px;
+      max-height: 260px;
+      overflow-x: auto;
+    }
+
+    .dialog-tab-table {
+      padding-right: 100px;
+    }
+  }
+
+  .dialog-table {
+    .mat-column-capacity {
+      width: 140px;
+      text-align: center;
+    }
+  }
+
+  .row-service-am-pm {
+    height: 64px;
+  }
+
+}
+
+

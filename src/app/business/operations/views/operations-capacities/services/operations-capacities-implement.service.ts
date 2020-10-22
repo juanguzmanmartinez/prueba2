@@ -5,7 +5,7 @@ import {CalendarClientService} from '../../../../../shared/services/calendar/cal
 import {ICalendarUpdateRequestParams} from '../../../../../shared/models/calendar/capacity.model';
 import {map} from 'rxjs/operators';
 import {ILocalParams} from '../../../../../shared/models/local/local-params.model';
-import {CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity} from '../models/operations-capacities-responses.model';
+import {CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity, CapacitiesServiceType} from '../models/operations-capacities-responses.model';
 import {Observable} from 'rxjs';
 import {ECapacitiesServiceType} from '../../../../../shared/models/capacities/capacities-service-type.model';
 import {ICalendarParams} from '../../../../../shared/models/calendar/calendar-params.model';
@@ -57,22 +57,30 @@ export class OperationsCapacitiesImplementService {
         }));
   }
 
-  public getTypeOperationImplements$(detailType: string, selectedLocal: ICustomSelectOption, serviceType: ECapacitiesServiceType) {
+  public getTypeOperationImplements$(detailType: string, selectedLocal: ICustomSelectOption, serviceType: ECapacitiesServiceType): Observable<CapacitiesServiceType> {
     const params = {
       fulfillmentCenter: selectedLocal.fulfillmentCenterCode,
       detailType,
       serviceType
     } as ILocalParams;
-    return this.localClient.getTypeOperationClient$(params);
+    return this.localClient.getTypeOperationClient$(params)
+      .pipe(
+        map((iServiceType) => {
+          return iServiceType ? new CapacitiesServiceType(iServiceType) : null;
+        }));
   }
 
-  public getTypeOperationGroupImplements$(detailType: string, selectedLocal: ICustomSelectOption, serviceType: ECapacitiesServiceType) {
+  public getTypeOperationGroupImplements$(detailType: string, selectedLocal: ICustomSelectOption, serviceType: ECapacitiesServiceType): Observable<CapacitiesServiceType> {
     const params = {
       fulfillmentCenter: selectedLocal.fulfillmentCenterCode,
       detailType,
       serviceType
     } as ILocalParams;
-    return this.localClient.getTypeOperationGroupClient$(params);
+    return this.localClient.getTypeOperationGroupClient$(params)
+      .pipe(
+        map((iServiceType) => {
+          return iServiceType ? new CapacitiesServiceType(iServiceType) : null;
+        }));
   }
 
   public getCalendarDefaultCapacitiesImplement$(capacitiesLocal: CapacitiesLocal): Observable<CapacitiesLocalServiceDefaultCapacity[]> {

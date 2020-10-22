@@ -18,6 +18,9 @@ export class OpCapacitiesStepEditionModeService {
   private editionModeStepStatusSubject = new BehaviorSubject<ECapacityStepStatus>(null);
   private editionModeResetStepStatusSubject = new BehaviorSubject<boolean>(null);
 
+  public defaultEditionModeSelection: ECapacitiesStepEditionMode = ECapacitiesStepEditionMode.calendar;
+  public defaultEditionModeSelectionSaved: boolean;
+
   constructor() {
   }
 
