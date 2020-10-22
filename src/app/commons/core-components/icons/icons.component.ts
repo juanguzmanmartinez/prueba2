@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-icon',
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss']
 })
-export class IconsComponent implements OnInit {
+export class IconsComponent{
 
   @Input() iconClass: string;
 
@@ -18,9 +18,6 @@ export class IconsComponent implements OnInit {
   @Input() iconSvgHeight: '16px' | '24px' | '32px' | '48px' | string;
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 
 }

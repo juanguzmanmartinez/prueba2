@@ -1,5 +1,4 @@
-import { isObject } from 'util';
-import { isArray } from '../../helpers/objects-equal';
+import { isObject } from '../../helpers/objects-equal';
 
 export interface ICapacityRequestParams {
   fulfillmentCenterCode: string; // B88

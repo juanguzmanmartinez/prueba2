@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
-import { Subscription, BehaviorSubject, Observable, combineLatest } from 'rxjs';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { combineLatest, Observable } from 'rxjs';
 import { CustomControl } from '../controls/custom-control';
 import { ISegment } from 'src/app/shared/models/calendar/capacity.model';
 import { ICapacityGroupControl } from '../interfaces/controls.interface';
@@ -57,13 +57,13 @@ export class CapacityEditFormsService {
   }
 
   public addItemsToBlock01(items: ISegment[]) {
-    for (let index = 0; index < items.length; index++) {
-      this.timeSegment01Array.push(this.scheduleControl(items[index], items[index].enabled));
+    for (const item of items) {
+      this.timeSegment01Array.push(this.scheduleControl(item, item.enabled));
     }
   }
   public addItemsToBlock02(items: ISegment[]) {
-    for (let index = 0; index < items.length; index++) {
-      this.timeSegment02Array.push(this.scheduleControl(items[index], items[index].enabled));
+    for (const item of items) {
+      this.timeSegment02Array.push(this.scheduleControl(item, item.enabled));
     }
   }
 
@@ -80,11 +80,10 @@ export class CapacityEditFormsService {
     if (!enabled) {
       formControl.disable();
     }
-    const groupControl = this.formBuilder.group({
+    return this.formBuilder.group({
       schedule: formControl,
       hour: hourFormControl,
     });
-    return groupControl;
   }
 
   private getUpdatedCapacitiesValuesForSegmentArray(capacitiesSegmentArray: FormArray) {
@@ -112,14 +111,12 @@ export class CapacityEditFormsService {
 
   public getCapacitiesAndHoursFromSegment01() {
     const { timeSegment01Array } = this;
-    const capacitiesAndHoursStrings = this.getUpdatedCapacitiesValuesForSegmentArray(timeSegment01Array);
-    return capacitiesAndHoursStrings;
+    return this.getUpdatedCapacitiesValuesForSegmentArray(timeSegment01Array);
   }
 
   public getCapacitiesAndHoursFromSegment02() {
     const { timeSegment02Array } = this;
-    const capacitiesAndHoursStrings = this.getUpdatedCapacitiesValuesForSegmentArray(timeSegment02Array);
-    return capacitiesAndHoursStrings;
+    return this.getUpdatedCapacitiesValuesForSegmentArray(timeSegment02Array);
   }
 
   public getTotalCapacitySegment01$() {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subscription, Subject } from 'rxjs';
+import { BehaviorSubject} from 'rxjs';
 import { Capacity } from 'src/app/shared/models/calendar/capacity.model';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Capacity } from 'src/app/shared/models/calendar/capacity.model';
 export class CalendarStoreService {
 
   private _capacitiesForDay: Capacity[];
-  private _pageDefault: boolean = false;
+  private _pageDefault = false;
   private _capacitiesForDaySubject = new BehaviorSubject<Capacity[]>([] as Capacity[]);
   private _pagefaultSubject = new BehaviorSubject(this._pageDefault);
 

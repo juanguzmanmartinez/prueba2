@@ -1,7 +1,7 @@
-import {ILocal, Local} from '../../../../../shared/models/local/local.model';
-import {isObject} from '../../../../../shared/helpers/objects-equal';
-import {CalendarServiceDefaultCapacities, ICalendarServiceDefaultCapacities} from '../../../../../shared/models/calendar/calendar-response.model';
-import {IServiceType, IServiceTypeSegment, ServiceType, ServiceTypeSegment} from '../../../../../shared/models/local/service-type.model';
+import { ILocal, Local } from '../../../../../shared/models/local/local.model';
+import { isObject } from '../../../../../shared/helpers/objects-equal';
+import { CalendarServiceDefaultCapacities, ICalendarServiceDefaultCapacities } from '../../../../../shared/models/calendar/calendar-response.model';
+import { IServiceType, IServiceTypeSegment, ServiceType, ServiceTypeSegment } from '../../../../../shared/models/local/service-type.model';
 
 export class CapacitiesLocal extends Local {
   constructor(iLocal: ILocal) {
@@ -16,7 +16,8 @@ export class CapacitiesLocal extends Local {
 export class CapacitiesLocalServiceDefaultCapacity extends CalendarServiceDefaultCapacities {
   constructor(iCalendarServiceDefaultCapacities: ICalendarServiceDefaultCapacities) {
     super();
-    const serviceDefaultCapacities = isObject(iCalendarServiceDefaultCapacities) ? iCalendarServiceDefaultCapacities : {} as ICalendarServiceDefaultCapacities;
+    const serviceDefaultCapacities = isObject(iCalendarServiceDefaultCapacities) ?
+      iCalendarServiceDefaultCapacities : {} as ICalendarServiceDefaultCapacities;
     this.serviceType = serviceDefaultCapacities.serviceTypeCode;
     this.capacityQuantity = serviceDefaultCapacities.capacitiesQuantity;
   }

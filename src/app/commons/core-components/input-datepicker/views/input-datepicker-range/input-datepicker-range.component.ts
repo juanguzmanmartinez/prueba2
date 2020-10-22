@@ -1,10 +1,10 @@
-import {Component, Input, OnDestroy, OnInit, Self} from '@angular/core';
-import {CustomDateAdapter, MY_FORMATS} from '../input-datepicker/input-datepicker.component';
-import {ControlValueAccessor, FormControl, FormGroup, NgControl} from '@angular/forms';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { Component, Input, OnDestroy, OnInit, Self } from '@angular/core';
+import { CustomDateAdapter, MY_FORMATS } from '../input-datepicker/input-datepicker.component';
+import { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import * as moment from 'moment';
-import {Subscription} from 'rxjs';
-import {DatepickerHeaderComponent} from '../../components/datepicker-header/datepicker-header.component';
+import { Subscription } from 'rxjs';
+import { DatepickerHeaderComponent } from '../../components/datepicker-header/datepicker-header.component';
 
 export interface IDatepickerRange {
   startDate: string;
@@ -104,8 +104,10 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor, OnIn
   changeDatepickerRangeValue() {
     const datepickerRangeSubscribe = this.datepickerRangeGroup.valueChanges
       .subscribe((value) => {
-        this.datepickerRangeValue.startDate = value && value.startDate ? moment(value.startDate, this.datepickerRangeInputFormat).format(this.datepickerRangeOutputFormat) : null;
-        this.datepickerRangeValue.endDate = value && value.endDate ? moment(value.endDate, this.datepickerRangeInputFormat).format(this.datepickerRangeOutputFormat) : null;
+        this.datepickerRangeValue.startDate = value && value.startDate ?
+          moment(value.startDate, this.datepickerRangeInputFormat).format(this.datepickerRangeOutputFormat) : null;
+        this.datepickerRangeValue.endDate = value && value.endDate ?
+          moment(value.endDate, this.datepickerRangeInputFormat).format(this.datepickerRangeOutputFormat) : null;
         this.onChange(this.datepickerRangeValue);
       });
     this.datepickerRangeSubscribe.push(datepickerRangeSubscribe);

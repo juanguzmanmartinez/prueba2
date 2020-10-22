@@ -1,4 +1,4 @@
-import { isObject } from 'util';
+import { isObject } from '../../helpers/objects-equal';
 
 export interface IDrugstore {
   id: string;

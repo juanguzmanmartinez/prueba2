@@ -1,23 +1,23 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {BehaviorSubject, Observable, Subscription} from 'rxjs';
-import {OperationsCapacitiesImplementService} from '../../../services/operations-capacities-implement.service';
-import {ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService} from '../../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
-import {ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService} from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { OperationsCapacitiesImplementService } from '../../../services/operations-capacities-implement.service';
+import { ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService } from '../../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
+import { ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService } from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import {
   ECapacitiesStepCapacityTable,
   OpCapacitiesStepCapacityTableService
 } from '../../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
-import {ECapacityStepStatus} from '../../../models/operations-capacity-step-status.model';
-import {ICustomSelectOption} from '../../../../../../../commons/interfaces/custom-controls.interface';
-import {AlertService} from '../../../../../../../commons/molecules/alert/alert.service';
-import {ToCapacityStepScheduledCapacitySegments} from '../../../models/operations-capacity-converter.model';
-import {ICalendarUpdateRequestParams} from '../../../../../../../shared/models/calendar/capacity.model';
-import {getDaysRangeBetweenDates} from '../../../../../../../shared/helpers/dates.helper';
-import {ICapacityStepCapacityTableSegments} from '../../../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
-import {capacityAlertSuccessMessage} from '../../../parameters/operations-capacities-alert-message.parameter';
-import {ECapacitiesServiceType} from '../../../../../../../shared/models/capacities/capacities-service-type.model';
-import {EChannel} from '../../../../../../../shared/models/channel/channel.model';
-import {CapacitiesServiceType} from '../../../models/operations-capacities-responses.model';
+import { ECapacityStepStatus } from '../../../models/operations-capacity-step-status.model';
+import { ICustomSelectOption } from '../../../../../../../commons/interfaces/custom-controls.interface';
+import { AlertService } from '../../../../../../../commons/molecules/alert/alert.service';
+import { ToCapacityStepScheduledCapacitySegments } from '../../../models/operations-capacity-converter.model';
+import { ICalendarUpdateRequestParams } from '../../../../../../../shared/models/calendar/capacity.model';
+import { getDaysRangeBetweenDates } from '../../../../../../../shared/helpers/dates.helper';
+import { ICapacityStepCapacityTableSegments } from '../../../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
+import { capacityAlertSuccessMessage } from '../../../parameters/operations-capacities-alert-message.parameter';
+import { ECapacitiesServiceType } from '../../../../../../../shared/models/capacities/capacities-service-type.model';
+import { EChannel } from '../../../../../../../shared/models/channel/channel.model';
+import { CapacitiesServiceType } from '../../../models/operations-capacities-responses.model';
 
 
 @Injectable()
@@ -134,13 +134,21 @@ export class OperationsCapacityScheduledStoreService implements OnDestroy {
   editionModeAndGroupOrLocal() {
     switch (this.groupOrLocalTabSelection) {
       case ECapacityStepGroupOrLocal.local:
-        this._operationsCapacityImplement.getTypeOperationImplements$(this.editionModeSelection, this.groupOrLocalSelection, this.scheduledCapacityId)
+        this._operationsCapacityImplement.getTypeOperationImplements$(
+          this.editionModeSelection,
+          this.groupOrLocalSelection,
+          this.scheduledCapacityId
+        )
           .subscribe(
             (data) => this.editionModeAndCapacity(data),
             (error) => this.editionModeAndCapacityError(error));
         break;
       case ECapacityStepGroupOrLocal.group:
-        this._operationsCapacityImplement.getTypeOperationGroupImplements$(this.editionModeSelection, this.groupOrLocalSelection, this.scheduledCapacityId)
+        this._operationsCapacityImplement.getTypeOperationGroupImplements$(
+          this.editionModeSelection,
+          this.groupOrLocalSelection,
+          this.scheduledCapacityId
+        )
           .subscribe(
             (data) => this.editionModeAndCapacity(data),
             (error) => this.editionModeAndCapacityError(error));

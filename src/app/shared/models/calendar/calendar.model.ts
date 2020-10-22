@@ -1,5 +1,4 @@
-import { isObject } from 'util';
-import { isArray } from '../../helpers/objects-equal';
+import { isArray, isObject } from '../../helpers/objects-equal';
 
 export interface ICalendarRequestParams {
   fulfillmentCenterCode: string; // D88

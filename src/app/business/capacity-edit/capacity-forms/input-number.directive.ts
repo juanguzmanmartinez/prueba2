@@ -28,7 +28,7 @@ export class InputNumberCapacityDirective {
   }
 
   @HostListener('keydown', ['$event'])
-  onKeyDown(e: KeyboardEvent) {
+  onKeyDown(e: KeyboardEvent): void {
     if (
       this.navigationKeys.indexOf(e.key) > -1 || // Allow: navigation keys: backspace, delete, arrows etc.
       (e.key === '32' && e.ctrlKey === true) ||

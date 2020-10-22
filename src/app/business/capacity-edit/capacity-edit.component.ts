@@ -16,7 +16,7 @@ export class CapacityEditComponent implements OnInit, OnDestroy {
     public calendarStoreService: CalendarStoreService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const valueDefaultCapacity = this.calendarStoreService.showActiveCapacityDefault$.subscribe(showActiveCapacityDefault => {
       this.showActiveCapacityDefault = showActiveCapacityDefault;
     });
@@ -24,7 +24,7 @@ export class CapacityEditComponent implements OnInit, OnDestroy {
     this.subscriptions.push(valueDefaultCapacity);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
