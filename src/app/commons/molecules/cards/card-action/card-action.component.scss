@@ -1,7 +1,7 @@
 @import "src/sass/variables/colors";
 @import "src/sass/utilities/display";
 
-.card {
+.card-action {
   background-color: $white;
   padding: 31px 24px;
   border: 1px solid $gray-1;
@@ -14,18 +14,18 @@
     box-shadow: 0 20px 40px rgba(9, 39, 85, 0.08);
   }
 
-  .card-icon {
+  .card-action-icon {
     display: inline-flex;
     margin-right: 16px;
   }
 
-  .card-content {
+  .card-action-content {
     flex-basis: 0;
     flex-grow: 1;
     max-width: 100%;
   }
 
-  .card-arrow {
+  .card-action-arrow {
     display: inline-flex;
     margin-left: 16px;
   }

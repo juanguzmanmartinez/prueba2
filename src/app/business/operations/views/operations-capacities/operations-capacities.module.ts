@@ -30,7 +30,15 @@ import {
 } from './components/op-capacities-step-capacity-table-form/op-capacities-step-capacity-table-form.component';
 import {MatTableModule} from '@angular/material/table';
 import {CheckboxModule} from '../../../../commons/core-components/checkox/checkbox.module';
+import {OpCapacitiesLocalDefaultCapacityComponent} from './components/op-capacities-local-default-capacity/op-capacities-local-default-capacity.component';
+import {TooltipModule} from '../../../../commons/core-components/tooltip/tooltip.module';
+import { OpCapacitiesLocalDefaultCapacityCardComponent } from './components/op-capacities-local-default-capacity-card/op-capacities-local-default-capacity-card.component';
+import {OperationsCapacitiesImplementService} from './services/operations-capacities-implement.service';
 import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
+import { OpCapacitiesLocalDefaultCapacityDialogComponent } from './components/op-capacities-local-default-capacity-dialog/op-capacities-local-default-capacity-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {IconsModule} from '../../../../commons/core-components/icons/icons.module';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -45,7 +53,10 @@ import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/
     OpCapacitiesStepCapacityTableComponent,
     OpCapacitiesStepExpressResourceComponent,
     OpCapacitiesStepCapacityTableFormComponent,
-    OperationsCapacityRetComponent
+    OpCapacitiesLocalDefaultCapacityComponent,
+    OpCapacitiesLocalDefaultCapacityCardComponent,
+    OperationsCapacityRetComponent,
+    OpCapacitiesLocalDefaultCapacityDialogComponent
   ],
   imports: [
     CommonModule,
@@ -65,7 +76,14 @@ import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/
     ButtonsModule,
     AlertModule,
     MatTableModule,
-    CheckboxModule
+    CheckboxModule,
+    TooltipModule,
+    MatDialogModule,
+    IconsModule,
+    MatTabsModule
+  ],
+  providers: [
+    OperationsCapacitiesImplementService
   ]
 })
 export class OperationsCapacitiesModule {

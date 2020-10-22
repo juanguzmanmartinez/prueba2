@@ -1,0 +1,35 @@
+<div class="local-default-capacity-card" [class.capacity-card-disabled]="localCapacityDisabled">
+  <div class="row">
+    <div class="col-12 mb-5">
+      <h5 class="text-subtitle-1 capacity-card-name mb-0">{{localCapacityName}}</h5>
+    </div>
+    <div class="col-12 mb-4">
+      <ng-container *ngIf="!localCapacityDisabled">
+        <h4 class="text-h3 capacity-card-quantity mb-0">{{localCapacityQuantity}}</h4>
+      </ng-container>
+      <ng-container *ngIf="localCapacityDisabled">
+        <h4 class="text-h3 capacity-card-quantity mb-0">--</h4>
+      </ng-container>
+    </div>
+    <div class="col-12 mb-6">
+      <p class="text-caption capacity-card-text mb-0">pedidos por día</p>
+    </div>
+    <div class="col-12">
+      <ng-container *ngIf="localCapacityDetail">
+        <app-tooltip
+          tooltipValue="Más detalles"
+          class="d-inline-block mr-4">
+          <app-button-action buttonIcon="launch"
+                             (click)="localCapacityViewMoreEmit()"
+                             [buttonDisabled]="localCapacityDisabled"></app-button-action>
+        </app-tooltip>
+      </ng-container>
+
+      <app-tooltip tooltipValue="Editar">
+        <app-button-action buttonIcon="edit"
+                           (click)="localCapacityEditServiceEmit()"
+                           [buttonDisabled]="localCapacityDisabled"></app-button-action>
+      </app-tooltip>
+    </div>
+  </div>
+</div>

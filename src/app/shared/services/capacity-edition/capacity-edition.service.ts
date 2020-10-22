@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { ENDPOINTS } from '../../parameters/endpoints';
 import { GenericService } from '../generic.service';
 import { isArray } from '../../helpers/objects-equal';
-import { ICapacityRequestParams, ICapacity, Capacity, ResponseDetailCapacity } from '../models/capacity.model';
+import { ICapacityRequestParams, ICapacity, Capacity, ResponseDetailCapacity } from '../../models/calendar/capacity.model';
 
 
 @Injectable()
@@ -27,8 +27,7 @@ export class CapacityClientService {
       .set('day', String(params.day))
       .set('fulfillmentCenterCode', String(params.fulfillmentCenterCode))
       .set('channel', String(params.channel));
-    const Header = new HttpHeaders();
-    return this.genericService.genericGet<ICapacity[]>(this.BLOCKSCHEDULE_ENDPOINT, httpParams, Header)
+    return this.genericService.genericGet<ICapacity[]>(this.BLOCKSCHEDULE_ENDPOINT, httpParams)
       .pipe(map(response => {
         const current = isArray(response) ? response : [];
         const responses = current.map(e => new Capacity(e));
@@ -37,10 +36,9 @@ export class CapacityClientService {
   }
 
 
-  public patchScheduleDetail$(params: ICapacityRequestParams, showActiveCapacityDefault: boolean) {
+  public patchScheduleDetail$(body: ICapacityRequestParams, showActiveCapacityDefault: boolean) {
     const ENPOINT = showActiveCapacityDefault ? this.CAPACITY_DEFAULT_ENDPOINT : this.CAPACITY_ENDPOINT;
-    const Header = new HttpHeaders();
-    return this.genericService.genericPatchBody<ICapacity[]>(ENPOINT, params, Header)
+    return this.genericService.genericPatch<ICapacity[]>(ENPOINT, body)
       .pipe(map(response => {
         const current = isArray(response) ? response : [];
         const responses = current.map(e => new ResponseDetailCapacity(e));

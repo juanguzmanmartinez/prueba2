@@ -23,7 +23,7 @@ export class OpCapacitiesStepEditionModeComponent implements OnInit, OnDestroy {
   eEditionMode = ECapacitiesStepEditionMode;
   eEditionModeName = CCapacitiesStepEditionModeName;
   editionModeSaveSelected: ECapacitiesStepEditionMode;
-  editionModeSelected = ECapacitiesStepEditionMode.calendar;
+  editionModeSelection: ECapacitiesStepEditionMode;
   editionModeSaveLoad: boolean;
 
   constructor(
@@ -46,6 +46,12 @@ export class OpCapacitiesStepEditionModeComponent implements OnInit, OnDestroy {
       .subscribe((eCapacityStepStatus: ECapacityStepStatus) => {
         if (this.editionModeStepStatus !== eCapacityStepStatus) {
           this.editionModeStepStatus = eCapacityStepStatus;
+
+          if (this._opCapacitiesStepEditionMode.defaultEditionModeSelectionSaved && eCapacityStepStatus === ECapacityStepStatus.open) {
+            this._opCapacitiesStepEditionMode.defaultEditionModeSelectionSaved = false;
+            this.saveEditionMode();
+          }
+
           this._changeDetectorRef.detectChanges();
         }
       });
@@ -57,7 +63,7 @@ export class OpCapacitiesStepEditionModeComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.editionModeSaveLoad = false;
         this.editionModeSaveSelected = null;
-        this.editionModeSelected = ECapacitiesStepEditionMode.calendar;
+        this.editionModeSelection = this._opCapacitiesStepEditionMode.defaultEditionModeSelection;
       });
     this.subscriptions.push(subscription);
   }
@@ -68,14 +74,14 @@ export class OpCapacitiesStepEditionModeComponent implements OnInit, OnDestroy {
 
   closeEditionModeStep() {
     this.editionModeSaveLoad = false;
-    this.editionModeSelected = this.editionModeSaveSelected || ECapacitiesStepEditionMode.calendar;
+    this.editionModeSelection = this.editionModeSaveSelected || ECapacitiesStepEditionMode.calendar;
     this._opCapacitiesStepEditionMode.editionModeStepStatus = this.eCapacityStepStatus.close;
   }
 
   saveEditionMode() {
     this.editionModeSaveLoad = true;
-    this.editionModeSaveSelected = this.editionModeSelected;
-    this._opCapacitiesStepEditionMode.editionModeSave = this.editionModeSelected;
+    this.editionModeSaveSelected = this.editionModeSelection;
+    this._opCapacitiesStepEditionMode.editionModeSave = this.editionModeSelection;
   }
 
   cancelEditionMode() {

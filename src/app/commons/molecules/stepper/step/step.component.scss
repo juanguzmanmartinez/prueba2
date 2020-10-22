@@ -66,6 +66,7 @@
     .step-header-description-container {
       justify-content: flex-end;
       margin-right: 0;
+      max-width: 250px;
       @extend .d-flex-vertical-center
     }
 

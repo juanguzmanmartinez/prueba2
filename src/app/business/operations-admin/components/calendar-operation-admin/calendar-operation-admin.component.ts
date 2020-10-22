@@ -4,11 +4,11 @@ import { take, switchMap, map, tap } from 'rxjs/operators';
 import { IDrugstore, IServices, Drugstore } from 'src/app/shared/services/models/drugstore.model';
 import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
 import { OperationAdminCalendarService } from '../../operations-forms/operations-admin-calendar';
-import { ICalendar, Calendar, IDayList, IDayBlockedRequest, SelectedDay, Week } from 'src/app/shared/services/models/calendar.model';
+import { ICalendar, Calendar, IDayList, IDayBlockedRequest, SelectedDay, Week } from 'src/app/shared/models/calendar/calendar.model';
 import { Subscription } from 'rxjs';
 import { CompanyDrugstoresStoreService } from 'src/app/commons/business-factories/factories-stores/company-drugstores-store.service';
 import { Router } from '@angular/router';
-import { ICapacityRequestParams } from 'src/app/shared/services/models/capacity.model';
+import { ICapacityRequestParams } from 'src/app/shared/models/calendar/capacity.model';
 import { CapacityEditImplementService } from 'src/app/business/capacity-edit/services/capacity-edit-implements.service';
 import { CalendarStoreService } from '../../store/calendar-store.service';
 

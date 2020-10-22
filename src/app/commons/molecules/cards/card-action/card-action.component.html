@@ -1,9 +1,9 @@
-<div class="card">
-    <div class="card-icon">
+<div class="card-action">
+    <div class="card-action-icon">
       <app-icon [iconSvgName]="cardIcon"
                 iconSvgWidth="40px"></app-icon>
     </div>
-    <div class="card-content">
+    <div class="card-action-content">
       <h4 class="text-subtitle-1 mb-3">
         <ng-content select="[card-title]"></ng-content>
       </h4>
@@ -11,7 +11,7 @@
         <ng-content select="[card-description]"></ng-content>
       </p>
     </div>
-    <div class="card-arrow">
+    <div class="card-action-arrow">
       <app-icon iconFontName="keyboard_arrow_right"
                 iconFontSize="24px"></app-icon>
     </div>

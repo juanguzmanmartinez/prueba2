@@ -2,13 +2,16 @@
   <mat-sidenav mode="side"
                opened>
     <div class="static-sidenav">
-      <a routerLink="/">
-        <app-icon iconSvgName="main-logo"
-                  iconSvgWidth="32px"></app-icon>
-      </a>
+      <div class="sidenav-taps">
+        <a routerLink="/">
+          <app-icon iconSvgName="main-logo"
+                    iconSvgWidth="32px"></app-icon>
+        </a>
+      </div>
 
       <div class="sidenav-taps">
-        <app-tooltip>
+        <app-tooltip tooltipValue="Operaciones"
+                     tooltipClass="sidenav-tooltip">
           <a class="sidenav-button"
              [routerLink]="'/operaciones'">OP </a>
         </app-tooltip>

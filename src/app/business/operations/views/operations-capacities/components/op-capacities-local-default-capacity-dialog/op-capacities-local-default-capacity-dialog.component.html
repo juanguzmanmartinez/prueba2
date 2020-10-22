@@ -1,0 +1,108 @@
+<section class="operations-capacities-local-default-capacity-dialog">
+
+  <div class="dialog-close">
+    <app-icon iconFontName="close"
+              iconFontSize="24px"
+              iconClass="text-gray-5 cursor-pointer"
+              mat-dialog-close></app-icon>
+  </div>
+
+  <div class="dialog-edit-action">
+    <app-button-action buttonIcon="edit"
+                       buttonClass="cursor-pointer"
+                       buttonActionSize="large"
+                       [mat-dialog-close]="true"></app-button-action>
+  </div>
+
+  <div class="content mb-6">
+    <div class="row">
+      <div class="col-2">
+        <app-icon iconSvgName="book"
+                  iconSvgWidth="40px"></app-icon>
+      </div>
+      <div class="col pl-0">
+        <h1 class="text-h5 mb-2">Por defecto</h1>
+        <p class="text-caption text-gray-5 mb-0">Detalle de capacidad</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dialog-content">
+    <mat-tab-group class="dialog-tab-group"
+                   [disableRipple]="true">
+      <mat-tab label="General" *ngIf="capacitiesLocal && localServiceTypeTable">
+        <div class="dialog-tab-body">
+          <div class="row">
+            <div class="col-12 d-flex">
+              <app-icon iconFontName="store"
+                        iconFontSize="24px"
+                        iconClass="text-gray-5"></app-icon>
+
+              <div class="ml-4">
+                <h5 class="text-caption text-gray-5 mb-2">Local</h5>
+                <p class="text-label text-black mb-0">{{capacitiesLocal.localCode}} {{capacitiesLocal.name}}</p>
+              </div>
+            </div>
+            <div class="col-12 d-flex mt-5">
+              <app-icon iconFontName="motorcycle"
+                        iconFontSize="24px"
+                        iconClass="text-gray-5"></app-icon>
+              <div class="ml-4">
+                <h5 class="text-caption text-gray-5 mb-2">Tipo de despacho</h5>
+                <p class="text-label text-black mb-0">{{capacityServiceTypeName[localServiceTypeTable.serviceType]}}</p>
+              </div>
+            </div>
+            <div class="col-12 d-flex mt-5">
+              <app-icon iconFontName="assignment"
+                        iconFontSize="24px"
+                        iconClass="text-gray-5"></app-icon>
+              <div class="ml-4">
+                <h5 class="text-caption text-gray-5 mb-2">Total del día</h5>
+                <p class="text-label text-black mb-0">{{localServiceTypeTable.capacityQuantity}} pedidos</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Tabla" *ngIf="defaultCapacityTableDataSource">
+        <div class="dialog-tab-body dialog-tab-table">
+          <table mat-table [dataSource]="defaultCapacityTableDataSource"
+                 class="dialog-table">
+
+            <ng-container matColumnDef="hour">
+              <th mat-header-cell *matHeaderCellDef>Bloque horario</th>
+              <td mat-cell *matCellDef="let element; let first = first;">
+
+                <ng-container *ngIf="eCapacityServiceType.amPm === localServiceTypeTable?.serviceType">
+                  <p class="text-label text-gray-6 mb-2">
+                    <span *ngIf="first">AM</span>
+                    <span *ngIf="!first">PM</span>
+                  </p>
+                  <span class="text-gray-5">{{element.segmentHour}}</span>
+                </ng-container>
+
+                <ng-container *ngIf="eCapacityServiceType.amPm !== localServiceTypeTable?.serviceType">
+                  {{element.segmentHour}}
+                </ng-container>
+
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="capacity">
+              <th mat-header-cell *matHeaderCellDef>Capacidad</th>
+              <td mat-cell *matCellDef="let element">
+                <span class="text-button">{{element.segmentCapacity}}</span>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="defaultCapacityTableDisplayedColumns"></tr>
+            <tr mat-row [class.row-service-am-pm]="eCapacityServiceType.amPm === localServiceTypeTable?.serviceType"
+                *matRowDef="let row; columns: defaultCapacityTableDisplayedColumns;">
+            </tr>
+          </table>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+</section>
