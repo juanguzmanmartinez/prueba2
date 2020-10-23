@@ -5,21 +5,22 @@ import { AppComponent } from './app.component';
 import { MainLoaderComponent } from './loaders/main-loader/main-loader.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
-import {IconsModule} from './commons/core-components/icons/icons.module';
-import {MAT_DATE_LOCALE} from '@angular/material/core';
-import { NotSupportedComponent } from './core/not-supported/not-supported.component';
+import { IconsModule } from './commons/core-components/icons/icons.module';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { CoreModule } from './core/core.module';
+
 @NgModule({
   declarations: [
     AppComponent,
     MainLoaderComponent,
-    NotSupportedComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
-    IconsModule
+    IconsModule,
+    CoreModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es'},
@@ -28,4 +29,5 @@ import { NotSupportedComponent } from './core/not-supported/not-supported.compon
     AppComponent,
     MainLoaderComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -27,4 +27,5 @@ export const ICONS_SVG: Array<IconsSvgModel> = [
   {name: 'order-canceled', path: `${pathIllustrations}order-canceled.svg`},
   {name: 'order-updated', path: `${pathIllustrations}order-updated.svg`},
   {name: 'search-store', path: `${pathIllustrations}search-store.svg`},
+  {name: 'under-construction', path: `${pathIllustrations}under-construction.svg`},
 ];

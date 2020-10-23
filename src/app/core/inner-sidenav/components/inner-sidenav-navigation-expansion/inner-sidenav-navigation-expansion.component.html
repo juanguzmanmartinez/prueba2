@@ -1,9 +1,10 @@
-<a [routerLink]="navigationRoute"
-   routerLinkActive="inner-sidenav-navigation-expansion-active"
-   [routerLinkActiveOptions]="navigationRouteOptions"
-   class="inner-sidenav-navigation-expansion-container">
+<app-router [router]="navigationRoute"
+            routerActive="inner-sidenav-navigation-expansion-active"
+            [routerActiveOptions]="navigationRouteOptions"
+            class="inner-sidenav-navigation-expansion-container">
   <mat-expansion-panel hideToggle="true"
                        #innerSidenavNavigationExpansion
+                       [disabled]="navigationDisabledChildren"
                        class="inner-sidenav-navigation-expansion">
     <mat-expansion-panel-header collapsedHeight="40px"
                                 expandedHeight="40px"
@@ -11,7 +12,7 @@
       <mat-panel-title class="align-items-center">
         <app-icon class="inner-sidenav-navigation-expansion-icon"
                   [iconFontName]="navigationIcon"></app-icon>
-        <span class="inner-sidenav-text">{{navigationText}}</span>
+        <span class="inner-sidenav-text text-label text-truncate">{{navigationText}}</span>
       </mat-panel-title>
       <mat-panel-description *ngIf="activeRoute">
         <app-icon class="inner-sidenav-navigation-expansion-icon"
@@ -25,4 +26,4 @@
       <ng-content></ng-content>
     </div>
   </mat-expansion-panel>
-</a>
+</app-router>

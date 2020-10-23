@@ -5,15 +5,9 @@
     padding: 0 0 0 40px;
   }
 
-  ::ng-deep .inner-sidenav-navigation-expansion-content > * {
+  ::ng-deep .inner-sidenav-navigation-expansion-content .inner-sidenav-navigation-expansion-child {
     padding: 13px 0;
-    text-decoration: none;
     display: block;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 100%;
-    letter-spacing: 0.15px;
     color: $gray-4;
 
     &:hover {
@@ -27,21 +21,10 @@
 }
 
 
-.inner-sidenav-navigation-expansion-container {
-  display: unset;
-  text-decoration: none;
-
+:host .inner-sidenav-navigation-expansion-container {
   .inner-sidenav-text {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 100%;
-    letter-spacing: 0.15px;
     color: $gray-6;
     margin-left: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .inner-sidenav-navigation-expansion-icon {
@@ -75,7 +58,7 @@
     }
   }
 
-  &.inner-sidenav-navigation-expansion-active {
+  ::ng-deep .inner-sidenav-navigation-expansion-active {
     .inner-sidenav-navigation-expansion {
       background: rgba(0, 61, 153, 0.04);
     }

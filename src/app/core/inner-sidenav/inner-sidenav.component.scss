@@ -1,19 +1,33 @@
-@import "src/sass/variables/colors";
+@import "src/sass/variables/variables";
+@import "src/sass/utilities/breakpoints";
 
 .inner-sidenav-container {
   height: 100%;
 
   .inner-sidenav {
     overflow-y: initial;
+    transform: none;
+  }
+
+  .mat-drawer-content {
+    margin-left: 84px !important;
+    @include media-breakpoint-up(lg) {
+      margin-left: 240px !important;
+    }
   }
 
   .inner-sidenav-content-close {
-    margin-left: 16px;
+    margin-left: 84px !important;
   }
 
   .inner-sidenav-close {
     visibility: visible !important;
-    transform: translate3d(calc(-100% + 16px), 0, 0);
+    transform: none;
+    //transform: translate3d(calc(-100% + 16px), 0, 0);
+
+    .inner-sidenav-menu {
+      width: 84px;
+    }
   }
 }
 
@@ -22,6 +36,8 @@
   width: 240px;
   height: 100%;
   background: $gray-1;
+  transition: width .5s;
+  visibility: visible !important;
 
   .inner-sidenav-button {
     position: absolute;
@@ -38,12 +54,13 @@
     align-items: center;
     justify-content: center;
     padding: 0;
+    outline: none;
 
     &.inner-sidenav-button-close {
       transform: rotate(180deg);
     }
 
-    .inner-sidenav-icon{
+    .inner-sidenav-icon {
       color: $gray-4;
     }
   }

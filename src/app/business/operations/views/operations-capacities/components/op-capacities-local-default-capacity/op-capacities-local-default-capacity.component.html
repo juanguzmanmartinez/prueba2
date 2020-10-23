@@ -12,7 +12,7 @@
   </div>
 
   <div class="row">
-    <div class="col-3">
+    <div class="col-6 col-xl-3 mb-6 mb-xl-0">
       <app-op-capacities-local-default-capacity-card
         localCapacityName="AM/PM"
         (localCapacityViewMore)="localDefaultCapacityViewMore(this.capacityLocalServiceAmPm)"
@@ -22,7 +22,7 @@
         [localCapacityDetail]="true">
       </app-op-capacities-local-default-capacity-card>
     </div>
-    <div class="col-3">
+    <div class="col-6 col-xl-3 mb-6 mb-xl-0">
       <app-op-capacities-local-default-capacity-card
         localCapacityName="Programado"
         (localCapacityViewMore)="localDefaultCapacityViewMore(this.capacityLocalServiceScheduled)"
@@ -32,7 +32,7 @@
         [localCapacityDetail]="true">
       </app-op-capacities-local-default-capacity-card>
     </div>
-    <div class="col-3">
+    <div class="col-6 col-xl-3">
       <app-op-capacities-local-default-capacity-card
         localCapacityName="Express"
         (localCapacityEditService)="localDefaultCapacityEditService(this.capacityLocalServiceExpress)"
@@ -40,7 +40,7 @@
         [localCapacityDisabled]="!capacityLocalServiceExpress">
       </app-op-capacities-local-default-capacity-card>
     </div>
-    <div class="col-3">
+    <div class="col-6 col-xl-3">
       <app-op-capacities-local-default-capacity-card
         localCapacityName="RET"
         (localCapacityViewMore)="localDefaultCapacityViewMore(this.capacityLocalServiceRet)"

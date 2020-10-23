@@ -86,3 +86,4 @@
   ![](../../../../assets/illustrations/order-canceled.svg) | order-canceled
   ![](../../../../assets/illustrations/order-updated.svg) | order-updated
   ![](../../../../assets/illustrations/search-store.svg) | search-store
+  ![](../../../../assets/illustrations/under-construction.svg) | under-construction

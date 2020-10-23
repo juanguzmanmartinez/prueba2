@@ -3,17 +3,19 @@
                opened>
     <div class="static-sidenav">
       <div class="sidenav-taps">
-        <a routerLink="/">
+        <app-router router="/">
           <app-icon iconSvgName="main-logo"
                     iconSvgWidth="32px"></app-icon>
-        </a>
+        </app-router>
       </div>
 
       <div class="sidenav-taps">
         <app-tooltip tooltipValue="Operaciones"
                      tooltipClass="sidenav-tooltip">
-          <a class="sidenav-button"
-             [routerLink]="'/operaciones'">OP </a>
+          <app-router router="/operaciones"
+                      class="d-block">
+            <span class="sidenav-button">OP</span>
+          </app-router>
         </app-tooltip>
       </div>
     </div>

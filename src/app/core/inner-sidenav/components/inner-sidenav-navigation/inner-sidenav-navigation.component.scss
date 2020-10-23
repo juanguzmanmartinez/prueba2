@@ -1,20 +1,9 @@
 @import "src/sass/variables/colors";
 
-.inner-sidenav-navigation-container {
-  display: unset;
-  text-decoration: none;
-
+:host .inner-sidenav-navigation-container {
   .inner-sidenav-text {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 100%;
-    letter-spacing: 0.15px;
     color: $gray-6;
     margin-left: 8px;
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
   }
 
   .inner-sidenav-navigation-expansion-icon {
@@ -33,7 +22,7 @@
     }
   }
 
-  &.inner-sidenav-navigation-active {
+  ::ng-deep .inner-sidenav-navigation-active {
     .inner-sidenav-navigation {
       background: rgba(0, 61, 153, 0.04);
     }

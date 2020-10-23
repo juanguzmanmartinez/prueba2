@@ -1,9 +1,11 @@
-<app-inner-sidenav>
+<app-inner-sidenav (innerSidenavExpanded)="operationsInnerSidenavOpened($event)">
   <section sidenav
            class="operations-sidenav">
 
     <div class="operations-sidenav-header">
-      <h1 class="operations-sidenav-title">Operaciones</h1>
+      <h1 class="operations-sidenav-title">
+        {{operationsSidenavTitle}}
+      </h1>
     </div>
     <hr class="separator">
 
@@ -26,19 +28,28 @@
       <app-inner-sidenav-navigation-expansion navigationIcon="date_range"
                                               navigationRoute="/operaciones/capacidades"
                                               navigationText="Capacidades"
+                                              [navigationDisabledChildren]="!innerSidenavExpanded"
                                               [navigationRouteOptions]="{exact: false}">
-        <a routerLink="/operaciones/capacidades/am-pm"
-           routerLinkActive="inner-sidenav-navigation-active"
-           [routerLinkActiveOptions]="{exact:true}">Editar AM/PM</a>
-        <a routerLink="/operaciones/capacidades/programado"
-           routerLinkActive="inner-sidenav-navigation-active"
-           [routerLinkActiveOptions]="{exact:true}">Editar Programado</a>
-        <a routerLink="/operaciones/capacidades/express"
-           routerLinkActive="inner-sidenav-navigation-active"
-           [routerLinkActiveOptions]="{exact:true}">Editar Express</a>
-        <a routerLink="/operaciones/capacidades/retiro-tienda"
-           routerLinkActive="inner-sidenav-navigation-active"
-           [routerLinkActiveOptions]="{exact:true}">Editar RET</a>
+        <app-router router="/operaciones/capacidades/am-pm"
+                    routerActive="inner-sidenav-navigation-active"
+                    routerClass="inner-sidenav-navigation-expansion-child">
+          <span class="text-label">Editar AM/PM</span>
+        </app-router>
+        <app-router router="/operaciones/capacidades/programado"
+                    routerActive="inner-sidenav-navigation-active"
+                    routerClass="inner-sidenav-navigation-expansion-child">
+          <span class="text-label">Editar Programado</span>
+        </app-router>
+        <app-router router="/operaciones/capacidades/express"
+                    routerActive="inner-sidenav-navigation-active"
+                    routerClass="inner-sidenav-navigation-expansion-child">
+          <span class="text-label">Editar Express</span>
+        </app-router>
+        <app-router router="/operaciones/capacidades/retiro-tienda"
+                    routerActive="inner-sidenav-navigation-active"
+                    routerClass="inner-sidenav-navigation-expansion-child">
+          <span class="text-label">Editar RET</span>
+        </app-router>
       </app-inner-sidenav-navigation-expansion>
 
       <app-inner-sidenav-navigation navigationIcon="settings"

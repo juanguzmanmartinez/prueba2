@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { OperationsStoresRoutingModule } from './operations-stores-routing.module';
 import {OperationsStoresComponent} from './operations-stores.component';
+import { BackRouterModule } from '../../../../commons/molecules/back-router/back-router.module';
+import { CoreModule } from '../../../../core/core.module';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import {OperationsStoresComponent} from './operations-stores.component';
   ],
   imports: [
     CommonModule,
-    OperationsStoresRoutingModule
+    OperationsStoresRoutingModule,
+    BackRouterModule,
+    CoreModule
   ]
 })
 export class OperationsStoresModule { }

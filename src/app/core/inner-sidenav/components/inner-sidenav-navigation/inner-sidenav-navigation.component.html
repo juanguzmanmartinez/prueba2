@@ -1,0 +1,10 @@
+<app-router [router]="navigationRoute"
+            routerActive="inner-sidenav-navigation-active"
+            [routerActiveOptions]="{exact: true}"
+            class="inner-sidenav-navigation-container">
+  <div class="inner-sidenav-navigation">
+    <app-icon class="inner-sidenav-navigation-expansion-icon"
+              [iconFontName]="navigationIcon"></app-icon>
+    <span class="inner-sidenav-text text-label text-truncate">{{navigationText}}</span>
+  </div>
+</app-router>

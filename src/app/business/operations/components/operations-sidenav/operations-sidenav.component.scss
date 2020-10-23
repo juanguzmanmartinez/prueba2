@@ -1,6 +1,4 @@
-$blue: #0065FF;
-$gray-3: #D5DCE1;
-$gray-6: #405261;
+@import "src/sass/variables/colors";
 
 .separator {
   border-top: 1px solid $gray-3;

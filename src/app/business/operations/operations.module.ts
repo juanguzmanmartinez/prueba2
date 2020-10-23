@@ -11,6 +11,7 @@ import { OperationsHomeComponent } from './views/operations-home/operations-home
 import {LinksModule} from '../../commons/core-components/links/links.module';
 import {ButtonsModule} from '../../commons/core-components/buttons/buttons.module';
 import {CardModule} from '../../commons/molecules/cards/card.module';
+import { CoreModule } from '../../core/core.module';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {CardModule} from '../../commons/molecules/cards/card.module';
         MatExpansionModule,
         LinksModule,
         ButtonsModule,
-        CardModule
+        CardModule,
+        CoreModule
     ]
 })
 export class OperationsModule {
