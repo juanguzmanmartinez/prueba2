@@ -12,6 +12,7 @@ import { TooltipModule } from '../commons/core-components/tooltip/tooltip.module
 import { RouterModule } from '@angular/router';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { LinksModule } from '../commons/core-components/links/links.module';
+import { ButtonsModule } from '../commons/core-components/buttons/buttons.module';
 
 const COMPONENTS = [
   NotSupportedComponent,
@@ -36,7 +37,8 @@ const COMPONENTS = [
     TooltipModule,
     RouterModule,
     MatExpansionModule,
-    LinksModule
+    LinksModule,
+    ButtonsModule
   ]
 })
 export class CoreModule {

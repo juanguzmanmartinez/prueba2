@@ -1,0 +1,10 @@
+<app-button
+  [buttonClass]="'button-action-text ' + buttonClass"
+  [buttonType]="buttonType"
+  [buttonStyle]="buttonStyle"
+  [buttonDisabled]="buttonDisabled"
+  (click)="buttonClick($event)">
+  <span class="text-uppercase text-tag text-white font-weight-bold">
+    <ng-content></ng-content>
+  </span>
+</app-button>

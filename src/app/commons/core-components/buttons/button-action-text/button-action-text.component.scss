@@ -1,0 +1,15 @@
+@import "src/sass/variables/variables";
+@import "src/sass/utilities/display";
+
+:host {
+  ::ng-deep .button.button-action-text {
+    background-color: $primary;
+    border-color: $primary;
+    padding: 0;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    @extend .d-flex-center;
+    display: inline-flex;
+  }
+}

@@ -1,13 +1,14 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ButtonComponent} from './button/button.component';
-import {ButtonPrimaryComponent} from './button-primary/button-primary.component';
-import {ButtonSecondaryComponent} from './button-secondary/button-secondary.component';
-import {ButtonGhostComponent} from './button-ghost/button-ghost.component';
-import {ButtonOutlineComponent} from './button-outline/button-outline.component';
-import {ButtonIconComponent} from './button-icon/button-icon.component';
-import {IconsModule} from '../icons/icons.module';
-import {ButtonActionComponent} from './button-action/button-action.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ButtonComponent } from './button/button.component';
+import { ButtonPrimaryComponent } from './button-primary/button-primary.component';
+import { ButtonSecondaryComponent } from './button-secondary/button-secondary.component';
+import { ButtonGhostComponent } from './button-ghost/button-ghost.component';
+import { ButtonOutlineComponent } from './button-outline/button-outline.component';
+import { ButtonIconComponent } from './button-icon/button-icon.component';
+import { IconsModule } from '../icons/icons.module';
+import { ButtonActionIconComponent } from './button-action-icon/button-action-icon.component';
+import { ButtonActionTextComponent } from './button-action-text/button-action-text.component';
 
 
 const COMPONENTS = [
@@ -17,7 +18,8 @@ const COMPONENTS = [
   ButtonGhostComponent,
   ButtonOutlineComponent,
   ButtonIconComponent,
-  ButtonActionComponent,
+  ButtonActionIconComponent,
+  ButtonActionTextComponent
 ];
 
 
