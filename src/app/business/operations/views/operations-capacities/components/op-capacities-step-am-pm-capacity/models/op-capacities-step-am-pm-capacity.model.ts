@@ -33,7 +33,7 @@ export class FromFormToCapacityStepAmPmCapacitySegments implements ICapacityStep
     this.pmSegment = {
       segmentCapacity: amPmCapacityForm.pmCapacity || 0,
       segmentHour: segments && segments.pmSegment ? segments.pmSegment.segmentHour : '',
-      segmentValue: segments && segments.amSegment ? segments.amSegment.segmentValue : ''
+      segmentValue: segments && segments.pmSegment ? segments.pmSegment.segmentValue : ''
     };
   }
 }

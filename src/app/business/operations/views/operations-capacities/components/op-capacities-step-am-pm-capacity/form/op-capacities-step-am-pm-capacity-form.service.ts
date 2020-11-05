@@ -1,7 +1,7 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {CapacityRangeControl} from '../../../controls/capacity-range.control';
-import {AmPmCapacityControl} from '../controls/am-pm-capacity.control';
+import { Injectable, OnDestroy } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { CapacityRangeControl } from '../../../controls/capacity-range.control';
+import { AmPmCapacityControl } from '../controls/am-pm-capacity.control';
 
 @Injectable()
 export class OpCapacitiesStepAmPmCapacityFormService implements OnDestroy {
@@ -27,8 +27,10 @@ export class OpCapacitiesStepAmPmCapacityFormService implements OnDestroy {
     if (group.controls && Object.keys(group.controls).length) {
       const amControl = group.controls.amCapacity as AmPmCapacityControl;
       const pmControl = group.controls.pmCapacity as AmPmCapacityControl;
-      const validGroup = !!amControl.value || !!pmControl.value;
-      return validGroup ? null : {validGroup};
+      const validGroup = !amControl.value || !pmControl.value;
+      console.log(validGroup);
+
+      return validGroup ? null : { validGroup };
     }
   }
 
