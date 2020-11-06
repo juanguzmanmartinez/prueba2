@@ -20,7 +20,7 @@ export class OpCapacitiesStepAmPmCapacityFormService implements OnDestroy {
       amCapacity: this._amCapacityControl,
       pmCapacity: this._pmCapacityControl
     });
-    this.ampmCapacityForm.setValidators(this.ValidatorGroup);
+    // this.ampmCapacityForm.setValidators(this.ValidatorGroup);
   }
 
   ValidatorGroup(group: FormGroup) {
@@ -28,8 +28,6 @@ export class OpCapacitiesStepAmPmCapacityFormService implements OnDestroy {
       const amControl = group.controls.amCapacity as AmPmCapacityControl;
       const pmControl = group.controls.pmCapacity as AmPmCapacityControl;
       const validGroup = !amControl.value || !pmControl.value;
-      console.log(validGroup);
-
       return validGroup ? null : { validGroup };
     }
   }
