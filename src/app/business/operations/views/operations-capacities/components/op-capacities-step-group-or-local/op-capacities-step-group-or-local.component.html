@@ -19,12 +19,15 @@
       </app-select-tab>
     </div>
     <div class="w-100">
-      <app-select [optionList]="groupOrLocalList"
-                  [selectValue]="groupOrLocalSelection"
-                  [selectPlaceholder]="'Elige un ' + groupOrLocalTabName[groupOrLocalTabSelection]"
-                  (optionSelected)="changeGroupOrLocalSelection($event)">
-        <ng-template let-option>{{groupOrLocalSelectionName(option)}}</ng-template>
-      </app-select>
+      <app-select-search [placeholder]="'Elige un ' + groupOrLocalTabName[groupOrLocalTabSelection]"
+                         [value]="groupOrLocalSelection"
+                         [optionList]="groupOrLocalList"
+                         (optionSelected)="changeGroupOrLocalSelection($event)">
+        <ng-template #optionSelectedTemplate
+                     let-optionSelected>{{groupOrLocalSelectionName(optionSelected)}}</ng-template>
+        <ng-template #optionTemplate
+                     let-option>{{groupOrLocalSelectionName(option)}}</ng-template>
+      </app-select-search>
     </div>
   </div>
 </app-step>

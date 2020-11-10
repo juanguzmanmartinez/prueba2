@@ -1,13 +1,16 @@
 <section class="op-capacities-home-local-capacity">
   <div class="row mb-6">
     <div class="col-12">
-      <app-select class="local-capacity-select"
-                  selectPlaceholder="Elije un local"
-                  [selectValue]="capacitiesLocalSelection"
-                  [optionList]="capacitiesLocalList"
-                  (optionSelected)="changeCapacitiesLocalSelection($event)">
-        <ng-template let-option>{{option.localCode}} {{option.name}}</ng-template>
-      </app-select>
+      <app-select-search class="local-capacity-select"
+                         placeholder="Elije un local"
+                         [value]="capacitiesLocalSelection"
+                         [optionList]="capacitiesLocalList"
+                         (optionSelected)="changeCapacitiesLocalSelection($event)">
+        <ng-template #optionSelectedTemplate
+                     let-optionSelected>{{optionSelected?.localCode}} {{optionSelected?.name}}</ng-template>
+        <ng-template #optionTemplate
+                     let-option>{{option.localCode}} {{option.name}}</ng-template>
+      </app-select-search>
     </div>
   </div>
 

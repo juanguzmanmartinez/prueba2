@@ -1,15 +1,16 @@
-<div class="select" [formGroup]="selectFormGroup">
+<div class="select">
   <mat-select
     disableRipple
     disableOptionCentering
     panelClass="select-component"
-    [formControlName]="selectFormControlName"
-    [placeholder]="selectPlaceholder"
-    (selectionChange)="selectionChange()">
+    [disabled]="selectDisabled"
+    [placeholder]="placeholder"
+    [value]="value"
+    (valueChange)="selectionChange($event)">
 
     <div class="option-container">
       <mat-option class="select-basic-option select-basic-option-clear"
-                  *ngIf="selectClearValue">{{selectClearValue}}</mat-option>
+                  *ngIf="clearValue">{{clearValue}}</mat-option>
       <mat-option
         class="select-basic-option"
         *ngFor="let option of optionList"
