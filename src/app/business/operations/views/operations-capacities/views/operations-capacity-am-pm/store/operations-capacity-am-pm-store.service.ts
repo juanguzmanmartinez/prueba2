@@ -1,23 +1,23 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {BehaviorSubject, Observable, Subscription} from 'rxjs';
-import {OperationsCapacitiesImplementService} from '../../../services/operations-capacities-implement.service';
-import {ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService} from '../../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
-import {ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService} from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { OperationsCapacitiesImplementService } from '../../../services/operations-capacities-implement.service';
+import { ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService } from '../../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
+import { ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService } from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import {
   ECapacitiesStepAmPmCapacity,
   OpCapacitiesStepAmPmCapacityService
 } from '../../../components/op-capacities-step-am-pm-capacity/op-capacities-step-am-pm-capacity.service';
-import {ECapacityStepStatus} from '../../../models/operations-capacity-step-status.model';
-import {ICustomSelectOption} from '../../../../../../../commons/interfaces/custom-controls.interface';
-import {AlertService} from '../../../../../../../commons/molecules/alert/alert.service';
-import {ICapacityStepAmPmCapacitySegments} from '../../../components/op-capacities-step-am-pm-capacity/models/op-capacities-step-am-pm-capacity.model';
-import {ToCapacityStepAmPmCapacitySegments} from '../../../models/operations-capacity-converter.model';
-import {ICalendarUpdateRequestParams} from '../../../../../../../shared/models/calendar/capacity.model';
-import {getDaysRangeBetweenDates} from '../../../../../../../shared/helpers/dates.helper';
-import {capacityAlertSuccessMessage} from '../../../parameters/operations-capacities-alert-message.parameter';
-import {ECapacitiesServiceType} from '../../../../../../../shared/models/capacities/capacities-service-type.model';
-import {EChannel} from '../../../../../../../shared/models/channel/channel.model';
-import {CapacitiesServiceType} from '../../../models/operations-capacities-responses.model';
+import { ECapacityStepStatus } from '../../../models/operations-capacity-step-status.model';
+import { ICustomSelectOption } from '../../../../../../../commons/interfaces/custom-controls.interface';
+import { AlertService } from '../../../../../../../commons/molecules/alert/alert.service';
+import { ICapacityStepAmPmCapacitySegments } from '../../../components/op-capacities-step-am-pm-capacity/models/op-capacities-step-am-pm-capacity.model';
+import { CapacityRangeLimit, ToCapacityStepAmPmCapacitySegments } from '../../../models/operations-capacity-converter.model';
+import { ICalendarUpdateRequestParams } from '../../../../../../../shared/models/calendar/capacity.model';
+import { getDaysRangeBetweenDates } from '../../../../../../../shared/helpers/dates.helper';
+import { capacityAlertSuccessMessage } from '../../../parameters/operations-capacities-alert-message.parameter';
+import { ECapacitiesServiceType } from '../../../../../../../shared/models/capacities/capacities-service-type.model';
+import { EChannel } from '../../../../../../../shared/models/channel/channel.model';
+import { CapacitiesServiceType } from '../../../models/operations-capacities-responses.model';
 
 
 @Injectable()
@@ -149,6 +149,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   }
 
   editionModeAndCapacity(capacitiesServiceType: CapacitiesServiceType) {
+    this._opCapacitiesStepAmPmCapacity.amPmCapacityRangeLimit = new CapacityRangeLimit(capacitiesServiceType);
     this._opCapacitiesStepAmPmCapacity.amPmCapacitySegments = new ToCapacityStepAmPmCapacitySegments(capacitiesServiceType);
     this._opCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.open;
 

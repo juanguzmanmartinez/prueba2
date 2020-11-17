@@ -3,11 +3,11 @@
 
   <ng-container *ngIf="!showSearchInput">
     <span *ngIf="placeholder && !_optionSelected"
-          class="select-search-span text-gray-4">
+          class="select-search-span text-truncate text-gray-4">
       {{placeholder}}
     </span>
 
-    <span class="select-search-span"
+    <span class="select-search-span text-truncate"
           *ngIf="_optionSelected">
       <ng-container *ngIf="!optionSelectedTemplate">{{_optionSelected}}</ng-container>
       <ng-container [ngTemplateOutlet]="optionSelectedTemplate"

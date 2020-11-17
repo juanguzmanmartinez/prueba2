@@ -10,7 +10,7 @@ import {
 import { ECapacityStepStatus } from '../../../models/operations-capacity-step-status.model';
 import { ICustomSelectOption } from '../../../../../../../commons/interfaces/custom-controls.interface';
 import { AlertService } from '../../../../../../../commons/molecules/alert/alert.service';
-import { ToCapacityStepScheduledCapacitySegments } from '../../../models/operations-capacity-converter.model';
+import { CapacityRangeLimit, ToCapacityStepScheduledCapacitySegments } from '../../../models/operations-capacity-converter.model';
 import { ICalendarUpdateRequestParams } from '../../../../../../../shared/models/calendar/capacity.model';
 import { getDaysRangeBetweenDates } from '../../../../../../../shared/helpers/dates.helper';
 import { ICapacityStepCapacityTableSegments } from '../../../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
@@ -157,6 +157,7 @@ export class OperationsCapacityScheduledStoreService implements OnDestroy {
   }
 
   editionModeAndCapacity(capacitiesServiceType: CapacitiesServiceType) {
+    this._opCapacitiesStepScheduledCapacity.capacityTableRangeLimit = new CapacityRangeLimit(capacitiesServiceType);
     this._opCapacitiesStepScheduledCapacity.capacityTableSegments = new ToCapacityStepScheduledCapacitySegments(capacitiesServiceType);
     this._opCapacitiesStepScheduledCapacity.capacityTableStepStatus = ECapacityStepStatus.open;
 

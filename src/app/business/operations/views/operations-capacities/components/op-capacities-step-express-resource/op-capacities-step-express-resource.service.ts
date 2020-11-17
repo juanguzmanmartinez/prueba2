@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
-import {ICapacityStepExpressResourceSegments} from './models/op-capacities-step-express-resource.model';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
+import { ICapacityStepExpressResourceSegments } from './models/op-capacities-step-express-resource.model';
+import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 
 
 export enum ECapacitiesStepExpressResource {
@@ -15,6 +16,7 @@ export class OpCapacitiesStepExpressResourceService {
 
   private expressResourceFormViewSubject = new BehaviorSubject<ECapacitiesStepExpressResource>(ECapacitiesStepExpressResource.daysRange);
   private expressResourceSegmentsSubject = new BehaviorSubject<ICapacityStepExpressResourceSegments>(null);
+  private expressResourceRangeLimitSubject = new BehaviorSubject<CapacityRangeLimit>(null);
 
   private expressResourceStepStatusSubject = new BehaviorSubject<ECapacityStepStatus>(null);
   private expressResourceResetStepStatusSubject = new BehaviorSubject<boolean>(null);
@@ -59,6 +61,15 @@ export class OpCapacitiesStepExpressResourceService {
 
   set expressResourceSegments(capacitySegments: ICapacityStepExpressResourceSegments) {
     this.expressResourceSegmentsSubject.next(capacitySegments);
+  }
+
+  get expressResourceRangeLimit$(): Observable<CapacityRangeLimit> {
+    return this.expressResourceRangeLimitSubject.asObservable()
+      .pipe(filter((value) => !!value));
+  }
+
+  set expressResourceRangeLimit(capacityRangeLimit: CapacityRangeLimit) {
+    this.expressResourceRangeLimitSubject.next(capacityRangeLimit);
   }
 
   get expressResourceCancel$(): Observable<boolean> {

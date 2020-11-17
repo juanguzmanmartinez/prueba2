@@ -1,11 +1,12 @@
 import {
   ICapacityStepAmPmCapacitySegment, ICapacityStepAmPmCapacitySegments,
 } from '../components/op-capacities-step-am-pm-capacity/models/op-capacities-step-am-pm-capacity.model';
-import {ICapacityStepExpressResourceSegments} from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';
+import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';
 import {
   ICapacityStepCapacityTableSegments
 } from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
-import {CapacitiesServiceType} from './operations-capacities-responses.model';
+import { CapacitiesServiceType } from './operations-capacities-responses.model';
+import { IDatepickerRange } from '../../../../../commons/core-components/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
 
 
 export class ToCapacityStepAmPmCapacitySegments implements ICapacityStepAmPmCapacitySegments {
@@ -48,4 +49,14 @@ export class ToCapacityStepRetCapacitySegments extends ToCapacityStepScheduledCa
     super(capacitiesServiceType);
   }
 
+}
+
+export class CapacityRangeLimit implements IDatepickerRange {
+  endDate: string;
+  startDate: string;
+
+  constructor(capacitiesServiceType: CapacitiesServiceType) {
+    this.startDate = capacitiesServiceType.startDay;
+    this.endDate = capacitiesServiceType.endDay;
+  }
 }

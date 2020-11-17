@@ -1,14 +1,15 @@
-import {Component, OnDestroy, OnInit, Optional, SkipSelf} from '@angular/core';
-import {OpCapacitiesStepCapacityTableFormService} from '../op-capacities-step-capacity-table-form/form/op-capacities-step-capacity-table-form.service';
-import {ECapacitiesStepCapacityTable, OpCapacitiesStepCapacityTableService} from './op-capacities-step-capacity-table.service';
-import {Subscription} from 'rxjs';
-import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
+import { Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
+import { OpCapacitiesStepCapacityTableFormService } from '../op-capacities-step-capacity-table-form/form/op-capacities-step-capacity-table-form.service';
+import { ECapacitiesStepCapacityTable, OpCapacitiesStepCapacityTableService } from './op-capacities-step-capacity-table.service';
+import { Subscription } from 'rxjs';
+import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
 import * as moment from 'moment';
 import {
   FromFormToCapacityStepCapacityTableSegments,
   ICapacityStepCapacityTableFormValue,
   ICapacityStepCapacityTableSegments
 } from './models/op-capacities-step-capacity-table.model';
+import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 
 @Component({
   selector: 'app-op-capacities-step-capacity-table',
@@ -28,6 +29,7 @@ export class OpCapacitiesStepCapacityTableComponent implements OnInit, OnDestroy
   public capacityTableStepStatus: ECapacityStepStatus = ECapacityStepStatus.disabled;
 
   public capacityTableDateRange: boolean;
+  public capacityTableMinDateRange: moment.Moment = moment();
   public capacityTableMaxDateRange: moment.Moment = moment().add(2, 'M');
   public capacityTableSegments: ICapacityStepCapacityTableSegments;
 
@@ -40,6 +42,7 @@ export class OpCapacitiesStepCapacityTableComponent implements OnInit, OnDestroy
   ngOnInit(): void {
     this.updateCapacityTableFormView();
     this.updateCapacityTableSegments();
+    this.updateCapacityTableRangeLimit();
     this.resetCapacityTableStep();
     this.updateCapacityTableStepStatus();
   }
@@ -109,6 +112,21 @@ export class OpCapacitiesStepCapacityTableComponent implements OnInit, OnDestroy
             this._opCapacitiesStepCapacityTableForm.capacitySegmentList.push(capacitySegmentListGroup);
           });
           this._opCapacitiesStepCapacityTableForm.capacitySegmentList.patchValue(capacityTableSegments.capacitySegmentList);
+        }
+      });
+    this.subscriptions.push(subscription);
+  }
+
+  updateCapacityTableRangeLimit() {
+    const subscription = this._opCapacitiesStepCapacityTable.capacityTableRangeLimit$
+      .subscribe((capacityRangeLimit: CapacityRangeLimit) => {
+        const minDate = moment(capacityRangeLimit.startDate, 'YYYY-MM-DD');
+        const maxDate = moment(capacityRangeLimit.endDate, 'YYYY-MM-DD');
+        if (minDate.isValid()) {
+          this.capacityTableMinDateRange = minDate;
+        }
+        if (maxDate.isValid()) {
+          this.capacityTableMaxDateRange = moment(capacityRangeLimit.endDate, 'YYYY-MM-DD');
         }
       });
     this.subscriptions.push(subscription);

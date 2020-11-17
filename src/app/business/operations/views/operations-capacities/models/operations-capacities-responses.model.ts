@@ -42,6 +42,8 @@ export class CapacitiesServiceType extends ServiceType {
     this.segmentList = currentValue.segments ? currentValue.segments
       .map((iServiceTypeSegment) => new CapacityServiceTypeSegment(iServiceTypeSegment)) : [];
     this.serviceTypeCode = currentValue.serviceTypeCode || '';
+    this.startDay = store.startDay || '';
+    this.endDay = store.endDay || '';
   }
 
 }

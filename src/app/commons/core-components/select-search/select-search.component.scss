@@ -33,6 +33,7 @@ $select-input-height: 38px;
     padding: 12px 34px 12px 16px;
     @extend .text-label;
     z-index: 1;
+    width: 100%;
   }
 
   .select-search-icon {

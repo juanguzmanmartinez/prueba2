@@ -1,10 +1,11 @@
-import {Component, OnDestroy, OnInit, Optional, SkipSelf} from '@angular/core';
-import {ECapacitiesStepExpressResource, OpCapacitiesStepExpressResourceService} from './op-capacities-step-express-resource.service';
-import {OpCapacitiesStepExpressResourceFormService} from './form/op-capacities-step-express-resource-form.service';
+import { Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
+import { ECapacitiesStepExpressResource, OpCapacitiesStepExpressResourceService } from './op-capacities-step-express-resource.service';
+import { OpCapacitiesStepExpressResourceFormService } from './form/op-capacities-step-express-resource-form.service';
 import * as moment from 'moment';
-import {Subscription} from 'rxjs';
-import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
-import {FromFormToCapacityStepExpressResourceSegments, ICapacityStepExpressResourceSegments} from './models/op-capacities-step-express-resource.model';
+import { Subscription } from 'rxjs';
+import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
+import { FromFormToCapacityStepExpressResourceSegments, ICapacityStepExpressResourceSegments } from './models/op-capacities-step-express-resource.model';
+import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 
 @Component({
   selector: 'app-operations-capacities-step-express-resources',
@@ -25,6 +26,8 @@ export class OpCapacitiesStepExpressResourceComponent implements OnInit, OnDestr
 
 
   public expressResourceDateRange: boolean;
+
+  public expressResourceMinDateRange: moment.Moment = moment();
   public expressResourceMaxDateRange: moment.Moment = moment().add(2, 'M');
   public expressResourceSegments: ICapacityStepExpressResourceSegments;
 
@@ -37,6 +40,7 @@ export class OpCapacitiesStepExpressResourceComponent implements OnInit, OnDestr
   ngOnInit(): void {
     this.updateExpressResourceFormView();
     this.updateExpressResourceSegments();
+    this.updateExpressResourceRangeLimit();
     this.resetExpressResourceStep();
     this.updateExpressResourceStepStatus();
   }
@@ -93,6 +97,21 @@ export class OpCapacitiesStepExpressResourceComponent implements OnInit, OnDestr
         this.expressResourceSegments = expressResourceSegments;
         if (expressResourceSegments) {
           this._opCapacitiesStepExpressResourceForm.expressResource.setValue(expressResourceSegments.expressResource);
+        }
+      });
+    this.subscriptions.push(subscription);
+  }
+
+  updateExpressResourceRangeLimit() {
+    const subscription = this._opCapacitiesStepExpressResource.expressResourceRangeLimit$
+      .subscribe((capacityRangeLimit: CapacityRangeLimit) => {
+        const minDate = moment(capacityRangeLimit.startDate, 'YYYY-MM-DD');
+        const maxDate = moment(capacityRangeLimit.endDate, 'YYYY-MM-DD');
+        if (minDate.isValid()) {
+          this.expressResourceMinDateRange = minDate;
+        }
+        if (maxDate.isValid()) {
+          this.expressResourceMaxDateRange = moment(capacityRangeLimit.endDate, 'YYYY-MM-DD');
         }
       });
     this.subscriptions.push(subscription);

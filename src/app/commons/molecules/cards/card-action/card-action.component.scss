@@ -8,7 +8,11 @@
   border-radius: 8px;
   cursor: pointer;
   box-shadow: none;
-  @extend .d-flex-vertical-center;
+  height: 100%;
+
+  .card-action-container {
+    @extend .d-flex-vertical-center;
+  }
 
   &:hover {
     box-shadow: 0 20px 40px rgba(9, 39, 85, 0.08);

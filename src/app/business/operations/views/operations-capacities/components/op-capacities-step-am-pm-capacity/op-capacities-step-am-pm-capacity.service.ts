@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
-import {ICapacityStepAmPmCapacitySegments} from './models/op-capacities-step-am-pm-capacity.model';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
+import { ICapacityStepAmPmCapacitySegments } from './models/op-capacities-step-am-pm-capacity.model';
+import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 
 
 export enum ECapacitiesStepAmPmCapacity {
@@ -15,6 +16,7 @@ export class OpCapacitiesStepAmPmCapacityService {
 
   private amPmCapacityFormViewSubject = new BehaviorSubject<ECapacitiesStepAmPmCapacity>(ECapacitiesStepAmPmCapacity.daysRange);
   private amPmCapacitySegmentsSubject = new BehaviorSubject<ICapacityStepAmPmCapacitySegments>(null);
+  private amPmCapacityRangeLimitSubject = new BehaviorSubject<CapacityRangeLimit>(null);
 
   private amPmCapacityStepStatusSubject = new BehaviorSubject<ECapacityStepStatus>(null);
   private amPmCapacityResetStepStatusSubject = new BehaviorSubject<boolean>(null);
@@ -59,6 +61,15 @@ export class OpCapacitiesStepAmPmCapacityService {
 
   set amPmCapacitySegments(capacitySegments: ICapacityStepAmPmCapacitySegments) {
     this.amPmCapacitySegmentsSubject.next(capacitySegments);
+  }
+
+  get amPmCapacityRangeLimit$(): Observable<CapacityRangeLimit> {
+    return this.amPmCapacityRangeLimitSubject.asObservable()
+      .pipe(filter((value) => !!value));
+  }
+
+  set amPmCapacityRangeLimit(capacityRangeLimit: CapacityRangeLimit) {
+    this.amPmCapacityRangeLimitSubject.next(capacityRangeLimit);
   }
 
   get amPmCapacityCancel$(): Observable<boolean> {

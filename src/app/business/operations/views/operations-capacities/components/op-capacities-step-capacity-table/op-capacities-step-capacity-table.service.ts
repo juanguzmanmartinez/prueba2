@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
-import {ICapacityStepCapacityTableSegments} from './models/op-capacities-step-capacity-table.model';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
+import { ICapacityStepCapacityTableSegments } from './models/op-capacities-step-capacity-table.model';
+import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 
 
 export enum ECapacitiesStepCapacityTable {
@@ -15,6 +16,7 @@ export class OpCapacitiesStepCapacityTableService {
 
   private capacityTableFormViewSubject = new BehaviorSubject<ECapacitiesStepCapacityTable>(ECapacitiesStepCapacityTable.daysRange);
   private capacityTableSegmentsSubject = new BehaviorSubject<ICapacityStepCapacityTableSegments>(null);
+  private capacityTableRangeLimitSubject = new BehaviorSubject<CapacityRangeLimit>(null);
 
   private capacityTableStepStatusSubject = new BehaviorSubject<ECapacityStepStatus>(null);
   private capacityTableResetStepStatusSubject = new BehaviorSubject<boolean>(null);
@@ -59,6 +61,15 @@ export class OpCapacitiesStepCapacityTableService {
 
   set capacityTableSegments(capacitySegments: ICapacityStepCapacityTableSegments) {
     this.capacityTableSegmentsSubject.next(capacitySegments);
+  }
+
+  get capacityTableRangeLimit$(): Observable<CapacityRangeLimit> {
+    return this.capacityTableRangeLimitSubject.asObservable()
+      .pipe(filter((value) => !!value));
+  }
+
+  set capacityTableRangeLimit(capacityRangeLimit: CapacityRangeLimit) {
+    this.capacityTableRangeLimitSubject.next(capacityRangeLimit);
   }
 
   get capacityTableCancel$(): Observable<boolean> {

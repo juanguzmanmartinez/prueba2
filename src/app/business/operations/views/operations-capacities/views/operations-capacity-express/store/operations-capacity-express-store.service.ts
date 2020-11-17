@@ -5,7 +5,7 @@ import { ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService } from '
 import { ECapacityStepStatus } from '../../../models/operations-capacity-step-status.model';
 import { ICustomSelectOption } from '../../../../../../../commons/interfaces/custom-controls.interface';
 import { AlertService } from '../../../../../../../commons/molecules/alert/alert.service';
-import { ToCapacityStepExpressResourceSegments } from '../../../models/operations-capacity-converter.model';
+import { CapacityRangeLimit, ToCapacityStepExpressResourceSegments } from '../../../models/operations-capacity-converter.model';
 import { ICalendarUpdateRequestParams } from '../../../../../../../shared/models/calendar/capacity.model';
 import { getDaysRangeBetweenDates } from '../../../../../../../shared/helpers/dates.helper';
 
@@ -158,6 +158,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
   }
 
   editionModeAndCapacity(capacitiesServiceType: CapacitiesServiceType) {
+    this._opCapacitiesStepExpressResource.expressResourceRangeLimit = new CapacityRangeLimit(capacitiesServiceType);
     this._opCapacitiesStepExpressResource.expressResourceSegments = new ToCapacityStepExpressResourceSegments(capacitiesServiceType);
     this._opCapacitiesStepExpressResource.expressResourceStepStatus = ECapacityStepStatus.open;
 

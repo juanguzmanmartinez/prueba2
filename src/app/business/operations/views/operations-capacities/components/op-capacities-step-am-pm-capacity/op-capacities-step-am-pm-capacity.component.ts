@@ -1,10 +1,11 @@
-import {Component, OnDestroy, OnInit, Optional, SkipSelf} from '@angular/core';
-import {ECapacitiesStepAmPmCapacity, OpCapacitiesStepAmPmCapacityService} from './op-capacities-step-am-pm-capacity.service';
-import {OpCapacitiesStepAmPmCapacityFormService} from './form/op-capacities-step-am-pm-capacity-form.service';
-import {Subscription} from 'rxjs';
+import { Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
+import { ECapacitiesStepAmPmCapacity, OpCapacitiesStepAmPmCapacityService } from './op-capacities-step-am-pm-capacity.service';
+import { OpCapacitiesStepAmPmCapacityFormService } from './form/op-capacities-step-am-pm-capacity-form.service';
+import { Subscription } from 'rxjs';
 import * as moment from 'moment';
-import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
-import {ICapacityStepAmPmCapacityFormValue, ICapacityStepAmPmCapacitySegments, FromFormToCapacityStepAmPmCapacitySegments} from './models/op-capacities-step-am-pm-capacity.model';
+import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
+import { ICapacityStepAmPmCapacityFormValue, ICapacityStepAmPmCapacitySegments, FromFormToCapacityStepAmPmCapacitySegments } from './models/op-capacities-step-am-pm-capacity.model';
+import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 
 @Component({
   selector: 'app-op-capacities-step-am-pm-capacity',
@@ -24,6 +25,7 @@ export class OpCapacitiesStepAmPmCapacityComponent implements OnInit, OnDestroy 
   public amPmCapacityStepStatus: ECapacityStepStatus = ECapacityStepStatus.disabled;
 
   public ampmCapacityDateRange: boolean;
+  public ampmCapacityMinDateRange: moment.Moment = moment();
   public ampmCapacityMaxDateRange: moment.Moment = moment().add(2, 'M');
   public ampmCapacitySegments: ICapacityStepAmPmCapacitySegments;
 
@@ -36,6 +38,7 @@ export class OpCapacitiesStepAmPmCapacityComponent implements OnInit, OnDestroy 
   ngOnInit(): void {
     this.updateAmPmCapacityFormView();
     this.updateAmPmCapacitySegments();
+    this.updateAmPmCapacityRangeLimit();
     this.resetAmPmCapacityStep();
     this.updateAmPmCapacityStepStatus();
   }
@@ -97,6 +100,21 @@ export class OpCapacitiesStepAmPmCapacityComponent implements OnInit, OnDestroy 
         }
         if (amPmCapacitySegments && amPmCapacitySegments.pmSegment) {
           this._opCapacitiesStepAmPmCapacityForm.pmCapacity.setValue(amPmCapacitySegments.pmSegment.segmentCapacity);
+        }
+      });
+    this.subscriptions.push(subscription);
+  }
+
+  updateAmPmCapacityRangeLimit() {
+    const subscription = this._opCapacitiesStepAmPmCapacity.amPmCapacityRangeLimit$
+      .subscribe((capacityRangeLimit: CapacityRangeLimit) => {
+        const minDate = moment(capacityRangeLimit.startDate, 'YYYY-MM-DD');
+        const maxDate = moment(capacityRangeLimit.endDate, 'YYYY-MM-DD');
+        if (minDate.isValid()) {
+          this.ampmCapacityMinDateRange = minDate;
+        }
+        if (maxDate.isValid()) {
+          this.ampmCapacityMaxDateRange = moment(capacityRangeLimit.endDate, 'YYYY-MM-DD');
         }
       });
     this.subscriptions.push(subscription);
