@@ -9,6 +9,7 @@ export class AmPmCapacityControl extends FormControl {
 
   private settingValidators() {
     this.setValidators([
+      Validators.required,
       Validators.minLength(1),
       GenericValidator.validateNumberMaxLength(5)
     ]);
