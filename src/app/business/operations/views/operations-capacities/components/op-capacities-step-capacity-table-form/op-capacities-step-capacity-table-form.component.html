@@ -15,6 +15,7 @@
 
         <div class="col-8 mb-5">
           <app-button-outline [buttonDisabled]="_opCapacitiesStepCapacityTableForm.capacityForSelection.value === null ||
+                                                _opCapacitiesStepCapacityTableForm.capacityForSelection.invalid ||
                                                 !capacityTableSelection.selected.length"
                               (click)="applyCapacity()">
             Aplicar a selección
@@ -53,7 +54,7 @@
           <th mat-header-cell *matHeaderCellDef>Capacidad</th>
           <td mat-cell *matCellDef="let element; let index = index" [formGroupName]="index">
             <app-input-number class="capacity-table-input"
-              formControlName="segmentCapacity"
+                              formControlName="segmentCapacity"
                               inputPlaceholder="10"
                               (click)="$event.stopPropagation()">
             </app-input-number>

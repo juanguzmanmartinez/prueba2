@@ -8,7 +8,7 @@ export class OpCapacitiesStepCapacityTableFormService implements OnDestroy {
   private readonly capacityTableForm: FormGroup;
 
   private _capacityRangeControl: CapacityRangeControl = new CapacityRangeControl();
-  private _capacityForSelectionControl: FormControl = new FormControl(null);
+  private _capacityForSelectionControl: FormControl = new CapacityQuantityControl();
   private _capacitySegmentListArray: FormArray = new FormArray([]);
 
   constructor(

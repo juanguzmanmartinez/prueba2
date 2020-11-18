@@ -1,4 +1,5 @@
-import {FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
+import { GenericValidator } from '../../../../../../../commons/validators/generic-validator';
 
 export class CapacityQuantityControl extends FormControl {
   constructor() {
@@ -9,6 +10,7 @@ export class CapacityQuantityControl extends FormControl {
   private settingValidators() {
     this.setValidators([
       Validators.required,
+      GenericValidator.validateNumberMaxLength(5)
     ]);
   }
 }

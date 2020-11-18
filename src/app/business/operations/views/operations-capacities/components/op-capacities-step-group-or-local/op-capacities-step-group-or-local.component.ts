@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit, Optional, SkipSelf} from '@angular/core';
-import {CCapacityStepGroupOrLocalName, ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService} from './op-capacities-step-group-or-local.service';
-import {Subscription} from 'rxjs';
-import {ICustomSelectOption} from '../../../../../../commons/interfaces/custom-controls.interface';
-import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
+import { Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
+import { CCapacityStepGroupOrLocalName, ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService } from './op-capacities-step-group-or-local.service';
+import { Subscription } from 'rxjs';
+import { ICustomSelectOption } from '../../../../../../commons/interfaces/custom-controls.interface';
+import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
 
 @Component({
   selector: 'app-op-capacities-step-group-or-local',
@@ -21,6 +21,7 @@ export class OpCapacitiesStepGroupOrLocalComponent implements OnInit, OnDestroy 
   public groupOrLocalTabReadonly = true;
 
   public groupOrLocalList: ICustomSelectOption[] = [] as ICustomSelectOption[];
+  public groupOrLocalSavedSelection: ICustomSelectOption;
   public groupOrLocalSelection: ICustomSelectOption;
   public groupOrLocalStepDescription: string;
 
@@ -33,6 +34,7 @@ export class OpCapacitiesStepGroupOrLocalComponent implements OnInit, OnDestroy 
 
   ngOnInit(): void {
     this.groupOrLocalTabSelection = this._opCapacitiesStepGroupOrLocal.defaultGroupOrLocalTabSelection;
+    this.groupOrLocalSavedSelection = this._opCapacitiesStepGroupOrLocal.defaultGroupOrLocalSelection;
     this.groupOrLocalSelection = this._opCapacitiesStepGroupOrLocal.defaultGroupOrLocalSelection;
 
     this.updateGroupOrLocalList();
@@ -50,6 +52,7 @@ export class OpCapacitiesStepGroupOrLocalComponent implements OnInit, OnDestroy 
 
   closeGroupOrLocalStep() {
     this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = this.eCapacityStepStatus.close;
+    this.groupOrLocalSelection = this.groupOrLocalSavedSelection;
   }
 
   updateEditionModeStepStatus() {
@@ -92,11 +95,16 @@ export class OpCapacitiesStepGroupOrLocalComponent implements OnInit, OnDestroy 
     // reset
     this.groupOrLocalTabReadonly = false;
     this.groupOrLocalSelection = null;
+    this.groupOrLocalSavedSelection = null;
     this.groupOrLocalStepDescription = null;
   }
 
   saveGroupOrLocal() {
-    this._opCapacitiesStepGroupOrLocal.groupOrLocalSave = this.groupOrLocalSelection;
+    this.groupOrLocalSavedSelection = this.groupOrLocalSelection;
+    this._opCapacitiesStepGroupOrLocal.groupOrLocalSave = this.groupOrLocalSavedSelection;
+    if (this.groupOrLocalSavedSelection) {
+      this.groupOrLocalStepDescription = this.groupOrLocalSelectionName(this.groupOrLocalSavedSelection);
+    }
   }
 
   cancelGroupOrLocal() {
@@ -117,9 +125,6 @@ export class OpCapacitiesStepGroupOrLocalComponent implements OnInit, OnDestroy 
 
   changeGroupOrLocalSelection(value: ICustomSelectOption) {
     this.groupOrLocalSelection = value;
-    if (this.groupOrLocalSelection) {
-      this.groupOrLocalStepDescription = this.groupOrLocalSelectionName(this.groupOrLocalSelection);
-    }
   }
 
   groupOrLocalSelectionName(option: ICustomSelectOption) {
