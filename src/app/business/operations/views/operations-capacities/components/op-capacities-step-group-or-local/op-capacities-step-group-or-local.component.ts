@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
 import { CCapacityStepGroupOrLocalName, ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService } from './op-capacities-step-group-or-local.service';
 import { Subscription } from 'rxjs';
 import { ICustomSelectOption } from '../../../../../../commons/interfaces/custom-controls.interface';
@@ -28,7 +28,8 @@ export class OpCapacitiesStepGroupOrLocalComponent implements OnInit, OnDestroy 
   private subscriptions: Subscription[] = [];
 
   constructor(
-    @Optional() @SkipSelf() private _opCapacitiesStepGroupOrLocal: OpCapacitiesStepGroupOrLocalService
+    @Optional() @SkipSelf() private _opCapacitiesStepGroupOrLocal: OpCapacitiesStepGroupOrLocalService,
+    private _changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
@@ -51,7 +52,9 @@ export class OpCapacitiesStepGroupOrLocalComponent implements OnInit, OnDestroy 
   }
 
   closeGroupOrLocalStep() {
-    this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = this.eCapacityStepStatus.close;
+    if (this.groupOrLocalStepStatus === this.eCapacityStepStatus.open) {
+      this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = this.eCapacityStepStatus.close;
+    }
     this.groupOrLocalSelection = this.groupOrLocalSavedSelection;
   }
 
@@ -60,6 +63,7 @@ export class OpCapacitiesStepGroupOrLocalComponent implements OnInit, OnDestroy 
       .subscribe((eCapacityStepStatus: ECapacityStepStatus) => {
         if (this.groupOrLocalStepStatus !== eCapacityStepStatus) {
           this.groupOrLocalStepStatus = eCapacityStepStatus;
+          this._changeDetectorRef.detectChanges();
         }
       });
     this.subscriptions.push(subscription);
@@ -87,6 +91,7 @@ export class OpCapacitiesStepGroupOrLocalComponent implements OnInit, OnDestroy 
 
       if (this._opCapacitiesStepGroupOrLocal.defaultGroupOrLocalSelectionSaved) {
         this.saveGroupOrLocal();
+        this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = this.eCapacityStepStatus.readonly;
       }
     }
   }

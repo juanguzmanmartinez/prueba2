@@ -50,6 +50,7 @@ export class OpCapacitiesStepEditionModeComponent implements OnInit, OnDestroy {
           if (this._opCapacitiesStepEditionMode.defaultEditionModeSelectionSaved && eCapacityStepStatus === ECapacityStepStatus.open) {
             this._opCapacitiesStepEditionMode.defaultEditionModeSelectionSaved = false;
             this.saveEditionMode();
+            this._opCapacitiesStepEditionMode.editionModeStepStatus = this.eCapacityStepStatus.readonly;
           }
 
           this._changeDetectorRef.detectChanges();

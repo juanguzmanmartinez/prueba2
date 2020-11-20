@@ -1,7 +1,7 @@
-<div class="steps">
+<div class="step" [class.step-disabled]="stepDisabled || stepReadonly">
   <mat-expansion-panel hideToggle
                        class="steps-panel"
-                       [disabled]="stepDisabled"
+                       [disabled]="stepDisabled || stepReadonly"
                        [(expanded)]="stepExpanded"
                        (opened)="stepOpenEvent.emit()"
                        (closed)="stepCloseEvent.emit()">
@@ -14,9 +14,11 @@
           <span class="step-header-title">{{stepTitle}}</span>
         </mat-panel-title>
         <mat-panel-description class="step-header-description-container"
-                               *ngIf="!stepExpanded && !stepDisabled && stepDescription">
+                               [class.step-header-description-container-readonly]="stepReadonly"
+                               *ngIf="!stepExpanded && stepDescription && (!stepDisabled || stepReadonly)">
           <span class="step-header-description text-truncate">{{stepDescription}}</span>
-          <app-icon iconClass="text-dark-primary"
+          <app-icon *ngIf="!stepReadonly"
+                    class="step-header-description-icon"
                     iconFontName="edit"
                     iconFontSize="24px"></app-icon>
         </mat-panel-description>

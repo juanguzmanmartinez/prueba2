@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {MatExpansionPanel} from '@angular/material/expansion';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-step',
@@ -12,6 +12,7 @@ export class StepComponent {
   @Input() stepDescription: string;
   @Input() stepId: number | string = 1;
   @Input() stepDisabled: boolean;
+  @Input() stepReadonly: boolean;
   @Input() stepEdit: boolean;
 
   @Input() cancelButtonText = 'Cancelar edición';

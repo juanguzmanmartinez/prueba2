@@ -56,7 +56,9 @@ export class CapacityRangeLimit implements IDatepickerRange {
   startDate: string;
 
   constructor(capacitiesServiceType: CapacitiesServiceType) {
-    this.startDate = capacitiesServiceType.startDay;
-    this.endDate = capacitiesServiceType.endDay;
+    if (capacitiesServiceType) {
+      this.startDate = capacitiesServiceType.startDay;
+      this.endDate = capacitiesServiceType.endDay;
+    }
   }
 }

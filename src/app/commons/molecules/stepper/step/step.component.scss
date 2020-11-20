@@ -2,7 +2,12 @@
 @import 'src/sass/utilities/text';
 @import 'src/sass/utilities/display';
 
-:host .steps {
+:host .step {
+  &.step-disabled {
+    pointer-events: none;
+
+  }
+
   .steps-panel {
     box-shadow: none;
     background-color: $white;
@@ -24,6 +29,7 @@
       .step-header-id {
         background-color: $gray-4;
       }
+
       .step-header-title {
         color: $gray-4;
       }
@@ -33,6 +39,7 @@
       .step-header-id {
         background-color: $primary;
       }
+
       .step-header-title {
         color: $primary;
       }
@@ -67,13 +74,21 @@
       justify-content: flex-end;
       margin-right: 0;
       max-width: 250px;
-      @extend .d-flex-vertical-center
+      @extend .d-flex-vertical-center;
+
+      &-readonly {
+        pointer-events: none;
+      }
     }
 
     .step-header-description {
       color: $dark-primary;
       margin-right: 8px;
       @extend .text-button
+    }
+
+    .step-header-description-icon {
+      color: $dark-primary;
     }
   }
 
@@ -92,7 +107,7 @@
       min-height: 70px;
     }
 
-    .step-body-actions{
+    .step-body-actions {
       border-top: 1px solid $gray-1;
       padding-top: 16px;
       @extend .d-flex-horizontal-end;

@@ -5,6 +5,7 @@
           [saveButtonDisabled]="!groupOrLocalSelection || groupOrLocalTabReadonly"
           [stepExpandedToggle]="groupOrLocalStepStatus === eCapacityStepStatus.open"
           [stepDisabled]="groupOrLocalStepStatus === eCapacityStepStatus.disabled"
+          [stepReadonly]="groupOrLocalStepStatus === eCapacityStepStatus.readonly"
           (stepOpenEvent)="openGroupOrLocalStep()"
           (stepCloseEvent)="closeGroupOrLocalStep()"
           (saveButtonEvent)="saveGroupOrLocal()"
