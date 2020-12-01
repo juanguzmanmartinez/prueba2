@@ -20,7 +20,6 @@ import { InputsModule } from '../../../../commons/core-components/inputs/inputs.
 import { ButtonsModule } from '../../../../commons/core-components/buttons/buttons.module';
 import { OpCapacitiesStepGroupOrLocalComponent } from './components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.component';
 import { OpCapacitiesStepEditionModeComponent } from './components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.component';
-import { OpCapacitiesStepAmPmCapacityComponent } from './components/op-capacities-step-am-pm-capacity/op-capacities-step-am-pm-capacity.component';
 import { OpCapacitiesStepCapacityTableComponent } from './components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.component';
 import { OpCapacitiesStepExpressResourceComponent } from './components/op-capacities-step-express-resource/op-capacities-step-express-resource.component';
 import { AlertModule } from '../../../../commons/molecules/alert/alert.module';
@@ -49,7 +48,6 @@ import { SelectSearchModule } from '../../../../commons/core-components/select-s
     OperationsCapacityHomeComponent,
     OpCapacitiesStepGroupOrLocalComponent,
     OpCapacitiesStepEditionModeComponent,
-    OpCapacitiesStepAmPmCapacityComponent,
     OpCapacitiesStepCapacityTableComponent,
     OpCapacitiesStepExpressResourceComponent,
     OpCapacitiesStepCapacityTableFormComponent,

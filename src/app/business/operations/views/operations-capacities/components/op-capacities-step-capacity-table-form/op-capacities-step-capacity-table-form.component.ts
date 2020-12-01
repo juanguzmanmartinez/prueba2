@@ -1,8 +1,8 @@
-import {Component, OnInit, Optional, SkipSelf} from '@angular/core';
-import {SelectionModel} from '@angular/cdk/collections';
-import {FormControl, FormGroup} from '@angular/forms';
-import {BehaviorSubject} from 'rxjs';
-import {OpCapacitiesStepCapacityTableFormService} from './form/op-capacities-step-capacity-table-form.service';
+import { Component, OnInit, Optional, SkipSelf } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { FormControl, FormGroup } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { OpCapacitiesStepCapacityTableFormService } from './form/op-capacities-step-capacity-table-form.service';
 
 @Component({
   selector: 'app-op-capacities-step-capacity-table-form',
@@ -22,7 +22,11 @@ export class OpCapacitiesStepCapacityTableFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.updateView();
+    this._opCapacitiesStepCapacityTableForm.capacitySegmentList.valueChanges
+      .subscribe(() => {
+        this.updateView();
+        this.capacityTableSelection.clear();
+      });
   }
 
   isAllSelected() {

@@ -20,8 +20,8 @@ export class ServiceTypeSegment {
   segmentCapacity: number;
   segmentHour: string;
   segmentValue: string;
-  segmentEnabled: boolean;
-  segmentOrders: number;
+  segmentEnabled?: boolean;
+  segmentOrders?: number;
 }
 
 export class ServiceType {

@@ -98,6 +98,8 @@ export class OpCapacitiesStepCapacityTableComponent implements OnInit, OnDestroy
     const subscription = this._opCapacitiesStepCapacityTable.capacityTableSegments$
       .subscribe((capacityTableSegments: ICapacityStepCapacityTableSegments) => {
         this.capacityTableSegments = capacityTableSegments;
+        this._opCapacitiesStepCapacityTableForm.capacitySegmentList.clear();
+
         if (capacityTableSegments && capacityTableSegments.capacitySegmentList) {
 
           capacityTableSegments.capacitySegmentList.forEach(segment => {
@@ -111,7 +113,6 @@ export class OpCapacitiesStepCapacityTableComponent implements OnInit, OnDestroy
 
             this._opCapacitiesStepCapacityTableForm.capacitySegmentList.push(capacitySegmentListGroup);
           });
-          this._opCapacitiesStepCapacityTableForm.capacitySegmentList.patchValue(capacityTableSegments.capacitySegmentList);
         }
       });
     this.subscriptions.push(subscription);

@@ -3,14 +3,11 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { OperationsCapacitiesImplementService } from '../../../services/operations-capacities-implement.service';
 import { ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService } from '../../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
 import { ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService } from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
-import {
-  ECapacitiesStepAmPmCapacity,
-  OpCapacitiesStepAmPmCapacityService
-} from '../../../components/op-capacities-step-am-pm-capacity/op-capacities-step-am-pm-capacity.service';
+import { ECapacitiesStepCapacityTable, OpCapacitiesStepCapacityTableService } from '../../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
 import { ECapacityStepStatus } from '../../../models/operations-capacity-step-status.model';
 import { ICustomSelectOption } from '../../../../../../../commons/interfaces/custom-controls.interface';
 import { AlertService } from '../../../../../../../commons/molecules/alert/alert.service';
-import { ICapacityStepAmPmCapacitySegments } from '../../../components/op-capacities-step-am-pm-capacity/models/op-capacities-step-am-pm-capacity.model';
+import { ICapacityStepCapacityTableSegments } from '../../../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 import { CapacityRangeLimit, ToCapacityStepAmPmCapacitySegments } from '../../../models/operations-capacity-converter.model';
 import { ICalendarUpdateRequestParams } from '../../../../../../../shared/models/calendar/capacity.model';
 import { getDaysRangeBetweenDates } from '../../../../../../../shared/helpers/dates.helper';
@@ -32,13 +29,13 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   private groupOrLocalTabSelection: ECapacityStepGroupOrLocal;
   private groupOrLocalSelection: ICustomSelectOption;
   private editionModeSelection: ECapacitiesStepEditionMode;
-  private amPmCapacitySelection: ICapacityStepAmPmCapacitySegments;
+  private amPmCapacitySelection: ICapacityStepCapacityTableSegments;
 
   constructor(
     private _operationsCapacityImplement: OperationsCapacitiesImplementService,
     private _opCapacitiesStepGroupOrLocal: OpCapacitiesStepGroupOrLocalService,
     private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
-    private _opCapacitiesStepAmPmCapacity: OpCapacitiesStepAmPmCapacityService,
+    private _opCapacitiesStepAmPmCapacity: OpCapacitiesStepCapacityTableService,
     private  _alertService: AlertService,
   ) {
     this.groupOrLocalTab();
@@ -92,9 +89,9 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
       .subscribe((local: ICustomSelectOption) => {
         this.groupOrLocalSelection = local;
         this._opCapacitiesStepEditionMode.editionModeResetStepStatus = true;
-        this._opCapacitiesStepAmPmCapacity.amPmCapacityResetStepStatus = true;
+        this._opCapacitiesStepAmPmCapacity.capacityTableResetStepStatus = true;
         this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.open;
-        this._opCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.disabled;
+        this._opCapacitiesStepAmPmCapacity.capacityTableStepStatus = ECapacityStepStatus.disabled;
       });
 
     const subscriptionCancel = this._opCapacitiesStepGroupOrLocal.groupOrLocalCancel$
@@ -113,7 +110,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
     const subscriptionSave = this._opCapacitiesStepEditionMode.editionModeSave$
       .subscribe((editionMode: ECapacitiesStepEditionMode) => {
         this.editionModeSelection = editionMode;
-        this._opCapacitiesStepAmPmCapacity.amPmCapacityResetStepStatus = true;
+        this._opCapacitiesStepAmPmCapacity.capacityTableResetStepStatus = true;
         switch (editionMode) {
           case ECapacitiesStepEditionMode.calendar:
             this.editionModeAndGroupOrLocal();
@@ -149,16 +146,16 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   }
 
   editionModeAndCapacity(capacitiesServiceType: CapacitiesServiceType) {
-    this._opCapacitiesStepAmPmCapacity.amPmCapacityRangeLimit = new CapacityRangeLimit(capacitiesServiceType);
-    this._opCapacitiesStepAmPmCapacity.amPmCapacitySegments = new ToCapacityStepAmPmCapacitySegments(capacitiesServiceType);
-    this._opCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.open;
+    this._opCapacitiesStepAmPmCapacity.capacityTableRangeLimit = new CapacityRangeLimit(capacitiesServiceType);
+    this._opCapacitiesStepAmPmCapacity.capacityTableSegments = new ToCapacityStepAmPmCapacitySegments(capacitiesServiceType);
+    this._opCapacitiesStepAmPmCapacity.capacityTableStepStatus = ECapacityStepStatus.open;
 
     switch (this.editionModeSelection) {
       case ECapacitiesStepEditionMode.calendar:
-        this.amPmCapacityFormView(ECapacitiesStepAmPmCapacity.daysRange);
+        this.amPmCapacityFormView(ECapacitiesStepCapacityTable.daysRange);
         break;
       case ECapacitiesStepEditionMode.default:
-        this.amPmCapacityFormView(ECapacitiesStepAmPmCapacity.hourlyCapacity);
+        this.amPmCapacityFormView(ECapacitiesStepCapacityTable.hourlyCapacity);
         break;
     }
   }
@@ -173,21 +170,21 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
    * Step 3: Am Pm Capacity
    */
 
-  amPmCapacityFormView(eCapacitiesStepAmPmCapacity: ECapacitiesStepAmPmCapacity) {
-    this._opCapacitiesStepAmPmCapacity.amPmCapacityFormView = eCapacitiesStepAmPmCapacity;
+  amPmCapacityFormView(eCapacitiesStepAmPmCapacity: ECapacitiesStepCapacityTable) {
+    this._opCapacitiesStepAmPmCapacity.capacityTableFormView = eCapacitiesStepAmPmCapacity;
   }
 
 
   amPmCapacityActions() {
-    const subscriptionSave = this._opCapacitiesStepAmPmCapacity.amPmCapacitySave$
-      .subscribe((amPmCapacitySegments: ICapacityStepAmPmCapacitySegments) => {
+    const subscriptionSave = this._opCapacitiesStepAmPmCapacity.capacityTableSave$
+      .subscribe((amPmCapacitySegments: ICapacityStepCapacityTableSegments) => {
         this.amPmCapacitySelection = amPmCapacitySegments;
         this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.disabled;
         this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
         this.saveCapacityAmPm();
       });
 
-    const subscriptionCancel = this._opCapacitiesStepAmPmCapacity.amPmCapacityCancel$
+    const subscriptionCancel = this._opCapacitiesStepAmPmCapacity.capacityTableCancel$
       .subscribe(() => {
         this.operationsCapacityAmPmCancel = true;
       });
@@ -203,10 +200,16 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
     request.serviceTypeCode = this.amPmCapacityId;
     request.channel = this.amPmChannel;
     request.fulfillmentCenterCode = this.groupOrLocalSelection.fulfillmentCenterCode;
-    request.quantities = `${this.amPmCapacitySelection.amSegment.segmentCapacity},${this.amPmCapacitySelection.pmSegment.segmentCapacity}`;
-    request.hours = `${this.amPmCapacitySelection.amSegment.segmentValue},${this.amPmCapacitySelection.pmSegment.segmentValue}`;
+    request.quantities = this.amPmCapacitySelection?.capacitySegmentList ?
+      this.amPmCapacitySelection.capacitySegmentList
+        .map(segment => segment.segmentCapacity || 0).join(',') : '';
+    request.hours = this.amPmCapacitySelection?.capacitySegmentList ?
+      this.amPmCapacitySelection.capacitySegmentList
+        .map(segment => segment.segmentValue || '').join(',') : '';
     if (this.editionModeSelection === ECapacitiesStepEditionMode.calendar && this.amPmCapacitySelection?.capacityRange) {
-      request.days = getDaysRangeBetweenDates(this.amPmCapacitySelection.capacityRange.endDate, this.amPmCapacitySelection.capacityRange.startDate);
+      request.days = getDaysRangeBetweenDates(
+        this.amPmCapacitySelection.capacityRange.endDate,
+        this.amPmCapacitySelection.capacityRange.startDate);
     }
     if (this.groupOrLocalTabSelection === ECapacityStepGroupOrLocal.group) {
       request.filter = ECapacityStepGroupOrLocal.group;
@@ -245,7 +248,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
     const message = error && error.message ? error.message : 'Hubo un error';
     this._alertService.alertError(message);
 
-    this._opCapacitiesStepAmPmCapacity.amPmCapacityStepStatus = ECapacityStepStatus.disabled;
+    this._opCapacitiesStepAmPmCapacity.capacityTableStepStatus = ECapacityStepStatus.disabled;
     this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
     this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.open;
   }
