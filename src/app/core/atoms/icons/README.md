@@ -81,6 +81,7 @@ name | icon
 ![](src/assets/icons/truck.svg) | truck
 ![](src/assets/icons/search.svg) | search
 ![](src/assets/icons/datepicker.svg) | datepicker
+![](src/assets/icons/logo.svg) | logo
 ---------------------------------------|---------------------------
 ![](src/assets/illustrations/assigned-orders.svg) | assigned-orders
 ![](src/assets/illustrations/empty-orders-1.svg) | empty-orders-1

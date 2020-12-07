@@ -1,4 +1,4 @@
-import {IconsSvgModel} from '../models/icons-svg.model';
+import { IconsSvgModel } from '../models/icons-svg.model';
 
 const pathIcons = '../assets/icons/';
 const pathIllustrations = '../assets/illustrations/';
@@ -18,6 +18,7 @@ export const ICONS_SVG: Array<IconsSvgModel> = [
   {name: 'truck', path: `${pathIcons}truck.svg`},
   {name: 'search', path: `${pathIcons}search.svg`},
   {name: 'datepicker', path: `${pathIcons}datepicker.svg`},
+  {name: 'logo', path: `${pathIcons}logo.svg`},
   {name: 'assigned-orders', path: `${pathIllustrations}assigned-orders.svg`},
   {name: 'empty-orders-1', path: `${pathIllustrations}empty-orders-1.svg`},
   {name: 'empty-orders', path: `${pathIllustrations}empty-orders.svg`},

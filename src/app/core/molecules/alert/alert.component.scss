@@ -1,6 +1,6 @@
-@import 'src/sass/variables/colors';
-@import 'src/sass/utilities/display';
-@import 'src/sass/utilities/text';
+@import '~sass/variables/colors';
+@import '~sass/utilities/display';
+@import '~sass/utilities/text';
 
 ::ng-deep .mat-snack-bar-container.alert {
   padding: 0;

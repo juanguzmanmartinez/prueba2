@@ -1,6 +1,6 @@
-@import 'src/sass/variables/colors';
-@import 'src/sass/utilities/text';
-@import 'src/sass/utilities/display';
+@import '~sass/variables/colors';
+@import '~sass/utilities/text';
+@import '~sass/utilities/display';
 
 :host .step {
   &.step-disabled {

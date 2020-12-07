@@ -1,5 +1,5 @@
-@import "src/sass/variables";
-@import "src/sass/utilities/display";
+@import "~sass/variables";
+@import "~sass/utilities/display";
 
 :host {
   ::ng-deep .button.button-action-text {

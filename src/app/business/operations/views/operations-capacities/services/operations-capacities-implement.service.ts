@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ICustomSelectOption } from 'src/app/shared/interfaces/custom-controls.interface';
-import { LocalClientService } from 'src/app/shared/services/calendar/local-client.service';
-import { CalendarClientService } from '../../../../../shared/services/calendar/calendar-client.service';
-import { ICalendarUpdateRequestParams } from '../../../../../shared/models/calendar/capacity.model';
+import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
+import { LocalClientService } from '@services/calendar/local-client.service';
+import { CalendarClientService } from '@services/calendar/calendar-client.service';
+import { ICalendarUpdateRequestParams } from '@models/calendar/capacity.model';
 import { map } from 'rxjs/operators';
-import { ILocalParams } from '../../../../../shared/models/local/local-params.model';
+import { ILocalParams } from '@models/local/local-params.model';
 import { CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity, CapacitiesServiceType } from '../models/operations-capacities-responses.model';
 import { Observable } from 'rxjs';
-import { ECapacitiesServiceType } from '../../../../../shared/models/capacities/capacities-service-type.model';
-import { ICalendarParams } from '../../../../../shared/models/calendar/calendar-params.model';
+import { ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
+import { ICalendarParams } from '@models/calendar/calendar-params.model';
 
 @Injectable()
 export class OperationsCapacitiesImplementService {

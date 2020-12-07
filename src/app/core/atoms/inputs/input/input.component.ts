@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, Self } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -24,32 +24,34 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() inputError: boolean;
   @Input() inputDigitOnlyPipe: boolean;
 
-  onTouch: () => void;
-  onChange: (value: string | number) => void;
-  onBlur = (_: any) => {
-  };
-  onFocus = (_: any) => {
-  };
+  onTouch = () => {};
+  onChange = (value: string | number) => {};
+  onBlur = (_: any) => {};
+  onFocus = (_: any) => {};
 
 
-  constructor(@Self() public ngControl: NgControl) {
-    ngControl.valueAccessor = this;
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (ngControl) {
+      ngControl.valueAccessor = this;
+    }
   }
 
 
   ngOnInit(): void {
-    if (this.ngControl.name) {
-      this.inputName = this.ngControl.name;
-    }
+    if (this.ngControl) {
+      if (this.ngControl.name) {
+        this.inputName = this.ngControl.name;
+      }
 
-    const subscription = this.ngControl.control.valueChanges
-      .subscribe((value) => {
-        if (this.inputValue === value) {
-          return;
-        }
-        this.writeValue(value);
-      });
-    this.subscriptions.push(subscription);
+      const subscription = this.ngControl.control.valueChanges
+        .subscribe((value) => {
+          if (this.inputValue === value) {
+            return;
+          }
+          this.writeValue(value);
+        });
+      this.subscriptions.push(subscription);
+    }
   }
 
   ngOnDestroy(): void {

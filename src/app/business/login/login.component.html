@@ -1,1 +1,57 @@
-<p>login works!</p>
+<section class="login-container">
+  <div class="container d-flex-center min-vh-100 pt-5 pb-10">
+    <div class="row">
+      <div class="col-12 mb-10 d-flex-center">
+        <app-icon iconSvgName="logo"
+                  iconSvgWidth="348px"
+                  iconSvgHeight="40px">
+        </app-icon>
+      </div>
+      <div class="col-12 d-flex-center">
+        <div class="login-content">
+          <div class="text-center mb-7">
+            <h4 class="text-h4 text-gray-6 mb-0">Inicia sesión</h4>
+          </div>
+
+          <form>
+
+            <div class="user mb-5">
+              <label class="d-block label text-gray-5 mb-2">Usuario</label>
+              <app-input inputLabelClass="d-block"
+                         inputId="user"
+                         inputPlaceholder="Escribe aquí tu usuario">
+              </app-input>
+            </div>
+
+            <div class="password mb-10">
+              <label class="d-block label text-gray-5 mb-2">Contraseña</label>
+              <app-input inputLabelClass="d-block"
+                         inputType="password"
+                         inputId="password"
+                         inputPlaceholder="Escribe aquí tu contraseña">
+              </app-input>
+            </div>
+
+            <div class="submit mb-5">
+              <app-button innerClass="w-100"
+                          type="primary"
+                          behavior="submit">
+                Ingresa a tu cuenta
+              </app-button>
+            </div>
+
+            <div class="forgot-password">
+              <app-button innerClass="w-100 text-gray-6"
+                          type="ghost">
+                ¿Olvidaste tu contraseña?
+              </app-button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -1,0 +1,18 @@
+@import "~sass/variables/colors";
+
+.login-container {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: $gray-1;
+}
+
+.login-content {
+  width: 100%;
+  min-width: 300px;
+  max-width: 428px;
+  min-height: 400px;
+  background-color: $white;
+  box-shadow: 0 4px 20px rgba(51, 51, 51, 0.1);
+  border-radius: 8px;
+  padding: 32px 24px;
+}
