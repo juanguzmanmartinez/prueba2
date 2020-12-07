@@ -8,8 +8,8 @@ import {
   OpCapacitiesStepCapacityTableService
 } from '../../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
 import { ECapacityStepStatus } from '../../../models/operations-capacity-step-status.model';
-import { ICustomSelectOption } from '../../../../../../../commons/interfaces/custom-controls.interface';
-import { AlertService } from '../../../../../../../commons/molecules/alert/alert.service';
+import { ICustomSelectOption } from '../../../../../../../shared/interfaces/custom-controls.interface';
+import { AlertService } from '../../../../../../../core/molecules/alert/alert.service';
 import { ICalendarUpdateRequestParams } from '../../../../../../../shared/models/calendar/capacity.model';
 import { getDaysRangeBetweenDates } from '../../../../../../../shared/helpers/dates.helper';
 import { ICapacityStepCapacityTableSegments } from '../../../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';

@@ -5,8 +5,8 @@ import { ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService } from '
 import { ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService } from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { ECapacitiesStepCapacityTable, OpCapacitiesStepCapacityTableService } from '../../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
 import { ECapacityStepStatus } from '../../../models/operations-capacity-step-status.model';
-import { ICustomSelectOption } from '../../../../../../../commons/interfaces/custom-controls.interface';
-import { AlertService } from '../../../../../../../commons/molecules/alert/alert.service';
+import { ICustomSelectOption } from '../../../../../../../shared/interfaces/custom-controls.interface';
+import { AlertService } from '../../../../../../../core/molecules/alert/alert.service';
 import { ICapacityStepCapacityTableSegments } from '../../../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 import { CapacityRangeLimit, ToCapacityStepAmPmCapacitySegments } from '../../../models/operations-capacity-converter.model';
 import { ICalendarUpdateRequestParams } from '../../../../../../../shared/models/calendar/capacity.model';

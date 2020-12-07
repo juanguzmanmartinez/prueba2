@@ -1,5 +1,5 @@
-import {FormControl, Validators} from '@angular/forms';
-import {IDatepickerRange} from 'src/app/commons/core-components/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
+import { FormControl, Validators } from '@angular/forms';
+import { IDatepickerRange } from 'src/app/core/atoms/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
 import * as moment from 'moment';
 
 export class CapacityRangeControl extends FormControl {

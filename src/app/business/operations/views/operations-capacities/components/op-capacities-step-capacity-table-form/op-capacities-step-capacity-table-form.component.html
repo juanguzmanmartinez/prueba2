@@ -14,12 +14,13 @@
         </div>
 
         <div class="col-8 mb-5">
-          <app-button-outline [buttonDisabled]="_opCapacitiesStepCapacityTableForm.capacityForSelection.value === null ||
-                                                _opCapacitiesStepCapacityTableForm.capacityForSelection.invalid ||
-                                                !capacityTableSelection.selected.length"
-                              (click)="applyCapacity()">
+          <app-button type="outline"
+                      [disabled]="_opCapacitiesStepCapacityTableForm.capacityForSelection.value === null ||
+                                  _opCapacitiesStepCapacityTableForm.capacityForSelection.invalid ||
+                                  !capacityTableSelection.selected.length"
+                      (click)="applyCapacity()">
             Aplicar a selección
-          </app-button-outline>
+          </app-button>
         </div>
       </div>
     </div>

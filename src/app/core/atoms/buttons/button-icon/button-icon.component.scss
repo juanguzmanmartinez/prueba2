@@ -1,0 +1,11 @@
+@import "src/sass/variables";
+
+:host .button-icon-icon {
+  margin-top: -1px;
+
+  &.button-icon-disabled {
+    ::ng-deep .icon-font {
+      color: $gray-4 !important;
+    }
+  }
+}

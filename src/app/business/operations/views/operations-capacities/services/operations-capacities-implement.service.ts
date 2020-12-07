@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ICustomSelectOption } from 'src/app/commons/interfaces/custom-controls.interface';
+import { ICustomSelectOption } from 'src/app/shared/interfaces/custom-controls.interface';
 import { LocalClientService } from 'src/app/shared/services/calendar/local-client.service';
 import { CalendarClientService } from '../../../../../shared/services/calendar/calendar-client.service';
 import { ICalendarUpdateRequestParams } from '../../../../../shared/models/calendar/capacity.model';

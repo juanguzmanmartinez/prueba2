@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './shared/guards/auth-guard.service';
-import { NotSupportedComponent } from './core/not-supported/not-supported.component';
+import { NotSupportedComponent } from './core/pages/not-supported/not-supported.component';
 
 
 const routes: Routes = [

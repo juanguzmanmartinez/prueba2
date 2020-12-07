@@ -1,18 +1,18 @@
-import {Injectable} from '@angular/core';
-import {HttpParams} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
 
-import {map, take} from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
-import {ENDPOINTS} from '../../parameters/endpoints';
-import {GenericService} from '../generic.service';
-import {Blocked, Calendar, IBlocked, ICalendar, IDayBlockedRequest} from '../../models/calendar/calendar.model';
-import {ICustomSelectOption} from 'src/app/commons/interfaces/custom-controls.interface';
-import {isArray} from '../../helpers/objects-equal';
-import {Capacity, ICalendarUpdateRequestParams, ICapacity} from '../../models/calendar/capacity.model';
-import {EChannel} from '../../models/channel/channel.model';
-import {ICalendarParams} from '../../models/calendar/calendar-params.model';
-import {Observable} from 'rxjs';
-import {ICalendarServiceDefaultCapacities} from '../../models/calendar/calendar-response.model';
+import { ENDPOINTS } from '../../parameters/endpoints';
+import { GenericService } from '../generic.service';
+import { Blocked, Calendar, IBlocked, ICalendar, IDayBlockedRequest } from '../../models/calendar/calendar.model';
+import { ICustomSelectOption } from 'src/app/shared/interfaces/custom-controls.interface';
+import { isArray } from '../../helpers/objects-equal';
+import { Capacity, ICalendarUpdateRequestParams, ICapacity } from '../../models/calendar/capacity.model';
+import { EChannel } from '../../models/channel/channel.model';
+import { ICalendarParams } from '../../models/calendar/calendar-params.model';
+import { Observable } from 'rxjs';
+import { ICalendarServiceDefaultCapacities } from '../../models/calendar/calendar-response.model';
 
 
 @Injectable()

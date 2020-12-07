@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IconsImplementService } from './commons/core-components/icons/service/icons-implement.service';
+import { IconsImplementService } from './core/atoms/icons/service/icons-implement.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
 

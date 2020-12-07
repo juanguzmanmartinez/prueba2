@@ -1,4 +1,4 @@
-import { IDatepickerRange } from '../../../../../../../commons/core-components/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
+import { IDatepickerRange } from '../../../../../../../core/atoms/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
 import { ServiceTypeSegment } from '../../../../../../../shared/models/local/service-type.model';
 
 

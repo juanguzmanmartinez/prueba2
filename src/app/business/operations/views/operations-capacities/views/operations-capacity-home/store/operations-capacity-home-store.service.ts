@@ -1,11 +1,11 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {AlertService} from '../../../../../../../commons/molecules/alert/alert.service';
-import {OperationsCapacitiesImplementService} from '../../../services/operations-capacities-implement.service';
-import {CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity} from '../../../models/operations-capacities-responses.model';
-import {OpCapacitiesLocalDefaultCapacityService} from '../../../components/op-capacities-local-default-capacity/op-capacities-local-default-capacity.service';
-import {ECapacitiesStepEditionMode} from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
-import {ICustomSelectOption} from '../../../../../../../commons/interfaces/custom-controls.interface';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AlertService } from '../../../../../../../core/molecules/alert/alert.service';
+import { OperationsCapacitiesImplementService } from '../../../services/operations-capacities-implement.service';
+import { CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity } from '../../../models/operations-capacities-responses.model';
+import { OpCapacitiesLocalDefaultCapacityService } from '../../../components/op-capacities-local-default-capacity/op-capacities-local-default-capacity.service';
+import { ECapacitiesStepEditionMode } from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
+import { ICustomSelectOption } from '../../../../../../../shared/interfaces/custom-controls.interface';
 
 
 @Injectable()

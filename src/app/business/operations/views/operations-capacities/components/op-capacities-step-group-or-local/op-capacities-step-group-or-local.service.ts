@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {ICustomSelectOption} from '../../../../../../commons/interfaces/custom-controls.interface';
-import {ECapacityStepStatus} from '../../models/operations-capacity-step-status.model';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { ICustomSelectOption } from '../../../../../../shared/interfaces/custom-controls.interface';
+import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
 
 export enum ECapacityStepGroupOrLocal {
   group = 'GROUP',

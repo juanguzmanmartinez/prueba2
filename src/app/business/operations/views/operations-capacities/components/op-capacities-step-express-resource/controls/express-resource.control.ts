@@ -1,5 +1,5 @@
 import { FormControl, Validators } from '@angular/forms';
-import { GenericValidator } from '../../../../../../../commons/validators/generic-validator';
+import { GenericValidator } from '../../../../../../../shared/validators/generic-validator';
 
 export class ExpressResourceControl extends FormControl {
   constructor() {

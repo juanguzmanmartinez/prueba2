@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { CalendarClientService } from './services/calendar/calendar-client.service';
 import { CapacityClientService } from './services/capacity-edition/capacity-edition.service';
 import { LocalClientService } from './services/calendar/local-client.service';
-import { CoreComponentsModule } from '../commons/core-components/core-components.module';
 import { PIPES } from './pipes/pipes.index';
 
 const SERVICE = [
@@ -29,7 +28,6 @@ const SERVICE = [
     CommonModule,
     HttpClientModule,
     FormsModule,
-    CoreComponentsModule,
   ],
   providers: [
     ...SERVICE

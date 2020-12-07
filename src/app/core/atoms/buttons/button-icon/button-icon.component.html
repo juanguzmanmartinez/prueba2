@@ -1,0 +1,16 @@
+<app-button
+  [innerClass]="'button-icon ' + innerClass"
+  type="primary"
+  [behavior]="behavior"
+  [inlineStyle]="inlineStyle"
+  [disabled]="disabled"
+  (click)="onClick($event)">
+  <span class="d-inline-flex">
+    <app-icon class="d-inline-block mr-2 button-icon-icon"
+              [class.button-icon-disabled]="disabled"
+              [iconFontName]="iconName"
+              iconFontSize="16px"
+              iconFontColor="white"></app-icon>
+    <ng-content></ng-content>
+  </span>
+</app-button>

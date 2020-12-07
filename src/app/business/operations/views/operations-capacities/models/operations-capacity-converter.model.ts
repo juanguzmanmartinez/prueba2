@@ -3,7 +3,7 @@ import {
   ICapacityStepCapacityTableSegments
 } from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 import { CapacitiesServiceType } from './operations-capacities-responses.model';
-import { IDatepickerRange } from '../../../../../commons/core-components/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
+import { IDatepickerRange } from '../../../../../core/atoms/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
 import { ServiceTypeSegment } from '../../../../../shared/models/local/service-type.model';
 
 

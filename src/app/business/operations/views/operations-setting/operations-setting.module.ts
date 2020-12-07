@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { OperationsSettingRoutingModule } from './operations-setting-routing.module';
-import {OperationsSettingComponent} from './operations-setting.component';
-import { BackRouterModule } from '../../../../commons/molecules/back-router/back-router.module';
-import { CoreModule } from '../../../../core/core.module';
+import { OperationsSettingComponent } from './operations-setting.component';
+import { BackRouterModule } from '../../../../core/molecules/back-router/back-router.module';
+import { PagesModule } from '../../../../core/pages/pages.module';
 
 
 @NgModule({
@@ -15,7 +15,7 @@ import { CoreModule } from '../../../../core/core.module';
     CommonModule,
     OperationsSettingRoutingModule,
     BackRouterModule,
-    CoreModule
+    PagesModule,
   ]
 })
 export class OperationsSettingModule { }
