@@ -3,7 +3,7 @@ import { combineLatest, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-capacities-service-type-query-params.model';
 import { OpCapacitiesStepGroupOrLocalService } from '../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
-import { ICustomSelectOption } from '../../../../../../shared/interfaces/custom-controls.interface';
+import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
 import { OpCapacitiesStepEditionModeService } from '../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { OperationsCapacityScheduledStoreService } from './store/operations-capacity-scheduled-store.service';
 

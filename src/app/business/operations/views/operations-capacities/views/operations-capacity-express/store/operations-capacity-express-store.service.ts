@@ -3,11 +3,11 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService } from '../../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
 import { ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService } from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { ECapacityStepStatus } from '../../../models/operations-capacity-step-status.model';
-import { ICustomSelectOption } from '../../../../../../../shared/interfaces/custom-controls.interface';
-import { AlertService } from '../../../../../../../core/molecules/alert/alert.service';
+import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
+import { AlertService } from '@molecules/alert/alert.service';
 import { CapacityRangeLimit, ToCapacityStepExpressResourceSegments } from '../../../models/operations-capacity-converter.model';
-import { ICalendarUpdateRequestParams } from '../../../../../../../shared/models/calendar/capacity.model';
-import { getDaysRangeBetweenDates } from '../../../../../../../shared/helpers/dates.helper';
+import { ICalendarUpdateRequestParams } from '@models/calendar/capacity.model';
+import { getDaysRangeBetweenDates } from '@helpers/dates.helper';
 
 import {
   ECapacitiesStepExpressResource,
@@ -16,8 +16,8 @@ import {
 import { ICapacityStepExpressResourceSegments } from '../../../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';
 import { OperationsCapacitiesImplementService } from '../../../services/operations-capacities-implement.service';
 import { capacityAlertSuccessMessage } from '../../../parameters/operations-capacities-alert-message.parameter';
-import { ECapacitiesServiceType } from '../../../../../../../shared/models/capacities/capacities-service-type.model';
-import { EChannel } from '../../../../../../../shared/models/channel/channel.model';
+import { ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
+import { EChannel } from '@models/channel/channel.model';
 import { CapacitiesServiceType } from '../../../models/operations-capacities-responses.model';
 
 

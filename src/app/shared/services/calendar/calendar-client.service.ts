@@ -3,11 +3,11 @@ import { HttpParams } from '@angular/common/http';
 
 import { map, take } from 'rxjs/operators';
 
-import { ENDPOINTS } from '@parameters/endpoints';
-import { GenericService } from '../generic.service';
+import { EndpointsParameter } from '@parameters/endpoints.parameter';
+import { GenericService } from '../generic/generic.service';
 import { Blocked, Calendar, IBlocked, ICalendar, IDayBlockedRequest } from '@models/calendar/calendar.model';
 import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
-import { isArray } from '@helpers/objects-equal';
+import { isArray } from '@helpers/objects-equal.helper';
 import { Capacity, ICalendarUpdateRequestParams, ICapacity } from '@models/calendar/capacity.model';
 import { EChannel } from '@models/channel/channel.model';
 import { ICalendarParams } from '@models/calendar/calendar-params.model';
@@ -18,11 +18,11 @@ import { ICalendarServiceDefaultCapacities } from '@models/calendar/calendar-res
 @Injectable()
 export class CalendarClientService {
 
-  private readonly CALENDAR_ENDPOINT = ENDPOINTS.GET_CALENDAR;
-  private readonly BLOCKED_DAY_ENDPOINT = ENDPOINTS.PATCH_CALENDAR;
-  private readonly CALENDAR_UPDATE_ENDPOINT = ENDPOINTS.PATCH_CALENDAR_UPDATE;
-  private readonly CALENDAR_UPDATE_RANGE_ENDPOINT = ENDPOINTS.PATCH_CALENDAR_RANGE_UPDATE;
-  private readonly CALENDAR_CAPACITIES = ENDPOINTS.GET_CALENDAR_CAPACITIES;
+  private readonly CALENDAR_ENDPOINT = EndpointsParameter.GET_CALENDAR;
+  private readonly BLOCKED_DAY_ENDPOINT = EndpointsParameter.PATCH_CALENDAR;
+  private readonly CALENDAR_UPDATE_ENDPOINT = EndpointsParameter.PATCH_CALENDAR_UPDATE;
+  private readonly CALENDAR_UPDATE_RANGE_ENDPOINT = EndpointsParameter.PATCH_CALENDAR_RANGE_UPDATE;
+  private readonly CALENDAR_CAPACITIES = EndpointsParameter.GET_CALENDAR_CAPACITIES;
 
   constructor(
     private genericService: GenericService,

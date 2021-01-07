@@ -3,8 +3,8 @@ import {
   ICapacityStepCapacityTableSegments
 } from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 import { CapacitiesServiceType } from './operations-capacities-responses.model';
-import { IDatepickerRange } from '../../../../../core/atoms/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
-import { ServiceTypeSegment } from '../../../../../shared/models/local/service-type.model';
+import { IDatepickerRange } from '@atoms/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
+import { ServiceTypeSegment } from '@models/local/service-type.model';
 
 
 export class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {

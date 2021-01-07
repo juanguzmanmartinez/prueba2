@@ -2,8 +2,8 @@ import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Optio
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete/autocomplete';
-import { isObject } from '../../../shared/helpers/objects-equal';
-import { normalizeValue } from '../../../shared/helpers/string.helper';
+import { isObject } from '@helpers/objects-equal.helper';
+import { normalizeValue } from '@helpers/string.helper';
 
 @Component({
   selector: 'app-select-search',

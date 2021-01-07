@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core'
 import { OpCapacitiesLocalDefaultCapacityService } from './op-capacities-local-default-capacity.service';
 import { Subscription } from 'rxjs';
 import { CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity, CapacitiesServiceType } from '../../models/operations-capacities-responses.model';
-import { CCapacitiesServiceTypeRoute, ECapacitiesServiceType } from '../../../../../../shared/models/capacities/capacities-service-type.model';
+import { CCapacitiesServiceTypeRoute, ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
 import { OpCapacitiesLocalDefaultCapacityDialogService } from '../op-capacities-local-default-capacity-dialog/op-capacities-local-default-capacity-dialog.service';
 import { Router } from '@angular/router';
 import { ECapacityStepGroupOrLocal } from '../op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';

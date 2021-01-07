@@ -1,20 +1,20 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-inner-sidenav-navigation',
-  templateUrl: './inner-sidenav-navigation.component.html',
-  styleUrls: ['./inner-sidenav-navigation.component.scss']
+    selector: 'app-inner-sidenav-navigation',
+    templateUrl: './inner-sidenav-navigation.component.html',
+    styleUrls: ['./inner-sidenav-navigation.component.scss']
 })
 export class InnerSidenavNavigationComponent implements OnInit {
 
-  @Input() navigationIcon: string;
-  @Input() navigationText: string;
-  @Input() navigationRoute: string;
+    @Input() navigationIcon: string;
+    @Input() navigationText: string;
+    @Input() navigationRoute: string;
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

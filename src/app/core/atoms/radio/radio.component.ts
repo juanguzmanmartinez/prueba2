@@ -1,54 +1,54 @@
-import {Component, Input, OnInit, Self} from '@angular/core';
-import {ControlValueAccessor, NgControl} from '@angular/forms';
+import { Component, Input, OnInit, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-radio',
-  templateUrl: './radio.component.html',
-  styleUrls: ['./radio.component.sass']
+    selector: 'app-radio',
+    templateUrl: './radio.component.html',
+    styleUrls: ['./radio.component.sass']
 })
 export class RadioComponent implements ControlValueAccessor, OnInit {
-  @Input() radioValue: any;
-  @Input() radioClass: any;
+    @Input() radioValue: any;
+    @Input() radioClass: any;
 
-  public _radioName: string | number = 'radio';
-  public _radioValue: any;
-  public _radioDisabled: any;
+    public _radioName: string | number = 'radio';
+    public _radioValue: any;
+    public _radioDisabled: any;
 
-  onChange = (_: any) => {
-  }
-  onTouched = (_: any) => {
-  }
+    onChange = (_: any) => {};
+    onTouched = (_: any) => {};
 
 
-  constructor(@Self() public ngControl: NgControl) {
-    ngControl.valueAccessor = this;
-  }
-
-  ngOnInit(): void {
-    if (this.ngControl.name) {
-      this._radioName = this.ngControl.name;
+    constructor(@Optional() @Self() public ngControl: NgControl) {
+        if (ngControl) {
+            ngControl.valueAccessor = this;
+        }
     }
-  }
 
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
+    ngOnInit(): void {
+        if (this.ngControl && this.ngControl.name) {
+            this._radioName = this.ngControl.name;
+        }
+    }
 
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
+    registerOnChange(fn: any): void {
+        this.onChange = fn;
+    }
 
-  writeValue(value: any): void {
-    this._radioValue = value;
-  }
+    registerOnTouched(fn: any): void {
+        this.onTouched = fn;
+    }
 
-  setDisabledState(isDisabled: boolean): void {
-    this._radioDisabled = isDisabled;
-  }
+    writeValue(value: any): void {
+        this._radioValue = value;
+    }
 
-  chooseRadio() {
-    this._radioValue = this.radioValue;
-    this.onChange(this._radioValue);
-  }
+    setDisabledState(isDisabled: boolean): void {
+        this._radioDisabled = isDisabled;
+    }
+
+    chooseRadio() {
+        this._radioValue = this.radioValue;
+        this.onChange(this._radioValue);
+    }
 
 }

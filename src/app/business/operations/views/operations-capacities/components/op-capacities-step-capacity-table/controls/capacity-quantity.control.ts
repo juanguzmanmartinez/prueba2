@@ -1,5 +1,5 @@
 import { FormControl, Validators } from '@angular/forms';
-import { GenericValidator } from '../../../../../../../shared/validators/generic-validator';
+import { GenericValidator } from '@validators/generic-validator';
 
 export class CapacityQuantityControl extends FormControl {
   constructor() {

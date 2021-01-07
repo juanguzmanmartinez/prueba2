@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-// import { MainLoaderService } from '../../shared/helpers/main-loader.service';
-import { MainLoaderService } from '@helpers/main-loader.service';
+import { MainLoaderService } from '@pages/main-loader/main-loader.service';
 
 @Component({
   selector: 'app-main-loader',

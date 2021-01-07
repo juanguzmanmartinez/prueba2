@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
 import { CCapacityStepGroupOrLocalName, ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService } from './op-capacities-step-group-or-local.service';
 import { Subscription } from 'rxjs';
-import { ICustomSelectOption } from '../../../../../../shared/interfaces/custom-controls.interface';
+import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
 import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
 
 @Component({

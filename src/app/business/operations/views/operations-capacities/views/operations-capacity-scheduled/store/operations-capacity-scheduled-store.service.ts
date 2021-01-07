@@ -8,15 +8,15 @@ import {
   OpCapacitiesStepCapacityTableService
 } from '../../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
 import { ECapacityStepStatus } from '../../../models/operations-capacity-step-status.model';
-import { ICustomSelectOption } from '../../../../../../../shared/interfaces/custom-controls.interface';
-import { AlertService } from '../../../../../../../core/molecules/alert/alert.service';
+import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
+import { AlertService } from '@molecules/alert/alert.service';
 import { CapacityRangeLimit, ToCapacityStepScheduledCapacitySegments } from '../../../models/operations-capacity-converter.model';
-import { ICalendarUpdateRequestParams } from '../../../../../../../shared/models/calendar/capacity.model';
-import { getDaysRangeBetweenDates } from '../../../../../../../shared/helpers/dates.helper';
+import { ICalendarUpdateRequestParams } from '@models/calendar/capacity.model';
+import { getDaysRangeBetweenDates } from '@helpers/dates.helper';
 import { ICapacityStepCapacityTableSegments } from '../../../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 import { capacityAlertSuccessMessage } from '../../../parameters/operations-capacities-alert-message.parameter';
-import { ECapacitiesServiceType } from '../../../../../../../shared/models/capacities/capacities-service-type.model';
-import { EChannel } from '../../../../../../../shared/models/channel/channel.model';
+import { ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
+import { EChannel } from '@models/channel/channel.model';
 import { CapacitiesServiceType } from '../../../models/operations-capacities-responses.model';
 
 

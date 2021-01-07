@@ -1,5 +1,5 @@
-import { Component, OnInit, Self } from '@angular/core';
-import { RadioComponent } from '../../../atoms/radio/radio.component';
+import { Component, OnInit, Optional, Self } from '@angular/core';
+import { RadioComponent } from '@atoms/radio/radio.component';
 import { NgControl } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import { NgControl } from '@angular/forms';
 })
 export class CardRadioComponent extends RadioComponent implements OnInit {
 
-  constructor(@Self() public ngControl: NgControl) {
+  constructor(@Optional() @Self() public ngControl: NgControl) {
     super(ngControl);
   }
 

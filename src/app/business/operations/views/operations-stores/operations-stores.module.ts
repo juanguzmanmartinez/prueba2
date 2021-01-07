@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { OperationsStoresRoutingModule } from './operations-stores-routing.module';
 import { OperationsStoresComponent } from './operations-stores.component';
-import { BackRouterModule } from '../../../../core/molecules/back-router/back-router.module';
-import { PagesModule } from '../../../../core/pages/pages.module';
+import { BackRouterModule } from '@molecules/back-router/back-router.module';
+import { PagesModule } from '@pages/pages.module';
 
 
 @NgModule({

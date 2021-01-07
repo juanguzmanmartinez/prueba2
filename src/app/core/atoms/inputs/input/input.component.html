@@ -11,9 +11,7 @@
     [disabled]="inputDisabled"
     [(ngModel)]="inputValue"
     (ngModelChange)="changeInputValue()"
-    (blur)="onBlur($event)"
-    (focus)="onFocus($event)"
 
-    appDigitsOnly
-    [disableDigitsOnly]="!inputDigitOnlyPipe"/>
+    (blur)="onBlur($event)"
+    (focus)="onFocus($event)"/>
 </label>

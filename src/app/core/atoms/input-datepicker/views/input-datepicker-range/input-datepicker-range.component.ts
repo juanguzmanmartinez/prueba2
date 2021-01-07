@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, Self } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
 import { CustomDateAdapter, MY_FORMATS } from '../input-datepicker/input-datepicker.component';
 import { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -60,14 +60,16 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor, OnIn
   onTouched = (_: any) => {
   }
 
-  constructor(@Self() public ngControl: NgControl) {
-    ngControl.valueAccessor = this;
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (ngControl){
+      ngControl.valueAccessor = this;
+    }
   }
 
   ngOnInit(): void {
     this.changeDatepickerRangeValue();
 
-    if (this.ngControl.name) {
+    if (this.ngControl && this.ngControl.name) {
       this.datepickerRangeName = this.ngControl.name;
     }
   }

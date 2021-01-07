@@ -5,7 +5,7 @@
 > Import IconsModule into your custom module
 
   ```typescript
-  import { IconsModule } from 'src/app/core/generic/icons/icons.module';
+  import { IconsModule } from '@atoms/icons/icons.module';
 
 @NgModule({
   imports: [
@@ -29,7 +29,7 @@ export class YourModule {
 > #### 2.Update constants files
 
   ```
-   ./core/generic/icons/constants/icons-svg.ts
+   ./core/atoms/icons/constants/icons-svg.ts
   ```
 
    ````typescript
@@ -44,7 +44,7 @@ export class YourModule {
 Update readme with the new icon name
 
   ```
-   core/generic/icons/README.md
+   core/atoms/icons/README.md
   ```
 
 ### Usage

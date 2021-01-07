@@ -22,7 +22,6 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() inputClass = '';
   @Input() inputLabelClass = '';
   @Input() inputError: boolean;
-  @Input() inputDigitOnlyPipe: boolean;
 
   onTouch = () => {};
   onChange = (value: string | number) => {};

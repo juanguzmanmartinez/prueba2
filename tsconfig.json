@@ -23,11 +23,17 @@
       "@environments/*": [
         "environments/*"
       ],
-      "@app/*": [
-        "app/*"
+      "@atoms/*": [
+        "app/core/atoms/*"
       ],
-      "@core/*": [
-        "app/core/*"
+      "@molecules/*": [
+        "app/core/molecules/*"
+      ],
+      "@organisms/*": [
+        "app/core/organisms/*"
+      ],
+      "@pages/*": [
+        "app/core/pages/*"
       ],
       "@services/*": [
         "app/shared/services/*"

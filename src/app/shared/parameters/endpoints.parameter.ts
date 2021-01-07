@@ -8,7 +8,7 @@ export enum EFulfillmentVersion {
 const API_GATEWAY = `${environment.api_gateway}${EFulfillmentVersion.fulfillment_v1_0}`;
 const API_GATEWAY_CALENDAR = `${environment.api_gateway_calendar}${EFulfillmentVersion.fulfillment_v2_0}`;
 
-export class ENDPOINTS {
+export class EndpointsParameter {
   public static GET_DRUGSTORE = `${API_GATEWAY}/store`;
   public static GET_DRUGSTORE_BY_SERVICE_TYPE = `${API_GATEWAY}/store/serviceType/`;
 

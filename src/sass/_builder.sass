@@ -1,6 +1,2 @@
-$rotate: 45 !default
-$size: 7 !default
-@for $i from 1 through $size
-  $degrees: $rotate * $i
-  .rotate-#{$degrees}
-    @include rotate(#{$degrees}deg)
+@import "builder/rotate"
+@import "builder/fonts"

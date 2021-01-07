@@ -6,7 +6,7 @@ import { OpCapacitiesStepGroupOrLocalService } from '../../components/op-capacit
 import { OpCapacitiesStepEditionModeService } from '../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { OpCapacitiesStepExpressResourceService } from '../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
 import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-capacities-service-type-query-params.model';
-import { objectHasElements } from '../../../../../../shared/helpers/objects-equal';
+import { objectHasElements } from '@helpers/objects-equal.helper';
 import { OperationsCapacityExpressService } from './operations-capacity-express.service';
 
 @Component({

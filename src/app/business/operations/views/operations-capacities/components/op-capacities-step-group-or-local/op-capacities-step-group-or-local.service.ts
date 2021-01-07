@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { ICustomSelectOption } from '../../../../../../shared/interfaces/custom-controls.interface';
+import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
 import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
 
 export enum ECapacityStepGroupOrLocal {

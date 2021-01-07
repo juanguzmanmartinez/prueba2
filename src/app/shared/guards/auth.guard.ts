@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { MainLoaderService } from '../helpers/main-loader.service';
+import { MainLoaderService } from '@pages/main-loader/main-loader.service';
 import { Observable } from 'rxjs';
 
 

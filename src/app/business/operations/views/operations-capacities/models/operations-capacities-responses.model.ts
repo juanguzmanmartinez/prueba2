@@ -1,7 +1,7 @@
-import { ILocal, Local } from '../../../../../shared/models/local/local.model';
-import { isObject } from '../../../../../shared/helpers/objects-equal';
-import { CalendarServiceDefaultCapacities, ICalendarServiceDefaultCapacities } from '../../../../../shared/models/calendar/calendar-response.model';
-import { IServiceType, IServiceTypeSegment, ServiceType, ServiceTypeSegment } from '../../../../../shared/models/local/service-type.model';
+import { ILocal, Local } from '@models/local/local.model';
+import { isObject } from '@helpers/objects-equal.helper';
+import { CalendarServiceDefaultCapacities, ICalendarServiceDefaultCapacities } from '@models/calendar/calendar-response.model';
+import { IServiceType, IServiceTypeSegment, ServiceType, ServiceTypeSegment } from '@models/local/service-type.model';
 
 export class CapacitiesLocal extends Local {
   constructor(iLocal: ILocal) {
