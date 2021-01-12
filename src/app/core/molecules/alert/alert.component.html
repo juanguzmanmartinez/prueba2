@@ -1,5 +1,5 @@
 <div class="alert-container"
-     [class.bg-error]="data?.status === eAlertStatus.error"
+     [class.bg-danger]="data?.status === eAlertStatus.error"
      [class.bg-warning]="data?.status === eAlertStatus.warning"
      [class.bg-success]="data?.status === eAlertStatus.success">
   <app-icon [iconFontName]="data?.status === eAlertStatus.error ? 'cancel' :

@@ -22,9 +22,9 @@ $dark-success: #108043;
 $light-warning: #FFEA8A;
 $warning: #EEC200;
 $dark-warning: #C68B20;
-$light-error: #FEAD9A;
-$error: #DE3618;
-$dark-error: #BF0711;
+$light-danger: #FEAD9A;
+$danger: #DE3618;
+$dark-danger: #BF0711;
 
 
 /*Primary Colors*/
@@ -57,9 +57,9 @@ $semantic-colors-map: (
   "light-warning": $light-warning,
   "warning": $warning,
   "dark-warning": $dark-warning,
-  "light-error": $light-error,
-  "error": $error,
-  "dark-error": $dark-error
+  "light-danger": $light-danger,
+  "danger": $danger,
+  "dark-danger": $dark-danger
 );
 
 $colors: map-collect($primary-colors-map, $semantic-colors-map, $neutral-colors-map);

@@ -8,10 +8,20 @@ import { LoginFormService } from './form/login-form.service';
 })
 export class LoginComponent implements OnInit {
 
-    constructor() {
+    public capsLock: boolean;
+
+    constructor(
+        public loginForm: LoginFormService
+    ) {
     }
 
     ngOnInit(): void {
     }
+
+
+    loginFormSubmit() {
+        console.log(this.loginForm.loginForm$);
+    }
+
 
 }

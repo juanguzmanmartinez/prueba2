@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainLoaderComponent } from '@pages/main-loader/main-loader.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { PagesModule } from '@pages/pages.module';
@@ -22,7 +21,6 @@ import { PagesModule } from '@pages/pages.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatSliderModule,
     IconsModule,
     PagesModule
   ],

@@ -1,6 +1,7 @@
-<label class="input-number-container">
+<label class="input-number-container"
+       [ngClass]="inputLabelClass">
   <app-input
-    inputLabelClass="input-number-label"
+    [inputLabelClass]="'input-number-label ' + inputLabelClass"
     [inputClass]="'input-number ' + inputClass"
     [inputError]="inputError"
     [inputId]="inputId"

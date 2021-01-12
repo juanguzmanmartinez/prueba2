@@ -1,0 +1,13 @@
+@import "~sass/variables/colors";
+
+:host {
+  color: $gray-5;
+
+  .form-field-label {
+    color: inherit;
+  }
+
+  ::ng-deep app-icon {
+    color: inherit;
+  }
+}

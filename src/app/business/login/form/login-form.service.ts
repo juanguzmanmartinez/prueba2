@@ -1,40 +1,42 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { EmailControl } from '../controls/email.control';
+import { PasswordControl } from '../controls/password.control';
 
 @Injectable()
 export class LoginFormService implements OnDestroy {
-  private readonly loginForm: FormGroup;
+    private readonly loginForm: FormGroup;
 
-  private _userControl: FormControl = new FormControl(null);
-  private _passwordControl: FormControl = new FormControl(null);
+    private _userControl: FormControl = new EmailControl();
+    private _passwordControl: FormControl = new PasswordControl();
 
-  constructor(
-    private _formBuilder: FormBuilder
-  ) {
-    this.loginForm = this._formBuilder.group({
-      user: this._userControl,
-      password: this._passwordControl,
-    });
-  }
+    constructor(
+        private _formBuilder: FormBuilder
+    ) {
+        this.loginForm = this._formBuilder.group({
+            user: this._userControl,
+            password: this._passwordControl,
+        });
+    }
 
-  get loginForm$() {
-    return this.loginForm;
-  }
+    get loginForm$(): FormGroup {
+        return this.loginForm;
+    }
 
-  get userControl(): FormControl {
-    return this.loginForm$.get('user') as FormControl;
-  }
+    public get userControl(): EmailControl {
+        return this.loginForm.get('user') as EmailControl;
+    }
 
-  get passwordControl(): FormControl {
-    return this.loginForm$.get('password') as FormControl;
-  }
+    get passwordControl(): PasswordControl {
+        return this.loginForm$.get('password') as PasswordControl;
+    }
 
-  resetForm() {
-    this.userControl.patchValue(null);
-    this.passwordControl.patchValue(null);
-  }
+    resetForm(): void {
+        this.userControl.patchValue(null);
+        this.passwordControl.patchValue(null);
+    }
 
-  ngOnDestroy() {
-    this.resetForm();
-  }
+    ngOnDestroy(): void {
+        this.resetForm();
+    }
 }

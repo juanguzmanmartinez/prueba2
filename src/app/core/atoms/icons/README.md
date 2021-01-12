@@ -8,10 +8,10 @@
   import { IconsModule } from '@atoms/icons/icons.module';
 
 @NgModule({
-  imports: [
-    ...,
-  IconsModule,
-]
+    imports: [
+        ...
+            IconsModule,
+    ]
 })
 
 export class YourModule {
@@ -34,8 +34,8 @@ export class YourModule {
 
    ````typescript
    const ICONS_SVG = [
-  {...},
-  {name: 'ICON_NAME', path: `${path}ICON_NAME.svg`},
+    {...},
+    {name: 'ICON_NAME', path: `${path}ICON_NAME.svg`},
 ];
    ````
 
