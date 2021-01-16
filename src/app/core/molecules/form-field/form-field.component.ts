@@ -12,7 +12,7 @@ import { InputComponent } from '@atoms/inputs/input/input.component';
 export class FormFieldComponent implements AfterContentInit {
 
     @ContentChild(FormFieldLabelComponent) formFieldLabel!: FormFieldLabelComponent;
-    @ContentChild(FormFieldErrorComponent) formFieldErrorComponent!: FormFieldErrorComponent;
+    @ContentChild(FormFieldErrorComponent, {static: false}) formFieldErrorComponent!: FormFieldErrorComponent;
 
     @ContentChild(NgControl) public ngControl: NgControl;
 

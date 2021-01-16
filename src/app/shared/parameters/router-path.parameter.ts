@@ -1,5 +1,21 @@
 export const BUSINESS_PATH = {
-  login: 'iniciar-sesion',
-  admin: 'administrador',
-  operations: 'operaciones'
+    login: 'cuenta',
+    admin: 'administrador',
+    operations: 'operaciones'
+};
+
+
+export const LOGIN_PATH = {
+    login: 'iniciar-sesion',
+    recoverPassword: 'recuperar-contrasena',
+    recoverPasswordReset: 'contrasena',
+    recoverPasswordUser: 'usuario',
+    recoverPasswordCode: 'codigo',
+};
+
+export const OPERATIONS_PATH = {
+    stores: 'locales',
+    zones: 'zonas',
+    capacities: 'capacidades',
+    settings: 'configuraciones'
 };

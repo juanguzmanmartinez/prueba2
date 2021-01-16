@@ -1,25 +1,26 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, Route } from '@angular/router';
+import { Route, RouterModule, Routes } from '@angular/router';
 import { OperationsComponent } from './operations.component';
 import { OperationsHomeComponent } from './views/operations-home/operations-home.component';
+import { OPERATIONS_PATH } from '@parameters/router-path.parameter';
 
 const STORES: Route = {
-    path: 'locales',
+    path: OPERATIONS_PATH.stores,
     loadChildren: () => import('./views/operations-stores/operations-stores.module').then(m => m.OperationsStoresModule),
 };
 
 const ZONES: Route = {
-    path: 'zonas',
+    path: OPERATIONS_PATH.zones,
     loadChildren: () => import('./views/operations-zones/operations-zones.module').then(m => m.OperationsZonesModule),
 };
 
 const CAPACITIES: Route = {
-    path: 'capacidades',
+    path: OPERATIONS_PATH.capacities,
     loadChildren: () => import('./views/operations-capacities/operations-capacities.module').then(m => m.OperationsCapacitiesModule),
 };
 
 const SETTING: Route = {
-    path: 'configuraciones',
+    path: OPERATIONS_PATH.settings,
     loadChildren: () => import('./views/operations-setting/operations-setting.module').then(m => m.OperationsSettingModule),
 };
 

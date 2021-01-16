@@ -1,0 +1,21 @@
+<div class="card-static-information d-flex">
+
+    <div class="static-information-avatar mr-4">
+        <app-icon [iconFontName]="iconName"
+                  iconFontSize="24px"
+                  iconClass="text-gray-5"></app-icon>
+    </div>
+
+    <div class="static-information-information">
+        <div class="static-information-title mb-1">
+            <p class="text-caption text-gray-5 mb-0">
+                <ng-content select="[information-title]"></ng-content>
+            </p>
+        </div>
+        <div class="static-information-caption">
+            <p class="text-label mb-0">
+                <ng-content select="[information-caption]"></ng-content>
+            </p>
+        </div>
+    </div>
+</div>

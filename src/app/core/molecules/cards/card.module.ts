@@ -5,17 +5,20 @@ import { CardRadioComponent } from './card-radio/card-radio.component';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { RadioModule } from '@atoms/radio/radio.module';
 import { FormsModule } from '@angular/forms';
+import { CardStaticInformationComponent } from './card-static-information/card-static-information.component';
 
 
 @NgModule({
   declarations: [
     CardActionComponent,
-    CardRadioComponent
+    CardRadioComponent,
+    CardStaticInformationComponent
   ],
-  exports: [
-    CardActionComponent,
-    CardRadioComponent
-  ],
+    exports: [
+        CardActionComponent,
+        CardRadioComponent,
+        CardStaticInformationComponent
+    ],
   imports: [
     CommonModule,
     IconsModule,

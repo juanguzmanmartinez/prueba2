@@ -7,18 +7,10 @@
 .operations-capacities-local-default-capacity-dialog {
   padding: 35px 0 24px;
 
-  .dialog-close,
   .dialog-edit-action {
     position: absolute;
     right: 24px;
     z-index: 2;
-  }
-
-  .dialog-close {
-    top: 20px;
-  }
-
-  .dialog-edit-action {
     bottom: 42px;
   }
 

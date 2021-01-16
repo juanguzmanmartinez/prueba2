@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 
 @Component({
     selector: 'app-router',
@@ -21,5 +21,6 @@ export class RouterComponent {
     @Input()
     routerTarget: '_blank' | '_self' | '_parent' | '_top' | 'framename' = '_self';
 
+    @ContentChild('routerActiveTemplate', {static: false}) routerActiveTemplate: TemplateRef<any>;
 
 }

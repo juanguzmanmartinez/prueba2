@@ -1,10 +1,10 @@
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
-export function getEnableErrorMessages(formControl: FormControl): boolean {
+export function getEnableErrorMessages(formControl: FormControl | FormGroup): boolean {
     return formControl.invalid && (formControl.touched || formControl.dirty);
 }
 
-export function getErrorByFormControl(formControl: FormControl, errorMessageArray: any): string {
+export function getErrorByFormControl(formControl: FormControl | FormGroup, errorMessageArray: any): string {
     if (getEnableErrorMessages(formControl)) {
         if (formControl.errors) {
             const errorKeys = Object.keys(formControl.errors);

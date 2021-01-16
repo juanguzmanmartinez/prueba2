@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '@services/auth/auth.service';
+import { AuthImplementService } from '@implements/auth/auth-implement.service';
 import { Role } from '@models/auth/role.model';
 import { BUSINESS_PATH } from '@parameters/router-path.parameter';
 
@@ -13,13 +13,13 @@ export class AuthGuard implements CanActivate, CanLoad {
 
     constructor(
         private router: Router,
-        private authService: AuthService
+        private authService: AuthImplementService
     ) {
     }
 
 
     canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        if (!this.authService.isAuthorized()) {
+        if (!this.authService.authenticated()) {
             this.router.navigate([BUSINESS_PATH.login]);
             return false;
         }
@@ -34,7 +34,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     }
 
     canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-        if (!this.authService.isAuthorized()) {
+        if (!this.authService.authenticated()) {
             return false;
         }
 

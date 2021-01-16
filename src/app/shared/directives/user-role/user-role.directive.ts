@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { AuthService } from '@services/auth/auth.service';
+import { AuthImplementService } from '@implements/auth/auth-implement.service';
 import { Role } from '@models/auth/role.model';
 
 @Directive({
@@ -9,7 +9,7 @@ export class UserRoleDirective implements OnInit {
 
     constructor(
         private templateRef: TemplateRef<any>,
-        private authService: AuthService,
+        private authService: AuthImplementService,
         private viewContainer: ViewContainerRef
     ) {
     }
@@ -26,7 +26,7 @@ export class UserRoleDirective implements OnInit {
 
     ngOnInit() {
         let hasAccess = false;
-        if (this.authService.isAuthorized() && this.userRoles) {
+        if (this.authService.authenticated() && this.userRoles) {
             hasAccess = this.userRoles.some(role => this.authService.hasRole(role));
         }
         if (hasAccess) {

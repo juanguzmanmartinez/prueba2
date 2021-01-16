@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
-import { LocalClientService } from '@services/calendar/local-client.service';
-import { CalendarClientService } from '@services/calendar/calendar-client.service';
+import { LocalClientService } from '@clients/calendar/local-client.service';
+import { CalendarClientService } from '@clients/calendar/calendar-client.service';
 import { ICalendarUpdateRequestParams } from '@models/calendar/capacity.model';
 import { map } from 'rxjs/operators';
 import { ILocalParams } from '@models/local/local-params.model';

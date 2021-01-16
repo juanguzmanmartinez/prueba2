@@ -11,7 +11,7 @@ import { LinksModule } from '@atoms/links/links.module';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
 import { CardModule } from '@molecules/cards/card.module';
 import { InnerSidenavModule } from '@organisms/inner-sidenav/inner-sidenav.module';
-import { ServicesModule } from '@services/services.module';
+import { ClientsServiceModule } from '@clients/clients-service.module';
 
 
 @NgModule({
@@ -23,7 +23,7 @@ import { ServicesModule } from '@services/services.module';
   imports: [
     CommonModule,
     OperationsRoutingModule,
-    ServicesModule,
+    ClientsServiceModule,
     IconsModule,
     MatExpansionModule,
     LinksModule,

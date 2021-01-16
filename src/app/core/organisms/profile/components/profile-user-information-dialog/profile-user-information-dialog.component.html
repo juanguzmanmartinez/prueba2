@@ -1,0 +1,44 @@
+<section class="profile-dialog">
+
+    <div class="dialog-close">
+        <app-icon iconFontName="close"
+                  iconFontSize="24px"
+                  iconClass="text-gray-5 cursor-pointer"
+                  mat-dialog-close></app-icon>
+    </div>
+
+    <app-profile-dialog-header>
+        <ng-container user-name>Carolina García</ng-container>
+        <ng-container user-role>Algunos permisos habilitados</ng-container>
+    </app-profile-dialog-header>
+
+    <div class="dialog-content">
+        <div class="profile-dialog-information">
+
+            <app-card-static-information class="d-block mb-6"
+                                         iconName="mail">
+                <ng-container information-title>Correo</ng-container>
+                <ng-container information-caption>carolina.garcía@inkafarmadigital.pe</ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information iconName="visibility">
+                <ng-container information-title>Permisos</ng-container>
+                <ng-container information-caption>Algunos permisos habilitados</ng-container>
+            </app-card-static-information>
+
+        </div>
+
+        <div class="profile-dialog-actions d-flex-horizontal-end">
+            <app-button type="secondary"
+                        innerClass="mr-4"
+                        [mat-dialog-close]="profileDialogType.updatePassword">
+                Cambiar de contraseña
+            </app-button>
+            <app-button type="primary"
+                        [mat-dialog-close]="profileDialogType.logout">
+                Cerrar sesión
+            </app-button>
+        </div>
+    </div>
+
+</section>

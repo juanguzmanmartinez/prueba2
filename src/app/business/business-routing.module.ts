@@ -11,7 +11,7 @@ const OPERATIONS: Route = {
 };
 const LOGIN: Route = {
     path: BUSINESS_PATH.login,
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+    loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
 };
 
 const ADMIN: Route = {
@@ -28,7 +28,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: BusinessComponent,
         children: [
-            {path: '', redirectTo: `/${BUSINESS_PATH.login}`, pathMatch: 'full'},
+            {path: '', redirectTo: BUSINESS_PATH.login, pathMatch: 'full'},
             OPERATIONS,
         ]
     },

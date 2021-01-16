@@ -1,0 +1,21 @@
+<section class="profile-dialog-header">
+
+    <div class="user-avatar mr-5">
+        <app-icon iconSvgName="avatar"
+                  iconSvgWidth="40px"></app-icon>
+    </div>
+
+    <div class="user-information">
+        <div class="user-name mb-1">
+            <h5 class="text-h5 mb-0">
+                <ng-content select="[user-name]"></ng-content>
+            </h5>
+        </div>
+        <div class="user-role">
+            <span class="text-caption text-gray-5">
+                <ng-content select="[user-role]"></ng-content>
+            </span>
+        </div>
+    </div>
+
+</section>

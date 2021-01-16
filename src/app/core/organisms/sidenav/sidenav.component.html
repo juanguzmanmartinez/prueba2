@@ -1,28 +1,43 @@
 <mat-sidenav-container class="static-sidenav-container">
-  <mat-sidenav mode="side"
-               opened>
-    <div class="static-sidenav">
-      <div class="sidenav-taps">
-        <app-router router="/">
-          <app-icon iconSvgName="main-logo"
-                    iconSvgWidth="32px"></app-icon>
-        </app-router>
-      </div>
+    <mat-sidenav mode="side"
+                 opened>
+        <div class="static-sidenav">
 
-      <div class="sidenav-taps">
-        <app-tooltip tooltipValue="Operaciones"
-                     tooltipClass="sidenav-tooltip">
-          <app-router router="/operaciones"
-                      class="d-block">
-            <app-button-action-text>OP</app-button-action-text>
-          </app-router>
-        </app-tooltip>
-      </div>
-    </div>
-  </mat-sidenav>
+            <div class="sidenav-top-taps">
+
+                <div class="sidenav-taps">
+                    <app-router router="/">
+                        <app-icon iconSvgName="main-logo"
+                                  iconSvgWidth="32px"></app-icon>
+                    </app-router>
+                </div>
+
+                <div class="sidenav-taps">
+                    <app-tooltip tooltipValue="Operaciones"
+                                 tooltipClass="sidenav-tooltip">
+                        <app-router router="/operaciones"
+                                    class="d-block">
+                            <ng-template #routerActiveTemplate let-routerActiveVariable>
+                                <app-button-action-text [active]="routerActiveVariable.isActive">OP</app-button-action-text>
+                            </ng-template>
+                        </app-router>
+                    </app-tooltip>
+                </div>
+            </div>
+
+            <div class="sidenav-bottom-taps">
+
+                <div class="sidenav-taps">
+                    <app-profile></app-profile>
+                </div>
+
+            </div>
+
+        </div>
+    </mat-sidenav>
 
 
-  <mat-sidenav-content>
-    <ng-content></ng-content>
-  </mat-sidenav-content>
+    <mat-sidenav-content>
+        <ng-content></ng-content>
+    </mat-sidenav-content>
 </mat-sidenav-container>
