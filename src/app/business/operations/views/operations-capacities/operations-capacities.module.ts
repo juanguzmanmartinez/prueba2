@@ -23,11 +23,9 @@ import { OpCapacitiesStepEditionModeComponent } from './components/op-capacities
 import { OpCapacitiesStepCapacityTableComponent } from './components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.component';
 import { OpCapacitiesStepExpressResourceComponent } from './components/op-capacities-step-express-resource/op-capacities-step-express-resource.component';
 import { AlertModule } from '@molecules/alert/alert.module';
-import {
-  OpCapacitiesStepCapacityTableFormComponent
-} from './components/op-capacities-step-capacity-table-form/op-capacities-step-capacity-table-form.component';
+import { OpCapacitiesStepCapacityTableFormComponent } from './components/op-capacities-step-capacity-table-form/op-capacities-step-capacity-table-form.component';
 import { MatTableModule } from '@angular/material/table';
-import { CheckboxModule } from '@atoms/checkox/checkbox.module';
+import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
 import { OpCapacitiesLocalDefaultCapacityComponent } from './components/op-capacities-local-default-capacity/op-capacities-local-default-capacity.component';
 import { TooltipModule } from '@atoms/tooltip/tooltip.module';
 import { OpCapacitiesLocalDefaultCapacityCardComponent } from './components/op-capacities-local-default-capacity-card/op-capacities-local-default-capacity-card.component';

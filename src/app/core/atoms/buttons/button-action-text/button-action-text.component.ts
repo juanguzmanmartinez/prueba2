@@ -1,20 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ButtonComponent } from '../button/button.component';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-button-action-text',
     templateUrl: './button-action-text.component.html',
     styleUrls: ['./button-action-text.component.scss']
 })
-export class ButtonActionTextComponent extends ButtonComponent implements OnInit {
+export class ButtonActionTextComponent {
 
-    @Input() active: boolean;
+    @Input()
+    active: boolean;
 
-    constructor() {
-        super();
-    }
+    @Input()
+    innerClass = '';
 
-    ngOnInit(): void {
-    }
+    @Input()
+    inlineStyle: { [klass: string]: any; } | null;
+
+    @Input()
+    disabled = false;
+
+    onClick = (_: any) => {};
 
 }

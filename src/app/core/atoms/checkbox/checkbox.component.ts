@@ -12,7 +12,7 @@ export class CheckboxComponent implements OnInit, ControlValueAccessor {
     public _checkboxIndeterminate: boolean;
 
     @Input() checkboxDisabled: any;
-    @Input() checkboxName: any = 'radio';
+    @Input() checkboxName: any = 'checkbox';
     @Input() checkboxClass: any;
 
     @Input('checkboxChecked')
