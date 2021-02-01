@@ -1,0 +1,102 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
+import {ButtonComponent} from "../button/button.component";
+import {IconsModule} from "../../icons/icons.module";
+import {ButtonIconComponent} from "./button-icon.component";
+
+<Meta
+    title="Atoms/Buttons/Button Icon"
+    component={ButtonIconComponent}/>
+
+# Button Icon
+<br/>
+<br/>
+
+### Props
+| Property | Type  | Values | Default  |
+| ------ | --------- |------ | --------- |
+| iconName*    | string   | "" | "" |
+| behavior      | string   | <code>button</code><code>submit</code><code>reset</code> | <code>button</code> |
+| disabled      | boolean  | true/false       | false     |
+| inlineStyle   | object/string |   ""     | ""  |
+| innerClass    | string   |     ""    |  ""  |
+*Required
+
+### Events
+| Event | Arguments  | Description |
+| ------ | --------- |------ |
+| click    |     | Emitted when clicked on button |
+
+------
+
+export const Template = (args) => ({
+    component: ButtonIconComponent,
+    props: {...args, label: 'Button'},
+    moduleMetadata: {
+        imports: [IconsModule],
+        declarations: [ButtonIconComponent, ButtonComponent],
+    },
+    template: '<app-button-icon ' +
+        '[iconName]="iconName" ' +
+        '[disabled]="disabled" ' +
+        '[behavior]="behavior" ' +
+        '[innerClass]="innerClass" ' +
+        '[inlineStyle]="inlineStyle">{{label}}</app-button-icon>',
+})
+
+<br/>
+<br/>
+
+### Default
+
+<Canvas>
+    <Story name='Default' args={{
+        iconName: 'launch'
+    }} parameters={{
+        docs: {
+            source: {
+                code: '<app-button-icon iconName="launch">Button</app-button-icon>',
+            }
+        }
+    }}>{Template.bind({})}
+    </Story>
+    <Story name='Disabled' args={{
+        disabled: true,
+        iconName: 'edit'
+    }} parameters={{
+        docs: {
+            source: {
+                code: '<app-button-icon iconName="edit" disabled=true>Button</app-button-icon>',
+            },
+        }
+    }}>{Template.bind({})}
+    </Story>
+</Canvas>
+
+<br/>
+<br/>
+
+# Usages
+Import ButtonsModule into your custom module
+
+```typescript
+import { ButtonsModule } from '@atoms/buttons/buttons.module';
+
+@NgModule({
+    imports: [ButtonsModule]
+})
+
+export class YourModule {}
+```
+
+## Examples
+
+  ```html
+     <app-button-icon iconName="edit"
+                      (click)="event()"
+                      [disabled]="true"></app-button-action-icon>
+```
+ ```html
+   <app-button-icon iconName="launch"
+                      behavior="submit"
+                      innerClass="cursor-pointer"></app-button-action-icon>
+  ```

@@ -1,0 +1,142 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
+import {ButtonComponent} from "./button.component";
+
+<Meta
+    title="Atoms/Buttons/Button"
+    component={ButtonComponent}/>
+
+# Button
+<br/>
+<br/>
+
+### Props
+| Property | Type  | Values | Default  |
+| ------ | --------- |------ | --------- |
+| appearance    | string   | <code>primary</code><code>secondary</code><code>outline</code><code>ghost</code><code>default</code> | <code>default</code> |
+| behavior      | string   | <code>button</code><code>submit</code><code>reset</code> | <code>button</code> |
+| disabled      | boolean  | true/false       | false     |
+| inlineStyle   | object/string |   ""     | ""  |
+| innerClass    | string   |     ""    |  ""  |
+
+### Events
+| Event | Arguments  | Description |
+| ------ | --------- |------ |
+| click    |     | Emitted when clicked on button |
+
+------
+
+export const Template = (args) => ({
+    component: ButtonComponent,
+    props: {...args, label: 'Button'},
+    moduleMetadata: {
+        declarations: [ButtonComponent],
+    },
+    template: '<app-button ' +
+        '[appearance]="appearance" ' +
+        '[disabled]="disabled" ' +
+        '[innerClass]="innerClass" ' +
+        '[inlineStyle]="inlineStyle" ' +
+        '[behavior]="behavior">{{label}}</app-button>',
+})
+
+<br/>
+<br/>
+
+### Appearance
+
+<Canvas>
+    <Story name='Default' parameters={{
+        docs: {
+            source: {
+                code: '<app-button>Button</app-button>',
+            }
+        }
+    }}>{Template.bind({})}
+    </Story>
+    <Story name='Primary' args={{
+        appearance: 'primary'
+    }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-button appearance="primary">Button</app-button>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Secondary' args={{
+        appearance: 'secondary'
+    }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-button appearance="secondary">Button</app-button>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Outline' args={{
+        appearance: 'outline'
+    }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-button appearance="outline">Button</app-button>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Ghost' args={{
+        appearance: 'ghost'
+    }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-button appearance="ghost">Button</app-button>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Disabled' args={{
+        disabled: true
+    }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-button disabled=true>Button</app-button>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+</Canvas>
+
+<br/>
+<br/>
+
+# Usages
+
+Import ButtonsModule into your custom module
+
+```typescript
+import { ButtonsModule } from '@atoms/buttons/buttons.module';
+
+@NgModule({
+    imports: [ButtonsModule]
+})
+
+export class YourModule {}
+```
+
+## Examples
+
+  ```html
+<app-button type="primary"
+            behavior="submit"
+            [disabled]="true"
+            (click)="event()"></app-button>
+```
+ ```html
+<app-button innerClass="text-white"
+            [disabled]="false"
+            inlineStyle="{backgroundColor: black}"></app-button>
+  ```

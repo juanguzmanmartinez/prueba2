@@ -1,9 +1,9 @@
 <section class="profile-dialog">
 
     <div class="dialog-close">
-        <app-icon iconFontName="close"
-                  iconFontSize="24px"
-                  iconClass="text-gray-5 cursor-pointer"
+        <app-icon fontName="close"
+                  fontSize="24px"
+                  innerClass="text-gray-5 cursor-pointer"
                   mat-dialog-close></app-icon>
     </div>
 
@@ -29,12 +29,12 @@
         </div>
 
         <div class="profile-dialog-actions d-flex-horizontal-end">
-            <app-button type="secondary"
+            <app-button appearance="secondary"
                         innerClass="mr-4"
                         [mat-dialog-close]="profileDialogType.updatePassword">
                 Cambiar de contraseña
             </app-button>
-            <app-button type="primary"
+            <app-button appearance="primary"
                         [mat-dialog-close]="profileDialogType.logout">
                 Cerrar sesión
             </app-button>

@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { DatepickerHeaderComponent } from '../../components/datepicker-header/datepicker-header.component';
+import { DatepickerHeaderComponent } from '../components/datepicker-header/datepicker-header.component';
 import { DatesHelper } from '@helpers/dates.helper';
 
 export interface IDatepickerRange {

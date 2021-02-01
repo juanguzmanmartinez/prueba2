@@ -7,15 +7,15 @@ import { Component, Input } from '@angular/core';
 })
 export class IconsComponent {
 
-    @Input() iconClass: string;
+    @Input() fontName: string;
+    @Input() fontColor: string;
+    @Input() fontSize: '16px' | '24px' | '32px' | '48px' | string = '16px';
 
-    @Input() iconFontName: string;
-    @Input() iconFontColor: string;
-    @Input() iconFontSize: '16px' | '24px' | '32px' | '48px' | string = '16px';
+    @Input() svgName: string;
+    @Input() svgWidth: '16px' | '24px' | '32px' | '48px' | string = '16px';
+    @Input() svgHeight: '16px' | '24px' | '32px' | '48px' | string;
 
-    @Input() iconSvgName: string;
-    @Input() iconSvgWidth: '16px' | '24px' | '32px' | '48px' | string = '16px';
-    @Input() iconSvgHeight: '16px' | '24px' | '32px' | '48px' | string;
+    @Input() innerClass: string;
 
     constructor() {
     }

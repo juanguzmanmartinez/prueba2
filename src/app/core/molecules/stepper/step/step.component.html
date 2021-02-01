@@ -19,8 +19,8 @@
           <span class="step-header-description text-truncate">{{stepDescription}}</span>
           <app-icon *ngIf="!stepReadonly"
                     class="step-header-description-icon"
-                    iconFontName="edit"
-                    iconFontSize="24px"></app-icon>
+                    fontName="edit"
+                    fontSize="24px"></app-icon>
         </mat-panel-description>
       </div>
     </mat-expansion-panel-header>
@@ -30,12 +30,12 @@
       </div>
 
       <div class="step-body-actions">
-        <app-button type="secondary"
+        <app-button appearance="secondary"
                     class="mr-4"
                     (click)="cancelButtonEvent.emit()">
           {{cancelButtonText}}
         </app-button>
-        <app-button type="primary"
+        <app-button appearance="primary"
                     [disabled]="saveButtonDisabled"
                     (click)="saveButtonEvent.emit()">
           {{saveButtonText}}

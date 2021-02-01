@@ -1,4 +1,4 @@
-import { IDatepickerRange } from '@atoms/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
+import { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';
 
 export interface ICapacityStepExpressResourceSegments {
   capacityRange?: IDatepickerRange;

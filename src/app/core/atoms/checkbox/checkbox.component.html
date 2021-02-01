@@ -2,12 +2,12 @@
   <input
     type="checkbox"
     class="checkbox"
-    [class.checkbox-indeterminate]="_checkboxIndeterminate"
-    [ngClass]="checkboxClass"
-    [name]="checkboxName"
-    [disabled]="checkboxDisabled"
-    [checked]="_checkboxChecked"
-    [(ngModel)]="_checkboxChecked"
+    [class.checkbox-indeterminate]="_indeterminate"
+    [ngClass]="innerClass"
+    [name]="name"
+    [disabled]="disabled"
+    [checked]="_checked"
+    [(ngModel)]="_checked"
     (change)="chooseCheckbox()"
     (click)="checkboxClick($event)">
 

@@ -8,29 +8,29 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 })
 export class CheckboxComponent implements OnInit, ControlValueAccessor {
 
-    public _checkboxChecked: boolean;
-    public _checkboxIndeterminate: boolean;
+    public _checked: boolean;
+    public _indeterminate: boolean;
 
-    @Input() checkboxDisabled: any;
-    @Input() checkboxName: any = 'checkbox';
-    @Input() checkboxClass: any;
+    @Input() disabled: boolean;
+    @Input() name = 'checkbox';
+    @Input() innerClass: string;
 
-    @Input('checkboxChecked')
-    get checkboxChecked(): boolean {
-        return this._checkboxChecked;
+    @Input('checked')
+    get checked(): boolean {
+        return this._checked;
     }
 
-    set checkboxChecked(checked) {
-        this._checkboxChecked = checked;
+    set checked(checked) {
+        this._checked = checked;
     }
 
-    @Input('checkboxIndeterminate')
-    get checkboxIndeterminate(): boolean {
-        return this._checkboxIndeterminate;
+    @Input('indeterminate')
+    get indeterminate(): boolean {
+        return this._indeterminate;
     }
 
-    set checkboxIndeterminate(checked) {
-        this._checkboxIndeterminate = checked;
+    set indeterminate(checked) {
+        this._indeterminate = checked;
     }
 
     onChange = (_: any) => {};
@@ -53,8 +53,8 @@ export class CheckboxComponent implements OnInit, ControlValueAccessor {
     }
 
     chooseCheckbox() {
-        this.onChange(this._checkboxChecked);
-        this._checkboxIndeterminate = false;
+        this.onChange(this._checked);
+        this._indeterminate = false;
     }
 
     registerOnChange(fn: any): void {
@@ -66,11 +66,11 @@ export class CheckboxComponent implements OnInit, ControlValueAccessor {
     }
 
     setDisabledState(isDisabled: boolean): void {
-        this.checkboxDisabled = isDisabled;
+        this.disabled = isDisabled;
     }
 
     writeValue(obj: any): void {
-        this._checkboxChecked = obj;
+        this._checked = obj;
     }
 
 }

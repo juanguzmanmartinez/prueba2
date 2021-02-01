@@ -2,10 +2,10 @@
      [class.bg-danger]="data?.status === eAlertStatus.error"
      [class.bg-warning]="data?.status === eAlertStatus.warning"
      [class.bg-success]="data?.status === eAlertStatus.success">
-  <app-icon [iconFontName]="data?.status === eAlertStatus.error ? 'cancel' :
+  <app-icon [fontName]="data?.status === eAlertStatus.error ? 'cancel' :
                             data?.status === eAlertStatus.warning ? 'warning': 'check_circle'"
-            iconFontSize="24px"
-            iconClass="text-white"></app-icon>
+            fontSize="24px"
+            innerClass="text-white"></app-icon>
 
   <span class="alert-text"
         [innerHTML]="data?.message"></span>

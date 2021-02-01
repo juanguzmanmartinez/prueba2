@@ -1,7 +1,7 @@
 import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';
 import { ICapacityStepCapacityTableSegments } from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 import { CapacitiesServiceType } from './operations-capacities-responses.model';
-import { IDatepickerRange } from '@atoms/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
+import { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';
 import { ServiceTypeSegment } from '@models/local/service-type.model';
 
 

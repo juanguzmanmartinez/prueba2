@@ -33,7 +33,8 @@ export class YourCustomComponent {
 <app-checkbox [(ngModel)]="checked">Checked</app-checkbox>
 <app-checkbox [(ngModel)]="indeterminate">Indeterminate</app-checkbox>
 
-<app-checkbox [checkboxChecked]="checked"
-              [checkboxDisabled]="disabled"
-              [checkboxIndeterminate]="indeterminate">I'm a checkbox</app-checkbox>
+<app-checkbox [checked]="checked"
+              [disabled]="disabled"
+              [indeterminate]="indeterminate">I'm a checkbox
+</app-checkbox>
   ```

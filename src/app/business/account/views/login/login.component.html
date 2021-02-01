@@ -36,9 +36,9 @@
                 </app-form-field>
                 <label *ngIf="capsLock"
                        class="d-flex-vertical-center mt-2">
-                    <app-icon iconFontName="warning"
-                              iconFontSize="16px"
-                              iconClass="text-warning"
+                    <app-icon fontName="warning"
+                              fontSize="16px"
+                              innerClass="text-warning"
                               class="d-inline-flex mr-2"></app-icon>
                     <span class="text-caption text-warning">Las mayúsculas están activadas</span>
                 </label>
@@ -47,7 +47,7 @@
             <div class="submit">
                 <app-button [disabled]="loginForm.form$.invalid"
                             innerClass="w-100"
-                            type="primary"
+                            appearance="primary"
                             behavior="submit">
                     Ingresa a tu cuenta
                 </app-button>
@@ -58,7 +58,7 @@
         <div class="forgot-password">
             <app-router [router]="resetPasswordPath">
                 <app-button innerClass="w-100"
-                            type="secondary">
+                            appearance="secondary">
                     ¿Olvidaste tu contraseña?
                 </app-button>
             </app-router>

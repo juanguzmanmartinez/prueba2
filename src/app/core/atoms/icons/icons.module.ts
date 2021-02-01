@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IconsComponent } from './icons.component';
 import { MatIconModule } from '@angular/material/icon';
-import { IconsImplementService } from './service/icons-implement.service';
 
 
 @NgModule({
@@ -13,9 +12,6 @@ import { IconsImplementService } from './service/icons-implement.service';
     ],
     exports: [
         IconsComponent
-    ],
-    providers: [
-        IconsImplementService
     ]
 })
 export class IconsModule {

@@ -1,6 +1,6 @@
 <app-button
   [innerClass]="'button-icon ' + innerClass"
-  type="primary"
+  appearance="primary"
   [behavior]="behavior"
   [inlineStyle]="inlineStyle"
   [disabled]="disabled"
@@ -8,9 +8,9 @@
   <span class="d-inline-flex">
     <app-icon class="d-inline-block mr-2 button-icon-icon"
               [class.button-icon-disabled]="disabled"
-              [iconFontName]="iconName"
-              iconFontSize="16px"
-              iconFontColor="white"></app-icon>
+              [fontName]="iconName"
+              fontSize="16px"
+              fontColor="white"></app-icon>
     <ng-content></ng-content>
   </span>
 </app-button>

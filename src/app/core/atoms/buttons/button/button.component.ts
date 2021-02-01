@@ -13,7 +13,7 @@ export class ButtonComponent {
     inlineStyle: { [klass: string]: any; } | null;
 
     @Input()
-    type: 'primary' | 'secondary' | 'outline' | 'ghost' | 'default' = 'default';
+    appearance: 'primary' | 'secondary' | 'outline' | 'ghost' | 'default' = 'default';
 
     @Input()
     behavior: 'button' | 'submit' | 'reset' = 'button';

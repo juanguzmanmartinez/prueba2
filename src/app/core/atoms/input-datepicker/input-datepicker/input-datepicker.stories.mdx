@@ -1,0 +1,120 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
+import {CustomDateAdapter, InputDatepickerComponent, MY_FORMATS} from "./input-datepicker.component";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {DatepickerHeaderComponent} from "../components/datepicker-header/datepicker-header.component";
+import {
+    DateAdapter,
+    MAT_DATE_FORMATS,
+    MAT_DATE_LOCALE
+} from '@angular/material/core'; import {IconsModule} from "../../icons/icons.module"; import {BrowserAnimationsModule} from "@angular/platform-browser/animations"; import {IconsRegistryModule} from "../../icons/icons-registry.module";
+import * as  moment from 'moment';
+
+<Meta
+    title="Atoms/Input/Input Datepicker"
+    component={InputDatepickerComponent}
+    parameters={{layout: 'padded'}}/>
+
+# Input Datepicker
+<br/>
+<br/>
+
+### Props
+| Property | Type  | Values | Default  |
+| ------ | --------- |------ | --------- |
+| placeholder    | string   |  | 'dd/mm/aaaa' |
+| inputFormat      | string   |  | 'DD/MM/YYYY' |
+| outputFormat      | string  |      | 'DD/MM/YYYY'     |
+| minDate   | moment.Moment |        |  moment() |
+| maxDate    | moment.Moment   |         |  null  |
+| value    | string   |         |  null  |
+
+### Events
+| Event | Arguments  | Description |
+| ------ | --------- |------ |
+| change    |     | Emitted when datepicker's value changes |
+
+------
+
+export const Template = (args) => ({
+    component: InputDatepickerComponent,
+    props: {...args},
+    moduleMetadata: {
+        imports: [MatDatepickerModule, IconsModule, IconsRegistryModule, BrowserAnimationsModule],
+        declarations: [InputDatepickerComponent, DatepickerHeaderComponent],
+        entryComponents: [DatepickerHeaderComponent],
+        providers: [
+            {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE]},
+            {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+        ]
+    },
+    template: '<app-input-datepicker ' +
+        '[placeholder]="placeholder" ' +
+        '[inputFormat]="inputFormat" ' +
+        '[outputFormat]="outputFormat" ' +
+        '[minDate]="minDate" ' +
+        '[maxDate]="maxDate" ' +
+        '[value]="value" ' +
+        '></app-input-datepicker>',
+})
+
+<br/>
+<br/>
+
+### Appearance
+
+<Canvas>
+    <Story name='Default' height={400}
+           args={{
+               placeholder: 'dd/mm/aaaa',
+               inputFormat: 'DD/MM/YYYY',
+               outputFormat: 'DD/MM/YYYY',
+               minDate: moment()
+           }} parameters={{
+        docs: {
+            source: {
+                code: '<app-input-datepicker></app-input-datepicker>',
+            }
+        }
+    }}>{Template.bind({})}
+    </Story>
+    <Story name='Min Date' height={400}
+           args={{
+               placeholder: 'dd/mm/aaaa',
+               inputFormat: 'DD/MM/YYYY',
+               outputFormat: 'DD/MM/YYYY',
+               minDate: moment().add(3, 'd')
+           }} parameters={{
+        docs: {
+            source: {
+                code: '<app-input-datepicker></app-input-datepicker>',
+            }
+        }
+    }}>{Template.bind({})}
+    </Story>
+</Canvas>
+
+<br/>
+<br/>
+
+# Usages
+
+Import InputDatepickerModule into your custom module
+
+```typescript
+import { InputDatepickerModule } from '@atoms/input-datepicker/input-datepicker.module';
+
+@NgModule({
+    imports: [InputDatepickerModule]
+})
+
+export class YourModule {}
+```
+
+## Examples
+
+  ```html
+<app-input-datepicker outputFormat="YYYY/MM/DD"></app-input-datepicker>
+```
+ ```html
+<app-input-datepicker></app-input-datepicker>
+  ```

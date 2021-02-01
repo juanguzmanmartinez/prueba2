@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
-import { DatepickerHeaderComponent } from '../../components/datepicker-header/datepicker-header.component';
+import { DatepickerHeaderComponent } from '../components/datepicker-header/datepicker-header.component';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
