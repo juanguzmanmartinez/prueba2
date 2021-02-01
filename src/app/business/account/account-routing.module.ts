@@ -11,13 +11,13 @@ import { RecoverPasswordCodeComponent } from './components/recover-password-code
 const routes: Routes = [
     {
         path: '', component: AccountComponent, children: [
-            {path: '', redirectTo: LOGIN_PATH.login, pathMatch: 'full'},
-            {path: LOGIN_PATH.login, component: LoginComponent, pathMatch: 'full'},
+            {path: '', redirectTo: LOGIN_PATH.login.valueOf(), pathMatch: 'full'},
+            {path: LOGIN_PATH.login.valueOf(), component: LoginComponent, pathMatch: 'full'},
             {
-                path: LOGIN_PATH.recoverPassword, component: RecoverPasswordComponent, children: [
-                    {path: LOGIN_PATH.recoverPasswordUser, component: RecoverPasswordUserComponent, pathMatch: 'full'},
-                    {path: LOGIN_PATH.recoverPasswordCode, component: RecoverPasswordCodeComponent, pathMatch: 'full'},
-                    {path: LOGIN_PATH.recoverPasswordReset, component: RecoverPasswordResetComponent, pathMatch: 'full'},
+                path: LOGIN_PATH.recoverPassword.valueOf(), component: RecoverPasswordComponent, children: [
+                    {path: LOGIN_PATH.recoverPasswordUser.valueOf(), component: RecoverPasswordUserComponent, pathMatch: 'full'},
+                    {path: LOGIN_PATH.recoverPasswordCode.valueOf(), component: RecoverPasswordCodeComponent, pathMatch: 'full'},
+                    {path: LOGIN_PATH.recoverPasswordReset.valueOf(), component: RecoverPasswordResetComponent, pathMatch: 'full'},
                 ]
             },
         ]

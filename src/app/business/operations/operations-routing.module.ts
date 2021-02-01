@@ -5,22 +5,22 @@ import { OperationsHomeComponent } from './views/operations-home/operations-home
 import { OPERATIONS_PATH } from '@parameters/router-path.parameter';
 
 const STORES: Route = {
-    path: OPERATIONS_PATH.stores,
+    path: OPERATIONS_PATH.stores.valueOf(),
     loadChildren: () => import('./views/operations-stores/operations-stores.module').then(m => m.OperationsStoresModule),
 };
 
 const ZONES: Route = {
-    path: OPERATIONS_PATH.zones,
+    path: OPERATIONS_PATH.zones.valueOf(),
     loadChildren: () => import('./views/operations-zones/operations-zones.module').then(m => m.OperationsZonesModule),
 };
 
 const CAPACITIES: Route = {
-    path: OPERATIONS_PATH.capacities,
+    path: OPERATIONS_PATH.capacities.valueOf(),
     loadChildren: () => import('./views/operations-capacities/operations-capacities.module').then(m => m.OperationsCapacitiesModule),
 };
 
 const SETTING: Route = {
-    path: OPERATIONS_PATH.settings,
+    path: OPERATIONS_PATH.settings.valueOf(),
     loadChildren: () => import('./views/operations-setting/operations-setting.module').then(m => m.OperationsSettingModule),
 };
 

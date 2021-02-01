@@ -5,8 +5,7 @@ import { map, take } from 'rxjs/operators';
 
 import { EndpointsParameter } from '@parameters/endpoints.parameter';
 import { GenericService } from '../generic/generic.service';
-import { Blocked, Calendar, IBlocked, ICalendar, IDayBlockedRequest } from '@models/calendar/calendar.model';
-import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
+import { Blocked, IBlocked } from '@models/calendar/calendar.model';
 import { isArray } from '@helpers/objects-equal.helper';
 import { Capacity, ICalendarUpdateRequestParams, ICapacity } from '@models/calendar/capacity.model';
 import { EChannel } from '@models/channel/channel.model';
@@ -18,8 +17,6 @@ import { ICalendarServiceDefaultCapacities } from '@models/calendar/calendar-res
 @Injectable()
 export class CalendarClientService {
 
-  private readonly CALENDAR_ENDPOINT = EndpointsParameter.GET_CALENDAR;
-  private readonly BLOCKED_DAY_ENDPOINT = EndpointsParameter.PATCH_CALENDAR;
   private readonly CALENDAR_UPDATE_ENDPOINT = EndpointsParameter.PATCH_CALENDAR_UPDATE;
   private readonly CALENDAR_UPDATE_RANGE_ENDPOINT = EndpointsParameter.PATCH_CALENDAR_RANGE_UPDATE;
   private readonly CALENDAR_CAPACITIES = EndpointsParameter.GET_CALENDAR_CAPACITIES;
@@ -27,31 +24,6 @@ export class CalendarClientService {
   constructor(
     private genericService: GenericService,
   ) { }
-
-  public getCalendarClient$(params: ICustomSelectOption) {
-    const httpParams = new HttpParams()
-      .set('fulfillmentCenterCode', String(params.fulfillmentCenterCode))
-      .set('serviceTypeCode', String(params.serviceTypeCode))
-      .set('segmentType', String(params.segmentType))
-      .set('channel', String(params.channel));
-    return this.genericService.genericGet<ICalendar[]>(this.CALENDAR_ENDPOINT, httpParams)
-      .pipe(map(response => {
-        const current = isArray(response) ? response : [];
-        return current.map(e => new Calendar(e));
-      }));
-  }
-
-
-  public patchCalendarClient$(params: IDayBlockedRequest, days: string, unchecked: string) {
-    const httpParams = new HttpParams()
-      .set('fulfillmentCenterCode', String(params.fulfillmentCenterCode));
-    const ENDPOINT = this.BLOCKED_DAY_ENDPOINT + '/' + days + '/checks/' + unchecked;
-    return this.genericService.genericPatchWithoutBody<IBlocked[]>(ENDPOINT, httpParams)
-      .pipe(map(response => {
-        const current = isArray(response) ? response : [];
-        return current.map(e => new Blocked(e));
-      }));
-  }
 
   public patchCalendarUpdateClient$(request: ICalendarUpdateRequestParams) {
     return this.genericService.genericPatch<IBlocked[]>(this.CALENDAR_UPDATE_ENDPOINT, request)

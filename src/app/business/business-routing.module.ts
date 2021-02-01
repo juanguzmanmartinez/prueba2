@@ -6,19 +6,19 @@ import { AuthGuard } from '@guards/auth.guard';
 import { Role } from '@models/auth/role.model';
 
 const OPERATIONS: Route = {
-    path: BUSINESS_PATH.operations,
+    path: BUSINESS_PATH.operations.valueOf(),
     loadChildren: () => import('./operations/operations.module').then(m => m.OperationsModule),
 };
 const LOGIN: Route = {
-    path: BUSINESS_PATH.login,
+    path: BUSINESS_PATH.login.valueOf(),
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
 };
 
 const ADMIN: Route = {
-    path: BUSINESS_PATH.admin,
+    path: BUSINESS_PATH.admin.valueOf(),
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
-    data: {roles: [Role.Admin]},
+    data: {roles: [Role.Admin.valueOf()]},
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
 };
 
@@ -28,7 +28,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: BusinessComponent,
         children: [
-            {path: '', redirectTo: BUSINESS_PATH.login, pathMatch: 'full'},
+            {
+                path: '',
+                redirectTo: BUSINESS_PATH.login.valueOf(),
+                pathMatch: 'full'
+            },
             OPERATIONS,
         ]
     },

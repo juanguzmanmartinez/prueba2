@@ -13,10 +13,26 @@ const routes: Routes = [
     {
         path: '', component: OperationsCapacitiesComponent, children: [
             {path: '', component: OperationsCapacityHomeComponent, pathMatch: 'full'},
-            {path: CCapacitiesServiceTypeRoute[ECapacitiesServiceType.amPm], component: OperationsCapacityAmPmComponent, pathMatch: 'full'},
-            {path: CCapacitiesServiceTypeRoute[ECapacitiesServiceType.scheduled], component: OperationsCapacityScheduledComponent, pathMatch: 'full'},
-            {path: CCapacitiesServiceTypeRoute[ECapacitiesServiceType.express], component: OperationsCapacityExpressComponent, pathMatch: 'full'},
-            {path: CCapacitiesServiceTypeRoute[ECapacitiesServiceType.ret], component: OperationsCapacityRetComponent, pathMatch: 'full'},
+            {
+                path: CCapacitiesServiceTypeRoute[ECapacitiesServiceType.amPm.valueOf()],
+                component: OperationsCapacityAmPmComponent,
+                pathMatch: 'full'
+            },
+            {
+                path: CCapacitiesServiceTypeRoute[ECapacitiesServiceType.scheduled.valueOf()],
+                component: OperationsCapacityScheduledComponent,
+                pathMatch: 'full'
+            },
+            {
+                path: CCapacitiesServiceTypeRoute[ECapacitiesServiceType.express.valueOf()],
+                component: OperationsCapacityExpressComponent,
+                pathMatch: 'full'
+            },
+            {
+                path: CCapacitiesServiceTypeRoute[ECapacitiesServiceType.ret.valueOf()],
+                component: OperationsCapacityRetComponent,
+                pathMatch: 'full'
+            },
         ]
     }
 ];
