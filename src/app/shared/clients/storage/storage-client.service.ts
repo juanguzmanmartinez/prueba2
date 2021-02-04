@@ -3,7 +3,7 @@ import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 @Injectable()
-export class AppStoreService {
+export class StorageClientService {
 
     private STORAGE_NAME_EVENT = 'storage';
 

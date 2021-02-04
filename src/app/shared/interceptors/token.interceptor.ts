@@ -3,18 +3,22 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 
 import { environment } from '@environments/environment';
-import { AuthImplementService } from '@implements/auth/auth-implement.service';
+import { UserStoreService } from '@stores/user-store.service';
+import { TokenStoreService } from '@stores/token-store.service';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class TokenInterceptor implements HttpInterceptor {
     private allowedUrls = [
         environment.api_gateway,
-        environment.api_gateway_calendar
+        environment.api_gateway_calendar,
     ];
 
     private unauthorizedUrls = [];
 
-    constructor(private authService: AuthImplementService) {
+    constructor(
+        private userStore: UserStoreService,
+        private tokenStore: TokenStoreService
+        ) {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -22,13 +26,12 @@ export class AuthInterceptor implements HttpInterceptor {
         const validUrl = this.allowedUrls.find((allowedUrl) => url.startsWith(allowedUrl));
         const unauthorizedUrls = this.unauthorizedUrls.filter(unauthorizedUrl => url.indexOf(unauthorizedUrl) !== -1).length;
 
-        const currentUser = this.authService.currentUser;
-        const isLoggedIn = currentUser && currentUser.token;
+        const isLoggedIn = this.userStore.authenticated();
 
         if (isLoggedIn && !!validUrl && !unauthorizedUrls) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Bearer ${currentUser.token}`
+                    Authorization: `Bearer ${this.tokenStore.accessToken}`
                 }
             });
         }

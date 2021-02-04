@@ -7,9 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { PagesModule } from '@pages/pages.module';
-import { ErrorInterceptor } from '@clients/generic/error-interceptor.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from '@clients/generic/auth-interceptor.service';
+import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from '@interceptors/interceptor.providers';
+import { InterceptorsServiceModule } from '@interceptors/interceptors-service.module';
+import { StoreFactoryModule } from '@stores/store-factory.module';
 
 @NgModule({
     bootstrap: [
@@ -24,13 +25,15 @@ import { AuthInterceptor } from '@clients/generic/auth-interceptor.service';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        HttpClientModule,
         IconsModule,
-        PagesModule
+        PagesModule,
+        InterceptorsServiceModule,
+        StoreFactoryModule.forRoot()
     ],
     providers: [
         {provide: MAT_DATE_LOCALE, useValue: 'es'},
-        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+        httpInterceptorProviders
     ],
 })
 export class AppModule {

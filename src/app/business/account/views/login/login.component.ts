@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { LoginForm } from '../../form/login.form';
 import { BUSINESS_PATH, LOGIN_PATH } from '@parameters/router-path.parameter';
 import { AuthImplementService } from '@implements/auth/auth-implement.service';
-import { Role } from '@models/auth/role.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +18,7 @@ export class LoginComponent implements OnInit {
 
     constructor(
         public loginForm: LoginForm,
-        private authService: AuthImplementService,
+        private authImplement: AuthImplementService,
         private router: Router,
     ) {
     }
@@ -30,11 +29,22 @@ export class LoginComponent implements OnInit {
 
     loginFormSubmit() {
         this.submitLogin = true;
-        this.authService.login(Role.Admin);
-        this.router.navigate([BUSINESS_PATH.operations]);
-        // this.loginForm.passwordControl.settingWrongDataValidator();
-        // this.loginForm.userControl.settingWrongDataValidator();
-        // this.resetFormValidators();
+        this.authImplement.signIn(
+            this.loginForm.usernameControl.value,
+            this.loginForm.passwordControl.value,
+        )
+            .subscribe(() => {
+                this.router.navigate([BUSINESS_PATH.operations]);
+            }, () => {
+                this.errorFormRequest();
+            });
+    }
+
+    errorFormRequest() {
+        this.submitLogin = false;
+        this.loginForm.passwordControl.settingWrongDataValidator();
+        this.loginForm.usernameControl.settingWrongDataValidator();
+        this.resetFormValidators();
     }
 
     resetFormValidators() {
@@ -42,10 +52,6 @@ export class LoginComponent implements OnInit {
             subscription.unsubscribe();
             this.loginForm.resetFormValidators();
         });
-    }
-
-    forgotPassword() {
-
     }
 
 

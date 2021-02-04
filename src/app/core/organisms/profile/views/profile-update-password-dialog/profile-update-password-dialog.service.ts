@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ProfileUpdatePasswordDialogComponent } from '@organisms/profile/components/profile-update-password-dialog/profile-update-password-dialog.component';
+import { ProfileUpdatePasswordDialogComponent } from '@organisms/profile/views/profile-update-password-dialog/profile-update-password-dialog.component';
 
 @Injectable()
 export class ProfileUpdatePasswordDialogService {

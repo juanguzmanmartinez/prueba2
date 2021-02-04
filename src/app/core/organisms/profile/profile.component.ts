@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfileUserInformationDialogService } from '@organisms/profile/components/profile-user-information-dialog/profile-user-information-dialog.service';
-import { ProfileUpdatePasswordDialogService } from '@organisms/profile/components/profile-update-password-dialog/profile-update-password-dialog.service';
+import { ProfileUserInformationDialogService } from '@organisms/profile/views/profile-user-information-dialog/profile-user-information-dialog.service';
+import { ProfileUpdatePasswordDialogService } from '@organisms/profile/views/profile-update-password-dialog/profile-update-password-dialog.service';
 import { EProfileDialogType } from '@organisms/profile/parameters/profile-dialog-type.parameter';
-import { BUSINESS_PATH, LOGIN_PATH } from '@parameters/router-path.parameter';
-import { Router } from '@angular/router';
+import { UserStoreService } from '@stores/user-store.service';
 
 @Component({
     selector: 'app-profile',
@@ -13,9 +12,9 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
 
     constructor(
-        private router: Router,
         public profileUserInformationDialog: ProfileUserInformationDialogService,
-        public profileUpdatePasswordDialog: ProfileUpdatePasswordDialogService
+        public profileUpdatePasswordDialog: ProfileUpdatePasswordDialogService,
+        private userStore: UserStoreService
     ) {
     }
 
@@ -42,7 +41,7 @@ export class ProfileComponent implements OnInit {
     }
 
     logout() {
-        this.router.navigate([`/${BUSINESS_PATH.login}/${LOGIN_PATH.login}`]);
+        this.userStore.logout();
     }
 
 }

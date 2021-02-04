@@ -50,6 +50,9 @@
       "@interfaces/*": [
         "app/shared/interfaces/*"
       ],
+      "@interceptors/*": [
+        "app/shared/interceptors/*"
+      ],
       "@models/*": [
         "app/shared/models/*"
       ],
@@ -61,6 +64,9 @@
       ],
       "@validators/*": [
         "app/shared/validators/*"
+      ],
+      "@stores/*": [
+        "app/shared/stores/*"
       ]
     }
   }

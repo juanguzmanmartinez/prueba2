@@ -7,14 +7,14 @@ import { LoginPasswordControl } from '../controls/login-password.control';
 export class LoginForm implements OnDestroy {
     private readonly form: FormGroup;
 
-    private _userControl: FormControl = new EmailControl();
+    private _usernameControl: FormControl = new EmailControl();
     private _passwordControl: FormControl = new LoginPasswordControl();
 
     constructor(
         private _formBuilder: FormBuilder
     ) {
         this.form = this._formBuilder.group({
-            user: this._userControl,
+            username: this._usernameControl,
             password: this._passwordControl,
         });
     }
@@ -23,8 +23,8 @@ export class LoginForm implements OnDestroy {
         return this.form;
     }
 
-    public get userControl(): EmailControl {
-        return this.form$.get('user') as EmailControl;
+    public get usernameControl(): EmailControl {
+        return this.form$.get('username') as EmailControl;
     }
 
     get passwordControl(): LoginPasswordControl {
@@ -33,11 +33,11 @@ export class LoginForm implements OnDestroy {
 
     resetFormValidators() {
         this.passwordControl.settingValidators();
-        this.userControl.settingValidators();
+        this.usernameControl.settingValidators();
     }
 
     resetForm(): void {
-        this.userControl.patchValue(null);
+        this.usernameControl.patchValue(null);
         this.passwordControl.patchValue(null);
     }
 

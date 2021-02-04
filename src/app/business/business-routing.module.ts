@@ -4,13 +4,15 @@ import { BusinessComponent } from './business.component';
 import { BUSINESS_PATH } from '@parameters/router-path.parameter';
 import { AuthGuard } from '@guards/auth.guard';
 import { Role } from '@models/auth/role.model';
+import { AccountGuard } from '@guards/account.guard';
 
 const OPERATIONS: Route = {
     path: BUSINESS_PATH.operations.valueOf(),
     loadChildren: () => import('./operations/operations.module').then(m => m.OperationsModule),
 };
-const LOGIN: Route = {
+const ACCOUNT: Route = {
     path: BUSINESS_PATH.login.valueOf(),
+    canActivate: [AccountGuard],
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
 };
 
@@ -30,13 +32,13 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: BUSINESS_PATH.login.valueOf(),
+                redirectTo: BUSINESS_PATH.operations.valueOf(),
                 pathMatch: 'full'
             },
             OPERATIONS,
         ]
     },
-    LOGIN,
+    ACCOUNT,
     ADMIN
 ];
 

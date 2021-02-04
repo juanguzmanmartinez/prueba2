@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { ClientsServiceModule } from '@clients/clients-service.module';
+import { AuthImplementService } from '@implements/auth/auth-implement.service';
 
 const SERVICES = [
+    AuthImplementService
 ];
 
 
 @NgModule({
     imports: [
         CommonModule,
-        HttpClientModule,
+        ClientsServiceModule,
     ],
     providers: [
         ...SERVICES

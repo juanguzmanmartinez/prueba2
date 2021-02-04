@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GenericService } from './generic/generic.service';
-import { HttpClientModule } from '@angular/common/http';
 import { CalendarClientService } from './calendar/calendar-client.service';
 import { LocalClientService } from './calendar/local-client.service';
-import { ErrorInterceptor } from './generic/error-interceptor.service';
+import { AuthClientService } from '@clients/auth/auth-client.service';
+import { StorageClientService } from '@clients/storage/storage-client.service';
 
 const SERVICES = [
     GenericService,
     CalendarClientService,
     LocalClientService,
-    ErrorInterceptor
+    AuthClientService,
+    StorageClientService,
 ];
 
 
 @NgModule({
     imports: [
         CommonModule,
-        HttpClientModule,
     ],
     providers: [
         ...SERVICES

@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DigitsOnlyDirective } from './digits-only/digits-only.directive';
-import { UserRoleDirective } from './user-role/user-role.directive';
-import { UserDirective } from './user-role/user.directive';
+import { RolesDirective } from './roles/roles.directive';
 import { CapsLockDirective } from './caps-lock/caps-lock.directive';
 
 const DIRECTIVES = [
     DigitsOnlyDirective,
-    UserRoleDirective,
-    UserDirective
+    RolesDirective,
 ];
 
 @NgModule({
