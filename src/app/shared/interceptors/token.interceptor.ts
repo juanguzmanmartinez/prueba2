@@ -5,15 +5,17 @@ import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 import { UserStoreService } from '@stores/user-store.service';
 import { TokenStoreService } from '@stores/token-store.service';
+import { EHttpHeaderContentTypes, EHttpHeaders } from '@parameters/http-header.parameter';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
     private allowedUrls = [
         environment.api_gateway,
-        environment.api_gateway_calendar,
     ];
 
-    private unauthorizedUrls = [];
+    private unauthorizedUrls = [
+        environment.api_gateway_auth
+    ];
 
     constructor(
         private userStore: UserStoreService,
@@ -31,7 +33,8 @@ export class TokenInterceptor implements HttpInterceptor {
         if (isLoggedIn && !!validUrl && !unauthorizedUrls) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Bearer ${this.tokenStore.accessToken}`
+                    [EHttpHeaders.authorization]: `Bearer ${this.tokenStore.accessToken}`,
+                    [EHttpHeaders.contentType]: EHttpHeaderContentTypes.json
                 }
             });
         }

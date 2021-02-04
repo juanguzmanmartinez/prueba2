@@ -11,6 +11,8 @@ import { CUpdatePasswordMessages } from '@organisms/update-password-form/paramet
 })
 export class UpdatePasswordFormComponent implements OnInit {
 
+    public capsLock: boolean;
+
     @Input() appearance: 'dialog' | 'default' = 'default';
     @Output() formSubmitEvent = new EventEmitter();
     @Output() formCancelEvent = new EventEmitter();

@@ -8,6 +8,7 @@ import { InputsModule } from '@atoms/inputs/inputs.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { AlertModule } from '@molecules/alert/alert.module';
+import { DirectivesModule } from '../../../shared/directives/directives.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { AlertModule } from '@molecules/alert/alert.module';
         ReactiveFormsModule,
         IconsModule,
         AlertModule,
+        DirectivesModule
     ]
 })
 export class UpdatePasswordFormModule {
