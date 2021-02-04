@@ -1,20 +1,21 @@
 import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
-import {CustomDateAdapter, InputDatepickerComponent, MY_FORMATS} from "./input-datepicker.component";
+import {CustomDateAdapter, MY_FORMATS} from "../input-datepicker/input-datepicker.component";
+import {InputDatepickerRangeComponent} from "./input-datepicker-range.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {DatepickerHeaderComponent} from "../components/datepicker-header/datepicker-header.component";
-import {
-    DateAdapter,
-    MAT_DATE_FORMATS,
-    MAT_DATE_LOCALE
-} from '@angular/material/core'; import {IconsModule} from "../../icons/icons.module"; import {BrowserAnimationsModule} from "@angular/platform-browser/animations"; import {IconsRegistryModule} from "../../icons/icons-registry.module";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {IconsModule} from "../../icons/icons.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {IconsRegistryModule} from "../../icons/icons-registry.module";
 import * as  moment from 'moment';
+import {ReactiveFormsModule} from "@angular/forms";
 
 <Meta
-    title="Atoms/Input/Input Datepicker"
-    component={InputDatepickerComponent}
+    title="Atoms/Input/Input Datepicker Range"
+    component={InputDatepickerRangeComponent}
     parameters={{layout: 'padded'}}/>
 
-# Input Datepicker
+# Input Datepicker Range
 <br/>
 <br/>
 
@@ -26,7 +27,10 @@ import * as  moment from 'moment';
 | outputFormat      | string  |      | 'DD/MM/YYYY'     |
 | minDate   | moment.Moment |        |  moment() |
 | maxDate    | moment.Moment   |         |  null  |
-| value    | string   |         |  null  |
+| disabled    | boolean   |  true/false   |  false  |
+| iconDisabled    | boolean   |  true/false   |  false  |
+| startValue    | string   |         |  null  |
+| endValue    | string   |         |  null  |
 
 ### Events
 | Event | Arguments  | Description |
@@ -36,25 +40,26 @@ import * as  moment from 'moment';
 ------
 
 export const Template = (args) => ({
-    component: InputDatepickerComponent,
+    component: InputDatepickerRangeComponent,
     props: {...args},
     moduleMetadata: {
-        imports: [MatDatepickerModule, IconsModule, IconsRegistryModule, BrowserAnimationsModule],
-        declarations: [InputDatepickerComponent, DatepickerHeaderComponent],
+        imports: [ReactiveFormsModule, MatDatepickerModule, IconsModule, IconsRegistryModule, BrowserAnimationsModule],
+        declarations: [InputDatepickerRangeComponent, DatepickerHeaderComponent],
         entryComponents: [DatepickerHeaderComponent],
         providers: [
             {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE]},
             {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
         ]
     },
-    template: '<app-input-datepicker ' +
+    template: '<app-input-datepicker-range ' +
         '[placeholder]="placeholder" ' +
         '[inputFormat]="inputFormat" ' +
         '[outputFormat]="outputFormat" ' +
         '[minDate]="minDate" ' +
         '[maxDate]="maxDate" ' +
-        '[value]="value" ' +
-        '></app-input-datepicker>',
+        '[startValue]="startValue" ' +
+        '[endValue]="endValue" ' +
+        '></app-input-datepicker-range>',
 })
 
 <br/>
@@ -72,7 +77,7 @@ export const Template = (args) => ({
            }} parameters={{
         docs: {
             source: {
-                code: '<app-input-datepicker></app-input-datepicker>',
+                code: '<app-input-datepicker-range></app-input-datepicker-range>',
             }
         }
     }}>{Template.bind({})}
@@ -86,7 +91,7 @@ export const Template = (args) => ({
            }} parameters={{
         docs: {
             source: {
-                code: '<app-input-datepicker></app-input-datepicker>',
+                code: '<app-input-datepicker-range></app-input-datepicker-range>',
             }
         }
     }}>{Template.bind({})}
@@ -113,8 +118,8 @@ export class YourModule {}
 ## Examples
 
   ```html
-<app-input-datepicker outputFormat="YYYY/MM/DD"></app-input-datepicker>
+<app-input-datepicker-range outputFormat="YYYY/MM/DD"></app-input-datepicker-range>
 ```
  ```html
-<app-input-datepicker></app-input-datepicker>
+<app-input-datepicker-range></app-input-datepicker-range>
   ```

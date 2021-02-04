@@ -514,10 +514,10 @@
         },
         {
             "name": "IDatepickerRange",
-            "id": "interface-IDatepickerRange-a927533f0a0db0fd834c97b7feea28cc",
+            "id": "interface-IDatepickerRange-8ddae36757deb3dcaea2d9b5c9458597",
             "file": "src/app/core/atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component.ts",
             "type": "interface",
-            "sourceCode": "import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';\nimport { CustomDateAdapter, MY_FORMATS } from '../input-datepicker/input-datepicker.component';\nimport { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';\nimport { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';\nimport * as moment from 'moment';\nimport { Subscription } from 'rxjs';\nimport { DatepickerHeaderComponent } from '../components/datepicker-header/datepicker-header.component';\n\nexport interface IDatepickerRange {\n  startDate: string;\n  endDate: string;\n}\n\n@Component({\n  selector: 'app-input-datepicker-range',\n  templateUrl: './input-datepicker-range.component.html',\n  styleUrls: ['./input-datepicker-range.component.scss'],\n  providers: [\n    {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE]},\n    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},\n  ],\n})\nexport class InputDatepickerRangeComponent implements ControlValueAccessor, OnInit, OnDestroy {\n\n  public datepickerRangeSubscribe: Subscription[] = [];\n\n  public datepickerRangeHeader = DatepickerHeaderComponent;\n  public datepickerRangeName: string | number = 'input-datepicker';\n  private datepickerRangeValue: IDatepickerRange = {} as IDatepickerRange;\n\n  public datepickerRangeGroup: FormGroup = new FormGroup({\n    startDate: new FormControl(),\n    endDate: new FormControl()\n  });\n\n\n  @Input() inputPlaceholder = 'dd/mm/aaaa';\n  @Input() datepickerRangeInputFormat = 'DD/MM/YYYY';\n  @Input() datepickerRangeOutputFormat = 'DD/MM/YYYY';\n  @Input() datepickerRangeMin = moment();\n  @Input() datepickerRangeMax: moment.Moment;\n  @Input() datepickerDisabled = false;\n  @Input() datepickerIconDisabled = false;\n\n  @Input('datepickerStartValue')\n  set _datepickerStartValue(value: string) {\n    this.datepickerRangeStartControl\n      .setValue(value ? moment(value, this.datepickerRangeInputFormat) : null);\n  }\n\n  @Input('datepickerEndValue')\n  set _datepickerEndValue(value: string) {\n    this.datepickerRangeEndControl\n      .setValue(value ? moment(value, this.datepickerRangeInputFormat) : null);\n  }\n\n\n  onChange = (_: any) => {\n  }\n  onTouched = (_: any) => {\n  }\n\n  constructor(@Optional() @Self() public ngControl: NgControl) {\n    if (ngControl){\n      ngControl.valueAccessor = this;\n    }\n  }\n\n  ngOnInit(): void {\n    this.changeDatepickerRangeValue();\n\n    if (this.ngControl && this.ngControl.name) {\n      this.datepickerRangeName = this.ngControl.name;\n    }\n  }\n\n  ngOnDestroy() {\n    this.datepickerRangeSubscribe.forEach(subscribe => subscribe.unsubscribe());\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  writeValue(value: IDatepickerRange): void {\n    this.datepickerRangeStartControl\n      .setValue(value && value.startDate ? moment(value.startDate, this.datepickerRangeInputFormat) : null);\n    this.datepickerRangeEndControl\n      .setValue(value && value.endDate ? moment(value.endDate, this.datepickerRangeInputFormat) : null);\n  }\n\n  get datepickerRangeStartControl() {\n    return this.datepickerRangeGroup.get('startDate') as FormControl;\n  }\n\n\n  get datepickerRangeEndControl() {\n    return this.datepickerRangeGroup.get('endDate') as FormControl;\n  }\n\n\n  changeDatepickerRangeValue() {\n    const datepickerRangeSubscribe = this.datepickerRangeGroup.valueChanges\n      .subscribe((value) => {\n        this.datepickerRangeValue.startDate = value && value.startDate ?\n          moment(value.startDate, this.datepickerRangeInputFormat).format(this.datepickerRangeOutputFormat) : null;\n        this.datepickerRangeValue.endDate = value && value.endDate ?\n          moment(value.endDate, this.datepickerRangeInputFormat).format(this.datepickerRangeOutputFormat) : null;\n        this.onChange(this.datepickerRangeValue);\n      });\n    this.datepickerRangeSubscribe.push(datepickerRangeSubscribe);\n  }\n\n}\n",
+            "sourceCode": "import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';\nimport { CustomDateAdapter, MY_FORMATS } from '../input-datepicker/input-datepicker.component';\nimport { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';\nimport { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';\nimport * as moment from 'moment';\nimport { Subscription } from 'rxjs';\nimport { DatepickerHeaderComponent } from '../components/datepicker-header/datepicker-header.component';\n\nexport interface IDatepickerRange {\n  startDate: string;\n  endDate: string;\n}\n\n@Component({\n  selector: 'app-input-datepicker-range',\n  templateUrl: './input-datepicker-range.component.html',\n  styleUrls: ['./input-datepicker-range.component.scss'],\n  providers: [\n    {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE]},\n    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},\n  ],\n})\nexport class InputDatepickerRangeComponent implements ControlValueAccessor, OnInit, OnDestroy {\n\n  public datepickerRangeSubscribe: Subscription[] = [];\n\n  public datepickerRangeHeader = DatepickerHeaderComponent;\n  public datepickerRangeName: string | number = 'input-datepicker';\n  private datepickerRangeValue: IDatepickerRange = {} as IDatepickerRange;\n\n  public datepickerRangeGroup: FormGroup = new FormGroup({\n    startDate: new FormControl(),\n    endDate: new FormControl()\n  });\n\n\n  @Input() placeholder = 'dd/mm/aaaa';\n  @Input() inputFormat = 'DD/MM/YYYY';\n  @Input() outputFormat = 'DD/MM/YYYY';\n  @Input() minDate = moment();\n  @Input() maxDate: moment.Moment;\n  @Input() disabled = false;\n  @Input() iconDisabled = false;\n\n  @Input('startValue')\n  set _startValue(value: string) {\n    this.datepickerRangeStartControl\n      .setValue(value ? moment(value, this.inputFormat) : null);\n  }\n\n  @Input('endValue')\n  set _endValue(value: string) {\n    this.datepickerRangeEndControl\n      .setValue(value ? moment(value, this.inputFormat) : null);\n  }\n\n\n  onChange = (_: any) => {\n  }\n  onTouched = (_: any) => {\n  }\n\n  constructor(@Optional() @Self() public ngControl: NgControl) {\n    if (ngControl){\n      ngControl.valueAccessor = this;\n    }\n  }\n\n  ngOnInit(): void {\n    this.changeDatepickerRangeValue();\n\n    if (this.ngControl && this.ngControl.name) {\n      this.datepickerRangeName = this.ngControl.name;\n    }\n  }\n\n  ngOnDestroy() {\n    this.datepickerRangeSubscribe.forEach(subscribe => subscribe.unsubscribe());\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  writeValue(value: IDatepickerRange): void {\n    this.datepickerRangeStartControl\n      .setValue(value && value.startDate ? moment(value.startDate, this.inputFormat) : null);\n    this.datepickerRangeEndControl\n      .setValue(value && value.endDate ? moment(value.endDate, this.inputFormat) : null);\n  }\n\n  get datepickerRangeStartControl() {\n    return this.datepickerRangeGroup.get('startDate') as FormControl;\n  }\n\n\n  get datepickerRangeEndControl() {\n    return this.datepickerRangeGroup.get('endDate') as FormControl;\n  }\n\n\n  changeDatepickerRangeValue() {\n    const datepickerRangeSubscribe = this.datepickerRangeGroup.valueChanges\n      .subscribe((value) => {\n        this.datepickerRangeValue.startDate = value && value.startDate ?\n          moment(value.startDate, this.inputFormat).format(this.outputFormat) : null;\n        this.datepickerRangeValue.endDate = value && value.endDate ?\n          moment(value.endDate, this.inputFormat).format(this.outputFormat) : null;\n        this.onChange(this.datepickerRangeValue);\n      });\n    this.datepickerRangeSubscribe.push(datepickerRangeSubscribe);\n  }\n\n}\n",
             "properties": [
                 {
                     "name": "endDate",
@@ -8316,10 +8316,10 @@
         },
         {
             "name": "CapacityRangeLimit",
-            "id": "class-CapacityRangeLimit-0483e42e9e575a416aca2a61d6266746",
+            "id": "class-CapacityRangeLimit-2582a0bd5d9d411aa96d99b5bfd5909e",
             "file": "src/app/business/operations/views/operations-capacities/models/operations-capacity-converter.model.ts",
             "type": "class",
-            "sourceCode": "import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';\nimport {\n  ICapacityStepCapacityTableSegments\n} from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';\nimport { CapacitiesServiceType } from './operations-capacities-responses.model';\nimport { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';\nimport { ServiceTypeSegment } from '@models/local/service-type.model';\n\n\nexport class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {\n  expressResource: number;\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      const expressResourceSegment = iServiceType.segmentList[0];\n      this.expressResource = expressResourceSegment ? expressResourceSegment.segmentCapacity : 0;\n    }\n  }\n}\n\nexport class ToCapacityStepAmPmCapacitySegments implements ICapacityStepCapacityTableSegments {\n  capacitySegmentList: ServiceTypeSegment[] = [];\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      this.capacitySegmentList = iServiceType.segmentList;\n    }\n  }\n}\n\nexport class ToCapacityStepScheduledCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n}\n\n\nexport class ToCapacityStepRetCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n\n}\n\nexport class CapacityRangeLimit implements IDatepickerRange {\n  endDate: string;\n  startDate: string;\n\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    if (capacitiesServiceType) {\n      this.startDate = capacitiesServiceType.startDay;\n      this.endDate = capacitiesServiceType.endDay;\n    }\n  }\n}\n",
+            "sourceCode": "import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';\nimport { ICapacityStepCapacityTableSegments } from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';\nimport { CapacitiesServiceType } from './operations-capacities-responses.model';\nimport { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';\nimport { ServiceTypeSegment } from '@models/local/service-type.model';\n\n\nexport class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {\n  expressResource: number;\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      const expressResourceSegment = iServiceType.segmentList[0];\n      this.expressResource = expressResourceSegment ? expressResourceSegment.segmentCapacity : 0;\n    }\n  }\n}\n\nexport class ToCapacityStepAmPmCapacitySegments implements ICapacityStepCapacityTableSegments {\n  capacitySegmentList: ServiceTypeSegment[] = [];\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      this.capacitySegmentList = iServiceType.segmentList;\n    }\n  }\n}\n\nexport class ToCapacityStepScheduledCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n}\n\n\nexport class ToCapacityStepRetCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n\n}\n\nexport class CapacityRangeLimit implements IDatepickerRange {\n  endDate: string;\n  startDate: string;\n\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    if (capacitiesServiceType) {\n      this.startDate = capacitiesServiceType.startDay;\n      this.endDate = capacitiesServiceType.endDay;\n    }\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -8329,7 +8329,7 @@
                         "type": "CapacitiesServiceType"
                     }
                 ],
-                "line": 47,
+                "line": 45,
                 "jsdoctags": [
                     {
                         "name": "capacitiesServiceType",
@@ -8346,14 +8346,14 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 46
+                    "line": 44
                 },
                 {
                     "name": "startDate",
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 47
+                    "line": 45
                 }
             ],
             "methods": [],
@@ -9676,10 +9676,10 @@
         },
         {
             "name": "ToCapacityStepAmPmCapacitySegments",
-            "id": "class-ToCapacityStepAmPmCapacitySegments-0483e42e9e575a416aca2a61d6266746",
+            "id": "class-ToCapacityStepAmPmCapacitySegments-2582a0bd5d9d411aa96d99b5bfd5909e",
             "file": "src/app/business/operations/views/operations-capacities/models/operations-capacity-converter.model.ts",
             "type": "class",
-            "sourceCode": "import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';\nimport {\n  ICapacityStepCapacityTableSegments\n} from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';\nimport { CapacitiesServiceType } from './operations-capacities-responses.model';\nimport { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';\nimport { ServiceTypeSegment } from '@models/local/service-type.model';\n\n\nexport class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {\n  expressResource: number;\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      const expressResourceSegment = iServiceType.segmentList[0];\n      this.expressResource = expressResourceSegment ? expressResourceSegment.segmentCapacity : 0;\n    }\n  }\n}\n\nexport class ToCapacityStepAmPmCapacitySegments implements ICapacityStepCapacityTableSegments {\n  capacitySegmentList: ServiceTypeSegment[] = [];\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      this.capacitySegmentList = iServiceType.segmentList;\n    }\n  }\n}\n\nexport class ToCapacityStepScheduledCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n}\n\n\nexport class ToCapacityStepRetCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n\n}\n\nexport class CapacityRangeLimit implements IDatepickerRange {\n  endDate: string;\n  startDate: string;\n\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    if (capacitiesServiceType) {\n      this.startDate = capacitiesServiceType.startDay;\n      this.endDate = capacitiesServiceType.endDay;\n    }\n  }\n}\n",
+            "sourceCode": "import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';\nimport { ICapacityStepCapacityTableSegments } from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';\nimport { CapacitiesServiceType } from './operations-capacities-responses.model';\nimport { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';\nimport { ServiceTypeSegment } from '@models/local/service-type.model';\n\n\nexport class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {\n  expressResource: number;\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      const expressResourceSegment = iServiceType.segmentList[0];\n      this.expressResource = expressResourceSegment ? expressResourceSegment.segmentCapacity : 0;\n    }\n  }\n}\n\nexport class ToCapacityStepAmPmCapacitySegments implements ICapacityStepCapacityTableSegments {\n  capacitySegmentList: ServiceTypeSegment[] = [];\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      this.capacitySegmentList = iServiceType.segmentList;\n    }\n  }\n}\n\nexport class ToCapacityStepScheduledCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n}\n\n\nexport class ToCapacityStepRetCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n\n}\n\nexport class CapacityRangeLimit implements IDatepickerRange {\n  endDate: string;\n  startDate: string;\n\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    if (capacitiesServiceType) {\n      this.startDate = capacitiesServiceType.startDay;\n      this.endDate = capacitiesServiceType.endDay;\n    }\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -9689,7 +9689,7 @@
                         "type": "CapacitiesServiceType"
                     }
                 ],
-                "line": 22,
+                "line": 20,
                 "jsdoctags": [
                     {
                         "name": "iServiceType",
@@ -9707,7 +9707,7 @@
                     "type": "ServiceTypeSegment[]",
                     "optional": false,
                     "description": "",
-                    "line": 22
+                    "line": 20
                 }
             ],
             "methods": [],
@@ -9722,10 +9722,10 @@
         },
         {
             "name": "ToCapacityStepExpressResourceSegments",
-            "id": "class-ToCapacityStepExpressResourceSegments-0483e42e9e575a416aca2a61d6266746",
+            "id": "class-ToCapacityStepExpressResourceSegments-2582a0bd5d9d411aa96d99b5bfd5909e",
             "file": "src/app/business/operations/views/operations-capacities/models/operations-capacity-converter.model.ts",
             "type": "class",
-            "sourceCode": "import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';\nimport {\n  ICapacityStepCapacityTableSegments\n} from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';\nimport { CapacitiesServiceType } from './operations-capacities-responses.model';\nimport { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';\nimport { ServiceTypeSegment } from '@models/local/service-type.model';\n\n\nexport class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {\n  expressResource: number;\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      const expressResourceSegment = iServiceType.segmentList[0];\n      this.expressResource = expressResourceSegment ? expressResourceSegment.segmentCapacity : 0;\n    }\n  }\n}\n\nexport class ToCapacityStepAmPmCapacitySegments implements ICapacityStepCapacityTableSegments {\n  capacitySegmentList: ServiceTypeSegment[] = [];\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      this.capacitySegmentList = iServiceType.segmentList;\n    }\n  }\n}\n\nexport class ToCapacityStepScheduledCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n}\n\n\nexport class ToCapacityStepRetCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n\n}\n\nexport class CapacityRangeLimit implements IDatepickerRange {\n  endDate: string;\n  startDate: string;\n\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    if (capacitiesServiceType) {\n      this.startDate = capacitiesServiceType.startDay;\n      this.endDate = capacitiesServiceType.endDay;\n    }\n  }\n}\n",
+            "sourceCode": "import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';\nimport { ICapacityStepCapacityTableSegments } from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';\nimport { CapacitiesServiceType } from './operations-capacities-responses.model';\nimport { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';\nimport { ServiceTypeSegment } from '@models/local/service-type.model';\n\n\nexport class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {\n  expressResource: number;\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      const expressResourceSegment = iServiceType.segmentList[0];\n      this.expressResource = expressResourceSegment ? expressResourceSegment.segmentCapacity : 0;\n    }\n  }\n}\n\nexport class ToCapacityStepAmPmCapacitySegments implements ICapacityStepCapacityTableSegments {\n  capacitySegmentList: ServiceTypeSegment[] = [];\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      this.capacitySegmentList = iServiceType.segmentList;\n    }\n  }\n}\n\nexport class ToCapacityStepScheduledCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n}\n\n\nexport class ToCapacityStepRetCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n\n}\n\nexport class CapacityRangeLimit implements IDatepickerRange {\n  endDate: string;\n  startDate: string;\n\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    if (capacitiesServiceType) {\n      this.startDate = capacitiesServiceType.startDay;\n      this.endDate = capacitiesServiceType.endDay;\n    }\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -9735,7 +9735,7 @@
                         "type": "CapacitiesServiceType"
                     }
                 ],
-                "line": 11,
+                "line": 9,
                 "jsdoctags": [
                     {
                         "name": "iServiceType",
@@ -9752,7 +9752,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 11
+                    "line": 9
                 }
             ],
             "methods": [],
@@ -9767,10 +9767,10 @@
         },
         {
             "name": "ToCapacityStepRetCapacitySegments",
-            "id": "class-ToCapacityStepRetCapacitySegments-0483e42e9e575a416aca2a61d6266746",
+            "id": "class-ToCapacityStepRetCapacitySegments-2582a0bd5d9d411aa96d99b5bfd5909e",
             "file": "src/app/business/operations/views/operations-capacities/models/operations-capacity-converter.model.ts",
             "type": "class",
-            "sourceCode": "import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';\nimport {\n  ICapacityStepCapacityTableSegments\n} from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';\nimport { CapacitiesServiceType } from './operations-capacities-responses.model';\nimport { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';\nimport { ServiceTypeSegment } from '@models/local/service-type.model';\n\n\nexport class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {\n  expressResource: number;\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      const expressResourceSegment = iServiceType.segmentList[0];\n      this.expressResource = expressResourceSegment ? expressResourceSegment.segmentCapacity : 0;\n    }\n  }\n}\n\nexport class ToCapacityStepAmPmCapacitySegments implements ICapacityStepCapacityTableSegments {\n  capacitySegmentList: ServiceTypeSegment[] = [];\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      this.capacitySegmentList = iServiceType.segmentList;\n    }\n  }\n}\n\nexport class ToCapacityStepScheduledCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n}\n\n\nexport class ToCapacityStepRetCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n\n}\n\nexport class CapacityRangeLimit implements IDatepickerRange {\n  endDate: string;\n  startDate: string;\n\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    if (capacitiesServiceType) {\n      this.startDate = capacitiesServiceType.startDay;\n      this.endDate = capacitiesServiceType.endDay;\n    }\n  }\n}\n",
+            "sourceCode": "import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';\nimport { ICapacityStepCapacityTableSegments } from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';\nimport { CapacitiesServiceType } from './operations-capacities-responses.model';\nimport { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';\nimport { ServiceTypeSegment } from '@models/local/service-type.model';\n\n\nexport class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {\n  expressResource: number;\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      const expressResourceSegment = iServiceType.segmentList[0];\n      this.expressResource = expressResourceSegment ? expressResourceSegment.segmentCapacity : 0;\n    }\n  }\n}\n\nexport class ToCapacityStepAmPmCapacitySegments implements ICapacityStepCapacityTableSegments {\n  capacitySegmentList: ServiceTypeSegment[] = [];\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      this.capacitySegmentList = iServiceType.segmentList;\n    }\n  }\n}\n\nexport class ToCapacityStepScheduledCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n}\n\n\nexport class ToCapacityStepRetCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n\n}\n\nexport class CapacityRangeLimit implements IDatepickerRange {\n  endDate: string;\n  startDate: string;\n\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    if (capacitiesServiceType) {\n      this.startDate = capacitiesServiceType.startDay;\n      this.endDate = capacitiesServiceType.endDay;\n    }\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -9780,7 +9780,7 @@
                         "type": "CapacitiesServiceType"
                     }
                 ],
-                "line": 38,
+                "line": 36,
                 "jsdoctags": [
                     {
                         "name": "capacitiesServiceType",
@@ -9798,7 +9798,7 @@
                     "type": "ServiceTypeSegment[]",
                     "optional": false,
                     "description": "",
-                    "line": 22,
+                    "line": 20,
                     "inheritance": {
                         "file": "ToCapacityStepAmPmCapacitySegments"
                     }
@@ -9814,10 +9814,10 @@
         },
         {
             "name": "ToCapacityStepScheduledCapacitySegments",
-            "id": "class-ToCapacityStepScheduledCapacitySegments-0483e42e9e575a416aca2a61d6266746",
+            "id": "class-ToCapacityStepScheduledCapacitySegments-2582a0bd5d9d411aa96d99b5bfd5909e",
             "file": "src/app/business/operations/views/operations-capacities/models/operations-capacity-converter.model.ts",
             "type": "class",
-            "sourceCode": "import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';\nimport {\n  ICapacityStepCapacityTableSegments\n} from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';\nimport { CapacitiesServiceType } from './operations-capacities-responses.model';\nimport { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';\nimport { ServiceTypeSegment } from '@models/local/service-type.model';\n\n\nexport class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {\n  expressResource: number;\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      const expressResourceSegment = iServiceType.segmentList[0];\n      this.expressResource = expressResourceSegment ? expressResourceSegment.segmentCapacity : 0;\n    }\n  }\n}\n\nexport class ToCapacityStepAmPmCapacitySegments implements ICapacityStepCapacityTableSegments {\n  capacitySegmentList: ServiceTypeSegment[] = [];\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      this.capacitySegmentList = iServiceType.segmentList;\n    }\n  }\n}\n\nexport class ToCapacityStepScheduledCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n}\n\n\nexport class ToCapacityStepRetCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n\n}\n\nexport class CapacityRangeLimit implements IDatepickerRange {\n  endDate: string;\n  startDate: string;\n\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    if (capacitiesServiceType) {\n      this.startDate = capacitiesServiceType.startDay;\n      this.endDate = capacitiesServiceType.endDay;\n    }\n  }\n}\n",
+            "sourceCode": "import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';\nimport { ICapacityStepCapacityTableSegments } from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';\nimport { CapacitiesServiceType } from './operations-capacities-responses.model';\nimport { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';\nimport { ServiceTypeSegment } from '@models/local/service-type.model';\n\n\nexport class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {\n  expressResource: number;\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      const expressResourceSegment = iServiceType.segmentList[0];\n      this.expressResource = expressResourceSegment ? expressResourceSegment.segmentCapacity : 0;\n    }\n  }\n}\n\nexport class ToCapacityStepAmPmCapacitySegments implements ICapacityStepCapacityTableSegments {\n  capacitySegmentList: ServiceTypeSegment[] = [];\n\n  constructor(iServiceType: CapacitiesServiceType) {\n    if (iServiceType && iServiceType.segmentList && iServiceType.segmentList.length) {\n      this.capacitySegmentList = iServiceType.segmentList;\n    }\n  }\n}\n\nexport class ToCapacityStepScheduledCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n}\n\n\nexport class ToCapacityStepRetCapacitySegments extends ToCapacityStepAmPmCapacitySegments {\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    super(capacitiesServiceType);\n  }\n\n}\n\nexport class CapacityRangeLimit implements IDatepickerRange {\n  endDate: string;\n  startDate: string;\n\n  constructor(capacitiesServiceType: CapacitiesServiceType) {\n    if (capacitiesServiceType) {\n      this.startDate = capacitiesServiceType.startDay;\n      this.endDate = capacitiesServiceType.endDay;\n    }\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -9827,7 +9827,7 @@
                         "type": "CapacitiesServiceType"
                     }
                 ],
-                "line": 31,
+                "line": 29,
                 "jsdoctags": [
                     {
                         "name": "capacitiesServiceType",
@@ -9845,7 +9845,7 @@
                     "type": "ServiceTypeSegment[]",
                     "optional": false,
                     "description": "",
-                    "line": 22,
+                    "line": 20,
                     "inheritance": {
                         "file": "ToCapacityStepAmPmCapacitySegments"
                     }
@@ -13623,7 +13623,7 @@
         },
         {
             "name": "InputDatepickerRangeComponent",
-            "id": "component-InputDatepickerRangeComponent-a927533f0a0db0fd834c97b7feea28cc",
+            "id": "component-InputDatepickerRangeComponent-8ddae36757deb3dcaea2d9b5c9458597",
             "file": "src/app/core/atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -13648,49 +13648,49 @@
             "viewProviders": [],
             "inputsClass": [
                 {
-                    "name": "datepickerDisabled",
+                    "name": "disabled",
                     "defaultValue": "false",
                     "line": 42
                 },
                 {
-                    "name": "datepickerEndValue",
+                    "name": "endValue",
                     "line": 52,
                     "type": "string"
                 },
                 {
-                    "name": "datepickerIconDisabled",
+                    "name": "iconDisabled",
                     "defaultValue": "false",
                     "line": 43
                 },
                 {
-                    "name": "datepickerRangeInputFormat",
+                    "name": "inputFormat",
                     "defaultValue": "'DD/MM/YYYY'",
                     "line": 38
                 },
                 {
-                    "name": "datepickerRangeMax",
+                    "name": "maxDate",
                     "line": 41,
                     "type": "moment.Moment"
                 },
                 {
-                    "name": "datepickerRangeMin",
+                    "name": "minDate",
                     "defaultValue": "moment()",
                     "line": 40
                 },
                 {
-                    "name": "datepickerRangeOutputFormat",
+                    "name": "outputFormat",
                     "defaultValue": "'DD/MM/YYYY'",
                     "line": 39
                 },
                 {
-                    "name": "datepickerStartValue",
-                    "line": 46,
-                    "type": "string"
-                },
-                {
-                    "name": "inputPlaceholder",
+                    "name": "placeholder",
                     "defaultValue": "'dd/mm/aaaa'",
                     "line": 37
+                },
+                {
+                    "name": "startValue",
+                    "line": 46,
+                    "type": "string"
                 }
             ],
             "outputsClass": [],
@@ -13884,11 +13884,11 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';\nimport { CustomDateAdapter, MY_FORMATS } from '../input-datepicker/input-datepicker.component';\nimport { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';\nimport { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';\nimport * as moment from 'moment';\nimport { Subscription } from 'rxjs';\nimport { DatepickerHeaderComponent } from '../components/datepicker-header/datepicker-header.component';\n\nexport interface IDatepickerRange {\n  startDate: string;\n  endDate: string;\n}\n\n@Component({\n  selector: 'app-input-datepicker-range',\n  templateUrl: './input-datepicker-range.component.html',\n  styleUrls: ['./input-datepicker-range.component.scss'],\n  providers: [\n    {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE]},\n    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},\n  ],\n})\nexport class InputDatepickerRangeComponent implements ControlValueAccessor, OnInit, OnDestroy {\n\n  public datepickerRangeSubscribe: Subscription[] = [];\n\n  public datepickerRangeHeader = DatepickerHeaderComponent;\n  public datepickerRangeName: string | number = 'input-datepicker';\n  private datepickerRangeValue: IDatepickerRange = {} as IDatepickerRange;\n\n  public datepickerRangeGroup: FormGroup = new FormGroup({\n    startDate: new FormControl(),\n    endDate: new FormControl()\n  });\n\n\n  @Input() inputPlaceholder = 'dd/mm/aaaa';\n  @Input() datepickerRangeInputFormat = 'DD/MM/YYYY';\n  @Input() datepickerRangeOutputFormat = 'DD/MM/YYYY';\n  @Input() datepickerRangeMin = moment();\n  @Input() datepickerRangeMax: moment.Moment;\n  @Input() datepickerDisabled = false;\n  @Input() datepickerIconDisabled = false;\n\n  @Input('datepickerStartValue')\n  set _datepickerStartValue(value: string) {\n    this.datepickerRangeStartControl\n      .setValue(value ? moment(value, this.datepickerRangeInputFormat) : null);\n  }\n\n  @Input('datepickerEndValue')\n  set _datepickerEndValue(value: string) {\n    this.datepickerRangeEndControl\n      .setValue(value ? moment(value, this.datepickerRangeInputFormat) : null);\n  }\n\n\n  onChange = (_: any) => {\n  }\n  onTouched = (_: any) => {\n  }\n\n  constructor(@Optional() @Self() public ngControl: NgControl) {\n    if (ngControl){\n      ngControl.valueAccessor = this;\n    }\n  }\n\n  ngOnInit(): void {\n    this.changeDatepickerRangeValue();\n\n    if (this.ngControl && this.ngControl.name) {\n      this.datepickerRangeName = this.ngControl.name;\n    }\n  }\n\n  ngOnDestroy() {\n    this.datepickerRangeSubscribe.forEach(subscribe => subscribe.unsubscribe());\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  writeValue(value: IDatepickerRange): void {\n    this.datepickerRangeStartControl\n      .setValue(value && value.startDate ? moment(value.startDate, this.datepickerRangeInputFormat) : null);\n    this.datepickerRangeEndControl\n      .setValue(value && value.endDate ? moment(value.endDate, this.datepickerRangeInputFormat) : null);\n  }\n\n  get datepickerRangeStartControl() {\n    return this.datepickerRangeGroup.get('startDate') as FormControl;\n  }\n\n\n  get datepickerRangeEndControl() {\n    return this.datepickerRangeGroup.get('endDate') as FormControl;\n  }\n\n\n  changeDatepickerRangeValue() {\n    const datepickerRangeSubscribe = this.datepickerRangeGroup.valueChanges\n      .subscribe((value) => {\n        this.datepickerRangeValue.startDate = value && value.startDate ?\n          moment(value.startDate, this.datepickerRangeInputFormat).format(this.datepickerRangeOutputFormat) : null;\n        this.datepickerRangeValue.endDate = value && value.endDate ?\n          moment(value.endDate, this.datepickerRangeInputFormat).format(this.datepickerRangeOutputFormat) : null;\n        this.onChange(this.datepickerRangeValue);\n      });\n    this.datepickerRangeSubscribe.push(datepickerRangeSubscribe);\n  }\n\n}\n",
+            "sourceCode": "import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';\nimport { CustomDateAdapter, MY_FORMATS } from '../input-datepicker/input-datepicker.component';\nimport { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';\nimport { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';\nimport * as moment from 'moment';\nimport { Subscription } from 'rxjs';\nimport { DatepickerHeaderComponent } from '../components/datepicker-header/datepicker-header.component';\n\nexport interface IDatepickerRange {\n  startDate: string;\n  endDate: string;\n}\n\n@Component({\n  selector: 'app-input-datepicker-range',\n  templateUrl: './input-datepicker-range.component.html',\n  styleUrls: ['./input-datepicker-range.component.scss'],\n  providers: [\n    {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE]},\n    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},\n  ],\n})\nexport class InputDatepickerRangeComponent implements ControlValueAccessor, OnInit, OnDestroy {\n\n  public datepickerRangeSubscribe: Subscription[] = [];\n\n  public datepickerRangeHeader = DatepickerHeaderComponent;\n  public datepickerRangeName: string | number = 'input-datepicker';\n  private datepickerRangeValue: IDatepickerRange = {} as IDatepickerRange;\n\n  public datepickerRangeGroup: FormGroup = new FormGroup({\n    startDate: new FormControl(),\n    endDate: new FormControl()\n  });\n\n\n  @Input() placeholder = 'dd/mm/aaaa';\n  @Input() inputFormat = 'DD/MM/YYYY';\n  @Input() outputFormat = 'DD/MM/YYYY';\n  @Input() minDate = moment();\n  @Input() maxDate: moment.Moment;\n  @Input() disabled = false;\n  @Input() iconDisabled = false;\n\n  @Input('startValue')\n  set _startValue(value: string) {\n    this.datepickerRangeStartControl\n      .setValue(value ? moment(value, this.inputFormat) : null);\n  }\n\n  @Input('endValue')\n  set _endValue(value: string) {\n    this.datepickerRangeEndControl\n      .setValue(value ? moment(value, this.inputFormat) : null);\n  }\n\n\n  onChange = (_: any) => {\n  }\n  onTouched = (_: any) => {\n  }\n\n  constructor(@Optional() @Self() public ngControl: NgControl) {\n    if (ngControl){\n      ngControl.valueAccessor = this;\n    }\n  }\n\n  ngOnInit(): void {\n    this.changeDatepickerRangeValue();\n\n    if (this.ngControl && this.ngControl.name) {\n      this.datepickerRangeName = this.ngControl.name;\n    }\n  }\n\n  ngOnDestroy() {\n    this.datepickerRangeSubscribe.forEach(subscribe => subscribe.unsubscribe());\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  writeValue(value: IDatepickerRange): void {\n    this.datepickerRangeStartControl\n      .setValue(value && value.startDate ? moment(value.startDate, this.inputFormat) : null);\n    this.datepickerRangeEndControl\n      .setValue(value && value.endDate ? moment(value.endDate, this.inputFormat) : null);\n  }\n\n  get datepickerRangeStartControl() {\n    return this.datepickerRangeGroup.get('startDate') as FormControl;\n  }\n\n\n  get datepickerRangeEndControl() {\n    return this.datepickerRangeGroup.get('endDate') as FormControl;\n  }\n\n\n  changeDatepickerRangeValue() {\n    const datepickerRangeSubscribe = this.datepickerRangeGroup.valueChanges\n      .subscribe((value) => {\n        this.datepickerRangeValue.startDate = value && value.startDate ?\n          moment(value.startDate, this.inputFormat).format(this.outputFormat) : null;\n        this.datepickerRangeValue.endDate = value && value.endDate ?\n          moment(value.endDate, this.inputFormat).format(this.outputFormat) : null;\n        this.onChange(this.datepickerRangeValue);\n      });\n    this.datepickerRangeSubscribe.push(datepickerRangeSubscribe);\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import \"src/sass/variables/colors\";\n@import \"src/sass/utilities/text\";\n@import \"src/sass/mixins\";\n\n.input-datepicker-range-container {\n  .input-datepicker-range-label {\n    margin: 0;\n    position: relative;\n    background-color: $white;\n    padding: 0 40px 0 16px;\n    border: 1px solid $gray-3;\n    border-radius: 4px;\n    height: 38px;\n    width: 248px;\n  }\n\n\n  .input-datepicker-range-input {\n    color: $black;\n    height: 38px;\n    padding: 12px 0;\n\n    @include placeholder {\n      color: $gray-4;\n    }\n  }\n}\n\n\n:host {\n  .input-datepicker-range-container {\n    .input-datepicker-range-icon {\n      position: absolute;\n      right: 0;\n      top: 0;\n\n      ::ng-deep {\n        .mat-icon-button {\n          height: 38px;\n          width: auto;\n          padding-right: 16px;\n          padding-left: 12px;\n          outline: none;\n        }\n\n        .mat-button-focus-overlay {\n          display: none;\n        }\n      }\n    }\n\n    ::ng-deep {\n      .mat-date-range-input-start-wrapper,\n      .mat-date-range-input-end-wrapper{\n        height: 38px;\n        min-width: 80px;\n      }\n\n      .mat-date-range-input-separator {\n        opacity: 1;\n        color: $gray-3;\n      }\n    }\n  }\n}\n",
+                    "data": "@import \"src/sass/variables/colors\";\n@import \"src/sass/utilities/text\";\n@import \"src/sass/mixins\";\n\n.input-datepicker-range-container {\n  .input-datepicker-range-label {\n    margin: 0;\n    position: relative;\n    background-color: $white;\n    padding-right: 40px;\n    border: 1px solid $gray-3;\n    border-radius: 4px;\n    height: 38px;\n    width: 248px;\n  }\n\n\n  .input-datepicker-range-input {\n    color: $black;\n    height: 38px;\n    padding: 12px 0;\n\n    @include placeholder {\n      color: $gray-4;\n    }\n  }\n}\n\n\n:host {\n  .mat-date-range-input {\n    padding-left: 16px;\n  }\n  .input-datepicker-range-container {\n    .input-datepicker-range-icon {\n      position: absolute;\n      right: 0;\n      top: 0;\n\n      ::ng-deep {\n        .mat-icon-button {\n          height: 38px;\n          width: auto;\n          padding-right: 16px;\n          padding-left: 12px;\n          outline: none;\n        }\n\n        .mat-button-focus-overlay {\n          display: none;\n        }\n      }\n    }\n\n    ::ng-deep {\n      .mat-date-range-input-start-wrapper,\n      .mat-date-range-input-end-wrapper{\n        height: 38px;\n        min-width: 80px;\n      }\n\n      .mat-date-range-input-separator {\n        opacity: 1;\n        color: $gray-3;\n      }\n    }\n  }\n}\n",
                     "styleUrl": "./input-datepicker-range.component.scss"
                 }
             ],
@@ -13919,10 +13919,10 @@
                 "OnDestroy"
             ],
             "accessors": {
-                "_datepickerStartValue": {
-                    "name": "_datepickerStartValue",
+                "_startValue": {
+                    "name": "_startValue",
                     "setSignature": {
-                        "name": "_datepickerStartValue",
+                        "name": "_startValue",
                         "type": "void",
                         "args": [
                             {
@@ -13943,10 +13943,10 @@
                         ]
                     }
                 },
-                "_datepickerEndValue": {
-                    "name": "_datepickerEndValue",
+                "_endValue": {
+                    "name": "_endValue",
                     "setSignature": {
-                        "name": "_datepickerEndValue",
+                        "name": "_endValue",
                         "type": "void",
                         "args": [
                             {
@@ -13986,7 +13986,7 @@
                     }
                 }
             },
-            "templateData": "<div class=\"input-datepicker-range-container\">\n  <label class=\"input-datepicker-range-label\">\n\n    <mat-date-range-input [rangePicker]=\"pickerRange\"\n                          [min]=\"datepickerRangeMin\"\n                          [max]=\"datepickerRangeMax\"\n                          [formGroup]=\"datepickerRangeGroup\"\n                          [disabled]=\"datepickerDisabled\"\n                          separator=\"-\">\n      <input matStartDate\n             class=\"input-datepicker-range-input text-label\"\n             formControlName=\"startDate\"\n             [name]=\"datepickerRangeName\"\n             [placeholder]=\"inputPlaceholder\">\n      <input matEndDate\n             class=\"input-datepicker-range-input text-label\"\n             formControlName=\"endDate\"\n             [name]=\"datepickerRangeName\"\n             [placeholder]=\"inputPlaceholder\">\n    </mat-date-range-input>\n    <mat-datepicker-toggle class=\"input-datepicker-range-icon\"\n                           [for]=\"pickerRange\"\n                           [disableRipple]=\"true\">\n      <app-icon svgName=\"datepicker\"\n                svgWidth=\"12px\"\n                matDatepickerToggleIcon></app-icon>\n    </mat-datepicker-toggle>\n  </label>\n  <mat-date-range-picker #pickerRange\n                         [calendarHeaderComponent]=\"datepickerRangeHeader\"\n                         [disabled]=\"datepickerIconDisabled\">\n  </mat-date-range-picker>\n</div>\n"
+            "templateData": "<div class=\"input-datepicker-range-container\">\n  <label class=\"input-datepicker-range-label\">\n\n    <mat-date-range-input [rangePicker]=\"pickerRange\"\n                          [min]=\"minDate\"\n                          [max]=\"maxDate\"\n                          [formGroup]=\"datepickerRangeGroup\"\n                          [disabled]=\"disabled\"\n                          separator=\"-\">\n      <input matStartDate\n             class=\"input-datepicker-range-input text-label\"\n             formControlName=\"startDate\"\n             [name]=\"datepickerRangeName\"\n             [placeholder]=\"placeholder\">\n      <input matEndDate\n             class=\"input-datepicker-range-input text-label\"\n             formControlName=\"endDate\"\n             [name]=\"datepickerRangeName\"\n             [placeholder]=\"placeholder\">\n    </mat-date-range-input>\n    <mat-datepicker-toggle class=\"input-datepicker-range-icon\"\n                           [for]=\"pickerRange\"\n                           [disableRipple]=\"true\">\n      <app-icon svgName=\"datepicker\"\n                svgWidth=\"12px\"\n                matDatepickerToggleIcon></app-icon>\n    </mat-datepicker-toggle>\n  </label>\n  <mat-date-range-picker #pickerRange\n                         [calendarHeaderComponent]=\"datepickerRangeHeader\"\n                         [disabled]=\"iconDisabled\">\n  </mat-date-range-picker>\n</div>\n"
         },
         {
             "name": "InputNumberComponent",
@@ -15946,7 +15946,7 @@
                 "OnInit",
                 "OnDestroy"
             ],
-            "templateData": "<app-step stepId=\"3\"\n          stepTitle=\"Capacidad\"\n          [class.card-step-content-disabled]=\"capacityTableSaveLoad\"\n          [stepExpandedToggle]=\"capacityTableStepStatus === eCapacityStepStatus.open\"\n          [stepDisabled]=\"capacityTableStepStatus === eCapacityStepStatus.disabled  || capacityTableSaveLoad\"\n          [saveButtonDisabled]=\"!_opCapacitiesStepCapacityTableForm.capacityTableForm$.valid || capacityTableSaveLoad\"\n          (stepOpenEvent)=\"openCapacityTableStep()\"\n          (stepCloseEvent)=\"closeCapacityTableStep()\"\n          (saveButtonEvent)=\"saveCapacityTable()\"\n          (cancelButtonEvent)=\"cancelCapacityTable()\">\n  <div class=\"card-step-content\">\n    <form [formGroup]=\"_opCapacitiesStepCapacityTableForm.capacityTableForm$\">\n      <div class=\"row\">\n\n        <div class=\"col-12 mb-5\" *ngIf=\"capacityTableDateRange\">\n          <label class=\"text-caption text-gray-5 mb-2\">Selecciona días</label>\n          <app-input-datepicker-range\n            formControlName=\"capacityRange\"\n            datepickerRangeOutputFormat=\"DD-MM-YYYY\"\n            [datepickerRangeMin]=\"capacityTableMinDateRange\"\n            [datepickerRangeMax]=\"capacityTableMaxDateRange\">\n          </app-input-datepicker-range>\n        </div>\n\n        <div class=\"col-12\">\n          <app-op-capacities-step-capacity-table-form>\n          </app-op-capacities-step-capacity-table-form>\n        </div>\n\n      </div>\n    </form>\n  </div>\n</app-step>\n"
+            "templateData": "<app-step stepId=\"3\"\n          stepTitle=\"Capacidad\"\n          [class.card-step-content-disabled]=\"capacityTableSaveLoad\"\n          [stepExpandedToggle]=\"capacityTableStepStatus === eCapacityStepStatus.open\"\n          [stepDisabled]=\"capacityTableStepStatus === eCapacityStepStatus.disabled  || capacityTableSaveLoad\"\n          [saveButtonDisabled]=\"!_opCapacitiesStepCapacityTableForm.capacityTableForm$.valid || capacityTableSaveLoad\"\n          (stepOpenEvent)=\"openCapacityTableStep()\"\n          (stepCloseEvent)=\"closeCapacityTableStep()\"\n          (saveButtonEvent)=\"saveCapacityTable()\"\n          (cancelButtonEvent)=\"cancelCapacityTable()\">\n  <div class=\"card-step-content\">\n    <form [formGroup]=\"_opCapacitiesStepCapacityTableForm.capacityTableForm$\">\n      <div class=\"row\">\n\n        <div class=\"col-12 mb-5\" *ngIf=\"capacityTableDateRange\">\n          <label class=\"text-caption text-gray-5 mb-2\">Selecciona días</label>\n          <app-input-datepicker-range\n            formControlName=\"capacityRange\"\n            outputFormat=\"DD-MM-YYYY\"\n            [minDate]=\"capacityTableMinDateRange\"\n            [maxDate]=\"capacityTableMaxDateRange\">\n          </app-input-datepicker-range>\n        </div>\n\n        <div class=\"col-12\">\n          <app-op-capacities-step-capacity-table-form>\n          </app-op-capacities-step-capacity-table-form>\n        </div>\n\n      </div>\n    </form>\n  </div>\n</app-step>\n"
         },
         {
             "name": "OpCapacitiesStepCapacityTableFormComponent",
@@ -16580,7 +16580,7 @@
                 "OnInit",
                 "OnDestroy"
             ],
-            "templateData": "<app-step stepId=\"3\"\n          stepTitle=\"recursos\"\n          [class.card-step-content-disabled]=\"expressResourceSaveLoad\"\n          [stepExpandedToggle]=\"expressResourceStepStatus === eCapacityStepStatus.open\"\n          [stepDisabled]=\"expressResourceStepStatus === eCapacityStepStatus.disabled  || expressResourceSaveLoad\"\n          [saveButtonDisabled]=\"!_opCapacitiesStepExpressResourceForm.expressResourceForm$.valid || expressResourceSaveLoad\"\n          (stepOpenEvent)=\"openExpressResourceStep()\"\n          (stepCloseEvent)=\"closeExpressResourceStep()\"\n          (saveButtonEvent)=\"saveExpressResource()\"\n          (cancelButtonEvent)=\"cancelExpressResource()\">\n  <div class=\"card-step-content\">\n    <form [formGroup]=\"_opCapacitiesStepExpressResourceForm.expressResourceForm$\">\n\n      <div class=\"row\">\n        <div class=\"col-12 mb-5\" *ngIf=\"expressResourceDateRange\">\n          <label class=\"text-caption text-gray-5 mb-2\">Selecciona días</label>\n          <app-input-datepicker-range\n            formControlName=\"capacityRange\"\n            datepickerRangeOutputFormat=\"DD-MM-YYYY\"\n            [datepickerRangeMin]=\"expressResourceMinDateRange\"\n            [datepickerRangeMax]=\"expressResourceMaxDateRange\">\n          </app-input-datepicker-range>\n        </div>\n\n        <div class=\"col-12 mb-5\">\n          <label class=\"text-caption text-gray-5 mb-2 d-block\">Nro. de motorizados</label>\n          <app-input-number formControlName=\"expressResource\"\n                            inputPlaceholder=\"10\"></app-input-number>\n        </div>\n      </div>\n    </form>\n  </div>\n</app-step>\n"
+            "templateData": "<app-step stepId=\"3\"\n          stepTitle=\"recursos\"\n          [class.card-step-content-disabled]=\"expressResourceSaveLoad\"\n          [stepExpandedToggle]=\"expressResourceStepStatus === eCapacityStepStatus.open\"\n          [stepDisabled]=\"expressResourceStepStatus === eCapacityStepStatus.disabled  || expressResourceSaveLoad\"\n          [saveButtonDisabled]=\"!_opCapacitiesStepExpressResourceForm.expressResourceForm$.valid || expressResourceSaveLoad\"\n          (stepOpenEvent)=\"openExpressResourceStep()\"\n          (stepCloseEvent)=\"closeExpressResourceStep()\"\n          (saveButtonEvent)=\"saveExpressResource()\"\n          (cancelButtonEvent)=\"cancelExpressResource()\">\n  <div class=\"card-step-content\">\n    <form [formGroup]=\"_opCapacitiesStepExpressResourceForm.expressResourceForm$\">\n\n      <div class=\"row\">\n        <div class=\"col-12 mb-5\" *ngIf=\"expressResourceDateRange\">\n          <label class=\"text-caption text-gray-5 mb-2\">Selecciona días</label>\n          <app-input-datepicker-range\n            formControlName=\"capacityRange\"\n            outputFormat=\"DD-MM-YYYY\"\n            [minDate]=\"expressResourceMinDateRange\"\n            [maxDate]=\"expressResourceMaxDateRange\">\n          </app-input-datepicker-range>\n        </div>\n\n        <div class=\"col-12 mb-5\">\n          <label class=\"text-caption text-gray-5 mb-2 d-block\">Nro. de motorizados</label>\n          <app-input-number formControlName=\"expressResource\"\n                            inputPlaceholder=\"10\"></app-input-number>\n        </div>\n      </div>\n    </form>\n  </div>\n</app-step>\n"
         },
         {
             "name": "OpCapacitiesStepGroupOrLocalComponent",
@@ -22560,6 +22560,14 @@
                 "name": "COMPONENTS",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/core/molecules/form-field/form-field.module.ts",
+                "type": "[]",
+                "defaultValue": "[\n    FormFieldComponent,\n    FormFieldLabelComponent,\n    FormFieldErrorComponent,\n]"
+            },
+            {
+                "name": "COMPONENTS",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/core/atoms/buttons/buttons.module.ts",
                 "type": "[]",
                 "defaultValue": "[\n  ButtonComponent,\n  ButtonIconComponent,\n  ButtonActionIconComponent,\n  ButtonActionTextComponent\n]"
@@ -22587,14 +22595,6 @@
                 "file": "src/app/core/atoms/select-search/select-search.module.ts",
                 "type": "[]",
                 "defaultValue": "[\n  SelectSearchComponent\n]"
-            },
-            {
-                "name": "COMPONENTS",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/molecules/form-field/form-field.module.ts",
-                "type": "[]",
-                "defaultValue": "[\n    FormFieldComponent,\n    FormFieldLabelComponent,\n    FormFieldErrorComponent,\n]"
             },
             {
                 "name": "context",
@@ -23576,6 +23576,16 @@
                     "defaultValue": "[\n    NotSupportedComponent,\n    UnderConstructionComponent,\n    NotFoundComponent,\n]"
                 }
             ],
+            "src/app/core/molecules/form-field/form-field.module.ts": [
+                {
+                    "name": "COMPONENTS",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/molecules/form-field/form-field.module.ts",
+                    "type": "[]",
+                    "defaultValue": "[\n    FormFieldComponent,\n    FormFieldLabelComponent,\n    FormFieldErrorComponent,\n]"
+                }
+            ],
             "src/app/core/atoms/buttons/buttons.module.ts": [
                 {
                     "name": "COMPONENTS",
@@ -23614,16 +23624,6 @@
                     "file": "src/app/core/atoms/select-search/select-search.module.ts",
                     "type": "[]",
                     "defaultValue": "[\n  SelectSearchComponent\n]"
-                }
-            ],
-            "src/app/core/molecules/form-field/form-field.module.ts": [
-                {
-                    "name": "COMPONENTS",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/molecules/form-field/form-field.module.ts",
-                    "type": "[]",
-                    "defaultValue": "[\n    FormFieldComponent,\n    FormFieldLabelComponent,\n    FormFieldErrorComponent,\n]"
                 }
             ],
             "src/test.ts": [

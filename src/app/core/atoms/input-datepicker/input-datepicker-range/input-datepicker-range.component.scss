@@ -7,7 +7,7 @@
     margin: 0;
     position: relative;
     background-color: $white;
-    padding: 0 40px 0 16px;
+    padding-right: 40px;
     border: 1px solid $gray-3;
     border-radius: 4px;
     height: 38px;
@@ -28,6 +28,9 @@
 
 
 :host {
+  .mat-date-range-input {
+    padding-left: 16px;
+  }
   .input-datepicker-range-container {
     .input-datepicker-range-icon {
       position: absolute;
