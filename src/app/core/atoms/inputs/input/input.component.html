@@ -1,13 +1,13 @@
 <label class="input-label"
-       [ngClass]="inputLabelClass">
+       [ngClass]="labelClass">
   <input
     class="input-basic"
-    [class.input-error]="inputError"
-    [ngClass]="inputClass"
-    [id]="inputId"
-    [name]="inputName"
-    [type]="inputType"
-    [placeholder]="inputPlaceholder"
+    [class.input-error]="error"
+    [ngClass]="innerClass"
+    [id]="id"
+    [name]="name"
+    [type]="behavior"
+    [placeholder]="placeholder"
     [disabled]="inputDisabled"
     [(ngModel)]="inputValue"
     (ngModelChange)="changeInputValue()"

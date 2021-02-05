@@ -10,7 +10,6 @@ import { InputComponent } from '../input/input.component';
 })
 
 export class InputNumberComponent extends InputComponent implements OnInit, OnDestroy {
-    public inputType = 'number';
 
     constructor(@Optional() @Self() public ngControl: NgControl) {
         super(ngControl);
@@ -22,7 +21,7 @@ export class InputNumberComponent extends InputComponent implements OnInit, OnDe
     ngOnInit() {
         if (this.ngControl) {
             if (this.ngControl.name) {
-                this.inputName = this.ngControl.name;
+                this.name = this.ngControl.name;
             }
             if (this.ngControl.control) {
                 const subscription = this.ngControl.control.valueChanges

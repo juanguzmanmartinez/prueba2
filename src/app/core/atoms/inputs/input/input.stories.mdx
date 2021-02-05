@@ -1,0 +1,112 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
+import {InputComponent} from "./input.component";
+
+<Meta
+    title="Atoms/Inputs/Input"
+    component={InputComponent}/>
+
+# Button
+<br/>
+<br/>
+
+### Props
+| Property | Type  | Values | Default  |
+| ------ | --------- |------ | --------- |
+| id    | string   |  | "Input" |
+| name    | string   |  | "Input" |
+| behavior      | string   | <code>number</code><code>text</code><code>search</code><code>password</code> | <code>text</code> |
+| placeholder    | string   |  | "placeholder" |
+| innerClass    | string   |     ""    |  ""  |
+| labelClass    | string   |     ""    |  ""  |
+| error      | boolean  | true/false       | false     |
+
+### Events
+| Event | Arguments  | Description |
+| ------ | --------- |------ |
+| blur    |     | Emitted when input lost focus |
+| focus    |     | Emitted when input received focus |
+| change    |     | Emitted when input's value changes |
+
+------
+
+export const Template = (args) => ({
+    component: InputComponent,
+    props: {
+        ...args,
+        placeholder: 'placeholder',
+        behavior: 'text',
+        name: 'input',
+        id: 'input',
+    },
+    moduleMetadata: {
+        declarations: [InputComponent],
+    },
+    template: '<app-input ' +
+        '[placeholder]="placeholder" ' +
+        '[name]="name" ' +
+        '[behavior]="behavior" ' +
+        '[innerClass]="innerClass" ' +
+        '[labelClass]="labelClass" ' +
+        '[error]="error" ' +
+        '[value]="value" ' +
+        '[id]="id"></app-input>',
+})
+
+<br/>
+<br/>
+
+### Appearance
+
+<Canvas>
+    <Story name='Default'
+           args={{
+               value: 'example'
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-input value="example"></app-input>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Error'
+           args={{
+               value: 'Storybook',
+               error: true
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-input value="Storybook" error="true"></app-input>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+</Canvas>
+
+<br/>
+<br/>
+
+# Usages
+
+Import InputsModule into your custom module
+
+```typescript
+import { InputsModule } from './inputs.module';
+
+@NgModule({
+    imports: [InputsModule]
+})
+
+export class YourModule {}
+```
+
+## Examples
+
+  ```html
+<app-input placeholder="Write something..."></app-input>
+```
+ ```html
+<app-input value="example" [error]="true"></app-input>
+  ```

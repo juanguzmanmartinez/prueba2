@@ -11,9 +11,9 @@
                 <app-form-field>
                     <app-form-field-label>Usuario</app-form-field-label>
                     <app-input formControlName="username"
-                               inputLabelClass="d-block"
-                               inputId="user"
-                               inputPlaceholder="Escribe aquí tu usuario">
+                               labelClass="d-block"
+                               id="user"
+                               placeholder="Escribe aquí tu usuario">
                     </app-input>
                     <app-form-field-error>{{loginForm.usernameControl.controlError}}</app-form-field-error>
                 </app-form-field>
@@ -25,10 +25,10 @@
                     <app-input
                             (appCapsLock)="capsLock=$event"
                             formControlName="password"
-                            inputLabelClass="d-block"
-                            inputType="password"
-                            inputId="password"
-                            inputPlaceholder="Escribe aquí tu contraseña">
+                            labelClass="d-block"
+                            behavior="password"
+                            id="password"
+                            placeholder="Escribe aquí tu contraseña">
                     </app-input>
                     <ng-container *ngIf="!!loginForm.passwordControl.hasWrongDataError">
                         <app-form-field-error>{{loginForm.passwordControl.controlError}}</app-form-field-error>

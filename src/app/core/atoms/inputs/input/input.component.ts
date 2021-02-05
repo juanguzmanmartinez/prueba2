@@ -4,78 +4,83 @@ import { Subscription } from 'rxjs';
 
 
 @Component({
-  selector: 'app-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.sass']
+    selector: 'app-input',
+    templateUrl: './input.component.html',
+    styleUrls: ['./input.component.sass']
 })
 
 export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
-  public subscriptions: Subscription[] = [];
-  public inputValue: string | number = '';
-  public inputDisabled: boolean;
+    public subscriptions: Subscription[] = [];
+    public inputValue: string | number = '';
+    public inputDisabled: boolean;
 
-  @Input() inputId = '';
-  @Input() inputName: string | number = 'input';
-  @Input() inputType = 'text';
-  @Input() inputPlaceholder = '';
-  @Input() inputClass = '';
-  @Input() inputLabelClass = '';
-  @Input() inputError: boolean;
+    @Input() id = 'input';
+    @Input() name: string | number = 'input';
+    @Input() behavior: 'number' | 'text' | 'search' | 'password' = 'text';
+    @Input() placeholder = 'placeholder';
+    @Input() innerClass = '';
+    @Input() labelClass = '';
+    @Input() error: boolean;
 
-  onTouch = () => {};
-  onChange = (value: string | number) => {};
-  onBlur = (_: any) => {};
-  onFocus = (_: any) => {};
-
-
-  constructor(@Optional() @Self() public ngControl: NgControl) {
-    if (ngControl) {
-      ngControl.valueAccessor = this;
+    @Input('value')
+    set value(value: string) {
+        this.inputValue = value;
     }
-  }
+
+    onTouch = () => {};
+    onChange = (value: string | number) => {};
+    onBlur = (_: any) => {};
+    onFocus = (_: any) => {};
 
 
-  ngOnInit(): void {
-    if (this.ngControl) {
-      if (this.ngControl.name) {
-        this.inputName = this.ngControl.name;
-      }
-
-      const subscription = this.ngControl.control.valueChanges
-        .subscribe((value) => {
-          if (this.inputValue === value) {
-            return;
-          }
-          this.writeValue(value);
-        });
-      this.subscriptions.push(subscription);
+    constructor(@Optional() @Self() public ngControl: NgControl) {
+        if (ngControl) {
+            ngControl.valueAccessor = this;
+        }
     }
-  }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
 
-  writeValue(value: string | number): void {
-    this.inputValue = `${value}` || '';
-  }
+    ngOnInit(): void {
+        if (this.ngControl) {
+            if (this.ngControl.name) {
+                this.name = this.ngControl.name;
+            }
 
-  registerOnChange(fn: () => void): void {
-    this.onChange = fn;
-  }
+            const subscription = this.ngControl.control.valueChanges
+                .subscribe((value) => {
+                    if (this.inputValue === value) {
+                        return;
+                    }
+                    this.writeValue(value);
+                });
+            this.subscriptions.push(subscription);
+        }
+    }
 
-  registerOnTouched(fn: () => void): void {
-    this.onTouch = fn;
-  }
+    ngOnDestroy(): void {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
 
-  setDisabledState?(isDisabled: boolean): void {
-    this.inputDisabled = isDisabled;
-  }
+    writeValue(value: string | number): void {
+        this.inputValue = `${value}` || '';
+    }
 
-  changeInputValue(): void {
-    this.onChange(this.inputValue);
-    this.onTouch();
-  }
+    registerOnChange(fn: () => void): void {
+        this.onChange = fn;
+    }
+
+    registerOnTouched(fn: () => void): void {
+        this.onTouch = fn;
+    }
+
+    setDisabledState?(isDisabled: boolean): void {
+        this.inputDisabled = isDisabled;
+    }
+
+    changeInputValue(): void {
+        this.onChange(this.inputValue);
+        this.onTouch();
+    }
 
 }

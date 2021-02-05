@@ -9,8 +9,6 @@ import { InputComponent } from '../input/input.component';
 })
 export class InputSearchComponent extends InputComponent implements OnInit {
 
-    public inputType = 'search';
-
     constructor(@Optional() @Self() public ngControl: NgControl) {
         super(ngControl);
         if (ngControl) {

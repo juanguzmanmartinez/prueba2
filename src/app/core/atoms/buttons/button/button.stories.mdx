@@ -130,7 +130,7 @@ export class YourModule {}
 ## Examples
 
   ```html
-<app-button type="primary"
+<app-button appearance="primary"
             behavior="submit"
             [disabled]="true"
             (click)="event()"></app-button>
@@ -138,5 +138,5 @@ export class YourModule {}
  ```html
 <app-button innerClass="text-white"
             [disabled]="false"
-            inlineStyle="{backgroundColor: black}"></app-button>
+            [inlineStyle]="{backgroundColor: black}"></app-button>
   ```

@@ -22,6 +22,9 @@ import {IconsRegistryModule} from "./icons-registry.module";
 | svgHeight      | string   | <code>16px</code><code>24px</code><code>32px</code><code>48px</code> | null |
 | innerClass    | string   |     ""    |  ""  |
 
+*Use only <code>font</code> or <code>svg</code> property.
+
+
 ------
 
 export const Template = (args) => ({
@@ -150,17 +153,18 @@ export class YourModule {}
 # Register new icons
 <br/>
 
-#### 1.Add icon into directory
+#### 1.Add icon inside these directories
 
   ````
   src/assets/icons/
   src/assets/illustrations/
   ````
 
-#### 2.Update constants files
+#### 2.Update constant file
+
+<code>src/app/core/atoms/icons/constants/icons-svg.ts</code>
 
    ````typescript
-//src/app/core/atoms/icons/constants/icons-svg.ts
 
 const ICONS_SVG = [
 {...},
@@ -175,7 +179,7 @@ Update file with new icons
 
 ### Icons List
 
-name | icon
+icon | name
   -----|-----
 ![](../../../../assets/icons/ampm.svg) | ampm
 ![](../../../../assets/icons/avatar.svg) | avatar
@@ -196,7 +200,7 @@ name | icon
 <br/>
 
 ### Illustrations List
-name | icon
+illustration | name
 ---------------------------------------|---------------------------
 ![](../../../../assets/illustrations/assigned-orders.svg) | assigned-orders
 ![](../../../../assets/illustrations/empty-orders-1.svg) | empty-orders-1

@@ -1,16 +1,16 @@
 <label class="input-number-container"
-       [ngClass]="inputLabelClass">
+       [ngClass]="labelClass">
   <app-input
-    [inputLabelClass]="'input-number-label ' + inputLabelClass"
-    [inputClass]="'input-number ' + inputClass"
-    [inputError]="inputError"
-    [inputId]="inputId"
-    [inputName]="inputName"
-    [inputType]="inputType"
+          [labelClass]="'input-number-label ' + labelClass"
+    [innerClass]="'input-number ' + innerClass"
+          [error]="error"
+    [id]="id"
+    [name]="name"
+    behavior="number"
     [disabled]="inputDisabled"
     [(ngModel)]="inputValue"
     (ngModelChange)="changeInputValue()"
-    [inputPlaceholder]="inputPlaceholder"
+    [placeholder]="placeholder"
     (blur)="onBlur($event)"
     (focus)="onFocus($event)"
     appDigitsOnly>

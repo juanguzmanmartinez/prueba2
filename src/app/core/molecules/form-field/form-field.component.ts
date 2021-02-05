@@ -28,11 +28,11 @@ export class FormFieldComponent implements AfterContentInit {
             if (this.ngControl.invalid && this.ngControl.dirty) {
                 this.formFieldError = !!this.formFieldErrorComponent;
                 this.formFieldLabel?.errorField();
-                valueAccessor.inputError = true;
+                valueAccessor.error = true;
             } else {
                 this.formFieldError = false;
                 this.formFieldLabel?.removeErrorField();
-                valueAccessor.inputError = false;
+                valueAccessor.error = false;
             }
         });
     }
