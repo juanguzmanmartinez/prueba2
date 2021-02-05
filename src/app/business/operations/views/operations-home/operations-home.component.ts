@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '@models/auth/user.model';
+import { UserStoreService } from '@stores/user-store.service';
 
 @Component({
     selector: 'app-operations-home',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./operations-home.component.scss']
 })
 export class OperationsHomeComponent implements OnInit {
-    constructor() {
+
+    public user: User;
+
+    constructor(private userStore: UserStoreService) {
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
+        this.user = this.userStore.currentUser;
     }
-
 }
