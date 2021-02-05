@@ -47,8 +47,14 @@ export class AuthClientService {
     }
 
     resetPassword(iAuthRestorePasswordRequest: IAuthRestorePasswordRequest): Observable<boolean> {
-        const endpoint = `${EndpointsParameter.AUTH_RESTORE_PASSWORD}`;
+        const endpoint = `${EndpointsParameter.AUTH_RESET_PASSWORD}`;
         return this.genericService.genericPost<boolean>(endpoint, iAuthRestorePasswordRequest)
+            .pipe(take(1));
+    }
+
+    updatePassword(password: string): Observable<boolean> {
+        const endpoint = `${EndpointsParameter.AUTH_UPDATE_PASSWORD}`;
+        return this.genericService.genericPost<boolean>(endpoint, {password})
             .pipe(take(1));
     }
 

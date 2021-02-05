@@ -39,4 +39,8 @@ export class AuthImplementService {
         return this.authClient.resetPassword(iAuthRestorePasswordRequest);
     }
 
+    updatePassword(password: string) {
+        return this.authClient.updatePassword(password);
+    }
+
 }

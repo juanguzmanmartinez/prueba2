@@ -32,16 +32,12 @@ export class ProfileUpdatePasswordDialogComponent implements OnInit {
         this.user = this.userStore.currentUser;
     }
 
-    // TODO: Change reset Password Request
     formSubmitted(password: string): void {
         this.submitForm = true;
-        this.authImplement.resetPassword({
-            email: this.user.username,
-            code: '123456',
-            password
-        }).subscribe(
-            () => this.validResetPassword(),
-            () => this.invalidResetPassword());
+        this.authImplement.updatePassword(password)
+            .subscribe(
+                () => this.validResetPassword(),
+                () => this.invalidResetPassword());
     }
 
     validResetPassword() {
