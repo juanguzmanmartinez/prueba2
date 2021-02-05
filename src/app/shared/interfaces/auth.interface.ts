@@ -3,6 +3,7 @@ export interface IAuthRequest {
     password: string;
     grant_type?: string;
 }
+
 export interface IAuthResponse {
     access_token: string;
     token_type: string;
@@ -14,4 +15,15 @@ export interface IAuthResponse {
     second_last_name: string;
     email: string;
     jti: string;
+}
+
+export interface IAuthCodeRequest {
+    email: string;
+    code: string;
+}
+
+export interface IAuthRestorePasswordRequest {
+    email: string;
+    code: string;
+    password: string;
 }

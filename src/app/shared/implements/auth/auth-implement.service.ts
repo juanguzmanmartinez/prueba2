@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthClientService } from '@clients/auth/auth-client.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IAuthResponse } from '@interfaces/auth.interface';
+import { IAuthResponse, IAuthRestorePasswordRequest } from '@interfaces/auth.interface';
 import { TokenStoreService } from '@stores/token-store.service';
 
 
@@ -27,9 +27,16 @@ export class AuthImplementService {
             );
     }
 
-    resetPassword(email: string) {
-        return this.authClient.resetPassword(email);
+    sendPasswordCode(username: string): Observable<boolean> {
+        return this.authClient.sendPasswordCode(username);
+    }
 
+    validPasswordCode(email: string, code: string): Observable<boolean> {
+        return this.authClient.validPasswordCode({email, code});
+    }
+
+    resetPassword(iAuthRestorePasswordRequest: IAuthRestorePasswordRequest) {
+        return this.authClient.resetPassword(iAuthRestorePasswordRequest);
     }
 
 }

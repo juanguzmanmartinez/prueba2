@@ -11,6 +11,7 @@ import { ButtonsModule } from '@atoms/buttons/buttons.module';
 import { ProfileUserInformationDialogService } from '@organisms/profile/views/profile-user-information-dialog/profile-user-information-dialog.service';
 import { ProfileUpdatePasswordDialogService } from '@organisms/profile/views/profile-update-password-dialog/profile-update-password-dialog.service';
 import { UpdatePasswordFormModule } from '@organisms/update-password-form/update-password-form.module';
+import { AlertModule } from '@molecules/alert/alert.module';
 
 
 @NgModule({
@@ -29,10 +30,13 @@ import { UpdatePasswordFormModule } from '@organisms/update-password-form/update
         MatDialogModule,
         CardModule,
         ButtonsModule,
-        UpdatePasswordFormModule
-    ], providers: [
+        UpdatePasswordFormModule,
+        AlertModule
+    ],
+    providers: [
         ProfileUserInformationDialogService,
-        ProfileUpdatePasswordDialogService]
+        ProfileUpdatePasswordDialogService
+    ]
 })
 export class ProfileModule {
 }

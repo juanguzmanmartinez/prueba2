@@ -5,6 +5,9 @@ const API_GATEWAY_AUTH = `${environment.api_gateway_auth}`;
 
 export class EndpointsParameter {
   public static AUTH_TOKEN = `${API_GATEWAY_AUTH}/oauth/token`;
+  public static AUTH_SEND_CODE = `${API_GATEWAY_AUTH}/restorepassword/email`;
+  public static AUTH_VALID_CODE = `${API_GATEWAY_AUTH}/restorepassword/code`;
+  public static AUTH_RESTORE_PASSWORD = `${API_GATEWAY_AUTH}/restorepassword/change`;
 
   public static GET_DRUGSTORE = `${API_GATEWAY}/fulfillment/store`;
   public static GET_DRUGSTORE_BY_SERVICE_TYPE = `${API_GATEWAY}/fulfillment/store/servicetype/`;

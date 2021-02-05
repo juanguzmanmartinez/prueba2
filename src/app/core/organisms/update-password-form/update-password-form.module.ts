@@ -7,7 +7,6 @@ import { FormFieldModule } from '@molecules/form-field/form-field.module';
 import { InputsModule } from '@atoms/inputs/inputs.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IconsModule } from '@atoms/icons/icons.module';
-import { AlertModule } from '@molecules/alert/alert.module';
 import { DirectivesModule } from '../../../shared/directives/directives.module';
 
 
@@ -26,7 +25,6 @@ import { DirectivesModule } from '../../../shared/directives/directives.module';
         InputsModule,
         ReactiveFormsModule,
         IconsModule,
-        AlertModule,
         DirectivesModule
     ]
 })

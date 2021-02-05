@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserStoreService } from '@stores/user-store.service';
 import { User } from '@models/auth/user.model';
 import { RolesNames } from '@models/auth/role.model';
+import { UpdatePasswordFormComponent } from '@organisms/update-password-form/update-password-form.component';
+import { AuthImplementService } from '@implements/auth/auth-implement.service';
+import { AlertService } from '@molecules/alert/alert.service';
+import { CUpdatePasswordMessages } from '@organisms/update-password-form/parameters/update-password-messages.parameter';
 
 @Component({
     selector: 'app-profile-update-password-dialog',
@@ -11,19 +15,47 @@ import { RolesNames } from '@models/auth/role.model';
 })
 export class ProfileUpdatePasswordDialogComponent implements OnInit {
 
+    public submitForm: boolean;
     public user: User;
     public rolesNames = RolesNames;
 
+    @ViewChild('updatePasswordForm', {static: false}) updatePasswordForm: UpdatePasswordFormComponent;
+
     constructor(
+        private authImplement: AuthImplementService,
+        private  alertService: AlertService,
         public dialogRef: MatDialogRef<ProfileUpdatePasswordDialogComponent>,
         private userStore: UserStoreService) {
-        this.user = this.userStore.currentUser;
     }
 
     ngOnInit(): void {
+        this.user = this.userStore.currentUser;
     }
 
-    closeDialog() {
+    // TODO: Change reset Password Request
+    formSubmitted(password: string): void {
+        this.submitForm = true;
+        this.authImplement.resetPassword({
+            email: this.user.username,
+            code: '123456',
+            password
+        }).subscribe(
+            () => this.validResetPassword(),
+            () => this.invalidResetPassword());
+    }
+
+    validResetPassword() {
+        this.alertService.alertSuccess(CUpdatePasswordMessages.success);
+        this.formCancelled();
+    }
+
+    invalidResetPassword() {
+        this.alertService.alertError(CUpdatePasswordMessages.error);
+        this.formCancelled();
+    }
+
+    formCancelled() {
+        this.updatePasswordForm.resetPasswordForm();
         this.dialogRef.close();
     }
 }

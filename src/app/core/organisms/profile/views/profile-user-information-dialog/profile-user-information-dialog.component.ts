@@ -16,9 +16,9 @@ export class ProfileUserInformationDialogComponent implements OnInit {
     public rolesNames = RolesNames;
 
     constructor(private userStore: UserStoreService) {
-        this.user = this.userStore.currentUser;
     }
 
     ngOnInit(): void {
+        this.user = this.userStore.currentUser;
     }
 }

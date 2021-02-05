@@ -18,6 +18,7 @@ import { RecoverPasswordUserComponent } from './components/recover-password-user
 import { RecoverPasswordCodeComponent } from './components/recover-password-code/recover-password-code.component';
 import { UpdatePasswordFormModule } from '@organisms/update-password-form/update-password-form.module';
 import { ImplementsServiceModule } from '@implements/implements-service.module';
+import { AlertModule } from '@molecules/alert/alert.module';
 
 const COMPONENTS = [
     AccountComponent,
@@ -44,7 +45,8 @@ const COMPONENTS = [
         FormFieldModule,
         LinksModule,
         UpdatePasswordFormModule,
-        ImplementsServiceModule
+        ImplementsServiceModule,
+        AlertModule
     ]
 })
 export class AccountModule {

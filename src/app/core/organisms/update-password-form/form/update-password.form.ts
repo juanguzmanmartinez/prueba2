@@ -40,8 +40,8 @@ export class UpdatePasswordForm implements OnDestroy {
 
 
     resetForm(): void {
-        this.passwordControl.patchValue(null);
-        this.confirmPasswordControl.patchValue(null);
+        this.passwordControl.patchValue('');
+        this.confirmPasswordControl.patchValue('');
     }
 
     ngOnDestroy(): void {
