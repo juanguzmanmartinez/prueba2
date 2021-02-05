@@ -7,15 +7,18 @@ import { IconsModule } from '@atoms/icons/icons.module';
 import { TooltipModule } from '@atoms/tooltip/tooltip.module';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
 import { ProfileModule } from '@organisms/profile/profile.module';
+import { DirectivesModule } from '../../../shared/directives/directives.module';
+import { SidenavNavigationComponent } from '@organisms/sidenav/components/sidenav-navigation/sidenav-navigation.component';
 
 
 @NgModule({
-  declarations: [
-    SidenavComponent,
-  ],
-  exports: [
-    SidenavComponent
-  ],
+    declarations: [
+        SidenavComponent,
+        SidenavNavigationComponent
+    ],
+    exports: [
+        SidenavComponent
+    ],
     imports: [
         CommonModule,
         MatSidenavModule,
@@ -23,7 +26,8 @@ import { ProfileModule } from '@organisms/profile/profile.module';
         IconsModule,
         TooltipModule,
         ButtonsModule,
-        ProfileModule
+        ProfileModule,
+        DirectivesModule
     ]
 })
 export class SidenavModule {

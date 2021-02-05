@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { BUSINESS_PATH } from '@parameters/router-path.parameter';
+import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
 import { UserStoreService } from '@stores/user-store.service';
 
 
@@ -16,7 +16,7 @@ export class AccountGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         if (this.userStore.authenticated()) {
-            this.router.navigate([BUSINESS_PATH.operations]);
+            this.router.navigate([CONCAT_PATH.operations]);
             return false;
         }
         return true;

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Role } from '@models/auth/role.model';
+import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
 
 @Component({
   selector: 'app-sidenav',
@@ -7,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
 
+  public concatPath = CONCAT_PATH;
+  public roles = Role;
   constructor() {
   }
 

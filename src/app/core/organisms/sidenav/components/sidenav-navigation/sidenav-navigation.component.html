@@ -1,0 +1,9 @@
+<app-tooltip [tooltipValue]="navigationTooltip"
+             tooltipClass="sidenav-tooltip">
+  <app-router [router]="navigationRoute"
+              class="d-block">
+    <ng-template #routerActiveTemplate let-routerActiveVariable>
+      <app-button-action-text [active]="routerActiveVariable.isActive">{{navigationText}}</app-button-action-text>
+    </ng-template>
+  </app-router>
+</app-tooltip>

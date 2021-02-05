@@ -6,7 +6,7 @@ import { OperationsCapacityAmPmComponent } from './views/operations-capacity-am-
 import { OperationsCapacityScheduledComponent } from './views/operations-capacity-scheduled/operations-capacity-scheduled.component';
 import { OperationsCapacityExpressComponent } from './views/operations-capacity-express/operations-capacity-express.component';
 import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
-import { CCapacitiesServiceTypeRoute, ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
+import { OPERATIONS_CAPACITIES_PATH } from '@parameters/router-path.parameter';
 
 
 const routes: Routes = [
@@ -14,22 +14,22 @@ const routes: Routes = [
         path: '', component: OperationsCapacitiesComponent, children: [
             {path: '', component: OperationsCapacityHomeComponent, pathMatch: 'full'},
             {
-                path: CCapacitiesServiceTypeRoute[ECapacitiesServiceType.amPm.valueOf()],
+                path: OPERATIONS_CAPACITIES_PATH.amPm.toString(),
                 component: OperationsCapacityAmPmComponent,
                 pathMatch: 'full'
             },
             {
-                path: CCapacitiesServiceTypeRoute[ECapacitiesServiceType.scheduled.valueOf()],
+                path: OPERATIONS_CAPACITIES_PATH.scheduled.toString(),
                 component: OperationsCapacityScheduledComponent,
                 pathMatch: 'full'
             },
             {
-                path: CCapacitiesServiceTypeRoute[ECapacitiesServiceType.express.valueOf()],
+                path: OPERATIONS_CAPACITIES_PATH.express.toString(),
                 component: OperationsCapacityExpressComponent,
                 pathMatch: 'full'
             },
             {
-                path: CCapacitiesServiceTypeRoute[ECapacitiesServiceType.ret.valueOf()],
+                path: OPERATIONS_CAPACITIES_PATH.ret.toString(),
                 component: OperationsCapacityRetComponent,
                 pathMatch: 'full'
             },

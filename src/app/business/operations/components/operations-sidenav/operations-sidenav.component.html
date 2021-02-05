@@ -11,41 +11,41 @@
 
     <div class="operations-sidenav-content">
       <app-inner-sidenav-navigation navigationIcon="home"
-                                    navigationRoute="/operaciones"
+                                    [navigationRoute]="[concatPath.operations]"
                                     navigationText="Home">
       </app-inner-sidenav-navigation>
 
       <app-inner-sidenav-navigation navigationIcon="store"
-                                    navigationRoute="/operaciones/locales"
+                                    [navigationRoute]="[concatPath.operationStores]"
                                     navigationText="Locales">
       </app-inner-sidenav-navigation>
 
       <app-inner-sidenav-navigation navigationIcon="location_on"
-                                    navigationRoute="/operaciones/zonas"
+                                    [navigationRoute]="[concatPath.operationZones]"
                                     navigationText="Zonas">
       </app-inner-sidenav-navigation>
 
       <app-inner-sidenav-navigation-expansion navigationIcon="date_range"
-                                              navigationRoute="/operaciones/capacidades"
                                               navigationText="Capacidades"
+                                              [navigationRoute]="concatPath.operationCapacities"
                                               [navigationDisabledChildren]="!innerSidenavExpanded"
                                               [navigationRouteOptions]="{exact: false}">
-        <app-router router="/operaciones/capacidades/am-pm"
+        <app-router [router]="concatPath.operationCapacitiesAmPm"
                     routerActive="inner-sidenav-navigation-active"
                     routerClass="inner-sidenav-navigation-expansion-child">
           <span class="text-label">Editar AM/PM</span>
         </app-router>
-        <app-router router="/operaciones/capacidades/programado"
+        <app-router [router]="concatPath.operationCapacitiesScheduled"
                     routerActive="inner-sidenav-navigation-active"
                     routerClass="inner-sidenav-navigation-expansion-child">
           <span class="text-label">Editar Programado</span>
         </app-router>
-        <app-router router="/operaciones/capacidades/express"
+        <app-router [router]="concatPath.operationCapacitiesExpress"
                     routerActive="inner-sidenav-navigation-active"
                     routerClass="inner-sidenav-navigation-expansion-child">
           <span class="text-label">Editar Express</span>
         </app-router>
-        <app-router router="/operaciones/capacidades/retiro-tienda"
+        <app-router [router]="concatPath.operationCapacitiesRet"
                     routerActive="inner-sidenav-navigation-active"
                     routerClass="inner-sidenav-navigation-expansion-child">
           <span class="text-label">Editar RET</span>
@@ -53,7 +53,7 @@
       </app-inner-sidenav-navigation-expansion>
 
       <app-inner-sidenav-navigation navigationIcon="settings"
-                                    navigationRoute="/operaciones/configuraciones"
+                                    [navigationRoute]="[concatPath.operationSettings]"
                                     navigationText="Configuraciones">
       </app-inner-sidenav-navigation>
     </div>

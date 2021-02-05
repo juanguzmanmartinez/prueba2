@@ -5,7 +5,7 @@ import { TokenStoreService } from '@stores/token-store.service';
 import { JwtDecodeToken } from '@helpers/jwt-decode.helper';
 import { IUser } from '@interfaces/user.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { BUSINESS_PATH, LOGIN_PATH } from '@parameters/router-path.parameter';
+import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -53,6 +53,6 @@ export class UserStoreService {
         this.user = null;
         this.userSubject.next(null);
         this.tokenStore.removeAccessToken();
-        this.router.navigate([`/${BUSINESS_PATH.login}/${LOGIN_PATH.login}`]);
+        this.router.navigate([CONCAT_PATH.login]);
     }
 }

@@ -6,22 +6,24 @@
             <div class="sidenav-top-taps">
 
                 <div class="sidenav-taps">
-                    <app-router router="/">
+                    <app-router [router]="concatPath.base">
                         <app-icon iconSvgName="main-logo"
                                   iconSvgWidth="32px"></app-icon>
                     </app-router>
                 </div>
 
                 <div class="sidenav-taps">
-                    <app-tooltip tooltipValue="Operaciones"
-                                 tooltipClass="sidenav-tooltip">
-                        <app-router router="/operaciones"
-                                    class="d-block">
-                            <ng-template #routerActiveTemplate let-routerActiveVariable>
-                                <app-button-action-text [active]="routerActiveVariable.isActive">OP</app-button-action-text>
-                            </ng-template>
-                        </app-router>
-                    </app-tooltip>
+                    <app-sidenav-navigation navigationTooltip="Operaciones"
+                                            navigationText="OP"
+                                            [navigationRoute]="concatPath.operations">
+                    </app-sidenav-navigation>
+                </div>
+
+                <div class="sidenav-taps" *appRoles="[roles.Admin]">
+                    <app-sidenav-navigation navigationTooltip="Administrador"
+                                            navigationText="AD"
+                                            [navigationRoute]="concatPath.admin">
+                    </app-sidenav-navigation>
                 </div>
             </div>
 

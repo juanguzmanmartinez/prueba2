@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Role } from '@models/auth/role.model';
-import { BUSINESS_PATH } from '@parameters/router-path.parameter';
+import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
 import { UserStoreService } from '@stores/user-store.service';
 
 
@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate, CanLoad {
 
     canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         if (!this.userStore.authenticated()) {
-            this.router.navigate([BUSINESS_PATH.login]);
+            this.router.navigate([CONCAT_PATH.login]);
             return false;
         }
 

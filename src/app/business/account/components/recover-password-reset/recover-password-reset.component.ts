@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BUSINESS_PATH, LOGIN_PATH } from '@parameters/router-path.parameter';
+import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,12 +17,12 @@ export class RecoverPasswordResetComponent implements OnInit {
     }
 
     formSubmit(): void {
-        this.router.navigate([`/${BUSINESS_PATH.operations}`]);
+        this.router.navigate([CONCAT_PATH.operations]);
     }
 
 
     formCancel(): void {
-        this.router.navigate([`/${BUSINESS_PATH.login}/${LOGIN_PATH.login}`]);
+        this.router.navigate([CONCAT_PATH.login]);
     }
 
 }

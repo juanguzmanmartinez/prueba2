@@ -9,7 +9,7 @@ export class InnerSidenavNavigationComponent implements OnInit {
 
     @Input() navigationIcon: string;
     @Input() navigationText: string;
-    @Input() navigationRoute: string;
+    @Input() navigationRoute: string[] | string;
 
     constructor() {
     }

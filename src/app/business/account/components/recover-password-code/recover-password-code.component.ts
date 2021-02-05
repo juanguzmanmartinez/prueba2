@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecoverPasswordCodeForm } from '../../form/recover-password-code.form';
 import { Router } from '@angular/router';
-import { BUSINESS_PATH, LOGIN_PATH } from '@parameters/router-path.parameter';
+import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
 
 @Component({
     templateUrl: './recover-password-code.component.html',
@@ -23,13 +23,13 @@ export class RecoverPasswordCodeComponent implements OnInit {
     formSubmit() {
         // this.recoverPasswordCodeForm.codeControl.settingWrongDataValidator();
         this.router.navigate(
-            [`/${BUSINESS_PATH.login}/${LOGIN_PATH.recoverPassword}/${LOGIN_PATH.recoverPasswordReset}`],
+            [CONCAT_PATH.recoverPasswordReset],
             {skipLocationChange: true});
     }
 
 
     formCancel() {
-        this.router.navigate([`/${BUSINESS_PATH.login}/${LOGIN_PATH.login}`]);
+        this.router.navigate([CONCAT_PATH.login]);
     }
 
     resetFormValidators() {

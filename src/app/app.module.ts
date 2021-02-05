@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainLoaderComponent } from '@pages/main-loader/main-loader.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IconsModule } from '@atoms/icons/icons.module';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { PagesModule } from '@pages/pages.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -26,7 +25,6 @@ import { StoreFactoryModule } from '@stores/store-factory.module';
         AppRoutingModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        IconsModule,
         PagesModule,
         InterceptorsServiceModule,
         StoreFactoryModule.forRoot()

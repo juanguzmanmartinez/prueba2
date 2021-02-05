@@ -19,3 +19,11 @@ export const OPERATIONS_PATH = {
     capacities: 'capacidades',
     settings: 'configuraciones'
 };
+
+export const OPERATIONS_CAPACITIES_PATH = {
+    amPm: 'am-pm',
+    scheduled: 'programado',
+    express: 'express',
+    ret: 'retiro-tienda',
+    report: 'reportes'
+};

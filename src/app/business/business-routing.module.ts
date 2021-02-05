@@ -36,10 +36,10 @@ const routes: Routes = [
                 pathMatch: 'full'
             },
             OPERATIONS,
+            ADMIN
         ]
     },
     ACCOUNT,
-    ADMIN
 ];
 
 @NgModule({

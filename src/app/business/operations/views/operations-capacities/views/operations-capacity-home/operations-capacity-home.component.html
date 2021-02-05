@@ -1,67 +1,69 @@
 <section class="operations-capacity-home">
-  <div class="row mb-4">
-    <div class="col">
-      <app-back-router>Home</app-back-router>
-    </div>
-  </div>
-
-  <div class="row mb-10">
-    <div class="col-12 mb-6">
-      <h1 class="text-h3 text-black mb-0">Capacidades por defecto</h1>
+    <div class="row mb-4">
+        <div class="col">
+            <app-back-router>Home</app-back-router>
+        </div>
     </div>
 
-    <div class="col-12 mb-6">
-      <app-op-capacities-local-default-capacity></app-op-capacities-local-default-capacity>
+    <div class="row mb-10">
+        <div class="col-12 mb-6">
+            <h1 class="text-h3 text-black mb-0">Capacidades por defecto</h1>
+        </div>
+
+        <div class="col-12 mb-6">
+            <app-op-capacities-local-default-capacity></app-op-capacities-local-default-capacity>
+        </div>
+
+        <div class="col-12">
+            <p class="text-label text-gray-6 mb-0">Puedes revisar el consumo de capacidades semanal en la
+                <app-router [router]="concatPath.operationCapacitiesReport">
+                    <span class="text-primary">sección de reportes</span>
+                </app-router>
+            </p>
+        </div>
     </div>
 
-    <div class="col-12">
-      <p class="text-label text-gray-6 mb-0">Puedes revisar el consumo de capacidades semanal en la
-        <app-router router="/operaciones/capacidades/reportes"><span class="text-primary">sección de reportes</span></app-router>
-      </p>
-    </div>
-  </div>
+    <div class="row mb-4">
+        <div class="col-12 mb-7">
+            <h2 class="text-h4 text-black mb-0">Más opciones de capacidades</h2>
+        </div>
 
-  <div class="row mb-4">
-    <div class="col-12 mb-7">
-      <h2 class="text-h4 text-black mb-0">Más opciones de capacidades</h2>
-    </div>
-
-    <div class="col-12 col-xl-6 mb-4 mb-xl-0">
-      <app-router router="am-pm">
-        <app-card-action cardIcon="ampm">
-          <span card-title>AM/PM</span>
-          <span card-description>Edita las capacidades del rango de la mañana y tarde</span>
-        </app-card-action>
-      </app-router>
-    </div>
-    <div class="col-12 col-xl-6">
-      <app-router router="express">
-        <app-card-action cardIcon="moto">
-          <span card-title>Express</span>
-          <span card-description>Edita la disponibilidad de recursos para este servicio en el día</span>
-        </app-card-action>
-      </app-router>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12 col-xl-6 mb-4 mb-xl-0">
-      <app-router router="programado">
-        <app-card-action cardIcon="calendar">
-          <span card-title>Programado</span>
-          <span card-description>Edita las capacidades por rangos de horas en el día</span>
-        </app-card-action>
-      </app-router>
+        <div class="col-12 col-xl-6 mb-4 mb-xl-0">
+            <app-router [router]="concatPath.operationCapacitiesAmPm">
+                <app-card-action cardIcon="ampm">
+                    <span card-title>AM/PM</span>
+                    <span card-description>Edita las capacidades del rango de la mañana y tarde</span>
+                </app-card-action>
+            </app-router>
+        </div>
+        <div class="col-12 col-xl-6">
+            <app-router [router]="concatPath.operationCapacitiesExpress">
+                <app-card-action cardIcon="moto">
+                    <span card-title>Express</span>
+                    <span card-description>Edita la disponibilidad de recursos para este servicio en el día</span>
+                </app-card-action>
+            </app-router>
+        </div>
     </div>
 
-    <div class="col-12 col-xl-6">
-      <app-router router="retiro-tienda">
-        <app-card-action cardIcon="stores">
-          <span card-title>Retiro en tienda</span>
-          <span card-description>Edita la cantidad de pedidos que podrás atender con este servicio</span>
-        </app-card-action>
-      </app-router>
+    <div class="row">
+        <div class="col-12 col-xl-6 mb-4 mb-xl-0">
+            <app-router [router]="concatPath.operationCapacitiesScheduled">
+                <app-card-action cardIcon="calendar">
+                    <span card-title>Programado</span>
+                    <span card-description>Edita las capacidades por rangos de horas en el día</span>
+                </app-card-action>
+            </app-router>
+        </div>
+
+        <div class="col-12 col-xl-6">
+            <app-router [router]="concatPath.operationCapacitiesRet">
+                <app-card-action cardIcon="stores">
+                    <span card-title>Retiro en tienda</span>
+                    <span card-description>Edita la cantidad de pedidos que podrás atender con este servicio</span>
+                </app-card-action>
+            </app-router>
+        </div>
     </div>
-  </div>
 
 </section>
