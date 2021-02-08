@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthClientService } from '@clients/auth/auth-client.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IAuthResponse, IAuthRestorePasswordRequest } from '@interfaces/auth.interface';
+import { IAuthResponse, IAuthRestorePasswordRequest } from '@interfaces/auth/auth.interface';
 import { TokenStoreService } from '@stores/token-store.service';
 
 

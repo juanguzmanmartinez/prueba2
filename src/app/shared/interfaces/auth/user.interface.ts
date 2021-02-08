@@ -1,10 +1,6 @@
 import { Role } from '@models/auth/role.model';
 
 export interface IUser {
-    client_id: string;
-    exp: number;
-    jti: string;
-    scope: Array<'read' | 'write'>;
     authorities: Role[];
     email: string;
     user_name: string;

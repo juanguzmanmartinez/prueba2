@@ -1,5 +1,5 @@
 import { Role } from './role.model';
-import { IUser } from '@interfaces/user.interface';
+import { IUser } from '@interfaces/auth/user.interface';
 
 export class User {
     role: Role;

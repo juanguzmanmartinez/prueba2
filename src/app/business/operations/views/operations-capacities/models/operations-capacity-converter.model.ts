@@ -1,7 +1,5 @@
 import { ICapacityStepExpressResourceSegments } from '../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';
-import {
-  ICapacityStepCapacityTableSegments
-} from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
+import { ICapacityStepCapacityTableSegments } from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 import { CapacitiesServiceType } from './operations-capacities-responses.model';
 import { IDatepickerRange } from '@atoms/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
 import { ServiceTypeSegment } from '@models/local/service-type.model';
@@ -43,8 +41,8 @@ export class ToCapacityStepRetCapacitySegments extends ToCapacityStepAmPmCapacit
 }
 
 export class CapacityRangeLimit implements IDatepickerRange {
-  endDate: string;
-  startDate: string;
+  endDate: number;
+  startDate: number;
 
   constructor(capacitiesServiceType: CapacitiesServiceType) {
     if (capacitiesServiceType) {

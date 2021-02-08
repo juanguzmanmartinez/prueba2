@@ -19,6 +19,7 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit {
   public inputSelectSearchControl = new FormControl();
 
   @Input() placeholder: string;
+  @Input() disabled: boolean;
   @Input() clearValue: string;
   @Input() id: string | number = 'select-search';
 
@@ -99,6 +100,10 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit {
 
   registerOnTouched(fn: any): void {
     this.onTouch = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 
   writeValue(obj: T): void {

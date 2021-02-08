@@ -3,10 +3,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { OperationsCapacitiesImplementService } from '../../../services/operations-capacities-implement.service';
 import { ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService } from '../../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
 import { ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService } from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
-import {
-  ECapacitiesStepCapacityTable,
-  OpCapacitiesStepCapacityTableService
-} from '../../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
+import { ECapacitiesStepCapacityTable, OpCapacitiesStepCapacityTableService } from '../../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
 import { ECapacityStepStatus } from '../../../models/operations-capacity-step-status.model';
 import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
 import { AlertService } from '@molecules/alert/alert.service';
@@ -15,7 +12,7 @@ import { getDaysRangeBetweenDates } from '@helpers/dates.helper';
 import { ICapacityStepCapacityTableSegments } from '../../../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 import { capacityAlertSuccessMessage } from '../../../parameters/operations-capacities-alert-message.parameter';
 import { CapacityRangeLimit, ToCapacityStepRetCapacitySegments } from '../../../models/operations-capacity-converter.model';
-import { ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
+import { CCapacitiesServiceTypeName, ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
 import { EChannel } from '@models/channel/channel.model';
 import { CapacitiesServiceType } from '../../../models/operations-capacities-responses.model';
 
@@ -240,7 +237,7 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
 
   capacityRetSaveSuccess() {
     const message = capacityAlertSuccessMessage(
-      'RET',
+        CCapacitiesServiceTypeName[this.retCapacityId],
       `${this.groupOrLocalSelection.fulfillmentCenterCode} ${this.groupOrLocalSelection.text}`);
     this._alertService.alertSuccess(message);
     this.operationsCapacityRetSave = true;

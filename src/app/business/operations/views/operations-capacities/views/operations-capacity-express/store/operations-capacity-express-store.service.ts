@@ -9,14 +9,11 @@ import { CapacityRangeLimit, ToCapacityStepExpressResourceSegments } from '../..
 import { ICalendarUpdateRequestParams } from '@models/calendar/capacity.model';
 import { getDaysRangeBetweenDates } from '@helpers/dates.helper';
 
-import {
-  ECapacitiesStepExpressResource,
-  OpCapacitiesStepExpressResourceService
-} from '../../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
+import { ECapacitiesStepExpressResource, OpCapacitiesStepExpressResourceService } from '../../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
 import { ICapacityStepExpressResourceSegments } from '../../../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';
 import { OperationsCapacitiesImplementService } from '../../../services/operations-capacities-implement.service';
 import { capacityAlertSuccessMessage } from '../../../parameters/operations-capacities-alert-message.parameter';
-import { ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
+import { CCapacitiesServiceTypeName, ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
 import { EChannel } from '@models/channel/channel.model';
 import { CapacitiesServiceType } from '../../../models/operations-capacities-responses.model';
 
@@ -245,8 +242,8 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
 
   capacityExpressSaveSuccess() {
     const message = capacityAlertSuccessMessage(
-      'Express',
-      `${this.groupOrLocalSelection.fulfillmentCenterCode} ${this.groupOrLocalSelection.text}`);
+        CCapacitiesServiceTypeName[this.expressCapacityId],
+        `${this.groupOrLocalSelection.fulfillmentCenterCode} ${this.groupOrLocalSelection.text}`);
     this._alertService.alertSuccess(message);
     this.operationsCapacityExpressSave = true;
   }

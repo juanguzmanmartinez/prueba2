@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Role } from '@models/auth/role.model';
 import { User } from '@models/auth/user.model';
 import { TokenStoreService } from '@stores/token-store.service';
-import { JwtDecodeToken } from '@helpers/jwt-decode.helper';
-import { IUser } from '@interfaces/user.interface';
+import { IUser } from '@interfaces/auth/user.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
 import { Router } from '@angular/router';
@@ -18,18 +17,17 @@ export class UserStoreService {
         private tokenStore: TokenStoreService,
         private router: Router,
     ) {
-        this.tokenStore.accessToken$.subscribe((accessToken) => {
-            if (accessToken) {
-                this.userFromToken = accessToken;
+        this.tokenStore.decodeToken$.subscribe((iDecodeToken) => {
+            if (iDecodeToken) {
+                this.decodeUser = this.tokenStore.decodeToken;
             } else {
                 this.user = null;
             }
         });
     }
 
-    set userFromToken(accessToken: string) {
-        const tokenUser = JwtDecodeToken<IUser>(accessToken);
-        this.user = new User(tokenUser);
+    set decodeUser(iUser: IUser) {
+        this.user = new User(iUser);
         this.userSubject.next(this.user);
     }
 

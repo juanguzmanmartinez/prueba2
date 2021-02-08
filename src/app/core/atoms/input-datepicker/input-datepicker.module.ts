@@ -6,6 +6,9 @@ import { InputDatepickerComponent } from './views/input-datepicker/input-datepic
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { IconsModule } from '../icons/icons.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { CustomDateAdapter, MY_DATE_FORMATS } from '@atoms/input-datepicker/helpers/custom-date-adapter.helper';
 
 
 @NgModule({
@@ -19,11 +22,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         InputDatepickerRangeComponent,
     ],
     imports: [
+        PlatformModule,
         CommonModule,
         MatDatepickerModule,
         IconsModule,
         FormsModule,
-        ReactiveFormsModule,
+        ReactiveFormsModule
+    ],
+    providers: [
+        {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE, Platform]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},
     ]
 })
 export class InputDatepickerModule {

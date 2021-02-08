@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { EndpointsParameter } from '@parameters/endpoints.parameter';
 import { GenericService } from '@clients/generic/generic.service';
 import { take } from 'rxjs/operators';
-import { IAuthCodeRequest, IAuthRequest, IAuthResponse, IAuthRestorePasswordRequest } from '@interfaces/auth.interface';
+import { IAuthCodeRequest, IAuthRequest, IAuthResponse, IAuthRestorePasswordRequest } from '@interfaces/auth/auth.interface';
 import { Observable } from 'rxjs';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { EAuthCredentials } from '@parameters/auth.parameters';

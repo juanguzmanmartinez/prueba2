@@ -1,61 +1,41 @@
 import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
-import * as moment from 'moment';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DatepickerHeaderComponent } from '../../components/datepicker-header/datepicker-header.component';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
 
-
-export class CustomDateAdapter extends MomentDateAdapter {
-    getDayOfWeekNames(style: 'long' | 'short' | 'narrow') {
-        return ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
-    }
-
-    getFirstDayOfWeek(): number {
-        return 1;
-    }
-}
-
-export const MY_FORMATS = {
-    parse: {
-        dateInput: 'DD/MM/YYYY',
-    },
-    display: {
-        dateInput: 'DD/MM/YYYY',
-        monthYearLabel: 'MMMM YYYY',
-        dateA11yLabel: 'LL',
-        monthYearA11yLabel: 'MMMM YYYY',
-    },
-};
-
 @Component({
     selector: 'app-input-datepicker',
     templateUrl: './input-datepicker.component.html',
-    styleUrls: ['./input-datepicker.component.scss'],
-    providers: [
-        {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE]},
-        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-    ],
+    styleUrls: ['./input-datepicker.component.scss']
 })
 export class InputDatepickerComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
-    protected datepickerSubscribe: Subscription;
+    protected subscription: Subscription;
+
 
     public datepickerHeader = DatepickerHeaderComponent;
-    public datepickerName: string | number = 'input-datepicker';
-    public datepickerValue: moment.Moment;
+    public value: Date;
+    public minDate = new Date();
+    public maxDate: Date;
 
-    @Input() inputPlaceholder = 'dd/mm/aaaa';
-    @Input() datepickerInputFormat = 'DD/MM/YYYY';
-    @Input() datepickerOutputFormat = 'DD/MM/YYYY';
-    @Input() datepickerMin = moment();
-    @Input() datepickerMax: moment.Moment;
+    @Input() name: string | number = 'input-datepicker';
+    @Input() placeholder = 'dd/mm/aaaa';
+    @Input() disabled = false;
 
-    @Input('datepickerValue')
-    set _datepickerValue(value: string) {
-        this.datepickerValue = value ? moment(value, this.datepickerInputFormat) : null;
+    @Input('minDate')
+    set _minDate(value: string) {
+        this.minDate = value ? new Date(value) : new Date();
+    }
+
+    @Input('maxDate')
+    set _maxDate(value: string) {
+        this.maxDate = value ? new Date(value) : null;
+    }
+
+    @Input('value')
+    set _value(value: string) {
+        this.value = new Date(value);
     }
 
     onChange = (_: any) => {};
@@ -70,12 +50,12 @@ export class InputDatepickerComponent implements ControlValueAccessor, OnInit, O
     ngOnInit(): void {
         if (this.ngControl) {
             if (this.ngControl.name) {
-                this.datepickerName = this.ngControl.name;
+                this.name = this.ngControl.name;
             }
 
-            this.datepickerSubscribe = this.ngControl.control.valueChanges.subscribe((value: string) => {
-                const datepickerInput = value ? moment(value, this.datepickerInputFormat) : null;
-                if (this.datepickerValue === datepickerInput) {
+            this.subscription = this.ngControl.control.valueChanges.subscribe((value: string) => {
+                const datepickerInput = value ? new Date(value) : null;
+                if (this.value === datepickerInput) {
                     return;
                 }
                 this.writeValue(value);
@@ -84,7 +64,7 @@ export class InputDatepickerComponent implements ControlValueAccessor, OnInit, O
     }
 
     ngOnDestroy() {
-        this.datepickerSubscribe.unsubscribe();
+        this.subscription.unsubscribe();
     }
 
     registerOnChange(fn: any): void {
@@ -96,13 +76,15 @@ export class InputDatepickerComponent implements ControlValueAccessor, OnInit, O
     }
 
     writeValue(value: string): void {
-        this.datepickerValue = value ? moment(value, this.datepickerInputFormat) : null;
+        this.value = value ? new Date(value) : null;
     }
 
+    setDisabledState?(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+    }
 
-    changeDatepicker(value: MatDatepickerInputEvent<moment.Moment>) {
-        this.datepickerValue = value.value;
-        const datepickerOutput = value ? moment(value.value).format(this.datepickerOutputFormat) : null;
-        this.onChange(datepickerOutput);
+    changeDatepicker(value: MatDatepickerInputEvent<Date>) {
+        this.value = value ? value.value : null;
+        this.onChange(this.value);
     }
 }

@@ -1,118 +1,120 @@
 import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
-import { CustomDateAdapter, MY_FORMATS } from '../input-datepicker/input-datepicker.component';
 import { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { DatepickerHeaderComponent } from '../../components/datepicker-header/datepicker-header.component';
+import { DatesHelper } from '@helpers/dates.helper';
 
 export interface IDatepickerRange {
-  startDate: string;
-  endDate: string;
+    startDate: number;
+    endDate: number;
 }
 
 @Component({
-  selector: 'app-input-datepicker-range',
-  templateUrl: './input-datepicker-range.component.html',
-  styleUrls: ['./input-datepicker-range.component.scss'],
-  providers: [
-    {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-  ],
+    selector: 'app-input-datepicker-range',
+    templateUrl: './input-datepicker-range.component.html',
+    styleUrls: ['./input-datepicker-range.component.scss'],
 })
 export class InputDatepickerRangeComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
-  public datepickerRangeSubscribe: Subscription[] = [];
+    public subscriptions: Subscription[] = [];
+    public pickerHeaderComponent = DatepickerHeaderComponent;
 
-  public datepickerRangeHeader = DatepickerHeaderComponent;
-  public datepickerRangeName: string | number = 'input-datepicker';
-  private datepickerRangeValue: IDatepickerRange = {} as IDatepickerRange;
+    private value: IDatepickerRange = {} as IDatepickerRange;
+    public minDate = new Date();
+    public maxDate: Date;
 
-  public datepickerRangeGroup: FormGroup = new FormGroup({
-    startDate: new FormControl(),
-    endDate: new FormControl()
-  });
-
-
-  @Input() inputPlaceholder = 'dd/mm/aaaa';
-  @Input() datepickerRangeInputFormat = 'DD/MM/YYYY';
-  @Input() datepickerRangeOutputFormat = 'DD/MM/YYYY';
-  @Input() datepickerRangeMin = moment();
-  @Input() datepickerRangeMax: moment.Moment;
-  @Input() datepickerDisabled = false;
-  @Input() datepickerIconDisabled = false;
-
-  @Input('datepickerStartValue')
-  set _datepickerStartValue(value: string) {
-    this.datepickerRangeStartControl
-      .setValue(value ? moment(value, this.datepickerRangeInputFormat) : null);
-  }
-
-  @Input('datepickerEndValue')
-  set _datepickerEndValue(value: string) {
-    this.datepickerRangeEndControl
-      .setValue(value ? moment(value, this.datepickerRangeInputFormat) : null);
-  }
+    public formGroup: FormGroup = new FormGroup({
+        startDate: new FormControl(),
+        endDate: new FormControl()
+    });
 
 
-  onChange = (_: any) => {
-  }
-  onTouched = (_: any) => {
-  }
+    @Input() name: string | number = 'input-datepicker-range';
+    @Input() placeholder = 'dd/mm/aaaa';
+    @Input() disabled = false;
+    @Input() iconDisabled = false;
 
-  constructor(@Optional() @Self() public ngControl: NgControl) {
-    if (ngControl){
-      ngControl.valueAccessor = this;
+    @Input('minDate')
+    set _minDate(value: number) {
+        this.minDate = value ? new Date(value) : new Date();
     }
-  }
 
-  ngOnInit(): void {
-    this.changeDatepickerRangeValue();
-
-    if (this.ngControl && this.ngControl.name) {
-      this.datepickerRangeName = this.ngControl.name;
+    @Input('maxDate')
+    set _maxDate(value: number) {
+        this.maxDate = value ? new Date(value) : null;
     }
-  }
 
-  ngOnDestroy() {
-    this.datepickerRangeSubscribe.forEach(subscribe => subscribe.unsubscribe());
-  }
+    @Input('startValue')
+    set _startValue(value: number) {
+        this.startDateControl
+            .setValue(value);
+    }
 
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  writeValue(value: IDatepickerRange): void {
-    this.datepickerRangeStartControl
-      .setValue(value && value.startDate ? moment(value.startDate, this.datepickerRangeInputFormat) : null);
-    this.datepickerRangeEndControl
-      .setValue(value && value.endDate ? moment(value.endDate, this.datepickerRangeInputFormat) : null);
-  }
-
-  get datepickerRangeStartControl() {
-    return this.datepickerRangeGroup.get('startDate') as FormControl;
-  }
+    @Input('endValue')
+    set _endValue(value: number) {
+        this.endDateControl
+            .setValue(value);
+    }
 
 
-  get datepickerRangeEndControl() {
-    return this.datepickerRangeGroup.get('endDate') as FormControl;
-  }
+    onChange = (_: any) => {};
+    onTouched = (_: any) => {};
+
+    constructor(@Optional() @Self() public ngControl: NgControl) {
+        if (ngControl) {
+            ngControl.valueAccessor = this;
+        }
+    }
+
+    ngOnInit(): void {
+        this.changeValue();
+
+        if (this.ngControl && this.ngControl.name) {
+            this.name = this.ngControl.name;
+        }
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(subscribe => subscribe.unsubscribe());
+    }
+
+    registerOnChange(fn: any): void {
+        this.onChange = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        this.onTouched = fn;
+    }
+
+    setDisabledState?(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+    }
+
+    writeValue(value: IDatepickerRange): void {
+        this.startDateControl
+            .setValue(value && value.startDate ? value.startDate : null);
+        this.endDateControl
+            .setValue(value && value.endDate ? value.endDate : null);
+    }
+
+    get startDateControl() {
+        return this.formGroup.get('startDate') as FormControl;
+    }
 
 
-  changeDatepickerRangeValue() {
-    const datepickerRangeSubscribe = this.datepickerRangeGroup.valueChanges
-      .subscribe((value) => {
-        this.datepickerRangeValue.startDate = value && value.startDate ?
-          moment(value.startDate, this.datepickerRangeInputFormat).format(this.datepickerRangeOutputFormat) : null;
-        this.datepickerRangeValue.endDate = value && value.endDate ?
-          moment(value.endDate, this.datepickerRangeInputFormat).format(this.datepickerRangeOutputFormat) : null;
-        this.onChange(this.datepickerRangeValue);
-      });
-    this.datepickerRangeSubscribe.push(datepickerRangeSubscribe);
-  }
+    get endDateControl() {
+        return this.formGroup.get('endDate') as FormControl;
+    }
+
+
+    changeValue() {
+        const datepickerRangeSubscribe = this.formGroup.valueChanges
+            .subscribe((value) => {
+                this.value.startDate = value && value.startDate ? DatesHelper.Date(value.startDate).valueOf() : null;
+                this.value.endDate = value && value.endDate ? DatesHelper.Date(value.endDate).valueOf() : null;
+                this.onChange(this.value);
+            });
+        this.subscriptions.push(datepickerRangeSubscribe);
+    }
 
 }

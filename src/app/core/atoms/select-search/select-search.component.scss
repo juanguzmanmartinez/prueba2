@@ -42,6 +42,10 @@ $select-input-height: 38px;
     display: inline-flex;
     @extend .position-vertical-center
   }
+
+  &.select-search-disabled {
+    pointer-events: none;
+  }
 }
 
 ::ng-deep .mat-autocomplete-panel.select-search-component {

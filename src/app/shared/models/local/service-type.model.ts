@@ -29,7 +29,7 @@ export class ServiceType {
     capacitiesQuantity: number;
     ordersQuantity: number;
     selectDaysQuantity: number;
-    startDay: string;
-    endDay: string;
+    startDay: number;
+    endDay: number;
     segmentList: Array<ServiceTypeSegment>;
 }

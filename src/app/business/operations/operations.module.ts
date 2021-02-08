@@ -12,6 +12,7 @@ import { ButtonsModule } from '@atoms/buttons/buttons.module';
 import { CardModule } from '@molecules/cards/card.module';
 import { InnerSidenavModule } from '@organisms/inner-sidenav/inner-sidenav.module';
 import { ClientsServiceModule } from '@clients/clients-service.module';
+import { DirectivesModule } from '../../shared/directives/directives.module';
 
 
 @NgModule({
@@ -20,17 +21,18 @@ import { ClientsServiceModule } from '@clients/clients-service.module';
     OperationsSidenavComponent,
     OperationsHomeComponent,
   ],
-  imports: [
-    CommonModule,
-    OperationsRoutingModule,
-    ClientsServiceModule,
-    IconsModule,
-    MatExpansionModule,
-    LinksModule,
-    ButtonsModule,
-    CardModule,
-    InnerSidenavModule,
-  ]
+    imports: [
+        CommonModule,
+        OperationsRoutingModule,
+        ClientsServiceModule,
+        IconsModule,
+        MatExpansionModule,
+        LinksModule,
+        ButtonsModule,
+        CardModule,
+        InnerSidenavModule,
+        DirectivesModule,
+    ]
 })
 export class OperationsModule {
 }

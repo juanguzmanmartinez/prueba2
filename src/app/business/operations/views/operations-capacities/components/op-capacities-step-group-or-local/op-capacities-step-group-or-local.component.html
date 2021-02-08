@@ -22,6 +22,7 @@
     <div class="w-100">
       <app-select-search [placeholder]="'Elige un ' + groupOrLocalTabName[groupOrLocalTabSelection]"
                          [value]="groupOrLocalSelection"
+                         [disabled]="groupOrLocalTabReadonly"
                          [optionList]="groupOrLocalList"
                          (optionSelected)="changeGroupOrLocalSelection($event)">
         <ng-template #optionSelectedTemplate

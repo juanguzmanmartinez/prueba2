@@ -1,6 +1,6 @@
 import { FormControl, Validators } from '@angular/forms';
 import { IDatepickerRange } from '@atoms/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
-import { checkDateAfterDate, checkDateIsSameOrAfterDate, getDate, getYesterdayDate } from '@helpers/dates.helper';
+import { DatesHelper } from '@helpers/dates.helper';
 
 export class CapacityRangeControl extends FormControl {
     constructor() {
@@ -17,13 +17,12 @@ export class CapacityRangeControl extends FormControl {
 
     ValidatorsValidDateRange(control: FormControl): { [key: string]: boolean } | null {
         if (control.value) {
-            const dateFormat = 'DD-MM-YYYY';
             const datepickerRange = control.value as IDatepickerRange;
-            const yesterday = getYesterdayDate();
-            const startDate = getDate(datepickerRange.startDate, dateFormat);
-            const endDate = getDate(datepickerRange.endDate, dateFormat);
-            const validStartDate = checkDateAfterDate(startDate, yesterday);
-            const validEndDate = checkDateIsSameOrAfterDate(endDate, startDate);
+            const yesterday = DatesHelper.yesterday;
+            const startDate = DatesHelper.Date(datepickerRange.startDate);
+            const endDate = DatesHelper.Date(datepickerRange.endDate);
+            const validStartDate = startDate.isAfter(yesterday, 'd');
+            const validEndDate = endDate.isSameOrAfter(startDate, 'd');
             const validDateRange = validStartDate && validEndDate;
             return validDateRange ? null : {validDateRange};
         }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy } from '@angular/core';
 import { MatCalendar } from '@angular/material/datepicker';
-import { DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -10,16 +10,17 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./datepicker-header.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DatepickerHeaderComponent<Moment> implements OnDestroy {
+export class DatepickerHeaderComponent<D> implements OnDestroy {
     private _destroyed = new Subject<void>();
 
     constructor(
-        private _calendar: MatCalendar<Moment>,
-        private _dateAdapter: DateAdapter<Moment>,
-        @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats, cdr: ChangeDetectorRef) {
+        private _calendar: MatCalendar<D>,
+        private _dateAdapter: DateAdapter<D>,
+        @Inject(MAT_DATE_FORMATS) private _dateFormats: any,
+        changeDetectorRef: ChangeDetectorRef) {
         _calendar.stateChanges
             .pipe(takeUntil(this._destroyed))
-            .subscribe(() => cdr.markForCheck());
+            .subscribe(() => changeDetectorRef.markForCheck());
     }
 
     ngOnDestroy() {

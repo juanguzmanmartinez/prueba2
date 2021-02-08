@@ -12,7 +12,7 @@ import { CapacityRangeLimit, ToCapacityStepAmPmCapacitySegments } from '../../..
 import { ICalendarUpdateRequestParams } from '@models/calendar/capacity.model';
 import { getDaysRangeBetweenDates } from '@helpers/dates.helper';
 import { capacityAlertSuccessMessage } from '../../../parameters/operations-capacities-alert-message.parameter';
-import { ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
+import { CCapacitiesServiceTypeName, ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
 import { EChannel } from '@models/channel/channel.model';
 import { CapacitiesServiceType } from '../../../models/operations-capacities-responses.model';
 
@@ -238,7 +238,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
 
   capacityAmPmSaveSuccess() {
     const message = capacityAlertSuccessMessage(
-      'AM/PM',
+        CCapacitiesServiceTypeName[this.amPmCapacityId],
       `${this.groupOrLocalSelection.fulfillmentCenterCode} ${this.groupOrLocalSelection.text}`);
     this._alertService.alertSuccess(message);
     this.operationsCapacityAmPmSave = true;

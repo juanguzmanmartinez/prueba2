@@ -3,10 +3,9 @@ import { OpCapacitiesStepCapacityTableFormService } from '../op-capacities-step-
 import { ECapacitiesStepCapacityTable, OpCapacitiesStepCapacityTableService } from './op-capacities-step-capacity-table.service';
 import { Subscription } from 'rxjs';
 import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
-import * as moment from 'moment';
 import { FromFormToCapacityStepCapacityTableSegments, ICapacityStepCapacityTableFormValue, ICapacityStepCapacityTableSegments } from './models/op-capacities-step-capacity-table.model';
 import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
-import { addUnitOfTime, getDate } from '@helpers/dates.helper';
+import { DatesHelper } from '@helpers/dates.helper';
 
 @Component({
     selector: 'app-op-capacities-step-capacity-table',
@@ -26,8 +25,8 @@ export class OpCapacitiesStepCapacityTableComponent implements OnInit, OnDestroy
     public capacityTableStepStatus: ECapacityStepStatus = ECapacityStepStatus.disabled;
 
     public capacityTableDateRange: boolean;
-    public capacityTableMinDateRange: moment.Moment = getDate();
-    public capacityTableMaxDateRange: moment.Moment = addUnitOfTime(getDate(), 2, 'M');
+    public capacityTableMinDateRange: number = DatesHelper.Date().valueOf();
+    public capacityTableMaxDateRange: number = DatesHelper.Date().add(2, 'M').valueOf();
     public capacityTableSegments: ICapacityStepCapacityTableSegments;
 
     constructor(
@@ -118,14 +117,8 @@ export class OpCapacitiesStepCapacityTableComponent implements OnInit, OnDestroy
     updateCapacityTableRangeLimit() {
         const subscription = this._opCapacitiesStepCapacityTable.capacityTableRangeLimit$
             .subscribe((capacityRangeLimit: CapacityRangeLimit) => {
-                const minDate = getDate(capacityRangeLimit.startDate, 'YYYY-MM-DD');
-                const maxDate = getDate(capacityRangeLimit.endDate, 'YYYY-MM-DD');
-                if (minDate.isValid()) {
-                    this.capacityTableMinDateRange = minDate;
-                }
-                if (maxDate.isValid()) {
-                    this.capacityTableMaxDateRange = maxDate;
-                }
+                this.capacityTableMinDateRange = capacityRangeLimit.startDate;
+                this.capacityTableMaxDateRange = capacityRangeLimit.endDate;
             });
         this.subscriptions.push(subscription);
     }
