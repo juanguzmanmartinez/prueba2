@@ -32,7 +32,6 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor, OnIn
     @Input() name: string | number = 'input-datepicker-range';
     @Input() placeholder = 'dd/mm/aaaa';
     @Input() disabled = false;
-    @Input() iconDisabled = false;
 
     @Input('minDate')
     set _minDate(value: number) {

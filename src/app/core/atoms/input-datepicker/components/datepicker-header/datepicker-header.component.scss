@@ -19,6 +19,11 @@
   .datepicker-header-next {
     cursor: pointer;
     display: inline-flex;
+
+    &.disabled {
+      pointer-events: none;
+      opacity: .5;
+    }
   }
 }
 

@@ -1,23 +1,26 @@
 <div class="input-datepicker-container">
-  <label class="input-datepicker-label">
-    <input class="input-datepicker-input"
-           [placeholder]="placeholder"
-           [matDatepicker]="picker"
-           [name]="name"
-           [min]="minDate"
-           [max]="maxDate"
-           [value]="value"
-           [disabled]="disabled"
-           (dateChange)="changeDatepicker($event)">
-    <mat-datepicker-toggle class="input-datepicker-icon"
-                           [for]="picker"
-                           [disableRipple]="true">
-      <app-icon svgName="datepicker"
-                svgWidth="12px"
-                matDatepickerToggleIcon></app-icon>
-    </mat-datepicker-toggle>
-  </label>
-  <mat-datepicker #picker
-                  [calendarHeaderComponent]="datepickerHeader">
-  </mat-datepicker>
+    <label class="input-datepicker-label"
+           [class.disabled]="disabled">
+        <input class="input-datepicker-input"
+               [placeholder]="placeholder"
+               [matDatepicker]="picker"
+               [name]="name"
+               [min]="minDate"
+               [max]="maxDate"
+               [value]="value"
+               [disabled]="disabled"
+               (dateChange)="changeDatepicker($event)">
+        <mat-datepicker-toggle class="input-datepicker-icon"
+                               [disabled]="disabled"
+                               [for]="picker"
+                               [disableRipple]="true">
+            <app-icon svgName="datepicker"
+                      svgWidth="12px"
+                      matDatepickerToggleIcon></app-icon>
+        </mat-datepicker-toggle>
+    </label>
+    <mat-datepicker #picker
+                    [calendarHeaderComponent]="datepickerHeader"
+                    [disabled]="disabled">
+    </mat-datepicker>
 </div>

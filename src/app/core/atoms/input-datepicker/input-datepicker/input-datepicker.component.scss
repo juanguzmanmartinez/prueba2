@@ -6,6 +6,11 @@
   .input-datepicker-label {
     margin: 0;
     position: relative;
+
+    &.disabled {
+      pointer-events: none;
+      filter: grayscale(100%);
+    }
   }
 
   .input-datepicker-input {

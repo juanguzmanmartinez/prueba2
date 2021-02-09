@@ -24,17 +24,17 @@ export class InputDatepickerComponent implements ControlValueAccessor, OnInit, O
     @Input() disabled = false;
 
     @Input('minDate')
-    set _minDate(value: string) {
+    set _minDate(value: number) {
         this.minDate = value ? new Date(value) : new Date();
     }
 
     @Input('maxDate')
-    set _maxDate(value: string) {
+    set _maxDate(value: number) {
         this.maxDate = value ? new Date(value) : null;
     }
 
     @Input('value')
-    set _value(value: string) {
+    set _value(value: number) {
         this.value = new Date(value);
     }
 

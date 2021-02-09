@@ -1,20 +1,22 @@
 <div class="datepicker-header">
 
-  <span class="datepicker-header-label">{{periodLabel}}</span>
+    <span class="datepicker-header-label">{{periodLabel}}</span>
 
-  <div class="datepicker-header-actions">
-    <span class="datepicker-header-previous"
-      (click)="previousClicked()">
-      <app-icon fontName="keyboard_arrow_left"
-                fontSize="24px"
-                innerClass="text-gray-6"></app-icon>
-    </span>
-    <span class="datepicker-header-next"
-          (click)="nextClicked()">
-      <app-icon fontName="keyboard_arrow_right"
-                fontSize="24px"
-                innerClass="text-gray-6"></app-icon>
-    </span>
-  </div>
+    <div class="datepicker-header-actions">
+        <span class="datepicker-header-previous"
+              [class.disabled]="minDateLimit"
+              (click)="previousClicked()">
+              <app-icon fontName="keyboard_arrow_left"
+                        fontSize="24px"
+                        innerClass="text-gray-6"></app-icon>
+        </span>
+        <span class="datepicker-header-next"
+              [class.disabled]="maxDateLimit"
+              (click)="nextClicked()">
+              <app-icon fontName="keyboard_arrow_right"
+                        fontSize="24px"
+                        innerClass="text-gray-6"></app-icon>
+        </span>
+    </div>
 
 </div>

@@ -1,13 +1,13 @@
 import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
-import {CustomDateAdapter, InputDatepickerComponent, MY_FORMATS} from "./input-datepicker.component";
+import {InputDatepickerComponent} from "./input-datepicker.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {DatepickerHeaderComponent} from "../components/datepicker-header/datepicker-header.component";
-import {
-    DateAdapter,
-    MAT_DATE_FORMATS,
-    MAT_DATE_LOCALE
-} from '@angular/material/core'; import {IconsModule} from "../../icons/icons.module"; import {BrowserAnimationsModule} from "@angular/platform-browser/animations"; import {IconsRegistryModule} from "../../icons/icons-registry.module";
-import * as  moment from 'moment';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {CustomDateAdapter, MY_DATE_FORMATS} from "../helpers/custom-date-adapter.helper";
+import {IconsModule} from "../../icons/icons.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {IconsRegistryModule} from "../../icons/icons-registry.module";
+import {DatesHelper} from "../../../../shared/helpers/dates.helper"; import {Platform, PlatformModule} from "@angular/cdk/platform";
 
 <Meta
     title="Atoms/Inputs/Input Datepicker"
@@ -21,12 +21,12 @@ import * as  moment from 'moment';
 ### Props
 | Property | Type  | Values | Default  |
 | ------ | --------- |------ | --------- |
+| name    | string   |  | 'input-datepicker' |
+| disabled      | boolean  | true/false       | false     |
 | placeholder    | string   |  | 'dd/mm/aaaa' |
-| inputFormat      | string   |  | 'DD/MM/YYYY' |
-| outputFormat      | string  |      | 'DD/MM/YYYY'     |
-| minDate   | moment.Moment |        |  moment() |
-| maxDate    | moment.Moment   |         |  null  |
-| value    | string   |         |  null  |
+| minDate   | number |  (Milliseconds)  |  null |
+| maxDate    | number   |   (Milliseconds)   |  null  |
+| value    | number   |  (Milliseconds) |  null  |
 
 ### Events
 | Event | Arguments  | Description |
@@ -39,18 +39,18 @@ export const Template = (args) => ({
     component: InputDatepickerComponent,
     props: {...args},
     moduleMetadata: {
-        imports: [MatDatepickerModule, IconsModule, IconsRegistryModule, BrowserAnimationsModule],
+        imports: [MatDatepickerModule, IconsModule, IconsRegistryModule, BrowserAnimationsModule, PlatformModule],
         declarations: [InputDatepickerComponent, DatepickerHeaderComponent],
         entryComponents: [DatepickerHeaderComponent],
         providers: [
-            {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE]},
-            {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+            {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE, Platform]},
+            {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS}
         ]
     },
     template: '<app-input-datepicker ' +
+        '[name]="name" ' +
+        '[disabled]="disabled" ' +
         '[placeholder]="placeholder" ' +
-        '[inputFormat]="inputFormat" ' +
-        '[outputFormat]="outputFormat" ' +
         '[minDate]="minDate" ' +
         '[maxDate]="maxDate" ' +
         '[value]="value" ' +
@@ -66,9 +66,7 @@ export const Template = (args) => ({
     <Story name='Default' height={350}
            args={{
                placeholder: 'dd/mm/aaaa',
-               inputFormat: 'DD/MM/YYYY',
-               outputFormat: 'DD/MM/YYYY',
-               minDate: moment()
+               minDate: DatesHelper.Date()
            }} parameters={{
         docs: {
             source: {
@@ -80,9 +78,7 @@ export const Template = (args) => ({
     <Story name='Min Date' height={350}
            args={{
                placeholder: 'dd/mm/aaaa',
-               inputFormat: 'DD/MM/YYYY',
-               outputFormat: 'DD/MM/YYYY',
-               minDate: moment().add(3, 'd')
+               minDate: DatesHelper.Date().add(3, 'd')
            }} parameters={{
         docs: {
             source: {
@@ -113,7 +109,7 @@ export class YourModule {}
 ## Examples
 
   ```html
-<app-input-datepicker outputFormat="YYYY/MM/DD"></app-input-datepicker>
+<app-input-datepicker></app-input-datepicker>
 ```
  ```html
 <app-input-datepicker></app-input-datepicker>

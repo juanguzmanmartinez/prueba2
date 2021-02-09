@@ -1,5 +1,4 @@
 import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
-import {CustomDateAdapter, MY_FORMATS} from "../input-datepicker/input-datepicker.component";
 import {InputDatepickerRangeComponent} from "./input-datepicker-range.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {DatepickerHeaderComponent} from "../components/datepicker-header/datepicker-header.component";
@@ -7,8 +6,10 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {IconsModule} from "../../icons/icons.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {IconsRegistryModule} from "../../icons/icons-registry.module";
-import * as  moment from 'moment';
 import {ReactiveFormsModule} from "@angular/forms";
+import {CustomDateAdapter, MY_DATE_FORMATS} from "../helpers/custom-date-adapter.helper";
+import {Platform, PlatformModule} from "@angular/cdk/platform";
+import {DatesHelper} from "../../../../shared/helpers/dates.helper";
 
 <Meta
     title="Atoms/Inputs/Input Datepicker Range"
@@ -22,15 +23,13 @@ import {ReactiveFormsModule} from "@angular/forms";
 ### Props
 | Property | Type  | Values | Default  |
 | ------ | --------- |------ | --------- |
+| name    | string   |  | 'input-datepicker' |
 | placeholder    | string   |  | 'dd/mm/aaaa' |
-| inputFormat      | string   |  | 'DD/MM/YYYY' |
-| outputFormat      | string  |      | 'DD/MM/YYYY'     |
-| minDate   | moment.Moment |        |  moment() |
-| maxDate    | moment.Moment   |         |  null  |
+| minDate   | number |  (Milliseconds)  |  (Actual day) |
+| maxDate    | number   |   (Milliseconds)   |  null  |
 | disabled    | boolean   |  true/false   |  false  |
-| iconDisabled    | boolean   |  true/false   |  false  |
-| startValue    | string   |         |  null  |
-| endValue    | string   |         |  null  |
+| startValue    | number   |  (Milliseconds)  |  null  |
+| endValue    | number   | (Milliseconds) |  null  |
 
 ### Events
 | Event | Arguments  | Description |
@@ -41,20 +40,25 @@ import {ReactiveFormsModule} from "@angular/forms";
 
 export const Template = (args) => ({
     component: InputDatepickerRangeComponent,
-    props: {...args},
+    props: {
+        placeholder: 'dd/mm/aaaa',
+        name: 'input-datepicker-range',
+        disabled: false,
+        ...args
+    },
     moduleMetadata: {
-        imports: [ReactiveFormsModule, MatDatepickerModule, IconsModule, IconsRegistryModule, BrowserAnimationsModule],
+        imports: [ReactiveFormsModule, MatDatepickerModule, IconsModule, IconsRegistryModule, BrowserAnimationsModule, PlatformModule],
         declarations: [InputDatepickerRangeComponent, DatepickerHeaderComponent],
         entryComponents: [DatepickerHeaderComponent],
         providers: [
-            {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE]},
-            {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+            {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE, Platform]},
+            {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},
         ]
     },
     template: '<app-input-datepicker-range ' +
+        '[name]="name" ' +
+        '[disabled]="disabled" ' +
         '[placeholder]="placeholder" ' +
-        '[inputFormat]="inputFormat" ' +
-        '[outputFormat]="outputFormat" ' +
         '[minDate]="minDate" ' +
         '[maxDate]="maxDate" ' +
         '[startValue]="startValue" ' +
@@ -68,30 +72,51 @@ export const Template = (args) => ({
 ### Appearance
 
 <Canvas>
-    <Story name='Default' height={350}
-           args={{
-               placeholder: 'dd/mm/aaaa',
-               inputFormat: 'DD/MM/YYYY',
-               outputFormat: 'DD/MM/YYYY',
-               minDate: moment()
-           }} parameters={{
-        docs: {
-            source: {
-                code: '<app-input-datepicker-range></app-input-datepicker-range>',
-            }
-        }
-    }}>{Template.bind({})}
+    <Story name='Default'
+           height={350}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-input-datepicker-range></app-input-datepicker-range>',
+                   }
+               }
+           }}>{Template.bind({})}
     </Story>
-    <Story name='Min Date' height={350}
+    <Story name='Min Date'
+           height={350}
            args={{
-               placeholder: 'dd/mm/aaaa',
-               inputFormat: 'DD/MM/YYYY',
-               outputFormat: 'DD/MM/YYYY',
-               minDate: moment().add(3, 'd')
+               minDate: DatesHelper.Date().add(1, 'M').valueOf(),
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-input-datepicker-range minDate="DatesHelper.Date().add(2, `M`)"></app-input-datepicker-range>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Max Date'
+           height={350}
+           args={{
+               maxDate: DatesHelper.Date().add(2, 'M').valueOf(),
+               placeholder: 'dd-mm-aaaa'
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-input-datepicker-range maxDate="DatesHelper.Date().add(1, `M`)"></app-input-datepicker-range>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Disabled'
+           height={350}
+           args={{
+               disabled: true
            }} parameters={{
         docs: {
             source: {
-                code: '<app-input-datepicker-range></app-input-datepicker-range>',
+                code: '<app-input-datepicker-range disabled="true"></app-input-datepicker-range>',
             }
         }
     }}>{Template.bind({})}
@@ -117,9 +142,30 @@ export class YourModule {}
 
 ## Examples
 
-  ```html
-<app-input-datepicker-range outputFormat="YYYY/MM/DD"></app-input-datepicker-range>
-```
+<br/>
+
+> - ### Min and Max dates
+>```typescript
+>import { DatesHelper } from '@helpers/dates.helper';
+>
+>@Component({
+>  selector: 'input-datepicker-range-example',
+>  templateUrl: 'input-datepicker-range-example.html',
+>})
+>export class InputDatepickerRangeExample {
+>    public minDate: number = DatesHelper.Date().add(1, `M`).valueOf();
+>    public maxDate: number = DatesHelper.Date().add(2, 'M').valueOf();
+>}
+>```
+>
+>  ```html
+><!--input-datepicker-range-example.html-->
+><app-input-datepicker-range [minDate]="minDate"
+>                            [maxDate]="maxDate">
+></app-input-datepicker-range>
+>```
+
  ```html
+<!--input-datepicker-range-example.html-->
 <app-input-datepicker-range></app-input-datepicker-range>
   ```
