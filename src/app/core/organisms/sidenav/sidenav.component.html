@@ -19,7 +19,7 @@
                     </app-sidenav-navigation>
                 </div>
 
-                <div class="sidenav-taps" *appRoles="[roles.Admin]">
+                <div class="sidenav-taps" *appRouterAccess="concatPath.admin">
                     <app-sidenav-navigation navigationTooltip="Administrador"
                                             navigationText="AD"
                                             [navigationRoute]="concatPath.admin">

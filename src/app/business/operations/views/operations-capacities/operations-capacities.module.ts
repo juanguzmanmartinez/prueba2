@@ -36,6 +36,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SelectSearchModule } from '@atoms/select-search/select-search.module';
+import { DirectivesModule } from '../../../../shared/directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -54,30 +55,31 @@ import { SelectSearchModule } from '@atoms/select-search/select-search.module';
     OperationsCapacityRetComponent,
     OpCapacitiesLocalDefaultCapacityDialogComponent
   ],
-  imports: [
-    CommonModule,
-    OperationsCapacitiesRoutingModule,
-    ReactiveFormsModule,
-    MatExpansionModule,
-    LinksModule,
-    RadioModule,
-    CardModule,
-    BackRouterModule,
-    StepperModule,
-    SelectTabModule,
-    FormsModule,
-    InputDatepickerModule,
-    InputsModule,
-    ButtonsModule,
-    AlertModule,
-    MatTableModule,
-    CheckboxModule,
-    TooltipModule,
-    MatDialogModule,
-    IconsModule,
-    MatTabsModule,
-    SelectSearchModule,
-  ],
+    imports: [
+        CommonModule,
+        OperationsCapacitiesRoutingModule,
+        ReactiveFormsModule,
+        MatExpansionModule,
+        LinksModule,
+        RadioModule,
+        CardModule,
+        BackRouterModule,
+        StepperModule,
+        SelectTabModule,
+        FormsModule,
+        InputDatepickerModule,
+        InputsModule,
+        ButtonsModule,
+        AlertModule,
+        MatTableModule,
+        CheckboxModule,
+        TooltipModule,
+        MatDialogModule,
+        IconsModule,
+        MatTabsModule,
+        SelectSearchModule,
+        DirectivesModule,
+    ],
   providers: [
     OperationsCapacitiesImplementService
   ]

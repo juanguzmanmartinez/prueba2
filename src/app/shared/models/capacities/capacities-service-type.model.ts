@@ -1,4 +1,4 @@
-import { OPERATIONS_CAPACITIES_PATH } from '@parameters/router-path.parameter';
+import { OPERATIONS_CAPACITIES_PATH } from '@parameters/router/router-path.parameter';
 
 export enum ECapacitiesServiceType {
     amPm = 'AM_PM',

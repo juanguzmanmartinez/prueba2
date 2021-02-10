@@ -3,7 +3,7 @@ import { HttpParams } from '@angular/common/http';
 
 import { map, take } from 'rxjs/operators';
 
-import { EndpointsParameter } from '@parameters/endpoints.parameter';
+import { EndpointsParameter } from '@parameters/generic/endpoints.parameter';
 import { GenericService } from '../generic/generic.service';
 import { Blocked, IBlocked } from '@models/calendar/calendar.model';
 import { isArray } from '@helpers/objects-equal.helper';

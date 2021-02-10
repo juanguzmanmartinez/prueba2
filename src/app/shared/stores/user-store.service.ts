@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Role } from '@models/auth/role.model';
+import { Role } from '@parameters/auth/role.parameter';
 import { User } from '@models/auth/user.model';
 import { TokenStoreService } from '@stores/token-store.service';
 import { IUser } from '@interfaces/auth/user.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
+import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 import { Router } from '@angular/router';
 
 @Injectable()

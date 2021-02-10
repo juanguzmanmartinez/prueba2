@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginForm } from '../../form/login.form';
-import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
+import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 import { AuthImplementService } from '@implements/auth/auth-implement.service';
 import { Router } from '@angular/router';
 

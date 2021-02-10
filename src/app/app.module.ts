@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from '@interceptors/interceptor.providers';
 import { InterceptorsServiceModule } from '@interceptors/interceptors-service.module';
 import { StoreFactoryModule } from '@stores/store-factory.module';
+import { GuardServiceModule } from '@guards/guard-service.module';
 
 @NgModule({
     bootstrap: [
@@ -22,14 +23,15 @@ import { StoreFactoryModule } from '@stores/store-factory.module';
         MainLoaderComponent,
     ],
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        IconsRegistryModule,
         HttpClientModule,
-        PagesModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        StoreFactoryModule.forRoot(),
+        GuardServiceModule,
+        AppRoutingModule,
         InterceptorsServiceModule,
-        StoreFactoryModule.forRoot()
+        IconsRegistryModule,
+        PagesModule,
     ],
     providers: [
         {provide: MAT_DATE_LOCALE, useValue: 'es'},

@@ -1,7 +1,9 @@
 export const BUSINESS_PATH = {
-    login: 'cuenta',
+    wildcard: '**',
+    account: 'cuenta',
     admin: 'administrador',
-    operations: 'operaciones'
+    operations: 'operaciones',
+    notFound: 'no-encontrado',
 };
 
 

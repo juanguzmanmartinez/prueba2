@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserStoreService } from '@stores/user-store.service';
 import { User } from '@models/auth/user.model';
-import { RolesNames } from '@models/auth/role.model';
+import { RolesNames } from '@parameters/auth/role.parameter';
 import { UpdatePasswordFormComponent } from '@organisms/update-password-form/update-password-form.component';
 import { AuthImplementService } from '@implements/auth/auth-implement.service';
 import { AlertService } from '@molecules/alert/alert.service';

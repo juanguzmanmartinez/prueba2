@@ -1,4 +1,4 @@
-import { Role } from './role.model';
+import { Role } from '@parameters/auth/role.parameter';
 import { IUser } from '@interfaces/auth/user.interface';
 
 export class User {

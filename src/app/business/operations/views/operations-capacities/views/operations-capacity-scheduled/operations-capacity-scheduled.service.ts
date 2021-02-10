@@ -6,7 +6,7 @@ import { OpCapacitiesStepGroupOrLocalService } from '../../components/op-capacit
 import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
 import { OpCapacitiesStepEditionModeService } from '../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { OperationsCapacityScheduledStoreService } from './store/operations-capacity-scheduled-store.service';
-import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
+import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 
 @Injectable()
 export class OperationsCapacityScheduledService implements OnDestroy {

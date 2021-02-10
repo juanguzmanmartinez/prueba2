@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Role } from '@models/auth/role.model';
-import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
+import { Role } from '@parameters/auth/role.parameter';
+import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 
 @Component({
   selector: 'app-sidenav',

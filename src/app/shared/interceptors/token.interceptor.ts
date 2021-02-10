@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 import { UserStoreService } from '@stores/user-store.service';
 import { TokenStoreService } from '@stores/token-store.service';
-import { EHttpHeaderContentTypes, EHttpHeaders } from '@parameters/http-header.parameter';
-import { API_GATEWAY, EndpointsParameter } from '@parameters/endpoints.parameter';
+import { EHttpHeaderContentTypes, EHttpHeaders } from '@parameters/generic/http-header.parameter';
+import { API_GATEWAY, EndpointsParameter } from '@parameters/generic/endpoints.parameter';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {

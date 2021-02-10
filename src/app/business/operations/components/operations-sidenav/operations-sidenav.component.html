@@ -10,51 +10,65 @@
         <hr class="separator">
 
         <div class="operations-sidenav-content">
-            <app-inner-sidenav-navigation navigationIcon="home"
-                                          [navigationRoute]="[concatPath.operations]"
-                                          navigationText="Home">
+            <app-inner-sidenav-navigation
+                    navigationIcon="home"
+                    [navigationRoute]="[concatPath.operations]"
+                    navigationText="Home">
             </app-inner-sidenav-navigation>
 
-            <app-inner-sidenav-navigation navigationIcon="store"
-                                          [navigationRoute]="[concatPath.operationStores]"
-                                          navigationText="Locales">
+            <app-inner-sidenav-navigation
+                    *appRouterAccess="concatPath.operationStores"
+                    navigationIcon="store"
+                    [navigationRoute]="[concatPath.operationStores]"
+                    navigationText="Locales">
             </app-inner-sidenav-navigation>
 
-            <app-inner-sidenav-navigation navigationIcon="location_on"
-                                          [navigationRoute]="[concatPath.operationZones]"
-                                          navigationText="Zonas">
+            <app-inner-sidenav-navigation
+                    *appRouterAccess="concatPath.operationZones"
+                    navigationIcon="location_on"
+                    [navigationRoute]="[concatPath.operationZones]"
+                    navigationText="Zonas">
             </app-inner-sidenav-navigation>
 
-            <app-inner-sidenav-navigation-expansion navigationIcon="date_range"
-                                                    navigationText="Capacidades"
-                                                    [navigationRoute]="concatPath.operationCapacities"
-                                                    [navigationDisabledChildren]="!innerSidenavExpanded"
-                                                    [navigationRouteOptions]="{exact: false}">
-                <app-router [router]="concatPath.operationCapacitiesAmPm"
-                            routerActive="inner-sidenav-navigation-active"
-                            routerClass="inner-sidenav-navigation-expansion-child">
+            <app-inner-sidenav-navigation-expansion
+                    *appRouterAccess="concatPath.operationCapacities"
+                    navigationIcon="date_range"
+                    navigationText="Capacidades"
+                    [navigationRoute]="concatPath.operationCapacities"
+                    [navigationDisabledChildren]="!innerSidenavExpanded"
+                    [navigationRouteOptions]="{exact: false}">
+
+                <app-router
+                        [router]="concatPath.operationCapacitiesAmPm"
+                        routerActive="inner-sidenav-navigation-active"
+                        routerClass="inner-sidenav-navigation-expansion-child">
                     <span class="text-label">Editar AM/PM</span>
                 </app-router>
-                <app-router [router]="concatPath.operationCapacitiesScheduled"
-                            routerActive="inner-sidenav-navigation-active"
-                            routerClass="inner-sidenav-navigation-expansion-child">
+                <app-router
+                        [router]="concatPath.operationCapacitiesScheduled"
+                        routerActive="inner-sidenav-navigation-active"
+                        routerClass="inner-sidenav-navigation-expansion-child">
                     <span class="text-label">Editar Programado</span>
                 </app-router>
-                <app-router [router]="concatPath.operationCapacitiesExpress"
-                            routerActive="inner-sidenav-navigation-active"
-                            routerClass="inner-sidenav-navigation-expansion-child">
+                <app-router
+                        [router]="concatPath.operationCapacitiesExpress"
+                        routerActive="inner-sidenav-navigation-active"
+                        routerClass="inner-sidenav-navigation-expansion-child">
                     <span class="text-label">Editar Express</span>
                 </app-router>
-                <app-router [router]="concatPath.operationCapacitiesRet"
-                            routerActive="inner-sidenav-navigation-active"
-                            routerClass="inner-sidenav-navigation-expansion-child">
+                <app-router
+                        [router]="concatPath.operationCapacitiesRet"
+                        routerActive="inner-sidenav-navigation-active"
+                        routerClass="inner-sidenav-navigation-expansion-child">
                     <span class="text-label">Editar RET</span>
                 </app-router>
             </app-inner-sidenav-navigation-expansion>
 
-            <app-inner-sidenav-navigation navigationIcon="settings"
-                                          [navigationRoute]="[concatPath.operationSettings]"
-                                          navigationText="Configuraciones">
+            <app-inner-sidenav-navigation
+                    *appRouterAccess="concatPath.operationSettings"
+                    navigationIcon="settings"
+                    [navigationRoute]="[concatPath.operationSettings]"
+                    navigationText="Configuraciones">
             </app-inner-sidenav-navigation>
         </div>
 

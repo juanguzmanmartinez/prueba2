@@ -1,4 +1,4 @@
-import { Role } from '@models/auth/role.model';
+import { Role } from '@parameters/auth/role.parameter';
 
 export interface IUser {
     authorities: Role[];

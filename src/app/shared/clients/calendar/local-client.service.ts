@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { map, take } from 'rxjs/operators';
 
-import { EndpointsParameter } from '@parameters/endpoints.parameter';
+import { EndpointsParameter } from '@parameters/generic/endpoints.parameter';
 import { isArray, isObject } from '@helpers/objects-equal.helper';
 import { GenericService } from '../generic/generic.service';
 import { ILocal } from '@models/local/local.model';

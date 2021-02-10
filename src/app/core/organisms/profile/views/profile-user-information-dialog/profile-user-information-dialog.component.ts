@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EProfileDialogType } from '@organisms/profile/parameters/profile-dialog-type.parameter';
 import { UserStoreService } from '@stores/user-store.service';
 import { User } from '@models/auth/user.model';
-import { RolesNames } from '@models/auth/role.model';
+import { RolesNames } from '@parameters/auth/role.parameter';
 
 @Component({
     templateUrl: './profile-user-information-dialog.component.html',

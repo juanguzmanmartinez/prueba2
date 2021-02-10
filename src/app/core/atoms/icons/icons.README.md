@@ -62,33 +62,33 @@ Update readme with the new icon name
 
 ### Icons
 
-> 14
 
-name | icon
-  -----|-----
-![](../../../../assets/icons/ampm.svg) | ampm
-![](../../../../assets/icons/avatar.svg) | avatar
-![](../../../../assets/icons/book.svg) | book
-![](../../../../assets/icons/calendar.svg) | calendar
-![](../../../../assets/icons/configuration.svg) | configuration
-![](../../../../assets/icons/inkafarma.svg) | inkafarma
-![](../../../../assets/icons/main-logo.svg) | main-logo
-![](../../../../assets/icons/mifarma.svg) | mifarma
-![](../../../../assets/icons/moto.svg) | moto
-![](../../../../assets/icons/navigation.svg) | navigation
-![](../../../../assets/icons/stores.svg) | stores
-![](../../../../assets/icons/truck.svg) | truck
-![](../../../../assets/icons/search.svg) | search
-![](../../../../assets/icons/datepicker.svg) | datepicker
-![](../../../../assets/icons/logo.svg) | logo
----------------------------------------|---------------------------
-![](../../../../assets/illustrations/assigned-orders.svg) | assigned-orders
-![](../../../../assets/illustrations/empty-orders-1.svg) | empty-orders-1
-![](../../../../assets/illustrations/empty-orders.svg) | empty-orders
-![](../../../../assets/illustrations/login.svg) | login
-![](../../../../assets/illustrations/look-orders.svg) | look-orders
-![](../../../../assets/illustrations/on-route.svg) | on-route
-![](../../../../assets/illustrations/order-canceled.svg) | order-canceled
-![](../../../../assets/illustrations/order-updated.svg) | order-updated
-![](../../../../assets/illustrations/search-store.svg) | search-store
-![](../../../../assets/illustrations/under-construction.svg) | under-construction
+### Icons List
+
+| Icon | Name |   |Icon | Name |
+|------|------|---|-----|------|
+|![](../../../../assets/icons/ampm.svg)             | ampm                  | |      ![](../../../../assets/icons/mifarma.svg)       | mifarma             |
+|![](../../../../assets/icons/avatar.svg)           | avatar                | |      ![](../../../../assets/icons/moto.svg)          | moto                |
+|![](../../../../assets/icons/book.svg)             | book                  | |      ![](../../../../assets/icons/navigation.svg)    | navigation          |
+|![](../../../../assets/icons/calendar.svg)         | calendar              | |      ![](../../../../assets/icons/stores.svg)        | stores              |
+|![](../../../../assets/icons/configuration.svg)    | configuration         | |      ![](../../../../assets/icons/truck.svg)         | truck               |
+|![](../../../../assets/icons/inkafarma.svg)        | inkafarma             | |      ![](../../../../assets/icons/search.svg)        | search              |
+|![](../../../../assets/icons/main-logo.svg)        | main-logo             | |      ![](../../../../assets/icons/datepicker.svg)    | datepicker          |
+
+<br/>
+
+### Illustrations List
+|Illustration | Name |   | Illustration | Name |
+|-------------|------|---|--------------|------|
+|![](../../../../assets/illustrations/assigned-orders.svg)      | assigned-orders       | |      ![](../../../../assets/illustrations/lost-connection.svg)       | lost-connection       |
+|![](../../../../assets/illustrations/call-attention.svg)       | call-attention        | |      ![](../../../../assets/illustrations/lost-connection-1.svg)     | lost-connection-1     |
+|![](../../../../assets/illustrations/communication.svg)        | communication         | |      ![](../../../../assets/illustrations/on-route.svg)              | on-route              |
+|![](../../../../assets/illustrations/empty-orders-1.svg)       | empty-orders-1        | |      ![](../../../../assets/illustrations/order-canceled.svg)        | order-canceled        |
+|![](../../../../assets/illustrations/empty-orders.svg)         | empty-orders          | |      ![](../../../../assets/illustrations/order-updated.svg)         | order-updated         |
+|![](../../../../assets/illustrations/gps.svg)                  | gps                   | |      ![](../../../../assets/illustrations/payment.svg)               | payment               |
+|![](../../../../assets/illustrations/login.svg)                | login                 | |      ![](../../../../assets/illustrations/send-message.svg)          | send-message          |
+|![](../../../../assets/illustrations/look-orders.svg)          | look-orders           | |      ![](../../../../assets/illustrations/sent.svg)                  | sent                  |
+|![](../../../../assets/illustrations/looking-files.svg)        | looking-files         | |      ![](../../../../assets/illustrations/under-construction.svg)    | under-construction    |
+|![](../../../../assets/illustrations/search-store.svg)         | search-store          | |      ![](../../../../assets/illustrations/logo.svg)                  | logo                  |
+
+

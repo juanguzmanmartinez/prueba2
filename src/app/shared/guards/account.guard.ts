@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
+import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 import { UserStoreService } from '@stores/user-store.service';
 
 

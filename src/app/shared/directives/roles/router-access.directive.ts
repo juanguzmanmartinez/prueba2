@@ -1,18 +1,21 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Role } from '@parameters/auth/role.parameter';
 import { UserStoreService } from '@stores/user-store.service';
+import { ROUTER_ACCESS } from '@parameters/router/router-access.parameter';
 
 @Directive({
-    selector: '[appRoles]'
+    selector: '[appRouterAccess]'
 })
-export class RolesDirective implements OnInit {
+export class RouterAccessDirective implements OnInit {
 
     private userRoles: Role[];
+    private routerAccess = ROUTER_ACCESS;
 
     @Input()
-    set appRoles(roles: Role[]) {
+    set appRouterAccess(route: string) {
+        const roles = this.routerAccess[route] as Role[];
         if (!roles || !roles.length) {
-            throw new Error('Roles value is empty or missed');
+            throw new Error('Router access is empty or missed');
         }
         this.userRoles = roles;
     }

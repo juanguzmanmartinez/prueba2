@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LOGIN_PATH } from '@parameters/router-path.parameter';
+import { LOGIN_PATH } from '@parameters/router/router-path.parameter';
 import { RecoveryPasswordStore } from '../../stores/recovery-password.store';
 
 @Component({

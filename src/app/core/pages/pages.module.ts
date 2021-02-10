@@ -4,6 +4,8 @@ import { NotSupportedComponent } from './not-supported/not-supported.component';
 import { UnderConstructionComponent } from './under-construction/under-construction.component';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ButtonsModule } from '@atoms/buttons/buttons.module';
+import { LinksModule } from '@atoms/links/links.module';
 
 const COMPONENTS = [
     NotSupportedComponent,
@@ -20,7 +22,9 @@ const COMPONENTS = [
     ],
     imports: [
         CommonModule,
-        IconsModule
+        IconsModule,
+        ButtonsModule,
+        LinksModule
     ]
 })
 export class PagesModule {

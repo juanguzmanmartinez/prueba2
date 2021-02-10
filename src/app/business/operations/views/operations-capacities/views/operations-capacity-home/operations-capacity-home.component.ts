@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OperationsCapacityHomeStoreService } from './store/operations-capacity-home-store.service';
 import { OpCapacitiesLocalDefaultCapacityService } from '../../components/op-capacities-local-default-capacity/op-capacities-local-default-capacity.service';
-import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
+import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 
 @Component({
     selector: 'app-operations-capacity-home',

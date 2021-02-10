@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Role } from '@models/auth/role.model';
+import { Role } from '@parameters/auth/role.parameter';
 import { UserStoreService } from '@stores/user-store.service';
 import { TokenStoreService } from '@stores/token-store.service';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
+import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 
 
 @Injectable()
@@ -20,27 +21,26 @@ export class AuthGuard implements CanActivate, CanLoad {
 
 
     canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        const roles = route.data && route.data.roles as Role[];
+        return this.guardValidation(roles);
+    }
+
+    canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
+        const roles = route.data && route.data.roles as Role[];
+        return this.guardValidation(roles);
+    }
+
+
+    guardValidation(roles: Role[]) {
         if (!this.userStore.authenticated() || this.tokenExpired()) {
             this.userStore.logout();
             return false;
         }
-
-        const roles = route.data.roles as Role[];
         if (roles && !roles.some(role => this.userStore.hasRole(role))) {
-            this.router.navigate(['error', 'not-found']);
+            this.router.navigate([CONCAT_PATH.notFound]);
             return false;
         }
-
         return true;
-    }
-
-    canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-        if (!this.userStore.authenticated()) {
-            return false;
-        }
-
-        const roles = route.data && route.data.roles as Role[];
-        return !(roles && !roles.some(role => this.userStore.hasRole(role)));
     }
 
     tokenExpired() {

@@ -14,7 +14,7 @@
             <app-op-capacities-local-default-capacity></app-op-capacities-local-default-capacity>
         </div>
 
-        <div class="col-12">
+        <div class="col-12" *appRouterAccess="concatPath.operationCapacitiesReport">
             <p class="text-label text-gray-6 mb-0">Puedes revisar el consumo de capacidades semanal en la
                 <app-router [router]="concatPath.operationCapacitiesReport">
                     <span class="text-primary">sección de reportes</span>

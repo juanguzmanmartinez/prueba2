@@ -1,5 +1,5 @@
 import { Component, OnInit, SkipSelf, ViewChild } from '@angular/core';
-import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
+import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 import { Router } from '@angular/router';
 import { CUpdatePasswordMessages } from '@organisms/update-password-form/parameters/update-password-messages.parameter';
 import { AuthImplementService } from '@implements/auth/auth-implement.service';

@@ -1,6 +1,6 @@
 import { Component, OnInit, SkipSelf } from '@angular/core';
 import { RecoverPasswordUserForm } from '../../form/recover-password-user.form';
-import { CONCAT_PATH } from '@parameters/concat-router-path.parameter';
+import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 import { Router } from '@angular/router';
 import { AuthImplementService } from '@implements/auth/auth-implement.service';
 import { RecoveryPasswordStore } from '../../stores/recovery-password.store';
