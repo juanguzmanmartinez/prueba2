@@ -3,13 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from '@pages/not-found/not-found.component';
 import { AppGuard } from '@guards/app.guard';
 import { BUSINESS_PATH } from '@parameters/router/router-path.parameter';
-import { AuthGuard } from '@guards/auth.guard';
 
 
 const routes: Routes = [
     {
         path: '',
-        canActivate: [AppGuard, AuthGuard],
+        canActivate: [AppGuard],
         children: [
             {
                 path: '',

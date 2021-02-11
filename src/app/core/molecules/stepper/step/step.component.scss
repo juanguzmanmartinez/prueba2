@@ -1,6 +1,6 @@
-@import '~sass/variables/colors';
-@import '~sass/utilities/text';
-@import '~sass/utilities/display';
+@import 'src/sass/variables/colors.variable';
+@import 'src/sass/mixins/text.mixin';
+@import 'src/sass/mixins/display.mixin';
 
 :host .step {
   &.step-disabled {
@@ -48,11 +48,11 @@
     .step-header-content {
       width: 100%;
       justify-content: space-between;
-      @extend .d-flex-vertical-center
+      @include d-flex-vertical-center
     }
 
     .step-header-title-container {
-      @extend .d-flex-vertical-center
+      @include d-flex-vertical-center
     }
 
     .step-header-id {
@@ -63,18 +63,18 @@
       color: $white;
       background-color: $gray-6;
       margin-right: 18px;
-      @extend .text-caption
+      @include text-caption
     }
 
     .step-header-title {
-      @extend .text-tag
+      @include text-tag
     }
 
     .step-header-description-container {
       justify-content: flex-end;
       margin-right: 0;
       max-width: 250px;
-      @extend .d-flex-vertical-center;
+      @include d-flex-vertical-center;
 
       &-readonly {
         pointer-events: none;
@@ -84,7 +84,7 @@
     .step-header-description {
       color: $dark-primary;
       margin-right: 8px;
-      @extend .text-button
+      @include text-button
     }
 
     .step-header-description-icon {
@@ -110,7 +110,7 @@
     .step-body-actions {
       border-top: 1px solid $gray-1;
       padding-top: 16px;
-      @extend .d-flex-horizontal-end;
+      @include d-flex-horizontal-end;
     }
   }
 }

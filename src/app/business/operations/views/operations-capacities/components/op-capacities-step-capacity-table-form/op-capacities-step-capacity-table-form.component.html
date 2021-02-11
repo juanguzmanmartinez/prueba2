@@ -27,7 +27,8 @@
 
 
     <div class="col-12 mb-5" *ngIf="_opCapacitiesStepCapacityTableForm.capacitySegmentList?.controls.length">
-      <table mat-table [dataSource]="capacityTableDataSource"
+      <table mat-table table-small
+             [dataSource]="capacityTableDataSource"
              class="capacity-table"
              formArrayName="capacitySegmentList">
 

@@ -143,6 +143,7 @@
       true,
       "attribute",
       "app",
+      "mat",
       "camelCase"
     ],
     "component-selector": [

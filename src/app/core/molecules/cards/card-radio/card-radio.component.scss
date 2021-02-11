@@ -1,5 +1,5 @@
-@import "src/sass/variables/colors";
-@import "src/sass/utilities/text";
+@import "src/sass/variables/colors.variable";
+@import "src/sass/mixins/text.mixin";
 
 :host .card-radio {
   ::ng-deep .card-radio {
@@ -20,7 +20,7 @@
     &:checked ~ .radio-content {
       .card-radio-title {
         color: $gray-6;
-        @extend .text-button
+        @include text-button
       }
     }
 
@@ -31,12 +31,12 @@
   .card-radio-title {
     color: $gray-5;
     margin-bottom: 10px;
-    @extend .text-label
+    @include text-label
   }
 
   .card-radio-description {
     color: $gray-4;
     margin-bottom: 0;
-    @extend .text-caption
+    @include text-caption
   }
 }

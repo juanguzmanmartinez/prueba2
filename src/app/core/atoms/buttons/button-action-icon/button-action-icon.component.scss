@@ -1,5 +1,5 @@
-@import "src/sass/variables";
-@import "src/sass/utilities/display";
+@import "src/sass/variables/colors.variable";
+@import "src/sass/mixins/display.mixin";
 
 :host {
   ::ng-deep .button.button-action-icon {
@@ -9,7 +9,7 @@
     border-radius: 50%;
     height: 24px;
     width: 24px;
-    @extend .d-flex-center;
+    @include d-flex-center;
     display: inline-flex;
 
     .icon-font {

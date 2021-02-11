@@ -27,6 +27,7 @@ const ADMIN: Route = {
 const routes: Routes = [
     {
         path: '',
+        canActivate: [AuthGuard],
         component: BusinessComponent,
         children: [
             {

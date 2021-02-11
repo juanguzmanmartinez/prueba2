@@ -1,5 +1,5 @@
-@import "src/sass/variables/colors";
-@import "src/sass/utilities/display";
+@import "src/sass/variables/colors.variable";
+@import "src/sass/mixins/display.mixin";
 
 .card-action {
   background-color: $white;
@@ -11,7 +11,7 @@
   height: 100%;
 
   .card-action-container {
-    @extend .d-flex-vertical-center;
+    @include d-flex-vertical-center;
   }
 
   &:hover {

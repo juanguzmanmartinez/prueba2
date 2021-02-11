@@ -9,7 +9,7 @@ const DIRECTIVES = [
     DigitsOnlyDirective,
     RolesDirective,
     CapsLockDirective,
-    RouterAccessDirective
+    RouterAccessDirective,
 ];
 
 @NgModule({

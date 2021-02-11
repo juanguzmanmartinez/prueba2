@@ -1,5 +1,5 @@
-@import "src/sass/variables";
-@import "src/sass/mixins/breakpoints";
+@import "src/sass/variables/colors.variable";
+@import "src/sass/mixins/breakpoints.mixin";
 
 .inner-sidenav-container {
   height: 100%;

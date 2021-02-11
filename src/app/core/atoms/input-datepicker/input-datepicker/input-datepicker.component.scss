@@ -1,5 +1,4 @@
-@import "src/sass/variables/colors";
-@import "src/sass/utilities/text";
+@import "src/sass/variables/colors.variable";
 @import "src/sass/mixins";
 
 .input-datepicker-container {
@@ -20,11 +19,11 @@
     border-radius: 4px;
     color: $black;
     height: 38px;
-    @extend .text-label;
+    @include text-label;
 
     @include placeholder {
       color: $gray-4;
-      @extend .text-label;
+      @include text-label;
     }
   }
 }

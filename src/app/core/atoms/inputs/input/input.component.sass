@@ -1,5 +1,4 @@
 @import "src/sass/variables"
-@import "src/sass/utilities/text"
 @import "src/sass/mixins"
 
 .input-label
@@ -13,11 +12,11 @@
   width: 100%
   color: $black
   height: 38px
-  @extend .text-label
+  @include text-label
 
   @include placeholder
     color: $gray-4
-    @extend .text-label
+    @include text-label
 
   &:-webkit-autofill
     -webkit-text-fill-color: $black

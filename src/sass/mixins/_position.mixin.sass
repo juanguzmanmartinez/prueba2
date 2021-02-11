@@ -1,19 +1,19 @@
-.position-absolute-center
+@mixin position-absolute-center()
   position: absolute
   top: 50%
   left: 50%
   transform: translate(-50%, -50%)
 
-.position-horizontal-center
+@mixin position-horizontal-center()
   position: absolute
   left: 50%
   transform: translateX(-50%)
 
-.position-vertical-center
+@mixin position-vertical-center()
   position: absolute
   top: 50%
   transform: translateY(-50%)
 
-.no-scrollable
+@mixin no-scrollable()
   position: fixed
   overflow-y: scroll

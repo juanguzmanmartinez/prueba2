@@ -37,6 +37,7 @@ import { IconsModule } from '@atoms/icons/icons.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SelectSearchModule } from '@atoms/select-search/select-search.module';
 import { DirectivesModule } from '../../../../shared/directives/directives.module';
+import { TableModule } from '@molecules/table/table.module';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { DirectivesModule } from '../../../../shared/directives/directives.modul
         MatTabsModule,
         SelectSearchModule,
         DirectivesModule,
+        TableModule,
     ],
   providers: [
     OperationsCapacitiesImplementService

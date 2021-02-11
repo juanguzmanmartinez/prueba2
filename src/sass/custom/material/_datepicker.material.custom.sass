@@ -17,7 +17,7 @@ mat-datepicker-content.mat-datepicker-content
 
   .mat-calendar-table-header th
     color: $gray-5
-    @extend .text-label
+    @include text-label
 
 
   .mat-calendar-body-label:not(:last-of-type)
@@ -34,7 +34,7 @@ mat-datepicker-content.mat-datepicker-content
   .mat-calendar-body-selected
     background-color: $primary
     color: $white
-    @extend .text-subtitle-2
+    @include text-subtitle-2
 
   .mat-calendar-body-in-range::before
     background-color: $light-primary

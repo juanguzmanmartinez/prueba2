@@ -1,5 +1,5 @@
-@import "src/sass/variables/colors";
-@import "src/sass/utilities/text";
+@import "src/sass/variables/colors.variable";
+@import "src/sass/mixins/text.mixin";
 
 .datepicker-header {
   display: flex;
@@ -29,7 +29,7 @@
 
 .datepicker-header-label {
   color: $black;
-  @extend .text-subtitle-2;
+  @include text-subtitle-2;
 }
 
 .example-double-arrow .mat-icon {
