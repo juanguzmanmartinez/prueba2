@@ -1,19 +1,15 @@
-<section class="profile-dialog">
+<section class="profile-dialog" app-dialog-container>
+    <div app-dialog-close mat-dialog-close></div>
 
-    <div class="dialog-close">
-        <app-icon fontName="close"
-                  fontSize="24px"
-                  innerClass="text-gray-5 cursor-pointer"
-                  mat-dialog-close></app-icon>
+    <div class="content border-bottom border-gray-2 pb-6">
+        <app-dialog-header iconName="avatar">
+            <ng-container dialog-header-title>{{user.name}} {{user.firstLastName}} {{user.secondLastName}}</ng-container>
+            <ng-container dialog-header-description>{{rolesNames[user.role]}}</ng-container>
+        </app-dialog-header>
     </div>
 
-    <app-profile-dialog-header>
-        <ng-container user-name>{{user.name}} {{user.firstLastName}} {{user.secondLastName}}</ng-container>
-        <ng-container user-role>{{rolesNames[user.role]}}</ng-container>
-    </app-profile-dialog-header>
-
-    <div class="dialog-content">
-        <div class="profile-dialog-information">
+    <div class="content pt-6">
+        <div class="profile-dialog-information mb-11">
 
             <app-card-static-information class="d-block mb-6"
                                          iconName="mail">
@@ -30,7 +26,7 @@
 
         <div class="profile-dialog-actions d-flex-horizontal-end">
             <app-button appearance="secondary"
-                        innerClass="mr-4"
+                        innerClass="me-4"
                         [mat-dialog-close]="profileDialogType.updatePassword">
                 Cambiar de contraseña
             </app-button>

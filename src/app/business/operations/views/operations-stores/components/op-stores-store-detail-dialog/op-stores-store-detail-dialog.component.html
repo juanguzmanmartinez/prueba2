@@ -1,0 +1,88 @@
+<section class="op-stores-store-detail-dialog" app-dialog-container>
+    <div app-dialog-close mat-dialog-close></div>
+    <div app-dialog-edit-button [mat-dialog-close]="true"></div>
+
+    <div class="content mb-6">
+        <app-dialog-header iconName="stores">
+            <ng-container dialog-header-title>
+                <app-tag class="d-block mb-2"
+                         [noSpace]="true"
+                         [tagStatus]="store.status === 'activo' ? 'success' : 'error'">{{store.status}}</app-tag>
+                {{store.name}}
+            </ng-container>
+            <ng-container dialog-header-description>Detalle de local</ng-container>
+        </app-dialog-header>
+    </div>
+
+    <div class="dialog-content">
+        <mat-tab-group class="dialog-tab-group"
+                       [disableRipple]="true">
+            <mat-tab label="General">
+                <div class="dialog-tab-body">
+                    <div class="row">
+                        <div class="col-12 d-flex">
+                            <app-card-static-information iconName="store">
+                                <ng-container information-title>Nomenclatura</ng-container>
+                                <ng-container information-caption>{{store.store}} {{store.name}}</ng-container>
+                            </app-card-static-information>
+                        </div>
+                        <div class="col-12 d-flex mt-5">
+                            <app-card-static-information iconName="location_on">
+                                <ng-container information-title>Ubicación</ng-container>
+                                <ng-container information-caption>Av. Guardia Civil 244, San Borja</ng-container>
+                            </app-card-static-information>
+                        </div>
+                        <div class="col-12 d-flex mt-5">
+                            <app-card-static-information iconName="group_work">
+                                <ng-container information-title>Grupo</ng-container>
+                                <ng-container information-caption>San Borja Sur</ng-container>
+                            </app-card-static-information>
+                        </div>
+                        <div class="col-12 d-flex mt-5">
+                            <app-card-static-information iconName="access_time">
+                                <ng-container information-title>Horario de atención</ng-container>
+                                <ng-container information-caption>De 8:00 AM a 7:00 PM</ng-container>
+                            </app-card-static-information>
+                        </div>
+                        <div class="col-12 d-flex mt-5">
+                            <app-card-static-information iconName="location_searching">
+                                <ng-container information-title>Latitud y longitud</ng-container>
+                                <ng-container information-caption>-12.103018, -77.021223</ng-container>
+                            </app-card-static-information>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Despacho">
+                <div class="dialog-tab-body">
+                    <div class="row">
+                        <div class="col-12 d-flex">
+                            <app-card-static-information iconName="motorcycle">
+                                <ng-container information-title>Tipo de despacho</ng-container>
+                                <ng-container information-caption>AM/PM - Programado - Express</ng-container>
+                            </app-card-static-information>
+                        </div>
+                        <div class="col-12 d-flex mt-5">
+                            <app-card-static-information iconName="record_voice_over">
+                                <ng-container information-title>Canales de atención</ng-container>
+                                <ng-container information-caption>Call Center - Digital</ng-container>
+                            </app-card-static-information>
+                        </div>
+                        <div class="col-12 d-flex mt-5">
+                            <app-card-static-information iconName="account_balance_wallet">
+                                <ng-container information-title>Métodos de pago</ng-container>
+                                <ng-container information-caption>POS - Efectivo - Online</ng-container>
+                            </app-card-static-information>
+                        </div>
+                        <div class="col-12 d-flex mt-5">
+                            <app-card-static-information iconName="shopping_bag">
+                                <ng-container information-title>Marcas</ng-container>
+                                <ng-container information-caption>Inkafarma - Mifarma</ng-container>
+                            </app-card-static-information>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</section>

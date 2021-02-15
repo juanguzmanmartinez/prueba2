@@ -12,5 +12,5 @@ export const ROUTER_ACCESS = {
     [CONCAT_PATH.operationStores]: [DEVELOPER],
     [CONCAT_PATH.operationCapacities]: [ADMIN, VIEWER, ASSISTANT],
     [CONCAT_PATH.operationSettings]: [ADMIN, VIEWER],
-    [CONCAT_PATH.operationCapacitiesReport]: [DEVELOPER],
+    [CONCAT_PATH.opCapacitiesReport]: [DEVELOPER],
 };

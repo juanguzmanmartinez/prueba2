@@ -20,6 +20,7 @@
                     *appRouterAccess="concatPath.operationStores"
                     navigationIcon="store"
                     [navigationRoute]="[concatPath.operationStores]"
+                    [navigationRouteOptions]="{exact: false}"
                     navigationText="Locales">
             </app-inner-sidenav-navigation>
 
@@ -39,25 +40,25 @@
                     [navigationRouteOptions]="{exact: false}">
 
                 <app-router
-                        [router]="concatPath.operationCapacitiesAmPm"
+                        [router]="concatPath.opCapacitiesAmPm"
                         routerActive="inner-sidenav-navigation-active"
                         routerClass="inner-sidenav-navigation-expansion-child">
                     <span class="text-label">Editar AM/PM</span>
                 </app-router>
                 <app-router
-                        [router]="concatPath.operationCapacitiesScheduled"
+                        [router]="concatPath.opCapacitiesScheduled"
                         routerActive="inner-sidenav-navigation-active"
                         routerClass="inner-sidenav-navigation-expansion-child">
                     <span class="text-label">Editar Programado</span>
                 </app-router>
                 <app-router
-                        [router]="concatPath.operationCapacitiesExpress"
+                        [router]="concatPath.opCapacitiesExpress"
                         routerActive="inner-sidenav-navigation-active"
                         routerClass="inner-sidenav-navigation-expansion-child">
                     <span class="text-label">Editar Express</span>
                 </app-router>
                 <app-router
-                        [router]="concatPath.operationCapacitiesRet"
+                        [router]="concatPath.opCapacitiesRet"
                         routerActive="inner-sidenav-navigation-active"
                         routerClass="inner-sidenav-navigation-expansion-child">
                     <span class="text-label">Editar RET</span>

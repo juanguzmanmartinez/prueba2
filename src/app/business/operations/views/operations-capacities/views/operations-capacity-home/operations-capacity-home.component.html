@@ -14,9 +14,9 @@
             <app-op-capacities-local-default-capacity></app-op-capacities-local-default-capacity>
         </div>
 
-        <div class="col-12" *appRouterAccess="concatPath.operationCapacitiesReport">
+        <div class="col-12" *appRouterAccess="concatPath.opCapacitiesReport">
             <p class="text-label text-gray-6 mb-0">Puedes revisar el consumo de capacidades semanal en la
-                <app-router [router]="concatPath.operationCapacitiesReport">
+                <app-router [router]="concatPath.opCapacitiesReport">
                     <span class="text-primary">sección de reportes</span>
                 </app-router>
             </p>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="col-12 col-xl-6 mb-4 mb-xl-0">
-            <app-router [router]="concatPath.operationCapacitiesAmPm">
+            <app-router [router]="concatPath.opCapacitiesAmPm">
                 <app-card-action cardIcon="ampm">
                     <span card-title>AM/PM</span>
                     <span card-description>Edita las capacidades del rango de la mañana y tarde</span>
@@ -37,7 +37,7 @@
             </app-router>
         </div>
         <div class="col-12 col-xl-6">
-            <app-router [router]="concatPath.operationCapacitiesExpress">
+            <app-router [router]="concatPath.opCapacitiesExpress">
                 <app-card-action cardIcon="moto">
                     <span card-title>Express</span>
                     <span card-description>Edita la disponibilidad de recursos para este servicio en el día</span>
@@ -48,7 +48,7 @@
 
     <div class="row">
         <div class="col-12 col-xl-6 mb-4 mb-xl-0">
-            <app-router [router]="concatPath.operationCapacitiesScheduled">
+            <app-router [router]="concatPath.opCapacitiesScheduled">
                 <app-card-action cardIcon="calendar">
                     <span card-title>Programado</span>
                     <span card-description>Edita las capacidades por rangos de horas en el día</span>
@@ -57,7 +57,7 @@
         </div>
 
         <div class="col-12 col-xl-6">
-            <app-router [router]="concatPath.operationCapacitiesRet">
+            <app-router [router]="concatPath.opCapacitiesRet">
                 <app-card-action cardIcon="stores">
                     <span card-title>Retiro en tienda</span>
                     <span card-description>Edita la cantidad de pedidos que podrás atender con este servicio</span>

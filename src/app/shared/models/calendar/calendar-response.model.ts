@@ -1,12 +1,12 @@
-import { ECapacitiesServiceType } from '../capacities/capacities-service-type.model';
+import { EDeliveryServiceType } from '../capacities/capacities-service-type.model';
 
 export interface ICalendarServiceDefaultCapacities {
-    serviceTypeCode: ECapacitiesServiceType;
+    serviceTypeCode: EDeliveryServiceType;
     capacitiesQuantity: number;
     ordersQuantity: number;
 }
 
 export class CalendarServiceDefaultCapacities {
-    serviceType: ECapacitiesServiceType;
+    serviceType: EDeliveryServiceType;
     capacityQuantity: number;
 }

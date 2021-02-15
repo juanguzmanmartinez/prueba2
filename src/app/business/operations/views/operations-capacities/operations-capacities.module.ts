@@ -29,7 +29,7 @@ import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
 import { OpCapacitiesLocalDefaultCapacityComponent } from './components/op-capacities-local-default-capacity/op-capacities-local-default-capacity.component';
 import { TooltipModule } from '@atoms/tooltip/tooltip.module';
 import { OpCapacitiesLocalDefaultCapacityCardComponent } from './components/op-capacities-local-default-capacity-card/op-capacities-local-default-capacity-card.component';
-import { OperationsCapacitiesImplementService } from './services/operations-capacities-implement.service';
+import { OperationsCapacitiesImplementService } from './implements/operations-capacities-implement.service';
 import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
 import { OpCapacitiesLocalDefaultCapacityDialogComponent } from './components/op-capacities-local-default-capacity-dialog/op-capacities-local-default-capacity-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -38,14 +38,16 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { SelectSearchModule } from '@atoms/select-search/select-search.module';
 import { DirectivesModule } from '../../../../shared/directives/directives.module';
 import { TableModule } from '@molecules/table/table.module';
+import { DialogModule } from '@molecules/dialog/dialog.module';
 
 @NgModule({
   declarations: [
     OperationsCapacitiesComponent,
+    OperationsCapacityHomeComponent,
     OperationsCapacityAmPmComponent,
     OperationsCapacityScheduledComponent,
     OperationsCapacityExpressComponent,
-    OperationsCapacityHomeComponent,
+    OperationsCapacityRetComponent,
     OpCapacitiesStepGroupOrLocalComponent,
     OpCapacitiesStepEditionModeComponent,
     OpCapacitiesStepCapacityTableComponent,
@@ -53,7 +55,6 @@ import { TableModule } from '@molecules/table/table.module';
     OpCapacitiesStepCapacityTableFormComponent,
     OpCapacitiesLocalDefaultCapacityComponent,
     OpCapacitiesLocalDefaultCapacityCardComponent,
-    OperationsCapacityRetComponent,
     OpCapacitiesLocalDefaultCapacityDialogComponent
   ],
     imports: [
@@ -81,6 +82,7 @@ import { TableModule } from '@molecules/table/table.module';
         SelectSearchModule,
         DirectivesModule,
         TableModule,
+        DialogModule
     ],
   providers: [
     OperationsCapacitiesImplementService

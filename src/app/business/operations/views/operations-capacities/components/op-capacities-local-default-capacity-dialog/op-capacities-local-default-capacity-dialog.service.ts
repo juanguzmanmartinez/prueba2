@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { OpCapacitiesLocalDefaultCapacityDialogComponent } from './op-capacities-local-default-capacity-dialog.component';
 import { CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity, CapacitiesServiceType } from '../../models/operations-capacities-responses.model';
+import { DialogService } from '@molecules/dialog/dialog.service';
 
 @Injectable()
 export class OpCapacitiesLocalDefaultCapacityDialogService {
 
-    constructor(private dialog: MatDialog) {
+    constructor(private dialog: DialogService) {
     }
 
     openServiceDefaultCapacityDialog(
@@ -14,10 +15,7 @@ export class OpCapacitiesLocalDefaultCapacityDialogService {
         localService: CapacitiesLocalServiceDefaultCapacity,
         serviceType: CapacitiesServiceType
     ): MatDialogRef<OpCapacitiesLocalDefaultCapacityDialogComponent> {
-        const dialogRef = this.dialog.open(OpCapacitiesLocalDefaultCapacityDialogComponent, {
-            width: '526px',
-            minHeight: '399px'
-        });
+        const dialogRef = this.dialog.open(OpCapacitiesLocalDefaultCapacityDialogComponent);
 
         dialogRef.componentInstance.capacitiesLocal = capacitiesLocal;
         dialogRef.componentInstance.localServiceTypeTable = localService;

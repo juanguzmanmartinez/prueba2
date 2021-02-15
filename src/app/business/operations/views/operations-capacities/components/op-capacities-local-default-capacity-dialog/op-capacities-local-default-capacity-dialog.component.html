@@ -1,95 +1,77 @@
-<section class="operations-capacities-local-default-capacity-dialog">
+<section class="operations-capacities-local-default-capacity-dialog" app-dialog-container>
+    <div app-dialog-close mat-dialog-close></div>
+    <div app-dialog-edit-button [mat-dialog-close]="true"></div>
 
-  <div class="dialog-close">
-    <app-icon fontName="close"
-              fontSize="24px"
-              innerClass="text-gray-5 cursor-pointer"
-              mat-dialog-close></app-icon>
-  </div>
-
-  <div class="dialog-edit-action">
-    <app-button-action-icon iconName="edit"
-                            innerClass="cursor-pointer"
-                            [inlineStyle]="{width: '32px', height: '32px'}"
-                            [mat-dialog-close]="true"></app-button-action-icon>
-  </div>
-
-  <div class="content mb-6">
-    <div class="row">
-      <div class="col-2">
-        <app-icon svgName="book"
-                  svgWidth="40px"></app-icon>
-      </div>
-      <div class="col pl-0">
-        <h1 class="text-h5 mb-2">Por defecto</h1>
-        <p class="text-caption text-gray-5 mb-0">Detalle de capacidad</p>
-      </div>
+    <div class="content mb-6">
+        <app-dialog-header iconName="book">
+            <ng-container dialog-header-title>Por defecto</ng-container>
+            <ng-container dialog-header-description>Detalle de capacidad</ng-container>
+        </app-dialog-header>
     </div>
-  </div>
 
-  <div class="dialog-content">
-    <mat-tab-group class="dialog-tab-group"
-                   [disableRipple]="true">
-      <mat-tab label="General" *ngIf="capacitiesLocal && localServiceTypeTable">
-        <div class="dialog-tab-body">
-          <div class="row">
-            <div class="col-12 d-flex">
-              <app-icon fontName="store"
-                        fontSize="24px"
-                        innerClass="text-gray-5"></app-icon>
+    <div class="dialog-content">
+        <mat-tab-group class="dialog-tab-group"
+                       [disableRipple]="true">
+            <mat-tab label="General" *ngIf="capacitiesLocal && localServiceTypeTable">
+                <div class="dialog-tab-body">
+                    <div class="row">
+                        <div class="col-12 d-flex">
+                            <app-icon fontName="store"
+                                      fontSize="24px"
+                                      innerClass="text-gray-5"></app-icon>
 
-              <div class="ml-4">
-                <h5 class="text-caption text-gray-5 mb-2">Local</h5>
-                <p class="text-label text-black mb-0">{{capacitiesLocal.localCode}} {{capacitiesLocal.name}}</p>
-              </div>
-            </div>
-            <div class="col-12 d-flex mt-5">
-              <app-icon fontName="motorcycle"
-                        fontSize="24px"
-                        innerClass="text-gray-5"></app-icon>
-              <div class="ml-4">
-                <h5 class="text-caption text-gray-5 mb-2">Tipo de despacho</h5>
-                <p class="text-label text-black mb-0">{{capacityServiceTypeName[localServiceTypeTable.serviceType]}}</p>
-              </div>
-            </div>
-            <div class="col-12 d-flex mt-5">
-              <app-icon fontName="assignment"
-                        fontSize="24px"
-                        innerClass="text-gray-5"></app-icon>
-              <div class="ml-4">
-                <h5 class="text-caption text-gray-5 mb-2">Total del día</h5>
-                <p class="text-label text-black mb-0">{{localServiceTypeTable.capacityQuantity}} pedidos</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </mat-tab>
-      <mat-tab label="Tabla" *ngIf="defaultCapacityTableDataSource">
-        <div class="dialog-tab-body dialog-tab-table">
-          <table mat-table table-small table-no-hover
-                 [dataSource]="defaultCapacityTableDataSource"
-                 class="dialog-table">
+                            <div class="ms-4">
+                                <h5 class="text-caption text-gray-5 mb-2">Local</h5>
+                                <p class="text-label text-black mb-0">{{capacitiesLocal.localCode}} {{capacitiesLocal.name}}</p>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex mt-5">
+                            <app-icon fontName="motorcycle"
+                                      fontSize="24px"
+                                      innerClass="text-gray-5"></app-icon>
+                            <div class="ms-4">
+                                <h5 class="text-caption text-gray-5 mb-2">Tipo de despacho</h5>
+                                <p class="text-label text-black mb-0">{{capacityServiceTypeName[localServiceTypeTable.serviceType]}}</p>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex mt-5">
+                            <app-icon fontName="assignment"
+                                      fontSize="24px"
+                                      innerClass="text-gray-5"></app-icon>
+                            <div class="ms-4">
+                                <h5 class="text-caption text-gray-5 mb-2">Total del día</h5>
+                                <p class="text-label text-black mb-0">{{localServiceTypeTable.capacityQuantity}} pedidos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Tabla" *ngIf="defaultCapacityTableDataSource">
+                <div class="dialog-tab-body dialog-tab-table">
+                    <table mat-table table-small table-no-hover
+                           [dataSource]="defaultCapacityTableDataSource"
+                           class="dialog-table">
 
-            <ng-container matColumnDef="hour">
-              <th mat-header-cell *matHeaderCellDef>Bloque horario</th>
-              <td mat-cell *matCellDef="let element; let first = first;">
-                {{element.segmentHour}}
-              </td>
-            </ng-container>
+                        <ng-container matColumnDef="hour">
+                            <th mat-header-cell *matHeaderCellDef>Bloque horario</th>
+                            <td mat-cell *matCellDef="let element; let first = first;">
+                                {{element.segmentHour}}
+                            </td>
+                        </ng-container>
 
-            <ng-container matColumnDef="capacity">
-              <th mat-header-cell *matHeaderCellDef>Capacidad</th>
-              <td mat-cell *matCellDef="let element">
-                <span class="text-button">{{element.segmentCapacity}}</span>
-              </td>
-            </ng-container>
+                        <ng-container matColumnDef="capacity">
+                            <th mat-header-cell *matHeaderCellDef>Capacidad</th>
+                            <td mat-cell *matCellDef="let element">
+                                <span class="text-button">{{element.segmentCapacity}}</span>
+                            </td>
+                        </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="defaultCapacityTableDisplayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: defaultCapacityTableDisplayedColumns;"></tr>
-          </table>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
+                        <tr mat-header-row *matHeaderRowDef="defaultCapacityTableDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: defaultCapacityTableDisplayedColumns;"></tr>
+                    </table>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
 
 </section>

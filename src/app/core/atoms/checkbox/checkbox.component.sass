@@ -12,6 +12,8 @@
     position: fixed
     left: 99999px
     opacity: 0
+    &:checked ~ .checkbox-content
+      @include text-button
 
     &:checked ~ .checkbox-mark:after
       top: 2px

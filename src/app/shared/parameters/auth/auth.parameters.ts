@@ -1,5 +1,7 @@
-export enum EAuthCredentials {
-    username = 'adm-operations',
-    password = '12345',
-    grant_type = 'password'
-}
+import { environment } from '@environments/environment';
+
+export const CAuthCredentials = {
+    username: environment.authUsername,
+    password: environment.authPassword,
+    grant_type: 'password'
+};

@@ -10,6 +10,7 @@ export class InnerSidenavNavigationComponent implements OnInit {
     @Input() navigationIcon: string;
     @Input() navigationText: string;
     @Input() navigationRoute: string[] | string;
+    @Input() navigationRouteOptions: { exact: boolean } = {exact: true};
 
     constructor() {
     }

@@ -11,16 +11,16 @@ import { getDaysRangeBetweenDates } from '@helpers/dates.helper';
 
 import { ECapacitiesStepExpressResource, OpCapacitiesStepExpressResourceService } from '../../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
 import { ICapacityStepExpressResourceSegments } from '../../../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';
-import { OperationsCapacitiesImplementService } from '../../../services/operations-capacities-implement.service';
+import { OperationsCapacitiesImplementService } from '../../../implements/operations-capacities-implement.service';
 import { capacityAlertSuccessMessage } from '../../../parameters/operations-capacities-alert-message.parameter';
-import { CCapacitiesServiceTypeName, ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
+import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
 import { EChannel } from '@models/channel/channel.model';
 import { CapacitiesServiceType } from '../../../models/operations-capacities-responses.model';
 
 
 @Injectable()
 export class OperationsCapacityExpressStoreService implements OnDestroy {
-  private readonly expressCapacityId = ECapacitiesServiceType.express;
+  private readonly expressCapacityId = EDeliveryServiceType.express;
   private readonly expressChannel = EChannel.digital;
 
   private subscriptions: Subscription[] = [];
@@ -242,7 +242,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
 
   capacityExpressSaveSuccess() {
     const message = capacityAlertSuccessMessage(
-        CCapacitiesServiceTypeName[this.expressCapacityId],
+        CDeliveryServiceTypeName[this.expressCapacityId],
         `${this.groupOrLocalSelection.fulfillmentCenterCode} ${this.groupOrLocalSelection.text}`);
     this._alertService.alertSuccess(message);
     this.operationsCapacityExpressSave = true;

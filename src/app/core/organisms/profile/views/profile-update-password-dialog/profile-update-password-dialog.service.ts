@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ProfileUpdatePasswordDialogComponent } from '@organisms/profile/views/profile-update-password-dialog/profile-update-password-dialog.component';
+import { DialogService } from '@molecules/dialog/dialog.service';
 
 @Injectable()
 export class ProfileUpdatePasswordDialogService {
 
-    constructor(private dialog: MatDialog) {
+    constructor(private dialog: DialogService) {
     }
 
     openProfileUpdatePasswordDialog(): MatDialogRef<ProfileUpdatePasswordDialogComponent> {
-        return this.dialog.open(ProfileUpdatePasswordDialogComponent, {
-            width: '526px',
-            minHeight: '347px'
-        });
+        return this.dialog.open(ProfileUpdatePasswordDialogComponent);
     }
 }

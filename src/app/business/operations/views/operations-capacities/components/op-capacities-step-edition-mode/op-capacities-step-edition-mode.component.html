@@ -12,7 +12,7 @@
           (saveButtonEvent)="saveEditionMode()"
           (cancelButtonEvent)="cancelEditionMode()">
   <div class="card-step-content d-flex justify-content-around">
-    <div class="mr-4">
+    <div class="me-4">
       <app-card-radio [radioValue]="eEditionMode.default"
                       [(ngModel)]="editionModeSelection">
         <span card-title>{{eEditionModeName[eEditionMode.default]}}</span>

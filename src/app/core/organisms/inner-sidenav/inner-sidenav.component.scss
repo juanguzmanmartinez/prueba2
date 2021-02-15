@@ -10,6 +10,7 @@
   }
 
   .mat-drawer-content {
+    background-color: $white;
     margin-left: 84px !important;
     @include media-breakpoint-up(lg) {
       margin-left: 240px !important;

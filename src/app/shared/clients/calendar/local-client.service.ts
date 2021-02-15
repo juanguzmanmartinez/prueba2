@@ -11,7 +11,7 @@ import { ILocalParams } from '@models/local/local-params.model';
 import { ILocalGroup } from '@models/local/local-group.model';
 import { Observable } from 'rxjs';
 import { EChannel } from '@models/channel/channel.model';
-import { ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
+import { EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
 
 
 @Injectable()
@@ -36,7 +36,7 @@ export class LocalClientService {
                 }));
     }
 
-    public getLocalByServiceTypeClient$(serviceType: ECapacitiesServiceType): Observable<ILocal[]> {
+    public getLocalByServiceTypeClient$(serviceType: EDeliveryServiceType): Observable<ILocal[]> {
         const endpoint = `${this.LOCAL_BY_SERVICE_TYPE_ENDPOINT}${serviceType}`;
         return this.genericService.genericGet<ILocal[]>(endpoint)
             .pipe(
@@ -46,7 +46,7 @@ export class LocalClientService {
                 }));
     }
 
-    public getLocalGroupByServiceTypeClient$(serviceType: ECapacitiesServiceType): Observable<ILocalGroup[]> {
+    public getLocalGroupByServiceTypeClient$(serviceType: EDeliveryServiceType): Observable<ILocalGroup[]> {
         const httpParams = new HttpParams()
             .set('filter', String('GROUP'));
 

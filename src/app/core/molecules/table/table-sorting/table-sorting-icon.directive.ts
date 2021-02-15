@@ -20,13 +20,15 @@ export class TableSortingIconDirective implements AfterViewInit {
         this.renderer.setStyle(arrowElement, 'margin-left', '4px');
         this.renderer.setStyle(arrowElement, 'width', '16px');
         this.renderer.setStyle(arrowElement, 'height', '16px');
-        this.renderer.addClass(arrowElement, 'visible');
 
         const childElements = arrowElement.children;
         for (const child of childElements) {
             this.renderer.removeChild(arrowElement, child);
         }
+        this.addIconElement(arrowElement);
+    }
 
+    addIconElement(parentElement: HTMLElement) {
         const iconComponentFactory = this.componentFactoryResolver.resolveComponentFactory(IconsComponent);
 
         const iconComponentRef = iconComponentFactory.create(this.injector);
@@ -37,6 +39,6 @@ export class TableSortingIconDirective implements AfterViewInit {
 
         const iconElement = (iconComponentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
 
-        this.renderer.appendChild(arrowElement, iconElement);
+        this.renderer.appendChild(parentElement, iconElement);
     }
 }

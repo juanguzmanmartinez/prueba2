@@ -45,8 +45,8 @@ export class TableDirective implements AfterViewInit {
         const cellHeight = smallTable ? '48px' : '64px';
         for (const rowElement of rowElementList) {
             this.renderer.setStyle(rowElement, 'height', cellHeight);
-            this.renderer.addClass(rowElement, 'border-right');
-            this.renderer.addClass(rowElement, 'border-left');
+            this.renderer.addClass(rowElement, 'border-end');
+            this.renderer.addClass(rowElement, 'border-start');
             this.renderer.addClass(rowElement, 'border-gray-1');
             if (rowElement.rowIndex % 2 === 0) {
                 this.renderer.addClass(rowElement, 'bg-gray-1');

@@ -15,7 +15,7 @@ export class RecoverPasswordUserComponent implements OnInit {
     submitForm: boolean;
 
     constructor(
-        private router: Router,
+        private _router: Router,
         private authImplement: AuthImplementService,
         public recoverPasswordUserForm: RecoverPasswordUserForm,
         @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStore
@@ -35,7 +35,7 @@ export class RecoverPasswordUserComponent implements OnInit {
 
     validUsername() {
         this.recoveryPasswordStore.username = this.recoverPasswordUserForm.usernameControl.value;
-        this.router.navigate(
+        this._router.navigate(
             [CONCAT_PATH.recoverPasswordCode],
             {skipLocationChange: true});
     }
@@ -54,6 +54,6 @@ export class RecoverPasswordUserComponent implements OnInit {
     }
 
     formCancel() {
-        this.router.navigate([CONCAT_PATH.login]);
+        this._router.navigate([CONCAT_PATH.login]);
     }
 }

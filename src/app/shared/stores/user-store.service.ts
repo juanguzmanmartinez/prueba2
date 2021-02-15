@@ -14,12 +14,12 @@ export class UserStoreService {
     private userSubject = new BehaviorSubject<User>(null);
 
     constructor(
-        private tokenStore: TokenStoreService,
-        private router: Router,
+        private _tokenStore: TokenStoreService,
+        private _router: Router,
     ) {
-        this.tokenStore.decodeToken$.subscribe((iDecodeToken) => {
+        this._tokenStore.decodeToken$.subscribe((iDecodeToken) => {
             if (iDecodeToken) {
-                this.decodeUser = this.tokenStore.decodeToken;
+                this.decodeUser = this._tokenStore.decodeToken;
             } else {
                 this.user = null;
             }
@@ -50,7 +50,7 @@ export class UserStoreService {
     logout() {
         this.user = null;
         this.userSubject.next(null);
-        this.tokenStore.removeAccessToken();
-        this.router.navigate([CONCAT_PATH.login]);
+        this._tokenStore.removeAccessToken();
+        this._router.navigate([CONCAT_PATH.login]);
     }
 }

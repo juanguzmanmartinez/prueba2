@@ -6,6 +6,13 @@ export const BUSINESS_PATH = {
     notFound: 'no-encontrado',
 };
 
+export const DELIVERY_SERVICE_TYPE_PATH = {
+    deliveryAmPm: 'am-pm',
+    deliveryScheduled: 'programado',
+    deliveryExpress: 'express',
+    deliveryRet: 'retiro-tienda',
+};
+
 
 export const LOGIN_PATH = {
     login: 'iniciar-sesion',
@@ -22,10 +29,19 @@ export const OPERATIONS_PATH = {
     settings: 'configuraciones'
 };
 
-export const OPERATIONS_CAPACITIES_PATH = {
-    amPm: 'am-pm',
-    scheduled: 'programado',
-    express: 'express',
-    ret: 'retiro-tienda',
+export const OP_CAPACITIES_PATH = {
+    capacityAmPm: DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm,
+    capacityScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
+    capacityExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
+    capacityRet: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
     report: 'reportes'
+};
+
+export const OP_STORES_PATH = {
+    storeId: 'localId',
+    storeEdition: 'editar-local',
+    storeAmPm: DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm,
+    storeScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
+    storeExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
+    storeRet: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
 };

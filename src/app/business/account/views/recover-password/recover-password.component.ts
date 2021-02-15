@@ -10,10 +10,10 @@ import { RecoveryPasswordStore } from '../../stores/recovery-password.store';
 export class RecoverPasswordComponent {
 
     constructor(
-        private router: Router,
+        private _router: Router,
         private activatedRoute: ActivatedRoute
     ) {
-        this.router.navigate(
+        this._router.navigate(
             [LOGIN_PATH.recoverPasswordUser],
             {skipLocationChange: true, relativeTo: activatedRoute});
     }

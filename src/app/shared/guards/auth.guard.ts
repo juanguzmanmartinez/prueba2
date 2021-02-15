@@ -13,9 +13,9 @@ import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 export class AuthGuard implements CanActivate, CanLoad {
 
     constructor(
-        private router: Router,
-        private userStore: UserStoreService,
-        private tokenStore: TokenStoreService,
+        private _router: Router,
+        private _userStore: UserStoreService,
+        private _tokenStore: TokenStoreService,
     ) {
     }
 
@@ -32,21 +32,21 @@ export class AuthGuard implements CanActivate, CanLoad {
 
 
     guardValidation(roles: Role[]) {
-        if (!this.userStore.authenticated() || this.tokenExpired()) {
-            this.userStore.logout();
+        if (!this._userStore.authenticated() || this.tokenExpired()) {
+            this._userStore.logout();
             return false;
         }
-        if (roles && !roles.some(role => this.userStore.hasRole(role))) {
-            this.router.navigate([CONCAT_PATH.notFound]);
+        if (roles && !roles.some(role => this._userStore.hasRole(role))) {
+            this._router.navigate([CONCAT_PATH.notFound]);
             return false;
         }
         return true;
     }
 
     tokenExpired() {
-        if (this.tokenStore.tokenDetail) {
+        if (this._tokenStore.tokenDetail) {
             const date = DatesHelper.Date();
-            const expirationDate = DatesHelper.Date(this.tokenStore.tokenDetail.expirationDate, DATES_FORMAT.millisecond);
+            const expirationDate = DatesHelper.Date(this._tokenStore.tokenDetail.expirationDate, DATES_FORMAT.millisecond);
             return date.isSameOrAfter(expirationDate);
         }
         return false;

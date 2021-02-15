@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit {
     public resetPasswordPath = CONCAT_PATH.recoverPassword;
 
     constructor(
-        public loginForm: LoginForm,
-        private authImplement: AuthImplementService,
-        private router: Router,
+        public _loginForm: LoginForm,
+        private _authImplement: AuthImplementService,
+        private _router: Router,
     ) {
     }
 
@@ -29,12 +29,12 @@ export class LoginComponent implements OnInit {
 
     loginFormSubmit() {
         this.submitLogin = true;
-        this.authImplement.signIn(
-            this.loginForm.usernameControl.value,
-            this.loginForm.passwordControl.value,
+        this._authImplement.signIn(
+            this._loginForm.usernameControl.value,
+            this._loginForm.passwordControl.value,
         )
             .subscribe(() => {
-                this.router.navigate([CONCAT_PATH.operations]);
+                this._router.navigate([CONCAT_PATH.operations]);
             }, () => {
                 this.errorFormRequest();
             });
@@ -42,15 +42,15 @@ export class LoginComponent implements OnInit {
 
     errorFormRequest() {
         this.submitLogin = false;
-        this.loginForm.passwordControl.settingWrongDataValidator();
-        this.loginForm.usernameControl.settingWrongDataValidator();
+        this._loginForm.passwordControl.settingWrongDataValidator();
+        this._loginForm.usernameControl.settingWrongDataValidator();
         this.resetFormValidators();
     }
 
     resetFormValidators() {
-        const subscription = this.loginForm.form$.valueChanges.subscribe(() => {
+        const subscription = this._loginForm.form$.valueChanges.subscribe(() => {
             subscription.unsubscribe();
-            this.loginForm.resetFormValidators();
+            this._loginForm.resetFormValidators();
         });
     }
 

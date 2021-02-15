@@ -19,9 +19,9 @@ export class RecoverPasswordResetComponent implements OnInit {
     @ViewChild('updatePasswordForm', {static: false}) updatePasswordForm: UpdatePasswordFormComponent;
 
     constructor(
-        private router: Router,
-        private authImplement: AuthImplementService,
-        private  alertService: AlertService,
+        private _router: Router,
+        private _authImplement: AuthImplementService,
+        private  _alertService: AlertService,
         @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStore,
     ) {
     }
@@ -32,7 +32,7 @@ export class RecoverPasswordResetComponent implements OnInit {
     formSubmitted(password: string): void {
         this.submitForm = true;
         this.newPassword = password;
-        this.authImplement.resetPassword({
+        this._authImplement.resetPassword({
             email: this.recoveryPasswordStore.username,
             code: this.recoveryPasswordStore.code,
             password
@@ -45,11 +45,11 @@ export class RecoverPasswordResetComponent implements OnInit {
         this.submitForm = false;
         this.newPassword = '';
         this.updatePasswordForm.resetPasswordForm();
-        this.alertService.alertError(CUpdatePasswordMessages.error);
+        this._alertService.alertError(CUpdatePasswordMessages.error);
     }
 
     internSignIn() {
-        this.authImplement.signIn(
+        this._authImplement.signIn(
             this.recoveryPasswordStore.username,
             this.newPassword,
         ).subscribe(
@@ -58,21 +58,21 @@ export class RecoverPasswordResetComponent implements OnInit {
     }
 
     validSignIn() {
-        this.alertService.alertSuccess(CUpdatePasswordMessages.success);
+        this._alertService.alertSuccess(CUpdatePasswordMessages.success);
         this.recoveryPasswordStore.resetStore();
         this.updatePasswordForm.resetPasswordForm();
-        this.router.navigate([CONCAT_PATH.operations]);
+        this._router.navigate([CONCAT_PATH.operations]);
     }
 
     invalidSignIn() {
-        this.alertService.alertSuccess(CUpdatePasswordMessages.success);
+        this._alertService.alertSuccess(CUpdatePasswordMessages.success);
         this.formCancelled();
     }
 
     formCancelled(): void {
         this.recoveryPasswordStore.resetStore();
         this.updatePasswordForm.resetPasswordForm();
-        this.router.navigate([CONCAT_PATH.login]);
+        this._router.navigate([CONCAT_PATH.login]);
     }
 
 }

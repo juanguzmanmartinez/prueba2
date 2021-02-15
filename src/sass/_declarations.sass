@@ -1,10 +1,9 @@
 @import "src/sass/declarations/text.declaration"
-@import "src/sass/declarations/cursor.declaration"
 @import "src/sass/declarations/display.declaration"
 @import "src/sass/declarations/position.declaration"
 
+@import "src/sass/mixins/utilities.mixin"
+
 
 .container-loader
-  pointer-events: none
-  filter: grayscale(100%)
-  opacity: 0.8
+  @include container-loader

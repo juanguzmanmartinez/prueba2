@@ -13,7 +13,6 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
     public subscriptions: Subscription[] = [];
     public inputValue: string | number = '';
-    public inputDisabled: boolean;
 
     @Input() id = 'input';
     @Input() name: string | number = 'input';
@@ -22,6 +21,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
     @Input() innerClass = '';
     @Input() labelClass = '';
     @Input() error: boolean;
+    @Input() disabled: boolean;
 
     @Input('value')
     set value(value: string) {
@@ -75,7 +75,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
     }
 
     setDisabledState?(isDisabled: boolean): void {
-        this.inputDisabled = isDisabled;
+        this.disabled = isDisabled;
     }
 
     changeInputValue(): void {

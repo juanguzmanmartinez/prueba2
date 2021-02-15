@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-2 d-flex-vertical-center">
+        <app-icon [svgName]="iconName"
+                  svgWidth="40px"></app-icon>
+    </div>
+    <div class="col ps-0">
+        <h1 class="text-h5 mb-2">
+            <ng-content select="[dialog-header-title]"></ng-content>
+        </h1>
+        <p class="text-caption text-gray-5 mb-0">
+            <ng-content select="[dialog-header-description]"></ng-content>
+        </p>
+    </div>
+</div>

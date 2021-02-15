@@ -12,12 +12,12 @@ export class BackRouterComponent implements OnInit {
     public backRoute: string;
 
     constructor(
-        private router: Router
+        private _router: Router
     ) {
     }
 
     ngOnInit(): void {
-        this.backRoute = parseUrl(this.router.url, '..');
+        this.backRoute = parseUrl(this._router.url, '..');
     }
 
 }

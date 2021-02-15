@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CCapacitiesServiceTypeName, ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
+import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
 import { CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity, CapacityServiceTypeSegment } from '../../models/operations-capacities-responses.model';
 
 @Component({
@@ -10,8 +10,8 @@ import { CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity, CapacityService
 export class OpCapacitiesLocalDefaultCapacityDialogComponent {
     defaultCapacityTableDisplayedColumns: string[] = ['hour', 'capacity'];
 
-    public capacityServiceTypeName = CCapacitiesServiceTypeName;
-    public eCapacityServiceType = ECapacitiesServiceType;
+    public capacityServiceTypeName = CDeliveryServiceTypeName;
+    public eCapacityServiceType = EDeliveryServiceType;
 
     @Input() capacitiesLocal: CapacitiesLocal;
     @Input() localServiceTypeTable: CapacitiesLocalServiceDefaultCapacity;

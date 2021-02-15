@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { OperationsCapacitiesImplementService } from '../../../services/operations-capacities-implement.service';
+import { OperationsCapacitiesImplementService } from '../../../implements/operations-capacities-implement.service';
 import { ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService } from '../../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
 import { ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService } from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { ECapacitiesStepCapacityTable, OpCapacitiesStepCapacityTableService } from '../../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
@@ -12,14 +12,14 @@ import { CapacityRangeLimit, ToCapacityStepAmPmCapacitySegments } from '../../..
 import { ICalendarUpdateRequestParams } from '@models/calendar/capacity.model';
 import { getDaysRangeBetweenDates } from '@helpers/dates.helper';
 import { capacityAlertSuccessMessage } from '../../../parameters/operations-capacities-alert-message.parameter';
-import { CCapacitiesServiceTypeName, ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
+import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
 import { EChannel } from '@models/channel/channel.model';
 import { CapacitiesServiceType } from '../../../models/operations-capacities-responses.model';
 
 
 @Injectable()
 export class OperationsCapacityAmPmStoreService implements OnDestroy {
-  private readonly amPmCapacityId = ECapacitiesServiceType.amPm;
+  private readonly amPmCapacityId = EDeliveryServiceType.amPm;
   private readonly amPmChannel = EChannel.digital;
 
   private subscriptions: Subscription[] = [];
@@ -238,7 +238,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
 
   capacityAmPmSaveSuccess() {
     const message = capacityAlertSuccessMessage(
-        CCapacitiesServiceTypeName[this.amPmCapacityId],
+        CDeliveryServiceTypeName[this.amPmCapacityId],
       `${this.groupOrLocalSelection.fulfillmentCenterCode} ${this.groupOrLocalSelection.text}`);
     this._alertService.alertSuccess(message);
     this.operationsCapacityAmPmSave = true;

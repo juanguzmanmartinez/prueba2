@@ -5,7 +5,7 @@ import { take } from 'rxjs/operators';
 import { IAuthCodeRequest, IAuthRequest, IAuthResponse, IAuthRestorePasswordRequest } from '@interfaces/auth/auth.interface';
 import { Observable } from 'rxjs';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { EAuthCredentials } from '@parameters/auth/auth.parameters';
+import { CAuthCredentials } from '@parameters/auth/auth.parameters';
 import { EHttpHeaderContentTypes, EHttpHeaders } from '@parameters/generic/http-header.parameter';
 
 
@@ -20,12 +20,12 @@ export class AuthClientService {
     signIn(iAuthRequest: IAuthRequest): Observable<IAuthResponse> {
         const endpoint = `${EndpointsParameter.AUTH_TOKEN}`;
 
-        iAuthRequest.grant_type = EAuthCredentials.grant_type;
+        iAuthRequest.grant_type = CAuthCredentials.grant_type;
         const body = new HttpParams({fromObject: {...iAuthRequest}}).toString();
 
         const header = new HttpHeaders({
             [EHttpHeaders.contentType]: EHttpHeaderContentTypes.xWwwFormUrlencoded,
-            [EHttpHeaders.authorization]: `Basic ${btoa(EAuthCredentials.username + ':' + EAuthCredentials.password)}`
+            [EHttpHeaders.authorization]: `Basic ${btoa(CAuthCredentials.username + ':' + CAuthCredentials.password)}`
         });
 
         return this.genericService.genericPost<IAuthResponse>(endpoint, body, null, header)

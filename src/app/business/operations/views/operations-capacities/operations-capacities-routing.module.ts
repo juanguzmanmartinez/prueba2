@@ -6,7 +6,7 @@ import { OperationsCapacityAmPmComponent } from './views/operations-capacity-am-
 import { OperationsCapacityScheduledComponent } from './views/operations-capacity-scheduled/operations-capacity-scheduled.component';
 import { OperationsCapacityExpressComponent } from './views/operations-capacity-express/operations-capacity-express.component';
 import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
-import { OPERATIONS_CAPACITIES_PATH } from '@parameters/router/router-path.parameter';
+import { OP_CAPACITIES_PATH } from '@parameters/router/router-path.parameter';
 
 
 const routes: Routes = [
@@ -14,22 +14,22 @@ const routes: Routes = [
         path: '', component: OperationsCapacitiesComponent, children: [
             {path: '', component: OperationsCapacityHomeComponent, pathMatch: 'full'},
             {
-                path: OPERATIONS_CAPACITIES_PATH.amPm.toString(),
+                path: OP_CAPACITIES_PATH.capacityAmPm.toString(),
                 component: OperationsCapacityAmPmComponent,
                 pathMatch: 'full'
             },
             {
-                path: OPERATIONS_CAPACITIES_PATH.scheduled.toString(),
+                path: OP_CAPACITIES_PATH.capacityScheduled.toString(),
                 component: OperationsCapacityScheduledComponent,
                 pathMatch: 'full'
             },
             {
-                path: OPERATIONS_CAPACITIES_PATH.express.toString(),
+                path: OP_CAPACITIES_PATH.capacityExpress.toString(),
                 component: OperationsCapacityExpressComponent,
                 pathMatch: 'full'
             },
             {
-                path: OPERATIONS_CAPACITIES_PATH.ret.toString(),
+                path: OP_CAPACITIES_PATH.capacityRet.toString(),
                 component: OperationsCapacityRetComponent,
                 pathMatch: 'full'
             },

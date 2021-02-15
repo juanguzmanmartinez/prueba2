@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core'
 import { OpCapacitiesLocalDefaultCapacityService } from './op-capacities-local-default-capacity.service';
 import { Subscription } from 'rxjs';
 import { CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity, CapacitiesServiceType } from '../../models/operations-capacities-responses.model';
-import { CCapacitiesServiceTypeRoute, ECapacitiesServiceType } from '@models/capacities/capacities-service-type.model';
+import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
 import { OpCapacitiesLocalDefaultCapacityDialogService } from '../op-capacities-local-default-capacity-dialog/op-capacities-local-default-capacity-dialog.service';
 import { Router } from '@angular/router';
 import { ECapacityStepGroupOrLocal } from '../op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
@@ -22,7 +22,7 @@ export class OpCapacitiesLocalDefaultCapacityComponent implements OnInit, OnDest
 
     private subscriptions: Subscription[] = [];
 
-    public capacitiesServiceType = ECapacitiesServiceType;
+    public capacitiesServiceType = EDeliveryServiceType;
     public capacitiesLocalList: CapacitiesLocal[] = [];
     public capacitiesLocalSelection: CapacitiesLocal;
     public localDefaultCapacitySelection: CapacitiesLocalServiceDefaultCapacity;
@@ -71,16 +71,16 @@ export class OpCapacitiesLocalDefaultCapacityComponent implements OnInit, OnDest
                 this.resetLocalServiceList();
                 localServiceList.forEach((localService) => {
                     switch (localService.serviceType) {
-                        case ECapacitiesServiceType.amPm:
+                        case EDeliveryServiceType.amPm:
                             this.capacityLocalServiceAmPm = localService;
                             break;
-                        case ECapacitiesServiceType.express:
+                        case EDeliveryServiceType.express:
                             this.capacityLocalServiceExpress = localService;
                             break;
-                        case ECapacitiesServiceType.scheduled:
+                        case EDeliveryServiceType.scheduled:
                             this.capacityLocalServiceScheduled = localService;
                             break;
-                        case ECapacitiesServiceType.ret:
+                        case EDeliveryServiceType.ret:
                             this.capacityLocalServiceRet = localService;
                             break;
                     }
@@ -128,7 +128,7 @@ export class OpCapacitiesLocalDefaultCapacityComponent implements OnInit, OnDest
     }
 
     localDefaultCapacityEditService(localService: CapacitiesLocalServiceDefaultCapacity) {
-        const localServiceTypePath = `${CONCAT_PATH.operationCapacities}/${CCapacitiesServiceTypeRoute[localService.serviceType]}`;
+        const localServiceTypePath = `${CONCAT_PATH.operationCapacities}/${CDeliveryServiceTypeRoute[localService.serviceType]}`;
         const localServiceTypeParams = {
             groupOrLocal: ECapacityStepGroupOrLocal.local,
             localCode: this.capacitiesLocalSelection.localCode,

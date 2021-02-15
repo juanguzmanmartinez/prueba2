@@ -18,7 +18,7 @@ export class RecoverPasswordCodeComponent implements OnInit {
     submitForm: boolean;
 
     constructor(
-        private router: Router,
+        private _router: Router,
         private authImplement: AuthImplementService,
         private  alertService: AlertService,
         public recoverPasswordCodeForm: RecoverPasswordCodeForm,
@@ -46,7 +46,7 @@ export class RecoverPasswordCodeComponent implements OnInit {
 
     validCode() {
         this.recoveryPasswordStore.code = this.recoverPasswordCodeForm.codeControl.value;
-        this.router.navigate(
+        this._router.navigate(
             [CONCAT_PATH.recoverPasswordReset],
             {skipLocationChange: true});
     }
@@ -60,12 +60,12 @@ export class RecoverPasswordCodeComponent implements OnInit {
     invalidUsername() {
         this.recoveryPasswordStore.resetStore();
         this.alertService.alertError(RecoveryPasswordAlertMessages.invalidUserName);
-        this.router.navigate([CONCAT_PATH.recoverPasswordUser]);
+        this._router.navigate([CONCAT_PATH.recoverPasswordUser]);
     }
 
     formCancel() {
         this.recoveryPasswordStore.resetStore();
-        this.router.navigate([CONCAT_PATH.login]);
+        this._router.navigate([CONCAT_PATH.login]);
     }
 
     resetFormValidators() {
