@@ -26,6 +26,9 @@
       pointer-events: none
       cursor: default
 
+    &:checked[disabled] ~ .radio-mark:after
+      background-color: $gray-3
+
     &[disabled] ~ .radio-content
       opacity: .5
 

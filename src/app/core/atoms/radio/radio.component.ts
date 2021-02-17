@@ -7,12 +7,12 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
     styleUrls: ['./radio.component.sass']
 })
 export class RadioComponent implements ControlValueAccessor, OnInit {
-    @Input() radioValue: any;
-    @Input() radioClass: any;
+    @Input() value: any;
+    @Input()  disabled: boolean;
+    @Input()  checked: boolean;
+    @Input() innerClass: string;
 
-    public _radioName: string | number = 'radio';
-    public _radioValue: any;
-    public _radioDisabled: any;
+    public radioName: string | number = 'radio';
 
     onChange = (_: any) => {};
     onTouched = (_: any) => {};
@@ -26,7 +26,7 @@ export class RadioComponent implements ControlValueAccessor, OnInit {
 
     ngOnInit(): void {
         if (this.ngControl && this.ngControl.name) {
-            this._radioName = this.ngControl.name;
+            this.radioName = this.ngControl.name;
         }
     }
 
@@ -39,16 +39,15 @@ export class RadioComponent implements ControlValueAccessor, OnInit {
     }
 
     writeValue(value: any): void {
-        this._radioValue = value;
+        this.checked = value === this.value;
     }
 
     setDisabledState(isDisabled: boolean): void {
-        this._radioDisabled = isDisabled;
+        this.disabled = isDisabled;
     }
 
     chooseRadio() {
-        this._radioValue = this.radioValue;
-        this.onChange(this._radioValue);
+        this.onChange(this.value);
     }
 
 }

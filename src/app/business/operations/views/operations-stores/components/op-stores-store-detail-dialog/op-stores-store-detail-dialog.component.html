@@ -6,7 +6,6 @@
         <app-dialog-header iconName="stores">
             <ng-container dialog-header-title>
                 <app-tag class="d-block mb-2"
-                         [noSpace]="true"
                          [tagStatus]="store.status === 'activo' ? 'success' : 'error'">{{store.status}}</app-tag>
                 {{store.name}}
             </ng-container>

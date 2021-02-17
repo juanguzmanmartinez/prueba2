@@ -61,12 +61,12 @@
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell cell-center
                         *matCellDef="let element">
-                        <app-tooltip class="me-4" tooltipValue="Editar">
+                        <app-tooltip class="me-4" value="Editar">
                             <app-button-action-icon (click)="editStore(element.store)"
                                                     iconName="edit">
                             </app-button-action-icon>
                         </app-tooltip>
-                        <app-tooltip tooltipValue="Más detalles">
+                        <app-tooltip value="Más detalles">
                             <app-button-action-icon (click)="storeDetailDialog(element)"
                                                     iconName="launch">
                             </app-button-action-icon>

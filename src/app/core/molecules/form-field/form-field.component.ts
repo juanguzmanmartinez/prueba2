@@ -24,8 +24,8 @@ export class FormFieldComponent implements AfterContentInit {
     ngAfterContentInit(): void {
         this.ngControl?.valueChanges.subscribe(() => {
             const valueAccessor = this.ngControl.valueAccessor as InputComponent;
-
-            if (this.ngControl.invalid && this.ngControl.dirty) {
+            const emptyValue = !!this.ngControl.value && (typeof this.ngControl.value === 'string');
+            if (this.ngControl.invalid && this.ngControl.dirty && emptyValue) {
                 this.formFieldError = !!this.formFieldErrorComponent;
                 this.formFieldLabel?.errorField();
                 valueAccessor.error = true;

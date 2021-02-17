@@ -1,9 +1,12 @@
 import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
-import {InputComponent} from "./input.component";
+import {InputComponent} from "../input/input.component";
+import {InputSearchComponent} from "./input-search.component";
+import {IconsModule} from "../../icons/icons.module";
+import {IconsRegistryModule} from "../../icons/icons-registry.module";
 
 <Meta
-    title="Atoms/Input"
-    component={InputComponent}/>
+    title="Atoms/Input Search"
+    component={InputSearchComponent}/>
 
 # Input
 <br/>
@@ -30,7 +33,7 @@ import {InputComponent} from "./input.component";
 ------
 
 export const Template = (args) => ({
-    component: InputComponent,
+    component: InputSearchComponent,
     props: {
         ...args,
         placeholder: 'placeholder',
@@ -39,9 +42,10 @@ export const Template = (args) => ({
         id: 'input',
     },
     moduleMetadata: {
-        declarations: [InputComponent],
+        imports: [IconsRegistryModule, IconsModule],
+        declarations: [InputComponent, InputSearchComponent],
     },
-    template: '<app-input ' +
+    template: '<app-input-search ' +
         '[placeholder]="placeholder" ' +
         '[name]="name" ' +
         '[behavior]="behavior" ' +
@@ -49,7 +53,7 @@ export const Template = (args) => ({
         '[labelClass]="labelClass" ' +
         '[error]="error" ' +
         '[value]="value" ' +
-        '[id]="id"></app-input>',
+        '[id]="id"></app-input-search>',
 })
 
 <br/>
@@ -60,12 +64,12 @@ export const Template = (args) => ({
 <Canvas>
     <Story name='Default'
            args={{
-               value: 'example'
+               value: ''
            }}
            parameters={{
                docs: {
                    source: {
-                       code: '<app-input value="example"></app-input>',
+                       code: '<app-input-search value="example"></app-input-search>',
                    }
                }
            }}>{Template.bind({})}
@@ -78,7 +82,7 @@ export const Template = (args) => ({
            parameters={{
                docs: {
                    source: {
-                       code: '<app-input value="Storybook" error="true"></app-input>',
+                       code: '<app-input-search value="Storybook" error="true"></app-input-search>',
                    },
                }
            }}>{Template.bind({})}
@@ -105,8 +109,8 @@ export class YourModule {}
 ## Examples
 
   ```html
-<app-input placeholder="Write something..."></app-input>
+<app-input-search placeholder="Write something..."></app-input-search>
 ```
  ```html
-<app-input value="example" [error]="true"></app-input>
+<app-input-search value="example" [error]="true"></app-input-search>
   ```

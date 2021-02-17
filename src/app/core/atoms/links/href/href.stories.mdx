@@ -1,0 +1,95 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
+import {HrefComponent} from "./href.component";
+
+<Meta
+    title="Atoms/Href"
+    component={HrefComponent}/>
+
+# Href
+<br/>
+<br/>
+
+### Props
+| Property | Type  | Values | Default  |
+| ------ | --------- |------ | --------- |
+| hrefUrl      | string   |  | |
+| hrefTarget    | string   |  <code>_blank</code><code>_self</code><code>_parent</code><code>_top</code><code>framename</code>  | <code>_self</code>  |
+| hrefClass    | string   |  |  |
+
+------
+
+export const Template = (args) => ({
+    component: HrefComponent,
+    props: {
+        ...args,
+        hrefTarget: '_self'
+    },
+    moduleMetadata: {
+        declarations: [HrefComponent],
+    },
+    template: '<app-href ' +
+        '[hrefClass]="hrefClass" ' +
+        '[hrefUrl]="hrefUrl" ' +
+        '[hrefTarget]="hrefTarget">{{content}}</app-href>',
+})
+
+<br/>
+<br/>
+
+### Appearance
+
+<Canvas>
+    <Story name='Default'
+           args={{
+               content: 'inkafarma',
+               hrefUrl: 'www.inkafarma.pe',
+               hrefTarget: '_blank'
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-href hrefUrl="www.inkafarma.pe" hrefTarget="_blank">inkafarma</app-href>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Error'
+           args={{
+               content: 'Storybook',
+               hrefUrl: 'www.storybook.com'
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-href hrefUrl="www.storybook.com">Storybook</app-href>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+</Canvas>
+
+<br/>
+<br/>
+
+# Usages
+
+Import InputsModule into your custom module
+
+```typescript
+import { LinksModule } from '@atoms/links/links.module';
+
+@NgModule({
+    imports: [LinksModule]
+})
+
+export class YourModule {}
+```
+
+## Examples
+
+  ```html
+<app-href hrefUrl="www.inkafarma.pe"></app-href>
+```
+ ```html
+<app-href hrefUrl="www.storybook.com"></app-href>
+  ```

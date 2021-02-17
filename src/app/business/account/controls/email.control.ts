@@ -14,7 +14,7 @@ export class EmailControl extends FormControl {
         this.setValidators([
             Validators.required,
             Validators.email,
-            Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+            Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)
         ]);
         this.updateValueAndValidity();
     }

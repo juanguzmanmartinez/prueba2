@@ -1,9 +1,11 @@
 import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
-import {InputComponent} from "./input.component";
+import {InputNumberComponent} from "./input-number.component";
+import {InputComponent} from "../input/input.component";
+import {DirectivesModule} from "../../../../shared/directives/directives.module";
 
 <Meta
-    title="Atoms/Input"
-    component={InputComponent}/>
+    title="Atoms/Input Number"
+    component={InputNumberComponent}/>
 
 # Input
 <br/>
@@ -30,7 +32,7 @@ import {InputComponent} from "./input.component";
 ------
 
 export const Template = (args) => ({
-    component: InputComponent,
+    component: InputNumberComponent,
     props: {
         ...args,
         placeholder: 'placeholder',
@@ -39,9 +41,10 @@ export const Template = (args) => ({
         id: 'input',
     },
     moduleMetadata: {
-        declarations: [InputComponent],
+        imports: [DirectivesModule],
+        declarations: [InputComponent,InputNumberComponent],
     },
-    template: '<app-input ' +
+    template: '<app-input-number ' +
         '[placeholder]="placeholder" ' +
         '[name]="name" ' +
         '[behavior]="behavior" ' +
@@ -49,7 +52,7 @@ export const Template = (args) => ({
         '[labelClass]="labelClass" ' +
         '[error]="error" ' +
         '[value]="value" ' +
-        '[id]="id"></app-input>',
+        '[id]="id"></app-input-number>',
 })
 
 <br/>
@@ -60,25 +63,25 @@ export const Template = (args) => ({
 <Canvas>
     <Story name='Default'
            args={{
-               value: 'example'
+               value: 12345
            }}
            parameters={{
                docs: {
                    source: {
-                       code: '<app-input value="example"></app-input>',
+                       code: '<app-input-number value="12345"></app-input-number>',
                    }
                }
            }}>{Template.bind({})}
     </Story>
     <Story name='Error'
            args={{
-               value: 'Storybook',
+               value: 435242,
                error: true
            }}
            parameters={{
                docs: {
                    source: {
-                       code: '<app-input value="Storybook" error="true"></app-input>',
+                       code: '<app-input-number value="435242" error="true"></app-input-number>',
                    },
                }
            }}>{Template.bind({})}
@@ -105,8 +108,8 @@ export class YourModule {}
 ## Examples
 
   ```html
-<app-input placeholder="Write something..."></app-input>
+<app-input-number placeholder="Write something..."></app-input-number>
 ```
  ```html
-<app-input value="example" [error]="true"></app-input>
+<app-input-number value="example" [error]="true"></app-input-number>
   ```

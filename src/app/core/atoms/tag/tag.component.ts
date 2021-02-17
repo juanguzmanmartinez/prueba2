@@ -8,7 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
 export class TagComponent implements OnInit {
 
     @Input() tagStatus: 'error' | 'warning' | 'success';
-    @Input() noSpace: boolean;
 
     constructor() {
     }

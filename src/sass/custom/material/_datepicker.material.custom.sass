@@ -41,3 +41,9 @@ mat-datepicker-content.mat-datepicker-content
 
   .mat-calendar-body-disabled > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected)
     color: $gray-4
+
+  .mat-calendar-body-cell:not(.mat-calendar-body-disabled) > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected)
+    background-color: transparent
+
+  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected)
+    background-color: $light-primary

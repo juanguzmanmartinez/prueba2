@@ -1,0 +1,126 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
+import {FormsModule} from "@angular/forms";
+import {SwitchComponent} from "./switch.component";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+
+<Meta
+    title="Atoms/Switch"
+    component={SwitchComponent}/>
+
+# Select
+<br/>
+<br/>
+
+### Props
+| Property | Type  | Values | Default  |
+| ------ | --------- |------ | --------- |
+| selectTabList    | string[]   |  | |
+| selectTabValue    | string   |     ""    |  ""  |
+| selectTabDisabled      | boolean  | true/false       | false     |
+
+### Events
+| Event | Arguments  | Description |
+| ------ | --------- |------ |
+| change    |     | Emitted when select's value changes |
+
+------
+
+export const Template = (args) => ({
+    component: SwitchComponent,
+    props: {
+        ...args,
+        name: 'switch'
+    },
+    moduleMetadata: {
+        imports: [MatSlideToggleModule, FormsModule],
+        declarations: [SwitchComponent],
+    },
+    template: '<app-switch ' +
+        '[checked]="checked" ' +
+        '[disabled]="disabled" ' +
+        '[name]="name" ' +
+        '[innerClass]="innerClass">{{content}}</app-switch>',
+})
+
+<br/>
+<br/>
+
+### Appearance
+
+<Canvas>
+    <Story name='Default'
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-switch></app-switch>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Checked'
+           args={{
+               content: 'Content',
+               checked: true
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-switch checked="true">Content</app-switch>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Disabled'
+           args={{
+               content: 'Content',
+               disabled: true,
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-switch disabled="true">Content</app-switch>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Checked Disabled'
+           args={{
+               content: 'Content',
+               disabled: true,
+               checked: true
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-switch disabled="true">Content</app-switch>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+</Canvas>
+
+<br/>
+<br/>
+
+# Usages
+
+Import InputsModule into your custom module
+
+```typescript
+import { SwitchModule } from '@atoms/switch/switch.module';
+
+@NgModule({
+    imports: [SwitchModule]
+})
+
+export class YourModule {}
+```
+
+## Examples
+
+  ```html
+    <app-switch [disabled]="true"></app-switch>
+```
+ ```html
+    <app-switch [checked]="true"></app-switch>
+  ```

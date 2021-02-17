@@ -1,5 +1,5 @@
-<app-tooltip [tooltipValue]="navigationTooltip"
-             tooltipClass="sidenav-tooltip">
+<app-tooltip [value]="navigationTooltip"
+             innerClass="sidenav-tooltip">
   <app-router [router]="navigationRoute"
               class="d-block">
     <ng-template #routerActiveTemplate let-routerActiveVariable>

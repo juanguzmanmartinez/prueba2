@@ -17,7 +17,7 @@
     <div class="col-12">
       <ng-container *ngIf="localCapacityDetail">
         <app-tooltip
-          tooltipValue="Más detalles"
+                value="Más detalles"
           class="d-inline-block me-4">
           <app-button-action-icon iconName="launch"
                                   (click)="localCapacityViewMoreEmit()"
@@ -25,7 +25,7 @@
         </app-tooltip>
       </ng-container>
 
-      <app-tooltip tooltipValue="Editar">
+      <app-tooltip value="Editar">
         <app-button-action-icon iconName="edit"
                                 (click)="localCapacityEditServiceEmit()"
                                 [disabled]="localCapacityDisabled"></app-button-action-icon>
