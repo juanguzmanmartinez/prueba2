@@ -25,4 +25,14 @@ $enable-negative-margins: true
 
 // Usage
 .content
-  @include make-container($content-padding-x)
+  --bs-gutter-x: #{$content-responsive-padding-x}
+  --bs-gutter-y: 0
+  @include make-container($content-responsive-padding-x)
+  @include media-breakpoint-up(md)
+    @include make-container($content-padding-x)
+
+.container,
+.container-fluid
+  @include make-container($container-responsive-padding-x)
+  @include media-breakpoint-up(md)
+    @include make-container($container-padding-x)

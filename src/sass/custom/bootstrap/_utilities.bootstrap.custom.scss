@@ -128,9 +128,11 @@ $utilities: map-merge(
                                 property: width,
                                 class: w,
                                 values: (
+                                        responsive: true,
                                         25: 25%,
                                         50: 50%,
                                         75: 75%,
+                                        85: 85%,
                                         100: 100%,
                                         auto: auto
                                 )
@@ -138,7 +140,14 @@ $utilities: map-merge(
                         "max-width": (
                                 property: max-width,
                                 class: mw,
-                                values: (100: 100%)
+                                values: (
+                                        25: 25%,
+                                        50: 50%,
+                                        75: 75%,
+                                        85: 85%,
+                                        100: 100%,
+                                        auto: auto
+                                )
                         ),
                         "viewport-width": (
                                 property: width,
@@ -151,6 +160,7 @@ $utilities: map-merge(
                                 values: (100: 100vw)
                         ),
                         "height": (
+                                responsive: true,
                                 property: height,
                                 class: h,
                                 values: (
@@ -465,6 +475,7 @@ $utilities: map-merge(
                                 property: line-height,
                                 class: line-height,
                                 values: (
+                                        0: 0,
                                         1: 1,
                                         sm: $line-height-sm,
                                         base: $line-height-base,

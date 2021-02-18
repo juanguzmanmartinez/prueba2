@@ -9,7 +9,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 export class RadioComponent implements ControlValueAccessor, OnInit {
     @Input() value: any;
     @Input()  disabled: boolean;
-    @Input()  checked: boolean;
+    @Input()  checked: any;
     @Input() innerClass: string;
 
     public radioName: string | number = 'radio';
@@ -39,7 +39,7 @@ export class RadioComponent implements ControlValueAccessor, OnInit {
     }
 
     writeValue(value: any): void {
-        this.checked = value === this.value;
+        this.checked = value;
     }
 
     setDisabledState(isDisabled: boolean): void {

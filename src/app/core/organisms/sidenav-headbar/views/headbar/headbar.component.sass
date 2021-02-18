@@ -1,0 +1,18 @@
+@import "src/sass/variables/colors.variable"
+@import "src/sass/mixins/display.mixin"
+
+$headbar-height: 56px
+
+.static-headbar-container
+  padding-bottom: $headbar-height
+
+  .static-headbar
+    background-color: $black
+    height: $headbar-height
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    z-index: 5
+    @include d-flex-vertical-center
+    justify-content: space-between

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SelectTabComponent } from './select-tab.component';
 import { RadioModule } from '../radio/radio.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         CommonModule,
         RadioModule,
         ReactiveFormsModule,
+        FormsModule,
     ]
 })
 export class SelectTabModule {

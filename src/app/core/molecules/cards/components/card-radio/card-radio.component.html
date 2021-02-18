@@ -3,7 +3,7 @@
              innerClass="card-radio"
              name="card-radio"
              [(ngModel)]="checked"
-             (change)="chooseRadio()">
+             (ngModelChange)="chooseRadio()">
     <h4 class="card-radio-title">
       <ng-content select="[card-title]"></ng-content>
     </h4>

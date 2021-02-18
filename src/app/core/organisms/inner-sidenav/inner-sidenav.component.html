@@ -17,6 +17,7 @@
   </mat-drawer>
   <mat-drawer-content
     [class.inner-sidenav-content-close]="!innerSidenav.opened">
+<!--    <button (click)="innerSidenav.open()">Open</button>-->
     <ng-content select="[sidenav-content]"></ng-content>
   </mat-drawer-content>
 </mat-drawer-container>

@@ -10,17 +10,18 @@
           (stepCloseEvent)="closeGroupOrLocalStep()"
           (saveButtonEvent)="saveGroupOrLocal()"
           (cancelButtonEvent)="cancelGroupOrLocal()">
-  <div class="card-step-content d-flex-vertical-center">
-    <div class="me-4">
+  <div class="card-step-content py-5 px-md-4 d-flex align-items-center flex-column flex-md-row">
+    <div class="mb-4 mb-md-0 me-4">
       <app-select-tab [selectTabList]="groupOrLocalTabList"
                       [selectTabDisabled]="groupOrLocalTabReadonly"
                       [selectTabValue]="groupOrLocalTabSelection"
-                      (change)="changeGroupOrLocalTab($event)">
+                      (selectTabSelection)="changeGroupOrLocalTab($event)">
         <ng-template let-tab>{{groupOrLocalTabName[tab]}}</ng-template>
       </app-select-tab>
     </div>
     <div class="w-100">
-      <app-select-search [placeholder]="'Elige un ' + groupOrLocalTabName[groupOrLocalTabSelection]"
+      <app-select-search class="w-100 w-md-auto"
+              [placeholder]="'Elige un ' + groupOrLocalTabName[groupOrLocalTabSelection]"
                          [value]="groupOrLocalSelection"
                          [disabled]="groupOrLocalTabReadonly"
                          [optionList]="groupOrLocalList"

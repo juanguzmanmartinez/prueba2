@@ -3,14 +3,14 @@ import { Subscription } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
-    selector: 'app-account',
-    templateUrl: './account.component.html',
-    styleUrls: ['./account.component.scss']
+    selector: 'app-sidenav-headbar',
+    templateUrl: './sidenav-headbar.component.html',
+    styleUrls: ['./sidenav-headbar.component.scss'],
 })
-export class AccountComponent implements OnDestroy {
+export class SidenavHeadbarComponent implements OnDestroy {
+    public responsive: boolean;
     public subscriptions: Subscription[] = [];
 
-    public logoWidth = '348px';
 
     constructor(
         public _breakpointObserver: BreakpointObserver,
@@ -19,8 +19,7 @@ export class AccountComponent implements OnDestroy {
         const subscription = this._breakpointObserver.observe([
             `(min-width: 768px)`
         ]).subscribe((state) => {
-            const responsive = !state.matches;
-            this.logoWidth = responsive ? '250px' : '348px';
+            this.responsive = !state.matches;
         });
         this.subscriptions.push(subscription);
     }
@@ -28,4 +27,5 @@ export class AccountComponent implements OnDestroy {
     ngOnDestroy() {
         this.subscriptions.forEach(subscription => subscription.unsubscribe());
     }
+
 }

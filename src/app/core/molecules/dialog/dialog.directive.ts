@@ -23,5 +23,8 @@ export class DialogDirective implements AfterViewInit {
         this.renderer.addClass(matDialogContainerElement, 'rounded');
         this.renderer.addClass(matDialogContainerElement, 'p-0');
         this.renderer.addClass(matDialogContainerElement, 'position-relative');
+
+        const overlayElement = matDialogContainerElement.parentElement;
+        this.renderer.setStyle(overlayElement, 'max-width', '90vw');
     }
 }

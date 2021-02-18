@@ -1,11 +1,11 @@
-<div class="row">
-    <div class="col-2 d-flex-vertical-center">
+<div class="dialog-header d-flex">
+    <div class="d-flex-vertical-center d-inline-flex me-3 me-md-5">
         <app-icon [svgName]="iconName"
                   svgWidth="40px"></app-icon>
     </div>
-    <div class="col ps-0">
+    <div class="d-inline-block ps-0 mw-75">
         <h1 class="text-h5 mb-2">
-            <ng-content select="[dialog-header-title]"></ng-content>
+                <span class="d-block text-truncate"><ng-content select="[dialog-header-title]"></ng-content></span>
         </h1>
         <p class="text-caption text-gray-5 mb-0">
             <ng-content select="[dialog-header-description]"></ng-content>

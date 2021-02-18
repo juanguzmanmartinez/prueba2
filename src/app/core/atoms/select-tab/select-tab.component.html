@@ -1,7 +1,8 @@
-<div class="select-tab" [formGroup]="_selectTabFormGroup">
+<div class="select-tab">
   <ng-container *ngFor="let selectTab of selectTabList">
     <app-radio [value]="selectTab"
-               [formControlName]="_selectTabFormControlName"
+               [(ngModel)]="_selectTabValue"
+               (ngModelChange)="changeSelectTabValue()"
                innerClass="select-tab-radio"
                class="select-tab-content">
       <ng-container *ngIf="!templateRef">{{selectTab}}</ng-container>
