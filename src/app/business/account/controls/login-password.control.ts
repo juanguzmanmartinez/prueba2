@@ -13,7 +13,7 @@ export class LoginPasswordControl extends FormControl {
     public settingValidators() {
         this.setValidators([
             Validators.required,
-            Validators.minLength(6)
+            Validators.minLength(1)
         ]);
         this.updateValueAndValidity();
     }
