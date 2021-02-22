@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { OperationsStoresComponent } from './operations-stores.component';
 import { OperationsStoresHomeComponent } from './views/operations-stores-home/operations-stores-home.component';
 import { OperationsStoresEditionComponent } from './views/operations-stores-edition/operations-stores-edition.component';
-import { OperationsStoresEditionHomeComponent } from './views/operations-stores-edition/operations-stores-edition-home/operations-stores-edition-home.component';
-import { OperationsStoresEditionStoreComponent } from './views/operations-stores-edition/operations-stores-edition-store/operations-stores-edition-store.component';
-import { OperationsStoresEditionServiceTypeComponent } from './views/operations-stores-edition/operations-stores-edition-service-type/operations-stores-edition-service-type.component';
+import { OperationsStoresEditionHomeComponent } from './views/operations-stores-edition/views/operations-stores-edition-home/operations-stores-edition-home.component';
+import { OperationsStoresEditionStoreComponent } from './views/operations-stores-edition/views/operations-stores-edition-store/operations-stores-edition-store.component';
+import { OperationsStoresEditionServiceTypeComponent } from './views/operations-stores-edition/views/operations-stores-edition-service-type/operations-stores-edition-service-type.component';
 import { OP_STORES_PATH } from '@parameters/router/router-path.parameter';
 
 const routes: Routes = [

@@ -9,16 +9,15 @@ const COMPONENTS = [
     TableDirective,
     TableCellBaseDirective,
     TableSortingIconDirective,
+    TableHeaderCellDirective,
 ];
 
 @NgModule({
     declarations: [
         ...COMPONENTS,
-        TableHeaderCellDirective,
     ],
     exports: [
         ...COMPONENTS,
-        TableHeaderCellDirective
     ],
     imports: [
         CommonModule

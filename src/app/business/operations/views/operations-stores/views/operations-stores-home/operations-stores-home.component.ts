@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { OpStoresStoreDetailDialogService } from '../../components/op-stores-store-detail-dialog/op-stores-store-detail-dialog.service';
+import { OpStoresHomeStoreDetailDialogService } from './components/op-stores-home-store-detail-dialog/op-stores-home-store-detail-dialog.service';
 import { IStore, STORES_LIST } from '../../modals/operation-stores-responses.modal';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -11,13 +11,13 @@ import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
     selector: 'app-operations-stores-home',
     templateUrl: './operations-stores-home.component.html',
     styleUrls: ['./operations-stores-home.component.scss'],
-    providers: [OpStoresStoreDetailDialogService]
+    providers: [OpStoresHomeStoreDetailDialogService]
 })
 export class OperationsStoresHomeComponent implements AfterViewInit, OnDestroy {
     private subscriptions: Subscription[] = [];
 
     constructor(
-        private _storeDetailDialog: OpStoresStoreDetailDialogService,
+        private _storeDetailDialog: OpStoresHomeStoreDetailDialogService,
         private _router: Router,
     ) {
     }
@@ -33,11 +33,11 @@ export class OperationsStoresHomeComponent implements AfterViewInit, OnDestroy {
 
 
     editStore(storeId: string) {
-        this._router.navigate([CONCAT_PATH.opStoresStoreId(storeId)]);
+        this._router.navigate([CONCAT_PATH.opStores_StoreId(storeId)]);
     }
 
     storeDetailDialog(store: IStore) {
-        const subscription = this._storeDetailDialog.openServiceStoreDetailDialog(store)
+        const subscription = this._storeDetailDialog.openServiceHomeStoreDetailDialog(store)
             .afterClosed()
             .subscribe((editService) => {
                 if (editService) {

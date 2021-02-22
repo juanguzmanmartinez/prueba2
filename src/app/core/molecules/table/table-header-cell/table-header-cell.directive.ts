@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
-    selector: '[mat-header-cell][header-cell-center],[mat-header-cell][header-cell-right],[mat-header-cell][header-cell-bold]'
+    selector: '[mat-header-cell][header-cell-center],[mat-header-cell][header-cell-center],[mat-header-cell][header-cell-right],[mat-header-cell][header-cell-bold]'
 })
 export class TableHeaderCellDirective implements AfterViewInit {
 

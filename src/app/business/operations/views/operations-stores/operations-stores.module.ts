@@ -20,20 +20,20 @@ import { DialogModule } from '@molecules/dialog/dialog.module';
 import { OperationsStoresImplementService } from './implements/operations-stores-implement.service';
 import { OperationsStoresHomeComponent } from './views/operations-stores-home/operations-stores-home.component';
 import { OperationsStoresEditionComponent } from './views/operations-stores-edition/operations-stores-edition.component';
-import { OperationsStoresEditionHomeComponent } from './views/operations-stores-edition/operations-stores-edition-home/operations-stores-edition-home.component';
-import { OperationsStoresEditionStoreComponent } from './views/operations-stores-edition/operations-stores-edition-store/operations-stores-edition-store.component';
-import { OperationsStoresEditionServiceTypeComponent } from './views/operations-stores-edition/operations-stores-edition-service-type/operations-stores-edition-service-type.component';
-import { OpStoresStoreDetailDialogComponent } from './components/op-stores-store-detail-dialog/op-stores-store-detail-dialog.component';
-import { OpStoresEditionHomeServiceTypeCardComponent } from './components/op-stores-edition-home-service-type-card/op-stores-edition-home-service-type-card.component';
-import { OpStoresEditionHomeStoreDetailCardComponent } from './components/op-stores-edition-home-store-detail-card/op-stores-edition-home-store-detail-card.component';
+import { OperationsStoresEditionHomeComponent } from './views/operations-stores-edition/views/operations-stores-edition-home/operations-stores-edition-home.component';
+import { OperationsStoresEditionStoreComponent } from './views/operations-stores-edition/views/operations-stores-edition-store/operations-stores-edition-store.component';
+import { OperationsStoresEditionServiceTypeComponent } from './views/operations-stores-edition/views/operations-stores-edition-service-type/operations-stores-edition-service-type.component';
+import { OpStoresHomeStoreDetailDialogComponent } from './views/operations-stores-home/components/op-stores-home-store-detail-dialog/op-stores-home-store-detail-dialog.component';
+import { OpStoresEditionHomeServiceTypeCardComponent } from './views/operations-stores-edition/components/op-stores-edition-home-service-type-card/op-stores-edition-home-service-type-card.component';
+import { OpStoresEditionHomeStoreDetailCardComponent } from './views/operations-stores-edition/components/op-stores-edition-home-store-detail-card/op-stores-edition-home-store-detail-card.component';
 import { SwitchModule } from '@atoms/switch/switch.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from '@atoms/select/select.module';
 import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
 import { FormFieldModule } from '@molecules/form-field/form-field.module';
-import { OpStoresEditionStoreDetailCardComponent } from './components/op-stores-edition-store-detail-card/op-stores-edition-store-detail-card.component';
-import { OpStoresEditionStoreDetailFormCardComponent } from './components/op-stores-edition-store-detail-form-card/op-stores-edition-store-detail-form-card.component';
-import { OpStoresEditionServiceTypeFormCardComponent } from './components/op-stores-edition-service-type-form-card/op-stores-edition-service-type-form-card.component';
+import { OpStoresEditionStoreDetailCardComponent } from './views/operations-stores-edition/components/op-stores-edition-store-detail-card/op-stores-edition-store-detail-card.component';
+import { OpStoresEditionStoreDetailFormCardComponent } from './views/operations-stores-edition/components/op-stores-edition-store-detail-form-card/op-stores-edition-store-detail-form-card.component';
+import { OpStoresEditionServiceTypeDetailFormCardComponent } from './views/operations-stores-edition/components/op-stores-edition-service-type-detail-form-card/op-stores-edition-service-type-detail-form-card.component';
 
 
 @NgModule({
@@ -41,7 +41,7 @@ import { OpStoresEditionServiceTypeFormCardComponent } from './components/op-sto
         OperationsStoresComponent,
         OperationsStoresHomeComponent,
         OperationsStoresEditionComponent,
-        OpStoresStoreDetailDialogComponent,
+        OpStoresHomeStoreDetailDialogComponent,
         OperationsStoresEditionHomeComponent,
         OperationsStoresEditionStoreComponent,
         OperationsStoresEditionServiceTypeComponent,
@@ -49,7 +49,7 @@ import { OpStoresEditionServiceTypeFormCardComponent } from './components/op-sto
         OpStoresEditionHomeStoreDetailCardComponent,
         OpStoresEditionStoreDetailCardComponent,
         OpStoresEditionStoreDetailFormCardComponent,
-        OpStoresEditionServiceTypeFormCardComponent
+        OpStoresEditionServiceTypeDetailFormCardComponent
     ],
     imports: [
         CommonModule,

@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
-    selector: '[mat-table][table-regular],[mat-table][table-small],[mat-table][table-no-hover]'
+    selector: '[mat-table][table-regular],[mat-table][table-selector],[mat-table][table-small],[mat-table][table-no-hover]'
 })
 export class TableDirective implements AfterViewInit {
 
@@ -14,6 +14,7 @@ export class TableDirective implements AfterViewInit {
     ngAfterViewInit() {
         this.renderer.addClass(this.elementRef.nativeElement, 'w-100');
         this.setHeaderStyle();
+        this.setColumnStyle();
         this.setRowStyle();
         this.setRowCellStyle();
     }
@@ -86,6 +87,17 @@ export class TableDirective implements AfterViewInit {
             this.renderer.addClass(this.elementRef.nativeElement, 'text-gray-6');
             this.renderer.setStyle(cellElement, 'paddingLeft', cellPadding);
             this.renderer.setStyle(cellElement, 'paddingRight', cellPadding);
+        }
+    }
+
+    setColumnStyle() {
+        const selectorTable = this.elementRef.nativeElement.hasAttribute('table-selector');
+        if (selectorTable) {
+            const selectorElementList = this.elementRef.nativeElement.querySelectorAll('.mat-column-selector');
+            for (const selectorElement of selectorElementList) {
+                this.renderer.setStyle(selectorElement, 'width', '53px');
+                this.renderer.addClass(selectorElement, 'pe-0');
+            }
         }
     }
 }
