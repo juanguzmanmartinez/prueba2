@@ -1,1 +1,14 @@
-<p>op-zones-home-zone-detail-dialog works!</p>
+<section class="op-zone-home-detail-dialog" app-dialog-container>
+    <div app-dialog-close mat-dialog-close></div>
+    <div app-dialog-edit-button [mat-dialog-close]="true"></div>
+
+    <div class="content">
+        <app-dialog-header iconName="navigation">
+            <ng-container dialog-header-title>
+                <p class="mb-2 text-tag text-success">ACTIVO</p>
+                San Miguel 1
+            </ng-container>
+            <ng-container dialog-header-description> B03</ng-container>
+        </app-dialog-header>
+    </div>
+</section>

@@ -27,6 +27,8 @@ import { ButtonsModule } from '@atoms/buttons/buttons.module';
 import { TagModule } from '@atoms/tag/tag.module';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
+import { DialogModule } from '@molecules/dialog/dialog.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -46,20 +48,22 @@ import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
     OpZonesEditionServiceTypeDetailFormCardComponent,
     OpZonesEditionServiceTypeDetailDialogComponent
   ],
-  imports: [
-    CommonModule,
-    OperationsZonesRoutingModule,
-    BackRouterModule,
-    PagesModule,
-    InputsModule,
-    MatTableModule,
-    MatSortModule,
-    TableModule,
-    TooltipModule,
-    ButtonsModule,
-    TagModule,
-    IconsModule,
-    CheckboxModule,
-  ]
+    imports: [
+        CommonModule,
+        OperationsZonesRoutingModule,
+        BackRouterModule,
+        PagesModule,
+        InputsModule,
+        MatTableModule,
+        MatSortModule,
+        TableModule,
+        TooltipModule,
+        ButtonsModule,
+        TagModule,
+        IconsModule,
+        CheckboxModule,
+        DialogModule,
+        MatDialogModule,
+    ]
 })
 export class OperationsZonesModule { }
