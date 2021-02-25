@@ -40,7 +40,6 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this._operationsZonesImplement.zoneList
             .subscribe((zoneList: Array<Zone>) => {
-                console.log(zoneList);
                 this.dataSource.data = zoneList;
                 this.setDataSourceService();
             });
@@ -53,7 +52,6 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
 
 
     filterBySearchInput() {
-        console.log(this.searchInput);
         this.dataSource.filter = this.searchInput.trim().toLowerCase();
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();

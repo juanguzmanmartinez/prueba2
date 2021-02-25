@@ -1,0 +1,34 @@
+@import "src/sass/variables/colors.variable"
+@import "src/sass/mixins/text.mixin"
+@import "src/sass/mixins/display.mixin"
+
+.paginator
+  @include d-flex-vertical-center
+
+  .previous-button,
+  .next-button
+    cursor: pointer
+    user-select: none
+    display: inline-flex
+
+    &.disabled
+      pointer-events: none
+      opacity: .3
+
+  .paginator-index-list
+    display: inline-block
+
+    .paginator-index
+      width: 25px
+      height: 25px
+      border-radius: 50%
+      color: $gray-5
+      @include text-caption
+      @include d-flex-center
+      display: inline-flex
+      cursor: pointer
+      user-select: none
+
+      &.active-index
+        background-color: $primary
+        color: $white

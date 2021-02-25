@@ -1,10 +1,36 @@
 <mat-paginator
+        [hidden]="true"
         [disabled]="disabled"
         [pageIndex]="pageIndex"
         [length]="length"
         [pageSize]="pageSize"
         [pageSizeOptions]="pageSizeOptions"
-        [hidePageSize]="hidePageSize"
+        [hidePageSize]="true"
         [showFirstLastButtons]="showFirstLastButtons"
         (page)="pageEvent($event)"
 ></mat-paginator>
+
+
+<div class="paginator" *ngIf="paginator">
+    <div class="previous-button me-5"
+         (click)="paginator.previousPage()"
+         [class.disabled]="!paginator.hasPreviousPage()">
+        <app-icon fontName="chevron_left" innerClass="text-gray-4"></app-icon>
+    </div>
+
+    <div class="paginator-index-list">
+        <ng-container *ngFor="let _index of _indexList; let index = index">
+            <span class="paginator-index"
+                  [class.active-index]="index === _pageIndex"
+                  (click)="goToPageEvent(index)">
+                {{_index}}
+            </span>
+        </ng-container>
+    </div>
+
+    <div class="next-button ms-5"
+         (click)="paginator.nextPage()"
+         [class.disabled]="!paginator.hasNextPage()">
+        <app-icon fontName="chevron_right" innerClass="text-gray-4"></app-icon>
+    </div>
+</div>
