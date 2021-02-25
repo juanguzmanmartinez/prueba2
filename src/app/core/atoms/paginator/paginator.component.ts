@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -18,12 +18,16 @@ export class PaginatorComponent {
     @Output() page = new EventEmitter<PageEvent>();
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild('indexListContainer') indexListContainer: ElementRef;
 
-    constructor() {
+    constructor(
+        private renderer: Renderer2
+    ) {
     }
 
     pageEvent(event) {
         this.page.emit(event);
+        this.setTranslateContainerByIndex();
     }
 
     goToPageEvent(index: number) {
@@ -53,6 +57,30 @@ export class PaginatorComponent {
     get _indexList() {
         const length = this.paginator?.getNumberOfPages() || 0;
         return Array.from({length}, (_, index) => index + 1);
+    }
+
+    setTranslateContainerByIndex() {
+        let translateValue;
+        if (this.paginator.getNumberOfPages() > 5) {
+            const elementsJump = 2;
+            const elementWidth = 30;
+            const elementValue = this._pageIndex + 1;
+            const indexLeft = this.paginator.getNumberOfPages() - this._pageIndex;
+            if (elementValue > elementsJump && indexLeft > elementsJump) {
+                const indexTranslate = this._pageIndex - elementsJump;
+                translateValue = `-${elementWidth * indexTranslate}`;
+            }
+            if (elementValue <= elementsJump) {
+                translateValue = '0';
+            }
+        } else {
+            translateValue = '0';
+        }
+        this.renderer.setStyle(
+            this.indexListContainer.nativeElement,
+            'transform', `translateX(${translateValue}px)`
+        );
+
     }
 
 }

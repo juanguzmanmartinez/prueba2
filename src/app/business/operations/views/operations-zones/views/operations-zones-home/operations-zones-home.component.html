@@ -19,7 +19,7 @@
 
 
     <div class="row">
-        <div class="col-12" *ngIf="dataSource.data.length">
+        <div class="col-12 mb-8" *ngIf="dataSource.data.length">
             <table mat-table [dataSource]="dataSource" matSort>
 
                 <ng-container matColumnDef="selector">
@@ -94,7 +94,8 @@
                 <tr mat-row row-hover *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
         </div>
-        <div class="col-12" [hidden]="!dataSource.data.length">
+
+        <div class="col-12 d-flex-center" [hidden]="!dataSource.data.length">
             <app-paginator [pageSize]="10"></app-paginator>
         </div>
     </div>

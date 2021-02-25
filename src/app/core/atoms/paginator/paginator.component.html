@@ -19,13 +19,15 @@
     </div>
 
     <div class="paginator-index-list">
-        <ng-container *ngFor="let _index of _indexList; let index = index">
-            <span class="paginator-index"
+        <div class="index-list-container" #indexListContainer>
+            <ng-container *ngFor="let _index of _indexList; let index = index">
+            <span class="paginator-index index-{{_index}}"
                   [class.active-index]="index === _pageIndex"
                   (click)="goToPageEvent(index)">
                 {{_index}}
             </span>
-        </ng-container>
+            </ng-container>
+        </div>
     </div>
 
     <div class="next-button ms-5"
