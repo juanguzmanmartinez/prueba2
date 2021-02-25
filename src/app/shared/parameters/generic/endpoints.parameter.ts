@@ -17,4 +17,6 @@ export class EndpointsParameter {
     public static PATCH_CALENDAR_UPDATE = `${API_GATEWAY}/fulfillment/calendar/template/detail/hours/quantities`;
     public static PATCH_CALENDAR_RANGE_UPDATE = `${API_GATEWAY}/fulfillment/calendar/detail/hours/quantities`;
     public static GET_CALENDAR_CAPACITIES = `${API_GATEWAY}/fulfillment/calendar/capacities`;
+
+    public static GET_ZONES = `${API_GATEWAY}/zone`;
 }

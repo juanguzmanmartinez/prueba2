@@ -20,6 +20,7 @@ export class TableSortingIconDirective implements AfterViewInit {
         this.renderer.setStyle(arrowElement, 'margin-left', '4px');
         this.renderer.setStyle(arrowElement, 'width', '16px');
         this.renderer.setStyle(arrowElement, 'height', '16px');
+        this.renderer.setStyle(arrowElement, 'transform', 'none');
 
         const childElements = arrowElement.children;
         for (const child of childElements) {

@@ -1,19 +1,34 @@
 import { EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
+import { IZone, IZoneAssignedStore } from '@interfaces/zones/zone.interface';
 
-export interface IZone {
+class ZoneAssignedStore {
     code: string;
     name: string;
-    serviceType: Array<EDeliveryServiceType>;
-    assignedStore: string;
-    state: string;
+    state: boolean;
+
+    constructor(iZoneAssignedStore: IZoneAssignedStore) {
+        this.code = iZoneAssignedStore.localCode;
+        this.name = iZoneAssignedStore.name;
+        this.state = iZoneAssignedStore.enabled;
+    }
+
 }
 
-export const ZONES_LIST: IZone[] = [
-    {code: 'IKB-B03', name: 'San Miguel 1', assignedStore: 'DC Surquillo', serviceType: [EDeliveryServiceType.amPm, EDeliveryServiceType.scheduled, EDeliveryServiceType.express], state: 'activo'},
-    {code: 'IKB-B03', name: 'San Miguel 1', assignedStore: 'DC Surquillo', serviceType: [EDeliveryServiceType.express], state: 'activo'},
-    {code: 'IKB-B03', name: 'San Miguel 1', assignedStore: 'DC Surquillo', serviceType: [EDeliveryServiceType.amPm], state: 'cerrado'},
-    {code: 'IKB-B03', name: 'San Borja Sur', assignedStore: 'DC Surquillo', serviceType: [EDeliveryServiceType.scheduled], state: 'activo'},
-    {code: 'IKB-B03', name: 'San Miguel 1', assignedStore: 'Flora Tristán', serviceType: [EDeliveryServiceType.express, EDeliveryServiceType.amPm], state: 'cerrado'},
-    {code: 'IKB-B03', name: 'San Miguel 1', assignedStore: 'DC Surquillo', serviceType: [EDeliveryServiceType.amPm, EDeliveryServiceType.scheduled], state: 'activo'},
-    {code: 'IKB-B03', name: 'Miraflores 3', assignedStore: 'Angamos 5   ', serviceType: [EDeliveryServiceType.express, EDeliveryServiceType.scheduled], state: 'activo'},
-];
+export class Zone {
+    id: number;
+    code: string;
+    name: string;
+    serviceTypeList: Array<EDeliveryServiceType>;
+    assignedStore: ZoneAssignedStore;
+    state: boolean;
+
+    constructor(iZone: IZone) {
+        this.id = iZone.idZone || null;
+        this.code = iZone.fulfillmentCenterCode || '';
+        this.name = iZone.name || '';
+        this.state = iZone.enabled || false;
+        this.assignedStore = iZone.storeCenter ? new ZoneAssignedStore(iZone.storeCenter) : null;
+        this.serviceTypeList = iZone.serviceTypes ? iZone.serviceTypes
+            .map((serviceType) => serviceType.serviceTypeCode) : [];
+    }
+}

@@ -2,9 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { OperationsZonesRoutingModule } from './operations-zones-routing.module';
-import { OperationsZonesComponent } from './operations-zones.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { TooltipModule } from '@atoms/tooltip/tooltip.module';
+import { InputsModule } from '@atoms/inputs/inputs.module';
+import { IconsModule } from '@atoms/icons/icons.module';
+import { ButtonsModule } from '@atoms/buttons/buttons.module';
+import { TagModule } from '@atoms/tag/tag.module';
+import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
+import { PaginatorModule } from '@atoms/paginator/paginator.module';
+import { TableModule } from '@molecules/table/table.module';
+import { DialogModule } from '@molecules/dialog/dialog.module';
 import { BackRouterModule } from '@molecules/back-router/back-router.module';
-import { PagesModule } from '@pages/pages.module';
+
+import { OperationsZonesComponent } from './operations-zones.component';
 import { OperationsZonesHomeComponent } from './views/operations-zones-home/operations-zones-home.component';
 import { OperationsZonesEditionComponent } from './views/operations-zones-edition/operations-zones-edition.component';
 import { OperationsZonesEditionHomeComponent } from './views/operations-zones-edition/views/operations-zones-edition-home/operations-zones-edition-home.component';
@@ -18,41 +31,31 @@ import { OpZonesEditionZoneDetailFormCardComponent } from './views/operations-zo
 import { OpZonesEditionServiceTypeDetailCardComponent } from './views/operations-zones-edition/components/op-zones-edition-service-type-detail-card/op-zones-edition-service-type-detail-card.component';
 import { OpZonesEditionServiceTypeDetailFormCardComponent } from './views/operations-zones-edition/components/op-zones-edition-service-type-detail-form-card/op-zones-edition-service-type-detail-form-card.component';
 import { OpZonesEditionServiceTypeDetailDialogComponent } from './views/operations-zones-edition/components/op-zones-edition-service-type-detail-dialog/op-zones-edition-service-type-detail-dialog.component';
-import { InputsModule } from '@atoms/inputs/inputs.module';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-import { TableModule } from '@molecules/table/table.module';
-import { TooltipModule } from '@atoms/tooltip/tooltip.module';
-import { ButtonsModule } from '@atoms/buttons/buttons.module';
-import { TagModule } from '@atoms/tag/tag.module';
-import { IconsModule } from '@atoms/icons/icons.module';
-import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
-import { DialogModule } from '@molecules/dialog/dialog.module';
-import { MatDialogModule } from '@angular/material/dialog';
+
+import { OperationsZonesImplementService } from './implements/operations-zones-implement.service';
 
 
 @NgModule({
-  declarations: [
-    OperationsZonesComponent,
-    OperationsZonesHomeComponent,
-    OperationsZonesEditionComponent,
-    OperationsZonesEditionHomeComponent,
-    OperationsZonesEditionServiceTypeComponent,
-    OperationsZonesEditionZoneComponent,
-    OpZonesHomeZoneDetailDialogComponent,
-    OpZonesEditionHomeZoneDetailCardComponent,
-    OpZonesEditionHomeServiceTypeCardComponent,
-    OpZonesEditionZoneDetailCardComponent,
-    OpZonesEditionZoneDetailFormCardComponent,
-    OpZonesEditionServiceTypeDetailCardComponent,
-    OpZonesEditionServiceTypeDetailFormCardComponent,
-    OpZonesEditionServiceTypeDetailDialogComponent
-  ],
+    declarations: [
+        OperationsZonesComponent,
+        OperationsZonesHomeComponent,
+        OperationsZonesEditionComponent,
+        OperationsZonesEditionHomeComponent,
+        OperationsZonesEditionServiceTypeComponent,
+        OperationsZonesEditionZoneComponent,
+        OpZonesHomeZoneDetailDialogComponent,
+        OpZonesEditionHomeZoneDetailCardComponent,
+        OpZonesEditionHomeServiceTypeCardComponent,
+        OpZonesEditionZoneDetailCardComponent,
+        OpZonesEditionZoneDetailFormCardComponent,
+        OpZonesEditionServiceTypeDetailCardComponent,
+        OpZonesEditionServiceTypeDetailFormCardComponent,
+        OpZonesEditionServiceTypeDetailDialogComponent
+    ],
     imports: [
         CommonModule,
         OperationsZonesRoutingModule,
         BackRouterModule,
-        PagesModule,
         InputsModule,
         MatTableModule,
         MatSortModule,
@@ -64,6 +67,12 @@ import { MatDialogModule } from '@angular/material/dialog';
         CheckboxModule,
         DialogModule,
         MatDialogModule,
+        FormsModule,
+        PaginatorModule,
+    ],
+    providers: [
+        OperationsZonesImplementService
     ]
 })
-export class OperationsZonesModule { }
+export class OperationsZonesModule {
+}

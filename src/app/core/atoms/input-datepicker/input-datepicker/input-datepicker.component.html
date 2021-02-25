@@ -1,7 +1,7 @@
-<div class="input-datepicker-container">
-    <label class="input-datepicker-label"
+<div class="input-datepicker-container datepicker-container">
+    <label class="datepicker-label"
            [class.disabled]="disabled">
-        <input class="input-datepicker-input"
+        <input class="datepicker-input"
                [placeholder]="placeholder"
                [matDatepicker]="picker"
                [name]="name"
@@ -10,7 +10,7 @@
                [value]="value"
                [disabled]="disabled"
                (dateChange)="changeDatepicker($event)">
-        <mat-datepicker-toggle class="input-datepicker-icon"
+        <mat-datepicker-toggle class="datepicker-icon"
                                [disabled]="disabled"
                                [for]="picker"
                                [disableRipple]="true">

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Optional, Self, ViewEncapsulation } from '@angular/core';
 import { DatepickerHeaderComponent } from '../components/datepicker-header/datepicker-header.component';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
@@ -7,7 +7,8 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-input-datepicker',
     templateUrl: './input-datepicker.component.html',
-    styleUrls: ['./input-datepicker.component.scss']
+    styleUrls: ['../styles/datepicker.component.sass', './input-datepicker.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class InputDatepickerComponent implements ControlValueAccessor, OnInit, OnDestroy {
 

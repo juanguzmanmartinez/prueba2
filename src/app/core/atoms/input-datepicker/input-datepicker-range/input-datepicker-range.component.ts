@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Optional, Self, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DatepickerHeaderComponent } from '../components/datepicker-header/datepicker-header.component';
@@ -12,7 +12,8 @@ export interface IDatepickerRange {
 @Component({
     selector: 'app-input-datepicker-range',
     templateUrl: './input-datepicker-range.component.html',
-    styleUrls: ['./input-datepicker-range.component.scss'],
+    styleUrls: ['../styles/datepicker.component.sass', './input-datepicker-range.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class InputDatepickerRangeComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
