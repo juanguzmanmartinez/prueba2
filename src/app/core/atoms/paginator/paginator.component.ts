@@ -70,6 +70,10 @@ export class PaginatorComponent {
                 const indexTranslate = this._pageIndex - elementsJump;
                 translateValue = `-${elementWidth * indexTranslate}`;
             }
+            if (indexLeft <= elementsJump) {
+                const indexTranslate = this.paginator.getNumberOfPages() - 5;
+                translateValue = `-${elementWidth * indexTranslate}`;
+            }
             if (elementValue <= elementsJump) {
                 translateValue = '0';
             }
