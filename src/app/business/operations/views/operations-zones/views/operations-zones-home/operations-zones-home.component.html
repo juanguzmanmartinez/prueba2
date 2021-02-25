@@ -68,7 +68,7 @@
                     <th mat-header-cell header-cell-center *matHeaderCellDef>Estado</th>
                     <td mat-cell cell-center *matCellDef="let element">
                         <app-tag [tagStatus]="element.state ? 'success' : 'error'">
-                            {{element.state ? 'activo' : 'inactivo'}}
+                            {{stateName['' + element.state + '']}}
                         </app-tag>
                     </td>
                 </ng-container>

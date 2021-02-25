@@ -1,6 +1,11 @@
 import { EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
 import { IZone, IZoneAssignedStore } from '@interfaces/zones/zone.interface';
 
+export const CZoneStateName = {
+    true: 'activo',
+    false: 'inactivo'
+};
+
 class ZoneAssignedStore {
     code: string;
     name: string;

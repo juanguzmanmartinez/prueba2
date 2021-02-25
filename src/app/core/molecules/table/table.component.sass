@@ -1,0 +1,12 @@
+@import "src/sass/variables/colors.variable"
+
+app-table table.mat-table
+
+  .mat-row:nth-child(even)
+    background-color: $gray-1
+
+  .mat-row:last-child:not(:nth-child(even))
+    border-bottom-width: 1px
+
+  .mat-row.row-hover:hover
+    background-color: $light-primary

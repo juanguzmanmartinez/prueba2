@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
-import { Zone } from '../../modals/operation-zones-responses.modal';
+import { CZoneStateName, Zone } from '../../modals/operation-zones-responses.modal';
 import { OpZonesHomeZoneDetailDialogService } from './components/op-zones-home-zone-detail-dialog/op-zones-home-zone-detail-dialog.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CDeliveryServiceTypeName } from '@models/capacities/capacities-service-type.model';
 import { OperationsZonesImplementService } from '../../implements/operations-zones-implement.service';
 import { PaginatorComponent } from '@atoms/paginator/paginator.component';
+import { normalizeValue } from '@helpers/string.helper';
 
 @Component({
     selector: 'app-operations-zones-home',
@@ -20,6 +21,7 @@ import { PaginatorComponent } from '@atoms/paginator/paginator.component';
 export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     public serviceTypeName = CDeliveryServiceTypeName;
+    public stateName = CZoneStateName;
 
     public searchInput = '';
 
@@ -48,6 +50,21 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     setDataSourceService() {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator.paginator;
+        this.dataSource.filterPredicate = (data: Zone, filter: string) => {
+            const filterNormalize = normalizeValue(filter);
+            const idNormalize = normalizeValue(`${data.id}`);
+            const codeNormalize = normalizeValue(data.code);
+            const nameNormalize = normalizeValue(data.name);
+            const assignedStoreNameNormalize = normalizeValue(data.assignedStore ? data.assignedStore.name : '');
+            const serviceTypeNormalize = normalizeValue(data.serviceTypeList.map(serviceType => this.serviceTypeName[serviceType]).join(''));
+            const stateNormalize = normalizeValue(this.stateName[`${data.state}`]);
+            const valueArray = [idNormalize, nameNormalize, codeNormalize, assignedStoreNameNormalize, serviceTypeNormalize, stateNormalize];
+
+            const concatValue = normalizeValue(valueArray.join(''));
+            const everyValue = valueArray.some(value => value.includes(filterNormalize));
+
+            return concatValue.includes(filterNormalize) && everyValue;
+        };
     }
 
 

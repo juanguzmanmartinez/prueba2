@@ -24,31 +24,9 @@ export class TableRowDirective implements AfterViewInit {
         this.renderer.addClass(rowElement, 'border-end');
         this.renderer.addClass(rowElement, 'border-start');
         this.renderer.addClass(rowElement, 'border-gray-1');
-        if (rowElement.rowIndex % 2 === 0) {
-            this.renderer.addClass(rowElement, 'bg-gray-1');
-        }
-
-        if (rowElement.rowIndex === rowElement.parentElement.childElementCount && rowElement.rowIndex % 2 !== 0) {
-            this.renderer.addClass(rowElement, 'border-bottom');
-        }
 
         if (hoverRow) {
-            this.listenRowElementHover(rowElement);
+            this.renderer.addClass(rowElement, 'row-hover');
         }
-    }
-
-    listenRowElementHover(rowElement) {
-        rowElement.addEventListener('mouseenter', () => {
-            this.renderer.addClass(rowElement, 'bg-light-primary');
-            if (rowElement.rowIndex % 2 === 0) {
-                this.renderer.removeClass(rowElement, 'bg-gray-1');
-            }
-        });
-        rowElement.addEventListener('mouseleave', () => {
-            this.renderer.removeClass(rowElement, 'bg-light-primary');
-            if (rowElement.rowIndex % 2 === 0) {
-                this.renderer.addClass(rowElement, 'bg-gray-1');
-            }
-        });
     }
 }

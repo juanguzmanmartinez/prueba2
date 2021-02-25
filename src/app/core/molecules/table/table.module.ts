@@ -8,8 +8,10 @@ import { TableRowDirective } from '@molecules/table/table-row.directive';
 import { TableColumnWidthDirective } from '@molecules/table/table-column-width.directive';
 import { TableHeaderRowDirective } from '@molecules/table/table-header-row.directive';
 import { TableCustomColumnDirective } from '@molecules/table/table-custom-column.directive';
+import { TableComponent } from '@molecules/table/table.component';
 
-const COMPONENTS = [
+const DECLARATIONS = [
+    TableComponent,
     TableDirective,
     TableSortingIconDirective,
     TableHeaderRowDirective,
@@ -22,10 +24,10 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [
-        ...COMPONENTS,
+        ...DECLARATIONS,
     ],
     exports: [
-        ...COMPONENTS,
+        ...DECLARATIONS,
     ],
     imports: [
         CommonModule
