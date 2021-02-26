@@ -6,12 +6,15 @@ import { DialogCloseDirective } from '@molecules/dialog/directives/dialog-close/
 import { DialogEditButtonDirective } from '@molecules/dialog/directives/dialog-edit/dialog-edit-button.directive';
 import { DialogHeaderComponent } from '@molecules/dialog/components/dialog-header/dialog-header.component';
 import { IconsModule } from '@atoms/icons/icons.module';
+import { DialogLoaderService } from '@molecules/dialog/views/dialog-loader/dialog-loader.service';
+import { DialogLoaderComponent } from '@molecules/dialog/views/dialog-loader/dialog-loader.component';
 
 const DECLARATIONS = [
     DialogDirective,
     DialogCloseDirective,
     DialogEditButtonDirective,
     DialogHeaderComponent,
+    DialogLoaderComponent
 ];
 
 @NgModule({
@@ -26,7 +29,8 @@ const DECLARATIONS = [
         IconsModule
     ],
     providers: [
-        DialogService
+        DialogService,
+        DialogLoaderService
     ]
 })
 export class DialogModule {

@@ -1,1 +1,22 @@
-<p>op-zones-edition-home-service-type-card works!</p>
+<app-card innerClass="pb-12">
+    <div class="row mb-6">
+        <div class="col-12">
+            <h5 class="text-h5 mb-0">
+                <app-icon class="d-inline-block me-5"
+                          svgName="ellipse-success"></app-icon>
+                <span class="text-capitalize">{{serviceTypeName}}</span>
+            </h5>
+        </div>
+    </div>
+    <app-card-static-information class="d-block mb-5" iconName="access_time">
+        <ng-container information-title>Horario de atención {{serviceTypeName}}</ng-container>
+        <ng-container information-caption>8:00 AM - 7:00 PM</ng-container>
+    </app-card-static-information>
+
+    <app-card-static-information class="d-block " iconName="hourglass_empty">
+        <ng-container information-title>Lapso de cierre de ventana - GAP</ng-container>
+        <ng-container information-caption>30 minutos</ng-container>
+    </app-card-static-information>
+
+    <div app-card-edit-button (click)="editEvent()"></div>
+</app-card>

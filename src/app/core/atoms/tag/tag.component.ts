@@ -7,7 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TagComponent implements OnInit {
 
-    @Input() tagStatus: 'error' | 'warning' | 'success';
+    @Input() tagStatus: 'error' | 'warning' | 'success' | string;
+    @Input() appearance: 'default' | 'pill' | 'uppercase' = 'pill';
 
     constructor() {
     }

@@ -16,7 +16,7 @@ export class OperationsStoresEditionHomeComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
     public store: IStore;
-    public storeServiceType = EDeliveryServiceType;
+    public deliveryServiceType = EDeliveryServiceType;
 
     constructor(
         private _activatedRoute: ActivatedRoute,

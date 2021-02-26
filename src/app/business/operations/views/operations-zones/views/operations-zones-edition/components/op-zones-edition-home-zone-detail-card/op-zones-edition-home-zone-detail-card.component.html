@@ -1,1 +1,51 @@
-<p>op-zones-edition-home-zone-detail-card works!</p>
+<app-card>
+    <div class="row mb-6">
+        <div class="col-12">
+            <h5 class="text-h5 mb-2">
+                San Miguel
+                <span class="text-caption text-gray-5 ms-3">B03</span>
+            </h5>
+            <app-tag class="d-block"
+                     tagStatus="success">
+                Zona activa
+            </app-tag>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <app-card-static-information class="d-block mb-5" iconName="store">
+                <ng-container information-title>Local de atención</ng-container>
+                <ng-container information-caption>IKF-123 Proceres 1</ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information class="d-block mb-5" iconName="store">
+                <ng-container information-title>Local backup</ng-container>
+                <ng-container information-caption>IKF-233 DC Surquillo </ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information class="d-block mb-5" iconName="location_searching">
+                <ng-container information-title>Zona backup</ng-container>
+                <ng-container information-caption>San borja 2 - B04</ng-container>
+            </app-card-static-information>
+        </div>
+        <div class="col-6">
+            <app-card-static-information class="d-block mb-5" iconName="shopping_bag">
+                <ng-container information-title>Marcas</ng-container>
+                <ng-container information-caption>Inkafarma - Mifarma</ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information class="d-block mb-5" iconName="record_voice_over">
+                <ng-container information-title>Canales de atención</ng-container>
+                <ng-container information-caption>Call Center - Digital</ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information class="d-block" iconName="info">
+                <ng-container information-title>Etiqueta</ng-container>
+                <ng-container information-caption>Dificil acceso</ng-container>
+            </app-card-static-information>
+        </div>
+    </div>
+
+    <div app-card-edit-button (click)="editEvent()"></div>
+</app-card>

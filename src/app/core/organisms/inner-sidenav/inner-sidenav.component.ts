@@ -55,7 +55,7 @@ export class InnerSidenavComponent implements OnInit, OnDestroy {
 
     innerSidenavClosedEvent() {
         this.innerSidenavExpanded.emit(false);
-        if (!this.overSidenavRouteSubscription.closed) {
+        if (this.overSidenavRouteSubscription && !this.overSidenavRouteSubscription.closed) {
             this.overSidenavRouteSubscription.unsubscribe();
         }
     }

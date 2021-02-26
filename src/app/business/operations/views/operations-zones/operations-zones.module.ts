@@ -33,6 +33,8 @@ import { OpZonesEditionServiceTypeDetailFormCardComponent } from './views/operat
 import { OpZonesEditionServiceTypeDetailDialogComponent } from './views/operations-zones-edition/components/op-zones-edition-service-type-detail-dialog/op-zones-edition-service-type-detail-dialog.component';
 
 import { OperationsZonesImplementService } from './implements/operations-zones-implement.service';
+import { CardModule } from '@molecules/cards/card.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -69,6 +71,8 @@ import { OperationsZonesImplementService } from './implements/operations-zones-i
         MatDialogModule,
         FormsModule,
         PaginatorModule,
+        CardModule,
+        MatTabsModule,
     ],
     providers: [
         OperationsZonesImplementService

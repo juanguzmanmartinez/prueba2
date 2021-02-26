@@ -19,7 +19,7 @@
 
 
     <div class="row">
-        <div class="col-12 mb-8" *ngIf="dataSource.data.length">
+        <div class="col-12 mb-8">
             <table mat-table [dataSource]="dataSource" matSort>
 
                 <ng-container matColumnDef="selector">
@@ -38,8 +38,8 @@
                 </ng-container>
 
                 <ng-container matColumnDef="zoneCode">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Código</th>
-                    <td mat-cell cell-bold *matCellDef="let element">{{element.code}}</td>
+                    <th mat-header-cell columnWidth="8%" *matHeaderCellDef mat-sort-header>Código</th>
+                    <td mat-cell columnWidth="8%" cell-bold *matCellDef="let element">{{element.code}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="zoneName">
@@ -48,13 +48,13 @@
                 </ng-container>
 
                 <ng-container matColumnDef="assignedStore">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Local asignado</th>
-                    <td mat-cell *matCellDef="let element">{{element.assignedStore.name}}</td>
+                    <th mat-header-cell columnWidth="18%" *matHeaderCellDef mat-sort-header>Local asignado</th>
+                    <td mat-cell columnWidth="18%" *matCellDef="let element">{{element.assignedStore.name}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="serviceType">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Despacho</th>
-                    <td mat-cell cell-double-text *matCellDef="let element">
+                    <th mat-header-cell columnWidth="140px" *matHeaderCellDef mat-sort-header>Despacho</th>
+                    <td mat-cell columnWidth="140px" cell-double-text *matCellDef="let element">
                         <ng-container *ngFor="let serviceType of element.serviceTypeList; let last = last">
                             <span>
                                 {{serviceTypeName[serviceType]}}
@@ -65,10 +65,10 @@
                 </ng-container>
 
                 <ng-container matColumnDef="zoneState">
-                    <th mat-header-cell header-cell-center *matHeaderCellDef>Estado</th>
-                    <td mat-cell cell-center *matCellDef="let element">
-                        <app-tag [tagStatus]="element.state ? 'success' : 'error'">
-                            {{stateName['' + element.state + '']}}
+                    <th mat-header-cell columnWidth="12%" header-cell-center *matHeaderCellDef>Estado</th>
+                    <td mat-cell columnWidth="12%" cell-center *matCellDef="let element">
+                        <app-tag [tagStatus]="stateTag[element.state]">
+                            {{stateName[element.state]}}
                         </app-tag>
                     </td>
                 </ng-container>
@@ -78,7 +78,7 @@
                     <td mat-cell customColumn="actions"
                         *matCellDef="let element">
                         <app-tooltip class="me-4" value="Editar">
-                            <app-button-action-icon (click)="editRow(element.code)"
+                            <app-button-action-icon (click)="editRow(element.id)"
                                                     iconName="edit">
                             </app-button-action-icon>
                         </app-tooltip>
@@ -92,10 +92,14 @@
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row row-hover *matRowDef="let row; columns: displayedColumns;"></tr>
+
             </table>
+
+            <app-table-loader *ngIf="tableLoader" [cells]="7"></app-table-loader>
+            <app-table-empty *ngIf="!tableLoader && !dataSource.data.length"></app-table-empty>
         </div>
 
-        <div class="col-12 d-flex-center" [hidden]="!dataSource.data.length">
+        <div class="col-12 d-flex-center" [hidden]="dataSource.paginator?.getNumberOfPages() < 2">
             <app-paginator [pageSize]="10"></app-paginator>
         </div>
     </div>

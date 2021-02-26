@@ -9,6 +9,8 @@ import { TableColumnWidthDirective } from '@molecules/table/table-column-width.d
 import { TableHeaderRowDirective } from '@molecules/table/table-header-row.directive';
 import { TableCustomColumnDirective } from '@molecules/table/table-custom-column.directive';
 import { TableComponent } from '@molecules/table/table.component';
+import { TableEmptyDirective } from '@molecules/table/table-empty.directive';
+import { TableLoaderDirective } from '@molecules/table/table-loader.directive';
 
 const DECLARATIONS = [
     TableComponent,
@@ -20,6 +22,8 @@ const DECLARATIONS = [
     TableCellDirective,
     TableColumnWidthDirective,
     TableCustomColumnDirective,
+    TableEmptyDirective,
+    TableLoaderDirective,
 ];
 
 @NgModule({

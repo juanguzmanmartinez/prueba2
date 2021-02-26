@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
-import { CZoneStateName, Zone } from '../../modals/operation-zones-responses.modal';
+import { Zone } from '../../modals/operation-zones-responses.modal';
 import { OpZonesHomeZoneDetailDialogService } from './components/op-zones-home-zone-detail-dialog/op-zones-home-zone-detail-dialog.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CDeliveryServiceTypeName } from '@models/capacities/capacities-service-type.model';
 import { OperationsZonesImplementService } from '../../implements/operations-zones-implement.service';
 import { PaginatorComponent } from '@atoms/paginator/paginator.component';
 import { normalizeValue } from '@helpers/string.helper';
+import { CStateName, CStateTag } from '@models/state/state.model';
 
 @Component({
     selector: 'app-operations-zones-home',
@@ -21,20 +22,22 @@ import { normalizeValue } from '@helpers/string.helper';
 export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     public serviceTypeName = CDeliveryServiceTypeName;
-    public stateName = CZoneStateName;
+    public stateTag = CStateTag;
+    public stateName = CStateName;
 
     public searchInput = '';
+    public tableLoader = true;
 
-    displayedColumns: string[] = ['selector', 'zoneCode', 'zoneName', 'assignedStore', 'serviceType', 'zoneState', 'actions'];
-    dataSource = new MatTableDataSource([]);
-    rowSelection = new SelectionModel<Zone>(true, []);
+    public displayedColumns: string[] = ['selector', 'zoneCode', 'zoneName', 'assignedStore', 'serviceType', 'zoneState', 'actions'];
+    public dataSource = new MatTableDataSource([]);
+    public rowSelection = new SelectionModel<Zone>(true, []);
 
     @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
     @ViewChild(MatSort) sort: MatSort;
 
     constructor(
         private _router: Router,
-        private _storeDetailDialog: OpZonesHomeZoneDetailDialogService,
+        private _zoneDetailDialog: OpZonesHomeZoneDetailDialogService,
         private _operationsZonesImplement: OperationsZonesImplementService
     ) {
     }
@@ -42,9 +45,13 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this._operationsZonesImplement.zoneList
             .subscribe((zoneList: Array<Zone>) => {
-                this.dataSource.data = zoneList;
-                this.setDataSourceService();
-            });
+                    this.tableLoader = false;
+                    this.dataSource.data = zoneList;
+                    this.setDataSourceService();
+                },
+                () => {
+                    this.tableLoader = false;
+                });
     }
 
     setDataSourceService() {
@@ -57,7 +64,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
             const nameNormalize = normalizeValue(data.name);
             const assignedStoreNameNormalize = normalizeValue(data.assignedStore ? data.assignedStore.name : '');
             const serviceTypeNormalize = normalizeValue(data.serviceTypeList.map(serviceType => this.serviceTypeName[serviceType]).join(''));
-            const stateNormalize = normalizeValue(this.stateName[`${data.state}`]);
+            const stateNormalize = normalizeValue(this.stateName[data.state]);
             const valueArray = [idNormalize, nameNormalize, codeNormalize, assignedStoreNameNormalize, serviceTypeNormalize, stateNormalize];
 
             const concatValue = normalizeValue(valueArray.join(''));
@@ -89,16 +96,15 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     }
 
 
-    editRow(zoneId: string) {
-        this._router.navigate([CONCAT_PATH.opZones_ZoneId(zoneId)]);
+    editRow(zoneId: number) {
+        this._router.navigate([CONCAT_PATH.opZones_ZoneId(`${zoneId}`)]);
     }
 
-    rowDetailDialog(store: Zone) {
-        const subscription = this._storeDetailDialog.openHomeZoneDetailDialog(store)
-            .afterClosed()
-            .subscribe((editService) => {
-                if (editService) {
-                    this.editRow(store.code);
+    rowDetailDialog(zone: Zone) {
+        const subscription = this._zoneDetailDialog.open(zone.id)
+            .subscribe((zoneId) => {
+                if (zoneId) {
+                    this.editRow(zone.id);
                 }
             });
         this.subscriptions.push(subscription);

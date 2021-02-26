@@ -17,7 +17,8 @@ export class TableDirective implements AfterViewInit {
 
     ngAfterViewInit() {
         this.renderer.addClass(this.elementRef.nativeElement, 'w-100');
-        this.renderer.addClass(this.elementRef.nativeElement, 'text-gray-6');
+        this.renderer.addClass(this.elementRef.nativeElement, 'w-100');
+        this.renderer.setStyle(this.elementRef.nativeElement, 'minWidth', '950px');
         this.addTableComponentParent();
     }
 
@@ -28,6 +29,8 @@ export class TableDirective implements AfterViewInit {
         const tableComponentRef = tableComponentFactory.create(this.injector);
         this.applicationRef.attachView(tableComponentRef.hostView);
         const tableElement = (tableComponentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+        this.renderer.addClass(tableElement, 'd-block');
+        this.renderer.setStyle(tableElement, 'overflow-x', 'auto');
 
         this.renderer.insertBefore(parentElement, tableElement, this.elementRef.nativeElement);
         this.renderer.removeChild(parentElement, this.elementRef.nativeElement);

@@ -1,18 +1,55 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { DialogService } from '@molecules/dialog/dialog.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { OpZonesHomeZoneDetailDialogComponent } from './op-zones-home-zone-detail-dialog.component';
-import { Zone } from '../../../../modals/operation-zones-responses.modal';
+import { ZoneDetail } from '../../../../modals/operation-zones-responses.modal';
+import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
+import { DialogLoaderService } from '@molecules/dialog/views/dialog-loader/dialog-loader.service';
+import { take } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
-export class OpZonesHomeZoneDetailDialogService {
+export class OpZonesHomeZoneDetailDialogService implements OnDestroy {
 
-    constructor(private dialog: DialogService) {
+    private dialogLoaderRef: MatDialogRef<any>;
+    private dialogZoneDetailSubject = new BehaviorSubject<boolean>(false);
+
+    constructor(
+        private _dialog: DialogService,
+        private _dialogLoader: DialogLoaderService,
+        private _operationsZonesImplement: OperationsZonesImplementService
+    ) {
     }
 
-    openHomeZoneDetailDialog(zone: Zone): MatDialogRef<OpZonesHomeZoneDetailDialogComponent> {
-        const dialogRef = this.dialog.open(OpZonesHomeZoneDetailDialogComponent);
-        dialogRef.componentInstance.zone = zone;
-        return dialogRef;
+    open(zoneId: number): Observable<boolean> {
+        this.openDialogLoader();
+        this.getZoneDetail(zoneId);
+        return this.dialogZoneDetailSubject.asObservable();
+    }
+
+    openDialogZoneDetail(zoneDetail: ZoneDetail): void {
+        const dialogZoneDetailRef = this._dialog.open(OpZonesHomeZoneDetailDialogComponent);
+        dialogZoneDetailRef.componentInstance.zoneDetail = zoneDetail;
+        dialogZoneDetailRef.afterClosed()
+            .pipe(take(1))
+            .subscribe((closeResult: boolean) => {
+                this.dialogZoneDetailSubject.next(closeResult);
+            });
+    }
+
+    openDialogLoader(): void {
+        this.dialogLoaderRef = this._dialogLoader.open();
+    }
+
+    getZoneDetail(zoneId: number): void {
+        this._operationsZonesImplement.getZoneDetail(`${zoneId}`)
+            .subscribe((zoneDetail: ZoneDetail) => {
+                this.openDialogZoneDetail(zoneDetail);
+                this.dialogLoaderRef.close();
+            });
+    }
+
+    ngOnDestroy() {
+        this.dialogZoneDetailSubject.complete();
     }
 }

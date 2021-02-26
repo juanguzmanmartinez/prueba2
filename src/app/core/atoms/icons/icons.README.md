@@ -74,6 +74,7 @@ Update readme with the new icon name
 |![](../../../../assets/icons/configuration.svg)    | configuration         | |      ![](../../../../assets/icons/truck.svg)         | truck               |
 |![](../../../../assets/icons/inkafarma.svg)        | inkafarma             | |      ![](../../../../assets/icons/search.svg)        | search              |
 |![](../../../../assets/icons/main-logo.svg)        | main-logo             | |      ![](../../../../assets/icons/datepicker.svg)    | datepicker          |
+|![](../../../../assets/icons/ellipse-success.svg)  | ellipse-success       | |      ![](../../../../assets/icons/loader.svg)        | loader              |
 
 <br/>
 

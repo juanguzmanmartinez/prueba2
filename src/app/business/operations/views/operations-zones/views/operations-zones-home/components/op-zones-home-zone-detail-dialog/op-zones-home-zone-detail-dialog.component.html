@@ -2,13 +2,81 @@
     <div app-dialog-close mat-dialog-close></div>
     <div app-dialog-edit-button [mat-dialog-close]="true"></div>
 
-    <div class="content">
+    <div class="content mb-6">
         <app-dialog-header iconName="navigation">
             <ng-container dialog-header-title>
-                <p class="mb-2 text-tag text-success">ACTIVO</p>
-                San Miguel 1
+                <p class="mb-2">
+                    <app-tag appearance="uppercase"
+                             [tagStatus]="stateTag[zoneDetail.state]">
+                        {{stateName[zoneDetail.state]}}
+                    </app-tag>
+                </p>
+                {{zoneDetail.name}}
             </ng-container>
-            <ng-container dialog-header-description> B03</ng-container>
+            <ng-container dialog-header-description>
+                {{zoneDetail.code}}
+            </ng-container>
         </app-dialog-header>
+    </div>
+
+    <div class="dialog-content mb-6">
+        <mat-tab-group class="dialog-tab-group"
+                       [disableRipple]="true">
+            <mat-tab label="General">
+                <div class="dialog-tab-body">
+                    <div class="row">
+                        <div class="col-12 mb-5">
+                            <app-card-static-information iconName="store">
+                                <ng-container information-title>Local asignado</ng-container>
+                                <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
+                            </app-card-static-information>
+                        </div>
+                        <div class="col-12 mb-5">
+                            <app-card-static-information iconName="store">
+                                <ng-container information-title>Local secundario</ng-container>
+                                <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
+                            </app-card-static-information>
+                        </div>
+                        <div class="col-12 mb-5">
+                            <app-card-static-information iconName="shopping_bag">
+                                <ng-container information-title>Marcas</ng-container>
+                                <ng-container information-caption>
+                                    {{companyName[zoneDetail.company]}}
+                                </ng-container>
+                            </app-card-static-information>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Despacho">
+                <div class="dialog-tab-body">
+                    <div class="row">
+                        <div class="col-12 mb-5">
+                            <app-card-static-information iconName="record_voice_over">
+                                <ng-container information-title>Canales de atención</ng-container>
+                                <ng-container information-caption>{{zoneDetail.channel}}</ng-container>
+                            </app-card-static-information>
+                        </div>
+                        <div class="col-12 mb-5">
+                            <app-card-static-information iconName="motorcycle">
+                                <ng-container information-title>Tipo de despacho</ng-container>
+                                <ng-container information-caption>
+                                    <ng-container *ngFor="let serviceType of zoneDetail.serviceTypeList; let last = last">
+                                        {{serviceTypeName[serviceType]}}
+                                        <span *ngIf="!last" class="mx-2">-</span>
+                                    </ng-container>
+                                </ng-container>
+                            </app-card-static-information>
+                        </div>
+                        <div class="col-12 mb-5">
+                            <app-card-static-information iconName="info">
+                                <ng-container information-title>Etiquetas</ng-container>
+                                <ng-container information-caption>{{zoneDetail.label}}</ng-container>
+                            </app-card-static-information>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
     </div>
 </section>
