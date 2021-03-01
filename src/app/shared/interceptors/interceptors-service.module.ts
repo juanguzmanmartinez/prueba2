@@ -4,6 +4,7 @@ import { ClientsServiceModule } from '@clients/clients-service.module';
 import { ErrorInterceptor } from './error.interceptor.service';
 import { ImplementsServiceModule } from '@implements/implements-service.module';
 import { TokenInterceptor } from '@interceptors/token.interceptor';
+import { AlertModule } from '@molecules/alert/alert.module';
 
 const SERVICES = [
     ErrorInterceptor,
@@ -15,7 +16,8 @@ const SERVICES = [
     imports: [
         CommonModule,
         ClientsServiceModule,
-        ImplementsServiceModule
+        ImplementsServiceModule,
+        AlertModule
     ],
     providers: [
         ...SERVICES
