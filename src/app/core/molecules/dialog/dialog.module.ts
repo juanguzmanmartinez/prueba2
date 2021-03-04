@@ -8,13 +8,21 @@ import { DialogHeaderComponent } from '@molecules/dialog/components/dialog-heade
 import { IconsModule } from '@atoms/icons/icons.module';
 import { DialogLoaderService } from '@molecules/dialog/views/dialog-loader/dialog-loader.service';
 import { DialogLoaderComponent } from '@molecules/dialog/views/dialog-loader/dialog-loader.component';
+import { DialogConfirmChangesComponent } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.component';
+import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
+import { ButtonsModule } from '@atoms/buttons/buttons.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogEditionAccessComponent } from '@molecules/dialog/views/dialog-edition-access/dialog-edition-access.component';
+import { DialogEditionAccessService } from '@molecules/dialog/views/dialog-edition-access/dialog-edition-access.service';
 
 const DECLARATIONS = [
     DialogDirective,
     DialogCloseDirective,
     DialogEditButtonDirective,
     DialogHeaderComponent,
-    DialogLoaderComponent
+    DialogLoaderComponent,
+    DialogConfirmChangesComponent,
+    DialogEditionAccessComponent
 ];
 
 @NgModule({
@@ -26,11 +34,15 @@ const DECLARATIONS = [
     ],
     imports: [
         CommonModule,
-        IconsModule
+        IconsModule,
+        ButtonsModule,
+        MatDialogModule
     ],
     providers: [
         DialogService,
-        DialogLoaderService
+        DialogLoaderService,
+        DialogConfirmChangesService,
+        DialogEditionAccessService
     ]
 })
 export class DialogModule {

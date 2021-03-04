@@ -4,6 +4,7 @@
           [stepExpandedToggle]="capacityTableStepStatus === eCapacityStepStatus.open"
           [stepDisabled]="capacityTableStepStatus === eCapacityStepStatus.disabled  || capacityTableSaveLoad"
           [saveButtonDisabled]="!_opCapacitiesStepCapacityTableForm.capacityTableForm$.valid || capacityTableSaveLoad"
+          [validateAccess]="true"
           (stepOpenEvent)="openCapacityTableStep()"
           (stepCloseEvent)="closeCapacityTableStep()"
           (saveButtonEvent)="saveCapacityTable()"

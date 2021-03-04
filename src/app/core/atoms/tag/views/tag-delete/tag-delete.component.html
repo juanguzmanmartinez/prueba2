@@ -1,0 +1,9 @@
+<app-tag [appearance]="tagAppearance.coloredPill"
+         [tagColor]="tagColor">
+    <ng-content></ng-content>
+    <app-icon (click)="deleteTagEvent()"
+              innerClass="text-white cursor-pointer ms-2"
+              fontName="close"
+              fontSize="12px">
+    </app-icon>
+</app-tag>

@@ -3,7 +3,7 @@
     <div app-dialog-edit-button [mat-dialog-close]="true"></div>
 
     <div class="content mb-6">
-        <app-dialog-header iconName="book">
+        <app-dialog-header svgName="book">
             <ng-container dialog-header-title>Por defecto</ng-container>
             <ng-container dialog-header-description>Detalle de capacidad</ng-container>
         </app-dialog-header>
@@ -48,7 +48,7 @@
             </mat-tab>
             <mat-tab label="Tabla" *ngIf="defaultCapacityTableDataSource">
                 <div class="dialog-tab-body dialog-tab-table">
-                    <table mat-table table-small table-no-hover
+                    <table mat-table
                            [dataSource]="defaultCapacityTableDataSource"
                            class="dialog-table">
 
@@ -67,7 +67,7 @@
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="defaultCapacityTableDisplayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: defaultCapacityTableDisplayedColumns;"></tr>
+                        <tr mat-row row-small *matRowDef="let row; columns: defaultCapacityTableDisplayedColumns;"></tr>
                     </table>
                 </div>
             </mat-tab>

@@ -3,7 +3,7 @@ import { RecoverPasswordUserForm } from '../../form/recover-password-user.form';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 import { Router } from '@angular/router';
 import { AuthImplementService } from '@implements/auth/auth-implement.service';
-import { RecoveryPasswordStore } from '../../stores/recovery-password.store';
+import { RecoveryPasswordStoreService } from '../../stores/recovery-password-store.service';
 
 @Component({
     templateUrl: './recover-password-user.component.html',
@@ -18,7 +18,7 @@ export class RecoverPasswordUserComponent implements OnInit {
         private _router: Router,
         private authImplement: AuthImplementService,
         public recoverPasswordUserForm: RecoverPasswordUserForm,
-        @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStore
+        @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStoreService
     ) {
     }
 

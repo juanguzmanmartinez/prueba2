@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
 import { OpCapacitiesLocalDefaultCapacityService } from './op-capacities-local-default-capacity.service';
 import { Subscription } from 'rxjs';
-import { CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity, CapacitiesServiceType } from '../../models/operations-capacities-responses.model';
-import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
+import { CapacitiesLocalServiceDefaultCapacity, CapacitiesServiceType, CapacitiesStore } from '../../models/operations-capacities-responses.model';
+import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { OpCapacitiesLocalDefaultCapacityDialogService } from '../op-capacities-local-default-capacity-dialog/op-capacities-local-default-capacity-dialog.service';
 import { Router } from '@angular/router';
 import { ECapacityStepGroupOrLocal } from '../op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
@@ -23,8 +23,8 @@ export class OpCapacitiesLocalDefaultCapacityComponent implements OnInit, OnDest
     private subscriptions: Subscription[] = [];
 
     public capacitiesServiceType = EDeliveryServiceType;
-    public capacitiesLocalList: CapacitiesLocal[] = [];
-    public capacitiesLocalSelection: CapacitiesLocal;
+    public capacitiesLocalList: CapacitiesStore[] = [];
+    public capacitiesLocalSelection: CapacitiesStore;
     public localDefaultCapacitySelection: CapacitiesLocalServiceDefaultCapacity;
     public capacitiesServiceTypeSelection: CapacitiesServiceType;
 
@@ -59,7 +59,7 @@ export class OpCapacitiesLocalDefaultCapacityComponent implements OnInit, OnDest
         this.subscriptions.push(subscription);
     }
 
-    changeCapacitiesLocalSelection(capacitiesLocal: CapacitiesLocal) {
+    changeCapacitiesLocalSelection(capacitiesLocal: CapacitiesStore) {
         this.capacitiesLocalSelection = capacitiesLocal;
         this._opCapacitiesLocalDefaultCapacity.localDefaultCapacityLocalSelection = capacitiesLocal;
         this.resetLocalServiceList();

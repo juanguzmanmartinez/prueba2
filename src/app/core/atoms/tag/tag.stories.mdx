@@ -1,5 +1,5 @@
 import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
-import {TagComponent} from "./tag.component";
+import {TagComponent} from "./views/tag.component";
 
 <Meta
     title="Atoms/Tag"
@@ -24,7 +24,7 @@ export const Template = (args) => ({
         declarations: [TagComponent],
     },
     template: '<app-tag ' +
-        '[tagStatus]="tagStatus">{{content}}</app-tag>',
+        '[tagColor]="tagStatus">{{content}}</app-tag>',
 })
 
 <br/>
@@ -41,7 +41,7 @@ export const Template = (args) => ({
            parameters={{
                docs: {
                    source: {
-                       code: '<app-tag tagStatus="error">Error</app-tag>',
+                       code: '<app-tag tagColor="error">Error</app-tag>',
                    }
                }
            }}>{Template.bind({})}
@@ -54,7 +54,7 @@ export const Template = (args) => ({
            parameters={{
                docs: {
                    source: {
-                       code: '<app-tag tagStatus="warning">Warning</app-tag>',
+                       code: '<app-tag tagColor="warning">Warning</app-tag>',
                    }
                }
            }}>{Template.bind({})}
@@ -67,7 +67,7 @@ export const Template = (args) => ({
            parameters={{
                docs: {
                    source: {
-                       code: '<app-tag tagStatus="success">Success</app-tag>',
+                       code: '<app-tag tagColor="success">Success</app-tag>',
                    },
                }
            }}>{Template.bind({})}
@@ -94,8 +94,8 @@ export class YourModule {}
 ## Examples
 
   ```html
-    <app-tag tagStatus="error">Error</app-tag>
+    <app-tag tagColor="error">Error</app-tag>
 ```
  ```html
-    <app-tag tagStatus="warning">Warning</app-tag>
+    <app-tag tagColor="warning">Warning</app-tag>
   ```

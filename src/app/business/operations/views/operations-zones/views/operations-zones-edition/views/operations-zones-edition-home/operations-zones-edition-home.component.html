@@ -9,39 +9,41 @@
         </div>
     </div>
 
-    <div class="row mb-6">
+
+    <div class="row mb-6" *ngIf="zoneDetail">
         <div class="col-12">
             <app-op-zones-edition-home-zone-detail-card
-                    [zone]="zone"
+                    [zoneDetail]="zoneDetail"
                     (edit)="editStore()">
             </app-op-zones-edition-home-zone-detail-card>
         </div>
     </div>
 
-    <div class="row justify-content-between">
+    <div class="row justify-content-between" *ngIf="zonesServiceTypeList">
         <div class="col-5 mb-6">
             <app-op-zones-edition-home-service-type-card
-                    serviceTypeName="AM/PM"
-                    (edit)="editServiceType(deliveryServiceType.amPm)">
+                    [serviceType]="zonesServiceTypeList.amPm"
+                    (edit)="editServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
         <div class="col-5 mb-6">
             <app-op-zones-edition-home-service-type-card
-                    serviceTypeName="programado"
-                    (edit)="editServiceType(deliveryServiceType.scheduled)">
+                    [serviceType]="zonesServiceTypeList.scheduled"
+                    (edit)="editServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
         <div class="col-5 mb-6">
             <app-op-zones-edition-home-service-type-card
-                    serviceTypeName="express"
-                    (edit)="editServiceType(deliveryServiceType.express)">
+                    [serviceType]="zonesServiceTypeList.express"
+                    (edit)="editServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
         <div class="col-5 mb-6">
             <app-op-zones-edition-home-service-type-card
-                    serviceTypeName="RET"
-                    (edit)="editServiceType(deliveryServiceType.ret)">
+                    [serviceType]="zonesServiceTypeList.ret"
+                    (edit)="editServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
     </div>
+
 </section>

@@ -1,0 +1,27 @@
+<section class="dialog-edition-access" app-dialog-container>
+    <div class="content mb-6">
+        <app-dialog-header containerClass="align-items-center"
+                           fontName="warning"
+                           fontClass="text-warning">
+            <ng-container dialog-header-title>
+                <span class="text-subtitle-1 text-wrap font-weight-bold">
+                    No tienes permiso para editar esta configuración
+                </span>
+            </ng-container>
+        </app-dialog-header>
+    </div>
+
+    <div class="content mb-9">
+        <p class="text-label text-gray-6 mb-0">
+            Por favor pídele a un administrador que edite este valor.
+        </p>
+    </div>
+
+    <div class="content d-flex-horizontal-end">
+        <app-button appearance="primary"
+                    innerClass="px-10"
+                    mat-dialog-close>
+            Entendido
+        </app-button>
+    </div>
+</section>

@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
-import { Zone } from '../../modals/operation-zones-responses.modal';
+import { Zone } from '../../models/operations-zones.model';
 import { OpZonesHomeZoneDetailDialogService } from './components/op-zones-home-zone-detail-dialog/op-zones-home-zone-detail-dialog.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { CDeliveryServiceTypeName } from '@models/capacities/capacities-service-type.model';
+import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
 import { OperationsZonesImplementService } from '../../implements/operations-zones-implement.service';
 import { PaginatorComponent } from '@atoms/paginator/paginator.component';
 import { normalizeValue } from '@helpers/string.helper';
@@ -64,7 +64,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
             const nameNormalize = normalizeValue(data.name);
             const assignedStoreNameNormalize = normalizeValue(data.assignedStore ? data.assignedStore.name : '');
             const serviceTypeNormalize = normalizeValue(data.serviceTypeList.map(serviceType => this.serviceTypeName[serviceType]).join(''));
-            const stateNormalize = normalizeValue(this.stateName[data.state]);
+            const stateNormalize = normalizeValue(this.stateName[data.state]());
             const valueArray = [idNormalize, nameNormalize, codeNormalize, assignedStoreNameNormalize, serviceTypeNormalize, stateNormalize];
 
             const concatValue = normalizeValue(valueArray.join(''));

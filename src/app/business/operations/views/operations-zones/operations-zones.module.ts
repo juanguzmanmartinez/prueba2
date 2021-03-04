@@ -5,7 +5,7 @@ import { OperationsZonesRoutingModule } from './operations-zones-routing.module'
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from '@atoms/tooltip/tooltip.module';
 import { InputsModule } from '@atoms/inputs/inputs.module';
 import { IconsModule } from '@atoms/icons/icons.module';
@@ -35,6 +35,13 @@ import { OpZonesEditionServiceTypeDetailDialogComponent } from './views/operatio
 import { OperationsZonesImplementService } from './implements/operations-zones-implement.service';
 import { CardModule } from '@molecules/cards/card.module';
 import { MatTabsModule } from '@angular/material/tabs';
+import { SwitchModule } from '@atoms/switch/switch.module';
+import { FormFieldModule } from '@molecules/form-field/form-field.module';
+import { SelectSearchModule } from '@atoms/select-search/select-search.module';
+import { SelectModule } from '@atoms/select/select.module';
+import { RadioModule } from '@atoms/radio/radio.module';
+import { AlertModule } from '@molecules/alert/alert.module';
+import { DirectivesModule } from '../../../../shared/directives/directives.module';
 
 
 @NgModule({
@@ -73,6 +80,14 @@ import { MatTabsModule } from '@angular/material/tabs';
         PaginatorModule,
         CardModule,
         MatTabsModule,
+        SwitchModule,
+        FormFieldModule,
+        SelectSearchModule,
+        SelectModule,
+        ReactiveFormsModule,
+        RadioModule,
+        AlertModule,
+        DirectivesModule
     ],
     providers: [
         OperationsZonesImplementService

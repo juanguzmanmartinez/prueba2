@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
 @Injectable()
-export class RecoveryPasswordStore implements OnDestroy {
+export class RecoveryPasswordStoreService implements OnDestroy {
     private _username: string;
     private _code: string;
 

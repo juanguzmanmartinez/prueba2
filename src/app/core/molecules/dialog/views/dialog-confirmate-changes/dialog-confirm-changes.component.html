@@ -1,0 +1,29 @@
+<section class="dialog-confirm-changes" app-dialog-container>
+    <div class="content mb-6">
+        <app-dialog-header containerClass="align-items-center"
+                           fontName="info"
+                           fontClass="text-primary">
+            <ng-container dialog-header-title>
+                Confirmación de cambios
+            </ng-container>
+        </app-dialog-header>
+    </div>
+
+    <div class="content mb-9">
+        <p class="text-label text-gray-6 mb-0">¿Estás seguro guardar estos cambios?</p>
+    </div>
+
+    <div class="content d-flex-horizontal-end flex-column flex-md-row">
+        <app-button appearance="secondary"
+                    innerClass="w-100 w-md-auto"
+                    class="me-md-4 mb-4 mb-md-0"
+                    mat-dialog-close>
+            No, regresar
+        </app-button>
+        <app-button appearance="primary"
+                    innerClass="w-100 w-md-auto"
+                    [mat-dialog-close]="true">
+            Sí, guardar
+        </app-button>
+    </div>
+</section>

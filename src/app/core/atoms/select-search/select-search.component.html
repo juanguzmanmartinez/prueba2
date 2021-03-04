@@ -1,6 +1,6 @@
 <label class="select-search"
        [class.select-search-disabled]="disabled"
-       [htmlFor]="id">
+       [htmlFor]="selectId">
 
   <ng-container *ngIf="!showSearchInput">
     <span *ngIf="placeholder && !_optionSelected"
@@ -20,12 +20,12 @@
   <input type="search"
          class="select-search-input"
          #inputSelectSearch
-         [id]="id"
+         [id]="selectId"
          [formControl]="inputSelectSearchControl"
          [matAutocomplete]="selectSearch">
 
   <mat-autocomplete autoActiveFirstOption
-                    (optionSelected)="optionSelectedAutocomplete($event)"
+                    (optionSelected)="optionSelectedAutocomplete($event.option.value)"
                     [disableRipple]="true"
                     #selectSearch="matAutocomplete"
                     class="select-search-component">

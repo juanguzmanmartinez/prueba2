@@ -2,7 +2,7 @@ import { ICapacityStepExpressResourceSegments } from '../components/op-capacitie
 import { ICapacityStepCapacityTableSegments } from '../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 import { CapacitiesServiceType } from './operations-capacities-responses.model';
 import { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';
-import { ServiceTypeSegment } from '@models/local/service-type.model';
+import { ServiceTypeSegment } from '@interfaces/stores/stores.interface';
 
 
 export class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {

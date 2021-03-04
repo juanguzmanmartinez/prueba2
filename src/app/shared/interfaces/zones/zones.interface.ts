@@ -1,9 +1,15 @@
-import { EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
+import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { EChannel } from '@models/channel/channel.model';
-import { ECompanyCode } from '@models/company-code/company-code.model';
+import { ECompany } from '@models/company/company.model';
+import { IStore } from '@interfaces/stores/stores.interface';
 
 export interface IZoneServiceType {
     serviceTypeCode: EDeliveryServiceType;
+    serviceTypeId: string;
+    segmentGap: number;
+    startHour: string;
+    endHour: string;
+    enabled: boolean;
 }
 
 export interface IZoneAssignedStore {
@@ -21,11 +27,19 @@ export interface IZone {
     enabled: boolean;
     fulfillmentCenterCode: string;
     serviceTypes: Array<IZoneServiceType>;
-    storeCenter: IZoneAssignedStore;
+    storeCenter: IStore;
 }
 
 export interface IZoneDetail extends IZone {
     zoneType: string;
     channel: Array<EChannel>;
-    companyCode: ECompanyCode;
+    companyCode: ECompany;
+}
+
+export interface IZoneDetailUpdate {
+    fulfillmentCenterCode: string;
+    enabled: boolean;
+    zoneType: string;
+    channel: Array<EChannel>;
+    companyCode: ECompany;
 }

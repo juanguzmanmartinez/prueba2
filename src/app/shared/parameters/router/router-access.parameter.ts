@@ -8,9 +8,9 @@ const VIEWER = Role.Viewer.valueOf();
 
 export const ROUTER_ACCESS = {
     [CONCAT_PATH.admin]: [DEVELOPER],
-    [CONCAT_PATH.operationZones]: [ADMIN],
-    [CONCAT_PATH.operationStores]: [ADMIN],
+    [CONCAT_PATH.operationZones]: [ADMIN, VIEWER, ASSISTANT],
+    [CONCAT_PATH.operationStores]: [DEVELOPER],
     [CONCAT_PATH.operationCapacities]: [ADMIN, VIEWER, ASSISTANT],
-    [CONCAT_PATH.operationSettings]: [ADMIN, VIEWER],
+    [CONCAT_PATH.operationSettings]: [DEVELOPER],
     [CONCAT_PATH.opCapacitiesReport]: [DEVELOPER],
 };

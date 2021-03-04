@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CUpdatePasswordMessages } from '@organisms/update-password-form/parameters/update-password-messages.parameter';
 import { AuthImplementService } from '@implements/auth/auth-implement.service';
 import { AlertService } from '@molecules/alert/alert.service';
-import { RecoveryPasswordStore } from '../../stores/recovery-password.store';
+import { RecoveryPasswordStoreService } from '../../stores/recovery-password-store.service';
 import { UpdatePasswordFormComponent } from '@organisms/update-password-form/update-password-form.component';
 
 @Component({
@@ -22,7 +22,7 @@ export class RecoverPasswordResetComponent implements OnInit {
         private _router: Router,
         private _authImplement: AuthImplementService,
         private  _alertService: AlertService,
-        @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStore,
+        @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStoreService,
     ) {
     }
 

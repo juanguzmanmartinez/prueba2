@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OP_STORES_PATH } from '@parameters/router/router-path.parameter';
 import { OperationsStoresImplementService } from '../../../../implements/operations-stores-implement.service';
-import { IStore } from '../../../../modals/operation-stores-responses.modal';
+import { IStore } from '../../../../models/operation-stores-responses.model';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
-import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
+import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 
 @Component({
     selector: 'app-operations-stores-edition-home',

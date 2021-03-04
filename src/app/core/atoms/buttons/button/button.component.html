@@ -6,6 +6,6 @@
   [type]="behavior"
   [disabled]="disabled"
   [ngStyle]="inlineStyle"
-  (click)="onClick($event)">
+  (click)="clicked.emit($event)">
   <ng-content></ng-content>
 </button>

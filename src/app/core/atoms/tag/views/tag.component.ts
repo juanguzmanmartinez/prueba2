@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ETag, ETagAppearance } from '@models/tag/tag.model';
 
 @Component({
     selector: 'app-tag',
@@ -7,8 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TagComponent implements OnInit {
 
-    @Input() tagStatus: 'error' | 'warning' | 'success' | string;
-    @Input() appearance: 'default' | 'pill' | 'uppercase' = 'pill';
+    public tagAppearance = ETagAppearance;
+
+    @Input() tagColor: ETag | string;
+    @Input() appearance: ETagAppearance = ETagAppearance.transparentPill;
 
     constructor() {
     }

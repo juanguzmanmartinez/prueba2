@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ZoneDetail } from '../../../../modals/operation-zones-responses.modal';
+import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { CStateName, CStateTag } from '@models/state/state.model';
-import { CCompanyName } from '@models/company-code/company-code.model';
-import { CDeliveryServiceTypeName } from '@models/capacities/capacities-service-type.model';
+import { CCompanyName } from '@models/company/company.model';
+import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
+import { CChannelName } from '@models/channel/channel.model';
+import { ETagAppearance } from '@models/tag/tag.model';
 
 @Component({
     selector: 'app-op-zones-home-zone-detail-dialog',
@@ -14,7 +16,9 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
     public stateTag = CStateTag;
     public stateName = CStateName;
     public companyName = CCompanyName;
+    public channelName = CChannelName;
     public serviceTypeName = CDeliveryServiceTypeName;
+    public tagAppearance = ETagAppearance;
 
     @Input() zoneDetail: ZoneDetail;
 

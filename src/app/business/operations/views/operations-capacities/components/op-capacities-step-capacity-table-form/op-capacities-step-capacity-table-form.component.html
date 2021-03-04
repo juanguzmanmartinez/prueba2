@@ -18,7 +18,7 @@
                       [disabled]="_opCapacitiesStepCapacityTableForm.capacityForSelection.value === null ||
                                   _opCapacitiesStepCapacityTableForm.capacityForSelection.invalid ||
                                   !capacityTableSelection.selected.length"
-                      (click)="applyCapacity()">
+                      (clicked)="applyCapacity()">
             Aplicar a selección
           </app-button>
         </div>
@@ -27,7 +27,7 @@
 
 
     <div class="col-12 mb-5" *ngIf="_opCapacitiesStepCapacityTableForm.capacitySegmentList?.controls.length">
-      <table mat-table table-small
+      <table mat-table
              [dataSource]="capacityTableDataSource"
              class="capacity-table"
              formArrayName="capacitySegmentList">
@@ -40,7 +40,7 @@
             </app-checkbox>
           </th>
           <td mat-cell *matCellDef="let row">
-            <app-checkbox (click)="$event.stopPropagation()"
+            <app-checkbox (clicked)="$event.stopPropagation()"
                           (change)="$event ? capacityTableSelection.toggle(row) : null"
                           [checked]="capacityTableSelection.isSelected(row)">
             </app-checkbox>
@@ -64,7 +64,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="capacityTableDisplayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: capacityTableDisplayedColumns;"
+        <tr mat-row row-small row-hover *matRowDef="let row; columns: capacityTableDisplayedColumns;"
             (click)="capacityTableSelection.toggle(row)">
         </tr>
       </table>

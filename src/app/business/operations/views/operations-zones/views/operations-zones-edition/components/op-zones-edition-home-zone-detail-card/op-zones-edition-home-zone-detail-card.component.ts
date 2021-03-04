@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Zone } from '../../../../modals/operation-zones-responses.modal';
+import { ZoneDetail } from '../../../../models/operations-zones.model';
+import { CStateName, CStateTag } from '@models/state/state.model';
+import { CCompanyName } from '@models/company/company.model';
+import { CChannelName } from '@models/channel/channel.model';
+import { ETagAppearance } from '@models/tag/tag.model';
 
 @Component({
     selector: 'app-op-zones-edition-home-zone-detail-card',
@@ -7,7 +11,14 @@ import { Zone } from '../../../../modals/operation-zones-responses.modal';
     styleUrls: ['./op-zones-edition-home-zone-detail-card.component.sass']
 })
 export class OpZonesEditionHomeZoneDetailCardComponent implements OnInit {
-    @Input() zone: Zone;
+    public stateTag = CStateTag;
+    public stateName = CStateName;
+    public companyName = CCompanyName;
+    public channelName = CChannelName;
+    public tagAppearance = ETagAppearance;
+
+
+    @Input() zoneDetail: ZoneDetail;
     @Output() edit = new EventEmitter();
 
     constructor() {

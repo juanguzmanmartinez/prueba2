@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OP_ZONES_PATH } from '@parameters/router/router-path.parameter';
+import { Component, OnDestroy, OnInit, SkipSelf } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Zone } from '../../../../modals/operation-zones-responses.modal';
-import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
+import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
-import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
+import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import { ZonesServiceTypeList } from '../../../../models/operations-zones-service-type.model';
+import { OperationsZonesEditionStoreService } from '../../stores/operations-zones-edition-store.service';
 
 @Component({
     selector: 'app-operations-zones-edition-home',
@@ -15,36 +15,30 @@ import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/capacit
 export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     public deliveryServiceType = EDeliveryServiceType;
-    public zone: Zone;
+    public zoneDetail: ZoneDetail;
+    public zonesServiceTypeList: ZonesServiceTypeList;
 
     constructor(
-        private _activatedRoute: ActivatedRoute,
         private _router: Router,
-        private _operationsZonesImplement: OperationsZonesImplementService
+        @SkipSelf() private _operationsZonesEditionStore: OperationsZonesEditionStoreService,
     ) {
     }
 
     ngOnInit(): void {
-        const subscription = this._activatedRoute.paramMap.subscribe(() => {
-            const zoneId = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneId];
-            this.getZoneById(zoneId);
-        });
+        const subscription = this._operationsZonesEditionStore.zoneDetail$
+            .subscribe((zoneDetail) => {
+                this.zoneDetail = zoneDetail;
+                this.zonesServiceTypeList = new ZonesServiceTypeList(zoneDetail.serviceTypeList);
+            });
         this.subscriptions.push(subscription);
     }
 
-    getZoneById(zoneId: string) {
-        this._operationsZonesImplement.getZoneDetail(zoneId)
-            .subscribe((zone) => {
-                this.zone = zone;
-            });
-    }
-
     editStore() {
-        this._router.navigate([CONCAT_PATH.opZones_ZoneId(`${this.zone.id}`)]);
+        this._router.navigate([CONCAT_PATH.opZones_ZoneEdition(`${this.zoneDetail.id}`)]);
     }
 
     editServiceType(serviceType: EDeliveryServiceType) {
-        const zoneIdPath = CONCAT_PATH.opZones_ZoneId(`${this.zone.id}`);
+        const zoneIdPath = CONCAT_PATH.opZones_ZoneId(`${this.zoneDetail.id}`);
         const serviceTypePath = `${zoneIdPath}/${CDeliveryServiceTypeRoute[serviceType]}`;
         this._router.navigate([serviceTypePath]);
     }

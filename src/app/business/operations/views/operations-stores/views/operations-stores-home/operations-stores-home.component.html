@@ -17,7 +17,7 @@
 
     <div class="row">
         <div class="col-12">
-            <table mat-table table-regular [dataSource]="dataSource" matSort>
+            <table mat-table [dataSource]="dataSource" matSort>
 
                 <ng-container matColumnDef="store">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Local</th>
@@ -52,8 +52,8 @@
                 <ng-container matColumnDef="status">
                     <th mat-header-cell header-cell-center *matHeaderCellDef> Estado</th>
                     <td mat-cell cell-center *matCellDef="let element">
-                        <app-tag *ngIf="element.status === 'activo'" tagStatus="success">{{element.status}}</app-tag>
-                        <app-tag *ngIf="element.status === 'cerrado'" tagStatus="error">{{element.status}}</app-tag>
+                        <app-tag *ngIf="element.status === 'activo'" tagColor="success">{{element.status}}</app-tag>
+                        <app-tag *ngIf="element.status === 'cerrado'" tagColor="danger">{{element.status}}</app-tag>
                     </td>
                 </ng-container>
 
@@ -62,12 +62,12 @@
                     <td mat-cell cell-center
                         *matCellDef="let element">
                         <app-tooltip class="me-4" value="Editar">
-                            <app-button-action-icon (click)="editStore(element.store)"
+                            <app-button-action-icon (clicked)="editStore(element.store)"
                                                     iconName="edit">
                             </app-button-action-icon>
                         </app-tooltip>
                         <app-tooltip value="Más detalles">
-                            <app-button-action-icon (click)="storeDetailDialog(element)"
+                            <app-button-action-icon (clicked)="storeDetailDialog(element)"
                                                     iconName="launch">
                             </app-button-action-icon>
                         </app-tooltip>

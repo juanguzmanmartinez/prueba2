@@ -1,4 +1,4 @@
-<label class="radio-container">
+<label class="radio-container" [class.radio-checked]="checked">
   <input
     type="radio"
     class="radio"
@@ -6,7 +6,7 @@
     [name]="radioName"
     [value]="value"
     [disabled]="disabled"
-    [(ngModel)]="checked"
+    [checked]="checked"
     (change)="chooseRadio()">
 
   <span class="radio-mark"></span>

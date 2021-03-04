@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IStore } from '../../../../modals/operation-stores-responses.modal';
+import { IStore } from '../../../../models/operation-stores-responses.model';
 
 @Component({
     selector: 'app-op-stores-edition-home-store-detail-card',

@@ -2,7 +2,7 @@ import { Component, OnInit, SkipSelf } from '@angular/core';
 import { RecoverPasswordCodeForm } from '../../form/recover-password-code.form';
 import { Router } from '@angular/router';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
-import { RecoveryPasswordStore } from '../../stores/recovery-password.store';
+import { RecoveryPasswordStoreService } from '../../stores/recovery-password-store.service';
 import { emailMasking } from '@helpers/email-mask.helper';
 import { AuthImplementService } from '@implements/auth/auth-implement.service';
 import { AlertService } from '@molecules/alert/alert.service';
@@ -22,7 +22,7 @@ export class RecoverPasswordCodeComponent implements OnInit {
         private authImplement: AuthImplementService,
         private  alertService: AlertService,
         public recoverPasswordCodeForm: RecoverPasswordCodeForm,
-        @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStore,
+        @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStoreService,
     ) {
     }
 

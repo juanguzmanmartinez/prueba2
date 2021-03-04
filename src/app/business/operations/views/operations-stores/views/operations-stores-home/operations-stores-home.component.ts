@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { OpStoresHomeStoreDetailDialogService } from './components/op-stores-home-store-detail-dialog/op-stores-home-store-detail-dialog.service';
-import { IStore, STORES_LIST } from '../../modals/operation-stores-responses.modal';
+import { IStore, STORES_LIST } from '../../models/operation-stores-responses.model';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IStore } from '../../../../modals/operation-stores-responses.modal';
+import { IStore } from '../../../../models/operation-stores-responses.model';
 
 @Component({
     selector: 'app-op-stores-home-store-detail-dialog',

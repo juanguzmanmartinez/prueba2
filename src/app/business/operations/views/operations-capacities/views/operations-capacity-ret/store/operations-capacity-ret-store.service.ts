@@ -12,7 +12,7 @@ import { getDaysRangeBetweenDates } from '@helpers/dates.helper';
 import { ICapacityStepCapacityTableSegments } from '../../../components/op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 import { capacityAlertSuccessMessage } from '../../../parameters/operations-capacities-alert-message.parameter';
 import { CapacityRangeLimit, ToCapacityStepRetCapacitySegments } from '../../../models/operations-capacity-converter.model';
-import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
+import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { EChannel } from '@models/channel/channel.model';
 import { CapacitiesServiceType } from '../../../models/operations-capacities-responses.model';
 

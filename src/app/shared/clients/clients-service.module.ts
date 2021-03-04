@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GenericService } from './generic/generic.service';
 import { CalendarClientService } from './capacities/calendar-client.service';
-import { LocalClientService } from './capacities/local-client.service';
+import { StoresClientService } from './stores/stores-client.service';
 import { AuthClientService } from '@clients/auth/auth-client.service';
 import { StorageClientService } from '@clients/storage/storage-client.service';
 import { ZonesClientService } from '@clients/zones/zones-client.service';
@@ -10,7 +10,7 @@ import { ZonesClientService } from '@clients/zones/zones-client.service';
 const SERVICES = [
     GenericService,
     CalendarClientService,
-    LocalClientService,
+    StoresClientService,
     AuthClientService,
     StorageClientService,
     ZonesClientService,

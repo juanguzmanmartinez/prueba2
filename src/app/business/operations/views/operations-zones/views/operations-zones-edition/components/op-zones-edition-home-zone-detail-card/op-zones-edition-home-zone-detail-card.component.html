@@ -2,12 +2,15 @@
     <div class="row mb-6">
         <div class="col-12">
             <h5 class="text-h5 mb-2">
-                San Miguel
-                <span class="text-caption text-gray-5 ms-3">B03</span>
+                {{zoneDetail.name}}
+                <span class="text-caption text-gray-5 ms-3">
+                    {{zoneDetail.code}}
+                </span>
             </h5>
-            <app-tag class="d-block"
-                     tagStatus="success">
-                Zona activa
+            <app-tag  class="d-block"
+                      [appearance]="tagAppearance.default"
+                      [tagColor]="stateTag[zoneDetail.state]">
+                Zona {{stateName[zoneDetail.state]('a')}}
             </app-tag>
         </div>
     </div>
@@ -16,33 +19,40 @@
         <div class="col-6">
             <app-card-static-information class="d-block mb-5" iconName="store">
                 <ng-container information-title>Local de atención</ng-container>
-                <ng-container information-caption>IKF-123 Proceres 1</ng-container>
+                <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
             </app-card-static-information>
 
             <app-card-static-information class="d-block mb-5" iconName="store">
                 <ng-container information-title>Local backup</ng-container>
-                <ng-container information-caption>IKF-233 DC Surquillo </ng-container>
+                <ng-container information-caption>No asignado</ng-container>
             </app-card-static-information>
 
             <app-card-static-information class="d-block mb-5" iconName="location_searching">
                 <ng-container information-title>Zona backup</ng-container>
-                <ng-container information-caption>San borja 2 - B04</ng-container>
+                <ng-container information-caption>No asignado</ng-container>
             </app-card-static-information>
         </div>
         <div class="col-6">
             <app-card-static-information class="d-block mb-5" iconName="shopping_bag">
                 <ng-container information-title>Marcas</ng-container>
-                <ng-container information-caption>Inkafarma - Mifarma</ng-container>
+                <ng-container information-caption>{{companyName[zoneDetail.company]}}</ng-container>
             </app-card-static-information>
 
             <app-card-static-information class="d-block mb-5" iconName="record_voice_over">
                 <ng-container information-title>Canales de atención</ng-container>
-                <ng-container information-caption>Call Center - Digital</ng-container>
+                <ng-container information-caption>
+                    <ng-container *ngFor="let channel of zoneDetail.channel; let last = last">
+                            <span>
+                                {{channelName[channel]}}
+                                <span class="ms-2" *ngIf="!last">-</span>
+                            </span>
+                    </ng-container>
+                </ng-container>
             </app-card-static-information>
 
             <app-card-static-information class="d-block" iconName="info">
-                <ng-container information-title>Etiqueta</ng-container>
-                <ng-container information-caption>Dificil acceso</ng-container>
+                <ng-container information-title>Etiquetas</ng-container>
+                <ng-container information-caption>{{zoneDetail.label}}</ng-container>
             </app-card-static-information>
         </div>
     </div>

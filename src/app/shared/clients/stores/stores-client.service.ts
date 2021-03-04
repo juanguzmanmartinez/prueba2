@@ -5,19 +5,16 @@ import { map, take } from 'rxjs/operators';
 import { EndpointsParameter } from '@parameters/generic/endpoints.parameter';
 import { isArray, isObject } from '@helpers/objects-equal.helper';
 import { GenericService } from '../generic/generic.service';
-import { ILocal } from '@models/local/local.model';
-import { IServiceType } from '@models/local/service-type.model';
-import { ILocalParams } from '@models/local/local-params.model';
-import { ILocalGroup } from '@models/local/local-group.model';
 import { Observable } from 'rxjs';
 import { EChannel } from '@models/channel/channel.model';
-import { EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
+import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import { ILocalGroup, ILocalParams, IServiceType, IStore } from '@interfaces/stores/stores.interface';
 
 
 @Injectable()
-export class LocalClientService {
+export class StoresClientService {
 
-    private readonly LOCAL = EndpointsParameter.GET_DRUGSTORE;
+    private readonly STORE_LIST = EndpointsParameter.GET_DRUGSTORE;
     private readonly LOCAL_BY_SERVICE_TYPE_ENDPOINT = EndpointsParameter.GET_DRUGSTORE_BY_SERVICE_TYPE;
     private readonly TYPE_SERVICE_ENDPOINT = EndpointsParameter.GET_CALENDAR_SERVICE_TYPE;
 
@@ -26,9 +23,8 @@ export class LocalClientService {
     ) {
     }
 
-    public getLocalClient$(): Observable<ILocal[]> {
-        const endpoint = `${this.LOCAL}`;
-        return this.genericService.genericGet<ILocal[]>(endpoint)
+    public getStoreList(): Observable<IStore[]> {
+        return this.genericService.genericGet<IStore[]>(this.STORE_LIST)
             .pipe(
                 take(1),
                 map((response) => {
@@ -36,9 +32,9 @@ export class LocalClientService {
                 }));
     }
 
-    public getLocalByServiceTypeClient$(serviceType: EDeliveryServiceType): Observable<ILocal[]> {
+    public getLocalByServiceTypeClient$(serviceType: EDeliveryServiceType): Observable<IStore[]> {
         const endpoint = `${this.LOCAL_BY_SERVICE_TYPE_ENDPOINT}${serviceType}`;
-        return this.genericService.genericGet<ILocal[]>(endpoint)
+        return this.genericService.genericGet<IStore[]>(endpoint)
             .pipe(
                 take(1),
                 map((response) => {

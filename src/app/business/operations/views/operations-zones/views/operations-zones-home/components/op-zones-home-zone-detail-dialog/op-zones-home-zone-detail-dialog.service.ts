@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { DialogService } from '@molecules/dialog/dialog.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { OpZonesHomeZoneDetailDialogComponent } from './op-zones-home-zone-detail-dialog.component';
-import { ZoneDetail } from '../../../../modals/operation-zones-responses.modal';
+import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
 import { DialogLoaderService } from '@molecules/dialog/views/dialog-loader/dialog-loader.service';
 import { take } from 'rxjs/operators';

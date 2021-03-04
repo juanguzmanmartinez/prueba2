@@ -30,7 +30,7 @@
                         </app-checkbox>
                     </th>
                     <td mat-cell customColumn="selector" *matCellDef="let row">
-                        <app-checkbox (click)="$event.stopPropagation()"
+                        <app-checkbox (clicked)="$event.stopPropagation()"
                                       (change)="$event ? rowSelection.toggle(row) : null"
                                       [checked]="rowSelection.isSelected(row)">
                         </app-checkbox>
@@ -67,8 +67,8 @@
                 <ng-container matColumnDef="zoneState">
                     <th mat-header-cell columnWidth="12%" header-cell-center *matHeaderCellDef>Estado</th>
                     <td mat-cell columnWidth="12%" cell-center *matCellDef="let element">
-                        <app-tag [tagStatus]="stateTag[element.state]">
-                            {{stateName[element.state]}}
+                        <app-tag [tagColor]="stateTag[element.state]">
+                            {{stateName[element.state]()}}
                         </app-tag>
                     </td>
                 </ng-container>
@@ -78,12 +78,12 @@
                     <td mat-cell customColumn="actions"
                         *matCellDef="let element">
                         <app-tooltip class="me-4" value="Editar">
-                            <app-button-action-icon (click)="editRow(element.id)"
+                            <app-button-action-icon (clicked)="editRow(element.id)"
                                                     iconName="edit">
                             </app-button-action-icon>
                         </app-tooltip>
                         <app-tooltip value="Más detalles">
-                            <app-button-action-icon (click)="rowDetailDialog(element)"
+                            <app-button-action-icon (clicked)="rowDetailDialog(element)"
                                                     iconName="launch">
                             </app-button-action-icon>
                         </app-tooltip>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { STORES_LIST } from '../modals/operation-stores-responses.modal';
+import { STORES_LIST } from '../models/operation-stores-responses.model';
 
 @Injectable()
 export class OperationsStoresImplementService {

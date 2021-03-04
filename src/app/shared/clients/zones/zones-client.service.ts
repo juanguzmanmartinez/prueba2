@@ -3,12 +3,16 @@ import { GenericService } from '@clients/generic/generic.service';
 import { EndpointsParameter } from '@parameters/generic/endpoints.parameter';
 import { map, take } from 'rxjs/operators';
 import { isArray, isObject } from '@helpers/objects-equal.helper';
-import { Observable } from 'rxjs';
-import { IZone, IZoneDetail } from '@interfaces/zones/zone.interface';
+import { Observable, of } from 'rxjs';
+import { IZone, IZoneDetail, IZoneDetailUpdate } from '@interfaces/zones/zones.interface';
+import { EChannel } from '@models/channel/channel.model';
+import { CompanyList, ECompany } from '@models/company/company.model';
+import { EZoneLabel, ZoneLabelList } from '../../../business/operations/views/operations-zones/models/operations-zones-label.model';
 
 @Injectable()
 export class ZonesClientService {
     private readonly ZONES = EndpointsParameter.GET_ZONES;
+    private readonly ZONES_CHANNEL = EndpointsParameter.GET_ZONES_CHANNEL;
 
     constructor(private generic: GenericService) {
     }
@@ -23,7 +27,7 @@ export class ZonesClientService {
 
     }
 
-    getZoneDetail(zoneId): Observable<IZoneDetail> {
+    getZoneDetail(zoneId: string): Observable<IZoneDetail> {
         const endpoint = `${this.ZONES}/${zoneId}`;
         return this.generic.genericGet<IZoneDetail>(endpoint)
             .pipe(
@@ -31,5 +35,28 @@ export class ZonesClientService {
                 map((response: IZoneDetail) => {
                     return isObject(response) ? response : null;
                 }));
+    }
+
+    putZoneDetail(zoneId: string, body: IZoneDetailUpdate): Observable<any> {
+        const endpoint = `${this.ZONES}/${zoneId}`;
+        return this.generic.genericPut<any>(endpoint, body)
+            .pipe(take(1));
+    }
+
+    getZoneChannelList(): Observable<Array<EChannel>> {
+        return this.generic.genericGet<Array<EChannel>>(this.ZONES_CHANNEL)
+            .pipe(
+                take(1),
+                map((response: Array<EChannel>) => {
+                    return isArray(response) ? response : [];
+                }));
+    }
+
+    getCompanyList(): Observable<ECompany[]> {
+        return of(CompanyList);
+    }
+
+    getZoneLabelList(): Observable<EZoneLabel[]> {
+        return of(ZoneLabelList);
     }
 }

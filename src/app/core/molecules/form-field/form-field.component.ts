@@ -14,7 +14,7 @@ export class FormFieldComponent implements AfterContentInit {
     @ContentChild(FormFieldLabelComponent) formFieldLabel!: FormFieldLabelComponent;
     @ContentChild(FormFieldErrorComponent, {static: false}) formFieldErrorComponent!: FormFieldErrorComponent;
 
-    @ContentChild(NgControl) public ngControl: NgControl;
+    @ContentChild(NgControl, {static: true}) public ngControl: NgControl;
 
     public formFieldError: boolean;
 

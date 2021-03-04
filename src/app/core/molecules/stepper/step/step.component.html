@@ -33,14 +33,16 @@
                 <app-button appearance="secondary"
                             class="me-md-4"
                             innerClass="w-100 w-md-auto"
-                            (click)="cancelButtonEvent.emit()">
+                            (clicked)="cancelButtonEvent.emit()">
                     {{cancelButtonText}}
                 </app-button>
                 <app-button appearance="primary"
                             class="mb-4 mb-md-0"
                             innerClass="w-100 w-md-auto"
+                            appEditionAccess
+                            [validateAccess]="validateAccess"
                             [disabled]="saveButtonDisabled"
-                            (click)="saveButtonEvent.emit()">
+                            (clicked)="saveButtonEvent.emit()">
                     {{saveButtonText}}
                 </app-button>
             </div>

@@ -19,6 +19,7 @@ export const ICONS_SVG: Array<IconsSvgModel> = [
     {name: 'search', path: `${pathIcons}search.svg`},
     {name: 'datepicker', path: `${pathIcons}datepicker.svg`},
     {name: 'ellipse-success', path: `${pathIcons}ellipse-success.svg`},
+    {name: 'ellipse-disabled', path: `${pathIcons}ellipse-disabled.svg`},
     {name: 'loader', path: `${pathIcons}loader.svg`},
 
     {name: 'logo', path: `${pathIllustrations}logo.svg`},

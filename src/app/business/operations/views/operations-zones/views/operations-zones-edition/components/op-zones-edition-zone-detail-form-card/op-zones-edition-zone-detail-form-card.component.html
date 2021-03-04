@@ -1,1 +1,126 @@
-<p>op-zones-edition-zone-detail-form-card works!</p>
+<app-card>
+    <form [formGroup]="_editionZoneDetailForm.form$">
+        <div class="row mb-6">
+            <div class="col-12">
+                <app-switch [formControlName]="controlName.state">Zona {{stateName[zoneDetail.state]('a')}}</app-switch>
+            </div>
+        </div>
+
+
+        <div class="row mb-9">
+
+            <div class="col-8 mb-5">
+                <app-form-field>
+                    <app-form-field-label>Local de atención</app-form-field-label>
+                    <app-select-search [hidden]="_editionZoneDetailForm.assignedStoreControl.disabled"
+                                       selectId="storeSelect"
+                                       placeholder="Elije un local"
+                                       [formControlName]="controlName.assignedStore"
+                                       [optionList]="storeList">
+                        <ng-template #optionSelectedTemplate
+                                     let-optionSelected>{{assignedStoreOptionName(optionSelected)}}</ng-template>
+                        <ng-template #optionTemplate
+                                     let-option>{{assignedStoreOptionName(option)}}</ng-template>
+                    </app-select-search>
+                    <app-input [hidden]="_editionZoneDetailForm.assignedStoreControl.enabled"
+                               [disabled]="_editionZoneDetailForm.assignedStoreControl.disabled"
+                               [value]="assignedStoreOptionName(_editionZoneDetailForm.assignedStoreControl.value)">
+                    </app-input>
+                </app-form-field>
+            </div>
+
+            <div class="col-8 mb-6">
+                <app-form-field>
+                    <app-form-field-label>Local backup</app-form-field-label>
+                    <app-select-search [hidden]="_editionZoneDetailForm.assignedStoreBackupControl.disabled"
+                                       selectId="store-backup-select"
+                                       placeholder="Elije un local backup"
+                                       [formControlName]="controlName.assignedStoreBackup"
+                                       [optionList]="storeBackupList">
+                        <ng-template #optionSelectedTemplate
+                                     let-optionSelected>{{assignedStoreOptionName(optionSelected)}}</ng-template>
+                        <ng-template #optionTemplate
+                                     let-option>{{assignedStoreOptionName(option)}}</ng-template>
+                    </app-select-search>
+                    <app-input [hidden]="_editionZoneDetailForm.assignedStoreBackupControl.enabled"
+                               [disabled]="_editionZoneDetailForm.assignedStoreBackupControl.disabled"
+                               [value]="assignedStoreOptionName(_editionZoneDetailForm.assignedStoreBackupControl.value)">
+                    </app-input>
+                </app-form-field>
+            </div>
+
+            <div class="col-12 mb-6">
+                <app-form-field>
+                    <app-form-field-label>Marcas</app-form-field-label>
+                    <div class="row mt-4">
+                        <ng-container *ngFor="let company of companyList">
+                            <div class="col-6">
+                                <app-radio [formControlName]="controlName.company"
+                                           [value]="company">
+                                    {{companyName[company]}}
+                                </app-radio>
+                            </div>
+                        </ng-container>
+                    </div>
+                </app-form-field>
+            </div>
+
+            <div class="col-12 mb-7" *ngIf="_editionZoneDetailForm.channelArray.controls.length">
+                <app-form-field>
+                    <app-form-field-label>Canales de atención</app-form-field-label>
+                    <div class="row mt-4" [formArrayName]="controlName.channel">
+                        <ng-container *ngFor="let channelControl of _editionZoneDetailForm.channelArray.controls; let index = index"
+                                      [formGroupName]="index">
+                            <div class="col-6">
+                                <app-checkbox formControlName="checked">
+                                    {{channelName[channelControl.value.name]}}
+                                </app-checkbox>
+                            </div>
+                        </ng-container>
+                    </div>
+                </app-form-field>
+            </div>
+
+            <div class="col-8">
+                <app-form-field>
+                    <app-form-field-label>Etiqueta</app-form-field-label>
+                    <div class="mb-4" *ngIf="_editionZoneDetailForm.labelControl.value">
+                        <app-tag-delete [hidden]="_editionZoneDetailForm.labelControl.disabled"
+                                        [tagColor]="labelColor[_editionZoneDetailForm.labelControl.value]"
+                                        (delete)="updateLabelControl()">
+                            {{_editionZoneDetailForm.labelControl.value}}
+                        </app-tag-delete>
+                        <app-tag [hidden]="_editionZoneDetailForm.labelControl.enabled"
+                                 [tagColor]="labelColor[_editionZoneDetailForm.labelControl.value]"
+                                 [appearance]="tagAppearance.coloredPill">
+                            {{_editionZoneDetailForm.labelControl.value}}
+                        </app-tag>
+                    </div>
+                    <app-select [hidden]="_editionZoneDetailForm.labelControl.disabled"
+                                [formControlName]="controlName.label"
+                                placeholder="Agrega una etiqueta a la zona"
+                                [optionList]="labelList">
+                    </app-select>
+                    <app-input [hidden]="_editionZoneDetailForm.labelControl.enabled"
+                               [disabled]="_editionZoneDetailForm.labelControl.disabled"
+                               [value]="_editionZoneDetailForm.labelControl.value">
+                    </app-input>
+                </app-form-field>
+            </div>
+        </div>
+
+        <div class="card-actions d-flex-horizontal-end pt-5 border-top border-gray-1">
+            <app-button appearance="secondary"
+                        class="me-4"
+                        (clicked)="cancelEditionEvent()">
+                Cancelar edición
+            </app-button>
+            <app-button appearance="primary"
+                        appEditionAccess
+                        (clicked)="saveEditionEvent()">
+                Guardar cambios
+            </app-button>
+        </div>
+
+    </form>
+</app-card>
