@@ -69,7 +69,7 @@
                                 <ng-container information-title>Tipo de despacho</ng-container>
                                 <ng-container information-caption>
                                     <ng-container *ngFor="let serviceType of zoneDetail.serviceTypeList; let last = last">
-                                        {{serviceTypeName[serviceType]}}
+                                        {{serviceTypeName[serviceType.code]}}
                                         <span *ngIf="!last" class="mx-2">-</span>
                                     </ng-container>
                                 </ng-container>
