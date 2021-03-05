@@ -4,20 +4,28 @@ import { ECompany } from '@models/company/company.model';
 import { IStore } from '@interfaces/stores/stores.interface';
 
 export interface IZoneServiceType {
-    serviceTypeCode: EDeliveryServiceType;
+    id: string;
     serviceTypeId: string;
+    serviceTypeCode: EDeliveryServiceType;
     segmentGap: number;
     startHour: string;
     endHour: string;
     enabled: boolean;
+    intervalTime: number;
 }
 
-export interface IZoneAssignedStore {
-    localCode: string;
-    name: string;
-    wmsEnabled: boolean;
+export interface IZoneServiceTypeUpdate {
     enabled: boolean;
-    position: number;
+    startHour: string;
+    endHour: string;
+    segmentGap: number;
+}
+export interface IZoneServiceTypRegister {
+    zoneId: string;
+    serviceTypeCode: string;
+    startHour: string;
+    endHour: string;
+    segmentGap: string;
 }
 
 export interface IZone {

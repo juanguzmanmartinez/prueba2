@@ -19,29 +19,35 @@
         </div>
     </div>
 
-    <div class="row justify-content-between" *ngIf="zonesServiceTypeList">
+    <div class="row justify-content-between"
+         *ngIf="zonesServiceTypeList"
+         [class.container-loader]="editionHomeLoader">
         <div class="col-5 mb-6">
             <app-op-zones-edition-home-service-type-card
                     [serviceType]="zonesServiceTypeList.amPm"
-                    (edit)="editServiceType($event)">
+                    (edit)="editServiceType($event)"
+                    (add)="addServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
         <div class="col-5 mb-6">
             <app-op-zones-edition-home-service-type-card
                     [serviceType]="zonesServiceTypeList.scheduled"
-                    (edit)="editServiceType($event)">
+                    (edit)="editServiceType($event)"
+                    (add)="addServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
         <div class="col-5 mb-6">
             <app-op-zones-edition-home-service-type-card
                     [serviceType]="zonesServiceTypeList.express"
-                    (edit)="editServiceType($event)">
+                    (edit)="editServiceType($event)"
+                    (add)="addServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
         <div class="col-5 mb-6">
             <app-op-zones-edition-home-service-type-card
                     [serviceType]="zonesServiceTypeList.ret"
-                    (edit)="editServiceType($event)">
+                    (edit)="editServiceType($event)"
+                    (add)="addServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
     </div>

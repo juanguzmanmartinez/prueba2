@@ -17,7 +17,7 @@ export interface IDatepickerRange {
 })
 export class InputDatepickerRangeComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
-    public subscriptions: Subscription[] = [];
+    private subscriptions: Subscription[] = [];
     public pickerHeaderComponent = DatepickerHeaderComponent;
 
     private value: IDatepickerRange = {} as IDatepickerRange;

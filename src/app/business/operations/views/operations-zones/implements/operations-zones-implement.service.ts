@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ZonesClientService } from '@clients/zones/zones-client.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IZone, IZoneDetail, IZoneDetailUpdate } from '@interfaces/zones/zones.interface';
+import { IZone, IZoneDetail, IZoneDetailUpdate, IZoneServiceTypeUpdate, IZoneServiceTypRegister } from '@interfaces/zones/zones.interface';
 import { Zone, ZoneDetail } from '../models/operations-zones.model';
 import { StoresClientService } from '@clients/stores/stores-client.service';
 import { ZonesStore } from '../models/operations-zones-store.model';
@@ -37,10 +37,6 @@ export class OperationsZonesImplementService {
             );
     }
 
-    putZoneDetail(zoneId: string, body: IZoneDetailUpdate) {
-        return this.zonesClient.putZoneDetail(zoneId, body);
-    }
-
     get storeList() {
         return this.storesClient.getStoreList()
             .pipe(
@@ -59,5 +55,17 @@ export class OperationsZonesImplementService {
 
     get labelList(): Observable<EZoneLabel[]> {
         return this.zonesClient.getZoneLabelList();
+    }
+
+    putZoneDetail(zoneId: string, body: IZoneDetailUpdate) {
+        return this.zonesClient.putZoneDetail(zoneId, body);
+    }
+
+    putZoneServiceType(serviceTypeId: string, zoneServiceTypeUpdate: IZoneServiceTypeUpdate) {
+        return this.zonesClient.putZoneServiceType(serviceTypeId, zoneServiceTypeUpdate);
+    }
+
+    postZoneServiceType(zoneServiceTypRegister: IZoneServiceTypRegister) {
+        return this.zonesClient.postZoneServiceType(zoneServiceTypRegister);
     }
 }

@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./checkbox.component.sass']
 })
 export class CheckboxComponent implements OnInit, ControlValueAccessor, OnDestroy {
-    public subscriptions: Subscription[] = [];
+    private subscriptions: Subscription[] = [];
 
     public _checked: boolean;
     public _indeterminate: boolean;

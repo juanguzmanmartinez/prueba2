@@ -42,6 +42,7 @@ export class EditionAccessDirective implements OnInit {
             this.hasEditionAccess = userRoles.some(role => this.userStore.hasRole(role));
             if (!this.hasEditionAccess) {
                 this.renderer.addClass(this.elementRef.nativeElement, 'cursor-pointer');
+                this.renderer.addClass(this.elementRef.nativeElement, 'd-inline-block');
                 this.renderer.addClass(this.elementRef.nativeElement.firstChild, 'pointer-events-none');
             }
         } else {

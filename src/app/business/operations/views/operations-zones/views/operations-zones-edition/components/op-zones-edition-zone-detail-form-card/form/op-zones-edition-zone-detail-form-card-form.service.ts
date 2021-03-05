@@ -17,7 +17,7 @@ export class ZoneDetailControlName {
 @Injectable()
 export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
 
-    private readonly editionZoneDetailForm: FormGroup;
+    private readonly formGroup: FormGroup;
 
     private _stateControl: FormControl = new FormControl(null);
     private _assignedStoreControl: FormControl = new FormControl(null);
@@ -31,7 +31,7 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
     constructor(
         private _formBuilder: FormBuilder
     ) {
-        this.editionZoneDetailForm = this._formBuilder.group({
+        this.formGroup = this._formBuilder.group({
             [this._controlNameList.state]: this._stateControl,
             [this._controlNameList.assignedStore]: this._assignedStoreControl,
             [this._controlNameList.assignedStoreBackup]: this._assignedStoreBackupControl,
@@ -42,7 +42,7 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
     }
 
     get form$() {
-        return this.editionZoneDetailForm;
+        return this.formGroup;
     }
 
     get stateControl() {

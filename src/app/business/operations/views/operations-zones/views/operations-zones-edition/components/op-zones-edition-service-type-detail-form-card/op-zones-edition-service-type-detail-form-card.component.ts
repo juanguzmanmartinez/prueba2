@@ -1,15 +1,151 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ZoneDetail, ZoneServiceType } from '../../../../models/operations-zones.model';
+import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
+import { OpZonesEditionServiceTypeDetailFormCardFormService, ZoneServiceTypeControlName } from './form/op-zones-edition-service-type-detail-form-card-form.service';
+import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { CStateValue } from '@models/state/state.model';
+import { DatesHelper } from '@helpers/dates.helper';
+import { Subscription } from 'rxjs';
+import { DATES_FORMAT } from '@parameters/dates-format.parameters';
+import { IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
+import { OpZonesEditionServiceTypeDetailDialogService } from '../op-zones-edition-service-type-detail-dialog/op-zones-edition-service-type-detail-dialog.service';
 
 @Component({
-  selector: 'app-op-zones-edition-service-type-detail-form-card',
-  templateUrl: './op-zones-edition-service-type-detail-form-card.component.html',
-  styleUrls: ['./op-zones-edition-service-type-detail-form-card.component.sass']
+    selector: 'app-op-zones-edition-service-type-detail-form-card',
+    templateUrl: './op-zones-edition-service-type-detail-form-card.component.html',
+    styleUrls: ['./op-zones-edition-service-type-detail-form-card.component.sass'],
+    providers: [
+        OpZonesEditionServiceTypeDetailFormCardFormService,
+        OpZonesEditionServiceTypeDetailDialogService
+    ]
 })
-export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit {
+export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit, OnDestroy {
+    private subscriptions: Subscription[] = [];
 
-  constructor() { }
+    public stateValue = CStateValue;
+    public serviceTypeName = CDeliveryServiceTypeName;
+    public controlNameList = ZoneServiceTypeControlName;
+    public configurationPath = CONCAT_PATH.operationSettings;
 
-  ngOnInit(): void {
-  }
+    public splitSegmentList: string[] = [];
 
+    @Input() zoneDetail: ZoneDetail;
+    @Input() zoneServiceType: ZoneServiceType;
+
+    @Output() cancelEdition = new EventEmitter();
+    @Output() saveEdition = new EventEmitter();
+
+    constructor(
+        public _serviceTypeDetailForm: OpZonesEditionServiceTypeDetailFormCardFormService,
+        private _serviceTypeDetailDialog: OpZonesEditionServiceTypeDetailDialogService
+    ) {
+    }
+
+    ngOnInit(): void {
+        this._serviceTypeDetailForm.stateControl.patchValue(this.stateValue[this.zoneServiceType.state]);
+        this.updateFormValues();
+        this.updateStateControl();
+        this.checkEditionByStateControl();
+    }
+
+    get form$() {
+        return this._serviceTypeDetailForm.form$;
+    }
+
+    updateFormValues() {
+        this._serviceTypeDetailForm.startHourControl.patchValue(this.zoneServiceType.startHour);
+        this._serviceTypeDetailForm.endHourControl.patchValue(this.zoneServiceType.endHour);
+        this._serviceTypeDetailForm.segmentGapControl.patchValue(this.zoneServiceType.segmentGap);
+        this._serviceTypeDetailForm.intervalTimeControl.patchValue(`${this.zoneServiceType.intervalTime} minutos`);
+        this._serviceTypeDetailForm.intervalTimeControl.disable();
+        this.setSplitSegment();
+
+        this.checkEditionByStateControl();
+    }
+
+
+    updateStateControl() {
+        const subscription = this._serviceTypeDetailForm.stateControl.valueChanges
+            .subscribe(() => {
+                if (this._serviceTypeDetailForm.stateControl.value === false) {
+                    this.updateFormValues();
+                }
+                this.checkEditionByStateControl();
+            });
+        this.subscriptions.push(subscription);
+    }
+
+    checkEditionByStateControl() {
+        if (this._serviceTypeDetailForm.stateControl.value) {
+            this._serviceTypeDetailForm.startHourControl.enable();
+            this._serviceTypeDetailForm.endHourControl.enable();
+            this._serviceTypeDetailForm.segmentGapControl.enable();
+        } else {
+            this._serviceTypeDetailForm.startHourControl.disable();
+            this._serviceTypeDetailForm.endHourControl.disable();
+            this._serviceTypeDetailForm.segmentGapControl.disable();
+        }
+    }
+
+    updateStartHourControl(time: number) {
+        this._serviceTypeDetailForm.startHourControl.patchValue(time);
+        this.setSplitSegment();
+    }
+
+    updateEndHourControl(time: number) {
+        this._serviceTypeDetailForm.endHourControl.patchValue(time);
+        this.setSplitSegment();
+    }
+
+    setSplitSegment() {
+        const startHour = DatesHelper.Date(this._serviceTypeDetailForm.startHourControl.value, DATES_FORMAT.millisecond);
+        const endHour = DatesHelper.Date(this._serviceTypeDetailForm.endHourControl.value, DATES_FORMAT.millisecond);
+        const startHourClone = startHour.clone();
+
+        const hourList = [];
+        while (startHourClone.isBefore(endHour)) {
+            hourList.push(startHourClone.format(DATES_FORMAT.hourMinute24Hours));
+            startHourClone.add(this.zoneServiceType.intervalTime, 'minutes');
+        }
+        hourList.push(endHour.format(DATES_FORMAT.hourMinute24Hours));
+
+        this.splitSegmentList = [];
+        hourList.reduce((previousValue, currentValue) => {
+            this.splitSegmentList.push(`${previousValue} - ${currentValue}`);
+            return currentValue;
+        });
+        this._serviceTypeDetailForm.splitSegmentControl.patchValue(this.splitSegmentList.length);
+        this._serviceTypeDetailForm.splitSegmentControl.disable();
+    }
+
+    openServiceTypeDetailDialog() {
+        this._serviceTypeDetailDialog.open(this.splitSegmentList);
+    }
+
+    cancelEditionEvent() {
+        this.cancelEdition.emit();
+    }
+
+    saveEditionEvent() {
+        const zoneServiceTypeUpdate = {} as IZoneServiceTypeUpdate;
+        zoneServiceTypeUpdate.enabled = this._serviceTypeDetailForm.stateControl.value;
+        if (zoneServiceTypeUpdate.enabled) {
+            zoneServiceTypeUpdate.startHour = DatesHelper.Date(this._serviceTypeDetailForm.startHourControl.value, DATES_FORMAT.millisecond)
+                .format(DATES_FORMAT.hourMinute24Hours);
+            zoneServiceTypeUpdate.endHour = DatesHelper.Date(this._serviceTypeDetailForm.endHourControl.value, DATES_FORMAT.millisecond)
+                .format(DATES_FORMAT.hourMinute24Hours);
+            zoneServiceTypeUpdate.segmentGap = this._serviceTypeDetailForm.segmentGapControl.value;
+        } else {
+            zoneServiceTypeUpdate.startHour = DatesHelper.Date(this.zoneServiceType.startHour, DATES_FORMAT.millisecond)
+                .format(DATES_FORMAT.hourMinute24Hours);
+            zoneServiceTypeUpdate.endHour = DatesHelper.Date(this.zoneServiceType.endHour, DATES_FORMAT.millisecond)
+                .format(DATES_FORMAT.hourMinute24Hours);
+            zoneServiceTypeUpdate.segmentGap = this.zoneServiceType.segmentGap;
+        }
+        this.saveEdition.emit(zoneServiceTypeUpdate);
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
 }

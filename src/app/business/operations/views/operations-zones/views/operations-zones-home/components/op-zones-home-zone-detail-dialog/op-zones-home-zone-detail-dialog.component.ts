@@ -5,6 +5,7 @@ import { CCompanyName } from '@models/company/company.model';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
 import { CChannelName } from '@models/channel/channel.model';
 import { ETagAppearance } from '@models/tag/tag.model';
+import { CZoneLabelColor } from '../../../../models/operations-zones-label.model';
 
 @Component({
     selector: 'app-op-zones-home-zone-detail-dialog',
@@ -18,6 +19,7 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
     public companyName = CCompanyName;
     public channelName = CChannelName;
     public serviceTypeName = CDeliveryServiceTypeName;
+    public labelColor = CZoneLabelColor;
     public tagAppearance = ETagAppearance;
 
     @Input() zoneDetail: ZoneDetail;

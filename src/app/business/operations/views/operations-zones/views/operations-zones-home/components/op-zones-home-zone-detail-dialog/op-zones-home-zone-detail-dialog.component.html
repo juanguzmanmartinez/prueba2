@@ -14,7 +14,7 @@
                 {{zoneDetail.name}}
             </ng-container>
             <ng-container dialog-header-description>
-                {{zoneDetail.code}}
+                {{zoneDetail.id}}
             </ng-container>
         </app-dialog-header>
     </div>
@@ -78,7 +78,12 @@
                         <div class="col-12 mb-5">
                             <app-card-static-information iconName="info">
                                 <ng-container information-title>Etiquetas</ng-container>
-                                <ng-container information-caption>{{zoneDetail.label}}</ng-container>
+                                <ng-container information-caption>
+                                    <app-tag [tagColor]="labelColor[zoneDetail.label]"
+                                             [appearance]="tagAppearance.coloredPill">
+                                        {{zoneDetail.label}}
+                                    </app-tag>
+                                </ng-container>
                             </app-card-static-information>
                         </div>
                     </div>

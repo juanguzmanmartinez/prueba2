@@ -10,15 +10,17 @@ import { EZoneLabel } from './operations-zones-label.model';
 
 
 class ZoneBase {
+    idKey: string;
     id: number;
-    code: string;
     name: string;
     assignedStore: ZonesStore;
+    assignedStoreCode: string;
     state: EState;
 
     constructor(iZone: IZone) {
+        this.idKey = iZone.id || null;
         this.id = iZone.idZone || null;
-        this.code = iZone.fulfillmentCenterCode || '';
+        this.assignedStoreCode = iZone.fulfillmentCenterCode || '';
         this.name = iZone.name || '';
         this.state = iZone.enabled ? EState.active : EState.inactive;
         this.assignedStore = iZone.storeCenter ? new ZonesStore(iZone.storeCenter) : null;
@@ -60,11 +62,13 @@ export class ZoneServiceType {
     startHour: number;
     endHour: number;
     state: EState;
+    intervalTime: number;
 
     constructor(iZoneServiceType: IZoneServiceType) {
-        this.id = iZoneServiceType.serviceTypeId || null;
+        this.id = iZoneServiceType.id || null;
         this.code = iZoneServiceType.serviceTypeCode || null;
         this.segmentGap = iZoneServiceType.segmentGap || 0;
+        this.intervalTime = iZoneServiceType.intervalTime || 0;
         this.startHour = DatesHelper.date(iZoneServiceType.startHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
         this.endHour = DatesHelper.date(iZoneServiceType.endHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
         this.state = iZoneServiceType.enabled ? EState.active : EState.inactive;

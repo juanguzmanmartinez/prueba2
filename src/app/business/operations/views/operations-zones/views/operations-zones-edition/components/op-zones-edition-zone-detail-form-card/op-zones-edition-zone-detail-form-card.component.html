@@ -2,7 +2,9 @@
     <form [formGroup]="_editionZoneDetailForm.form$">
         <div class="row mb-6">
             <div class="col-12">
-                <app-switch [formControlName]="controlName.state">Zona {{stateName[zoneDetail.state]('a')}}</app-switch>
+                <app-switch [formControlName]="controlName.state">
+                    Zona {{stateName[zoneDetail.state]('a')}}
+                </app-switch>
             </div>
         </div>
 

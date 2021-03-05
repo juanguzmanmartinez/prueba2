@@ -20,7 +20,7 @@
 
     <div class="row">
         <div class="col-12 mb-8">
-            <table mat-table [dataSource]="dataSource" matSort>
+            <table mat-table large-table [dataSource]="dataSource" matSort>
 
                 <ng-container matColumnDef="selector">
                     <th mat-header-cell customColumn="selector" *matHeaderCellDef>
@@ -37,9 +37,9 @@
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="zoneCode">
+                <ng-container matColumnDef="zoneId">
                     <th mat-header-cell columnWidth="8%" *matHeaderCellDef mat-sort-header>Código</th>
-                    <td mat-cell columnWidth="8%" cell-bold *matCellDef="let element">{{element.code}}</td>
+                    <td mat-cell columnWidth="8%" cell-bold *matCellDef="let element">{{element.id}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="zoneName">

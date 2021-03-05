@@ -27,8 +27,8 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     public labelColor = CZoneLabelColor;
     public tagAppearance = ETagAppearance;
 
+    private noStoreBackup: ZonesStore = {name: 'Sin local backup', code: '', startHour: 0, endHour: 0} as ZonesStore;
     public controlName = ZoneDetailControlName;
-    private noStoreBackup: ZonesStore = {name: 'Sin local backup', code: ''};
     public storeList: ZonesStore[] = [];
     public storeBackupList: ZonesStore[] = [];
     public channelList: EChannel[] = [];
@@ -129,7 +129,8 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
         const zoneDetailUpdate = {} as IZoneDetailUpdate;
         zoneDetailUpdate.enabled = this._editionZoneDetailForm.stateControl.value;
         if (zoneDetailUpdate.enabled) {
-            zoneDetailUpdate.fulfillmentCenterCode = this._editionZoneDetailForm.assignedStoreControl.value.code;
+            const assignedStore = this._editionZoneDetailForm.assignedStoreControl.value as ZonesStore;
+            zoneDetailUpdate.fulfillmentCenterCode = assignedStore.code;
             zoneDetailUpdate.zoneType = this._editionZoneDetailForm.labelControl.value;
             zoneDetailUpdate.companyCode = this._editionZoneDetailForm.companyControl.value;
             const channelList = this._editionZoneDetailForm.channelArray.value as Array<{ name: EChannel, checked: boolean }>;

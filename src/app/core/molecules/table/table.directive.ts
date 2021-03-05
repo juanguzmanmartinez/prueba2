@@ -2,7 +2,7 @@ import { AfterViewInit, ApplicationRef, ComponentFactoryResolver, Directive, Ele
 import { TableComponent } from '@molecules/table/table.component';
 
 @Directive({
-    selector: 'table[mat-table]'
+    selector: 'table[mat-table],table[mat-table][large-table]'
 })
 export class TableDirective implements AfterViewInit {
 
@@ -17,8 +17,10 @@ export class TableDirective implements AfterViewInit {
 
     ngAfterViewInit() {
         this.renderer.addClass(this.elementRef.nativeElement, 'w-100');
-        this.renderer.addClass(this.elementRef.nativeElement, 'w-100');
-        this.renderer.setStyle(this.elementRef.nativeElement, 'minWidth', '950px');
+        const hasLargeTable = this.elementRef.nativeElement.hasAttribute('large-table');
+        if (hasLargeTable) {
+            this.renderer.setStyle(this.elementRef.nativeElement, 'minWidth', '950px');
+        }
         this.addTableComponentParent();
     }
 

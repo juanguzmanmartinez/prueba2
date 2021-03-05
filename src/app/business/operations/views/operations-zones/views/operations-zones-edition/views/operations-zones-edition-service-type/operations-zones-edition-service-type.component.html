@@ -1,1 +1,23 @@
-<p>operations-zones-edition-service-type works!</p>
+<section class="operations-stores-edition-service-type pt-12 pb-15">
+    <div class="row mb-8">
+        <div class="col-12">
+            <h3 class="text-h3 mb-0">Edición de zonas</h3>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="zoneDetail && zoneServiceType">
+        <div class="col-5">
+            <app-op-zones-edition-service-type-detail-card
+                    [zoneDetail]="zoneDetail">
+            </app-op-zones-edition-service-type-detail-card>
+        </div>
+        <div class="col-7">
+            <app-op-zones-edition-service-type-detail-form-card
+                    [zoneDetail]="zoneDetail"
+                    [zoneServiceType]="zoneServiceType"
+                    (cancelEdition)="cancelEdition()"
+                    (saveEdition)="saveEdition($event)">
+            </app-op-zones-edition-service-type-detail-form-card>
+        </div>
+    </div>
+</section>

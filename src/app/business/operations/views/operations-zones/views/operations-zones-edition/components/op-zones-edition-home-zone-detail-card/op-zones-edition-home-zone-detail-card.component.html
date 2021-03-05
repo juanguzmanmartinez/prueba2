@@ -4,7 +4,7 @@
             <h5 class="text-h5 mb-2">
                 {{zoneDetail.name}}
                 <span class="text-caption text-gray-5 ms-3">
-                    {{zoneDetail.code}}
+                    {{zoneDetail.id}}
                 </span>
             </h5>
             <app-tag  class="d-block"
@@ -52,7 +52,12 @@
 
             <app-card-static-information class="d-block" iconName="info">
                 <ng-container information-title>Etiquetas</ng-container>
-                <ng-container information-caption>{{zoneDetail.label}}</ng-container>
+                <ng-container information-caption>
+                    <app-tag [tagColor]="labelColor[zoneDetail.label]"
+                             [appearance]="tagAppearance.coloredPill">
+                        {{zoneDetail.label}}
+                    </app-tag>
+                </ng-container>
             </app-card-static-information>
         </div>
     </div>

@@ -5,5 +5,6 @@ export const DATES_FORMAT = {
     hourMinuteSecond: 'HH:mm:ss',
     minutes: 'mm',
     minutesText: 'mm m',
+    hourMinute24Hours: 'HH:mm',
     hourMinuteDateTime: 'hh:mm A'
 };

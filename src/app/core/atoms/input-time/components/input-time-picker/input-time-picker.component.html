@@ -1,0 +1,28 @@
+<div class="time-picker-container">
+    <div class="time-picker-content">
+
+        <div class="time-picker-element">
+            <app-input-time-picker-element [pickerList]="hoursPickerList"
+                                           [pickerValue]="hoursPickerValue"
+                                           (pickerChange)="hoursPickerChange($event)">
+            </app-input-time-picker-element>
+        </div>
+
+        <div class="d-flex-vertical-center text-button text-gray-5">:</div>
+
+        <div class="time-picker-element">
+            <app-input-time-picker-element [pickerList]="minutesPickerList"
+                                           [pickerValue]="minutesPickerValue"
+                                           (pickerChange)="minutesPickerChange($event)">
+            </app-input-time-picker-element>
+        </div>
+
+        <div class="time-picker-element" *ngIf="dateTime">
+            <app-input-time-picker-element [pickerList]="dateTimePickerList"
+                                           [pickerValue]="dateTimePickerValue"
+                                           (pickerChange)="dateTimePickerChange($event)">
+            </app-input-time-picker-element>
+        </div>
+    </div>
+
+</div>

@@ -52,6 +52,6 @@ export const OP_ZONES_PATH = {
     zoneEdition: 'editar-zona',
     zoneAmPm: DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm,
     zoneScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
-    zoneExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
+    zoneExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
     zoneRet: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
 };

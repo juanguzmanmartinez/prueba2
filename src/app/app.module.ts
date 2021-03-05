@@ -12,6 +12,7 @@ import { httpInterceptorProviders } from '@interceptors/interceptor.providers';
 import { InterceptorsServiceModule } from '@interceptors/interceptors-service.module';
 import { StoreFactoryModule } from '@stores/store-factory.module';
 import { GuardServiceModule } from '@guards/guard-service.module';
+import { ListenerFactoryModule } from './shared/listeners/listener-factory.module';
 
 @NgModule({
     bootstrap: [
@@ -27,6 +28,7 @@ import { GuardServiceModule } from '@guards/guard-service.module';
         BrowserModule,
         BrowserAnimationsModule,
         StoreFactoryModule.forRoot(),
+        ListenerFactoryModule.forRoot(),
         GuardServiceModule,
         AppRoutingModule,
         InterceptorsServiceModule,

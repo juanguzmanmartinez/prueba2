@@ -42,6 +42,8 @@ import { SelectModule } from '@atoms/select/select.module';
 import { RadioModule } from '@atoms/radio/radio.module';
 import { AlertModule } from '@molecules/alert/alert.module';
 import { DirectivesModule } from '../../../../shared/directives/directives.module';
+import { LinksModule } from '@atoms/links/links.module';
+import { InputTimeModule } from '@atoms/input-time/input-time.module';
 
 
 @NgModule({
@@ -87,7 +89,9 @@ import { DirectivesModule } from '../../../../shared/directives/directives.modul
         ReactiveFormsModule,
         RadioModule,
         AlertModule,
-        DirectivesModule
+        DirectivesModule,
+        LinksModule,
+        InputTimeModule
     ],
     providers: [
         OperationsZonesImplementService

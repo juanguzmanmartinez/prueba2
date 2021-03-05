@@ -28,7 +28,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     public searchInput = '';
     public tableLoader = true;
 
-    public displayedColumns: string[] = ['selector', 'zoneCode', 'zoneName', 'assignedStore', 'serviceType', 'zoneState', 'actions'];
+    public displayedColumns: string[] = ['selector', 'zoneId', 'zoneName', 'assignedStore', 'serviceType', 'zoneState', 'actions'];
     public dataSource = new MatTableDataSource([]);
     public rowSelection = new SelectionModel<Zone>(true, []);
 
@@ -60,12 +60,12 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
         this.dataSource.filterPredicate = (data: Zone, filter: string) => {
             const filterNormalize = normalizeValue(filter);
             const idNormalize = normalizeValue(`${data.id}`);
-            const codeNormalize = normalizeValue(data.code);
             const nameNormalize = normalizeValue(data.name);
             const assignedStoreNameNormalize = normalizeValue(data.assignedStore ? data.assignedStore.name : '');
+            const assignedStoreCodeNormalize = normalizeValue(data.assignedStoreCode);
             const serviceTypeNormalize = normalizeValue(data.serviceTypeList.map(serviceType => this.serviceTypeName[serviceType]).join(''));
             const stateNormalize = normalizeValue(this.stateName[data.state]());
-            const valueArray = [idNormalize, nameNormalize, codeNormalize, assignedStoreNameNormalize, serviceTypeNormalize, stateNormalize];
+            const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize, serviceTypeNormalize, stateNormalize];
 
             const concatValue = normalizeValue(valueArray.join(''));
             const everyValue = valueArray.some(value => value.includes(filterNormalize));

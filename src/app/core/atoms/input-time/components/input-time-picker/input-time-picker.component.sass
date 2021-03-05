@@ -1,0 +1,24 @@
+@import "src/sass/variables/colors.variable"
+
+.time-picker-container
+  position: absolute
+  background-color: $white
+  border: 0.5px solid $gray-1
+  box-shadow: 0 20px 40px rgba(9, 39, 85, 0.08)
+  border-radius: 4px
+  min-width: 170px
+  width: 100%
+
+  .time-picker-content
+    display: flex
+    justify-content: space-evenly
+    padding: 24px 16px
+
+    .time-picker-element
+      margin: 0 8px
+
+      &:last-child
+        margin-right: 0
+
+      &:first-child
+        margin-left: 0

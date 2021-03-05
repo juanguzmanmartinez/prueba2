@@ -1,0 +1,27 @@
+<div class="input-time"
+     [class.pointer-events-none]="disabled"
+     #timePickerContainer>
+    <app-input class="cursor-pointer d-inline-block"
+               [name]="name"
+               labelClass="pointer-events-none"
+               (click)="openTimePicker()"
+               [value]="timeValue"
+               [disabled]="disabled"
+               [placeholder]="placeholder">
+    </app-input>
+
+    <app-icon *ngIf="!disabled"
+              class="input-time-icon"
+              fontName="keyboard_arrow_down"
+              innerClass="text-gray-5"
+              fontSize="14px"></app-icon>
+
+
+    <app-input-time-picker *ngIf="toggleTimePicker"
+                           [dateTime]="dateTime"
+                           [minHour]="minHour"
+                           [maxHour]="maxHour"
+                           [time]="time"
+                           (timeChange)="pickerTimeChange($event)">
+    </app-input-time-picker>
+</div>
