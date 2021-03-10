@@ -6,14 +6,14 @@
     </div>
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-12 col-xl-6 mb-6 mb-xl-0">
             <app-op-zones-edition-zone-detail-card
                     *appSkeletonCard="!!zoneDetail && !!channelList; loading: !zoneEditionLoader"
                     [zoneDetail]="zoneDetail">
             </app-op-zones-edition-zone-detail-card>
         </div>
 
-        <div class="col-6" [class.container-loader]="saveEditionLoader">
+        <div class="col-12 col-xl-6" [class.container-loader]="saveEditionLoader">
             <app-op-zones-edition-zone-detail-form-card
                     *appSkeletonCard="!!zoneDetail && !!channelList; row: 8; loading: !zoneEditionLoader"
                     [zoneDetail]="zoneDetail"

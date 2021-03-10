@@ -8,14 +8,14 @@
 
     <div class="row"
          [class.container-loader]="saveEditionLoader">
-        <div class="col-5">
+        <div class="col-12 col-xl-5 mb-6 mb-xl-0">
             <app-op-zones-edition-service-type-detail-card
                     *appSkeletonCard="!!zoneServiceType && !!zonesStoreServiceType; loading: !serviceTypeEditionLoader"
                     [zoneDetail]="zoneDetail"
                     [zonesStoreServiceType]="zonesStoreServiceType">
             </app-op-zones-edition-service-type-detail-card>
         </div>
-        <div class="col-7">
+        <div class="col-12 col-xl-7">
             <app-op-zones-edition-service-type-detail-form-card
                     *appSkeletonCard="!!zoneServiceType && !!zonesStoreServiceType; row: 7; loading: !serviceTypeEditionLoader"
                     [zoneServiceType]="zoneServiceType"

@@ -23,7 +23,7 @@
 
     <div class="row justify-content-between"
          [class.container-loader]="saveEditionLoader">
-        <div class="col-5 mb-6">
+        <div class="col-12 col-lg-6 col-xl-5 mb-6">
             <app-op-zones-edition-home-service-type-card
                     *appSkeletonCard="!!zonesServiceTypeList; row: 5; loading: !homeEditionLoader"
                     [serviceType]="zonesServiceTypeList.amPm"
@@ -31,7 +31,7 @@
                     (add)="addServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
-        <div class="col-5 mb-6">
+        <div class="col-12 col-lg-6 col-xl-5 mb-6">
             <app-op-zones-edition-home-service-type-card
                     *appSkeletonCard="!!zonesServiceTypeList; row: 5; loading: !homeEditionLoader"
                     [serviceType]="zonesServiceTypeList.scheduled"
@@ -39,7 +39,7 @@
                     (add)="addServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
-        <div class="col-5 mb-6">
+        <div class="col-12 col-lg-6 col-xl-5 mb-6">
             <app-op-zones-edition-home-service-type-card
                     *appSkeletonCard="!!zonesServiceTypeList; row: 5; loading: !homeEditionLoader"
                     [serviceType]="zonesServiceTypeList.express"
@@ -47,7 +47,7 @@
                     (add)="addServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
-        <div class="col-5 mb-6">
+        <div class="col-12 col-lg-6 col-xl-5 mb-6">
             <app-op-zones-edition-home-service-type-card
                     *appSkeletonCard="!!zonesServiceTypeList; row: 5; loading: !homeEditionLoader"
                     [serviceType]="zonesServiceTypeList.ret"
