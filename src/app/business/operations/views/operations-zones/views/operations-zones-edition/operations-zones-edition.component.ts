@@ -35,6 +35,8 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
         this._operationsZonesImplement.getZoneDetail(zoneId)
             .subscribe((zoneDetail: ZoneDetail) => {
                 this._operationsZonesEditionStore.zoneDetail = zoneDetail;
+            }, (error) => {
+                this._operationsZonesEditionStore.zoneDetailError = error;
             });
     }
 

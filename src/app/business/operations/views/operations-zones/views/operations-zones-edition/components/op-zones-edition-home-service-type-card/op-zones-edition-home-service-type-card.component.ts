@@ -25,7 +25,7 @@ export class OpZonesEditionHomeServiceTypeCardComponent implements OnInit {
     }
 
     get serviceTypeDisabled() {
-        return !this.stateValue[this.serviceType.serviceType.state];
+        return !this.stateValue[this.serviceType.serviceType.state] || !this.serviceType.available;
     }
 
     get segmentName() {
@@ -34,9 +34,9 @@ export class OpZonesEditionHomeServiceTypeCardComponent implements OnInit {
 
     get startAndEndHour() {
         const startHour = DatesHelper.date(this.serviceType.serviceType.startHour, DATES_FORMAT.millisecond)
-            .format(DATES_FORMAT.hourMinute24Hours);
+            .format(DATES_FORMAT.hourMinuteDateTime);
         const endHour = DatesHelper.date(this.serviceType.serviceType.endHour, DATES_FORMAT.millisecond)
-            .format(DATES_FORMAT.hourMinute24Hours);
+            .format(DATES_FORMAT.hourMinuteDateTime);
         return `${startHour} - ${endHour}`;
     }
 

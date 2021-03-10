@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ZoneDetail, ZoneServiceType } from '../../../../models/operations-zones.model';
+import { ZoneServiceType } from '../../../../models/operations-zones.model';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
 import { OpZonesEditionServiceTypeDetailFormCardFormService, ZoneServiceTypeControlName } from './form/op-zones-edition-service-type-detail-form-card-form.service';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { OpZonesEditionServiceTypeDetailDialogService } from '../op-zones-edition-service-type-detail-dialog/op-zones-edition-service-type-detail-dialog.service';
+import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
 
 @Component({
     selector: 'app-op-zones-edition-service-type-detail-form-card',
@@ -29,8 +30,8 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
 
     public splitSegmentList: string[] = [];
 
-    @Input() zoneDetail: ZoneDetail;
     @Input() zoneServiceType: ZoneServiceType;
+    @Input() zonesStoreServiceType: ZonesStoreServiceType;
 
     @Output() cancelEdition = new EventEmitter();
     @Output() saveEdition = new EventEmitter();
@@ -104,10 +105,10 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
 
         const hourList = [];
         while (startHourClone.isBefore(endHour)) {
-            hourList.push(startHourClone.format(DATES_FORMAT.hourMinute24Hours));
+            hourList.push(startHourClone.format(DATES_FORMAT.hourMinuteDateTime));
             startHourClone.add(this.zoneServiceType.intervalTime, 'minutes');
         }
-        hourList.push(endHour.format(DATES_FORMAT.hourMinute24Hours));
+        hourList.push(endHour.format(DATES_FORMAT.hourMinuteDateTime));
 
         this.splitSegmentList = [];
         hourList.reduce((previousValue, currentValue) => {
@@ -131,15 +132,15 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
         zoneServiceTypeUpdate.enabled = this._serviceTypeDetailForm.stateControl.value;
         if (zoneServiceTypeUpdate.enabled) {
             zoneServiceTypeUpdate.startHour = DatesHelper.Date(this._serviceTypeDetailForm.startHourControl.value, DATES_FORMAT.millisecond)
-                .format(DATES_FORMAT.hourMinute24Hours);
+                .format(DATES_FORMAT.hourMinuteSecond);
             zoneServiceTypeUpdate.endHour = DatesHelper.Date(this._serviceTypeDetailForm.endHourControl.value, DATES_FORMAT.millisecond)
-                .format(DATES_FORMAT.hourMinute24Hours);
+                .format(DATES_FORMAT.hourMinuteSecond);
             zoneServiceTypeUpdate.segmentGap = this._serviceTypeDetailForm.segmentGapControl.value;
         } else {
             zoneServiceTypeUpdate.startHour = DatesHelper.Date(this.zoneServiceType.startHour, DATES_FORMAT.millisecond)
-                .format(DATES_FORMAT.hourMinute24Hours);
+                .format(DATES_FORMAT.hourMinuteSecond);
             zoneServiceTypeUpdate.endHour = DatesHelper.Date(this.zoneServiceType.endHour, DATES_FORMAT.millisecond)
-                .format(DATES_FORMAT.hourMinute24Hours);
+                .format(DATES_FORMAT.hourMinuteSecond);
             zoneServiceTypeUpdate.segmentGap = this.zoneServiceType.segmentGap;
         }
         this.saveEdition.emit(zoneServiceTypeUpdate);

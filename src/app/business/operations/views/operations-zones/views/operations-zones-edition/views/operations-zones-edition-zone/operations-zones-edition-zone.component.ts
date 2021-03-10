@@ -13,6 +13,7 @@ import { IZoneDetailUpdate } from '@interfaces/zones/zones.interface';
 import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
 import { AlertService } from '@molecules/alert/alert.service';
 import { ZonesMessages } from '../../../../parameters/operations-zones-messages.parameter';
+import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 
 @Component({
     selector: 'app-operations-zones-edition-zone',
@@ -27,6 +28,7 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
     public companyList: ECompany[] = [];
     public labelList: EZoneLabel[] = [];
 
+    public zoneEditionLoader = true;
     public saveEditionLoader: boolean;
 
     constructor(
@@ -50,6 +52,10 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
         const subscription = this._operationsZonesEditionStore.zoneDetail$
             .subscribe((zoneDetail: ZoneDetail) => {
                 this.zoneDetail = zoneDetail;
+                this.zoneEditionLoader = false;
+            }, () => {
+                this.zoneDetail = null;
+                this.zoneEditionLoader = false;
             });
         this.subscriptions.push(subscription);
     }
@@ -116,6 +122,10 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
     backRoute() {
         const backRoute = parseUrl(this._router.url, '..');
         this._router.navigate([backRoute]);
+    }
+
+    zoneListRoute() {
+        this._router.navigate([CONCAT_PATH.operationZones]);
     }
 
     ngOnDestroy() {

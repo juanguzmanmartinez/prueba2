@@ -5,15 +5,17 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="zoneDetail">
+    <div class="row">
         <div class="col-6">
             <app-op-zones-edition-zone-detail-card
+                    *appSkeletonCard="!!zoneDetail && !!channelList; loading: !zoneEditionLoader"
                     [zoneDetail]="zoneDetail">
             </app-op-zones-edition-zone-detail-card>
         </div>
 
         <div class="col-6" [class.container-loader]="saveEditionLoader">
             <app-op-zones-edition-zone-detail-form-card
+                    *appSkeletonCard="!!zoneDetail && !!channelList; row: 8; loading: !zoneEditionLoader"
                     [zoneDetail]="zoneDetail"
                     [storeList]="storeList"
                     [channelList]="channelList"
@@ -24,4 +26,15 @@
             </app-op-zones-edition-zone-detail-form-card>
         </div>
     </div>
+
+    <app-empty-result (action)="zoneListRoute()"
+                      *ngIf="!zoneDetail && !channelList && !zoneEditionLoader">
+        <ng-container empty-result-title>Esta zona no está disponible para edición.</ng-container>
+        <ng-container empty-result-action>Ir a lista de zonas</ng-container>
+    </app-empty-result>
+    <app-empty-result (action)="backRoute()"
+                      *ngIf="!!zoneDetail && !channelList && !zoneEditionLoader">
+        <ng-container empty-result-title> {{zoneDetail?.name || 'Esta zona'}} no está disponible para edición.</ng-container>
+        <ng-container empty-result-action>Ir a {{zoneDetail?.name || 'la zona'}}</ng-container>
+    </app-empty-result>
 </section>

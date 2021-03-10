@@ -5,19 +5,40 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="zoneDetail && zoneServiceType">
+
+    <div class="row"
+         [class.container-loader]="saveEditionLoader">
         <div class="col-5">
             <app-op-zones-edition-service-type-detail-card
-                    [zoneDetail]="zoneDetail">
+                    *appSkeletonCard="!!zoneServiceType && !!zonesStoreServiceType; loading: !serviceTypeEditionLoader"
+                    [zoneDetail]="zoneDetail"
+                    [zonesStoreServiceType]="zonesStoreServiceType">
             </app-op-zones-edition-service-type-detail-card>
         </div>
         <div class="col-7">
             <app-op-zones-edition-service-type-detail-form-card
-                    [zoneDetail]="zoneDetail"
+                    *appSkeletonCard="!!zoneServiceType && !!zonesStoreServiceType; row: 7; loading: !serviceTypeEditionLoader"
                     [zoneServiceType]="zoneServiceType"
+                    [zonesStoreServiceType]="zonesStoreServiceType"
                     (cancelEdition)="cancelEdition()"
                     (saveEdition)="saveEdition($event)">
             </app-op-zones-edition-service-type-detail-form-card>
         </div>
     </div>
+
+    <app-empty-result (action)="backRoute()"
+                      *ngIf="!!zoneDetail && (!zoneServiceType || !zonesStoreServiceType) && !serviceTypeEditionLoader">
+        <ng-container empty-result-title>
+            El tipo de despacho  no está disponible.
+        </ng-container>{{serviceTypeName[serviceType]}} para {{zoneDetail?.name || 'esta zona'}}
+        <ng-container empty-result-action>
+            Ir a {{zoneDetail?.name || 'la zona'}}
+        </ng-container>
+    </app-empty-result>
+
+    <app-empty-result (action)="zoneListRoute()"
+                      *ngIf="!zoneDetail && !serviceTypeEditionLoader">
+        <ng-container empty-result-title> Esta zona no está disponible para edición.</ng-container>
+        <ng-container empty-result-action>Ir a lista de zonas</ng-container>
+    </app-empty-result>
 </section>

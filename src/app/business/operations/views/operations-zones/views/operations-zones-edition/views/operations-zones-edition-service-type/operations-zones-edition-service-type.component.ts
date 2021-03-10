@@ -10,6 +10,8 @@ import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-conf
 import { IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { ZonesMessages } from '../../../../parameters/operations-zones-messages.parameter';
 import { AlertService } from '@molecules/alert/alert.service';
+import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
+import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 
 @Component({
     selector: 'app-operations-zones-edition-service-type',
@@ -21,8 +23,10 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     public zoneDetail: ZoneDetail;
     public serviceType: EDeliveryServiceType;
     public zoneServiceType: ZoneServiceType;
+    public zonesStoreServiceType: ZonesStoreServiceType;
     public serviceTypeName = CDeliveryServiceTypeName;
 
+    public serviceTypeEditionLoader = true;
     public saveEditionLoader: boolean;
 
     constructor(
@@ -49,6 +53,9 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
             .subscribe((zoneDetail: ZoneDetail) => {
                 this.zoneDetail = zoneDetail;
                 this.setZoneServiceType();
+            }, () => {
+                this.zoneDetail = null;
+                this.serviceTypeEditionLoader = false;
             });
         this.subscriptions.push(subscription);
     }
@@ -56,6 +63,9 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     private setZoneServiceType() {
         this.zoneServiceType = this.zoneDetail?.serviceTypeList
             .find((serviceType: ZoneServiceType) => serviceType.code === this.serviceType);
+        this.zonesStoreServiceType = this.zoneDetail?.assignedStore.services
+            .find((serviceType: ZonesStoreServiceType) => serviceType.code === this.serviceType);
+        this.serviceTypeEditionLoader = !this.zoneDetail;
     }
 
     putServiceType(zoneServiceTypeUpdate: IZoneServiceTypeUpdate) {
@@ -95,6 +105,10 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     backRoute() {
         const backRoute = parseUrl(this._router.url, '..');
         this._router.navigate([backRoute]);
+    }
+
+    zoneListRoute() {
+        this._router.navigate([CONCAT_PATH.operationZones]);
     }
 
     ngOnDestroy() {

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { OperationsStoresRoutingModule } from './operations-stores-routing.module';
 import { OperationsStoresComponent } from './operations-stores.component';
 import { BackRouterModule } from '@molecules/back-router/back-router.module';
-import { PagesModule } from '@pages/pages.module';
+import { UnderConstructionModule } from '@pages/under-construction/under-construction.module';
 import { InputsModule } from '@atoms/inputs/inputs.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
@@ -55,7 +55,7 @@ import { OpStoresEditionServiceTypeDetailFormCardComponent } from './views/opera
         CommonModule,
         OperationsStoresRoutingModule,
         BackRouterModule,
-        PagesModule,
+        UnderConstructionModule,
         InputsModule,
         MatTableModule,
         MatSortModule,

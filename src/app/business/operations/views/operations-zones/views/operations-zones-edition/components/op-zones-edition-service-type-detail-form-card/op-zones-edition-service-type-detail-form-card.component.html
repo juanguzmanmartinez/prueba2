@@ -14,7 +14,8 @@
                 <app-form-field>
                     <app-form-field-label>Inicio</app-form-field-label>
                     <app-input-time name="start-hour-time"
-                                    [minHour]="zoneDetail.assignedStore.startHour"
+                                    format="12"
+                                    [minHour]="zonesStoreServiceType.startHour"
                                     [maxHour]="_serviceTypeDetailForm.endHourControl.value"
                                     (timeChange)="updateStartHourControl($event)"
                                     [formControlName]="controlNameList.startHour">
@@ -25,8 +26,9 @@
                 <app-form-field>
                     <app-form-field-label>Fin</app-form-field-label>
                     <app-input-time name="start-hour-time"
+                                    format="12"
                                     [minHour]="_serviceTypeDetailForm.startHourControl.value"
-                                    [maxHour]="zoneDetail.assignedStore.endHour"
+                                    [maxHour]="zonesStoreServiceType.endHour"
                                     (timeChange)="updateEndHourControl($event)"
                                     [formControlName]="controlNameList.endHour">
                     </app-input-time>

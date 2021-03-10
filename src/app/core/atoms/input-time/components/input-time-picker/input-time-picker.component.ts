@@ -8,11 +8,17 @@ import { DatesHelper } from '@helpers/dates.helper';
     styleUrls: ['input-time-picker.component.sass']
 })
 export class InputTimePickerComponent implements OnInit {
-    private minHourDate = DatesHelper.Date('00:00:00', DATES_FORMAT.hourMinuteSecond);
-    private maxHourDate = DatesHelper.Date('23:59:59', DATES_FORMAT.hourMinuteSecond);
-    public dateTimeHourFormat: string;
+    private defaultMinHour = DatesHelper.Date('00:00:00', DATES_FORMAT.hourMinuteSecond);
+    private defaultMaxHour = DatesHelper.Date('23:59:59', DATES_FORMAT.hourMinuteSecond);
+    private defaultAmMaxHour = DatesHelper.Date('11:59:59', DATES_FORMAT.hourMinuteSecond);
+    private defaultPmMinHour = DatesHelper.Date('12:00:00', DATES_FORMAT.hourMinuteSecond);
 
-    public dateTimePickerList = ['AM', 'PM'];
+    private time: number;
+    public dateTime: boolean;
+    private minHourDate = this.defaultMinHour.clone();
+    private maxHourDate = this.defaultMaxHour.clone();
+
+    public dateTimePickerList = [];
     public hoursPickerList = [];
     public minutesPickerList = [];
 
@@ -20,40 +26,31 @@ export class InputTimePickerComponent implements OnInit {
     public minutesPickerValue = '00';
     public dateTimePickerValue = this.dateTimePickerList[0];
 
-    public time: number;
-    public dateTime: boolean;
 
     @Input('time') set _time(time: number) {
-        this.time = time;
+        this.time = time ? time : DatesHelper.Date().valueOf();
         this.setTimePicker();
     }
 
     @Input('dateTime')
     set _dateTime(dateTime: boolean) {
         this.dateTime = dateTime;
-        this.setFormats();
     }
 
     @Input('minHour')
     set _minHour(minHour: number) {
-        if (minHour) {
-            this.minHourDate = DatesHelper.Date(minHour, DATES_FORMAT.millisecond);
-        } else {
-            const defaultMinDate = '00:00:00';
-            this.minHourDate = DatesHelper.Date(defaultMinDate, DATES_FORMAT.hourMinuteSecond);
-        }
-        this.setHoursPickerList();
+        this.minHourDate = minHour ?
+            DatesHelper.Date(minHour, DATES_FORMAT.millisecond) :
+            this.defaultMinHour.clone();
+        this.setHourPickerList();
     }
 
     @Input('maxHour')
     set _maxHour(maxHour: number) {
-        if (maxHour) {
-            this.maxHourDate = DatesHelper.Date(maxHour, DATES_FORMAT.millisecond);
-        } else {
-            const defaultMaxDate = '23:59:59';
-            this.maxHourDate = DatesHelper.Date(defaultMaxDate, DATES_FORMAT.hourMinuteSecond);
-        }
-        this.setHoursPickerList();
+        this.maxHourDate = maxHour ?
+            DatesHelper.Date(maxHour, DATES_FORMAT.millisecond) :
+            this.defaultMaxHour.clone();
+        this.setHourPickerList();
     }
 
     @Output() timeChange = new EventEmitter();
@@ -64,116 +61,125 @@ export class InputTimePickerComponent implements OnInit {
     ngOnInit() {
     }
 
-    timeChangeEvent() {
-        const timeValue = this.dateTime ?
-            `${this.hoursPickerValue}:${this.minutesPickerValue} ${this.dateTimePickerValue}` : `${this.hoursPickerValue}:${this.minutesPickerValue}`;
-        const timeValueFormat = this.dateTime ? `${this.dateTimeHourFormat}:mm A` : `${this.dateTimeHourFormat}:mm`;
-        const time = DatesHelper.Date(timeValue, timeValueFormat).valueOf();
-        this.timeChange.emit(time);
+    get hourFormat() {
+        return this.dateTime ? 'hh' : 'HH';
     }
 
-    setFormats() {
-        this.dateTimeHourFormat = this.dateTime ? 'hh' : 'HH';
+    get timeFormat() {
+        return this.dateTime ?
+            `${this.hourFormat}:mm A` :
+            `${this.hourFormat}:mm`;
     }
 
+    get pickerHour() {
+        const pickerHour = this.dateTime ?
+            `${this.hoursPickerValue}:00 ${this.dateTimePickerValue}` :
+            `${this.hoursPickerValue}:00`;
+        return DatesHelper.Date(pickerHour, this.timeFormat);
+    }
+
+    get pickerTime() {
+        const pickerTime = this.dateTime ?
+            `${this.hoursPickerValue}:${this.minutesPickerValue} ${this.dateTimePickerValue}` :
+            `${this.hoursPickerValue}:${this.minutesPickerValue}`;
+        return DatesHelper.Date(pickerTime, this.timeFormat);
+    }
+
+    get minHourByDateTime() {
+        return this.dateTime && this.pickerTime.isSameOrAfter(this.defaultPmMinHour, 'hours')
+            ? this.defaultPmMinHour : this.minHourDate;
+    }
+
+    get maxHourByDateTime() {
+        return this.dateTime && this.pickerTime.isSameOrBefore(this.defaultAmMaxHour, 'hours')
+            ? this.defaultAmMaxHour : this.maxHourDate;
+    }
+
+    updateHourPickerValue() {
+        const isAfterMaxHour = this.pickerTime.isAfter(this.maxHourByDateTime, 'hours');
+        const isBeforeMinHour = this.pickerTime.isBefore(this.minHourByDateTime, 'hours');
+        this.hoursPickerValue = isBeforeMinHour ? this.minHourByDateTime.format(this.hourFormat) : this.hoursPickerValue;
+        this.hoursPickerValue = isAfterMaxHour ? this.maxHourByDateTime.format(this.hourFormat) : this.hoursPickerValue;
+    }
+
+    updateMinutePickerValue() {
+        const isAfterMaxMinute = this.pickerTime.isAfter(this.maxHourByDateTime, 'minutes');
+        const isBeforeMinMinute = this.pickerTime.isBefore(this.minHourByDateTime, 'minutes');
+        this.minutesPickerValue = isAfterMaxMinute ? this.maxHourByDateTime.format('mm') : this.minutesPickerValue;
+        this.minutesPickerValue = isBeforeMinMinute ? this.minHourByDateTime.format('mm') : this.minutesPickerValue;
+    }
 
     setTimePicker() {
         const date = DatesHelper.Date(this.time, DATES_FORMAT.millisecond);
-        this.hoursPickerValue = date.format(this.dateTimeHourFormat);
+        this.hoursPickerValue = date.format(this.hourFormat);
         this.minutesPickerValue = date.format('mm');
         this.dateTimePickerValue = date.format('A');
-
-        this.setHoursPickerList();
+        this.setHourPickerList();
     }
 
-    setHoursPickerList() {
-        const pmMinHour = DatesHelper.Date('12:00:00', DATES_FORMAT.hourMinuteSecond);
-        const amMaxHour = DatesHelper.Date('11:59:59', DATES_FORMAT.hourMinuteSecond);
-        const hourSelectedByDateTime = this.dateTime ?
-            `${this.hoursPickerValue}:00 ${this.dateTimePickerValue}` : `${this.hoursPickerValue}:00`;
-        const hourFormatByDateTime = this.dateTime ? `${this.dateTimeHourFormat}:mm A` : `${this.dateTimeHourFormat}:mm`;
 
-        const hourSelected = DatesHelper.Date(hourSelectedByDateTime, hourFormatByDateTime);
-        const minHourByDateTime = this.dateTime && hourSelected.isSameOrAfter(pmMinHour, 'hours') ? pmMinHour : this.minHourDate.clone();
-        const maxHourByDateTime = this.dateTime && hourSelected.isSameOrBefore(amMaxHour, 'hours') ? amMaxHour : this.maxHourDate.clone();
+    setHourPickerList() {
         const hoursPickerList = [];
-
-        const isAfterMaxHour = hourSelected.isAfter(this.maxHourDate, 'hours');
-        const isBeforeMinHour = hourSelected.isBefore(this.minHourDate, 'hours');
-        this.hoursPickerValue = isBeforeMinHour ? this.minHourDate.format(this.dateTimeHourFormat) : this.hoursPickerValue;
-        this.hoursPickerValue = isAfterMaxHour ? this.maxHourDate.format(this.dateTimeHourFormat) : this.hoursPickerValue;
+        const minHourByDateTime = this.minHourByDateTime.clone();
+        const maxHourByDateTime = this.maxHourByDateTime.clone();
         while (minHourByDateTime.isSameOrBefore(maxHourByDateTime, 'hour')) {
-            hoursPickerList.push(minHourByDateTime.format(this.dateTimeHourFormat));
+            hoursPickerList.push(minHourByDateTime.format(this.hourFormat));
             minHourByDateTime.add(1, 'hour');
         }
+
         this.hoursPickerList = [...new Set(hoursPickerList)];
-
-        this.setMinutesPickerList();
+        this.updateHourPickerValue();
+        this.setMinutePickerList();
+        this.setDateTimeList();
     }
 
-    setMinutesPickerList() {
-        const hourByDateTime = this.dateTime ?
-            `${this.hoursPickerValue}:00 ${this.dateTimePickerValue}` : `${this.hoursPickerValue}:00`;
-        const minuteByDateTime = this.dateTime ?
-            `${this.hoursPickerValue}:${this.minutesPickerValue} ${this.dateTimePickerValue}` : `${this.hoursPickerValue}:${this.minutesPickerValue}`;
-        const hourFormatByDateTime = this.dateTime ? `${this.dateTimeHourFormat}:mm A` : `${this.dateTimeHourFormat}:mm`;
-        const hourSelected = DatesHelper.Date(hourByDateTime, hourFormatByDateTime);
-        const minuteSelected = DatesHelper.Date(minuteByDateTime, hourFormatByDateTime);
-
-        const isMinHour = hourSelected.isSame(this.minHourDate, 'hour');
-        const isMaxHour = hourSelected.isSame(this.maxHourDate, 'hour');
-        const nextHour = hourSelected.clone().add(59, 'minutes');
-        const hourSelectedClone = hourSelected.clone();
-        const minuteSelectedClone = minuteSelected.clone();
+    setMinutePickerList() {
         const minutesPickerList = [];
-        const isBeforeMinMinute = minuteSelectedClone.isBefore(this.minHourDate, 'minutes');
-        this.minutesPickerValue = isBeforeMinMinute ? this.minHourDate.format('mm') : this.minutesPickerValue;
-        const isAfterMaxMinute = minuteSelectedClone.isAfter(this.maxHourDate, 'minutes');
-        this.minutesPickerValue = isAfterMaxMinute ? this.maxHourDate.format('mm') : this.minutesPickerValue;
-        const minHourClone = this.minHourDate.clone();
-        if (isMinHour && !isMaxHour) {
-            while (minHourClone.isSameOrBefore(nextHour, 'minutes')) {
-                minutesPickerList.push(minHourClone.format('mm'));
-                minHourClone.add(1, 'minute');
-            }
-        }
-        if (isMaxHour && !isMinHour) {
-            while (hourSelectedClone.isSameOrBefore(this.maxHourDate, 'minutes')) {
-                minutesPickerList.push(hourSelectedClone.format('mm'));
-                hourSelectedClone.add(1, 'minute');
-            }
+        const maxMinutesPickerHour = this.pickerHour.clone().add(59, 'minutes');
+        const isBeforeMinHour = this.pickerTime.isBefore(this.minHourByDateTime);
+        const isAfterMaxHour = maxMinutesPickerHour.isAfter(this.maxHourByDateTime);
+        const minMinutes = isBeforeMinHour ? this.minHourByDateTime.clone() : this.pickerTime.clone();
+        const maxMinutes = isAfterMaxHour ? this.maxHourByDateTime.clone() : maxMinutesPickerHour.clone();
+
+        while (minMinutes.isSameOrBefore(maxMinutes, 'minutes')) {
+            minutesPickerList.push(minMinutes.format('mm'));
+            minMinutes.add(1, 'minute');
         }
 
-        if (isMinHour && isMaxHour) {
-            while (minHourClone.isSameOrBefore(this.maxHourDate, 'minutes')) {
-                minutesPickerList.push(minHourClone.format('mm'));
-                minHourClone.add(1, 'minute');
-            }
-        }
-
-        if (!isMinHour && !isMaxHour) {
-            while (hourSelectedClone.isSameOrBefore(nextHour, 'minutes')) {
-                minutesPickerList.push(hourSelectedClone.format('mm'));
-                hourSelectedClone.add(1, 'minute');
-            }
-        }
         this.minutesPickerList = [...new Set(minutesPickerList)];
+        this.updateMinutePickerValue();
     }
 
-    hoursPickerChange(hour: string) {
+    setDateTimeList() {
+        const AM = 'AM';
+        const PM = 'PM';
+        let dateTimePickerList: string[];
+        const hasAm = this.minHourDate.format('A') === 'AM';
+        const hasPm = this.maxHourDate.format('A') === 'PM';
+        dateTimePickerList = hasAm ? [AM] : [];
+        dateTimePickerList = hasPm ? [...dateTimePickerList, PM] : dateTimePickerList;
+        this.dateTimePickerList = dateTimePickerList;
+    }
+
+    hourPickerChange(hour: string) {
         this.hoursPickerValue = hour;
-        this.setMinutesPickerList();
+        this.setMinutePickerList();
         this.timeChangeEvent();
     }
 
-    minutesPickerChange(minute: string) {
+    minutePickerChange(minute: string) {
         this.minutesPickerValue = minute;
         this.timeChangeEvent();
     }
 
     dateTimePickerChange(dateTime: string) {
         this.dateTimePickerValue = dateTime;
-        this.setHoursPickerList();
+        this.setHourPickerList();
         this.timeChangeEvent();
+    }
+
+    timeChangeEvent() {
+        const time = DatesHelper.Date(this.pickerTime, this.timeFormat).valueOf();
+        this.timeChange.emit(time);
     }
 }

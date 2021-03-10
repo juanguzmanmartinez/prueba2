@@ -34,7 +34,7 @@ export class Zone extends ZoneBase {
     constructor(iZone: IZone) {
         super(iZone);
         this.serviceTypeList = iZone.serviceTypes ? iZone.serviceTypes
-            .map((serviceType) => serviceType.serviceTypeCode) : [];
+            .map((serviceType: IZoneServiceType) => serviceType.serviceTypeCode) : [];
     }
 }
 

@@ -24,17 +24,21 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit, OnDestr
     @Input() name: string | number = 'input-time';
     @Input() placeholder = 'hh:mm';
     @Input() disabled: boolean;
-    @Input() value: number;
     @Input() format: '12' | '24' = '24';
     @Input() minHour: number;
     @Input() maxHour: number;
+
+    @Input('value')
+    set value(time: number) {
+        this.setTimeValue(time);
+    }
 
     @Output() timeChange = new EventEmitter();
 
     @ViewChild('timePickerContainer', {read: ElementRef, static: true}) timerPicker: ElementRef;
 
-    onChange = (_: any) => {    };
-    onTouched = (_: any) => {    };
+    onChange = (_: any) => {};
+    onTouched = (_: any) => {};
 
     constructor(
         @Optional() @Self() public ngControl: NgControl,

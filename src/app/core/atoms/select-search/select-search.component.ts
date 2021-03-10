@@ -161,6 +161,7 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, A
     }
 
     ngOnDestroy() {
+        this.killTrigger.next();
         this.killTrigger.complete();
     }
 

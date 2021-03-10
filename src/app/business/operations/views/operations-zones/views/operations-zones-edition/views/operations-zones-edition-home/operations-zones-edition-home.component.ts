@@ -13,6 +13,8 @@ import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { ZonesMessages } from '../../../../parameters/operations-zones-messages.parameter';
 import { AlertService } from '@molecules/alert/alert.service';
+import { parseUrl } from '@helpers/parse-url.helper';
+import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
 
 @Component({
     selector: 'app-operations-zones-edition-home',
@@ -26,7 +28,8 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     public zonesServiceTypeList: ZonesServiceTypeList;
     private serviceTypeName = CDeliveryServiceTypeName;
 
-    public editionHomeLoader: boolean;
+    public homeEditionLoader = true;
+    public saveEditionLoader: boolean;
 
     constructor(
         private _router: Router,
@@ -40,10 +43,17 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         const subscription = this._operationsZonesEditionStore.zoneDetail$
             .subscribe((zoneDetail) => {
-                this.editionHomeLoader = false;
-                this.zoneDetail = zoneDetail;
-                this.zonesServiceTypeList = new ZonesServiceTypeList(zoneDetail.serviceTypeList);
-            });
+                    this.homeEditionLoader = false;
+                    this.saveEditionLoader = false;
+                    this.zoneDetail = zoneDetail;
+                    this.zonesServiceTypeList = new ZonesServiceTypeList(zoneDetail.serviceTypeList, zoneDetail.assignedStore.services);
+                },
+                () => {
+                    this.saveEditionLoader = false;
+                    this.homeEditionLoader = false;
+                    this.zoneDetail = null;
+                    this.zonesServiceTypeList = null;
+                });
         this.subscriptions.push(subscription);
     }
 
@@ -69,24 +79,34 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     registerServiceType(serviceType: EDeliveryServiceType) {
-        const zoneServiceTypRegister = {
-            serviceTypeCode: serviceType,
-            endHour: DatesHelper.Date(this.zoneDetail.assignedStore.startHour, DATES_FORMAT.millisecond)
-                .format(DATES_FORMAT.hourMinute24Hours),
-            startHour: DatesHelper.Date(this.zoneDetail.assignedStore.endHour, DATES_FORMAT.millisecond)
-                .format(DATES_FORMAT.hourMinute24Hours),
-            segmentGap: '30',
-            zoneId: this.zoneDetail.idKey
-        } as IZoneServiceTypRegister;
+        const assignedStoreServiceType = this.zoneDetail?.assignedStore.services
+            .find((storeServiceType: ZonesStoreServiceType) => storeServiceType.code === serviceType);
 
-        this._operationsZonesImplement.postZoneServiceType(zoneServiceTypRegister)
-            .subscribe(() => {
-                this.editionHomeLoader = true;
-                this._operationsZonesEditionStore.updateZoneDetail = true;
-                this._alert.alertSuccess(ZonesMessages.successServiceTypeRegistered(this.serviceTypeName[serviceType], this.zoneDetail.name));
-            }, () => {
-                this._alert.alertError(ZonesMessages.errorServiceTypeRegistered(this.serviceTypeName[serviceType], this.zoneDetail.name));
-            });
+        if (assignedStoreServiceType) {
+            const zoneServiceTypRegister = {
+                serviceTypeCode: serviceType,
+                startHour: DatesHelper.Date(assignedStoreServiceType.startHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
+                endHour: DatesHelper.Date(assignedStoreServiceType.endHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
+                segmentGap: '30',
+                zoneId: this.zoneDetail.idKey
+            } as IZoneServiceTypRegister;
+
+            this._operationsZonesImplement.postZoneServiceType(zoneServiceTypRegister)
+                .subscribe(() => {
+                    this.saveEditionLoader = true;
+                    this._operationsZonesEditionStore.updateZoneDetail = true;
+                    this._alert.alertSuccess(ZonesMessages.successServiceTypeRegistered(this.serviceTypeName[serviceType], this.zoneDetail.name));
+                }, () => {
+                    this._alert.alertError(ZonesMessages.errorServiceTypeRegistered(this.serviceTypeName[serviceType], this.zoneDetail.name));
+                });
+        } else {
+            this._alert.alertError(ZonesMessages.errorServiceTypeRegistered(this.serviceTypeName[serviceType], this.zoneDetail.name));
+        }
+    }
+
+    backRoute() {
+        const backRoute = parseUrl(this._router.url, '..');
+        this._router.navigate([backRoute]);
     }
 
     ngOnDestroy() {

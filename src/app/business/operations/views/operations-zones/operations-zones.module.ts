@@ -44,6 +44,8 @@ import { AlertModule } from '@molecules/alert/alert.module';
 import { DirectivesModule } from '../../../../shared/directives/directives.module';
 import { LinksModule } from '@atoms/links/links.module';
 import { InputTimeModule } from '@atoms/input-time/input-time.module';
+import { SkeletonModule } from '@molecules/skeleton/skeleton.module';
+import { EmptyResultModule } from '@pages/empty-result/empty-result.module';
 
 
 @NgModule({
@@ -91,7 +93,9 @@ import { InputTimeModule } from '@atoms/input-time/input-time.module';
         AlertModule,
         DirectivesModule,
         LinksModule,
-        InputTimeModule
+        InputTimeModule,
+        SkeletonModule,
+        EmptyResultModule
     ],
     providers: [
         OperationsZonesImplementService

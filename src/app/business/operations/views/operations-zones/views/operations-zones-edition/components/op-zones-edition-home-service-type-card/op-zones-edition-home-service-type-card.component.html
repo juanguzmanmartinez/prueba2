@@ -23,17 +23,20 @@
         <ng-container information-caption>{{segmentGap}}</ng-container>
     </app-card-static-information>
 
-    <div *ngIf="serviceType.registered"
-         app-card-edit-button (click)="editEvent()"></div>
 
-    <div *ngIf="!serviceType.registered"
-         class="register-service-type">
-        <app-tooltip value="Registrar {{segmentName}}">
-            <app-button-action-icon iconName="add"
-                                    appEditionAccess
-                                    (clicked)="addEvent()">
-            </app-button-action-icon>
-        </app-tooltip>
-    </div>
+    <ng-container *ngIf="serviceType.available">
+        <div *ngIf="serviceType.registered"
+             app-card-edit-button (click)="editEvent()"></div>
+
+        <div *ngIf="!serviceType.registered"
+             class="register-service-type">
+            <app-tooltip value="Registrar {{segmentName}}">
+                <app-button-action-icon iconName="add"
+                                        appEditionAccess
+                                        (clicked)="addEvent()">
+                </app-button-action-icon>
+            </app-tooltip>
+        </div>
+    </ng-container>
 
 </app-card>

@@ -83,6 +83,7 @@ export class TableLoaderDirective implements AfterViewInit, OnDestroy {
 
     ngOnDestroy() {
         this.killTrigger.next();
+        this.killTrigger.complete();
     }
 
 

@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { MainLoaderComponent } from '@pages/main-loader/main-loader.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { PagesModule } from '@pages/pages.module';
+import { NotFoundModule } from '@pages/not-found/not-found.module';
 import { IconsRegistryModule } from '@atoms/icons/icons-registry.module';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from '@interceptors/interceptor.providers';
@@ -13,6 +13,7 @@ import { InterceptorsServiceModule } from '@interceptors/interceptors-service.mo
 import { StoreFactoryModule } from '@stores/store-factory.module';
 import { GuardServiceModule } from '@guards/guard-service.module';
 import { ListenerFactoryModule } from './shared/listeners/listener-factory.module';
+import { NotSupportedModule } from '@pages/not-supported/not-supported.module';
 
 @NgModule({
     bootstrap: [
@@ -33,7 +34,8 @@ import { ListenerFactoryModule } from './shared/listeners/listener-factory.modul
         AppRoutingModule,
         InterceptorsServiceModule,
         IconsRegistryModule,
-        PagesModule,
+        NotFoundModule,
+        NotSupportedModule,
     ],
     providers: [
         {provide: MAT_DATE_LOCALE, useValue: 'es'},

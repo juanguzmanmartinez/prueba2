@@ -17,14 +17,16 @@ export interface IStore {
     endHour: string;
     drugstoreWareHouseId: number;
     localType: string;
-    services: Array<ILocalService>;
+    services: Array<IStoreService>;
 }
 
-export interface ILocalService {
+export interface IStoreService {
     code: string;
     service: string;
     shortName: string;
     enabled: boolean;
+    endHour: string;
+    startHour: string;
 }
 
 export interface ILocalCompany {

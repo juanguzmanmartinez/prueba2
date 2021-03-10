@@ -1,14 +1,18 @@
 import { ZoneServiceType } from './operations-zones.model';
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import { ZonesStoreServiceType } from './operations-zones-store.model';
 
 export class ZoneServiceTypeRegistered {
     serviceType: ZoneServiceType;
     registered: boolean;
+    available: boolean;
 
     constructor(
         serviceType: ZoneServiceType,
+        storeServiceType: ZonesStoreServiceType,
         serviceTypeCode: EDeliveryServiceType
     ) {
+        this.available = !!storeServiceType;
         this.registered = !!serviceType;
         this.serviceType = serviceType || new ZoneServiceType({
             serviceTypeCode,
@@ -29,20 +33,29 @@ export class ZonesServiceTypeList {
     scheduled: ZoneServiceTypeRegistered;
     ret: ZoneServiceTypeRegistered;
 
-    constructor(zoneServiceTypeList: Array<ZoneServiceType>) {
-        const amPm: ZoneServiceType = zoneServiceTypeList
+    constructor(zoneServiceTypeList: Array<ZoneServiceType>, zoneStoreServiceTypeList: Array<ZonesStoreServiceType>) {
+        const zoneAmPm: ZoneServiceType = zoneServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.amPm);
-        const express: ZoneServiceType = zoneServiceTypeList
+        const zoneExpress: ZoneServiceType = zoneServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.express);
-        const scheduled: ZoneServiceType = zoneServiceTypeList
+        const zoneScheduled: ZoneServiceType = zoneServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.scheduled);
-        const ret: ZoneServiceType = zoneServiceTypeList
+        const zoneRet: ZoneServiceType = zoneServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.ret);
 
-        this.amPm = new ZoneServiceTypeRegistered(amPm, EDeliveryServiceType.amPm);
-        this.express = new ZoneServiceTypeRegistered(express, EDeliveryServiceType.express);
-        this.scheduled = new ZoneServiceTypeRegistered(scheduled, EDeliveryServiceType.scheduled);
-        this.ret = new ZoneServiceTypeRegistered(ret, EDeliveryServiceType.ret);
+        const zoneStoreAmPm: ZonesStoreServiceType = zoneStoreServiceTypeList
+            .find((serviceType) => serviceType.code === EDeliveryServiceType.amPm);
+        const zoneStoreExpress: ZonesStoreServiceType = zoneStoreServiceTypeList
+            .find((serviceType) => serviceType.code === EDeliveryServiceType.express);
+        const zoneStoreScheduled: ZonesStoreServiceType = zoneStoreServiceTypeList
+            .find((serviceType) => serviceType.code === EDeliveryServiceType.scheduled);
+        const zoneStoreRet: ZonesStoreServiceType = zoneStoreServiceTypeList
+            .find((serviceType) => serviceType.code === EDeliveryServiceType.ret);
+
+        this.amPm = new ZoneServiceTypeRegistered(zoneAmPm, zoneStoreAmPm, EDeliveryServiceType.amPm);
+        this.express = new ZoneServiceTypeRegistered(zoneExpress, zoneStoreExpress, EDeliveryServiceType.express);
+        this.scheduled = new ZoneServiceTypeRegistered(zoneScheduled, zoneStoreScheduled, EDeliveryServiceType.scheduled);
+        this.ret = new ZoneServiceTypeRegistered(zoneRet, zoneStoreRet, EDeliveryServiceType.ret);
     }
 
 }

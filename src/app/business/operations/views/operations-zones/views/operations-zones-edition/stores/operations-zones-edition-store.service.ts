@@ -20,6 +20,10 @@ export class OperationsZonesEditionStoreService implements OnDestroy {
         this.zoneDetailSubject.next(zoneDetail);
     }
 
+    set zoneDetailError(error: any) {
+        this.zoneDetailSubject.error(error);
+    }
+
     get updateZoneDetail$(): Observable<boolean> {
         return this.updateZoneDetailSubject.asObservable()
             .pipe(filter(value => !!value));
