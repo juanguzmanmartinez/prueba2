@@ -48,10 +48,10 @@
             <app-card-static-information class="d-block mb-5" iconName="record_voice_over">
                 <ng-container information-title>Canales de atención</ng-container>
                 <ng-container information-caption>
-                    <ng-container *ngFor="let channel of zoneDetail.channel; let last = last">
+                    <ng-container *ngFor="let channel of zoneDetail.channelList; let last = last">
                             <span>
                                 {{channelName[channel]}}
-                                <span class="ms-2" *ngIf="!last">-</span>
+                                <span class="mx-2" *ngIf="!last">-</span>
                             </span>
                     </ng-container>
                 </ng-container>

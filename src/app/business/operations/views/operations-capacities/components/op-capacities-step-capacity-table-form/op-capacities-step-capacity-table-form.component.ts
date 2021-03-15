@@ -12,8 +12,8 @@ import { OpCapacitiesStepCapacityTableFormService } from './form/op-capacities-s
 })
 export class OpCapacitiesStepCapacityTableFormComponent implements OnInit {
 
-  capacityTableDisplayedColumns: string[] = ['value', 'hour', 'capacity'];
-  capacityTableDataSource = new BehaviorSubject<FormGroup[]>([]);
+  displayedColumns: string[] = ['value', 'hour', 'capacity'];
+  dataSource = new BehaviorSubject<FormGroup[]>([]);
   capacityTableSelection = new SelectionModel<FormGroup>(true, []);
 
   constructor(
@@ -50,7 +50,7 @@ export class OpCapacitiesStepCapacityTableFormComponent implements OnInit {
   }
 
   updateView() {
-    this.capacityTableDataSource.next(this._opCapacitiesStepCapacityTableForm.capacitySegmentList.controls as FormGroup[]);
+    this.dataSource.next(this._opCapacitiesStepCapacityTableForm.capacitySegmentList.controls as FormGroup[]);
   }
 
   get totalCapacity() {

@@ -1,37 +1,48 @@
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import { EChannel } from '@models/channel/channel.model';
+import { ECompany } from '@models/company/company.model';
+import { EPaymentMethod } from '@models/payment-method/payment-method.model';
+import { IZone } from '@interfaces/zones/zones.interface';
 
 export interface IStore {
+    legacyId: number;
     localCode: string;
     name: string;
     description: string;
-    position: number;
-    address: string;
-    enabled: boolean;
+    localType: string;
     wmsEnabled: boolean;
-    companies: Array<ILocalCompany>;
-    legacyId: number;
+    enabled: boolean;
+    position: number;
+    services: IStoreServiceType[];
+    companies: IStoreCompany[];
+    channel: EChannel[];
+}
+
+export interface IStoreDetail extends IStore {
+    startHour: string;
+    endHour: string;
+    address: string;
     latitude: number;
     longitude: number;
-    inkaVentaId: string;
-    startHour: string;
-    endHour: string;
-    drugstoreWareHouseId: number;
-    localType: string;
-    services: Array<IStoreService>;
+    group: string;
+    paymentMethodList: EPaymentMethod[];
+    zoneList: IZone[];
 }
 
-export interface IStoreService {
-    code: string;
+export interface IStoreServiceType {
+    id: string;
+    code: EDeliveryServiceType;
     service: string;
     shortName: string;
-    enabled: boolean;
-    endHour: string;
     startHour: string;
+    endHour: string;
+    enabled: boolean;
+    intervalTime: number;
 }
 
-export interface ILocalCompany {
+export interface IStoreCompany {
     company: string;
-    code: string;
+    code: ECompany;
 }
 
 export interface ILocalGroup {
@@ -51,7 +62,7 @@ export interface IServiceType {
     capacitiesQuantity: number;
     endDay: string;
     ordersQuantity: number;
-    segments: Array<IServiceTypeSegment>;
+    segments: IServiceTypeSegment[];
     selectDaysQuantity?: number;
     serviceTypeCode: string;
     startDay: string;
@@ -80,5 +91,5 @@ export class ServiceType {
     selectDaysQuantity: number;
     startDay: number;
     endDay: number;
-    segmentList: Array<ServiceTypeSegment>;
+    segmentList: ServiceTypeSegment[];
 }

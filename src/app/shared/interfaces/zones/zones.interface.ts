@@ -22,7 +22,7 @@ export interface IZoneServiceTypeUpdate {
     segmentGap: number;
 }
 
-export interface IZoneServiceTypRegister {
+export interface IZoneServiceTypeRegister {
     zoneId: string;
     serviceTypeCode: string;
     startHour: string;
@@ -32,17 +32,17 @@ export interface IZoneServiceTypRegister {
 
 export interface IZone {
     id: string;
-    idZone: number;
+    idZone: string;
     name: string;
     enabled: boolean;
     fulfillmentCenterCode: string;
-    serviceTypes: Array<IZoneServiceType>;
+    serviceTypes: IZoneServiceType[];
     storeCenter: IStore;
 }
 
 export interface IZoneDetail extends IZone {
     zoneType: string;
-    channel: Array<EChannel>;
+    channel: EChannel[];
     companyCode: ECompany;
     zoneBackup: IZoneBackUp;
 }
@@ -51,7 +51,7 @@ export interface IZoneDetailUpdate {
     fulfillmentCenterCode: string;
     enabled: boolean;
     zoneType: string;
-    channel: Array<EChannel>;
+    channel: EChannel[];
     companyCode: ECompany;
 }
 

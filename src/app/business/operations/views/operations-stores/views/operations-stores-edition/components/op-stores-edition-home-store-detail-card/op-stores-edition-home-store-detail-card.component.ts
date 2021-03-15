@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IStore } from '../../../../models/operation-stores-responses.model';
+import { Store } from '../../../../models/operations-stores.model';
 
 @Component({
     selector: 'app-op-stores-edition-home-store-detail-card',
@@ -8,7 +8,7 @@ import { IStore } from '../../../../models/operation-stores-responses.model';
 })
 export class OpStoresEditionHomeStoreDetailCardComponent implements OnInit {
 
-    @Input() store: IStore;
+    @Input() store: Store;
     @Output() storeEdit = new EventEmitter();
 
     constructor() {

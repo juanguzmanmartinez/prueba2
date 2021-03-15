@@ -12,7 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class IconsRegistryModule {
 
-    private iconsSvg: Array<IconsSvgModel> = ICONS_SVG;
+    private iconsSvg: IconsSvgModel[] = ICONS_SVG;
 
     constructor(
         private matIconRegistry: MatIconRegistry,

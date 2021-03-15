@@ -28,7 +28,7 @@
 
     <div class="col-12 mb-5" *ngIf="_opCapacitiesStepCapacityTableForm.capacitySegmentList?.controls.length">
       <table mat-table
-             [dataSource]="capacityTableDataSource"
+             [dataSource]="dataSource"
              class="capacity-table"
              formArrayName="capacitySegmentList">
 
@@ -63,8 +63,8 @@
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="capacityTableDisplayedColumns"></tr>
-        <tr mat-row row-small row-hover *matRowDef="let row; columns: capacityTableDisplayedColumns;"
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row row-small row-hover *matRowDef="let row; columns: displayedColumns;"
             (click)="capacityTableSelection.toggle(row)">
         </tr>
       </table>

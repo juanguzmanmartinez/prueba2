@@ -37,8 +37,8 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit, OnDestr
 
     @ViewChild('timePickerContainer', {read: ElementRef, static: true}) timerPicker: ElementRef;
 
-    onChange = (_: any) => {};
-    onTouched = (_: any) => {};
+    onChange: any = () => {};
+    onTouch: any = () => {};
 
     constructor(
         @Optional() @Self() public ngControl: NgControl,
@@ -75,6 +75,7 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit, OnDestr
         const value = DatesHelper.Date(time, DATES_FORMAT.millisecond);
         this.timeValue = value.isValid() ? value.format(this.timeFormat) : '';
         this.onChange(this.time);
+        this.onTouch(this.time);
         this.timeChange.emit(this.time);
     }
 
@@ -106,7 +107,7 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit, OnDestr
     }
 
     registerOnTouched(fn: any): void {
-        this.onTouched(fn);
+        this.onTouch(fn);
     }
 
     setDisabledState(isDisabled: boolean): void {

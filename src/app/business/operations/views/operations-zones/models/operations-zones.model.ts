@@ -11,7 +11,7 @@ import { EZoneLabel } from './operations-zones-label.model';
 
 class ZoneBase {
     id: string;
-    code: number;
+    code: string;
     name: string;
     assignedStore: ZonesStore;
     assignedStoreCode: string;
@@ -19,7 +19,7 @@ class ZoneBase {
 
     constructor(iZone: IZone) {
         this.id = iZone.id || null;
-        this.code = iZone.idZone || null;
+        this.code = `${iZone.idZone}` || null;
         this.assignedStoreCode = iZone.fulfillmentCenterCode || '';
         this.name = iZone.name || '';
         this.state = iZone.enabled ? EState.active : EState.inactive;
@@ -29,7 +29,7 @@ class ZoneBase {
 
 
 export class Zone extends ZoneBase {
-    serviceTypeList: Array<EDeliveryServiceType>;
+    serviceTypeList: EDeliveryServiceType[];
 
     constructor(iZone: IZone) {
         super(iZone);
@@ -39,17 +39,17 @@ export class Zone extends ZoneBase {
 }
 
 export class ZoneDetail extends ZoneBase {
-    serviceTypeList: Array<ZoneServiceType>;
+    serviceTypeList: ZoneServiceType[];
     label: EZoneLabel;
-    channel: Array<EChannel>;
+    channelList: EChannel[];
     company: ECompany;
     zoneBackup: ZoneBackup;
 
     constructor(iZoneDetail: IZoneDetail) {
         super(iZoneDetail);
         this.label = iZoneDetail.zoneType as EZoneLabel;
-        this.company = iZoneDetail.companyCode;
-        this.channel = iZoneDetail.channel;
+        this.company = iZoneDetail.companyCode || null;
+        this.channelList = iZoneDetail.channel || [];
         this.serviceTypeList = iZoneDetail.serviceTypes ? iZoneDetail.serviceTypes
             .map(serviceType => new ZoneServiceType(serviceType)) : [];
         if (iZoneDetail.zoneBackup) {

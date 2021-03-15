@@ -2,8 +2,7 @@
     <div class="row mb-6">
         <div class="col-12">
             <h5 class="text-h5 mb-2">{{store?.name}}</h5>
-            <app-tag class="d-block"
-                     [tagColor]="store.status === 'activo' ? 'success' : 'danger'">LOCAL {{store.status}}</app-tag>
+            <app-tag class="d-block">LOCAL ACTIVO</app-tag>
         </div>
     </div>
 
@@ -11,7 +10,7 @@
         <div class="col-6">
             <app-card-static-information class="d-block mb-5" iconName="store">
                 <ng-container information-title>Nomenclatura</ng-container>
-                <ng-container information-caption>{{store.store}} {{store.name}}</ng-container>
+                <ng-container information-caption>{{store?.code}} {{store?.name}}</ng-container>
             </app-card-static-information>
 
             <app-card-static-information class="d-block mb-5" iconName="location_on">

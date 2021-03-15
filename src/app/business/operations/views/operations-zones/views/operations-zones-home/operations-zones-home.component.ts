@@ -32,8 +32,8 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     public dataSource = new MatTableDataSource([]);
     public rowSelection = new SelectionModel<Zone>(true, []);
 
-    @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
-    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     constructor(
         private _router: Router,
@@ -44,7 +44,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this._operationsZonesImplement.zoneList
-            .subscribe((zoneList: Array<Zone>) => {
+            .subscribe((zoneList: Zone[]) => {
                     this.tableLoader = false;
                     this.dataSource.data = zoneList;
                     this.setDataSourceService();
@@ -74,7 +74,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
         this.dataSource.paginator = this.paginator.paginator;
         this.dataSource.filterPredicate = (data: Zone, filter: string) => {
             const filterNormalize = normalizeValue(filter);
-            const idNormalize = normalizeValue(`${data.code}`);
+            const idNormalize = normalizeValue(data.code);
             const nameNormalize = normalizeValue(data.name);
             const assignedStoreNameNormalize = normalizeValue(data.assignedStore ? data.assignedStore.name : '');
             const assignedStoreCodeNormalize = normalizeValue(data.assignedStoreCode);
@@ -111,8 +111,8 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     }
 
 
-    editRow(zoneCode: number) {
-        this._router.navigate([CONCAT_PATH.opZones_ZoneCode(`${zoneCode}`)]);
+    editRow(zoneCode: string) {
+        this._router.navigate([CONCAT_PATH.opZones_ZoneCode(zoneCode)]);
     }
 
     rowDetailDialog(zone: Zone) {

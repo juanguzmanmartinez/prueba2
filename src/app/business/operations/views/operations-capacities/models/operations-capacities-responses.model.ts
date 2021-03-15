@@ -2,7 +2,7 @@ import { isObject } from '@helpers/objects-equal.helper';
 import { CalendarServiceDefaultCapacities, ICalendarServiceDefaultCapacities } from '@models/calendar/calendar-response.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
-import { ILocalCompany, IServiceType, IServiceTypeSegment, IStore, IStoreService, ServiceType, ServiceTypeSegment } from '@interfaces/stores/stores.interface';
+import { IServiceType, IServiceTypeSegment, IStore, IStoreCompany, IStoreServiceType, ServiceType, ServiceTypeSegment } from '@interfaces/stores/stores.interface';
 
 export class CapacitiesStore {
     localCode: string;
@@ -11,7 +11,7 @@ export class CapacitiesStore {
     position: number;
     address: string;
     wmsEnabled: boolean;
-    companies: Array<ILocalCompany>;
+    companies: IStoreCompany[];
     legacyId: number;
     latitude: number;
     longitude: number;
@@ -20,7 +20,7 @@ export class CapacitiesStore {
     endHour: string;
     drugstoreWareHouseId: number;
     localType: string;
-    services: Array<IStoreService>;
+    services: IStoreServiceType[];
 
     constructor(iLocal: IStore) {
         const local = isObject(iLocal) ? iLocal : {} as IStore;

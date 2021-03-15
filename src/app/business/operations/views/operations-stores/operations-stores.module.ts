@@ -27,13 +27,14 @@ import { OpStoresHomeStoreDetailDialogComponent } from './views/operations-store
 import { OpStoresEditionHomeServiceTypeCardComponent } from './views/operations-stores-edition/components/op-stores-edition-home-service-type-card/op-stores-edition-home-service-type-card.component';
 import { OpStoresEditionHomeStoreDetailCardComponent } from './views/operations-stores-edition/components/op-stores-edition-home-store-detail-card/op-stores-edition-home-store-detail-card.component';
 import { SwitchModule } from '@atoms/switch/switch.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from '@atoms/select/select.module';
 import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
 import { FormFieldModule } from '@molecules/form-field/form-field.module';
 import { OpStoresEditionStoreDetailCardComponent } from './views/operations-stores-edition/components/op-stores-edition-store-detail-card/op-stores-edition-store-detail-card.component';
 import { OpStoresEditionStoreDetailFormCardComponent } from './views/operations-stores-edition/components/op-stores-edition-store-detail-form-card/op-stores-edition-store-detail-form-card.component';
 import { OpStoresEditionServiceTypeDetailFormCardComponent } from './views/operations-stores-edition/components/op-stores-edition-service-type-detail-form-card/op-stores-edition-service-type-detail-form-card.component';
+import { PaginatorModule } from '@atoms/paginator/paginator.module';
 
 
 @NgModule({
@@ -72,7 +73,9 @@ import { OpStoresEditionServiceTypeDetailFormCardComponent } from './views/opera
         ReactiveFormsModule,
         SelectModule,
         CheckboxModule,
-        FormFieldModule
+        FormFieldModule,
+        FormsModule,
+        PaginatorModule
     ],
     providers: [
         OperationsStoresImplementService

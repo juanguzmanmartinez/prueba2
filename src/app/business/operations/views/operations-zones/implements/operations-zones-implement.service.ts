@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ZonesClientService } from '@clients/zones/zones-client.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IZone, IZoneDetail, IZoneDetailUpdate, IZoneServiceTypeUpdate, IZoneServiceTypRegister } from '@interfaces/zones/zones.interface';
+import { IZone, IZoneDetail, IZoneDetailUpdate, IZoneServiceTypeRegister, IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { Zone, ZoneDetail } from '../models/operations-zones.model';
 import { StoresClientService } from '@clients/stores/stores-client.service';
 import { ZonesStore } from '../models/operations-zones-store.model';
@@ -19,10 +19,10 @@ export class OperationsZonesImplementService {
     ) {
     }
 
-    get zoneList(): Observable<Array<Zone>> {
+    get zoneList(): Observable<Zone[]> {
         return this.zonesClient.getZoneList()
             .pipe(
-                map((iZoneList: Array<IZone>) => {
+                map((iZoneList: IZone[]) => {
                     return iZoneList.map((iZone: IZone) => new Zone(iZone));
                 })
             );
@@ -40,12 +40,12 @@ export class OperationsZonesImplementService {
     get storeList() {
         return this.storesClient.getStoreList()
             .pipe(
-                map((storeList: Array<IStore>) => {
+                map((storeList: IStore[]) => {
                     return storeList ? storeList.map(store => new ZonesStore(store)) : [];
                 }));
     }
 
-    get channelList(): Observable<Array<EChannel>> {
+    get channelList(): Observable<EChannel[]> {
         return this.zonesClient.getZoneChannelList();
     }
 
@@ -65,7 +65,7 @@ export class OperationsZonesImplementService {
         return this.zonesClient.putZoneServiceType(serviceTypeId, zoneServiceTypeUpdate);
     }
 
-    postZoneServiceType(zoneServiceTypRegister: IZoneServiceTypRegister) {
+    postZoneServiceType(zoneServiceTypRegister: IZoneServiceTypeRegister) {
         return this.zonesClient.postZoneServiceType(zoneServiceTypRegister);
     }
 }

@@ -9,7 +9,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 export class SelectComponent<T> implements ControlValueAccessor, OnInit {
 
 
-  @Input() optionList: Array<T> = [];
+  @Input() optionList: T[] = [];
   @Input() placeholder = 'placeholder';
   @Input() clearValue: string;
   @Input() value: T;

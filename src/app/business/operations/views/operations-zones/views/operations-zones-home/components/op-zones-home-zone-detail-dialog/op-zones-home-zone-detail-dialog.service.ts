@@ -10,7 +10,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class OpZonesHomeZoneDetailDialogService implements OnDestroy {
-
+    private dialogDetailRef: MatDialogRef<OpZonesHomeZoneDetailDialogComponent>;
     private dialogLoaderRef: MatDialogRef<any>;
     private dialogZoneDetailSubject = new BehaviorSubject<boolean>(false);
 
@@ -21,16 +21,16 @@ export class OpZonesHomeZoneDetailDialogService implements OnDestroy {
     ) {
     }
 
-    open(zoneId: number): Observable<boolean> {
+    open(zoneId: string): Observable<boolean> {
         this.openDialogLoader();
         this.getZoneDetail(zoneId);
         return this.dialogZoneDetailSubject.asObservable();
     }
 
     openDialogZoneDetail(zoneDetail: ZoneDetail): void {
-        const dialogZoneDetailRef = this._dialog.open(OpZonesHomeZoneDetailDialogComponent);
-        dialogZoneDetailRef.componentInstance.zoneDetail = zoneDetail;
-        dialogZoneDetailRef.afterClosed()
+        this.dialogDetailRef = this._dialog.open(OpZonesHomeZoneDetailDialogComponent);
+        this.dialogDetailRef.componentInstance.zoneDetail = zoneDetail;
+        this.dialogDetailRef.afterClosed()
             .pipe(take(1))
             .subscribe((closeResult: boolean) => {
                 this.dialogZoneDetailSubject.next(closeResult);
@@ -41,8 +41,8 @@ export class OpZonesHomeZoneDetailDialogService implements OnDestroy {
         this.dialogLoaderRef = this._dialogLoader.open();
     }
 
-    getZoneDetail(zoneId: number): void {
-        this._operationsZonesImplement.getZoneDetail(`${zoneId}`)
+    getZoneDetail(zoneId: string): void {
+        this._operationsZonesImplement.getZoneDetail(zoneId)
             .subscribe((zoneDetail: ZoneDetail) => {
                 this.openDialogZoneDetail(zoneDetail);
                 this.dialogLoaderRef.close();
@@ -50,6 +50,12 @@ export class OpZonesHomeZoneDetailDialogService implements OnDestroy {
     }
 
     ngOnDestroy() {
+        if (this.dialogLoaderRef) {
+            this.dialogLoaderRef.close();
+        }
+        if (this.dialogDetailRef) {
+            this.dialogDetailRef.close();
+        }
         this.dialogZoneDetailSubject.complete();
     }
 }

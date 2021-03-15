@@ -8,6 +8,11 @@ export const CCompanyName = {
     [ECompany.mifarma]: 'Mifarma'
 };
 
+export const CCompanyIcon = {
+    [ECompany.inkafarma]: 'inkafarma',
+    [ECompany.mifarma]: 'mifarma'
+};
+
 export const CompanyList = [
     ECompany.inkafarma,
     ECompany.mifarma

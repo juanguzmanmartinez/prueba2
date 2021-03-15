@@ -3,7 +3,7 @@ import { IconsSvgModel } from '../models/icons-svg.model';
 const pathIcons = '../assets/icons/';
 const pathIllustrations = '../assets/illustrations/';
 
-export const ICONS_SVG: Array<IconsSvgModel> = [
+export const ICONS_SVG: IconsSvgModel[] = [
     {name: 'ampm', path: `${pathIcons}ampm.svg`},
     {name: 'avatar', path: `${pathIcons}avatar.svg`},
     {name: 'book', path: `${pathIcons}book.svg`},

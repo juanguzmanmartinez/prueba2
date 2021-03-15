@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OP_STORES_PATH } from '@parameters/router/router-path.parameter';
 import { OperationsStoresImplementService } from '../../../../implements/operations-stores-implement.service';
-import { IStore } from '../../../../models/operation-stores-responses.model';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import { Store } from '../../../../models/operations-stores.model';
 
 @Component({
     selector: 'app-operations-stores-edition-home',
@@ -15,7 +15,7 @@ import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service
 export class OperationsStoresEditionHomeComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
-    public store: IStore;
+    public store: Store;
     public deliveryServiceType = EDeliveryServiceType;
 
     constructor(
@@ -28,17 +28,17 @@ export class OperationsStoresEditionHomeComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         const subscription = this._activatedRoute.paramMap.subscribe(() => {
             const storeId = this._activatedRoute.snapshot.params[OP_STORES_PATH.storeId];
-            this.store = this._operationsStoresImplement.getLocalById(storeId);
+            // this.store = this._operationsStoresImplement.getStoreDetail(storeId);
         });
         this.subscriptions.push(subscription);
     }
 
     editionHomeEditStore() {
-        this._router.navigate([CONCAT_PATH.opStores_StoreEdition(this.store.store)]);
+        this._router.navigate([CONCAT_PATH.opStores_StoreEdition(this.store.code)]);
     }
 
     editionHomeEditService(serviceType: EDeliveryServiceType) {
-        const storeServiceTypePath = `${CONCAT_PATH.opStores_StoreId(this.store.store)}/${CDeliveryServiceTypeRoute[serviceType]}`;
+        const storeServiceTypePath = `${CONCAT_PATH.opStores_StoreId(this.store.code)}/${CDeliveryServiceTypeRoute[serviceType]}`;
         this._router.navigate([storeServiceTypePath]);
     }
 

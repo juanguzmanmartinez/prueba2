@@ -55,11 +55,9 @@
                             <app-card-static-information iconName="record_voice_over">
                                 <ng-container information-title>Canales de atención</ng-container>
                                 <ng-container information-caption>
-                                    <ng-container *ngFor="let channel of zoneDetail.channel; let last = last">
-                                        <span>
-                                            {{channelName[channel]}}
-                                            <span class="ms-2" *ngIf="!last">-</span>
-                                        </span>
+                                    <ng-container *ngFor="let channel of zoneDetail.channelList; let last = last">
+                                        {{channelName[channel]}}
+                                        <span class="mx-2" *ngIf="!last">-</span>
                                     </ng-container>
                                 </ng-container>
                             </app-card-static-information>
@@ -70,7 +68,7 @@
                                 <ng-container information-caption>
                                     <ng-container *ngFor="let serviceType of zoneDetail.serviceTypeList; let last = last">
                                         {{serviceTypeName[serviceType.code]}}
-                                        <span *ngIf="!last" class="mx-2">-</span>
+                                        <span class="mx-2" *ngIf="!last">-</span>
                                     </ng-container>
                                 </ng-container>
                             </app-card-static-information>

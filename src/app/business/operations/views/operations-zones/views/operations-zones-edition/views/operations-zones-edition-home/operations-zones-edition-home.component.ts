@@ -8,7 +8,7 @@ import { ZonesServiceTypeList } from '../../../../models/operations-zones-servic
 import { OperationsZonesEditionStoreService } from '../../stores/operations-zones-edition-store.service';
 import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
-import { IZoneServiceTypRegister } from '@interfaces/zones/zones.interface';
+import { IZoneServiceTypeRegister } from '@interfaces/zones/zones.interface';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { ZonesMessages } from '../../../../parameters/operations-zones-messages.parameter';
@@ -58,11 +58,11 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     editStore() {
-        this._router.navigate([CONCAT_PATH.opZones_ZoneEdition(`${this.zoneDetail.code}`)]);
+        this._router.navigate([CONCAT_PATH.opZones_ZoneEdition(this.zoneDetail.code)]);
     }
 
     editServiceType(serviceType: EDeliveryServiceType) {
-        const zoneIdPath = CONCAT_PATH.opZones_ZoneCode(`${this.zoneDetail.code}`);
+        const zoneIdPath = CONCAT_PATH.opZones_ZoneCode(this.zoneDetail.code);
         const serviceTypePath = `${zoneIdPath}/${CDeliveryServiceTypeRoute[serviceType]}`;
         this._router.navigate([serviceTypePath]);
     }
@@ -89,7 +89,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
                 endHour: DatesHelper.Date(assignedStoreServiceType.endHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
                 segmentGap: '30',
                 zoneId: this.zoneDetail.id
-            } as IZoneServiceTypRegister;
+            } as IZoneServiceTypeRegister;
 
             this._operationsZonesImplement.postZoneServiceType(zoneServiceTypRegister)
                 .subscribe(() => {

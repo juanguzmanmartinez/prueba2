@@ -1,4 +1,4 @@
-import { IStore, IStoreService } from '@interfaces/stores/stores.interface';
+import { IStore, IStoreServiceType } from '@interfaces/stores/stores.interface';
 import { EState } from '@models/state/state.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
@@ -22,7 +22,7 @@ export class ZonesStoreServiceType {
     startHour: number;
     endHour: number;
 
-    constructor(iStoreService: IStoreService) {
+    constructor(iStoreService: IStoreServiceType) {
         this.code = iStoreService.code || null;
         this.state = iStoreService.enabled ? EState.active : EState.inactive;
         this.startHour = DatesHelper.date(iStoreService.startHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;

@@ -24,6 +24,7 @@ export class TableRowDirective implements AfterViewInit {
         this.renderer.addClass(rowElement, 'border-end');
         this.renderer.addClass(rowElement, 'border-start');
         this.renderer.addClass(rowElement, 'border-gray-1');
+        this.renderer.addClass(rowElement, 'text-gray-6');
 
         if (hoverRow) {
             this.renderer.addClass(rowElement, 'row-hover');

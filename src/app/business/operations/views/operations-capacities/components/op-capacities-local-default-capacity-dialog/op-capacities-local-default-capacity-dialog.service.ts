@@ -19,7 +19,7 @@ export class OpCapacitiesLocalDefaultCapacityDialogService {
 
         dialogRef.componentInstance.capacitiesLocal = capacitiesLocal;
         dialogRef.componentInstance.localServiceTypeTable = localService;
-        dialogRef.componentInstance.defaultCapacityTableDataSource = serviceType.segmentList;
+        dialogRef.componentInstance.dataSource = serviceType.segmentList;
 
         return dialogRef;
     }

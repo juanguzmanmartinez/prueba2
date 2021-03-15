@@ -33,7 +33,7 @@ export class ZonesServiceTypeList {
     scheduled: ZoneServiceTypeRegistered;
     ret: ZoneServiceTypeRegistered;
 
-    constructor(zoneServiceTypeList: Array<ZoneServiceType>, zoneStoreServiceTypeList: Array<ZonesStoreServiceType>) {
+    constructor(zoneServiceTypeList: ZoneServiceType[], zoneStoreServiceTypeList: ZonesStoreServiceType[]) {
         const zoneAmPm: ZoneServiceType = zoneServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.amPm);
         const zoneExpress: ZoneServiceType = zoneServiceTypeList

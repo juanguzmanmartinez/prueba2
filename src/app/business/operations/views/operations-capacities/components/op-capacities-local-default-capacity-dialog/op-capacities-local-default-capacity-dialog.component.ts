@@ -8,14 +8,14 @@ import { CapacitiesLocalServiceDefaultCapacity, CapacitiesStore, CapacityService
     styleUrls: ['./op-capacities-local-default-capacity-dialog.component.scss']
 })
 export class OpCapacitiesLocalDefaultCapacityDialogComponent {
-    defaultCapacityTableDisplayedColumns: string[] = ['hour', 'capacity'];
+    displayedColumns: string[] = ['hour', 'capacity'];
 
     public capacityServiceTypeName = CDeliveryServiceTypeName;
     public eCapacityServiceType = EDeliveryServiceType;
 
     @Input() capacitiesLocal: CapacitiesStore;
     @Input() localServiceTypeTable: CapacitiesLocalServiceDefaultCapacity;
-    @Input() defaultCapacityTableDataSource: CapacityServiceTypeSegment[];
+    @Input() dataSource: CapacityServiceTypeSegment[];
 
     constructor() {
     }

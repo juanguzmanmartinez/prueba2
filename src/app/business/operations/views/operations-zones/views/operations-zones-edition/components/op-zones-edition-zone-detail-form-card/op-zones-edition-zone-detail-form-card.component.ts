@@ -72,7 +72,7 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
         this._editionZoneDetailForm.companyControl.setValue(this.zoneDetail.company);
         this._editionZoneDetailForm.labelControl.patchValue(this.zoneDetail.label);
         this._editionZoneDetailForm.channelArray.controls.forEach((channelGroup: FormGroup) => {
-            const checkedChannel = this.zoneDetail.channel
+            const checkedChannel = this.zoneDetail.channelList
                 .find((channel: EChannel) => channelGroup.value.name === channel);
             this._editionZoneDetailForm.getChannelChildCheckedControl(channelGroup)?.patchValue(!!checkedChannel);
         });
@@ -133,14 +133,14 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
             zoneDetailUpdate.fulfillmentCenterCode = assignedStore.code;
             zoneDetailUpdate.zoneType = this._editionZoneDetailForm.labelControl.value;
             zoneDetailUpdate.companyCode = this._editionZoneDetailForm.companyControl.value;
-            const channelList = this._editionZoneDetailForm.channelArray.value as Array<{ name: EChannel, checked: boolean }>;
+            const channelList = this._editionZoneDetailForm.channelArray.value as { name: EChannel, checked: boolean }[];
             zoneDetailUpdate.channel = channelList.filter((channel) => channel.checked)
                 .map((channel) => channel.name);
         } else {
             zoneDetailUpdate.fulfillmentCenterCode = this.zoneDetail.assignedStore.code;
             zoneDetailUpdate.zoneType = this.zoneDetail.label;
             zoneDetailUpdate.companyCode = this.zoneDetail.company;
-            zoneDetailUpdate.channel = this.zoneDetail.channel;
+            zoneDetailUpdate.channel = this.zoneDetail.channelList;
         }
         this.saveEdition.emit(zoneDetailUpdate);
     }

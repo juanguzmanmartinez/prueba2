@@ -10,7 +10,7 @@ export class SelectTabComponent implements OnInit {
     public _selectTabValue = '';
     public _selectTabDisabled = false;
 
-    @Input() selectTabList: Array<string> = [];
+    @Input() selectTabList: string[] = [];
 
     @Input('selectTabValue')
     set selectTabValue(value: string) {
