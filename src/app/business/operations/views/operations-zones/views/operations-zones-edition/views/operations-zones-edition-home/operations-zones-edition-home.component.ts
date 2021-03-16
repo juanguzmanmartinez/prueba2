@@ -58,11 +58,11 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     editStore() {
-        this._router.navigate([CONCAT_PATH.opZones_ZoneEdition(`${this.zoneDetail.id}`)]);
+        this._router.navigate([CONCAT_PATH.opZones_ZoneEdition(`${this.zoneDetail.code}`)]);
     }
 
     editServiceType(serviceType: EDeliveryServiceType) {
-        const zoneIdPath = CONCAT_PATH.opZones_ZoneId(`${this.zoneDetail.id}`);
+        const zoneIdPath = CONCAT_PATH.opZones_ZoneCode(`${this.zoneDetail.code}`);
         const serviceTypePath = `${zoneIdPath}/${CDeliveryServiceTypeRoute[serviceType]}`;
         this._router.navigate([serviceTypePath]);
     }
@@ -88,7 +88,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
                 startHour: DatesHelper.Date(assignedStoreServiceType.startHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
                 endHour: DatesHelper.Date(assignedStoreServiceType.endHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
                 segmentGap: '30',
-                zoneId: this.zoneDetail.idKey
+                zoneId: this.zoneDetail.id
             } as IZoneServiceTypRegister;
 
             this._operationsZonesImplement.postZoneServiceType(zoneServiceTypRegister)

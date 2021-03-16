@@ -1,10 +1,10 @@
-<app-card innerClass="px-6 pt-6 pb-15" *ngIf="zoneDetail">
+<app-card innerClass="px-6 pt-6 pb-15">
     <div class="row mb-6">
         <div class="col-12">
             <h5 class="text-h5 mb-2">
                 {{zoneDetail.name}}
                 <span class="text-caption text-gray-5 ms-3">
-                    {{zoneDetail.id}}
+                    {{zoneDetail.code}}
                 </span>
             </h5>
         </div>
@@ -15,7 +15,14 @@
 
             <app-card-static-information class="d-block mb-5" iconName="location_searching">
                 <ng-container information-title>Zona backup</ng-container>
-                <ng-container information-caption>No asignado</ng-container>
+                <ng-container information-caption>
+                    <ng-container *ngIf="zoneDetail.zoneBackup">
+                        {{zoneDetail.zoneBackup.name}}
+                    </ng-container>
+                    <ng-container *ngIf="!zoneDetail.zoneBackup">
+                        No asignado
+                    </ng-container>
+                </ng-container>
             </app-card-static-information>
 
         </div>

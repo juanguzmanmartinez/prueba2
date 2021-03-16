@@ -17,12 +17,12 @@ export const CONCAT_PATH = {
     opStores_StoreRetEdition: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}/${OP_STORES_PATH.storeRet}`,
 
     operationZones: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}`,
-    opZones_ZoneId: (zoneId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneId}`,
-    opZones_ZoneEdition: (zoneId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneId}/${OP_ZONES_PATH.zoneEdition}`,
-    opZones_ZoneAmPmEdition: (zoneId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneId}/${OP_ZONES_PATH.zoneAmPm}`,
-    opZones_ZoneScheduledEdition: (zoneId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneId}/${OP_ZONES_PATH.zoneScheduled}`,
-    opZones_ZoneExpressEdition: (zoneId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneId}/${OP_ZONES_PATH.zoneExpress}`,
-    opZones_ZoneRetEdition: (zoneId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneId}/${OP_ZONES_PATH.zoneRet}`,
+    opZones_ZoneCode: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}`,
+    opZones_ZoneEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneEdition}`,
+    opZones_ZoneAmPmEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneAmPm}`,
+    opZones_ZoneScheduledEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneScheduled}`,
+    opZones_ZoneExpressEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneExpress}`,
+    opZones_ZoneRetEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneRet}`,
 
     operationCapacities: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.capacities}`,
     opCapacitiesAmPm: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.capacities}/${OP_CAPACITIES_PATH.capacityAmPm}`,

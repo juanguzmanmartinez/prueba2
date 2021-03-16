@@ -1,8 +1,8 @@
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
-import { IZone, IZoneDetail, IZoneServiceType } from '@interfaces/zones/zones.interface';
+import { IZone, IZoneBackUp, IZoneDetail, IZoneServiceType } from '@interfaces/zones/zones.interface';
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
-import { EState } from '@models/state/state.model';
+import { CStateSettingValue, EState } from '@models/state/state.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { ZonesStore } from './operations-zones-store.model';
@@ -10,16 +10,16 @@ import { EZoneLabel } from './operations-zones-label.model';
 
 
 class ZoneBase {
-    idKey: string;
-    id: number;
+    id: string;
+    code: number;
     name: string;
     assignedStore: ZonesStore;
     assignedStoreCode: string;
     state: EState;
 
     constructor(iZone: IZone) {
-        this.idKey = iZone.id || null;
-        this.id = iZone.idZone || null;
+        this.id = iZone.id || null;
+        this.code = iZone.idZone || null;
         this.assignedStoreCode = iZone.fulfillmentCenterCode || '';
         this.name = iZone.name || '';
         this.state = iZone.enabled ? EState.active : EState.inactive;
@@ -43,6 +43,7 @@ export class ZoneDetail extends ZoneBase {
     label: EZoneLabel;
     channel: Array<EChannel>;
     company: ECompany;
+    zoneBackup: ZoneBackup;
 
     constructor(iZoneDetail: IZoneDetail) {
         super(iZoneDetail);
@@ -51,6 +52,25 @@ export class ZoneDetail extends ZoneBase {
         this.channel = iZoneDetail.channel;
         this.serviceTypeList = iZoneDetail.serviceTypes ? iZoneDetail.serviceTypes
             .map(serviceType => new ZoneServiceType(serviceType)) : [];
+        if (iZoneDetail.zoneBackup) {
+            this.zoneBackup = new ZoneBackup(iZoneDetail.zoneBackup);
+        }
+    }
+}
+
+export class ZoneBackup {
+    id: string;
+    name: string;
+    favorite: boolean;
+    assignedStoreCode: string;
+    assignedStoreName: string;
+
+    constructor(iZoneBackup: IZoneBackUp) {
+        this.id = iZoneBackup.zoneId;
+        this.name = iZoneBackup.name;
+        this.favorite = CStateSettingValue[iZoneBackup.preferableLocalBackupToShow];
+        this.assignedStoreCode = iZoneBackup.fulfillmentCenterCode;
+        this.assignedStoreName = iZoneBackup.fulfillmentCenterName;
     }
 }
 

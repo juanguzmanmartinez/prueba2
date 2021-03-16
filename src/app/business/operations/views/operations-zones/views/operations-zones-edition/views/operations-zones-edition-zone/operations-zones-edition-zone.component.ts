@@ -62,7 +62,7 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
 
     putZoneDetail(zoneDetailUpdate: IZoneDetailUpdate) {
         this._operationsZonesImplement.putZoneDetail(
-            `${this.zoneDetail.id}`, zoneDetailUpdate)
+            `${this.zoneDetail.code}`, zoneDetailUpdate)
             .subscribe(() => {
                 this._operationsZonesEditionStore.updateZoneDetail = true;
                 this._alert.alertSuccess(ZonesMessages.successZoneEdition(this.zoneDetail.name));

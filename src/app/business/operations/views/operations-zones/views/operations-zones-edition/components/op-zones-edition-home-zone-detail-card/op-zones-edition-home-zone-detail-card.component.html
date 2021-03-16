@@ -4,12 +4,12 @@
             <h5 class="text-h5 mb-2">
                 {{zoneDetail.name}}
                 <span class="text-caption text-gray-5 ms-3">
-                    {{zoneDetail.id}}
+                    {{zoneDetail.code}}
                 </span>
             </h5>
-            <app-tag  class="d-block"
-                      [appearance]="tagAppearance.default"
-                      [tagColor]="stateTag[zoneDetail.state]">
+            <app-tag class="d-block"
+                     [appearance]="tagAppearance.default"
+                     [tagColor]="stateTag[zoneDetail.state]">
                 Zona {{stateName[zoneDetail.state]('a')}}
             </app-tag>
         </div>
@@ -29,7 +29,14 @@
 
             <app-card-static-information class="d-block mb-5" iconName="location_searching">
                 <ng-container information-title>Zona backup</ng-container>
-                <ng-container information-caption>No asignado</ng-container>
+                <ng-container information-caption>
+                    <ng-container *ngIf="zoneDetail.zoneBackup">
+                        {{zoneDetail.zoneBackup.name}}
+                    </ng-container>
+                    <ng-container *ngIf="!zoneDetail.zoneBackup">
+                        No asignado
+                    </ng-container>
+                </ng-container>
             </app-card-static-information>
         </div>
         <div class="col-6">

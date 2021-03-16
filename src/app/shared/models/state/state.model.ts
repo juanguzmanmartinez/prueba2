@@ -19,3 +19,13 @@ export const CStateName = {
     [EState.active]: (vowel: string = 'o') => `activ${vowel}`,
     [EState.inactive]: (vowel: string = 'o') => `inactiv${vowel}`
 };
+
+export enum EStateSetting {
+    true = 'Y',
+    false = 'N'
+}
+
+export const CStateSettingValue = {
+    [EStateSetting.true]: true,
+    [EStateSetting.false]: false,
+};

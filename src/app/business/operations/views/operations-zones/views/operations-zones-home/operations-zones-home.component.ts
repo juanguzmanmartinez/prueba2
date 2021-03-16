@@ -28,7 +28,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     public searchInput = '';
     public tableLoader = true;
 
-    public displayedColumns: string[] = ['selector', 'zoneId', 'zoneName', 'assignedStore', 'serviceType', 'zoneState', 'actions'];
+    public displayedColumns: string[] = ['selector', 'zoneCode', 'zoneName', 'assignedStore', 'serviceType', 'zoneState', 'actions'];
     public dataSource = new MatTableDataSource([]);
     public rowSelection = new SelectionModel<Zone>(true, []);
 
@@ -55,11 +55,26 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     }
 
     setDataSourceService() {
+        this.dataSource.sortingDataAccessor = (data: Zone, sortHeaderId: string) => {
+            switch (sortHeaderId) {
+                case 'zoneCode':
+                    return data.code;
+                case 'zoneName':
+                    return data.name;
+                case 'assignedStore':
+                    return data.assignedStore.name;
+                case 'serviceType':
+                    return data.serviceTypeList
+                        .map(serviceType => this.serviceTypeName[serviceType]).join(',');
+                default:
+                    return data[sortHeaderId];
+            }
+        };
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator.paginator;
         this.dataSource.filterPredicate = (data: Zone, filter: string) => {
             const filterNormalize = normalizeValue(filter);
-            const idNormalize = normalizeValue(`${data.id}`);
+            const idNormalize = normalizeValue(`${data.code}`);
             const nameNormalize = normalizeValue(data.name);
             const assignedStoreNameNormalize = normalizeValue(data.assignedStore ? data.assignedStore.name : '');
             const assignedStoreCodeNormalize = normalizeValue(data.assignedStoreCode);
@@ -96,15 +111,15 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     }
 
 
-    editRow(zoneId: number) {
-        this._router.navigate([CONCAT_PATH.opZones_ZoneId(`${zoneId}`)]);
+    editRow(zoneCode: number) {
+        this._router.navigate([CONCAT_PATH.opZones_ZoneCode(`${zoneCode}`)]);
     }
 
     rowDetailDialog(zone: Zone) {
-        const subscription = this._zoneDetailDialog.open(zone.id)
-            .subscribe((zoneId) => {
-                if (zoneId) {
-                    this.editRow(zone.id);
+        const subscription = this._zoneDetailDialog.open(zone.code)
+            .subscribe((edition) => {
+                if (edition) {
+                    this.editRow(zone.code);
                 }
             });
         this.subscriptions.push(subscription);

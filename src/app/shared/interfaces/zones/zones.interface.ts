@@ -2,6 +2,7 @@ import { EDeliveryServiceType } from '@models/service-type/delivery-service-type
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
 import { IStore } from '@interfaces/stores/stores.interface';
+import { EStateSetting } from '@models/state/state.model';
 
 export interface IZoneServiceType {
     id: string;
@@ -20,6 +21,7 @@ export interface IZoneServiceTypeUpdate {
     endHour: string;
     segmentGap: number;
 }
+
 export interface IZoneServiceTypRegister {
     zoneId: string;
     serviceTypeCode: string;
@@ -42,6 +44,7 @@ export interface IZoneDetail extends IZone {
     zoneType: string;
     channel: Array<EChannel>;
     companyCode: ECompany;
+    zoneBackup: IZoneBackUp;
 }
 
 export interface IZoneDetailUpdate {
@@ -50,4 +53,14 @@ export interface IZoneDetailUpdate {
     zoneType: string;
     channel: Array<EChannel>;
     companyCode: ECompany;
+}
+
+export interface IZoneBackUp {
+    zoneId: string;
+    name: string;
+    preferableLocalBackupToShow: EStateSetting;
+    forceServiceAMPM: EStateSetting;
+    forceServicePROG: EStateSetting;
+    fulfillmentCenterCode: string;
+    fulfillmentCenterName: string;
 }
