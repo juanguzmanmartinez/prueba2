@@ -1,5 +1,5 @@
 @import "src/sass/variables"
-@import "src/sass/utilities/text"
+@import "src/sass/mixins/text.mixin"
 
 .button
   height: 38px
@@ -16,7 +16,7 @@
   padding: 12px 16px
   border-radius: 4px
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
-  @extend .text-button
+  @include text-button
 
   &.button-disabled
     color: $gray-4 !important

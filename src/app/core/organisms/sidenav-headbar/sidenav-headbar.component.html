@@ -1,0 +1,20 @@
+<ng-container *ngIf="responsive">
+    <app-headbar>
+        <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+    </app-headbar>
+</ng-container>
+
+<ng-container *ngIf="!responsive">
+    <app-sidenav>
+        <ng-content></ng-content>
+        <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+    </app-sidenav>
+</ng-container>
+
+
+<ng-template #ngContent>
+    <ng-content></ng-content>
+</ng-template>
+
+
+

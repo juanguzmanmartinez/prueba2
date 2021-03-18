@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-operations-stores',
-  templateUrl: './operations-stores.component.html',
-  styleUrls: ['./operations-stores.component.scss']
+    template: '<router-outlet></router-outlet>'
 })
-export class OperationsStoresComponent implements OnInit {
+export class OperationsStoresComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+    constructor() {
+    }
 
 }

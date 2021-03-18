@@ -1,0 +1,35 @@
+<div class="input-datepicker-range-container">
+    <label class="input-datepicker-range-label"
+           [class.disabled]="disabled">
+
+        <mat-date-range-input [rangePicker]="pickerRange"
+                              [min]="minDate"
+                              [max]="maxDate"
+                              [formGroup]="formGroup"
+                              [disabled]="disabled"
+                              separator="-">
+            <input matStartDate
+                   class="input-datepicker-range-input text-label"
+                   formControlName="startDate"
+                   [name]="name"
+                   [placeholder]="placeholder">
+            <input matEndDate
+                   class="input-datepicker-range-input text-label"
+                   formControlName="endDate"
+                   [name]="name"
+                   [placeholder]="placeholder">
+        </mat-date-range-input>
+        <mat-datepicker-toggle class="input-datepicker-range-icon"
+                               [for]="pickerRange"
+                               [disabled]="disabled"
+                               [disableRipple]="true">
+            <app-icon svgName="datepicker"
+                      svgWidth="12px"
+                      matDatepickerToggleIcon></app-icon>
+        </mat-datepicker-toggle>
+    </label>
+    <mat-date-range-picker #pickerRange
+                           [calendarHeaderComponent]="pickerHeaderComponent"
+                           [disabled]="disabled">
+    </mat-date-range-picker>
+</div>

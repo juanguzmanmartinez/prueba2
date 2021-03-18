@@ -1,0 +1,11 @@
+<div class="form-field">
+    <div class="form-field-label" *ngIf="formFieldLabel">
+        <ng-content select="app-form-field-label"></ng-content>
+    </div>
+    <div class="form-field-content">
+        <ng-content></ng-content>
+    </div>
+    <div class="form-field-error" *ngIf="formFieldError">
+        <ng-content select="app-form-field-error"></ng-content>
+    </div>
+</div>

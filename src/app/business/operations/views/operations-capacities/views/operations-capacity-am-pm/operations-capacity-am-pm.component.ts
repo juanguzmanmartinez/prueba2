@@ -7,7 +7,7 @@ import { OpCapacitiesStepEditionModeService } from '../../components/op-capaciti
 import { OpCapacitiesStepCapacityTableService } from '../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
 import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-capacities-service-type-query-params.model';
 import { OperationsCapacityAmPmService } from './operations-capacity-am-pm.service';
-import { objectHasElements } from '../../../../../../shared/helpers/objects-equal';
+import { objectHasElements } from '@helpers/objects-equal.helper';
 
 @Component({
   selector: 'app-operations-capacity-am-pm',

@@ -1,0 +1,21 @@
+mat-tab-group.mat-tab-group
+  .mat-tab-label
+    min-width: auto
+    padding: 0
+    margin-right: 24px
+    opacity: 1
+    height: 38px
+
+    .mat-tab-label-content
+      color: $gray-5
+      @include text-button
+
+    &.mat-tab-label-active
+      .mat-tab-label-content
+        color: $primary
+
+  .mat-tab-header
+    border-bottom: 1px solid $gray-2
+
+    .mat-ink-bar
+      background-color: $primary

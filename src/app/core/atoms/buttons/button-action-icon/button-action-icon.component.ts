@@ -1,21 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ButtonComponent } from '../button/button.component';
+import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-button-action-icon',
-  templateUrl: './button-action-icon.component.html',
-  styleUrls: ['./button-action-icon.component.scss']
+    selector: 'app-button-action-icon[iconName]',
+    templateUrl: './button-action-icon.component.html',
+    styleUrls: ['./button-action-icon.component.scss']
 })
-export class ButtonActionIconComponent extends ButtonComponent implements OnInit {
+export class ButtonActionIconComponent {
 
-  @Input()
-  iconName: string;
+    @Input()
+    iconName: string;
 
-  constructor() {
-    super();
-  }
+    @Input()
+    innerClass = '';
 
-  ngOnInit(): void {
-  }
+    @Input()
+    inlineStyle: { [klass: string]: any; } | null;
+
+    @Input()
+    disabled = false;
+
+    onClick = (_: any) => {};
 
 }

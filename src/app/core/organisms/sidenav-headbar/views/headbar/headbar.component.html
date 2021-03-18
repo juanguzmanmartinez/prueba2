@@ -1,0 +1,41 @@
+<mat-toolbar class="static-headbar-container line-height-0">
+    <div class="static-headbar px-4">
+        <div class="static-headbar-menu d-flex-center cursor-pointer">
+            <app-icon [matMenuTriggerFor]="headbarMenu"
+                      class="d-block"
+                      fontName="menu"
+                      fontSize="24px"
+                      innerClass="text-white"></app-icon>
+
+            <mat-menu #headbarMenu="matMenu">
+
+                <div class="headerbar-menu-items">
+                    <app-router [router]="concatPath.operations">
+                        <span mat-menu-item>Operaciones</span>
+                    </app-router>
+                </div>
+
+                <div class="headerbar-menu-items"
+                     *appRouterAccess="concatPath.admin">
+                    <app-router [router]="concatPath.admin">
+                        <span mat-menu-item>Administrador</span>
+                    </app-router>
+                </div>
+
+            </mat-menu>
+        </div>
+
+        <div class="static-headbar-logo">
+            <app-router [router]="concatPath.base">
+                <app-icon svgName="main-logo"
+                          svgWidth="32px"></app-icon>
+            </app-router>
+        </div>
+
+        <div class="static-headbar-profile">
+            <app-profile></app-profile>
+        </div>
+    </div>
+</mat-toolbar>
+
+<ng-content></ng-content>

@@ -16,16 +16,15 @@
           <label class="text-caption text-gray-5 mb-2">Selecciona días</label>
           <app-input-datepicker-range
             formControlName="capacityRange"
-            datepickerRangeOutputFormat="DD-MM-YYYY"
-            [datepickerRangeMin]="expressResourceMinDateRange"
-            [datepickerRangeMax]="expressResourceMaxDateRange">
+            [minDate]="expressResourceMinDateRange"
+            [maxDate]="expressResourceMaxDateRange">
           </app-input-datepicker-range>
         </div>
 
         <div class="col-12 mb-5">
           <label class="text-caption text-gray-5 mb-2 d-block">Nro. de motorizados</label>
           <app-input-number formControlName="expressResource"
-                            inputPlaceholder="10"></app-input-number>
+                            placeholder="10"></app-input-number>
         </div>
       </div>
     </form>

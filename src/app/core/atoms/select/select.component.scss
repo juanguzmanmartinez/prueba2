@@ -1,7 +1,6 @@
-@import "src/sass/variables";
-@import "src/sass/utilities/text";
-@import "src/sass/utilities/position";
-//@import "src/sass/components/cards"
+@import "src/sass/variables/colors.variable";
+@import "src/sass/mixins/text.mixin";
+@import "src/sass/mixins/position.mixin";
 
 $select-height: 38px;
 
@@ -14,7 +13,7 @@ $select-height: 38px;
   pointer-events: none;
   right: 16px;
   display: inline-flex;
-  @extend .position-vertical-center
+  @include position-vertical-center
 }
 
 :host {
@@ -31,7 +30,7 @@ $select-height: 38px;
     }
 
     .mat-select-value {
-      @extend .text-label;
+      @include text-label;
     }
 
     .mat-select-arrow-wrapper {
@@ -40,7 +39,7 @@ $select-height: 38px;
 
     .mat-select-placeholder {
       color: $gray-4;
-      @extend .text-label;
+      @include text-label;
     }
 
     &.select-active .mat-select-placeholder {
@@ -81,7 +80,7 @@ $select-height: 38px;
     color: $black;
     background-color: transparent;
     height: $select-height;
-    @extend .text-label;
+    @include text-label;
 
     &:hover {
       background-color: $gray-1;

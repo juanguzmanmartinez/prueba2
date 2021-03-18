@@ -1,46 +1,49 @@
 <div class="step" [class.step-disabled]="stepDisabled || stepReadonly">
-  <mat-expansion-panel hideToggle
-                       class="steps-panel"
-                       [disabled]="stepDisabled || stepReadonly"
-                       [(expanded)]="stepExpanded"
-                       (opened)="stepOpenEvent.emit()"
-                       (closed)="stepCloseEvent.emit()">
-    <mat-expansion-panel-header class="step-header"
-                                expandedHeight="64px"
-                                collapsedHeight="72px">
-      <div class="step-header-content">
-        <mat-panel-title class="step-header-title-container">
-          <span class="step-header-id">{{stepId}}</span>
-          <span class="step-header-title">{{stepTitle}}</span>
-        </mat-panel-title>
-        <mat-panel-description class="step-header-description-container"
-                               [class.step-header-description-container-readonly]="stepReadonly"
-                               *ngIf="!stepExpanded && stepDescription && (!stepDisabled || stepReadonly)">
-          <span class="step-header-description text-truncate">{{stepDescription}}</span>
-          <app-icon *ngIf="!stepReadonly"
-                    class="step-header-description-icon"
-                    iconFontName="edit"
-                    iconFontSize="24px"></app-icon>
-        </mat-panel-description>
-      </div>
-    </mat-expansion-panel-header>
-    <div class="step-body">
-      <div class="steps-body-content">
-        <ng-content></ng-content>
-      </div>
+    <mat-expansion-panel hideToggle
+                         class="steps-panel"
+                         [disabled]="stepDisabled || stepReadonly"
+                         [(expanded)]="stepExpanded"
+                         (opened)="this.stepOpenEvent.emit()"
+                         (closed)="this.stepCloseEvent.emit()">
+        <mat-expansion-panel-header class="step-header"
+                                    expandedHeight="64px"
+                                    [collapsedHeight]="collapsedHeight">
+            <div class="step-header-content flex-column flex-md-row">
+                <mat-panel-title class="step-header-title-container mb-4 mb-md-0">
+                    <span class="step-header-id">{{stepId}}</span>
+                    <span class="step-header-title">{{stepTitle}}</span>
+                </mat-panel-title>
+                <mat-panel-description class="step-header-description-container justify-content-center justify-content-md-end"
+                                       [class.step-header-description-container-readonly]="stepReadonly"
+                                       *ngIf="!stepExpanded && _stepDescription && (!stepDisabled || stepReadonly)">
+                    <span class="step-header-description text-truncate">{{_stepDescription}}</span>
+                    <app-icon *ngIf="!stepReadonly"
+                              class="step-header-description-icon"
+                              fontName="edit"
+                              fontSize="24px"></app-icon>
+                </mat-panel-description>
+            </div>
+        </mat-expansion-panel-header>
+        <div class="step-body">
+            <div class="steps-body-content">
+                <ng-content></ng-content>
+            </div>
 
-      <div class="step-body-actions">
-        <app-button type="secondary"
-                    class="mr-4"
-                    (click)="cancelButtonEvent.emit()">
-          {{cancelButtonText}}
-        </app-button>
-        <app-button type="primary"
-                    [disabled]="saveButtonDisabled"
-                    (click)="saveButtonEvent.emit()">
-          {{saveButtonText}}
-        </app-button>
-      </div>
-    </div>
-  </mat-expansion-panel>
+            <div class="step-body-actions d-flex flex-column-reverse flex-md-row justify-content-md-end">
+                <app-button appearance="secondary"
+                            class="me-md-4"
+                            innerClass="w-100 w-md-auto"
+                            (click)="cancelButtonEvent.emit()">
+                    {{cancelButtonText}}
+                </app-button>
+                <app-button appearance="primary"
+                            class="mb-4 mb-md-0"
+                            innerClass="w-100 w-md-auto"
+                            [disabled]="saveButtonDisabled"
+                            (click)="saveButtonEvent.emit()">
+                    {{saveButtonText}}
+                </app-button>
+            </div>
+        </div>
+    </mat-expansion-panel>
 </div>

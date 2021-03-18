@@ -1,20 +1,22 @@
-export enum ECapacitiesServiceType {
-  amPm = 'AM_PM',
-  scheduled = 'PROG',
-  express = 'EXP',
-  ret = 'RET'
+import { DELIVERY_SERVICE_TYPE_PATH } from '@parameters/router/router-path.parameter';
+
+export enum EDeliveryServiceType {
+    amPm = 'AM_PM',
+    scheduled = 'PROG',
+    express = 'EXP',
+    ret = 'RET'
 }
 
-export const CCapacitiesServiceTypeName = {
-  [ECapacitiesServiceType.amPm]: 'AM/PM',
-  [ECapacitiesServiceType.scheduled]: 'Programado',
-  [ECapacitiesServiceType.express]: 'Express',
-  [ECapacitiesServiceType.ret]: 'RET'
+export const CDeliveryServiceTypeName = {
+    [EDeliveryServiceType.amPm]: 'AM/PM',
+    [EDeliveryServiceType.scheduled]: 'Programado',
+    [EDeliveryServiceType.express]: 'Express',
+    [EDeliveryServiceType.ret]: 'RET'
 };
 
-export const CCapacitiesServiceTypeRoute = {
-  [ECapacitiesServiceType.amPm]: 'am-pm',
-  [ECapacitiesServiceType.scheduled]: 'programado',
-  [ECapacitiesServiceType.express]: 'express',
-  [ECapacitiesServiceType.ret]: 'retiro-tienda'
+export const CDeliveryServiceTypeRoute = {
+    [EDeliveryServiceType.amPm]: DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm,
+    [EDeliveryServiceType.scheduled]: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
+    [EDeliveryServiceType.express]: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
+    [EDeliveryServiceType.ret]: DELIVERY_SERVICE_TYPE_PATH.deliveryRet
 };

@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -15,6 +15,59 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@angular/*": [
+        "../node_modules/@angular/*"
+      ],
+      "@environments/*": [
+        "environments/*"
+      ],
+      "@atoms/*": [
+        "app/core/atoms/*"
+      ],
+      "@molecules/*": [
+        "app/core/molecules/*"
+      ],
+      "@organisms/*": [
+        "app/core/organisms/*"
+      ],
+      "@pages/*": [
+        "app/core/pages/*"
+      ],
+      "@clients/*": [
+        "app/shared/clients/*"
+      ],
+      "@implements/*": [
+        "app/shared/implements/*"
+      ],
+      "@helpers/*": [
+        "app/shared/helpers/*"
+      ],
+      "@guards/*": [
+        "app/shared/guards/*"
+      ],
+      "@interfaces/*": [
+        "app/shared/interfaces/*"
+      ],
+      "@interceptors/*": [
+        "app/shared/interceptors/*"
+      ],
+      "@models/*": [
+        "app/shared/models/*"
+      ],
+      "@parameters/*": [
+        "app/shared/parameters/*"
+      ],
+      "@pipes/*": [
+        "app/shared/pipes/*"
+      ],
+      "@validators/*": [
+        "app/shared/validators/*"
+      ],
+      "@stores/*": [
+        "app/shared/stores/*"
+      ]
+    }
   }
 }

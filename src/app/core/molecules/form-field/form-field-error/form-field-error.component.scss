@@ -1,0 +1,13 @@
+@import "src/sass/variables/colors.variable";
+
+:host {
+  color: $danger;
+
+  .form-field-error {
+    color: inherit;
+  }
+
+  ::ng-deep app-icon {
+    color: inherit;
+  }
+}

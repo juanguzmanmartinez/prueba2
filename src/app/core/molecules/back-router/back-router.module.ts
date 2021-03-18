@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackRouterComponent } from './back-router.component';
-import { IconsModule } from '../../atoms/icons/icons.module';
-import { LinksModule } from '../../atoms/links/links.module';
+import { IconsModule } from '@atoms/icons/icons.module';
+import { LinksModule } from '@atoms/links/links.module';
 
 
 @NgModule({

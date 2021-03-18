@@ -1,0 +1,233 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
+import {IconsComponent} from "./icons.component";
+import {MatIconModule} from "@angular/material/icon";
+import {IconsRegistryModule} from "./icons-registry.module";
+
+<Meta
+    title="Atoms/Icon"
+    component={IconsComponent}/>
+
+# Button Icon
+<br/>
+<br/>
+
+### Props
+| Property | Type  | Values | Default  |
+| ------ | --------- |------ | --------- |
+| fontName    | string   | "" | "" |
+| fontColor    | string   | "" | "" |
+| fontSize      | string   | <code>16px</code><code>24px</code><code>32px</code><code>48px</code> | <code>16px</code> |
+| svgName    | string   | "" | "" |
+| svgWidth      | string   | <code>16px</code><code>24px</code><code>32px</code><code>48px</code> | <code>16px</code> |
+| svgHeight      | string   | <code>16px</code><code>24px</code><code>32px</code><code>48px</code> | null |
+| innerClass    | string   |     ""    |  ""  |
+
+*Use only <code>font</code> or <code>svg</code> property.
+
+
+------
+
+export const Template = (args) => ({
+    component: IconsComponent,
+    props: args,
+    moduleMetadata: {
+        imports: [MatIconModule, IconsRegistryModule],
+        declarations: [IconsComponent],
+    },
+    template: '<app-icon ' +
+        '[fontName]="fontName" ' +
+        '[fontColor]="fontColor" ' +
+        '[fontSize]="fontSize" ' +
+        '[svgName]="svgName" ' +
+        '[svgWidth]="svgWidth" ' +
+        '[svgHeight]="svgHeight" ' +
+        '[innerClass]="innerClass"></app-icon>',
+})
+
+<br/>
+<br/>
+
+### Default
+
+<Canvas>
+    <Story name='Font Name'
+           args={{
+               fontName: 'launch'
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-icon fontName="launch"></app-icon>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Font Size'
+           args={{
+               fontName: 'launch',
+               fontSize: '24px',
+               innerClass: 'text-primary'
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-icon fontName="launch" fontSize="24px" innerClass="text-primary"></app-icon>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Font Color'
+           args={{
+               fontName: 'launch',
+               fontSize: '32px',
+               fontColor: 'lightblue'
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-icon fontName="launch" fontSize="32px" fontColor="lightblue"></app-icon>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Svg Name'
+           height={200}
+           args={{
+               svgName: 'avatar'
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-icon svgName="avatar"></app-icon>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Svg Width'
+           height={250}
+           args={{
+               svgName: 'send-message',
+               svgWidth: '200px'
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-icon svgName="send-message" svgWidth="200px"></app-icon>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Svg Height'
+           height={200}
+           args={{
+               svgName: 'logo',
+               svgWidth: '174px',
+               svgHeight: '20px',
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-icon svgName="sent" svgWidth="174px" svgHeight="20px"></app-icon>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+</Canvas>
+
+<br/>
+<br/>
+
+# Usages
+Import ButtonsModule into your custom module
+
+```typescript
+import { IconsModule } from '@atoms/icons/icons.module';
+
+@NgModule({
+    imports: [IconsModule]
+})
+
+export class YourModule {}
+```
+
+## Examples
+
+  ```html
+<app-icon svgWidth="16" svgName="calendar"></app-icon>
+<app-icon svgWidth="16" svgName="moto"></app-icon>
+<app-icon svgWidth="56" svgName="datepicker"></app-icon>
+<app-icon svgWidth="14" svgName="search"></app-icon>
+<app-icon fontSize="16" fontName="edit"></app-icon>
+<app-icon fontSize="24" fontName="launch"></app-icon>
+<app-icon fontSize="32" fontName="assignment"></app-icon>
+  ```
+
+<br/>
+<br/>
+
+# Register new icons
+<br/>
+
+#### 1.Add icon inside these directories
+
+  ````
+  src/assets/icons/
+  src/assets/illustrations/
+  ````
+
+#### 2.Update constant file
+
+<code>src/app/core/atoms/icons/constants/icons-svg.ts</code>
+
+   ````typescript
+
+const ICONS_SVG = [
+{...},
+{name: 'ICON_NAME', path: `${path}ICON_NAME.svg`},
+{name: 'ILLUSTRATION_NAME', path: `${pathIllustrations}ILLUSTRATION_NAME.svg`},
+];
+   ````
+
+#### 3.Update README.md/icon.story.mdx
+
+Update file with new icons
+
+### Icons List
+
+| Icon | Name |   |Icon | Name |
+|------|------|---|-----|------|
+|![](../../../../assets/icons/ampm.svg)             | ampm                  ||      ![](../../../../assets/icons/mifarma.svg)       | mifarma             |
+|![](../../../../assets/icons/avatar.svg)           | avatar                ||      ![](../../../../assets/icons/moto.svg)          | moto                |
+|![](../../../../assets/icons/book.svg)             | book                  ||      ![](../../../../assets/icons/navigation.svg)    | navigation          |
+|![](../../../../assets/icons/calendar.svg)         | calendar              ||      ![](../../../../assets/icons/stores.svg)        | stores              |
+|![](../../../../assets/icons/configuration.svg)    | configuration         ||      ![](../../../../assets/icons/truck.svg)         | truck               |
+|![](../../../../assets/icons/inkafarma.svg)        | inkafarma             ||      ![](../../../../assets/icons/search.svg)        | search              |
+|![](../../../../assets/icons/main-logo.svg)        | main-logo             ||      ![](../../../../assets/icons/datepicker.svg)    | datepicker          |
+|![](../../../../assets/icons/ellipse-success.svg)  | ellipse-success       ||           |            |
+
+<br/>
+
+### Illustrations List
+|Illustration | Name |   | Illustration | Name |
+|-------------|------|---|--------------|------|
+|![](../../../../assets/illustrations/assigned-orders.svg)      | assigned-orders       ||      ![](../../../../assets/illustrations/lost-connection.svg)       | lost-connection       |
+|![](../../../../assets/illustrations/call-attention.svg)       | call-attention        ||      ![](../../../../assets/illustrations/lost-connection-1.svg)     | lost-connection-1     |
+|![](../../../../assets/illustrations/communication.svg)        | communication         ||      ![](../../../../assets/illustrations/on-route.svg)              | on-route              |
+|![](../../../../assets/illustrations/empty-orders-1.svg)       | empty-orders-1        ||      ![](../../../../assets/illustrations/order-canceled.svg)        | order-canceled        |
+|![](../../../../assets/illustrations/empty-orders.svg)         | empty-orders          ||      ![](../../../../assets/illustrations/order-updated.svg)         | order-updated         |
+|![](../../../../assets/illustrations/gps.svg)                  | gps                   ||      ![](../../../../assets/illustrations/payment.svg)               | payment               |
+|![](../../../../assets/illustrations/login.svg)                | login                 ||      ![](../../../../assets/illustrations/send-message.svg)          | send-message          |
+|![](../../../../assets/illustrations/look-orders.svg)          | look-orders           ||      ![](../../../../assets/illustrations/sent.svg)                  | sent                  |
+|![](../../../../assets/illustrations/looking-files.svg)        | looking-files         ||      ![](../../../../assets/illustrations/under-construction.svg)    | under-construction    |
+|![](../../../../assets/illustrations/search-store.svg)         | search-store          ||      ![](../../../../assets/illustrations/logo.svg)                  | logo                  |
+
+
+
+
+
+
+
+
+
+
+

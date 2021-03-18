@@ -1,5 +1,5 @@
-@import "src/sass/variables/colors";
-@import "src/sass/utilities/text";
+@import "src/sass/variables/colors.variable";
+@import "src/sass/mixins/text.mixin";
 
 .datepicker-header {
   display: flex;
@@ -19,12 +19,17 @@
   .datepicker-header-next {
     cursor: pointer;
     display: inline-flex;
+
+    &.disabled {
+      pointer-events: none;
+      opacity: .5;
+    }
   }
 }
 
 .datepicker-header-label {
   color: $black;
-  @extend .text-subtitle-2;
+  @include text-subtitle-2;
 }
 
 .example-double-arrow .mat-icon {

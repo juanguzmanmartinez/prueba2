@@ -8,12 +8,12 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 })
 export class SelectComponent<T> implements ControlValueAccessor, OnInit {
 
-  public selectDisabled: boolean;
 
-  @Input() optionList: Array<any>;
-  @Input() placeholder: string;
+  @Input() optionList: Array<T> = [];
+  @Input() placeholder = 'placeholder';
   @Input() clearValue: string;
   @Input() value: T;
+  @Input() disabled: boolean;
 
   @Output() optionSelected = new EventEmitter();
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
@@ -51,6 +51,6 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.selectDisabled = isDisabled;
+    this.disabled = isDisabled;
   }
 }

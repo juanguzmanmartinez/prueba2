@@ -1,0 +1,51 @@
+<app-card>
+    <div class="row mb-6">
+        <div class="col-12">
+            <h5 class="text-h5 mb-2">{{store?.name}}</h5>
+            <app-tag class="d-block"
+                     [tagStatus]="store.status === 'activo' ? 'success' : 'error'">LOCAL {{store.status}}</app-tag>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <app-card-static-information class="d-block mb-5" iconName="store">
+                <ng-container information-title>Nomenclatura</ng-container>
+                <ng-container information-caption>{{store.store}} {{store.name}}</ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information class="d-block mb-5" iconName="location_on">
+                <ng-container information-title>Ubicación</ng-container>
+                <ng-container information-caption>Av. Guardia Civil 244, San Borja</ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information class="d-block mb-5" iconName="location_searching">
+                <ng-container information-title>Latitud y longitud</ng-container>
+                <ng-container information-caption>-12.103018, -77.021223</ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information class="d-block" iconName="group_work">
+                <ng-container information-title>Grupo</ng-container>
+                <ng-container information-caption>San Borja Sur</ng-container>
+            </app-card-static-information>
+        </div>
+        <div class="col-6">
+            <app-card-static-information class="d-block mb-5" iconName="access_time">
+                <ng-container information-title>Horario de atención</ng-container>
+                <ng-container information-caption>De 8:00 AM a 7:00 PM</ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information class="d-block mb-5" iconName="record_voice_over">
+                <ng-container information-title>Canales de atención</ng-container>
+                <ng-container information-caption>Call Center - Digital</ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information class="d-block" iconName="shopping_bag">
+                <ng-container information-title>Marcas</ng-container>
+                <ng-container information-caption>Inkafarma - Mifarma</ng-container>
+            </app-card-static-information>
+        </div>
+    </div>
+
+    <div app-card-edit-button (click)="editStore()"></div>
+</app-card>

@@ -2,11 +2,11 @@
   <input
     type="radio"
     class="radio"
-    [ngClass]="radioClass"
-    [name]="_radioName"
-    [value]="radioValue"
-    [disabled]="_radioDisabled"
-    [checked]="radioValue === _radioValue"
+    [ngClass]="innerClass"
+    [name]="radioName"
+    [value]="value"
+    [disabled]="disabled"
+    [(ngModel)]="checked"
     (change)="chooseRadio()">
 
   <span class="radio-mark"></span>

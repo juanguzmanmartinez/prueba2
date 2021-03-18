@@ -1,0 +1,11 @@
+@import "src/sass/variables/colors.variable";
+@import "src/sass/variables/utilities.variable";
+
+.card {
+  background: $white;
+  border: 1px solid $gray-1;
+  box-sizing: border-box;
+  border-radius: $border-radius;
+  padding: 24px;
+  position: relative;
+}

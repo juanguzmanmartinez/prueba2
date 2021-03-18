@@ -1,10 +1,10 @@
 <div class="tooltip"
-     [matTooltipClass]="tooltipClass + ' tooltip ' + tooltipPosition"
-     [matTooltip]="tooltipValue"
-     [matTooltipPosition]="tooltipPosition"
-     [matTooltipTouchGestures]="tooltipTouchGestures"
-     [matTooltipShowDelay]="tooltipShowDelay"
-     [matTooltipHideDelay]="tooltipHideDelay"
-     [matTooltipDisabled]="tooltipDisabled">
+     [matTooltipClass]="innerClass + ' tooltip ' + position"
+     [matTooltip]="value"
+     [matTooltipPosition]="position"
+     [matTooltipTouchGestures]="touchGestures"
+     [matTooltipShowDelay]="showDelay"
+     [matTooltipHideDelay]="hideDelay"
+     [matTooltipDisabled]="disabled">
   <ng-content></ng-content>
 </div>

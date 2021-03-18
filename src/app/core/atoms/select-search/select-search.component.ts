@@ -2,8 +2,8 @@ import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Optio
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete/autocomplete';
-import { isObject } from '../../../shared/helpers/objects-equal';
-import { normalizeValue } from '../../../shared/helpers/string.helper';
+import { isObject } from '@helpers/objects-equal.helper';
+import { normalizeValue } from '@helpers/string.helper';
 
 @Component({
   selector: 'app-select-search',
@@ -19,6 +19,7 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit {
   public inputSelectSearchControl = new FormControl();
 
   @Input() placeholder: string;
+  @Input() disabled: boolean;
   @Input() clearValue: string;
   @Input() id: string | number = 'select-search';
 
@@ -99,6 +100,10 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit {
 
   registerOnTouched(fn: any): void {
     this.onTouch = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 
   writeValue(obj: T): void {

@@ -1,0 +1,116 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
+import {InputComponent} from "../input/input.component";
+import {InputSearchComponent} from "./input-search.component";
+import {IconsModule} from "../../icons/icons.module";
+import {IconsRegistryModule} from "../../icons/icons-registry.module";
+
+<Meta
+    title="Atoms/Input Search"
+    component={InputSearchComponent}/>
+
+# Input
+<br/>
+<br/>
+
+### Props
+| Property | Type  | Values | Default  |
+| ------ | --------- |------ | --------- |
+| id    | string   |  | "Input" |
+| name    | string   |  | "Input" |
+| behavior      | string   | <code>number</code><code>text</code><code>search</code><code>password</code> | <code>text</code> |
+| placeholder    | string   |  | "placeholder" |
+| innerClass    | string   |     ""    |  ""  |
+| labelClass    | string   |     ""    |  ""  |
+| error      | boolean  | true/false       | false     |
+
+### Events
+| Event | Arguments  | Description |
+| ------ | --------- |------ |
+| blur    |     | Emitted when input lost focus |
+| focus    |     | Emitted when input received focus |
+| change    |     | Emitted when input's value changes |
+
+------
+
+export const Template = (args) => ({
+    component: InputSearchComponent,
+    props: {
+        ...args,
+        placeholder: 'placeholder',
+        behavior: 'text',
+        name: 'input',
+        id: 'input',
+    },
+    moduleMetadata: {
+        imports: [IconsRegistryModule, IconsModule],
+        declarations: [InputComponent, InputSearchComponent],
+    },
+    template: '<app-input-search ' +
+        '[placeholder]="placeholder" ' +
+        '[name]="name" ' +
+        '[behavior]="behavior" ' +
+        '[innerClass]="innerClass" ' +
+        '[labelClass]="labelClass" ' +
+        '[error]="error" ' +
+        '[value]="value" ' +
+        '[id]="id"></app-input-search>',
+})
+
+<br/>
+<br/>
+
+### Appearance
+
+<Canvas>
+    <Story name='Default'
+           args={{
+               value: ''
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-input-search value="example"></app-input-search>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Error'
+           args={{
+               value: 'Storybook',
+               error: true
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-input-search value="Storybook" error="true"></app-input-search>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+</Canvas>
+
+<br/>
+<br/>
+
+# Usages
+
+Import InputsModule into your custom module
+
+```typescript
+import { InputsModule } from './inputs.module';
+
+@NgModule({
+    imports: [InputsModule]
+})
+
+export class YourModule {}
+```
+
+## Examples
+
+  ```html
+<app-input-search placeholder="Write something..."></app-input-search>
+```
+ ```html
+<app-input-search value="example" [error]="true"></app-input-search>
+  ```

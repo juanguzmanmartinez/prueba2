@@ -1,15 +1,28 @@
-@import "src/sass/variables";
-@import "src/sass/utilities/display";
+@import "src/sass/variables/colors.variable";
+@import "src/sass/mixins/display.mixin";
 
 :host {
   ::ng-deep .button.button-action-text {
-    background-color: $primary;
-    border-color: $primary;
+    background-color: transparent;
+    border-color: $gray-6;
+    color: $white;
     padding: 0;
     border-radius: 50%;
     height: 32px;
     width: 32px;
-    @extend .d-flex-center;
+    @include d-flex-center;
     display: inline-flex;
+
+    &:hover {
+      background-color: $gray-6;
+      border-color: $gray-6;
+    }
+  }
+
+  .button-action-text-active {
+    ::ng-deep .button.button-action-text {
+      background-color: $primary;
+      border-color: $primary;
+    }
   }
 }

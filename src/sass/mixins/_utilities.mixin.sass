@@ -1,0 +1,50 @@
+@mixin placeholder()
+  &::placeholder
+    @content
+  &::-webkit-input-placeholder
+    @content
+  &:-moz-placeholder
+    @content
+  &:-ms-input-placeholder
+    @content
+  &::-moz-placeholder
+    @content
+
+
+@mixin scrollbar($width: 8px, $border-radius: 4px)
+  &::-webkit-scrollbar
+    width: $width
+  &::-webkit-scrollbar-track
+    background: darken($white, 10%)
+  &::-webkit-scrollbar-thumb
+    border-radius: $border-radius
+    background: $gray-4
+  &::-webkit-scrollbar-thumb:hover
+    background: darken($gray-4, 10%)
+
+
+@mixin rotate($degrees)
+  -webkit-transform: rotate($degrees)
+  -moz-transform: rotate($degrees)
+  -ms-transform: rotate($degrees)
+  -o-transform: rotate($degrees)
+  transform: rotate($degrees)
+
+
+@mixin keyframe($name)
+  @keyframes #{$name}
+    @content
+  @-webkit-keyframes #{$name}
+    @content
+
+
+@mixin non-selectable()
+  -moz-user-select: none
+  -webkit-user-select: none
+  -ms-user-select: none
+  user-select: none
+
+@mixin container-loader()
+  pointer-events: none
+  filter: grayscale(100%)
+  opacity: 0.8

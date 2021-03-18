@@ -1,25 +1,24 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {TooltipPosition, TooltipTouchGestures} from '@angular/material/tooltip';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-tooltip',
-  templateUrl: './tooltip.component.html',
-  styleUrls: ['./tooltip.component.scss']
+    selector: 'app-tooltip',
+    templateUrl: './tooltip.component.html',
+    styleUrls: ['./tooltip.component.scss']
 })
 export class TooltipComponent implements OnInit {
 
-  @Input() tooltipValue = 'tooltip';
-  @Input() tooltipClass = '';
-  @Input() tooltipPosition: TooltipPosition = 'right';
-  @Input() tooltipTouchGestures: TooltipTouchGestures;
-  @Input() tooltipShowDelay: number;
-  @Input() tooltipHideDelay: number;
-  @Input() tooltipDisabled: boolean;
+    @Input() value = 'tooltip';
+    @Input() innerClass = '';
+    @Input() position: 'left' | 'right' | 'above' | 'below' | 'before' | 'after' = 'right';
+    @Input() touchGestures: 'auto' | 'on' | 'off';
+    @Input() showDelay: number;
+    @Input() hideDelay: number;
+    @Input() disabled: boolean;
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }
