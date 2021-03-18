@@ -69,5 +69,7 @@
         </div>
     </div>
 
-    <div app-card-edit-button (click)="editEvent()"></div>
+    <div app-card-edit-button
+         [editMessage]="zoneDetail.name"
+         (click)="editEvent()"></div>
 </app-card>

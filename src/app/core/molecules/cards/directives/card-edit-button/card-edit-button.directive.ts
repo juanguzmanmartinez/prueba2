@@ -1,10 +1,13 @@
-import { AfterViewInit, ApplicationRef, ComponentFactoryResolver, Directive, ElementRef, EmbeddedViewRef, Injector, Renderer2 } from '@angular/core';
+import { AfterViewInit, ApplicationRef, ComponentFactoryResolver, Directive, ElementRef, EmbeddedViewRef, Injector, Input, Renderer2 } from '@angular/core';
 import { ButtonActionIconComponent } from '@atoms/buttons/button-action-icon/button-action-icon.component';
+import { TooltipComponent } from '@atoms/tooltip/tooltip.component';
 
 @Directive({
     selector: '[app-card-edit-button]'
 })
 export class CardEditButtonDirective implements AfterViewInit {
+
+    @Input() editMessage = '';
 
     constructor(
         private elementRef: ElementRef,
@@ -17,7 +20,9 @@ export class CardEditButtonDirective implements AfterViewInit {
 
     ngAfterViewInit() {
         this.setElementStyle();
-        this.addChildElement();
+        const buttonActionIconElement = this.addChildElement();
+        const tooltipElement = this.addTooltipElement(buttonActionIconElement);
+        this.renderer.appendChild(this.elementRef.nativeElement, tooltipElement);
     }
 
     setElementStyle() {
@@ -29,7 +34,7 @@ export class CardEditButtonDirective implements AfterViewInit {
     }
 
 
-    addChildElement() {
+    addChildElement(): HTMLElement {
         const buttonActionIconComponentFactory = this.componentFactoryResolver.resolveComponentFactory(ButtonActionIconComponent);
 
         const buttonActionIconComponentRef = buttonActionIconComponentFactory.create(this.injector);
@@ -37,8 +42,17 @@ export class CardEditButtonDirective implements AfterViewInit {
         buttonActionIconComponentRef.instance.innerClass = 'cursor-pointer';
 
         this.applicationRef.attachView(buttonActionIconComponentRef.hostView);
-        const buttonActionIconElement = (buttonActionIconComponentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-        this.renderer.appendChild(this.elementRef.nativeElement, buttonActionIconElement);
+        return (buttonActionIconComponentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+    }
+
+    addTooltipElement(childElement: HTMLElement): HTMLElement {
+        const tooltipComponentFactory = this.componentFactoryResolver.resolveComponentFactory(TooltipComponent);
+
+        const tooltipComponentRef = tooltipComponentFactory.create(this.injector, [[childElement]]);
+        tooltipComponentRef.instance.value = `Editar ${this.editMessage}`;
+
+        this.applicationRef.attachView(tooltipComponentRef.hostView);
+        return (tooltipComponentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
     }
 
 }

@@ -26,7 +26,7 @@
             <div class="col-5">
                 <app-form-field>
                     <app-form-field-label>Fin</app-form-field-label>
-                    <app-input-time name="start-hour-time"
+                    <app-input-time name="end-hour-time"
                                     format="12"
                                     [class.time-input]="!_serviceTypeDetailForm.stateControl.value"
                                     [minHour]="_serviceTypeDetailForm.startHourControl.value"
@@ -103,7 +103,7 @@
             </app-button>
             <app-button appearance="primary"
                         appEditionAccess
-                        (clicked)="saveEditionEvent()">
+                        (access)="saveEditionEvent()">
                 Guardar cambios
             </app-button>
         </div>

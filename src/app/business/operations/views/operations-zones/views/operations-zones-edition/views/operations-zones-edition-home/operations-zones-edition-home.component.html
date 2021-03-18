@@ -16,7 +16,7 @@
             <app-op-zones-edition-home-zone-detail-card
                     *appSkeletonCard="!!zoneDetail; row: 5; loading: !homeEditionLoader"
                     [zoneDetail]="zoneDetail"
-                    (edit)="editStore()">
+                    (edit)="editZone()">
             </app-op-zones-edition-home-zone-detail-card>
         </div>
     </div>
@@ -25,32 +25,32 @@
          [class.container-loader]="saveEditionLoader">
         <div class="col-12 col-lg-6 col-xl-5 mb-6">
             <app-op-zones-edition-home-service-type-card
-                    *appSkeletonCard="!!zonesServiceTypeList; row: 5; loading: !homeEditionLoader"
-                    [serviceType]="zonesServiceTypeList.amPm"
+                    *appSkeletonCard="!!zoneServiceTypeList; row: 5; loading: !homeEditionLoader"
+                    [serviceType]="zoneServiceTypeList.amPm"
                     (edit)="editServiceType($event)"
                     (add)="addServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
         <div class="col-12 col-lg-6 col-xl-5 mb-6">
             <app-op-zones-edition-home-service-type-card
-                    *appSkeletonCard="!!zonesServiceTypeList; row: 5; loading: !homeEditionLoader"
-                    [serviceType]="zonesServiceTypeList.scheduled"
+                    *appSkeletonCard="!!zoneServiceTypeList; row: 5; loading: !homeEditionLoader"
+                    [serviceType]="zoneServiceTypeList.scheduled"
                     (edit)="editServiceType($event)"
                     (add)="addServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
         <div class="col-12 col-lg-6 col-xl-5 mb-6">
             <app-op-zones-edition-home-service-type-card
-                    *appSkeletonCard="!!zonesServiceTypeList; row: 5; loading: !homeEditionLoader"
-                    [serviceType]="zonesServiceTypeList.express"
+                    *appSkeletonCard="!!zoneServiceTypeList; row: 5; loading: !homeEditionLoader"
+                    [serviceType]="zoneServiceTypeList.express"
                     (edit)="editServiceType($event)"
                     (add)="addServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
         </div>
         <div class="col-12 col-lg-6 col-xl-5 mb-6">
             <app-op-zones-edition-home-service-type-card
-                    *appSkeletonCard="!!zonesServiceTypeList; row: 5; loading: !homeEditionLoader"
-                    [serviceType]="zonesServiceTypeList.ret"
+                    *appSkeletonCard="!!zoneServiceTypeList; row: 5; loading: !homeEditionLoader"
+                    [serviceType]="zoneServiceTypeList.ret"
                     (edit)="editServiceType($event)"
                     (add)="addServiceType($event)">
             </app-op-zones-edition-home-service-type-card>
@@ -58,7 +58,7 @@
     </div>
 
     <app-empty-result (action)="backRoute()"
-                      *ngIf="(!zoneDetail || !zonesServiceTypeList) && !homeEditionLoader">
+                      *ngIf="(!zoneDetail || !zoneServiceTypeList) && !homeEditionLoader">
         <ng-container empty-result-title>Esta zona no está disponible.</ng-container>
         <ng-container empty-result-action>Ir a lista de zonas</ng-container>
     </app-empty-result>

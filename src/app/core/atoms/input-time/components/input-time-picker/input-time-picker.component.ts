@@ -86,12 +86,16 @@ export class InputTimePickerComponent implements OnInit {
     }
 
     get minHourByDateTime() {
-        return this.dateTime && this.pickerTime.isSameOrAfter(this.defaultPmMinHour, 'hours')
+        const isAfterDefaultMinHour = this.pickerTime.isSameOrAfter(this.defaultPmMinHour, 'hours');
+        const minHourIsBeforeDefaultMinHour = this.minHourDate.isBefore(this.defaultPmMinHour, 'hours');
+        return this.dateTime && isAfterDefaultMinHour && minHourIsBeforeDefaultMinHour
             ? this.defaultPmMinHour : this.minHourDate;
     }
 
     get maxHourByDateTime() {
-        return this.dateTime && this.pickerTime.isSameOrBefore(this.defaultAmMaxHour, 'hours')
+        const isBeforeDefaultMaxHour = this.pickerTime.isSameOrBefore(this.defaultAmMaxHour, 'hours');
+        const maxHourIsAfterDefaultMaxHour = this.maxHourDate.isAfter(this.defaultAmMaxHour, 'hours');
+        return this.dateTime && isBeforeDefaultMaxHour && maxHourIsAfterDefaultMaxHour
             ? this.defaultAmMaxHour : this.maxHourDate;
     }
 
@@ -136,9 +140,9 @@ export class InputTimePickerComponent implements OnInit {
     setMinutePickerList() {
         const minutesPickerList = [];
         const maxMinutesPickerHour = this.pickerHour.clone().add(59, 'minutes');
-        const isBeforeMinHour = this.pickerTime.isBefore(this.minHourByDateTime);
+        const isSameHour = this.pickerTime.isSame(this.minHourByDateTime, 'h');
         const isAfterMaxHour = maxMinutesPickerHour.isAfter(this.maxHourByDateTime);
-        const minMinutes = isBeforeMinHour ? this.minHourByDateTime.clone() : this.pickerTime.clone();
+        const minMinutes = isSameHour ? this.minHourByDateTime.clone() : this.pickerHour.clone();
         const maxMinutes = isAfterMaxHour ? this.maxHourByDateTime.clone() : maxMinutesPickerHour.clone();
 
         while (minMinutes.isSameOrBefore(maxMinutes, 'minutes')) {

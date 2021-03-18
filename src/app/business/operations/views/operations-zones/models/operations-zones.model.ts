@@ -3,10 +3,9 @@ import { IZone, IZoneBackUp, IZoneDetail, IZoneServiceType } from '@interfaces/z
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
 import { CStateSettingValue, EState } from '@models/state/state.model';
-import { DatesHelper } from '@helpers/dates.helper';
-import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { ZonesStore } from './operations-zones-store.model';
 import { EZoneLabel } from './operations-zones-label.model';
+import { ZoneServiceType } from './operations-zones-service-type.model';
 
 
 class ZoneBase {
@@ -75,22 +74,3 @@ export class ZoneBackup {
 }
 
 
-export class ZoneServiceType {
-    id: string;
-    code: EDeliveryServiceType;
-    segmentGap: number;
-    startHour: number;
-    endHour: number;
-    state: EState;
-    intervalTime: number;
-
-    constructor(iZoneServiceType: IZoneServiceType) {
-        this.id = iZoneServiceType.id || null;
-        this.code = iZoneServiceType.serviceTypeCode || null;
-        this.segmentGap = iZoneServiceType.segmentGap || 0;
-        this.intervalTime = iZoneServiceType.intervalTime || 0;
-        this.startHour = DatesHelper.date(iZoneServiceType.startHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
-        this.endHour = DatesHelper.date(iZoneServiceType.endHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
-        this.state = iZoneServiceType.enabled ? EState.active : EState.inactive;
-    }
-}

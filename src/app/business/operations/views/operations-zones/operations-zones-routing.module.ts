@@ -19,7 +19,7 @@ const routes: Routes = [
                 pathMatch: 'full'
             },
             {
-                path: `:${OP_ZONES_PATH.zoneId.valueOf()}`,
+                path: `:${OP_ZONES_PATH.zoneCode.valueOf()}`,
                 component: OperationsZonesEditionComponent,
                 children: [
                     {

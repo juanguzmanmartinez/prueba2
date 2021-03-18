@@ -9,39 +9,56 @@
         </div>
     </div>
 
-    <div class="row mb-6">
+    <div class="row mb-6"
+         [class.container-loader]="saveEditionLoader">
         <div class="col-12">
             <app-op-stores-edition-home-store-detail-card
-                    [store]="store"
-                    (storeEdit)="editionHomeEditStore()">
+                    *appSkeletonCard="!!storeDetail; row: 5; loading: !homeEditionLoader"
+                    [storeDetail]="storeDetail"
+                    (edit)="editStore()">
             </app-op-stores-edition-home-store-detail-card>
         </div>
     </div>
 
-    <div class="row justify-content-between">
+    <div class="row justify-content-between"
+         [class.container-loader]="saveEditionLoader">
         <div class="col-5 mb-6">
             <app-op-stores-edition-home-service-type-card
-                    serviceTypeName="AM/PM"
-                    (storeEditService)="editionHomeEditService(deliveryServiceType.amPm)">
+                    *appSkeletonCard="!!storeServiceTypeList; row: 5; loading: !homeEditionLoader"
+                    [serviceType]="storeServiceTypeList.amPm"
+                    (edit)="editServiceType($event)"
+                    (add)="addServiceType($event)">
             </app-op-stores-edition-home-service-type-card>
         </div>
         <div class="col-5 mb-6">
             <app-op-stores-edition-home-service-type-card
-                    serviceTypeName="programado"
-                    (storeEditService)="editionHomeEditService(deliveryServiceType.scheduled)">
+                    *appSkeletonCard="!!storeServiceTypeList; row: 5; loading: !homeEditionLoader"
+                    [serviceType]="storeServiceTypeList.scheduled"
+                    (edit)="editServiceType($event)"
+                    (add)="addServiceType($event)">
             </app-op-stores-edition-home-service-type-card>
         </div>
         <div class="col-5 mb-6">
             <app-op-stores-edition-home-service-type-card
-                    serviceTypeName="express"
-                    (storeEditService)="editionHomeEditService(deliveryServiceType.express)">
+                    *appSkeletonCard="!!storeServiceTypeList; row: 5; loading: !homeEditionLoader"
+                    [serviceType]="storeServiceTypeList.express"
+                    (edit)="editServiceType($event)"
+                    (add)="addServiceType($event)">
             </app-op-stores-edition-home-service-type-card>
         </div>
         <div class="col-5 mb-6">
             <app-op-stores-edition-home-service-type-card
-                    serviceTypeName="RET"
-                    (storeEditService)="editionHomeEditService(deliveryServiceType.ret)">
+                    *appSkeletonCard="!!storeServiceTypeList; row: 5; loading: !homeEditionLoader"
+                    [serviceType]="storeServiceTypeList.ret"
+                    (edit)="editServiceType($event)"
+                    (add)="addServiceType($event)">
             </app-op-stores-edition-home-service-type-card>
         </div>
     </div>
+
+    <app-empty-result (action)="backRoute()"
+                      *ngIf="(!storeDetail || !storeServiceTypeList) && !homeEditionLoader">
+        <ng-container empty-result-title>Este local no está disponible.</ng-container>
+        <ng-container empty-result-action>Ir a lista de locales</ng-container>
+    </app-empty-result>
 </section>

@@ -6,7 +6,6 @@ import { isArray, isObject } from '@helpers/objects-equal.helper';
 import { Observable, of } from 'rxjs';
 import { IZone, IZoneDetail, IZoneDetailUpdate, IZoneServiceTypeRegister, IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { EChannel } from '@models/channel/channel.model';
-import { CompanyList, ECompany } from '@models/company/company.model';
 import { EZoneLabel, ZoneLabelList } from '../../../business/operations/views/operations-zones/models/operations-zones-label.model';
 
 @Injectable()
@@ -31,8 +30,8 @@ export class ZonesClientService {
 
     }
 
-    getZoneDetail(zoneId: string): Observable<IZoneDetail> {
-        const endpoint = `${this.ZONE_LIST}/${zoneId}`;
+    getZoneDetail(zoneCode: string): Observable<IZoneDetail> {
+        const endpoint = `${this.ZONE_LIST}/${zoneCode}`;
         return this.generic.genericGet<IZoneDetail>(endpoint)
             .pipe(
                 take(1),
@@ -41,8 +40,8 @@ export class ZonesClientService {
                 }));
     }
 
-    putZoneDetail(zoneId: string, body: IZoneDetailUpdate): Observable<any> {
-        const endpoint = `${this.ZONE_LIST}/${zoneId}`;
+    putZoneDetail(zoneCode: string, body: IZoneDetailUpdate): Observable<any> {
+        const endpoint = `${this.ZONE_LIST}/${zoneCode}`;
         return this.generic.genericPut<any>(endpoint, body)
             .pipe(take(1));
     }
@@ -65,10 +64,6 @@ export class ZonesClientService {
                 map((response: EChannel[]) => {
                     return isArray(response) ? response : [];
                 }));
-    }
-
-    getCompanyList(): Observable<ECompany[]> {
-        return of(CompanyList);
     }
 
     getZoneLabelList(): Observable<EZoneLabel[]> {

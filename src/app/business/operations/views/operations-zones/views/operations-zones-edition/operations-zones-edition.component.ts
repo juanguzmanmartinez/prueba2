@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
-    private zoneId: string;
+    private zoneCode: string;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -21,18 +21,17 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
     ) {
     }
 
-
     ngOnInit(): void {
         const subscription = this._activatedRoute.paramMap.subscribe(() => {
-            this.zoneId = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneId];
-            this.getZoneById(this.zoneId);
+            this.zoneCode = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneCode];
+            this.getZoneDetail(this.zoneCode);
         });
-        this.updateZoneById();
+        this.updateZoneDetail();
         this.subscriptions.push(subscription);
     }
 
-    getZoneById(zoneId: string) {
-        this._operationsZonesImplement.getZoneDetail(zoneId)
+    getZoneDetail(zoneCode: string) {
+        this._operationsZonesImplement.getZoneDetail(zoneCode)
             .subscribe((zoneDetail: ZoneDetail) => {
                 this._operationsZonesEditionStore.zoneDetail = zoneDetail;
             }, (error) => {
@@ -40,14 +39,13 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
             });
     }
 
-    updateZoneById() {
+    updateZoneDetail() {
         const subscription = this._operationsZonesEditionStore.updateZoneDetail$
             .subscribe(() => {
-                this.getZoneById(this.zoneId);
+                this.getZoneDetail(this.zoneCode);
             });
         this.subscriptions.push(subscription);
     }
-
 
     ngOnDestroy() {
         this.subscriptions.forEach(subscription => subscription.unsubscribe());

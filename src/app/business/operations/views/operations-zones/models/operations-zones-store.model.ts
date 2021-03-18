@@ -6,12 +6,12 @@ import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 export class ZonesStore {
     name: string;
     code: string;
-    services: ZonesStoreServiceType[];
+    serviceTypeList: ZonesStoreServiceType[];
 
     constructor(iStore: IStore) {
         this.code = iStore.localCode || null;
         this.name = iStore.name || null;
-        this.services = iStore.services?.length ? iStore.services
+        this.serviceTypeList = iStore.services?.length ? iStore.services
             .map((serviceType) => new ZonesStoreServiceType(serviceType)) : [];
     }
 }

@@ -6,6 +6,7 @@ import { StoresClientService } from './stores/stores-client.service';
 import { AuthClientService } from '@clients/auth/auth-client.service';
 import { StorageClientService } from '@clients/storage/storage-client.service';
 import { ZonesClientService } from '@clients/zones/zones-client.service';
+import { ResourceClientService } from '@clients/resource/resource-client.service';
 
 const SERVICES = [
     GenericService,
@@ -14,6 +15,7 @@ const SERVICES = [
     AuthClientService,
     StorageClientService,
     ZonesClientService,
+    ResourceClientService
 ];
 
 

@@ -13,7 +13,8 @@
             </app-op-zones-edition-zone-detail-card>
         </div>
 
-        <div class="col-12 col-xl-6" [class.container-loader]="saveEditionLoader">
+        <div class="col-12 col-xl-6"
+             [class.container-loader]="saveEditionLoader">
             <app-op-zones-edition-zone-detail-form-card
                     *appSkeletonCard="!!zoneDetail && !!channelList; row: 8; loading: !zoneEditionLoader"
                     [zoneDetail]="zoneDetail"

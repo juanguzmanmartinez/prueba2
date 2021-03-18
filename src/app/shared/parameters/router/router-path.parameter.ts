@@ -42,13 +42,13 @@ export const OP_STORES_PATH = {
     storeEdition: 'editar-local',
     storeAmPm: DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm,
     storeScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
-    storeExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
+    storeExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
     storeRet: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
 };
 
 
 export const OP_ZONES_PATH = {
-    zoneId: 'zoneId',
+    zoneCode: 'zoneCode',
     zoneEdition: 'editar-zona',
     zoneAmPm: DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm,
     zoneScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,

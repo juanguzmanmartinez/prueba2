@@ -5,11 +5,34 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row"
+         [class.container-loader]="saveEditionLoader">
         <div class="col-8">
             <app-op-stores-edition-service-type-detail-form-card
-                    (cancelServiceTypeEdition)="cancelServiceTypeEdition()">
+                    *appSkeletonCard="!!storeDetail && !!storeServiceType; row: 7; loading: !serviceTypeEditionLoader"
+                    [paymentMethodList]="paymentMethodList"
+                    [storeDetail]="storeDetail"
+                    [storeServiceType]="storeServiceType"
+                    (cancelEdition)="cancelEdition()"
+                    (saveEdition)="saveEdition($event)">
             </app-op-stores-edition-service-type-detail-form-card>
         </div>
     </div>
+
+
+    <app-empty-result (action)="backRoute()"
+                      *ngIf="!!storeDetail && !storeServiceType && !serviceTypeEditionLoader">
+        <ng-container empty-result-title>
+            El tipo de despacho {{serviceTypeName[serviceType]}} para {{storeDetail?.name || 'este local'}} no está disponible.
+        </ng-container>
+        <ng-container empty-result-action>
+            Ir a {{storeDetail?.name || 'local'}}
+        </ng-container>
+    </app-empty-result>
+
+    <app-empty-result (action)="storeListRoute()"
+                      *ngIf="!storeDetail && !serviceTypeEditionLoader">
+        <ng-container empty-result-title> Este local no está disponible para edición.</ng-container>
+        <ng-container empty-result-action>Ir a lista de locales</ng-container>
+    </app-empty-result>
 </section>

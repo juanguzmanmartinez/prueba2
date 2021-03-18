@@ -26,16 +26,15 @@
 
     <ng-container *ngIf="serviceType.available">
         <div *ngIf="serviceType.registered"
-             app-card-edit-button (click)="editEvent()"></div>
+             app-card-edit-button
+             [editMessage]="segmentName"
+             (click)="editEvent()"></div>
 
         <div *ngIf="!serviceType.registered"
-             class="register-service-type">
-            <app-tooltip value="Registrar {{segmentName}}">
-                <app-button-action-icon iconName="add"
-                                        appEditionAccess
-                                        (clicked)="addEvent()">
-                </app-button-action-icon>
-            </app-tooltip>
+             app-card-add-button
+             appEditionAccess
+             [addMessage]="segmentName"
+             (access)="addEvent()">
         </div>
     </ng-container>
 

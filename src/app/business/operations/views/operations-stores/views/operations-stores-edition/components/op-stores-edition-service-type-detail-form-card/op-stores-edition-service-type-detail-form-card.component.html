@@ -1,93 +1,120 @@
 <app-card>
-    <div class="row">
-        <div class="col-9">
+    <form [formGroup]="form$">
+        <div class="row">
+            <div class="col-9">
 
-            <div class="row mb-6">
-                <div class="col-12">
-                    <app-switch [checked]="true">AM/PM</app-switch>
+                <div class="row mb-6">
+                    <div class="col-12">
+                        <app-switch [formControlName]="controlNameList.state">
+                            {{serviceTypeName[storeServiceType?.code]}}
+                        </app-switch>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row mb-6">
-                <div class="col-5">
-                    <app-form-field>
-                        <app-form-field-label>Inicio</app-form-field-label>
-                        <app-select [optionList]="['8:00 AM']" [value]="'8:00 AM'"></app-select>
-                    </app-form-field>
+                <div class="row mb-6">
+                    <div class="col-5">
+                        <app-form-field>
+                            <app-form-field-label>Inicio</app-form-field-label>
+                            <app-input-time name="start-hour-time"
+                                            format="12"
+                                            [class.time-input]="!_serviceTypeDetailForm.stateControl.value"
+                                            [minHour]="storeDetail.startHour"
+                                            [maxHour]="_serviceTypeDetailForm.endHourControl.value"
+                                            (timeChange)="updateStartHourControl($event)"
+                                            [formControlName]="controlNameList.startHour">
+                            </app-input-time>
+                        </app-form-field>
+                    </div>
+                    <div class="col-5">
+                        <app-form-field>
+                            <app-form-field-label>Fin</app-form-field-label>
+                            <app-input-time name="end-hour-time"
+                                            format="12"
+                                            [class.time-input]="!_serviceTypeDetailForm.stateControl.value"
+                                            [minHour]="_serviceTypeDetailForm.startHourControl.value"
+                                            [maxHour]="storeDetail.endHour"
+                                            (timeChange)="updateEndHourControl($event)"
+                                            [formControlName]="controlNameList.endHour">
+                            </app-input-time>
+                        </app-form-field>
+                    </div>
                 </div>
-                <div class="col-5">
-                    <app-form-field>
-                        <app-form-field-label>Fin</app-form-field-label>
-                        <app-select [optionList]="['7:00 PM']" [value]="'7:00 PM'"></app-select>
-                    </app-form-field>
-                </div>
-            </div>
 
-            <div class="row mb-4">
-                <div class="col-12">
-                    <app-form-field>
-                        <app-form-field-label>Duración de ventanas horarias</app-form-field-label>
-                        <div class="row d-flex-vertical-center">
-                            <div class="col-3">
-                                <app-input value="5 horas" [disabled]="true"></app-input>
-                            </div>
-                            <div class="col ps-0">
-                                <p class="d-inline-flex align-items-center mb-0">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <app-form-field>
+                            <app-form-field-label>Duración de ventanas horarias</app-form-field-label>
+                            <div class="d-flex-vertical-center">
+                                <app-input [formControlName]="controlNameList.intervalTime"
+                                           placeholder="horas"
+                                           class="d-inline-block interval-time-input">
+                                </app-input>
+
+                                <p class="d-inline-flex align-items-center ms-3 mb-0"
+                                   *appRouterAccess="configurationPath">
                                     <app-icon fontName="info"
+                                              fontSize="24px"
                                               innerClass="text-gray-5 me-2"></app-icon>
-                                    <span class=" text-caption text-gray-5">Puedes editar este valor en <strong class="text-decoration-underline">configuraciones</strong></span>
+                                    <span class=" text-caption text-gray-5">Puedes editar este valor en
+                                        <app-router [router]="configurationPath">
+                                            <span class="text-decoration-underline text-gray-5 font-weight-bold">
+                                                configuraciones
+                                            </span>
+                                        </app-router>
+                                    </span>
                                 </p>
                             </div>
-                        </div>
-                    </app-form-field>
+                        </app-form-field>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row mb-5">
-                <div class="col-12">
-                    <app-form-field>
-                        <app-form-field-label>Resultado de número de ventanas horarias</app-form-field-label>
-                        <app-input value="3"
-                                   class="d-inline-block me-4"
-                                   style="width: 48px"
-                                   [disabled]="true"></app-input>
-                        <app-button appearance="outline">Ver detalle</app-button>
-                    </app-form-field>
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <app-form-field>
+                            <app-form-field-label>Resultado de número de ventanas horarias</app-form-field-label>
+                            <app-input [formControlName]="controlNameList.splitSegment"
+                                       class="d-inline-block me-4 service-segment-input">
+                            </app-input>
+                            <app-button (clicked)="openServiceTypeDetailDialog()"
+                                        appearance="outline">Ver detalle
+                            </app-button>
+                        </app-form-field>
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="row mb-9">
-                <div class="col-12">
-                    <app-form-field>
-                        <app-form-field-label>Métodos de pago</app-form-field-label>
-                        <div class="row mt-4">
-                            <div class="col-6 mb-5">
-                                <app-checkbox [checked]="true">POS</app-checkbox>
+                <div class="row mb-9">
+                    <div class="col-12">
+                        <app-form-field>
+                            <app-form-field-label>Métodos de pago</app-form-field-label>
+                            <div class="row mt-4" [formArrayName]="controlNameList.paymentMethod">
+                                <ng-container *ngFor="let paymentMethodControl of _serviceTypeDetailForm.paymentMethodArray.controls; let index = index"
+                                              [formGroupName]="index">
+                                    <div class="col-6 mb-4">
+                                        <app-checkbox [formControlName]="controlNameList.paymentMethodChecked">
+                                            {{paymentMethodName[paymentMethodControl.value[controlNameList.paymentMethodName]]}}
+                                        </app-checkbox>
+                                    </div>
+                                </ng-container>
                             </div>
-                            <div class="col-6 mb-5">
-                                <app-checkbox [checked]="true">Online</app-checkbox>
-                            </div>
-                            <div class="col-6">
-                                <app-checkbox [checked]="false">Efectivo</app-checkbox>
-                            </div>
-                        </div>
-                    </app-form-field>
+                        </app-form-field>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
 
-    <div class="card-actions d-flex-horizontal-end pt-5 border-top border-gray-1">
-        <app-button appearance="secondary"
-                    class="me-4"
-                    (clicked)="cancelServiceTypeEditionEvent()">
-            Cancelar edición
-        </app-button>
-        <app-button appearance="primary"
-                    (clicked)="cancelServiceTypeEditionEvent()">
-            Guardar cambios
-        </app-button>
-    </div>
+        <div class="card-actions d-flex-horizontal-end pt-5 border-top border-gray-1">
+            <app-button appearance="secondary"
+                        class="me-4"
+                        (clicked)="cancelEditionEvent()">
+                Cancelar edición
+            </app-button>
+            <app-button appearance="primary"
+                        appEditionAccess
+                        (access)="saveEditionEvent()">
+                Guardar cambios
+            </app-button>
+        </div>
+    </form>
 </app-card>

@@ -1,22 +1,37 @@
 <app-card innerClass="pb-12">
     <div class="row mb-6">
         <div class="col-12">
-            <h5 class="text-h5 mb-0">
+            <h5 class="text-h5 mb-0"
+                [class.text-gray-4]="serviceTypeDisabled">
                 <app-icon class="d-inline-block me-5"
-                          svgName="ellipse-success"></app-icon>
-                <span class="text-capitalize">{{serviceTypeName}}</span>
+                          [svgName]="serviceTypeDisabled ? 'ellipse-disabled' : 'ellipse-success'"></app-icon>
+                <span>{{segmentName}}</span>
             </h5>
         </div>
     </div>
-    <app-card-static-information class="d-block mb-5" iconName="access_time">
-        <ng-container information-title>Horario de atención {{serviceTypeName}}</ng-container>
-        <ng-container information-caption>8:00 AM - 7:00 PM</ng-container>
+    <app-card-static-information class="d-block mb-5"
+                                 iconName="access_time"
+                                 [disabled]="serviceTypeDisabled">
+        <ng-container information-title>Horario de atención {{segmentName}}</ng-container>
+        <ng-container information-caption>{{startAndEndHour}}</ng-container>
     </app-card-static-information>
 
-    <app-card-static-information class="d-block " iconName="paid">
+    <app-card-static-information class="d-block "
+                                 iconName="paid"
+                                 [disabled]="serviceTypeDisabled">
         <ng-container information-title>Medios de pago</ng-container>
         <ng-container information-caption>Efectivo - POS - Pago en línea - Agora</ng-container>
     </app-card-static-information>
 
-    <div app-card-edit-button (click)="editService()"></div>
+    <div *ngIf="serviceType.registered"
+         app-card-edit-button
+         [editMessage]="segmentName"
+         (click)="editEvent()"></div>
+
+    <div *ngIf="!serviceType.registered"
+         app-card-add-button
+         appEditionAccess
+         [addMessage]="segmentName"
+         (access)="addEvent()">
+    </div>
 </app-card>

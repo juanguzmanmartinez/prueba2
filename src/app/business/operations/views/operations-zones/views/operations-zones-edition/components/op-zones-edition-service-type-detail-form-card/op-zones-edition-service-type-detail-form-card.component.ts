@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ZoneServiceType } from '../../../../models/operations-zones.model';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
 import { OpZonesEditionServiceTypeDetailFormCardFormService, ZoneServiceTypeControlName } from './form/op-zones-edition-service-type-detail-form-card-form.service';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
@@ -10,6 +9,7 @@ import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { OpZonesEditionServiceTypeDetailDialogService } from '../op-zones-edition-service-type-detail-dialog/op-zones-edition-service-type-detail-dialog.service';
 import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
+import { ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
 
 @Component({
     selector: 'app-op-zones-edition-service-type-detail-form-card',

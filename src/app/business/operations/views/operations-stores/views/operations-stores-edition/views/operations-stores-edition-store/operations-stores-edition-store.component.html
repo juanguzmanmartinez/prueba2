@@ -6,15 +6,28 @@
     </div>
 
     <div class="row">
-        <div class="col-6">
-            <app-op-stores-edition-store-detail-card>
+        <div class="col-12 col-xl-6 mb-6 mb-xl-0">
+            <app-op-stores-edition-store-detail-card
+                    *appSkeletonCard="!!storeDetail; loading: !storeEditionLoader"
+                    [storeDetail]="storeDetail">
             </app-op-stores-edition-store-detail-card>
         </div>
 
-        <div class="col-6">
+        <div class="col-12 col-xl-6"
+             [class.container-loader]="saveEditionLoader">
             <app-op-stores-edition-store-detail-form-card
-                    (cancelStoreEdition)="cancelStoreEdition()">
+                    *appSkeletonCard="!!storeDetail; row: 8; loading: !storeEditionLoader"
+                    [storeDetail]="storeDetail"
+                    [companyList]="companyList"
+                    (cancelEdition)="cancelEdition()"
+                    (saveEdition)="saveEdition($event)">
             </app-op-stores-edition-store-detail-form-card>
         </div>
     </div>
+
+    <app-empty-result (action)="storeListRoute()"
+                      *ngIf="!storeDetail && !storeEditionLoader">
+        <ng-container empty-result-title>Este local no está disponible para edición.</ng-container>
+        <ng-container empty-result-action>Ir a lista de locales</ng-container>
+    </app-empty-result>
 </section>

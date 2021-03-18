@@ -10,12 +10,14 @@ import { IStore } from '@interfaces/stores/stores.interface';
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
 import { EZoneLabel } from '../models/operations-zones-label.model';
+import { ResourceClientService } from '@clients/resource/resource-client.service';
 
 @Injectable()
 export class OperationsZonesImplementService {
     constructor(
         private zonesClient: ZonesClientService,
         private storesClient: StoresClientService,
+        private resourceClient: ResourceClientService,
     ) {
     }
 
@@ -28,8 +30,8 @@ export class OperationsZonesImplementService {
             );
     }
 
-    getZoneDetail(zoneId: string): Observable<ZoneDetail> {
-        return this.zonesClient.getZoneDetail(zoneId)
+    getZoneDetail(zoneCode: string): Observable<ZoneDetail> {
+        return this.zonesClient.getZoneDetail(zoneCode)
             .pipe(
                 map((iZoneDetail: IZoneDetail) => {
                     return new ZoneDetail(iZoneDetail);
@@ -50,15 +52,15 @@ export class OperationsZonesImplementService {
     }
 
     get companyList(): Observable<ECompany[]> {
-        return this.zonesClient.getCompanyList();
+        return this.resourceClient.getCompanyList();
     }
 
     get labelList(): Observable<EZoneLabel[]> {
         return this.zonesClient.getZoneLabelList();
     }
 
-    putZoneDetail(zoneId: string, body: IZoneDetailUpdate) {
-        return this.zonesClient.putZoneDetail(zoneId, body);
+    putZoneDetail(zoneCode: string, body: IZoneDetailUpdate) {
+        return this.zonesClient.putZoneDetail(zoneCode, body);
     }
 
     putZoneServiceType(serviceTypeId: string, zoneServiceTypeUpdate: IZoneServiceTypeUpdate) {

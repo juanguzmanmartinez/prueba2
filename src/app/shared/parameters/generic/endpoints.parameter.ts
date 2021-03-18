@@ -12,6 +12,7 @@ export class EndpointsParameter {
 
     public static GET_DRUGSTORE = `${API_GATEWAY}/fulfillment/store`;
     public static GET_DRUGSTORE_BY_SERVICE_TYPE = `${API_GATEWAY}/fulfillment/store/servicetype/`;
+    public static STORE_SERVICE_TYPE = `${API_GATEWAY}/store-service-type`;
 
     public static GET_CALENDAR_SERVICE_TYPE = `${API_GATEWAY}/fulfillment/calendar/template`;
     public static PATCH_CALENDAR_UPDATE = `${API_GATEWAY}/fulfillment/calendar/template/detail/hours/quantities`;

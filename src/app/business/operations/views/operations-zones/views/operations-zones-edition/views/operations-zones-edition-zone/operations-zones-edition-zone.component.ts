@@ -12,7 +12,7 @@ import { EZoneLabel } from '../../../../models/operations-zones-label.model';
 import { IZoneDetailUpdate } from '@interfaces/zones/zones.interface';
 import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
 import { AlertService } from '@molecules/alert/alert.service';
-import { ZonesMessages } from '../../../../parameters/operations-zones-messages.parameter';
+import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 
 @Component({
@@ -65,10 +65,10 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
             this.zoneDetail.code, zoneDetailUpdate)
             .subscribe(() => {
                 this._operationsZonesEditionStore.updateZoneDetail = true;
-                this._alert.alertSuccess(ZonesMessages.successZoneEdition(this.zoneDetail.name));
+                this._alert.alertSuccess(OperationMessages.successOperationEdition(this.zoneDetail.name));
                 this.backRoute();
             }, () => {
-                this._alert.alertError(ZonesMessages.errorZoneEdition(this.zoneDetail.name));
+                this._alert.alertError(OperationMessages.errorOperationEdition(this.zoneDetail.name));
                 this.backRoute();
             });
     }

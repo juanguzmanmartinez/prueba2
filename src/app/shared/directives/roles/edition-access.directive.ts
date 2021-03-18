@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import { EDITION_ACCESS } from '@parameters/router/edition-access-parameter';
 import { Router } from '@angular/router';
 import { DialogEditionAccessService } from '@molecules/dialog/views/dialog-edition-access/dialog-edition-access.service';
@@ -7,12 +7,13 @@ import { UserStoreService } from '@stores/user-store.service';
 @Directive({
     selector: '[appEditionAccess]'
 })
-export class EditionAccessDirective implements OnInit {
+export class EditionAccessDirective implements AfterViewInit {
 
     private editionAccess = EDITION_ACCESS;
     private hasEditionAccess: boolean;
 
     @Input() validateAccess = true;
+    @Output() access = new EventEmitter();
 
     constructor(
         private _router: Router,
@@ -29,10 +30,12 @@ export class EditionAccessDirective implements OnInit {
             event.stopPropagation();
             event.preventDefault();
             this._dialogEditionAccess.open();
+        }else {
+            this.access.emit(event);
         }
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
         if (this.validateAccess) {
             const route = Object.keys(this.editionAccess)
                 .find((concatRoute) => {
@@ -43,7 +46,6 @@ export class EditionAccessDirective implements OnInit {
             if (!this.hasEditionAccess) {
                 this.renderer.addClass(this.elementRef.nativeElement, 'cursor-pointer');
                 this.renderer.addClass(this.elementRef.nativeElement, 'd-inline-block');
-                this.renderer.addClass(this.elementRef.nativeElement.firstChild, 'pointer-events-none');
             }
         } else {
             this.hasEditionAccess = true;

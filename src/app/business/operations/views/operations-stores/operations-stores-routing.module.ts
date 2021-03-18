@@ -33,22 +33,22 @@ const routes: Routes = [
                         pathMatch: 'full'
                     },
                     {
-                        path: `:${OP_STORES_PATH.storeAmPm.valueOf()}`,
+                        path: OP_STORES_PATH.storeAmPm.valueOf(),
                         component: OperationsStoresEditionServiceTypeComponent,
                         pathMatch: 'full'
                     },
                     {
-                        path: `:${OP_STORES_PATH.storeScheduled.valueOf()}`,
+                        path: OP_STORES_PATH.storeScheduled.valueOf(),
                         component: OperationsStoresEditionServiceTypeComponent,
                         pathMatch: 'full'
                     },
                     {
-                        path: `:${OP_STORES_PATH.storeExpress.valueOf()}`,
+                        path: OP_STORES_PATH.storeExpress.valueOf(),
                         component: OperationsStoresEditionServiceTypeComponent,
                         pathMatch: 'full'
                     },
                     {
-                        path: `:${OP_STORES_PATH.storeRet.valueOf()}`,
+                        path: OP_STORES_PATH.storeRet.valueOf(),
                         component: OperationsStoresEditionServiceTypeComponent,
                         pathMatch: 'full'
                     },

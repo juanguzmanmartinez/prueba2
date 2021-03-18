@@ -29,8 +29,8 @@
     <app-empty-result (action)="backRoute()"
                       *ngIf="!!zoneDetail && (!zoneServiceType || !zonesStoreServiceType) && !serviceTypeEditionLoader">
         <ng-container empty-result-title>
-            El tipo de despacho  no está disponible.
-        </ng-container>{{serviceTypeName[serviceType]}} para {{zoneDetail?.name || 'esta zona'}}
+            El tipo de despacho {{serviceTypeName[serviceType]}} para {{zoneDetail?.name || 'esta zona'}} no está disponible.
+        </ng-container>
         <ng-container empty-result-action>
             Ir a {{zoneDetail?.name || 'la zona'}}
         </ng-container>

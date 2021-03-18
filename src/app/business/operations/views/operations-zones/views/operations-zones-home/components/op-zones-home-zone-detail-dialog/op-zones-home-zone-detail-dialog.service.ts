@@ -21,9 +21,9 @@ export class OpZonesHomeZoneDetailDialogService implements OnDestroy {
     ) {
     }
 
-    open(zoneId: string): Observable<boolean> {
+    open(zoneCode: string): Observable<boolean> {
         this.openDialogLoader();
-        this.getZoneDetail(zoneId);
+        this.getZoneDetail(zoneCode);
         return this.dialogZoneDetailSubject.asObservable();
     }
 
@@ -41,8 +41,8 @@ export class OpZonesHomeZoneDetailDialogService implements OnDestroy {
         this.dialogLoaderRef = this._dialogLoader.open();
     }
 
-    getZoneDetail(zoneId: string): void {
-        this._operationsZonesImplement.getZoneDetail(zoneId)
+    getZoneDetail(zoneCode: string): void {
+        this._operationsZonesImplement.getZoneDetail(zoneCode)
             .subscribe((zoneDetail: ZoneDetail) => {
                 this.openDialogZoneDetail(zoneDetail);
                 this.dialogLoaderRef.close();

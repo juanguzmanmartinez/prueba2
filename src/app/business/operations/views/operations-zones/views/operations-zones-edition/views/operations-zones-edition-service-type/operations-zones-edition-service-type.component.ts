@@ -1,17 +1,18 @@
 import { Component, OnDestroy, OnInit, SkipSelf } from '@angular/core';
 import { parseUrl } from '@helpers/parse-url.helper';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ZoneDetail, ZoneServiceType } from '../../../../models/operations-zones.model';
+import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { Subscription } from 'rxjs';
 import { OperationsZonesEditionStoreService } from '../../stores/operations-zones-edition-store.service';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
 import { IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
-import { ZonesMessages } from '../../../../parameters/operations-zones-messages.parameter';
+import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { AlertService } from '@molecules/alert/alert.service';
 import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
 
 @Component({
     selector: 'app-operations-zones-edition-service-type',
@@ -63,7 +64,7 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     private setZoneServiceType() {
         this.zoneServiceType = this.zoneDetail?.serviceTypeList
             .find((serviceType: ZoneServiceType) => serviceType.code === this.serviceType);
-        this.zonesStoreServiceType = this.zoneDetail?.assignedStore.services
+        this.zonesStoreServiceType = this.zoneDetail?.assignedStore.serviceTypeList
             .find((serviceType: ZonesStoreServiceType) => serviceType.code === this.serviceType);
         this.serviceTypeEditionLoader = !this.zoneDetail;
     }
@@ -73,11 +74,11 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
             `${this.zoneServiceType.id}`, zoneServiceTypeUpdate)
             .subscribe(() => {
                 this._operationsZonesEditionStore.updateZoneDetail = true;
-                this._alert.alertSuccess(ZonesMessages.successServiceTypeEdition(
+                this._alert.alertSuccess(OperationMessages.successServiceTypeEdition(
                     this.serviceTypeName[this.zoneServiceType.code], this.zoneDetail.name));
                 this.backRoute();
             }, () => {
-                this._alert.alertError(ZonesMessages.errorServiceTypeEdition(
+                this._alert.alertError(OperationMessages.errorServiceTypeEdition(
                     this.serviceTypeName[this.zoneServiceType.code], this.zoneDetail.name));
                 this.backRoute();
             });

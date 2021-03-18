@@ -27,8 +27,8 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     public labelColor = CZoneLabelColor;
     public tagAppearance = ETagAppearance;
 
-    private noStoreBackup: ZonesStore = {name: 'Sin local backup', code: '', services: []} as ZonesStore;
-    public controlName = ZoneDetailControlName;
+    private noStoreBackup: ZonesStore = {name: 'Sin local backup', code: '', serviceTypeList: []} as ZonesStore;
+    public controlNameList = ZoneDetailControlName;
     public storeList: ZonesStore[] = [];
     public storeBackupList: ZonesStore[] = [];
     public channelList: EChannel[] = [];

@@ -28,25 +28,25 @@ export class Store {
 
 export class StoreDetail extends Store {
     address: string;
-    latitude: number;
-    longitude: number;
+    latitude: string;
+    longitude: string;
     startHour: number;
     endHour: number;
     serviceTypeList: StoreServiceType[];
-    group: string;
+    groupName: string;
     paymentMethodList: EPaymentMethod[];
     zoneList: StoresZone[];
 
     constructor(iStoreDetail: IStoreDetail) {
         super(iStoreDetail);
         this.address = iStoreDetail.address || 'Av. Guardia Civil 244, San Borja';
-        this.latitude = iStoreDetail.latitude;
-        this.longitude = iStoreDetail.longitude;
+        this.latitude = `${iStoreDetail.latitude}`;
+        this.longitude = `${iStoreDetail.longitude}`;
         this.startHour = DatesHelper.date(iStoreDetail.startHour, DATES_FORMAT.hourMinuteSecond).valueOf();
         this.endHour = DatesHelper.date(iStoreDetail.endHour, DATES_FORMAT.hourMinuteSecond).valueOf();
         this.serviceTypeList = iStoreDetail.services ? iStoreDetail.services
             .map(serviceType => new StoreServiceType(serviceType)) : [];
-        this.group = iStoreDetail.group || 'San Borja Sur';
+        this.groupName = iStoreDetail.group || 'San Borja Sur';
         this.paymentMethodList = iStoreDetail.paymentMethodList || [EPaymentMethod.pos, EPaymentMethod.cash, EPaymentMethod.online];
         this.zoneList = iStoreDetail.zoneList ? iStoreDetail.zoneList
             .map(storesZone => new StoresZone(storesZone)) : [{code: 'B03', name: 'San Miguel 1'}, {code: 'B03', name: 'San Miguel 1'}, {code: 'B03', name: 'San Borja Sur'}];

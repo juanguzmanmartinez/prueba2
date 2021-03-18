@@ -1,6 +1,29 @@
-import { ZoneServiceType } from './operations-zones.model';
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { ZonesStoreServiceType } from './operations-zones-store.model';
+import { EState } from '@models/state/state.model';
+import { IZoneServiceType } from '@interfaces/zones/zones.interface';
+import { DatesHelper } from '@helpers/dates.helper';
+import { DATES_FORMAT } from '@parameters/dates-format.parameters';
+
+export class ZoneServiceType {
+    id: string;
+    code: EDeliveryServiceType;
+    segmentGap: number;
+    startHour: number;
+    endHour: number;
+    state: EState;
+    intervalTime: number;
+
+    constructor(iZoneServiceType: IZoneServiceType) {
+        this.id = iZoneServiceType.id || null;
+        this.code = iZoneServiceType.serviceTypeCode || null;
+        this.segmentGap = iZoneServiceType.segmentGap || 0;
+        this.intervalTime = iZoneServiceType.intervalTime || 0;
+        this.startHour = DatesHelper.date(iZoneServiceType.startHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
+        this.endHour = DatesHelper.date(iZoneServiceType.endHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
+        this.state = iZoneServiceType.enabled ? EState.active : EState.inactive;
+    }
+}
 
 export class ZoneServiceTypeRegistered {
     serviceType: ZoneServiceType;
@@ -27,7 +50,7 @@ export class ZoneServiceTypeRegistered {
     }
 }
 
-export class ZonesServiceTypeList {
+export class ZoneServiceTypeList {
     amPm: ZoneServiceTypeRegistered;
     express: ZoneServiceTypeRegistered;
     scheduled: ZoneServiceTypeRegistered;

@@ -29,6 +29,15 @@ export interface IStoreDetail extends IStore {
     zoneList: IZone[];
 }
 
+export interface IStoreDetailUpdate {
+    enabled: boolean;
+    companyList: ECompany[];
+    latitude: string;
+    longitude: string;
+    startHour: string;
+    endHour: string;
+}
+
 export interface IStoreServiceType {
     id: string;
     code: EDeliveryServiceType;
@@ -38,6 +47,20 @@ export interface IStoreServiceType {
     endHour: string;
     enabled: boolean;
     intervalTime: number;
+}
+
+export interface IStoreServiceTypeUpdate {
+    enabled: boolean;
+    startHour: string;
+    endHour: string;
+    paymentMethod: EPaymentMethod[];
+}
+
+export interface IStoreServiceTypeRegister {
+    localCode: string;
+    serviceTypeCode: string;
+    startHour: string;
+    endHour: string;
 }
 
 export interface IStoreCompany {
