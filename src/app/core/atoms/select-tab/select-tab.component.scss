@@ -1,5 +1,5 @@
-@import "src/sass/variables/colors";
-@import "src/sass/utilities/text";
+@import "src/sass/variables/colors.variable";
+@import "src/sass/mixins/text.mixin";
 
 .select-tab{
   flex-wrap: nowrap;
@@ -16,14 +16,14 @@
       background-color: $white;
       border: 1px solid $gray-2;
       padding: 12px 14px;
-      @extend .text-label
+      @include text-label
     }
 
     &:checked ~ .radio-content {
       background-color: $black;
       border-color: $black;
       color: $white;
-      @extend .text-button
+      @include text-button
     }
 
   }

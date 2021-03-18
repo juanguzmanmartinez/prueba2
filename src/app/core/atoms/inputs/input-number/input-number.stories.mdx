@@ -1,0 +1,115 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
+import {InputNumberComponent} from "./input-number.component";
+import {InputComponent} from "../input/input.component";
+import {DirectivesModule} from "../../../../shared/directives/directives.module";
+
+<Meta
+    title="Atoms/Input Number"
+    component={InputNumberComponent}/>
+
+# Input
+<br/>
+<br/>
+
+### Props
+| Property | Type  | Values | Default  |
+| ------ | --------- |------ | --------- |
+| id    | string   |  | "Input" |
+| name    | string   |  | "Input" |
+| behavior      | string   | <code>number</code><code>text</code><code>search</code><code>password</code> | <code>text</code> |
+| placeholder    | string   |  | "placeholder" |
+| innerClass    | string   |     ""    |  ""  |
+| labelClass    | string   |     ""    |  ""  |
+| error      | boolean  | true/false       | false     |
+
+### Events
+| Event | Arguments  | Description |
+| ------ | --------- |------ |
+| blur    |     | Emitted when input lost focus |
+| focus    |     | Emitted when input received focus |
+| change    |     | Emitted when input's value changes |
+
+------
+
+export const Template = (args) => ({
+    component: InputNumberComponent,
+    props: {
+        ...args,
+        placeholder: 'placeholder',
+        behavior: 'text',
+        name: 'input',
+        id: 'input',
+    },
+    moduleMetadata: {
+        imports: [DirectivesModule],
+        declarations: [InputComponent,InputNumberComponent],
+    },
+    template: '<app-input-number ' +
+        '[placeholder]="placeholder" ' +
+        '[name]="name" ' +
+        '[behavior]="behavior" ' +
+        '[innerClass]="innerClass" ' +
+        '[labelClass]="labelClass" ' +
+        '[error]="error" ' +
+        '[value]="value" ' +
+        '[id]="id"></app-input-number>',
+})
+
+<br/>
+<br/>
+
+### Appearance
+
+<Canvas>
+    <Story name='Default'
+           args={{
+               value: 12345
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-input-number value="12345"></app-input-number>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Error'
+           args={{
+               value: 435242,
+               error: true
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-input-number value="435242" error="true"></app-input-number>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+</Canvas>
+
+<br/>
+<br/>
+
+# Usages
+
+Import InputsModule into your custom module
+
+```typescript
+import { InputsModule } from './inputs.module';
+
+@NgModule({
+    imports: [InputsModule]
+})
+
+export class YourModule {}
+```
+
+## Examples
+
+  ```html
+<app-input-number placeholder="Write something..."></app-input-number>
+```
+ ```html
+<app-input-number value="example" [error]="true"></app-input-number>
+  ```

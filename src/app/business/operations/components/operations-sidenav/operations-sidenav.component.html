@@ -1,64 +1,79 @@
 <app-inner-sidenav (innerSidenavExpanded)="operationsInnerSidenavOpened($event)">
-  <section sidenav
-           class="operations-sidenav">
+    <section sidenav
+             class="operations-sidenav">
 
-    <div class="operations-sidenav-header">
-      <h1 class="text-subtitle-2 text-gray-6 mb-0">
-        {{operationsSidenavTitle}}
-      </h1>
-    </div>
-    <hr class="separator">
+        <div class="operations-sidenav-header">
+            <h1 class="text-subtitle-2 text-gray-6 mb-0">
+                {{operationsSidenavTitle}}
+            </h1>
+        </div>
+        <hr class="separator">
 
-    <div class="operations-sidenav-content">
-      <app-inner-sidenav-navigation navigationIcon="home"
-                                    navigationRoute="/operaciones"
-                                    navigationText="Home">
-      </app-inner-sidenav-navigation>
+        <div class="operations-sidenav-content">
+            <app-inner-sidenav-navigation
+                    navigationIcon="home"
+                    [navigationRoute]="[concatPath.operations]"
+                    navigationText="Home">
+            </app-inner-sidenav-navigation>
 
-      <app-inner-sidenav-navigation navigationIcon="store"
-                                    navigationRoute="/operaciones/locales"
-                                    navigationText="Locales">
-      </app-inner-sidenav-navigation>
+            <app-inner-sidenav-navigation
+                    *appRouterAccess="concatPath.operationStores"
+                    navigationIcon="store"
+                    [navigationRoute]="[concatPath.operationStores]"
+                    [navigationRouteOptions]="{exact: false}"
+                    navigationText="Locales">
+            </app-inner-sidenav-navigation>
 
-      <app-inner-sidenav-navigation navigationIcon="location_on"
-                                    navigationRoute="/operaciones/zonas"
-                                    navigationText="Zonas">
-      </app-inner-sidenav-navigation>
+            <app-inner-sidenav-navigation
+                    *appRouterAccess="concatPath.operationZones"
+                    navigationIcon="location_on"
+                    [navigationRoute]="[concatPath.operationZones]"
+                    navigationText="Zonas">
+            </app-inner-sidenav-navigation>
 
-      <app-inner-sidenav-navigation-expansion navigationIcon="date_range"
-                                              navigationRoute="/operaciones/capacidades"
-                                              navigationText="Capacidades"
-                                              [navigationDisabledChildren]="!innerSidenavExpanded"
-                                              [navigationRouteOptions]="{exact: false}">
-        <app-router router="/operaciones/capacidades/am-pm"
-                    routerActive="inner-sidenav-navigation-active"
-                    routerClass="inner-sidenav-navigation-expansion-child">
-          <span class="text-label">Editar AM/PM</span>
-        </app-router>
-        <app-router router="/operaciones/capacidades/programado"
-                    routerActive="inner-sidenav-navigation-active"
-                    routerClass="inner-sidenav-navigation-expansion-child">
-          <span class="text-label">Editar Programado</span>
-        </app-router>
-        <app-router router="/operaciones/capacidades/express"
-                    routerActive="inner-sidenav-navigation-active"
-                    routerClass="inner-sidenav-navigation-expansion-child">
-          <span class="text-label">Editar Express</span>
-        </app-router>
-        <app-router router="/operaciones/capacidades/retiro-tienda"
-                    routerActive="inner-sidenav-navigation-active"
-                    routerClass="inner-sidenav-navigation-expansion-child">
-          <span class="text-label">Editar RET</span>
-        </app-router>
-      </app-inner-sidenav-navigation-expansion>
+            <app-inner-sidenav-navigation-expansion
+                    *appRouterAccess="concatPath.operationCapacities"
+                    navigationIcon="date_range"
+                    navigationText="Capacidades"
+                    [navigationRoute]="concatPath.operationCapacities"
+                    [navigationDisabledChildren]="!innerSidenavExpanded"
+                    [navigationRouteOptions]="{exact: false}">
 
-      <app-inner-sidenav-navigation navigationIcon="settings"
-                                    navigationRoute="/operaciones/configuraciones"
-                                    navigationText="Configuraciones">
-      </app-inner-sidenav-navigation>
-    </div>
+                <app-router
+                        [router]="concatPath.opCapacitiesAmPm"
+                        routerActive="inner-sidenav-navigation-active"
+                        routerClass="inner-sidenav-navigation-expansion-child">
+                    <span class="text-label">Editar AM/PM</span>
+                </app-router>
+                <app-router
+                        [router]="concatPath.opCapacitiesScheduled"
+                        routerActive="inner-sidenav-navigation-active"
+                        routerClass="inner-sidenav-navigation-expansion-child">
+                    <span class="text-label">Editar Programado</span>
+                </app-router>
+                <app-router
+                        [router]="concatPath.opCapacitiesExpress"
+                        routerActive="inner-sidenav-navigation-active"
+                        routerClass="inner-sidenav-navigation-expansion-child">
+                    <span class="text-label">Editar Express</span>
+                </app-router>
+                <app-router
+                        [router]="concatPath.opCapacitiesRet"
+                        routerActive="inner-sidenav-navigation-active"
+                        routerClass="inner-sidenav-navigation-expansion-child">
+                    <span class="text-label">Editar RET</span>
+                </app-router>
+            </app-inner-sidenav-navigation-expansion>
 
-  </section>
+            <app-inner-sidenav-navigation
+                    *appRouterAccess="concatPath.operationSettings"
+                    navigationIcon="settings"
+                    [navigationRoute]="[concatPath.operationSettings]"
+                    navigationText="Configuraciones">
+            </app-inner-sidenav-navigation>
+        </div>
 
-  <ng-content sidenav-content></ng-content>
+    </section>
+
+    <ng-content sidenav-content></ng-content>
 </app-inner-sidenav>

@@ -1,13 +1,12 @@
 <app-button
-  [innerClass]="'button-action-icon ' + innerClass"
-  [behavior]="behavior"
-  [inlineStyle]="inlineStyle"
-  [disabled]="disabled"
-  (click)="onClick($event)">
+        [innerClass]="'button-action-icon ' + innerClass"
+        [inlineStyle]="inlineStyle"
+        [disabled]="disabled"
+        (click)="onClick($event)">
   <span class="d-inline-flex">
     <app-icon class="button-action-icon"
-              [iconFontName]="iconName"
-              iconFontSize="16px"
-              iconFontColor="white"></app-icon>
+              [fontName]="iconName"
+              fontSize="16px"
+              fontColor="white"></app-icon>
   </span>
 </app-button>

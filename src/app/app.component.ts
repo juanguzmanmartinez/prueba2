@@ -1,5 +1,4 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IconsImplementService } from './core/atoms/icons/service/icons-implement.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
 
@@ -14,10 +13,8 @@ export class AppComponent implements OnDestroy {
   public notSupport: boolean;
 
   constructor(
-    private _iconsImplement: IconsImplementService,
     public _breakpointObserver: BreakpointObserver,
   ) {
-    this._iconsImplement.declareIcons();
 
     const subscription = this._breakpointObserver.observe([
       `(min-width: 768px)`

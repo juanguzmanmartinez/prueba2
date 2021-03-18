@@ -1,20 +1,20 @@
 <label class="input-search-container"
-     [ngClass]="inputLabelClass">
-  <app-input
-    inputLabelClass="input-search-label"
-    [inputClass]="'input-search ' + inputClass"
-    [inputError]="inputError"
-    [inputId]="inputId"
-    [inputName]="inputName"
-    [inputType]="inputType"
-    [(ngModel)]="inputValue"
-    (ngModelChange)="changeInputValue()"
-    [inputPlaceholder]="inputPlaceholder"
-    (blur)="onBlur($event)"
-    (focus)="onFocus($event)">
-  </app-input>
+       [ngClass]="labelClass">
+    <app-input
+            labelClass="input-search-label"
+            behavior="search"
+            [innerClass]="'input-search ' + innerClass"
+            [error]="error"
+            [id]="id"
+            [name]="name"
+            [(ngModel)]="inputValue"
+            (ngModelChange)="changeInputValue()"
+            [placeholder]="placeholder"
+            (blur)="onBlur($event)"
+            (focus)="onFocus($event)">
+    </app-input>
 
-  <app-icon class="input-search-icon"
-            iconSvgName="search"
-            iconSvgWidth="12px"></app-icon>
+    <app-icon class="input-search-icon"
+              svgName="search"
+              svgWidth="12px"></app-icon>
 </label>

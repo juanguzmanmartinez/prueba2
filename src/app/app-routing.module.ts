@@ -1,30 +1,35 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './shared/guards/auth-guard.service';
-import { NotSupportedComponent } from './core/pages/not-supported/not-supported.component';
+import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from '@pages/not-found/not-found.component';
+import { AppGuard } from '@guards/app.guard';
+import { BUSINESS_PATH } from '@parameters/router/router-path.parameter';
 
 
 const routes: Routes = [
-  {
-    path: '',
-    canActivate: [AuthGuard],
-    children: [
-      {
+    {
         path: '',
-        loadChildren: () => import('./business/business.module').then(m => m.BusinessModule)
-      },
-      {
-        path: 'sin-soporte',
-        component: NotSupportedComponent,
-        pathMatch: 'full'
-      }
-    ],
-  },
+        canActivate: [AppGuard],
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('./business/business.module').then(m => m.BusinessModule)
+            },
+            {
+                path: BUSINESS_PATH.notFound.valueOf(),
+                component: NotFoundComponent,
+                pathMatch: 'full'
+            },
+            {
+                path: BUSINESS_PATH.wildcard.valueOf(),
+                redirectTo: BUSINESS_PATH.notFound.valueOf()
+            }
+        ],
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

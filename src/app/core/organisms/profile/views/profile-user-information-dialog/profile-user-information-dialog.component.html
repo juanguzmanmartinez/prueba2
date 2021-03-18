@@ -1,0 +1,42 @@
+<section class="profile-dialog" app-dialog-container>
+    <div app-dialog-close mat-dialog-close></div>
+
+    <div class="content border-bottom border-gray-2 pb-6">
+        <app-dialog-header iconName="avatar">
+            <ng-container dialog-header-title>{{user.name}} {{user.firstLastName}} {{user.secondLastName}}</ng-container>
+            <ng-container dialog-header-description>{{rolesNames[user.role]}}</ng-container>
+        </app-dialog-header>
+    </div>
+
+    <div class="content pt-6">
+        <div class="profile-dialog-information mb-11">
+
+            <app-card-static-information class="d-block mb-6"
+                                         iconName="mail">
+                <ng-container information-title>Correo</ng-container>
+                <ng-container information-caption>{{user.email}}</ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information iconName="visibility">
+                <ng-container information-title>Permisos</ng-container>
+                <ng-container information-caption>{{rolesNames[user.role]}}</ng-container>
+            </app-card-static-information>
+
+        </div>
+
+        <div class="profile-dialog-actions d-flex-horizontal-end flex-column flex-md-row">
+            <app-button appearance="secondary"
+                        innerClass="w-100 w-md-auto"
+                        class="me-md-4 mb-4 mb-md-0"
+                        [mat-dialog-close]="profileDialogType.updatePassword">
+                Cambiar de contraseña
+            </app-button>
+            <app-button appearance="primary"
+                        innerClass="w-100 w-md-auto"
+                        [mat-dialog-close]="profileDialogType.logout">
+                Cerrar sesión
+            </app-button>
+        </div>
+    </div>
+
+</section>

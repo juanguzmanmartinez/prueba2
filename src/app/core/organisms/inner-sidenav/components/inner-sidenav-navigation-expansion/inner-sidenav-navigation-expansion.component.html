@@ -11,13 +11,13 @@
                                 class="inner-sidenav-navigation-expansion-header">
       <mat-panel-title class="align-items-center">
         <app-icon class="inner-sidenav-navigation-expansion-icon"
-                  [iconFontName]="navigationIcon"></app-icon>
+                  [fontName]="navigationIcon"></app-icon>
         <span class="inner-sidenav-text text-label text-truncate">{{navigationText}}</span>
       </mat-panel-title>
       <mat-panel-description *ngIf="activeRoute">
         <app-icon class="inner-sidenav-navigation-expansion-icon"
                   [class.inner-sidenav-navigation-expansion-icon-close]="!innerSidenavNavigationExpansion.expanded"
-                  iconFontName="keyboard_arrow_down"></app-icon>
+                  fontName="keyboard_arrow_down"></app-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
 

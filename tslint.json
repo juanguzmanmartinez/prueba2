@@ -22,16 +22,16 @@
       "rxjs/Rx"
     ],
     "import-spacing": true,
-    "indent": {
-      "options": [
-        "spaces"
-      ]
-    },
+    "indent": [
+      true,
+      "spaces",
+      4
+    ],
     "max-classes-per-file": false,
     "max-line-length": [
       true,
       {
-        "limit": 150,
+        "limit": 200,
         "ignore-pattern": "^import |^export {(.*?)}",
         "check-strings": true,
         "check-regex": true
@@ -120,7 +120,8 @@
         "check-operator",
         "check-separator",
         "check-type",
-        "check-typecast"
+        "check-typecast",
+        "check-module"
       ]
     },
     "component-class-suffix": true,
@@ -142,6 +143,7 @@
       true,
       "attribute",
       "app",
+      "mat",
       "camelCase"
     ],
     "component-selector": [

@@ -1,0 +1,14 @@
+<div class="card-radio">
+  <app-radio [value]="value"
+             innerClass="card-radio"
+             name="card-radio"
+             [(ngModel)]="checked"
+             (ngModelChange)="chooseRadio()">
+    <h4 class="card-radio-title">
+      <ng-content select="[card-title]"></ng-content>
+    </h4>
+    <p class="card-radio-description">
+      <ng-content select="[card-description]"></ng-content>
+    </p>
+  </app-radio>
+</div>

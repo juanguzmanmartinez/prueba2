@@ -1,0 +1,19 @@
+<label class="checkbox-container">
+  <input
+    type="checkbox"
+    class="checkbox"
+    [class.checkbox-indeterminate]="_indeterminate"
+    [ngClass]="innerClass"
+    [name]="name"
+    [disabled]="disabled"
+    [checked]="_checked"
+    [(ngModel)]="_checked"
+    (change)="chooseCheckbox()"
+    (click)="checkboxClick($event)">
+
+  <span class="checkbox-mark"></span>
+
+  <span class="checkbox-content">
+      <ng-content></ng-content>
+  </span>
+</label>

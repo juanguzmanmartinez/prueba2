@@ -1,0 +1,47 @@
+<section class="operations-stores-edition-home pt-8 pb-15">
+    <div class="row mb-8">
+        <div class="col-12 mb-4">
+            <app-back-router>Locales</app-back-router>
+        </div>
+
+        <div class="col-12">
+            <h3 class="text-h3 mb-0">Edición de locales</h3>
+        </div>
+    </div>
+
+    <div class="row mb-6">
+        <div class="col-12">
+            <app-op-stores-edition-home-store-detail-card
+                    [store]="store"
+                    (storeEdit)="editionHomeEditStore()">
+            </app-op-stores-edition-home-store-detail-card>
+        </div>
+    </div>
+
+    <div class="row justify-content-between">
+        <div class="col-5 mb-6">
+            <app-op-stores-edition-home-service-type-card
+                    serviceTypeName="AM/PM"
+                    (storeEditService)="editionHomeEditService(storeServiceType.amPm)">
+            </app-op-stores-edition-home-service-type-card>
+        </div>
+        <div class="col-5 mb-6">
+            <app-op-stores-edition-home-service-type-card
+                    serviceTypeName="programado"
+                    (storeEditService)="editionHomeEditService(storeServiceType.scheduled)">
+            </app-op-stores-edition-home-service-type-card>
+        </div>
+        <div class="col-5 mb-6">
+            <app-op-stores-edition-home-service-type-card
+                    serviceTypeName="express"
+                    (storeEditService)="editionHomeEditService(storeServiceType.express)">
+            </app-op-stores-edition-home-service-type-card>
+        </div>
+        <div class="col-5 mb-6">
+            <app-op-stores-edition-home-service-type-card
+                    serviceTypeName="RET"
+                    (storeEditService)="editionHomeEditService(storeServiceType.ret)">
+            </app-op-stores-edition-home-service-type-card>
+        </div>
+    </div>
+</section>

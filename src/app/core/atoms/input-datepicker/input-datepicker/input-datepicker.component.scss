@@ -1,0 +1,54 @@
+@import "src/sass/variables/colors.variable";
+@import "src/sass/mixins";
+
+.input-datepicker-container {
+  .input-datepicker-label {
+    margin: 0;
+    position: relative;
+
+    &.disabled {
+      pointer-events: none;
+      filter: grayscale(100%);
+    }
+  }
+
+  .input-datepicker-input {
+    background-color: $white;
+    padding: 12px 40px 12px 16px;
+    border: 1px solid $gray-3;
+    border-radius: 4px;
+    color: $black;
+    height: 38px;
+    @include text-label;
+
+    @include placeholder {
+      color: $gray-4;
+      @include text-label;
+    }
+  }
+}
+
+:host {
+  .input-datepicker-container {
+    .input-datepicker-icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      ::ng-deep {
+        .mat-icon-button {
+          height: 38px;
+          width: auto;
+          padding-right: 16px;
+          padding-left: 12px;
+          outline: none;
+        }
+
+        .mat-button-focus-overlay {
+          display: none;
+        }
+      }
+    }
+  }
+}
+

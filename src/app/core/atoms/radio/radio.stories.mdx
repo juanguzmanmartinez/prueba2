@@ -1,0 +1,205 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
+import {RadioComponent} from "./radio.component";
+
+<Meta
+    title="Atoms/Radio"
+    component={RadioComponent}/>
+
+# Input
+<br/>
+<br/>
+
+### Props
+| Property | Type  | Values | Default  |
+| ------ | --------- |------ | --------- |
+| value    | any   | "" | "" |
+| innerClass    | string   | "" |  ""|
+| checked      | boolean  | true/false       | false     |
+| disabled      | boolean  | true/false       | false     |
+
+### Events
+| Event | Arguments  | Description |
+| ------ | --------- |------ |
+| change    |     | Emitted when radio's value changes |
+
+------
+
+export const Template = (args) => ({
+    component: RadioComponent,
+    props: {
+        ...args,
+    },
+    moduleMetadata: {
+        declarations: [RadioComponent],
+    },
+    template: '<app-radio ' +
+        '[checked]="checked" ' +
+        '[value]="value" ' +
+        '[disabled]="disabled" ' +
+        '[innerClass]="innerClass">{{content}}</app-radio>',
+})
+
+<br/>
+<br/>
+
+### Appearance
+
+<Canvas>
+    <Story name='Default'
+           args={{
+               content: 'Default',
+               value: true
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-radio value="Default">Default</app-radio>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Checked'
+           args={{
+               content: 'Default',
+               checked: true,
+               value: true
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-radio value="Checked" checked="true">Checked</app-radio>',
+                   }
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Disabled'
+           args={{
+               content: 'Disabled',
+               value: false,
+               disabled: true
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-radio value="Disabled" disabled="true">Disabled</app-radio>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+    <Story name='Checked Disabled'
+           args={{
+               content: 'Checked Disabled',
+               value: false,
+               checked: true,
+               disabled: true
+           }}
+           parameters={{
+               docs: {
+                   source: {
+                       code: '<app-radio value="Checked Disabled" checked="true" disabled="true">Checked Disabled</app-radio>',
+                   },
+               }
+           }}>{Template.bind({})}
+    </Story>
+</Canvas>
+
+<br/>
+<br/>
+
+# Usages
+
+Import InputsModule into your custom module
+
+```typescript
+import { RadioModule } from '@atoms/radio/radio.module';
+
+@NgModule({
+    imports: [RadioModule]
+})
+
+export class YourModule {}
+```
+
+## Examples
+
+ ```typescript
+  @Component({
+    ...
+  })
+  export class YourCustomComponent {
+
+    public NAME_OF_YOUR_FORM: FormGroup;
+
+    constructor(
+      private formBuilder: FormBuilder,
+    ) {
+      this.NAME_OF_YOUR_FORM = this.formBuilder.group({
+        NAME_OF_YOUR_RADIO_CONTROL: new FormControl()
+      });
+    }
+
+    public get radioControl() {
+      return this.form.get('NAME_OF_YOUR_RADIO_CONTROL') as FormControl;
+    }
+  }
+
+  /**
+   * métodos que se pueden utilizar para este radio
+   *
+   * Marcar check por defecto:
+   * Debes usar el metodo "this.radioControl.setValue('1')"
+   * Solo esta permitido pasar valores de tipo "string" o "number"
+   *
+   * Para saber que valor que se selecciono:
+   * Debes subscribirte a "this.radioControl.valueChanges.subscribe(callback)"
+   *
+   * Para deshabilitar todas las opciones:
+   * Debes utilizar el siguiente método "this.radioControl.disable()"
+   */
+
+
+  /**
+   * Para deshabilitar sólo una opción debes agregar lo siguiente
+   */
+  @Component({
+    ...
+  })
+  export class YourCustomComponent {
+
+    // new attribute
+    @ViewChildren(CheckboxComponent)
+    radioControls: QueryList<CheckboxComponent>;
+
+    public disableOneRadioOption() {
+      // this line will disable the radio option
+      this.radioControls.toArray()[INDEX_OF_YOUR_OPTION].isDisabled = true;
+    }
+  }
+```
+```html
+
+<h1>Template</h1>
+<app-radio [value]="true"
+           [(ngModel)]="NAME_OF_YOUR_RADIO_MODEL"
+           name="NAME_OF_YOUR_RADIO_MODEL">true
+</app-radio>
+<app-radio [value]="false"
+           [(ngModel)]="NAME_OF_YOUR_RADIO_MODEL"
+           name="NAME_OF_YOUR_RADIO_MODEL">false
+</app-radio>
+
+
+<h1>Reactive</h1>
+<form [formGroup]="NAME_OF_YOUR_FORM">
+    <app-radio [value]="true"
+               formControlName="NAME_OF_YOUR_RADIO_CONTROL">true
+    </app-radio>
+    <app-radio [value]="false"
+               formControlName="NAME_OF_YOUR_RADIO_CONTROL">false
+    </app-radio>
+</form>
+
+<!--
+  radioValue: es el valor del check seleccionado de tipo "string" o "number"
+-->
+  ```

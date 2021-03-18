@@ -1,7 +1,9 @@
-import { ILocal, Local } from '../../../../../shared/models/local/local.model';
-import { isObject } from '../../../../../shared/helpers/objects-equal';
-import { CalendarServiceDefaultCapacities, ICalendarServiceDefaultCapacities } from '../../../../../shared/models/calendar/calendar-response.model';
-import { IServiceType, IServiceTypeSegment, ServiceType, ServiceTypeSegment } from '../../../../../shared/models/local/service-type.model';
+import { ILocal, Local } from '@models/local/local.model';
+import { isObject } from '@helpers/objects-equal.helper';
+import { CalendarServiceDefaultCapacities, ICalendarServiceDefaultCapacities } from '@models/calendar/calendar-response.model';
+import { IServiceType, IServiceTypeSegment, ServiceType, ServiceTypeSegment } from '@models/local/service-type.model';
+import { DatesHelper } from '@helpers/dates.helper';
+import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 
 export class CapacitiesLocal extends Local {
   constructor(iLocal: ILocal) {
@@ -42,8 +44,8 @@ export class CapacitiesServiceType extends ServiceType {
     this.segmentList = currentValue.segments ? currentValue.segments
       .map((iServiceTypeSegment) => new CapacityServiceTypeSegment(iServiceTypeSegment)) : [];
     this.serviceTypeCode = currentValue.serviceTypeCode || '';
-    this.startDay = store.startDay || '';
-    this.endDay = store.endDay || '';
+    this.startDay = store.startDay ? DatesHelper.Date(store.startDay, DATES_FORMAT.yearMonthDay).valueOf() : null;
+    this.endDay = store.endDay ? DatesHelper.Date(store.endDay, DATES_FORMAT.yearMonthDay).valueOf() : null;
   }
 
 }

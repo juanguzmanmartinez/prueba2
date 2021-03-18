@@ -1,0 +1,70 @@
+<app-account-card>
+    <ng-container account-card-title>Inicia sesión</ng-container>
+
+    <ng-container account-card-content>
+        <form [formGroup]="_loginForm.form$"
+              (ngSubmit)="loginFormSubmit()"
+              [class.container-loader]="submitLogin"
+              class="mb-5">
+
+            <div class="user mb-5">
+                <app-form-field>
+                    <app-form-field-label>Usuario</app-form-field-label>
+                    <app-input formControlName="username"
+                               labelClass="d-block"
+                               id="user"
+                               placeholder="Escribe aquí tu usuario">
+                    </app-input>
+                    <app-form-field-error>{{_loginForm.usernameControl.controlError}}</app-form-field-error>
+                </app-form-field>
+            </div>
+
+            <div class="password mb-7">
+                <app-form-field>
+                    <app-form-field-label>Contraseña</app-form-field-label>
+                    <app-input
+                            (appCapsLock)="capsLock=$event"
+                            formControlName="password"
+                            labelClass="d-block"
+                            behavior="password"
+                            id="password"
+                            placeholder="Escribe aquí tu contraseña">
+                    </app-input>
+                    <ng-container *ngIf="!!_loginForm.passwordControl.hasWrongDataError">
+                        <app-form-field-error>{{_loginForm.passwordControl.controlError}}</app-form-field-error>
+                    </ng-container>
+                </app-form-field>
+                <label *ngIf="capsLock"
+                       class="d-flex-vertical-center mt-2">
+                    <app-icon fontName="warning"
+                              fontSize="16px"
+                              innerClass="text-warning"
+                              class="d-inline-flex me-2"></app-icon>
+                    <span class="text-caption text-warning">Las mayúsculas están activadas</span>
+                </label>
+            </div>
+
+            <div class="submit">
+                <app-button [disabled]="_loginForm.form$.invalid"
+                            innerClass="w-100"
+                            appearance="primary"
+                            behavior="submit">
+                    Ingresa a tu cuenta
+                </app-button>
+            </div>
+
+
+        </form>
+        <div class="forgot-password">
+            <app-router [router]="resetPasswordPath">
+                <app-button innerClass="w-100"
+                            appearance="ghost">
+                    ¿Olvidaste tu contraseña?
+                </app-button>
+            </app-router>
+        </div>
+    </ng-container>
+
+</app-account-card>
+
+

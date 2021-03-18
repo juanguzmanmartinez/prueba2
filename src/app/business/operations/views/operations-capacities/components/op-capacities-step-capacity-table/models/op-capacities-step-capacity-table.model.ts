@@ -1,5 +1,5 @@
-import { IDatepickerRange } from '../../../../../../../core/atoms/input-datepicker/views/input-datepicker-range/input-datepicker-range.component';
-import { ServiceTypeSegment } from '../../../../../../../shared/models/local/service-type.model';
+import { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';
+import { ServiceTypeSegment } from '@models/local/service-type.model';
 
 
 export interface ICapacityStepCapacityTableFormValue {
