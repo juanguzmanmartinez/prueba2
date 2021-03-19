@@ -16,5 +16,8 @@ export const OperationMessages = {
     },
     errorServiceTypeRegistered: (serviceTypeName: string, parentName: string) => {
         return `Hubo un error al registrar el <span class="text-button">tipo de despacho ${serviceTypeName} para ${parentName}, por favor vuelve a intentarlo.</span>`;
+    },
+    warningServiceTypeDependency: (serviceTypeName: string, parentName: string) => {
+        return `${parentName} no tiene activo el tipo de despacho ${serviceTypeName}, por favor primero activalo en el local y vuelve a intentarlo.`;
     }
 };

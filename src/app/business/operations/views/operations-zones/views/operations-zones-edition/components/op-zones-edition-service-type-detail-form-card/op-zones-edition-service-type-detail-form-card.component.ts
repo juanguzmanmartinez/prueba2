@@ -10,6 +10,9 @@ import { IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { OpZonesEditionServiceTypeDetailDialogService } from '../op-zones-edition-service-type-detail-dialog/op-zones-edition-service-type-detail-dialog.service';
 import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
 import { ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
+import { AlertService } from '@molecules/alert/alert.service';
+import { ZoneDetail } from '../../../../models/operations-zones.model';
+import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 
 @Component({
     selector: 'app-op-zones-edition-service-type-detail-form-card',
@@ -30,6 +33,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
 
     public splitSegmentList: string[] = [];
 
+    @Input() zoneDetail: ZoneDetail;
     @Input() zoneServiceType: ZoneServiceType;
     @Input() zonesStoreServiceType: ZonesStoreServiceType;
 
@@ -38,7 +42,8 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
 
     constructor(
         public _serviceTypeDetailForm: OpZonesEditionServiceTypeDetailFormCardFormService,
-        private _serviceTypeDetailDialog: OpZonesEditionServiceTypeDetailDialogService
+        private _serviceTypeDetailDialog: OpZonesEditionServiceTypeDetailDialogService,
+        private _alert: AlertService
     ) {
     }
 
@@ -70,6 +75,10 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
             .subscribe(() => {
                 if (this._serviceTypeDetailForm.stateControl.value === false) {
                     this.updateFormValues();
+                }
+                if (!this.stateValue[this.zonesStoreServiceType.state] && this._serviceTypeDetailForm.stateControl.value) {
+                    this._serviceTypeDetailForm.stateControl.setValue(false);
+                    this._alert.alertWarning(OperationMessages.warningServiceTypeDependency(this.serviceTypeName[this.zoneServiceType.code], this.zoneDetail.assignedStore.name));
                 }
                 this.checkEditionByStateControl();
             });
