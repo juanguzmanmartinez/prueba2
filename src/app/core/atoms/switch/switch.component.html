@@ -1,13 +1,17 @@
-<div class="switch">
-    <mat-slide-toggle [disableRipple]="true"
-                      [id]="name"
-                      [name]="name"
-                      [disabled]="disabled"
-                      [checked]="_checked"
-                      [(ngModel)]="_checked"
-                      (change)="slideToggle()">
-        <span class="switch-content text-subtitle-2 text-black">
-              <ng-content></ng-content>
-        </span>
-    </mat-slide-toggle>
-</div>
+<label class="switch-container">
+    <input
+            type="checkbox"
+            class="switch"
+            [ngClass]="innerClass"
+            [name]="name"
+            [formControl]="switchControl"
+            (change)="toggle()">
+
+    <span class="switch-toggle-bar">
+        <span class="switch-toggle-thumb"></span>
+    </span>
+
+    <span class="switch-content">
+      <ng-content></ng-content>
+    </span>
+</label>

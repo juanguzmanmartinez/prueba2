@@ -1,46 +1,43 @@
 @import "src/sass/variables/colors.variable";
 @import "src/sass/mixins/text.mixin";
 
-.select-tab{
+.select-tab-container {
   flex-wrap: nowrap;
   display: flex;
-}
 
-:host .select-tab {
-  ::ng-deep .select-tab-radio {
-    & + .radio-mark {
-      opacity: 0;
-    }
+  .select-tab {
+    position: fixed;
+    left: 99999px;
+    opacity: 0;
 
-    & ~ .radio-content {
-      background-color: $white;
-      border: 1px solid $gray-2;
-      padding: 12px 14px;
-      @include text-label
-    }
-
-    &:checked ~ .radio-content {
+    &:checked ~ .select-tab-content {
       background-color: $black;
       border-color: $black;
       color: $white;
       @include text-button
     }
 
+    &[disabled] ~ .select-tab-content {
+      opacity: 0.5;
+      pointer-events: none;
+      cursor: default;
+    }
   }
 
   .select-tab-content {
-    &:first-child {
-      ::ng-deep .select-tab-radio ~ .radio-content {
-        border-radius: 4px 0 0 4px;
-      }
-    }
-
-    &:last-child {
-      ::ng-deep .select-tab-radio ~ .radio-content {
-        border-radius: 0 4px 4px 0;
-      }
-    }
+    background-color: $white;
+    border: 1px solid $gray-2;
+    padding: 12px 14px;
+    @include text-label;
   }
 
+  .select-tab-label {
+    &:first-child .select-tab-content {
+      border-radius: 4px 0 0 4px;
+    }
 
+    &:last-child .select-tab-content {
+      border-radius: 0 4px 4px 0;
+    }
+  }
 }

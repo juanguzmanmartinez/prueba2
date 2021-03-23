@@ -1,31 +1,60 @@
 @import "src/sass/variables/colors.variable"
+@import "src/sass/mixins/utilities.mixin"
+@import "src/sass/mixins/text.mixin"
 
-\:host .switch
-  display: inline-block
+.switch-container
+  position: relative
+  cursor: pointer
+  display: inline-flex
+  margin: 0
+  @include non-selectable()
 
-.switch .mat-slide-toggle
-  .mat-slide-toggle-bar
+  .switch
+    position: fixed
+    left: 99999px
+    opacity: 0
+
+    &:checked ~ .switch-toggle-bar
+      background: $primary
+
+    &:checked ~ .switch-toggle-bar .switch-toggle-thumb
+      transform: translate3d(24px, 0, 0)
+
+    &[disabled]:not(:checked) ~ .switch-toggle-bar
+      background-color: $gray-2
+      pointer-events: none
+      cursor: default
+
+    &[disabled]:checked ~ .switch-toggle-bar
+      opacity: 0.5
+
+    &[disabled] ~ .switch-content
+      opacity: .5
+
+
+  .switch-toggle-bar
     width: 48px
     height: 24px
     border-radius: 24px
     background: $gray-3
     margin-right: 16px
+    transition: all 80ms linear
+    transition-property: background-color
+    transition-delay: 50ms
 
-  &.mat-checked
-    .mat-slide-toggle-bar
-      background: $primary
-
-    .mat-slide-toggle-thumb-container
-      transform: translate3d(24px, 0, 0)
-
-  .mat-slide-toggle-thumb-container
-    top: 3px
-    left: 3px
-
-  .mat-slide-toggle-thumb
+  .switch-toggle-thumb
+    position: absolute
+    z-index: 1
     width: 18px
     height: 18px
     background-color: $white
+    border-radius: 50%
+    top: 3px
+    left: 3px
+    transform: translate3d(0, 0, 0)
+    transition: all 80ms linear
+    transition-property: transform
 
-  .mat-slide-toggle-bar-no-side-margin
-    margin: 0
+  .switch-content
+    color: $black
+    @include text-h5()

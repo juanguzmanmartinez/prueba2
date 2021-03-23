@@ -4,7 +4,7 @@ import { map, startWith, takeUntil } from 'rxjs/operators';
 import { MatAutocomplete } from '@angular/material/autocomplete/autocomplete';
 import { isObject } from '@helpers/objects-equal.helper';
 import { normalizeValue } from '@helpers/string.helper';
-import { Subject, timer } from 'rxjs';
+import { Subject, Subscription, timer } from 'rxjs';
 
 @Component({
     selector: 'app-select-search',
@@ -12,6 +12,7 @@ import { Subject, timer } from 'rxjs';
     styleUrls: ['./select-search.component.scss']
 })
 export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
+    private subscriptions: Subscription[] = [];
 
     private optionList: T[] = [];
     public _optionSelected: T;
@@ -23,6 +24,7 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, A
     private killTrigger: Subject<void> = new Subject();
 
 
+    @Input() name: string | number;
     @Input() placeholder: string;
     @Input() disabled: boolean;
     @Input() clearValue: string;
@@ -30,8 +32,7 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, A
 
     @Input('value')
     set value(option: T) {
-        this._value = option;
-        this.setDefaultValue();
+        this.validValue(option);
     }
 
     @Input('optionList')
@@ -60,7 +61,17 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, A
     }
 
     ngOnInit() {
-        this.inputSelectSearchControl.valueChanges
+        if (this.ngControl?.name) {
+            this.name = this.ngControl.name;
+        }
+        if (this.ngControl?.control) {
+            const ngControlSubscription = this.ngControl.valueChanges.subscribe(() => {
+                this.validValue(this.ngControl.value);
+            });
+            this.subscriptions.push(ngControlSubscription);
+        }
+
+        const inputSelectSearchSubscription = this.inputSelectSearchControl.valueChanges
             .pipe(
                 startWith(''),
                 map((value: string) => {
@@ -72,6 +83,7 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, A
             .subscribe((filteredOptions) => {
                 this.filteredOptions = filteredOptions;
             });
+        this.subscriptions.push(inputSelectSearchSubscription);
     }
 
     ngAfterViewInit() {
@@ -106,6 +118,25 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, A
         this.showSearchInput = false;
     }
 
+    validValue(value: T) {
+        let savedValue = !!this._value ? this._value.toString() : '';
+        let newValue = !!value ? value.toString() : '';
+        if (isObject(this._value)) {
+            savedValue = Object.keys(this._value).map(key => normalizeValue(this._value[key])).join('');
+        }
+        if (isObject(value)) {
+            newValue = Object.keys(value).map(key => normalizeValue(value[key])).join('');
+        }
+
+        if (newValue !== savedValue && !!value) {
+            this._value = value;
+            this.setDefaultValue();
+        } else if (!value) {
+            this.clearValueSelected();
+        }
+
+    }
+
     setDefaultValue() {
         if (this._value && this.selectSearch.options && this.optionList.length) {
             const index = this.optionList.findIndex(option => {
@@ -132,6 +163,13 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, A
         }
     }
 
+    clearValueSelected() {
+        this._value = null;
+        this._optionSelected = null;
+        this.showSearchInput = false;
+        this.inputSelectSearchControl.patchValue('');
+    }
+
     setOption(index) {
         const value = this.selectSearch.options.get(index);
         if (value) {
@@ -153,6 +191,11 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, A
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        if (isDisabled) {
+            this.inputSelectSearchControl.disable();
+        } else {
+            this.inputSelectSearchControl.enable();
+        }
     }
 
     writeValue(obj: T): void {
@@ -163,6 +206,7 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, A
     ngOnDestroy() {
         this.killTrigger.next();
         this.killTrigger.complete();
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
 }
