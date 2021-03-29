@@ -50,8 +50,11 @@ export const OP_STORES_PATH = {
 export const OP_ZONES_PATH = {
     zoneCode: 'zoneCode',
     zoneEdition: 'editar-zona',
+    zoneBackupEdition: 'editar-zona-backup',
     zoneAmPm: DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm,
-    zoneScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
     zoneExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
     zoneRet: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
+    zoneScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
+    zoneBackupAmPm: `backup-${DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm}`,
+    zoneBackupScheduled: `backup-${DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled}`,
 };

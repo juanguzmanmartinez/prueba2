@@ -5,7 +5,7 @@ import { EChannel } from '@models/channel/channel.model';
 export class ZoneDetailControlName {
     static state = 'state';
     static assignedStore = 'assignedStore';
-    static assignedStoreBackup = 'assignedStoreBackup';
+    static zoneType = 'type';
     static company = 'company';
     static channel = 'channel';
     static label = 'label';
@@ -21,7 +21,7 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
 
     private _stateControl: FormControl = new FormControl(null);
     private _assignedStoreControl: FormControl = new FormControl(null);
-    private _assignedStoreBackupControl: FormControl = new FormControl(null);
+    private _zoneTypeControl: FormControl = new FormControl(null);
     private _companyControl: FormControl = new FormControl(null);
     private _channelArray: FormArray = new FormArray([]);
     private _labelControl: FormControl = new FormControl(null);
@@ -34,7 +34,7 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
         this.formGroup = this._formBuilder.group({
             [this._controlNameList.state]: this._stateControl,
             [this._controlNameList.assignedStore]: this._assignedStoreControl,
-            [this._controlNameList.assignedStoreBackup]: this._assignedStoreBackupControl,
+            [this._controlNameList.zoneType]: this._zoneTypeControl,
             [this._controlNameList.company]: this._companyControl,
             [this._controlNameList.channel]: this._channelArray,
             [this._controlNameList.label]: this._labelControl,
@@ -53,8 +53,8 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
         return this.form$.get(this._controlNameList.assignedStore) as FormControl;
     }
 
-    get assignedStoreBackupControl() {
-        return this.form$.get(this._controlNameList.assignedStoreBackup);
+    get zoneTypeControl() {
+        return this.form$.get(this._controlNameList.zoneType);
     }
 
     get companyControl() {
@@ -83,7 +83,7 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
     resetForm() {
         this.stateControl.patchValue(null);
         this.assignedStoreControl.patchValue(null);
-        this.assignedStoreBackupControl.patchValue(null);
+        this.zoneTypeControl.patchValue(null);
         this.companyControl.patchValue(null);
         this.channelArray.patchValue([]);
         this.labelControl.patchValue(null);

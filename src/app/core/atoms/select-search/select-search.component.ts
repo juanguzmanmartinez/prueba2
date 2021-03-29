@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
-import { map, startWith, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { MatAutocomplete } from '@angular/material/autocomplete/autocomplete';
 import { isObject } from '@helpers/objects-equal.helper';
 import { normalizeValue } from '@helpers/string.helper';
@@ -70,24 +70,17 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, A
             });
             this.subscriptions.push(ngControlSubscription);
         }
-
-        const inputSelectSearchSubscription = this.inputSelectSearchControl.valueChanges
-            .pipe(
-                startWith(''),
-                map((value: string) => {
-                    this._optionSelected = null;
-                    this.showSearchInput = !!value;
-                    return this.filterPredicate(this.optionList, value);
-                })
-            )
-            .subscribe((filteredOptions) => {
-                this.filteredOptions = filteredOptions;
-            });
-        this.subscriptions.push(inputSelectSearchSubscription);
     }
 
     ngAfterViewInit() {
         this.setDefaultValue();
+    }
+
+    public inputSelectSearchChange() {
+        const value = this.inputSelectSearchControl.value || '';
+        this._optionSelected = null;
+        this.showSearchInput = !!value;
+        this.filteredOptions = this.filterPredicate(this.optionList, value);
     }
 
     public filterPredicate(data: T[], filter: string): T[] {
@@ -108,6 +101,7 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, A
 
 
     public optionSelectedAutocomplete(optionSelected: T) {
+        this._value = optionSelected;
         this._optionSelected = optionSelected;
         this.optionSelected.emit(this._optionSelected);
         this.onChange(this._optionSelected);

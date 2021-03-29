@@ -45,11 +45,13 @@ export interface IZoneDetail extends IZone {
     channel: EChannel[];
     companyCode: ECompany;
     zoneBackup: IZoneBackUp;
+    backUpZone: boolean;
 }
 
 export interface IZoneDetailUpdate {
     fulfillmentCenterCode: string;
     enabled: boolean;
+    backUpZone: boolean;
     zoneType: string;
     channel: EChannel[];
     companyCode: ECompany;
@@ -57,10 +59,18 @@ export interface IZoneDetailUpdate {
 
 export interface IZoneBackUp {
     zoneId: string;
+    idZone: number;
     name: string;
     preferableLocalBackupToShow: EStateSetting;
     forceServiceAMPM: EStateSetting;
     forceServicePROG: EStateSetting;
     fulfillmentCenterCode: string;
     fulfillmentCenterName: string;
+}
+
+export interface IZoneBackupUpdate {
+    zoneId: string;
+    preferableLocalBackupToShow: EStateSetting;
+    forceServiceAMPM: EStateSetting;
+    forceServicePROG: EStateSetting;
 }

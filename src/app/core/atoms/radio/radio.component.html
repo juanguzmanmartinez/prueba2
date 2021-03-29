@@ -1,17 +1,18 @@
-<label class="radio-container" [class.radio-checked]="checked">
-  <input
-    type="radio"
-    class="radio"
-    [ngClass]="innerClass"
-    [name]="radioName"
-    [value]="value"
-    [disabled]="disabled"
-    [checked]="checked"
-    (change)="chooseRadio()">
+<label class="radio-container" [class.radio-checked]="checked"
+       [ngClass]="labelClass">
+    <input
+            type="radio"
+            class="radio"
+            [ngClass]="innerClass"
+            [name]="radioName"
+            [value]="value"
+            [disabled]="disabled"
+            [checked]="checked"
+            (change)="chooseRadio()">
 
-  <span class="radio-mark"></span>
+    <span class="radio-mark"></span>
 
-  <span class="radio-content">
+    <span class="radio-content">
       <ng-content></ng-content>
   </span>
 </label>

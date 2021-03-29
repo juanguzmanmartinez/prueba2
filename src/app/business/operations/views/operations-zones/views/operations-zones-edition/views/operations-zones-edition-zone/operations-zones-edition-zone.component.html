@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-12 col-xl-6 mb-6 mb-xl-0">
             <app-op-zones-edition-zone-detail-card
-                    *appSkeletonCard="!!zoneDetail && !!channelList; loading: !zoneEditionLoader"
+                    *appSkeletonCard="!!zoneDetail && !!channelList && !!storeList; loading: !zoneEditionLoader && !zoneListEditionLoader"
                     [zoneDetail]="zoneDetail">
             </app-op-zones-edition-zone-detail-card>
         </div>
@@ -16,11 +16,12 @@
         <div class="col-12 col-xl-6"
              [class.container-loader]="saveEditionLoader">
             <app-op-zones-edition-zone-detail-form-card
-                    *appSkeletonCard="!!zoneDetail && !!channelList; row: 8; loading: !zoneEditionLoader"
+                    *appSkeletonCard="!!zoneDetail && !!channelList && !!storeList; row: 8; loading: !zoneEditionLoader && !zoneListEditionLoader"
                     [zoneDetail]="zoneDetail"
                     [storeList]="storeList"
                     [channelList]="channelList"
                     [companyList]="companyList"
+                    [zoneTypeList]="zoneTypeList"
                     [labelList]="labelList"
                     (cancelEdition)="cancelEdition()"
                     (saveEdition)="saveEdition($event)">
@@ -29,12 +30,12 @@
     </div>
 
     <app-empty-result (action)="zoneListRoute()"
-                      *ngIf="!zoneDetail && !channelList && !zoneEditionLoader">
+                      *ngIf="!zoneDetail && !channelList && !zoneEditionLoader && !zoneListEditionLoader">
         <ng-container empty-result-title>Esta zona no está disponible para edición.</ng-container>
         <ng-container empty-result-action>Ir a lista de zonas</ng-container>
     </app-empty-result>
     <app-empty-result (action)="backRoute()"
-                      *ngIf="!!zoneDetail && !channelList && !zoneEditionLoader">
+                      *ngIf="!!zoneDetail && !channelList && !zoneEditionLoader && !zoneListEditionLoader">
         <ng-container empty-result-title> {{zoneDetail?.name || 'Esta zona'}} no está disponible para edición.</ng-container>
         <ng-container empty-result-action>Ir a {{zoneDetail?.name || 'la zona'}}</ng-container>
     </app-empty-result>

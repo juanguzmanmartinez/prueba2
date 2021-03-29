@@ -11,16 +11,32 @@
     </div>
 
     <div class="row">
+        <div class="col-12 mb-5">
+
+            <app-card-static-information iconName="store">
+                <ng-container information-title>Local backup</ng-container>
+                <ng-container information-caption>
+                    <ng-container *ngIf="zoneDetail.zoneBackup">
+                        {{zoneDetail.zoneBackup.assignedStoreCode}} {{zoneDetail.zoneBackup.assignedStoreName}}
+                    </ng-container>
+                    <ng-container *ngIf="!zoneDetail.zoneBackup">
+                        Sin local backup
+                    </ng-container>
+                </ng-container>
+            </app-card-static-information>
+
+        </div>
+
         <div class="col-12">
 
-            <app-card-static-information class="d-block mb-5" iconName="location_searching">
+            <app-card-static-information iconName="location_searching">
                 <ng-container information-title>Zona backup</ng-container>
                 <ng-container information-caption>
                     <ng-container *ngIf="zoneDetail.zoneBackup">
-                        {{zoneDetail.zoneBackup.name}}
+                        {{zoneDetail.zoneBackup.name}} - {{zoneDetail.zoneBackup.code}}
                     </ng-container>
                     <ng-container *ngIf="!zoneDetail.zoneBackup">
-                        No asignado
+                        Sin zona backup
                     </ng-container>
                 </ng-container>
             </app-card-static-information>

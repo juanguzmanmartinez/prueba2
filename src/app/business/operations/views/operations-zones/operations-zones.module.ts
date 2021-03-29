@@ -25,7 +25,7 @@ import { OperationsZonesEditionServiceTypeComponent } from './views/operations-z
 import { OperationsZonesEditionZoneComponent } from './views/operations-zones-edition/views/operations-zones-edition-zone/operations-zones-edition-zone.component';
 import { OpZonesHomeZoneDetailDialogComponent } from './views/operations-zones-home/components/op-zones-home-zone-detail-dialog/op-zones-home-zone-detail-dialog.component';
 import { OpZonesEditionHomeZoneDetailCardComponent } from './views/operations-zones-edition/components/op-zones-edition-home-zone-detail-card/op-zones-edition-home-zone-detail-card.component';
-import { OpZonesEditionHomeServiceTypeCardComponent } from './views/operations-zones-edition/components/op-zones-edition-home-service-type-card/op-zones-edition-home-service-type-card.component';
+import { OpZonesEditionHomeMainServiceTypeCardComponent } from './views/operations-zones-edition/components/op-zones-edition-home-main-service-type-card/op-zones-edition-home-main-service-type-card.component';
 import { OpZonesEditionZoneDetailCardComponent } from './views/operations-zones-edition/components/op-zones-edition-zone-detail-card/op-zones-edition-zone-detail-card.component';
 import { OpZonesEditionZoneDetailFormCardComponent } from './views/operations-zones-edition/components/op-zones-edition-zone-detail-form-card/op-zones-edition-zone-detail-form-card.component';
 import { OpZonesEditionServiceTypeDetailCardComponent } from './views/operations-zones-edition/components/op-zones-edition-service-type-detail-card/op-zones-edition-service-type-detail-card.component';
@@ -46,6 +46,17 @@ import { LinksModule } from '@atoms/links/links.module';
 import { InputTimeModule } from '@atoms/input-time/input-time.module';
 import { SkeletonModule } from '@molecules/skeleton/skeleton.module';
 import { EmptyResultModule } from '@pages/empty-result/empty-result.module';
+import { TabModule } from '@molecules/tab/tab.module';
+import { OpZonesEditionHomeMainSettingTabComponent } from './views/operations-zones-edition/components/op-zones-edition-home-main-setting-tab/op-zones-edition-home-main-setting-tab.component';
+import { OpZonesEditionHomeBackupSettingTabComponent } from './views/operations-zones-edition/components/op-zones-edition-home-backup-setting-tab/op-zones-edition-home-backup-setting-tab.component';
+import { OpZonesEditionHomeBackupStockBackupCardComponent } from './views/operations-zones-edition/components/op-zones-edition-home-backup-stock-backup-card/op-zones-edition-home-backup-stock-backup-card.component';
+import { OpZonesEditionHomeBackupServiceTypeCardComponent } from './views/operations-zones-edition/components/op-zones-edition-home-backup-service-type-card/op-zones-edition-home-backup-service-type-card.component';
+import { OperationsZonesEditionBackupComponent } from './views/operations-zones-edition/views/operations-zones-edition-backup/operations-zones-edition-backup.component';
+import { OperationsZonesEditionBackupServiceTypeComponent } from './views/operations-zones-edition/views/operations-zones-edition-backup-service-type/operations-zones-edition-backup-service-type.component';
+import { OpZonesEditionBackupDetailCardComponent } from './views/operations-zones-edition/components/op-zones-edition-backup-detail-card/op-zones-edition-backup-detail-card.component';
+import { OpZonesEditionBackupDetailFormCardComponent } from './views/operations-zones-edition/components/op-zones-edition-backup-detail-form-card/op-zones-edition-backup-detail-form-card.component';
+import { OpZonesEditionBackupServiceTypeDetailFormCardComponent } from './views/operations-zones-edition/components/op-zones-edition-backup-service-type-detail-form-card/op-zones-edition-backup-service-type-detail-form-card.component';
+import { OpZonesEditionBackupServiceTypeDetailCardComponent } from './views/operations-zones-edition/components/op-zones-edition-backup-service-type-detail-card/op-zones-edition-backup-service-type-detail-card.component';
 
 
 @NgModule({
@@ -58,12 +69,22 @@ import { EmptyResultModule } from '@pages/empty-result/empty-result.module';
         OperationsZonesEditionZoneComponent,
         OpZonesHomeZoneDetailDialogComponent,
         OpZonesEditionHomeZoneDetailCardComponent,
-        OpZonesEditionHomeServiceTypeCardComponent,
+        OpZonesEditionHomeMainServiceTypeCardComponent,
         OpZonesEditionZoneDetailCardComponent,
         OpZonesEditionZoneDetailFormCardComponent,
         OpZonesEditionServiceTypeDetailCardComponent,
         OpZonesEditionServiceTypeDetailFormCardComponent,
-        OpZonesEditionServiceTypeDetailDialogComponent
+        OpZonesEditionServiceTypeDetailDialogComponent,
+        OpZonesEditionHomeMainSettingTabComponent,
+        OpZonesEditionHomeBackupSettingTabComponent,
+        OpZonesEditionHomeBackupStockBackupCardComponent,
+        OpZonesEditionHomeBackupServiceTypeCardComponent,
+        OperationsZonesEditionBackupComponent,
+        OperationsZonesEditionBackupServiceTypeComponent,
+        OpZonesEditionBackupDetailCardComponent,
+        OpZonesEditionBackupDetailFormCardComponent,
+        OpZonesEditionBackupServiceTypeDetailFormCardComponent,
+        OpZonesEditionBackupServiceTypeDetailCardComponent
     ],
     imports: [
         CommonModule,
@@ -95,7 +116,8 @@ import { EmptyResultModule } from '@pages/empty-result/empty-result.module';
         LinksModule,
         InputTimeModule,
         SkeletonModule,
-        EmptyResultModule
+        EmptyResultModule,
+        TabModule
     ],
     providers: [
         OperationsZonesImplementService

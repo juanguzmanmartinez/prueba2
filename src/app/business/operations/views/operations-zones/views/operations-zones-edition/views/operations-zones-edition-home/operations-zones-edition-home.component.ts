@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
-import { ZoneServiceTypeList } from '../../../../models/operations-zones-service-type.model';
+import { ZoneBackupServiceTypeList, ZoneServiceTypeList } from '../../../../models/operations-zones-service-type.model';
 import { OperationsZonesEditionStoreService } from '../../stores/operations-zones-edition-store.service';
 import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
@@ -23,10 +23,13 @@ import { ZonesStoreServiceType } from '../../../../models/operations-zones-store
 })
 export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
+    private serviceTypeName = CDeliveryServiceTypeName;
     public deliveryServiceType = EDeliveryServiceType;
+
     public zoneDetail: ZoneDetail;
     public zoneServiceTypeList: ZoneServiceTypeList;
-    private serviceTypeName = CDeliveryServiceTypeName;
+    public zoneBackupDetail: ZoneDetail;
+    public zoneBackupServiceTypeList: ZoneBackupServiceTypeList = new ZoneBackupServiceTypeList([]);
 
     public homeEditionLoader = true;
     public saveEditionLoader: boolean;
@@ -41,8 +44,13 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.getZoneDetail();
+        this.getZoneBackup();
+    }
+
+    getZoneDetail() {
         const subscription = this._operationsZonesEditionStore.zoneDetail$
-            .subscribe((zoneDetail) => {
+            .subscribe((zoneDetail: ZoneDetail) => {
                     this.homeEditionLoader = false;
                     this.saveEditionLoader = false;
                     this.zoneDetail = zoneDetail;
@@ -53,6 +61,19 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
                     this.homeEditionLoader = false;
                     this.zoneDetail = null;
                     this.zoneServiceTypeList = null;
+                });
+        this.subscriptions.push(subscription);
+    }
+
+    getZoneBackup() {
+        const subscription = this._operationsZonesEditionStore.zoneBackup$
+            .subscribe((zoneBackupDetail: ZoneDetail) => {
+                    this.zoneBackupDetail = zoneBackupDetail;
+                    this.zoneBackupServiceTypeList = new ZoneBackupServiceTypeList(zoneBackupDetail.serviceTypeList, this.zoneDetail.zoneBackup);
+                },
+                () => {
+                    this.zoneBackupDetail = null;
+                    this.zoneBackupServiceTypeList = new ZoneBackupServiceTypeList([]);
                 });
         this.subscriptions.push(subscription);
     }
@@ -102,6 +123,23 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
         } else {
             this._alert.alertError(OperationMessages.errorServiceTypeRegistered(this.serviceTypeName[serviceType], this.zoneDetail.name));
         }
+    }
+
+    editBackupZone() {
+        this._router.navigate([CONCAT_PATH.opZones_ZoneBackupEdition(this.zoneDetail.code)]);
+    }
+
+    editBackupServiceType(serviceType: EDeliveryServiceType) {
+        let serviceTypePath;
+        switch (serviceType) {
+            case EDeliveryServiceType.amPm:
+                serviceTypePath = CONCAT_PATH.opZones_ZoneBackupAmPmEdition(this.zoneDetail.code);
+                break;
+            case EDeliveryServiceType.scheduled:
+                serviceTypePath = CONCAT_PATH.opZones_ZoneBackupScheduledEdition(this.zoneDetail.code);
+                break;
+        }
+        this._router.navigate([serviceTypePath]);
     }
 
     backRoute() {

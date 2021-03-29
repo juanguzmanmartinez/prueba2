@@ -6,11 +6,11 @@ import { CStateValue } from '@models/state/state.model';
 import { ZoneServiceTypeRegistered } from '../../../../models/operations-zones-service-type.model';
 
 @Component({
-    selector: 'app-op-zones-edition-home-service-type-card',
-    templateUrl: './op-zones-edition-home-service-type-card.component.html',
-    styleUrls: ['./op-zones-edition-home-service-type-card.component.sass']
+    selector: 'app-op-zones-edition-home-main-service-type-card',
+    templateUrl: './op-zones-edition-home-main-service-type-card.component.html',
+    styleUrls: ['./op-zones-edition-home-main-service-type-card.component.sass']
 })
-export class OpZonesEditionHomeServiceTypeCardComponent implements OnInit {
+export class OpZonesEditionHomeMainServiceTypeCardComponent implements OnInit {
     private serviceTypeName = CDeliveryServiceTypeName;
     private stateValue = CStateValue;
 

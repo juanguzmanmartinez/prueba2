@@ -12,6 +12,7 @@ export class RadioComponent implements ControlValueAccessor, OnInit, OnDestroy {
     @Input() disabled: boolean;
     @Input() checked = false;
     @Input() innerClass: string;
+    @Input() labelClass: string;
 
     private subscriptions: Subscription[] = [];
     public radioName: string | number = 'radio';

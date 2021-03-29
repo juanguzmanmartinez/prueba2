@@ -21,5 +21,6 @@ export class EndpointsParameter {
 
     public static GET_ZONES = `${API_GATEWAY}/zone`;
     public static ZONES_SERVICE_TYPE = `${API_GATEWAY}/zone-service-type`;
+    public static ZONE_BACKUP = `${API_GATEWAY}/zone/zone-backup`;
     public static GET_ZONES_CHANNEL = `${API_GATEWAY}/zone/channel`;
 }

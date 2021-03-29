@@ -2,10 +2,11 @@ import { EDeliveryServiceType } from '@models/service-type/delivery-service-type
 import { IZone, IZoneBackUp, IZoneDetail, IZoneServiceType } from '@interfaces/zones/zones.interface';
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
-import { CStateSettingValue, EState } from '@models/state/state.model';
+import { CGStateByStateSetting, EState } from '@models/state/state.model';
 import { ZonesStore } from './operations-zones-store.model';
 import { EZoneLabel } from './operations-zones-label.model';
 import { ZoneServiceType } from './operations-zones-service-type.model';
+import { CGZoneType, EZoneType } from './operations-zones-type.model';
 
 
 class ZoneBase {
@@ -43,12 +44,14 @@ export class ZoneDetail extends ZoneBase {
     channelList: EChannel[];
     company: ECompany;
     zoneBackup: ZoneBackup;
+    zoneType: EZoneType;
 
     constructor(iZoneDetail: IZoneDetail) {
         super(iZoneDetail);
         this.label = iZoneDetail.zoneType as EZoneLabel;
         this.company = iZoneDetail.companyCode || null;
         this.channelList = iZoneDetail.channel || [];
+        this.zoneType = CGZoneType(iZoneDetail.backUpZone);
         this.serviceTypeList = iZoneDetail.serviceTypes ? iZoneDetail.serviceTypes
             .map(serviceType => new ZoneServiceType(serviceType)) : [];
         if (iZoneDetail.zoneBackup) {
@@ -59,17 +62,23 @@ export class ZoneDetail extends ZoneBase {
 
 export class ZoneBackup {
     id: string;
+    code: string;
     name: string;
-    favorite: boolean;
+    state: EState;
     assignedStoreCode: string;
     assignedStoreName: string;
+    forceServiceAMPM: EState;
+    forceServiceSCHEDULED: EState;
 
     constructor(iZoneBackup: IZoneBackUp) {
         this.id = iZoneBackup.zoneId;
+        this.code = `${iZoneBackup.idZone}`;
         this.name = iZoneBackup.name;
-        this.favorite = CStateSettingValue[iZoneBackup.preferableLocalBackupToShow];
+        this.state = CGStateByStateSetting(iZoneBackup.preferableLocalBackupToShow);
         this.assignedStoreCode = iZoneBackup.fulfillmentCenterCode;
         this.assignedStoreName = iZoneBackup.fulfillmentCenterName;
+        this.forceServiceAMPM = CGStateByStateSetting(iZoneBackup.forceServiceAMPM);
+        this.forceServiceSCHEDULED = CGStateByStateSetting(iZoneBackup.forceServicePROG);
     }
 }
 

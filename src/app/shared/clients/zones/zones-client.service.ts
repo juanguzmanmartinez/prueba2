@@ -4,14 +4,16 @@ import { EndpointsParameter } from '@parameters/generic/endpoints.parameter';
 import { map, take } from 'rxjs/operators';
 import { isArray, isObject } from '@helpers/objects-equal.helper';
 import { Observable, of } from 'rxjs';
-import { IZone, IZoneDetail, IZoneDetailUpdate, IZoneServiceTypeRegister, IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
+import { IZone, IZoneBackupUpdate, IZoneDetail, IZoneDetailUpdate, IZoneServiceTypeRegister, IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { EChannel } from '@models/channel/channel.model';
 import { EZoneLabel, ZoneLabelList } from '../../../business/operations/views/operations-zones/models/operations-zones-label.model';
+import { EZoneType, ZoneTypeList } from '../../../business/operations/views/operations-zones/models/operations-zones-type.model';
 
 @Injectable()
 export class ZonesClientService {
 
     private readonly ZONE_LIST = EndpointsParameter.GET_ZONES;
+    private readonly ZONE_BACKUP = EndpointsParameter.ZONE_BACKUP;
     private readonly ZONE_CHANNEL = EndpointsParameter.GET_ZONES_CHANNEL;
     private readonly ZONE_SERVICE_TYPE = EndpointsParameter.ZONES_SERVICE_TYPE;
 
@@ -46,6 +48,12 @@ export class ZonesClientService {
             .pipe(take(1));
     }
 
+    putZoneBackup(zoneCode: string, body: IZoneBackupUpdate): Observable<any> {
+        const endpoint = `${this.ZONE_BACKUP}/${zoneCode}`;
+        return this.generic.genericPut<any>(endpoint, body)
+            .pipe(take(1));
+    }
+
     putZoneServiceType(serviceTypeId: string, body: IZoneServiceTypeUpdate): Observable<any> {
         const endpoint = `${this.ZONE_SERVICE_TYPE}/${serviceTypeId}`;
         return this.generic.genericPut<any>(endpoint, body)
@@ -64,6 +72,10 @@ export class ZonesClientService {
                 map((response: EChannel[]) => {
                     return isArray(response) ? response : [];
                 }));
+    }
+
+    getZoneTypeList(): Observable<EZoneType[]> {
+        return of(ZoneTypeList);
     }
 
     getZoneLabelList(): Observable<EZoneLabel[]> {

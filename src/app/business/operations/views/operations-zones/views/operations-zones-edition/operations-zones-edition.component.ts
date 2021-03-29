@@ -24,7 +24,7 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         const subscription = this._activatedRoute.paramMap.subscribe(() => {
             this.zoneCode = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneCode];
-            this.getZoneDetail(this.zoneCode);
+            this._operationsZonesEditionStore.updateZoneDetail = true;
         });
         this.updateZoneDetail();
         this.subscriptions.push(subscription);
@@ -34,6 +34,9 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
         this._operationsZonesImplement.getZoneDetail(zoneCode)
             .subscribe((zoneDetail: ZoneDetail) => {
                 this._operationsZonesEditionStore.zoneDetail = zoneDetail;
+                if (zoneDetail.zoneBackup) {
+                    this.getZoneBackup(zoneDetail.zoneBackup.code);
+                }
             }, (error) => {
                 this._operationsZonesEditionStore.zoneDetailError = error;
             });
@@ -45,6 +48,15 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
                 this.getZoneDetail(this.zoneCode);
             });
         this.subscriptions.push(subscription);
+    }
+
+    getZoneBackup(zoneCode: string) {
+        this._operationsZonesImplement.getZoneDetail(zoneCode)
+            .subscribe((zoneDetail: ZoneDetail) => {
+                this._operationsZonesEditionStore.zoneBackup = zoneDetail;
+            }, (error) => {
+                this._operationsZonesEditionStore.zoneBackupError = error;
+            });
     }
 
     ngOnDestroy() {

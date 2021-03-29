@@ -13,7 +13,7 @@
 
             <div class="col-8 mb-5">
                 <app-form-field>
-                    <app-form-field-label>Local de atención</app-form-field-label>
+                    <app-form-field-label>Local de atención principal</app-form-field-label>
                     <app-select-search [hidden]="_editionZoneDetailForm.assignedStoreControl.disabled"
                                        selectId="storeSelect"
                                        placeholder="Elije un local"
@@ -31,23 +31,19 @@
                 </app-form-field>
             </div>
 
-            <div class="col-8 mb-6">
+            <div class="col-12 mb-6">
                 <app-form-field>
-                    <app-form-field-label>Local backup</app-form-field-label>
-                    <app-select-search [hidden]="_editionZoneDetailForm.assignedStoreBackupControl.disabled"
-                                       selectId="store-backup-select"
-                                       placeholder="Elije un local backup"
-                                       [formControlName]="controlNameList.assignedStoreBackup"
-                                       [optionList]="storeBackupList">
-                        <ng-template #optionSelectedTemplate
-                                     let-optionSelected>{{assignedStoreOptionName(optionSelected)}}</ng-template>
-                        <ng-template #optionTemplate
-                                     let-option>{{assignedStoreOptionName(option)}}</ng-template>
-                    </app-select-search>
-                    <app-input [hidden]="_editionZoneDetailForm.assignedStoreBackupControl.enabled"
-                               [disabled]="_editionZoneDetailForm.assignedStoreBackupControl.disabled"
-                               [value]="assignedStoreOptionName(_editionZoneDetailForm.assignedStoreBackupControl.value)">
-                    </app-input>
+                    <app-form-field-label>Tipo de zona (cobertura)</app-form-field-label>
+                    <div class="row mt-4">
+                        <ng-container *ngFor="let zoneType of zoneTypeList">
+                            <div class="col-6">
+                                <app-radio [formControlName]="controlNameList.zoneType"
+                                           [value]="zoneType">
+                                    {{zoneTypeName[zoneType]}}
+                                </app-radio>
+                            </div>
+                        </ng-container>
+                    </div>
                 </app-form-field>
             </div>
 

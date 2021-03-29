@@ -5,15 +5,17 @@ import { CCompanyName } from '@models/company/company.model';
 import { CChannelName } from '@models/channel/channel.model';
 import { ETagAppearance } from '@models/tag/tag.model';
 import { CZoneLabelColor } from '../../../../models/operations-zones-label.model';
+import { CZoneTypeName } from '../../../../models/operations-zones-type.model';
 
 @Component({
-    selector: 'app-op-zones-edition-home-zone-detail-card',
+    selector: ' app-op-zones-edition-home-zone-detail-card',
     templateUrl: './op-zones-edition-home-zone-detail-card.component.html',
     styleUrls: ['./op-zones-edition-home-zone-detail-card.component.sass']
 })
 export class OpZonesEditionHomeZoneDetailCardComponent implements OnInit {
     public stateTag = CStateTag;
     public stateName = CStateName;
+    public zoneTypeName = CZoneTypeName;
     public companyName = CCompanyName;
     public channelName = CChannelName;
     public labelColor = CZoneLabelColor;

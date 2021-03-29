@@ -7,6 +7,8 @@ import { OperationsZonesEditionComponent } from './views/operations-zones-editio
 import { OperationsZonesEditionHomeComponent } from './views/operations-zones-edition/views/operations-zones-edition-home/operations-zones-edition-home.component';
 import { OperationsZonesEditionZoneComponent } from './views/operations-zones-edition/views/operations-zones-edition-zone/operations-zones-edition-zone.component';
 import { OperationsZonesEditionServiceTypeComponent } from './views/operations-zones-edition/views/operations-zones-edition-service-type/operations-zones-edition-service-type.component';
+import { OperationsZonesEditionBackupComponent } from './views/operations-zones-edition/views/operations-zones-edition-backup/operations-zones-edition-backup.component';
+import { OperationsZonesEditionBackupServiceTypeComponent } from './views/operations-zones-edition/views/operations-zones-edition-backup-service-type/operations-zones-edition-backup-service-type.component';
 
 const routes: Routes = [
     {
@@ -51,7 +53,22 @@ const routes: Routes = [
                         path: `${OP_ZONES_PATH.zoneRet.valueOf()}`,
                         component: OperationsZonesEditionServiceTypeComponent,
                         pathMatch: 'full'
-                    }
+                    },
+                    {
+                        path: `${OP_ZONES_PATH.zoneBackupEdition.valueOf()}`,
+                        component: OperationsZonesEditionBackupComponent,
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: `${OP_ZONES_PATH.zoneBackupAmPm.valueOf()}`,
+                        component: OperationsZonesEditionBackupServiceTypeComponent,
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: `${OP_ZONES_PATH.zoneBackupScheduled.valueOf()}`,
+                        component: OperationsZonesEditionBackupServiceTypeComponent,
+                        pathMatch: 'full'
+                    },
                 ]
             }
         ]

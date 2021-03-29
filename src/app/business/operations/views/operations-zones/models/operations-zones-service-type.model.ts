@@ -4,6 +4,7 @@ import { EState } from '@models/state/state.model';
 import { IZoneServiceType } from '@interfaces/zones/zones.interface';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
+import { ZoneBackup } from './operations-zones.model';
 
 export class ZoneServiceType {
     id: string;
@@ -79,6 +80,54 @@ export class ZoneServiceTypeList {
         this.express = new ZoneServiceTypeRegistered(zoneExpress, zoneStoreExpress, EDeliveryServiceType.express);
         this.scheduled = new ZoneServiceTypeRegistered(zoneScheduled, zoneStoreScheduled, EDeliveryServiceType.scheduled);
         this.ret = new ZoneServiceTypeRegistered(zoneRet, zoneStoreRet, EDeliveryServiceType.ret);
+    }
+
+}
+
+export class ZoneBackupServiceType {
+    id: string;
+    code: EDeliveryServiceType;
+    segmentGap: number;
+    startHour: number;
+    endHour: number;
+    forceService: EState;
+
+    constructor(zoneServiceType: ZoneServiceType, forceService: EState) {
+        this.id = zoneServiceType.id || null;
+        this.code = zoneServiceType.code || null;
+        this.segmentGap = zoneServiceType.segmentGap || 0;
+        this.startHour = zoneServiceType.startHour || null;
+        this.endHour = zoneServiceType.endHour || null;
+        this.forceService = forceService || EState.disabled;
+    }
+}
+
+export class ZoneBackupServiceTypeRegistered {
+    serviceType: ZoneBackupServiceType;
+    code: EDeliveryServiceType;
+
+    constructor(
+        serviceType: ZoneServiceType,
+        forceService: EState,
+        serviceTypeCode: EDeliveryServiceType
+    ) {
+        this.serviceType = serviceType ? new ZoneBackupServiceType(serviceType, forceService) : null;
+        this.code = serviceTypeCode || null;
+    }
+
+}
+
+export class ZoneBackupServiceTypeList {
+    amPm: ZoneBackupServiceTypeRegistered;
+    scheduled: ZoneBackupServiceTypeRegistered;
+
+    constructor(zoneServiceTypeList: ZoneServiceType[], zoneBackup?: ZoneBackup) {
+        const zoneAmPm: ZoneServiceType = zoneServiceTypeList
+            .find((serviceType) => serviceType.code === EDeliveryServiceType.amPm);
+        const zoneScheduled: ZoneServiceType = zoneServiceTypeList
+            .find((serviceType) => serviceType.code === EDeliveryServiceType.scheduled);
+        this.amPm = new ZoneBackupServiceTypeRegistered(zoneAmPm, zoneBackup?.forceServiceAMPM, EDeliveryServiceType.amPm);
+        this.scheduled = new ZoneBackupServiceTypeRegistered(zoneScheduled, zoneBackup?.forceServiceSCHEDULED, EDeliveryServiceType.scheduled);
     }
 
 }

@@ -23,6 +23,7 @@
          [id]="selectId"
          [name]="name"
          [formControl]="inputSelectSearchControl"
+         (ngModelChange)="inputSelectSearchChange()"
          [matAutocomplete]="selectSearch">
 
   <mat-autocomplete autoActiveFirstOption

@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { CZoneLabelColor, EZoneLabel } from '../../../../models/operations-zones-label.model';
 import { ETagAppearance } from '@models/tag/tag.model';
 import { IZoneDetailUpdate } from '@interfaces/zones/zones.interface';
+import { CZoneTypeName, CZoneTypeValue, EZoneType } from '../../../../models/operations-zones-type.model';
 
 @Component({
     selector: 'app-op-zones-edition-zone-detail-form-card',
@@ -24,16 +25,18 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     public stateValue = CStateValue;
     public channelName = CChannelName;
     public companyName = CCompanyName;
+    public zoneTypeName = CZoneTypeName;
+    public zoneTypeValue = CZoneTypeValue;
     public labelColor = CZoneLabelColor;
     public tagAppearance = ETagAppearance;
 
-    private noStoreBackup: ZonesStore = {name: 'Sin local backup', code: '', serviceTypeList: []} as ZonesStore;
     public controlNameList = ZoneDetailControlName;
     public storeList: ZonesStore[] = [];
     public storeBackupList: ZonesStore[] = [];
     public channelList: EChannel[] = [];
 
 
+    @Input() zoneTypeList: EZoneType[] = [];
     @Input() companyList: ECompany[] = [];
     @Input() labelList: EZoneLabel[] = [];
     @Input() zoneDetail: ZoneDetail;
@@ -47,7 +50,6 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     @Input('storeList')
     set _storeList(zoneStoreList: ZonesStore[]) {
         this.storeList = zoneStoreList;
-        this.storeBackupList = !!zoneStoreList.length ? [this.noStoreBackup, ...zoneStoreList] : [];
     }
 
     @Output() cancelEdition = new EventEmitter();
@@ -60,7 +62,6 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
 
     ngOnInit(): void {
         this._editionZoneDetailForm.stateControl.patchValue(this.stateValue[this.zoneDetail.state]);
-        this._editionZoneDetailForm.assignedStoreBackupControl.disable();
 
         this.updateZoneDetailForm();
         this.updateStateControl();
@@ -68,7 +69,7 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
 
     updateZoneDetailForm() {
         this._editionZoneDetailForm.assignedStoreControl.patchValue(this.zoneDetail.assignedStore);
-        this._editionZoneDetailForm.assignedStoreBackupControl.patchValue(this.noStoreBackup);
+        this._editionZoneDetailForm.zoneTypeControl.patchValue(this.zoneDetail.zoneType);
         this._editionZoneDetailForm.companyControl.setValue(this.zoneDetail.company);
         this._editionZoneDetailForm.labelControl.patchValue(this.zoneDetail.label);
         this._editionZoneDetailForm.channelArray.controls.forEach((channelGroup: FormGroup) => {
@@ -82,11 +83,13 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     checkEditionByStateControl() {
         if (this._editionZoneDetailForm.stateControl.value) {
             this._editionZoneDetailForm.assignedStoreControl.enable();
+            this._editionZoneDetailForm.zoneTypeControl.enable();
             this._editionZoneDetailForm.companyControl.enable();
             this._editionZoneDetailForm.channelArray.enable();
             this._editionZoneDetailForm.labelControl.enable();
         } else {
             this._editionZoneDetailForm.assignedStoreControl.disable();
+            this._editionZoneDetailForm.zoneTypeControl.disable();
             this._editionZoneDetailForm.companyControl.disable();
             this._editionZoneDetailForm.channelArray.disable();
             this._editionZoneDetailForm.labelControl.disable();
@@ -118,7 +121,7 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     }
 
     assignedStoreOptionName(option: ZonesStore) {
-        return `${option.code} ${option.name}`;
+        return option ? `${option.code} ${option.name}` : '';
     }
 
     cancelEditionEvent() {
@@ -131,6 +134,7 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
         if (zoneDetailUpdate.enabled) {
             const assignedStore = this._editionZoneDetailForm.assignedStoreControl.value as ZonesStore;
             zoneDetailUpdate.fulfillmentCenterCode = assignedStore.code;
+            zoneDetailUpdate.backUpZone = this.zoneTypeValue[this._editionZoneDetailForm.zoneTypeControl.value];
             zoneDetailUpdate.zoneType = this._editionZoneDetailForm.labelControl.value;
             zoneDetailUpdate.companyCode = this._editionZoneDetailForm.companyControl.value;
             const channelList = this._editionZoneDetailForm.channelArray.value as { name: EChannel, checked: boolean }[];
@@ -138,6 +142,7 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
                 .map((channel) => channel.name);
         } else {
             zoneDetailUpdate.fulfillmentCenterCode = this.zoneDetail.assignedStore.code;
+            zoneDetailUpdate.backUpZone = this.zoneTypeValue[this.zoneDetail.zoneType];
             zoneDetailUpdate.zoneType = this.zoneDetail.label;
             zoneDetailUpdate.companyCode = this.zoneDetail.company;
             zoneDetailUpdate.channel = this.zoneDetail.channelList;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ZonesClientService } from '@clients/zones/zones-client.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IZone, IZoneDetail, IZoneDetailUpdate, IZoneServiceTypeRegister, IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
+import { IZone, IZoneBackupUpdate, IZoneDetail, IZoneDetailUpdate, IZoneServiceTypeRegister, IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { Zone, ZoneDetail } from '../models/operations-zones.model';
 import { StoresClientService } from '@clients/stores/stores-client.service';
 import { ZonesStore } from '../models/operations-zones-store.model';
@@ -11,6 +11,7 @@ import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
 import { EZoneLabel } from '../models/operations-zones-label.model';
 import { ResourceClientService } from '@clients/resource/resource-client.service';
+import { EZoneType } from '../models/operations-zones-type.model';
 
 @Injectable()
 export class OperationsZonesImplementService {
@@ -55,12 +56,20 @@ export class OperationsZonesImplementService {
         return this.resourceClient.getCompanyList();
     }
 
+    get zoneTypeList(): Observable<EZoneType[]> {
+        return this.zonesClient.getZoneTypeList();
+    }
+
     get labelList(): Observable<EZoneLabel[]> {
         return this.zonesClient.getZoneLabelList();
     }
 
     putZoneDetail(zoneCode: string, body: IZoneDetailUpdate) {
         return this.zonesClient.putZoneDetail(zoneCode, body);
+    }
+
+    putZoneBackup(zoneCode: string, body: IZoneBackupUpdate){
+        return this.zonesClient.putZoneBackup(zoneCode, body);
     }
 
     putZoneServiceType(serviceTypeId: string, zoneServiceTypeUpdate: IZoneServiceTypeUpdate) {
