@@ -1,0 +1,34 @@
+<div class="row justify-content-between mt-6">
+    <div class="col-12 col-lg-6 col-xl-5 mb-6">
+        <app-op-zones-edition-home-main-service-type-card
+                *appSkeletonCard="!!zoneServiceTypeList; row: 5; loading: !homeEditionLoader"
+                [serviceType]="zoneServiceTypeList.amPm"
+                (edit)="editServiceType($event)"
+                (add)="addServiceType($event)">
+        </app-op-zones-edition-home-main-service-type-card>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-5 mb-6">
+        <app-op-zones-edition-home-main-service-type-card
+                *appSkeletonCard="!!zoneServiceTypeList; row: 5; loading: !homeEditionLoader"
+                [serviceType]="zoneServiceTypeList.scheduled"
+                (edit)="editServiceType($event)"
+                (add)="addServiceType($event)">
+        </app-op-zones-edition-home-main-service-type-card>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-5 mb-6">
+        <app-op-zones-edition-home-main-service-type-card
+                *appSkeletonCard="!!zoneServiceTypeList; row: 5; loading: !homeEditionLoader"
+                [serviceType]="zoneServiceTypeList.express"
+                (edit)="editServiceType($event)"
+                (add)="addServiceType($event)">
+        </app-op-zones-edition-home-main-service-type-card>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-5 mb-6">
+        <app-op-zones-edition-home-main-service-type-card
+                *appSkeletonCard="!!zoneServiceTypeList; row: 5; loading: !homeEditionLoader"
+                [serviceType]="zoneServiceTypeList.ret"
+                (edit)="editServiceType($event)"
+                (add)="addServiceType($event)">
+        </app-op-zones-edition-home-main-service-type-card>
+    </div>
+</div>

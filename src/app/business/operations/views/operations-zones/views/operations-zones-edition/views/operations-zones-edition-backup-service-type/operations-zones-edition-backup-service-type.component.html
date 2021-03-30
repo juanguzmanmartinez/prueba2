@@ -1,0 +1,41 @@
+<section class="operations-zones-edition-backup pt-12 pb-15">
+    <div class="row mb-8">
+        <div class="col-12">
+            <h3 class="text-h3 mb-0">Edición de zonas</h3>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12 col-xl-5 mb-6 mb-xl-0">
+            <app-op-zones-edition-backup-service-type-detail-card
+                    *appSkeletonCard="!!zoneDetail && !!zoneBackupServiceType; loading: !backupServiceTypeEditionLoader"
+                    [zoneDetail]="zoneDetail"
+                    [zoneBackupServiceType]="zoneBackupServiceType">
+            </app-op-zones-edition-backup-service-type-detail-card>
+        </div>
+
+        <div class="col-12 col-xl-7"
+             [class.container-loader]="saveEditionLoader">
+            <app-op-zones-edition-backup-service-type-detail-form-card
+                    *appSkeletonCard="!!zoneDetail && !!zoneBackupServiceType; row: 8; loading: !backupServiceTypeEditionLoader"
+                    [zoneBackupDetail]="zoneBackupDetail"
+                    [zoneBackupServiceType]="zoneBackupServiceType"
+                    (cancelEdition)="cancelEdition()"
+                    (saveEdition)="saveEdition($event)">
+            </app-op-zones-edition-backup-service-type-detail-form-card>
+        </div>
+    </div>
+
+    <app-empty-result (action)="zoneListRoute()"
+                      *ngIf="!zoneDetail && !backupServiceTypeEditionLoader">
+        <ng-container empty-result-title>Esta zona no está disponible para edición.</ng-container>
+        <ng-container empty-result-action>Ir a lista de zonas</ng-container>
+    </app-empty-result>
+    <app-empty-result (action)="backRoute()"
+                      *ngIf="!!zoneDetail && !zoneBackupServiceType && !backupServiceTypeEditionLoader">
+        <ng-container empty-result-title>Stock backup no está disponible para edición.</ng-container>
+        <ng-container empty-result-action>Ir a {{zoneDetail?.name || 'la zona'}}</ng-container>
+    </app-empty-result>
+
+</section>

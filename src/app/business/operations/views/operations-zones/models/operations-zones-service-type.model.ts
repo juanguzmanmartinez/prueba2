@@ -1,6 +1,6 @@
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { ZonesStoreServiceType } from './operations-zones-store.model';
-import { EState } from '@models/state/state.model';
+import { CStateValue, EState } from '@models/state/state.model';
 import { IZoneServiceType } from '@interfaces/zones/zones.interface';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
@@ -36,7 +36,7 @@ export class ZoneServiceTypeRegistered {
         storeServiceType: ZonesStoreServiceType,
         serviceTypeCode: EDeliveryServiceType
     ) {
-        this.available = !!storeServiceType;
+        this.available = !!storeServiceType && CStateValue[storeServiceType.state];
         this.registered = !!serviceType;
         this.serviceType = serviceType || new ZoneServiceType({
             serviceTypeCode,
