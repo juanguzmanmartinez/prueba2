@@ -1,5 +1,5 @@
 <app-card>
-    <form [formGroup]="_editionZoneDetailForm.form$">
+    <form [formGroup]="form.form$">
         <div class="row mb-6">
             <div class="col-12">
                 <app-switch [formControlName]="controlNameList.state">
@@ -14,7 +14,7 @@
             <div class="col-8 mb-5">
                 <app-form-field>
                     <app-form-field-label>Local de atención principal</app-form-field-label>
-                    <app-select-search [hidden]="_editionZoneDetailForm.assignedStoreControl.disabled"
+                    <app-select-search [hidden]="form.assignedStoreControl.disabled"
                                        selectId="storeSelect"
                                        placeholder="Elije un local"
                                        [formControlName]="controlNameList.assignedStore"
@@ -24,9 +24,9 @@
                         <ng-template #optionTemplate
                                      let-option>{{assignedStoreOptionName(option)}}</ng-template>
                     </app-select-search>
-                    <app-input [hidden]="_editionZoneDetailForm.assignedStoreControl.enabled"
-                               [disabled]="_editionZoneDetailForm.assignedStoreControl.disabled"
-                               [value]="assignedStoreOptionName(_editionZoneDetailForm.assignedStoreControl.value)">
+                    <app-input [hidden]="form.assignedStoreControl.enabled"
+                               [disabled]="form.assignedStoreControl.disabled"
+                               [value]="assignedStoreOptionName(form.assignedStoreControl.value)">
                     </app-input>
                 </app-form-field>
             </div>
@@ -50,28 +50,28 @@
             <div class="col-12 mb-6">
                 <app-form-field>
                     <app-form-field-label>Marcas</app-form-field-label>
-                    <div class="row mt-4">
-                        <ng-container *ngFor="let company of companyList">
+                    <div class="row mt-4" [formArrayName]="controlNameList.company">
+                        <ng-container *ngFor="let companyControl of form.companyArray.controls; let index = index"
+                                      [formGroupName]="index">
                             <div class="col-6">
-                                <app-radio [formControlName]="controlNameList.company"
-                                           [value]="company">
-                                    {{companyName[company]}}
-                                </app-radio>
+                                <app-checkbox [formControlName]="controlNameList.companyChecked">
+                                    {{companyName[companyControl.value[controlNameList.companyName]]}}
+                                </app-checkbox>
                             </div>
                         </ng-container>
                     </div>
                 </app-form-field>
             </div>
 
-            <div class="col-12 mb-7" *ngIf="_editionZoneDetailForm.channelArray.controls.length">
+            <div class="col-12 mb-7" *ngIf="form.channelArray.controls.length">
                 <app-form-field>
                     <app-form-field-label>Canales de atención</app-form-field-label>
                     <div class="row mt-4" [formArrayName]="controlNameList.channel">
-                        <ng-container *ngFor="let channelControl of _editionZoneDetailForm.channelArray.controls; let index = index"
+                        <ng-container *ngFor="let channelControl of form.channelArray.controls; let index = index"
                                       [formGroupName]="index">
                             <div class="col-6">
                                 <app-checkbox [formControlName]="controlNameList.channelChecked">
-                                    {{channelName[channelControl.value.name]}}
+                                    {{channelName[channelControl.value[controlNameList.channelName]]}}
                                 </app-checkbox>
                             </div>
                         </ng-container>
@@ -82,26 +82,26 @@
             <div class="col-8">
                 <app-form-field>
                     <app-form-field-label>Etiqueta</app-form-field-label>
-                    <div class="mb-4" *ngIf="_editionZoneDetailForm.labelControl.value">
-                        <app-tag-delete [hidden]="_editionZoneDetailForm.labelControl.disabled"
-                                        [tagColor]="labelColor[_editionZoneDetailForm.labelControl.value]"
+                    <div class="mb-4" *ngIf="form.labelControl.value">
+                        <app-tag-delete [hidden]="form.labelControl.disabled"
+                                        [tagColor]="labelColor[form.labelControl.value]"
                                         (delete)="updateLabelControl()">
-                            {{_editionZoneDetailForm.labelControl.value}}
+                            {{form.labelControl.value}}
                         </app-tag-delete>
-                        <app-tag [hidden]="_editionZoneDetailForm.labelControl.enabled"
-                                 [tagColor]="labelColor[_editionZoneDetailForm.labelControl.value]"
+                        <app-tag [hidden]="form.labelControl.enabled"
+                                 [tagColor]="labelColor[form.labelControl.value]"
                                  [appearance]="tagAppearance.coloredPill">
-                            {{_editionZoneDetailForm.labelControl.value}}
+                            {{form.labelControl.value}}
                         </app-tag>
                     </div>
-                    <app-select [hidden]="_editionZoneDetailForm.labelControl.disabled"
+                    <app-select [hidden]="form.labelControl.disabled"
                                 [formControlName]="controlNameList.label"
                                 placeholder="Agrega una etiqueta a la zona"
                                 [optionList]="labelList">
                     </app-select>
-                    <app-input [hidden]="_editionZoneDetailForm.labelControl.enabled"
-                               [disabled]="_editionZoneDetailForm.labelControl.disabled"
-                               [value]="_editionZoneDetailForm.labelControl.value">
+                    <app-input [hidden]="form.labelControl.enabled"
+                               [disabled]="form.labelControl.disabled"
+                               [value]="form.labelControl.value">
                     </app-input>
                 </app-form-field>
             </div>
@@ -115,6 +115,7 @@
             </app-button>
             <app-button appearance="primary"
                         appEditionAccess
+                        [disabled]="form.form$.invalid"
                         (access)="saveEditionEvent()">
                 Guardar cambios
             </app-button>

@@ -42,14 +42,14 @@ export class ZoneDetail extends ZoneBase {
     serviceTypeList: ZoneServiceType[];
     label: EZoneLabel;
     channelList: EChannel[];
-    company: ECompany;
+    companyList: ECompany[];
     zoneBackup: ZoneBackup;
     zoneType: EZoneType;
 
     constructor(iZoneDetail: IZoneDetail) {
         super(iZoneDetail);
         this.label = iZoneDetail.zoneType as EZoneLabel;
-        this.company = iZoneDetail.companyCode || null;
+        this.companyList = iZoneDetail.companyCode || [];
         this.channelList = iZoneDetail.channel || [];
         this.zoneType = CGZoneType(iZoneDetail.backUpZone);
         this.serviceTypeList = iZoneDetail.serviceTypes ? iZoneDetail.serviceTypes

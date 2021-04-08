@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, ValidatorFn, Validators } from '@angular/forms';
 
 const validCharacters = /^[A-Za-zÀ-ÿ\u00f1\u00d1 ]+$/;
 const validNumbers = /^[0-9]*$/;
@@ -64,5 +64,16 @@ export class GenericValidator extends Validators {
             return {numberOrCharacterError: true};
         }
         return null;
+    }
+
+    static validateAtLeastOneCheckboxChecked(): ValidatorFn {
+        return (formArray: FormArray): { [key: string]: any } | null => {
+            const checkedControl = formArray.controls
+                .filter((control) => control.value.checked);
+            if (!checkedControl || !checkedControl.length) {
+                return {validateAtLeastOneCheckboxChecked: true};
+            }
+            return null;
+        };
     }
 }

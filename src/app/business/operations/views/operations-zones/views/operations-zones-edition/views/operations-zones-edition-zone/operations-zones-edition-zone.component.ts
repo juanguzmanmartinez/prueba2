@@ -26,7 +26,7 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
     public zoneDetail: ZoneDetail;
     public storeList: ZonesStore[];
     public channelList: EChannel[];
-    public companyList: ECompany[] = [];
+    public companyList: ECompany[];
     public zoneTypeList: EZoneType[] = [];
     public labelList: EZoneLabel[] = [];
 

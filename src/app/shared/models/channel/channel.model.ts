@@ -1,4 +1,5 @@
 export enum EChannel {
+    default = 'DEFAULT',
     digital = 'DIGITAL',
     call = 'CALL',
     omnichannel = 'OMNI'

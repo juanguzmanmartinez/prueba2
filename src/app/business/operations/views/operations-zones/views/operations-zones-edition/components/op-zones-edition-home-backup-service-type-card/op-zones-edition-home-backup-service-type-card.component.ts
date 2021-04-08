@@ -29,7 +29,7 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent implements OnInit 
     }
 
     get serviceTypeDisabled() {
-        return !this.zoneBackupDetail || this.disabled;
+        return !this.zoneBackupDetail || !this.serviceType.serviceType || this.disabled;
     }
 
     get segmentName() {
@@ -37,7 +37,7 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent implements OnInit 
     }
 
     get startAndEndHour() {
-        if (this.zoneBackupDetail) {
+        if (this.serviceTypeDisabled) {
             const startHour = DatesHelper.date(this.serviceType.serviceType.startHour, DATES_FORMAT.millisecond)
                 .format(DATES_FORMAT.hourMinuteDateTime);
             const endHour = DatesHelper.date(this.serviceType.serviceType.endHour, DATES_FORMAT.millisecond)
@@ -48,7 +48,7 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent implements OnInit 
     }
 
     get segmentGap() {
-        if (this.zoneBackupDetail) {
+        if (this.serviceTypeDisabled) {
             const plural = this.serviceType.serviceType.segmentGap > 1;
             return `${this.serviceType.serviceType.segmentGap} minuto${plural ? 's' : ''}`;
         }
@@ -56,7 +56,7 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent implements OnInit 
     }
 
     get forceServiceType() {
-        if (this.zoneBackupDetail) {
+        if (this.serviceTypeDisabled) {
             return this.stateName[this.serviceType.serviceType.forceService]();
         }
         return 'No habilitado';

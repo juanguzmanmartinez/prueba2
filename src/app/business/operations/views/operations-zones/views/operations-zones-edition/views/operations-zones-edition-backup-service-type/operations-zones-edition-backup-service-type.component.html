@@ -19,6 +19,7 @@
              [class.container-loader]="saveEditionLoader">
             <app-op-zones-edition-backup-service-type-detail-form-card
                     *appSkeletonCard="!!zoneDetail && !!zoneBackupServiceType; row: 8; loading: !backupServiceTypeEditionLoader"
+                    [zoneBackup]="zoneDetail?.zoneBackup"
                     [zoneBackupDetail]="zoneBackupDetail"
                     [zoneBackupServiceType]="zoneBackupServiceType"
                     (cancelEdition)="cancelEdition()"

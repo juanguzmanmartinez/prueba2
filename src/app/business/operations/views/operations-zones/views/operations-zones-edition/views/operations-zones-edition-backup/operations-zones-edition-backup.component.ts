@@ -20,6 +20,7 @@ export class OperationsZonesEditionBackupComponent implements OnInit, OnDestroy 
     private subscriptions: Subscription[] = [];
 
     public zoneDetail: ZoneDetail;
+    public zoneListStored: Zone[];
     public zoneList: Zone[];
 
     public backupEditionLoader = true;
@@ -45,6 +46,7 @@ export class OperationsZonesEditionBackupComponent implements OnInit, OnDestroy 
             .subscribe((zoneDetail: ZoneDetail) => {
                 this.zoneDetail = zoneDetail;
                 this.backupEditionLoader = false;
+                this.setZoneList();
             }, () => {
                 this.zoneDetail = null;
                 this.backupEditionLoader = false;
@@ -55,10 +57,12 @@ export class OperationsZonesEditionBackupComponent implements OnInit, OnDestroy 
     getZoneList() {
         const subscription = this._operationsZonesImplement.zoneList
             .subscribe((zoneList: Zone[]) => {
-                    this.zoneList = zoneList;
+                    this.zoneListStored = zoneList;
+                    this.setZoneList();
                     this.zoneListEditionLoader = false;
                 },
                 () => {
+                    this.zoneListStored = null;
                     this.zoneList = null;
                     this.zoneListEditionLoader = false;
                 });
@@ -76,6 +80,13 @@ export class OperationsZonesEditionBackupComponent implements OnInit, OnDestroy 
                 this._alert.alertError(OperationMessages.errorOperationEdition(this.zoneDetail.name));
                 this.backRoute();
             });
+    }
+
+    setZoneList() {
+        if (this.zoneListStored && this.zoneDetail) {
+            this.zoneList = this.zoneListStored
+                .filter((zone: Zone) => zone.code !== this.zoneDetail.code);
+        }
     }
 
     cancelEdition() {

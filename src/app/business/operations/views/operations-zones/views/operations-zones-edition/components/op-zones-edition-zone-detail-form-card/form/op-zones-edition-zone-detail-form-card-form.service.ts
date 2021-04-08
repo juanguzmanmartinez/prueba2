@@ -1,6 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { EChannel } from '@models/channel/channel.model';
+import { ECompany } from '@models/company/company.model';
+import { CheckboxGroupControl, CheckboxGroupControlName } from '../controls/checkbox-group.control';
+import { GenericValidator } from '@validators/generic-validator';
 
 export class ZoneDetailControlName {
     static state = 'state';
@@ -10,8 +13,10 @@ export class ZoneDetailControlName {
     static channel = 'channel';
     static label = 'label';
 
-    static channelName = 'name';
-    static channelChecked = 'checked';
+    static companyName = CheckboxGroupControlName.value;
+    static companyChecked = CheckboxGroupControlName.checked;
+    static channelName = CheckboxGroupControlName.value;
+    static channelChecked = CheckboxGroupControlName.checked;
 }
 
 @Injectable()
@@ -22,8 +27,8 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
     private _stateControl: FormControl = new FormControl(null);
     private _assignedStoreControl: FormControl = new FormControl(null);
     private _zoneTypeControl: FormControl = new FormControl(null);
-    private _companyControl: FormControl = new FormControl(null);
-    private _channelArray: FormArray = new FormArray([]);
+    private _companyArray: FormArray = new FormArray([], [GenericValidator.validateAtLeastOneCheckboxChecked()]);
+    private _channelArray: FormArray = new FormArray([], [GenericValidator.validateAtLeastOneCheckboxChecked()]);
     private _labelControl: FormControl = new FormControl(null);
 
     private _controlNameList = ZoneDetailControlName;
@@ -35,7 +40,7 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
             [this._controlNameList.state]: this._stateControl,
             [this._controlNameList.assignedStore]: this._assignedStoreControl,
             [this._controlNameList.zoneType]: this._zoneTypeControl,
-            [this._controlNameList.company]: this._companyControl,
+            [this._controlNameList.company]: this._companyArray,
             [this._controlNameList.channel]: this._channelArray,
             [this._controlNameList.label]: this._labelControl,
         });
@@ -57,8 +62,8 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
         return this.form$.get(this._controlNameList.zoneType);
     }
 
-    get companyControl() {
-        return this.form$.get(this._controlNameList.company);
+    get companyArray() {
+        return this.form$.get(this._controlNameList.company) as FormArray;
     }
 
     get channelArray() {
@@ -69,22 +74,19 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
         return this.form$.get(this._controlNameList.label);
     }
 
-    createChannelChildGroup(channelName: EChannel) {
-        return new FormGroup({
-            [this._controlNameList.channelName]: new FormControl(channelName),
-            [this._controlNameList.channelChecked]: new FormControl(false)
-        });
+    createCompanyGroup(companyName: ECompany): CheckboxGroupControl {
+        return new CheckboxGroupControl(companyName);
     }
 
-    getChannelChildCheckedControl(channelChildGroup: FormGroup) {
-        return channelChildGroup?.get(this._controlNameList.channelChecked);
+    createChannelGroup(channelName: EChannel): CheckboxGroupControl {
+        return new CheckboxGroupControl(channelName);
     }
 
     resetForm() {
         this.stateControl.patchValue(null);
         this.assignedStoreControl.patchValue(null);
         this.zoneTypeControl.patchValue(null);
-        this.companyControl.patchValue(null);
+        this.companyArray.patchValue([]);
         this.channelArray.patchValue([]);
         this.labelControl.patchValue(null);
     }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ZoneDetail } from '../../../../models/operations-zones.model';
+import { ZoneBackup, ZoneDetail } from '../../../../models/operations-zones.model';
 import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { ZoneBackupServiceType } from '../../../../models/operations-zones-service-type.model';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
@@ -19,6 +19,7 @@ export class OpZonesEditionBackupServiceTypeDetailFormCardComponent implements O
     public controlNameList = ZoneBackupServiceTypeDetailControlName;
     public stateValue = CStateValue;
 
+    @Input() zoneBackup: ZoneBackup;
     @Input() zoneBackupDetail: ZoneDetail;
     @Input() zoneBackupServiceType: ZoneBackupServiceType;
 
@@ -57,10 +58,10 @@ export class OpZonesEditionBackupServiceTypeDetailFormCardComponent implements O
         zoneBackupUpdate.preferableLocalBackupToShow = EStateSetting.true;
         zoneBackupUpdate.forceServiceAMPM = this.zoneBackupServiceType.code === EDeliveryServiceType.amPm ?
             CGStateSettingByValue(this._editionBackupServiceTypeDetailForm.stateControl.value) :
-            CGStateSettingByState(this.zoneBackupServiceType.forceService);
+            CGStateSettingByState(this.zoneBackup.forceServiceAMPM);
         zoneBackupUpdate.forceServicePROG = this.zoneBackupServiceType.code === EDeliveryServiceType.scheduled ?
             CGStateSettingByValue(this._editionBackupServiceTypeDetailForm.stateControl.value) :
-            CGStateSettingByState(this.zoneBackupServiceType.forceService);
+            CGStateSettingByState(this.zoneBackup.forceServiceSCHEDULED);
         this.saveEdition.emit(zoneBackupUpdate);
     }
 }

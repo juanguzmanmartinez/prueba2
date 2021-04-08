@@ -13,6 +13,7 @@ export interface IZoneServiceType {
     endHour: string;
     enabled: boolean;
     intervalTime: number;
+    channel: EChannel;
 }
 
 export interface IZoneServiceTypeUpdate {
@@ -43,7 +44,7 @@ export interface IZone {
 export interface IZoneDetail extends IZone {
     zoneType: string;
     channel: EChannel[];
-    companyCode: ECompany;
+    companyCode: ECompany[];
     zoneBackup: IZoneBackUp;
     backUpZone: boolean;
 }
@@ -54,7 +55,7 @@ export interface IZoneDetailUpdate {
     backUpZone: boolean;
     zoneType: string;
     channel: EChannel[];
-    companyCode: ECompany;
+    companyCode: ECompany[];
 }
 
 export interface IZoneBackUp {

@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <app-tab-group>
+    <app-tab-group [hidden]="(!zoneDetail || !zoneServiceTypeList) && !homeEditionLoader">
         <app-tab label="Configuración principal">
             <app-op-zones-edition-home-main-setting-tab
                     class="d-block"

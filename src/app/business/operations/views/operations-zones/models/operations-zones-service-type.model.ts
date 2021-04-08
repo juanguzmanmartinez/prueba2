@@ -5,6 +5,7 @@ import { IZoneServiceType } from '@interfaces/zones/zones.interface';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { ZoneBackup } from './operations-zones.model';
+import { EChannel } from '@models/channel/channel.model';
 
 export class ZoneServiceType {
     id: string;
@@ -14,6 +15,7 @@ export class ZoneServiceType {
     endHour: number;
     state: EState;
     intervalTime: number;
+    channel: EChannel;
 
     constructor(iZoneServiceType: IZoneServiceType) {
         this.id = iZoneServiceType.id || null;
@@ -23,6 +25,7 @@ export class ZoneServiceType {
         this.startHour = DatesHelper.date(iZoneServiceType.startHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
         this.endHour = DatesHelper.date(iZoneServiceType.endHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
         this.state = iZoneServiceType.enabled ? EState.active : EState.inactive;
+        this.channel = iZoneServiceType.channel || EChannel.default;
     }
 }
 
@@ -47,6 +50,7 @@ export class ZoneServiceTypeRegistered {
             enabled: false,
             segmentGap: 30,
             intervalTime: 360,
+            channel: EChannel.default
         });
     }
 }

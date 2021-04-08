@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-12 col-xl-6 mb-6 mb-xl-0">
             <app-op-zones-edition-zone-detail-card
-                    *appSkeletonCard="!!zoneDetail && !!channelList && !!storeList; loading: !zoneEditionLoader && !zoneListEditionLoader"
+                    *appSkeletonCard="!!zoneDetail && !!channelList && !!companyList && !!storeList; loading: !zoneEditionLoader && !zoneListEditionLoader"
                     [zoneDetail]="zoneDetail">
             </app-op-zones-edition-zone-detail-card>
         </div>
@@ -16,7 +16,7 @@
         <div class="col-12 col-xl-6"
              [class.container-loader]="saveEditionLoader">
             <app-op-zones-edition-zone-detail-form-card
-                    *appSkeletonCard="!!zoneDetail && !!channelList && !!storeList; row: 8; loading: !zoneEditionLoader && !zoneListEditionLoader"
+                    *appSkeletonCard="!!zoneDetail && !!channelList && !!companyList && !!storeList; row: 8; loading: !zoneEditionLoader && !zoneListEditionLoader"
                     [zoneDetail]="zoneDetail"
                     [storeList]="storeList"
                     [channelList]="channelList"

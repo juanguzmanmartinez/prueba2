@@ -54,7 +54,14 @@
         <div class="col-6">
             <app-card-static-information class="d-block mb-5" iconName="shopping_bag">
                 <ng-container information-title>Marcas</ng-container>
-                <ng-container information-caption>{{companyName[zoneDetail.company]}}</ng-container>
+                <ng-container information-caption>
+                    <ng-container *ngFor="let company of zoneDetail.companyList; let last = last">
+                            <span>
+                                {{companyName[company]}}
+                                <span class="mx-2" *ngIf="!last">-</span>
+                            </span>
+                    </ng-container>
+                </ng-container>
             </app-card-static-information>
 
             <app-card-static-information class="d-block mb-5" iconName="record_voice_over">
