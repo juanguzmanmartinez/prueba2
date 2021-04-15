@@ -1,6 +1,6 @@
 <app-card innerClass="pb-12">
     <div class="row mb-6">
-        <div class="col-12">
+        <div class="col-8">
             <h5 class="text-h5 mb-0"
                 [class.text-gray-4]="serviceTypeDisabled">
                 <app-icon class="d-inline-block me-5"
@@ -8,6 +8,14 @@
                 <span>{{segmentName}}</span>
             </h5>
         </div>
+
+        <div class="col-4">
+            <app-tag [appearance]="tagAppearance.coloredPill"
+                    [tagColor]="segmentChannelColor">
+                {{segmentChannelName}}
+            </app-tag>
+        </div>
+
     </div>
     <app-card-static-information class="d-block mb-5"
                                  iconName="access_time"

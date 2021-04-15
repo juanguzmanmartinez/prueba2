@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
-import { ZoneBackupServiceTypeList, ZoneServiceTypeList } from '../../../../models/operations-zones-service-type.model';
+import { ZoneBackupServiceTypeList, ZoneChannelServiceTypeList } from '../../../../models/operations-zones-service-type.model';
 import { OperationsZonesEditionStoreService } from '../../stores/operations-zones-edition-store.service';
 import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
@@ -15,6 +15,7 @@ import { OperationMessages } from '../../../../../../parameters/operations-messa
 import { AlertService } from '@molecules/alert/alert.service';
 import { parseUrl } from '@helpers/parse-url.helper';
 import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
+import { EChannel } from '@models/channel/channel.model';
 
 @Component({
     selector: 'app-operations-zones-edition-home',
@@ -27,7 +28,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     public deliveryServiceType = EDeliveryServiceType;
 
     public zoneDetail: ZoneDetail;
-    public zoneServiceTypeList: ZoneServiceTypeList;
+    public zoneServiceTypeList: ZoneChannelServiceTypeList[];
     public zoneBackupDetail: ZoneDetail;
     public zoneBackupServiceTypeList: ZoneBackupServiceTypeList = new ZoneBackupServiceTypeList([]);
 
@@ -54,7 +55,11 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
                     this.homeEditionLoader = false;
                     this.saveEditionLoader = false;
                     this.zoneDetail = zoneDetail;
-                    this.zoneServiceTypeList = new ZoneServiceTypeList(zoneDetail.serviceTypeList, zoneDetail.assignedStore.serviceTypeList);
+                    this.zoneServiceTypeList = zoneDetail.channelList
+                        .map((channel: EChannel) => new ZoneChannelServiceTypeList(
+                            zoneDetail.serviceTypeList,
+                            zoneDetail.assignedStore?.serviceTypeList || [],
+                            channel));
                 },
                 () => {
                     this.saveEditionLoader = false;
@@ -88,7 +93,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
         this._router.navigate([serviceTypePath]);
     }
 
-    addServiceType(serviceType: EDeliveryServiceType) {
+    addServiceType(serviceType: {code: EDeliveryServiceType, channel: EChannel}) {
         const subscription = this._dialogConfirmChanges.open()
             .afterClosed()
             .subscribe((confirmChanges) => {
@@ -99,29 +104,30 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
         this.subscriptions.push(subscription);
     }
 
-    registerServiceType(serviceType: EDeliveryServiceType) {
+    registerServiceType(serviceType: {code: EDeliveryServiceType, channel: EChannel}) {
         const assignedStoreServiceType = this.zoneDetail?.assignedStore.serviceTypeList
-            .find((storeServiceType: ZonesStoreServiceType) => storeServiceType.code === serviceType);
+            .find((storeServiceType: ZonesStoreServiceType) => storeServiceType.code === serviceType.code);
 
         if (assignedStoreServiceType) {
             const zoneServiceTypRegister = {
-                serviceTypeCode: serviceType,
+                serviceTypeCode: serviceType.code,
                 startHour: DatesHelper.Date(assignedStoreServiceType.startHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
                 endHour: DatesHelper.Date(assignedStoreServiceType.endHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
                 segmentGap: '30',
-                zoneId: this.zoneDetail.id
+                zoneId: this.zoneDetail.id,
+                channel: serviceType.channel
             } as IZoneServiceTypeRegister;
 
             this._operationsZonesImplement.postZoneServiceType(zoneServiceTypRegister)
                 .subscribe(() => {
                     this.saveEditionLoader = true;
                     this._operationsZonesEditionStore.updateZoneDetail = true;
-                    this._alert.alertSuccess(OperationMessages.successServiceTypeRegistered(this.serviceTypeName[serviceType], this.zoneDetail.name));
+                    this._alert.alertSuccess(OperationMessages.successServiceTypeRegistered(this.serviceTypeName[serviceType.code], this.zoneDetail.name));
                 }, () => {
-                    this._alert.alertError(OperationMessages.errorServiceTypeRegistered(this.serviceTypeName[serviceType], this.zoneDetail.name));
+                    this._alert.alertError(OperationMessages.errorServiceTypeRegistered(this.serviceTypeName[serviceType.code], this.zoneDetail.name));
                 });
         } else {
-            this._alert.alertError(OperationMessages.errorServiceTypeRegistered(this.serviceTypeName[serviceType], this.zoneDetail.name));
+            this._alert.alertError(OperationMessages.errorServiceTypeRegistered(this.serviceTypeName[serviceType.code], this.zoneDetail.name));
         }
     }
 

@@ -13,7 +13,7 @@ import { TooltipModule } from '@atoms/tooltip/tooltip.module';
 import { TableModule } from '@molecules/table/table.module';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { TagModule } from '@atoms/tag/tag.module';
-import { MatTabsModule } from '@angular/material/tabs';
+import { TabModule } from '@molecules/tab/tab.module';
 import { CardModule } from '@molecules/cards/card.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogModule } from '@molecules/dialog/dialog.module';
@@ -72,7 +72,7 @@ import { LinksModule } from '@atoms/links/links.module';
         TableModule,
         IconsModule,
         TagModule,
-        MatTabsModule,
+        TabModule,
         CardModule,
         MatDialogModule,
         DialogModule,

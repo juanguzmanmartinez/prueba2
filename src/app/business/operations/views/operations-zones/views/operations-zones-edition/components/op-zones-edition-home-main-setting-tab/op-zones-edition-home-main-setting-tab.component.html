@@ -1,3 +1,20 @@
+<div class="row mt-6" *ngIf="channelTabList?.length > 1">
+    <div class="col d-flex-horizontal-end align-items-center pe-0">
+        <span class="text-subtitle-2">Canal de atención:</span>
+    </div>
+    <div class="col-3">
+        <app-select placeholder="Agrega una etiqueta a la zona"
+                    [optionList]="channelTabList"
+                    [value]="channelSelected"
+                    (optionChange)="channelChange($event)">
+            <ng-template let-option>{{channelName[option] || option}}</ng-template>
+        </app-select>
+    </div>
+    <div class="col-12 mt-5">
+        <hr class="m-0 bg-gray-3">
+    </div>
+</div>
+
 <div class="row justify-content-between mt-6">
     <div class="col-12 col-lg-6 col-xl-5 mb-6">
         <app-op-zones-edition-home-main-service-type-card

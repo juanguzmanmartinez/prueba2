@@ -6,12 +6,25 @@ import { MatSort } from '@angular/material/sort';
 import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 import { Zone } from '../../models/operations-zones.model';
 import { OpZonesHomeZoneDetailDialogService } from './components/op-zones-home-zone-detail-dialog/op-zones-home-zone-detail-dialog.service';
-import { SelectionModel } from '@angular/cdk/collections';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
 import { OperationsZonesImplementService } from '../../implements/operations-zones-implement.service';
 import { PaginatorComponent } from '@atoms/paginator/paginator.component';
 import { normalizeValue } from '@helpers/string.helper';
 import { CStateName, CStateTag } from '@models/state/state.model';
+import { AlertService } from '@molecules/alert/alert.service';
+import { OperationMessages } from '../../../../parameters/operations-messages.parameter';
+import { CChannelName } from '@models/channel/channel.model';
+import { SortAlphanumeric, SortString } from '@helpers/sort.helper';
+
+const ColumnNameList = {
+    zoneCode: 'zoneCode',
+    zoneName: 'zoneName',
+    assignedStore: 'assignedStore',
+    serviceType: 'serviceType',
+    zoneChannel: 'zoneChannel',
+    zoneState: 'zoneState',
+    actions: 'actions',
+};
 
 @Component({
     selector: 'app-operations-zones-home',
@@ -22,15 +35,17 @@ import { CStateName, CStateTag } from '@models/state/state.model';
 export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     public serviceTypeName = CDeliveryServiceTypeName;
+    public channelName = CChannelName;
     public stateTag = CStateTag;
     public stateName = CStateName;
 
     public searchInput = '';
     public tableLoader = true;
 
-    public displayedColumns: string[] = ['selector', 'zoneCode', 'zoneName', 'assignedStore', 'serviceType', 'zoneState', 'actions'];
+    public displayedColumns: string[] = [
+        ColumnNameList.zoneCode, ColumnNameList.zoneName, ColumnNameList.assignedStore,
+        ColumnNameList.serviceType, ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
     public dataSource = new MatTableDataSource([]);
-    public rowSelection = new SelectionModel<Zone>(true, []);
 
     @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -38,7 +53,8 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     constructor(
         private _router: Router,
         private _zoneDetailDialog: OpZonesHomeZoneDetailDialogService,
-        private _operationsZonesImplement: OperationsZonesImplementService
+        private _operationsZonesImplement: OperationsZonesImplementService,
+        private _alertService: AlertService,
     ) {
     }
 
@@ -55,21 +71,6 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     }
 
     setDataSourceService() {
-        this.dataSource.sortingDataAccessor = (data: Zone, sortHeaderId: string) => {
-            switch (sortHeaderId) {
-                case 'zoneCode':
-                    return data.code;
-                case 'zoneName':
-                    return data.name;
-                case 'assignedStore':
-                    return data.assignedStore.name;
-                case 'serviceType':
-                    return data.serviceTypeList
-                        .map(serviceType => this.serviceTypeName[serviceType]).join(',');
-                default:
-                    return data[sortHeaderId];
-            }
-        };
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator.paginator;
         this.dataSource.filterPredicate = (data: Zone, filter: string) => {
@@ -87,6 +88,41 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
 
             return concatValue.includes(filterNormalize) && everyValue;
         };
+
+        this.dataSource.sortData = (data: Zone[], sort: MatSort) => {
+            return data.sort((a: Zone, b: Zone) => {
+                switch (sort.active) {
+                    case ColumnNameList.zoneCode:
+                        return SortAlphanumeric(a.code, b.code, sort.direction);
+                    case ColumnNameList.zoneName:
+                        return SortString(a.name, b.name, sort.direction);
+                    case ColumnNameList.assignedStore:
+                        const assignedStoreNameA = a.assignedStore ? a.assignedStore.name : '';
+                        const assignedStoreNameB = b.assignedStore ? b.assignedStore.name : '';
+                        return SortString(assignedStoreNameA, assignedStoreNameB, sort.direction);
+                    case ColumnNameList.serviceType:
+                        const serviceTypeListNameA = a.serviceTypeList
+                            .map(serviceType => this.serviceTypeName[serviceType]).join('');
+                        const serviceTypeListNameB = b.serviceTypeList
+                            .map(serviceType => this.serviceTypeName[serviceType]).join('');
+                        return SortString(serviceTypeListNameA, serviceTypeListNameB, sort.direction);
+                    case ColumnNameList.zoneChannel:
+                        const channelListNameA = a.channelList
+                            .map(channel => this.channelName[channel]).join('');
+                        const channelListNameB = b.channelList
+                            .map(channel => this.channelName[channel]).join('');
+                        return SortString(channelListNameA, channelListNameB, sort.direction);
+                    case ColumnNameList.zoneState:
+                        const stateNameA = this.stateName[a.state]();
+                        const stateNameB = this.stateName[b.state]();
+                        return SortString(stateNameA, stateNameB, sort.direction);
+                    default:
+                        const defaultA = a[sort.active];
+                        const defaultB = b[sort.active];
+                        return SortString(defaultA, defaultB, sort.direction);
+                }
+            });
+        };
     }
 
 
@@ -95,19 +131,6 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
         }
-    }
-
-
-    isAllSelected() {
-        const numSelected = this.rowSelection.selected.length;
-        const numRows = this.dataSource.data.length;
-        return numSelected === numRows;
-    }
-
-    masterToggle() {
-        this.isAllSelected() ?
-            this.rowSelection.clear() :
-            this.dataSource.data.forEach(row => this.rowSelection.select(row));
     }
 
 
@@ -121,6 +144,8 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
                 if (edition) {
                     this.editRow(zone.code);
                 }
+            }, () => {
+                this._alertService.alertError(OperationMessages.errorDetailDialog);
             });
         this.subscriptions.push(subscription);
     }

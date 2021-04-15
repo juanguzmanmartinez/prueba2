@@ -28,6 +28,7 @@
     background-color: $white;
     border: 1px solid $gray-2;
     padding: 12px 14px;
+    display: inline-block;
     @include text-label;
   }
 

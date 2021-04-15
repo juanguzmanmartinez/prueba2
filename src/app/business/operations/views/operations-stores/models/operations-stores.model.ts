@@ -19,7 +19,7 @@ export class Store {
         this.code = iStore.localCode || null;
         this.name = iStore.name || null;
         this.channelList = iStore.channel || [EChannel.digital, EChannel.call, EChannel.omnichannel];
-        this.state = iStore.enabled ? EState.active : EState.close;
+        this.state = iStore.enabled ? EState.active : EState.closed;
         this.companyList = iStore.companies ? iStore.companies
             .map(company => company.code) : [];
     }

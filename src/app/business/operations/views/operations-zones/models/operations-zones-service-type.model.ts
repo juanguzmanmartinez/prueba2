@@ -31,27 +31,22 @@ export class ZoneServiceType {
 
 export class ZoneServiceTypeRegistered {
     serviceType: ZoneServiceType;
+    code: EDeliveryServiceType;
+    channel: EChannel;
     registered: boolean;
     available: boolean;
 
     constructor(
         serviceType: ZoneServiceType,
         storeServiceType: ZonesStoreServiceType,
-        serviceTypeCode: EDeliveryServiceType
+        serviceTypeCode: EDeliveryServiceType,
+        serviceTypeChannel: EChannel
     ) {
         this.available = !!storeServiceType && CStateValue[storeServiceType.state];
         this.registered = !!serviceType;
-        this.serviceType = serviceType || new ZoneServiceType({
-            serviceTypeCode,
-            startHour: '08:00:00',
-            endHour: '19:00:00',
-            id: '',
-            serviceTypeId: '',
-            enabled: false,
-            segmentGap: 30,
-            intervalTime: 360,
-            channel: EChannel.default
-        });
+        this.code = serviceTypeCode;
+        this.serviceType = serviceType || null;
+        this.channel = serviceTypeChannel;
     }
 }
 
@@ -61,7 +56,11 @@ export class ZoneServiceTypeList {
     scheduled: ZoneServiceTypeRegistered;
     ret: ZoneServiceTypeRegistered;
 
-    constructor(zoneServiceTypeList: ZoneServiceType[], zoneStoreServiceTypeList: ZonesStoreServiceType[]) {
+    constructor(
+        zoneServiceTypeList: ZoneServiceType[],
+        zoneStoreServiceTypeList: ZonesStoreServiceType[],
+        zoneChannel: EChannel
+    ) {
         const zoneAmPm: ZoneServiceType = zoneServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.amPm);
         const zoneExpress: ZoneServiceType = zoneServiceTypeList
@@ -80,10 +79,35 @@ export class ZoneServiceTypeList {
         const zoneStoreRet: ZonesStoreServiceType = zoneStoreServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.ret);
 
-        this.amPm = new ZoneServiceTypeRegistered(zoneAmPm, zoneStoreAmPm, EDeliveryServiceType.amPm);
-        this.express = new ZoneServiceTypeRegistered(zoneExpress, zoneStoreExpress, EDeliveryServiceType.express);
-        this.scheduled = new ZoneServiceTypeRegistered(zoneScheduled, zoneStoreScheduled, EDeliveryServiceType.scheduled);
-        this.ret = new ZoneServiceTypeRegistered(zoneRet, zoneStoreRet, EDeliveryServiceType.ret);
+        this.amPm = new ZoneServiceTypeRegistered(zoneAmPm, zoneStoreAmPm, EDeliveryServiceType.amPm, zoneChannel);
+        this.express = new ZoneServiceTypeRegistered(zoneExpress, zoneStoreExpress, EDeliveryServiceType.express, zoneChannel);
+        this.scheduled = new ZoneServiceTypeRegistered(zoneScheduled, zoneStoreScheduled, EDeliveryServiceType.scheduled, zoneChannel);
+        this.ret = new ZoneServiceTypeRegistered(zoneRet, zoneStoreRet, EDeliveryServiceType.ret, zoneChannel);
+    }
+}
+
+export class ZoneChannelServiceTypeList {
+    channel: EChannel;
+    serviceTypeList: ZoneServiceTypeList;
+
+    constructor(
+        zoneServiceTypeList: ZoneServiceType[],
+        zoneStoreServiceTypeList: ZonesStoreServiceType[],
+        zoneChannel: EChannel) {
+
+        const zoneChannelServiceTypeList: ZoneServiceType[] = zoneServiceTypeList
+            .filter((serviceType: ZoneServiceType) => serviceType.channel === zoneChannel);
+
+        this.channel = zoneChannel;
+        this.serviceTypeList = new ZoneServiceTypeList(
+            zoneChannelServiceTypeList,
+            zoneStoreServiceTypeList,
+            zoneChannel);
+
+        // Exception
+        if (zoneChannel === EChannel.digital) {
+            this.serviceTypeList.ret.available = false;
+        }
     }
 
 }

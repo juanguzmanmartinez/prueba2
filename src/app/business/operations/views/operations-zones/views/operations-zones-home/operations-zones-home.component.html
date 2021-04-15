@@ -1,7 +1,7 @@
 <section class="operations-capacity-zones pt-8 pb-15">
     <div class="row mb-4">
         <div class="col">
-            <app-back-router>Home</app-back-router>
+            <app-back-router>Inicio</app-back-router>
         </div>
     </div>
 
@@ -22,21 +22,6 @@
         <div class="col-12 mb-8">
             <table mat-table large-table [dataSource]="dataSource" matSort>
 
-                <ng-container matColumnDef="selector">
-                    <th mat-header-cell customColumn="selector" *matHeaderCellDef>
-                        <app-checkbox (change)="$event ? masterToggle() : null"
-                                      [checked]="rowSelection.hasValue() && isAllSelected()"
-                                      [indeterminate]="rowSelection.hasValue() && !isAllSelected()">
-                        </app-checkbox>
-                    </th>
-                    <td mat-cell customColumn="selector" *matCellDef="let row">
-                        <app-checkbox (clicked)="$event.stopPropagation()"
-                                      (change)="$event ? rowSelection.toggle(row) : null"
-                                      [checked]="rowSelection.isSelected(row)">
-                        </app-checkbox>
-                    </td>
-                </ng-container>
-
                 <ng-container matColumnDef="zoneCode">
                     <th mat-header-cell columnWidth="8%" *matHeaderCellDef mat-sort-header>Código</th>
                     <td mat-cell columnWidth="8%" cell-bold *matCellDef="let element">{{element.code}}</td>
@@ -49,24 +34,64 @@
 
                 <ng-container matColumnDef="assignedStore">
                     <th mat-header-cell columnWidth="18%" *matHeaderCellDef mat-sort-header>Local asignado</th>
-                    <td mat-cell columnWidth="18%" *matCellDef="let element">{{element.assignedStore.name}}</td>
+                    <td mat-cell columnWidth="18%" *matCellDef="let element">
+                        <ng-container *ngIf="element.assignedStore">
+                        {{element.assignedStore.name}}
+                        </ng-container>
+                        <ng-container *ngIf="!element.assignedStore">
+                            <p class="text-center m-0">-</p>
+                        </ng-container>
+                    </td>
                 </ng-container>
 
                 <ng-container matColumnDef="serviceType">
-                    <th mat-header-cell columnWidth="140px" *matHeaderCellDef mat-sort-header>Despacho</th>
-                    <td mat-cell columnWidth="140px" cell-double-text *matCellDef="let element">
-                        <ng-container *ngFor="let serviceType of element.serviceTypeList; let last = last">
-                            <span>
+                    <th mat-header-cell columnWidth="145px" *matHeaderCellDef mat-sort-header>Despacho</th>
+                    <td mat-cell columnWidth="145px" cell-double-text *matCellDef="let element">
+                        <ng-container *ngIf="element.serviceTypeList?.length">
+                            <ng-container *ngFor="let serviceType of element.serviceTypeList; let last = last">
                                 {{serviceTypeName[serviceType]}}
                                 <span class="mx-2" *ngIf="!last">-</span>
-                            </span>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="!element.serviceTypeList?.length">
+                            <p class="text-center m-0">-</p>
+                        </ng-container>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="zoneChannel">
+                    <th mat-header-cell
+                        columnWidth="145px"
+                        *matHeaderCellDef
+                        mat-sort-header>Canal</th>
+                    <td mat-cell
+                        columnWidth="145px"
+                        cell-double-text
+                        *matCellDef="let element">
+                        <ng-container *ngIf="element.channelList?.length">
+                            <ng-container *ngFor="let channel of element.channelList; let last = last">
+                                {{channelName[channel]}}
+                                <span class="mx-2" *ngIf="!last">-</span>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="!element.channelList?.length">
+                            <p class="text-center m-0">-</p>
                         </ng-container>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="zoneState">
-                    <th mat-header-cell columnWidth="12%" header-cell-center *matHeaderCellDef>Estado</th>
-                    <td mat-cell columnWidth="12%" cell-center *matCellDef="let element">
+                    <th mat-header-cell
+                        columnWidth="12%"
+                        header-cell-center
+                        *matHeaderCellDef
+                        mat-sort-header>
+                        Estado
+                    </th>
+                    <td mat-cell
+                        columnWidth="12%"
+                        cell-center
+                        *matCellDef="let element">
                         <app-tag [tagColor]="stateTag[element.state]">
                             {{stateName[element.state]()}}
                         </app-tag>

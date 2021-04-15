@@ -19,5 +19,6 @@ export const OperationMessages = {
     },
     warningServiceTypeDependency: (serviceTypeName: string, parentName: string) => {
         return `${parentName} no tiene activo el tipo de despacho ${serviceTypeName}, por favor primero activalo en el local y vuelve a intentarlo.`;
-    }
+    },
+    errorDetailDialog: 'Hubo un error al cargar más detalles, por favor vuelve a intentarlo.'
 };

@@ -14,115 +14,108 @@
     </div>
 
     <div class="dialog-content">
-        <mat-tab-group class="dialog-tab-group"
-                       [disableRipple]="true">
-            <mat-tab label="General">
-                <div class="dialog-tab-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <app-card-static-information iconName="store">
-                                <ng-container information-title>Nomenclatura</ng-container>
-                                <ng-container information-caption>{{storeDetail.code}} {{storeDetail.name}}</ng-container>
-                            </app-card-static-information>
-                        </div>
-                        <div class="col-12 mt-5">
-                            <app-card-static-information iconName="location_on">
-                                <ng-container information-title>Ubicación</ng-container>
-                                <ng-container information-caption>{{storeDetail.address}}</ng-container>
-                            </app-card-static-information>
-                        </div>
-                        <div class="col-12 mt-5">
-                            <app-card-static-information iconName="access_time">
-                                <ng-container information-title>Horario de atención</ng-container>
-                                <ng-container information-caption>{{startAndEndHour}}</ng-container>
-                            </app-card-static-information>
-                        </div>
+        <app-tab-group dialog-tab-group>
+            <app-tab label="General">
+                <div class="row">
+                    <div class="col-12">
+                        <app-card-static-information iconName="store">
+                            <ng-container information-title>Nomenclatura</ng-container>
+                            <ng-container information-caption>{{storeDetail.code}} {{storeDetail.name}}</ng-container>
+                        </app-card-static-information>
+                    </div>
+                    <div class="col-12 mt-5">
+                        <app-card-static-information iconName="location_on">
+                            <ng-container information-title>Ubicación</ng-container>
+                            <ng-container information-caption>{{storeDetail.address}}</ng-container>
+                        </app-card-static-information>
+                    </div>
+                    <div class="col-12 mt-5">
+                        <app-card-static-information iconName="access_time">
+                            <ng-container information-title>Horario de atención</ng-container>
+                            <ng-container information-caption>{{startAndEndHour}}</ng-container>
+                        </app-card-static-information>
+                    </div>
 
-                        <div class="col-12 mt-5">
-                            <app-card-static-information iconName="shopping_bag">
-                                <ng-container information-title>Marcas</ng-container>
-                                <ng-container information-caption>
-                                    <ng-container *ngFor="let company of storeDetail.companyList; let last = last">
-                                        {{companyName[company]}}
-                                        <span class="mx-2" *ngIf="!last">-</span>
-                                    </ng-container>
+                    <div class="col-12 mt-5">
+                        <app-card-static-information iconName="shopping_bag">
+                            <ng-container information-title>Marcas</ng-container>
+                            <ng-container information-caption>
+                                <ng-container *ngFor="let company of storeDetail.companyList; let last = last">
+                                    {{companyName[company]}}
+                                    <span class="mx-2" *ngIf="!last">-</span>
                                 </ng-container>
-                            </app-card-static-information>
-                        </div>
+                            </ng-container>
+                        </app-card-static-information>
                     </div>
                 </div>
-            </mat-tab>
-            <mat-tab label="Despacho">
-                <div class="dialog-tab-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <app-card-static-information iconName="motorcycle">
-                                <ng-container information-title>Tipo de despacho</ng-container>
-                                <ng-container information-caption>
-                                    <ng-container *ngFor="let serviceType of storeDetail.serviceTypeList; let last = last">
-                                        {{serviceTypeName[serviceType.code]}}
-                                        <span class="mx-2" *ngIf="!last">-</span>
-                                    </ng-container>
+            </app-tab>
+            <app-tab label="Despacho">
+                <div class="row">
+                    <div class="col-12">
+                        <app-card-static-information iconName="motorcycle">
+                            <ng-container information-title>Tipo de despacho</ng-container>
+                            <ng-container information-caption>
+                                <ng-container *ngFor="let serviceType of storeDetail.serviceTypeList; let last = last">
+                                    {{serviceTypeName[serviceType.code]}}
+                                    <span class="mx-2" *ngIf="!last">-</span>
                                 </ng-container>
-                            </app-card-static-information>
-                        </div>
-                        <div class="col-12 mt-5">
-                            <app-card-static-information iconName="record_voice_over">
-                                <ng-container information-title>Canales de atención</ng-container>
-                                <ng-container information-caption>
-                                    <ng-container *ngFor="let channel of storeDetail.channelList; let last = last">
-                                        {{channelName[channel]}}
-                                        <span class="mx-2" *ngIf="!last">-</span>
-                                    </ng-container>
+                            </ng-container>
+                        </app-card-static-information>
+                    </div>
+                    <div class="col-12 mt-5">
+                        <app-card-static-information iconName="record_voice_over">
+                            <ng-container information-title>Canales de atención</ng-container>
+                            <ng-container information-caption>
+                                <ng-container *ngFor="let channel of storeDetail.channelList; let last = last">
+                                    {{channelName[channel]}}
+                                    <span class="mx-2" *ngIf="!last">-</span>
                                 </ng-container>
-                            </app-card-static-information>
-                        </div>
-                        <div class="col-12 mt-5">
-                            <app-card-static-information iconName="account_balance_wallet">
-                                <ng-container information-title>Métodos de pago</ng-container>
-                                <ng-container information-caption>
-                                    <ng-container *ngFor="let paymentMethod of storeDetail.paymentMethodList; let last = last">
-                                        {{paymentMethodName[paymentMethod]}}
-                                        <span class="mx-2" *ngIf="!last">-</span>
-                                    </ng-container>
+                            </ng-container>
+                        </app-card-static-information>
+                    </div>
+                    <div class="col-12 mt-5">
+                        <app-card-static-information iconName="account_balance_wallet">
+                            <ng-container information-title>Métodos de pago</ng-container>
+                            <ng-container information-caption>
+                                <ng-container *ngFor="let paymentMethod of storeDetail.paymentMethodList; let last = last">
+                                    {{paymentMethodName[paymentMethod]}}
+                                    <span class="mx-2" *ngIf="!last">-</span>
                                 </ng-container>
-                            </app-card-static-information>
-                        </div>
-                        <div class="col-12 mt-5">
-                            <app-card-static-information iconName="group_work">
-                                <ng-container information-title>Grupo</ng-container>
-                                <ng-container information-caption>{{storeDetail.groupName}}</ng-container>
-                            </app-card-static-information>
-                        </div>
+                            </ng-container>
+                        </app-card-static-information>
+                    </div>
+                    <div class="col-12 mt-5">
+                        <app-card-static-information iconName="group_work">
+                            <ng-container information-title>Grupo</ng-container>
+                            <ng-container information-caption>{{storeDetail.groupName}}</ng-container>
+                        </app-card-static-information>
                     </div>
                 </div>
-            </mat-tab>
-            <mat-tab label="Zonas atendidas">
-                <div class="dialog-tab-body dialog-tab-table">
-                    <table mat-table
-                           [dataSource]="dataSource"
-                           matSort
-                           class="dialog-table">
+            </app-tab>
+            <app-tab label="Zonas atendidas">
+                <table mat-table
+                       [dataSource]="dataSource"
+                       matSort
+                       class="dialog-table">
 
-                        <ng-container matColumnDef="zoneCode">
-                            <th mat-header-cell *matHeaderCellDef  mat-sort-header>Código</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{element.code}}
-                            </td>
-                        </ng-container>
+                    <ng-container matColumnDef="zoneCode">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Código</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.code}}
+                        </td>
+                    </ng-container>
 
-                        <ng-container matColumnDef="zoneName">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre de zona</th>
-                            <td mat-cell *matCellDef="let element">
-                                <span class="text-button">{{element.name}}</span>
-                            </td>
-                        </ng-container>
+                    <ng-container matColumnDef="zoneName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre de zona</th>
+                        <td mat-cell *matCellDef="let element">
+                            <span class="text-button">{{element.name}}</span>
+                        </td>
+                    </ng-container>
 
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </table>
-                </div>
-            </mat-tab>
-        </mat-tab-group>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </app-tab>
+        </app-tab-group>
     </div>
 </section>

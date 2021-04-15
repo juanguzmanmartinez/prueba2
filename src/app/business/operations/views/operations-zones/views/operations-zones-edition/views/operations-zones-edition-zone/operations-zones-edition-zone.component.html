@@ -30,12 +30,12 @@
     </div>
 
     <app-empty-result (action)="zoneListRoute()"
-                      *ngIf="!zoneDetail && !channelList && !zoneEditionLoader && !zoneListEditionLoader">
+                      *ngIf="(!zoneDetail || !channelList || !storeList) && !zoneEditionLoader && !zoneListEditionLoader">
         <ng-container empty-result-title>Esta zona no está disponible para edición.</ng-container>
         <ng-container empty-result-action>Ir a lista de zonas</ng-container>
     </app-empty-result>
     <app-empty-result (action)="backRoute()"
-                      *ngIf="!!zoneDetail && !channelList && !zoneEditionLoader && !zoneListEditionLoader">
+                      *ngIf="!!zoneDetail && (!channelList || !storeList) && !zoneEditionLoader && !zoneListEditionLoader">
         <ng-container empty-result-title> {{zoneDetail?.name || 'Esta zona'}} no está disponible para edición.</ng-container>
         <ng-container empty-result-action>Ir a {{zoneDetail?.name || 'la zona'}}</ng-container>
     </app-empty-result>

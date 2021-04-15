@@ -34,10 +34,12 @@ export class OpZonesHomeZoneDetailDialogService implements OnDestroy {
             .pipe(take(1))
             .subscribe((closeResult: boolean) => {
                 this.dialogZoneDetailSubject.next(closeResult);
+                this.dialogZoneDetailSubject.complete();
             });
     }
 
     openDialogLoader(): void {
+        this.dialogZoneDetailSubject = new BehaviorSubject<boolean>(false);
         this.dialogLoaderRef = this._dialogLoader.open();
     }
 
@@ -46,6 +48,10 @@ export class OpZonesHomeZoneDetailDialogService implements OnDestroy {
             .subscribe((zoneDetail: ZoneDetail) => {
                 this.openDialogZoneDetail(zoneDetail);
                 this.dialogLoaderRef.close();
+            }, (error) => {
+                this.dialogLoaderRef.close();
+                this.dialogZoneDetailSubject.error(error);
+                this.dialogZoneDetailSubject.complete();
             });
     }
 

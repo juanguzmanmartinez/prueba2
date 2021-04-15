@@ -4,6 +4,8 @@ import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { CStateValue } from '@models/state/state.model';
 import { ZoneServiceTypeRegistered } from '../../../../models/operations-zones-service-type.model';
+import { CChannelColor, CChannelName } from '@models/channel/channel.model';
+import { ETagAppearance } from '@models/tag/tag.model';
 
 @Component({
     selector: 'app-op-zones-edition-home-main-service-type-card',
@@ -13,6 +15,9 @@ import { ZoneServiceTypeRegistered } from '../../../../models/operations-zones-s
 export class OpZonesEditionHomeMainServiceTypeCardComponent implements OnInit {
     private serviceTypeName = CDeliveryServiceTypeName;
     private stateValue = CStateValue;
+    private channelName = CChannelName;
+    private channelColor = CChannelColor;
+    public tagAppearance = ETagAppearance;
 
     @Input() serviceType: ZoneServiceTypeRegistered;
     @Output() edit = new EventEmitter<EDeliveryServiceType>();
@@ -25,30 +30,45 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent implements OnInit {
     }
 
     get serviceTypeDisabled() {
-        return !this.stateValue[this.serviceType.serviceType.state] || !this.serviceType.available;
+        return !this.serviceType.serviceType || !this.stateValue[this.serviceType.serviceType.state] || !this.serviceType.available;
     }
 
     get segmentName() {
-        return this.serviceTypeName[this.serviceType.serviceType.code];
+        return this.serviceTypeName[this.serviceType.code];
+    }
+
+    get segmentChannelName() {
+        return this.channelName[this.serviceType.channel];
+    }
+
+    get segmentChannelColor() {
+        return this.serviceTypeDisabled ? 'gray-3' : this.channelColor[this.serviceType.channel];
     }
 
     get startAndEndHour() {
-        const startHour = DatesHelper.date(this.serviceType.serviceType.startHour, DATES_FORMAT.millisecond)
-            .format(DATES_FORMAT.hourMinuteDateTime);
-        const endHour = DatesHelper.date(this.serviceType.serviceType.endHour, DATES_FORMAT.millisecond)
-            .format(DATES_FORMAT.hourMinuteDateTime);
-        return `${startHour} - ${endHour}`;
+        if (this.serviceType.serviceType) {
+            const startHour = DatesHelper.date(this.serviceType.serviceType.startHour, DATES_FORMAT.millisecond)
+                .format(DATES_FORMAT.hourMinuteDateTime);
+            const endHour = DatesHelper.date(this.serviceType.serviceType.endHour, DATES_FORMAT.millisecond)
+                .format(DATES_FORMAT.hourMinuteDateTime);
+            return `${startHour} - ${endHour}`;
+        }
+        return 'No habilitado';
     }
 
     get segmentGap() {
-        const plural = this.serviceType.serviceType.segmentGap > 1;
-        return `${this.serviceType.serviceType.segmentGap} minuto${plural ? 's' : ''}`;
+        if (this.serviceType.serviceType) {
+            const plural = this.serviceType.serviceType.segmentGap > 1;
+            return `${this.serviceType.serviceType.segmentGap} minuto${plural ? 's' : ''}`;
+        }
+        return 'No habilitado';
     }
 
     editEvent() {
-        this.edit.emit(this.serviceType.serviceType.code);
+        this.edit.emit(this.serviceType.code);
     }
+
     addEvent() {
-        this.add.emit(this.serviceType.serviceType.code);
+        this.add.emit(this.serviceType.code);
     }
 }

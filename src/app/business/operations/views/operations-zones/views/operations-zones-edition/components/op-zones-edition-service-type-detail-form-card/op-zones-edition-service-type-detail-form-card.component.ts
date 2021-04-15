@@ -139,6 +139,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
     saveEditionEvent() {
         const zoneServiceTypeUpdate = {} as IZoneServiceTypeUpdate;
         zoneServiceTypeUpdate.enabled = this._serviceTypeDetailForm.stateControl.value;
+        zoneServiceTypeUpdate.channel = this.zoneServiceType.channel;
         if (zoneServiceTypeUpdate.enabled) {
             zoneServiceTypeUpdate.startHour = DatesHelper.Date(this._serviceTypeDetailForm.startHourControl.value, DATES_FORMAT.millisecond)
                 .format(DATES_FORMAT.hourMinuteSecond);

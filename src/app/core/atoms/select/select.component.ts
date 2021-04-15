@@ -15,7 +15,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit {
   @Input() value: T;
   @Input() disabled: boolean;
 
-  @Output() optionSelected = new EventEmitter();
+  @Output() optionChange = new EventEmitter();
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
 
@@ -33,7 +33,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit {
   }
 
   selectionChange(option: T) {
-    this.optionSelected.emit(option);
+    this.optionChange.emit(option);
     this.onChange(option);
   }
 

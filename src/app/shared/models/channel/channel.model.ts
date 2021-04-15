@@ -10,3 +10,9 @@ export const CChannelName = {
     [EChannel.call]: 'Call Center',
     [EChannel.omnichannel]: 'Omnicanalidad'
 };
+
+export const CChannelColor = {
+    [EChannel.digital]: 'dark-secondary-three',
+    [EChannel.call]: 'secondary-four',
+    [EChannel.omnichannel]: 'secondary-two'
+};

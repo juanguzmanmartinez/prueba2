@@ -11,85 +11,83 @@
                         {{stateName[zoneDetail.state]()}}
                     </app-tag>
                 </p>
-                {{zoneDetail.name}}
-            </ng-container>
-            <ng-container dialog-header-description>
-                {{zoneDetail.code}}
+                <p class="text-wrap">
+                    {{zoneDetail.name}}
+                    <span class="text-gray-5 ms-3">- {{zoneDetail.code}}</span>
+                </p>
             </ng-container>
         </app-dialog-header>
     </div>
 
     <div class="dialog-content mb-6">
-        <mat-tab-group class="dialog-tab-group"
-                       [disableRipple]="true">
-            <mat-tab label="General">
-                <div class="dialog-tab-body">
-                    <div class="row">
-                        <div class="col-12 mb-5">
-                            <app-card-static-information iconName="store">
-                                <ng-container information-title>Local asignado</ng-container>
-                                <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
-                            </app-card-static-information>
-                        </div>
-                        <div class="col-12 mb-5">
-                            <app-card-static-information iconName="store">
-                                <ng-container information-title>Local secundario</ng-container>
-                                <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
-                            </app-card-static-information>
-                        </div>
-                        <div class="col-12 mb-5">
-                            <app-card-static-information iconName="shopping_bag">
-                                <ng-container information-title>Marcas</ng-container>
-                                <ng-container information-caption>
-                                    <ng-container *ngFor="let company of zoneDetail.companyList; let last = last">
-                                        {{companyName[company]}}
-                                        <span class="mx-2" *ngIf="!last">-</span>
-                                    </ng-container>
+        <app-tab-group dialog-tab-group>
+
+            <app-tab label="General">
+                <div class="row">
+                    <div class="col-12 mb-5">
+                        <app-card-static-information iconName="store">
+                            <ng-container information-title>Local asignado</ng-container>
+                            <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
+                        </app-card-static-information>
+                    </div>
+                    <div class="col-12 mb-5">
+                        <app-card-static-information iconName="store">
+                            <ng-container information-title>Local secundario</ng-container>
+                            <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
+                        </app-card-static-information>
+                    </div>
+                    <div class="col-12 mb-5">
+                        <app-card-static-information iconName="shopping_bag">
+                            <ng-container information-title>Marcas</ng-container>
+                            <ng-container information-caption>
+                                <ng-container *ngFor="let company of zoneDetail.companyList; let last = last">
+                                    {{companyName[company]}}
+                                    <span class="mx-2" *ngIf="!last">-</span>
                                 </ng-container>
-                            </app-card-static-information>
-                        </div>
+                            </ng-container>
+                        </app-card-static-information>
                     </div>
                 </div>
-            </mat-tab>
-            <mat-tab label="Despacho">
-                <div class="dialog-tab-body">
-                    <div class="row">
-                        <div class="col-12 mb-5">
-                            <app-card-static-information iconName="record_voice_over">
-                                <ng-container information-title>Canales de atención</ng-container>
-                                <ng-container information-caption>
-                                    <ng-container *ngFor="let channel of zoneDetail.channelList; let last = last">
-                                        {{channelName[channel]}}
-                                        <span class="mx-2" *ngIf="!last">-</span>
-                                    </ng-container>
+            </app-tab>
+
+            <app-tab label="Despacho">
+                <div class="row">
+                    <div class="col-12 mb-5">
+                        <app-card-static-information iconName="record_voice_over">
+                            <ng-container information-title>Canales de atención</ng-container>
+                            <ng-container information-caption>
+                                <ng-container *ngFor="let channel of zoneDetail.channelList; let last = last">
+                                    {{channelName[channel]}}
+                                    <span class="mx-2" *ngIf="!last">-</span>
                                 </ng-container>
-                            </app-card-static-information>
-                        </div>
-                        <div class="col-12 mb-5">
-                            <app-card-static-information iconName="motorcycle">
-                                <ng-container information-title>Tipo de despacho</ng-container>
-                                <ng-container information-caption>
-                                    <ng-container *ngFor="let serviceType of zoneDetail.serviceTypeList; let last = last">
-                                        {{serviceTypeName[serviceType.code]}}
-                                        <span class="mx-2" *ngIf="!last">-</span>
-                                    </ng-container>
+                            </ng-container>
+                        </app-card-static-information>
+                    </div>
+                    <div class="col-12 mb-5">
+                        <app-card-static-information iconName="motorcycle">
+                            <ng-container information-title>Tipo de despacho</ng-container>
+                            <ng-container information-caption>
+                                <ng-container *ngFor="let serviceType of zoneDetail.serviceTypeList; let last = last">
+                                    {{serviceTypeName[serviceType.code]}}
+                                    <span class="mx-2" *ngIf="!last">-</span>
                                 </ng-container>
-                            </app-card-static-information>
-                        </div>
-                        <div class="col-12 mb-5">
-                            <app-card-static-information iconName="info">
-                                <ng-container information-title>Etiquetas</ng-container>
-                                <ng-container information-caption>
-                                    <app-tag [tagColor]="labelColor[zoneDetail.label]"
-                                             [appearance]="tagAppearance.coloredPill">
-                                        {{zoneDetail.label}}
-                                    </app-tag>
-                                </ng-container>
-                            </app-card-static-information>
-                        </div>
+                            </ng-container>
+                        </app-card-static-information>
+                    </div>
+                    <div class="col-12 mb-5">
+                        <app-card-static-information iconName="info">
+                            <ng-container information-title>Etiquetas</ng-container>
+                            <ng-container information-caption>
+                                <app-tag [tagColor]="labelColor[zoneDetail.label]"
+                                         [appearance]="tagAppearance.coloredPill">
+                                    {{zoneDetail.label}}
+                                </app-tag>
+                            </ng-container>
+                        </app-card-static-information>
                     </div>
                 </div>
-            </mat-tab>
-        </mat-tab-group>
+            </app-tab>
+
+        </app-tab-group>
     </div>
 </section>

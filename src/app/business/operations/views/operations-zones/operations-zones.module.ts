@@ -34,7 +34,7 @@ import { OpZonesEditionServiceTypeDetailDialogComponent } from './views/operatio
 
 import { OperationsZonesImplementService } from './implements/operations-zones-implement.service';
 import { CardModule } from '@molecules/cards/card.module';
-import { MatTabsModule } from '@angular/material/tabs';
+import { SelectTabModule } from '@atoms/select-tab/select-tab.module';
 import { SwitchModule } from '@atoms/switch/switch.module';
 import { FormFieldModule } from '@molecules/form-field/form-field.module';
 import { SelectSearchModule } from '@atoms/select-search/select-search.module';
@@ -104,7 +104,7 @@ import { OpZonesEditionBackupServiceTypeDetailCardComponent } from './views/oper
         FormsModule,
         PaginatorModule,
         CardModule,
-        MatTabsModule,
+        SelectTabModule,
         SwitchModule,
         FormFieldModule,
         SelectSearchModule,

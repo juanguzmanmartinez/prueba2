@@ -10,7 +10,9 @@
     </div>
     <div class="d-inline-block ps-0 mw-75">
         <h1 class="text-h5 mb-0" [class.mb-2]="headerDescription.childNodes.length">
-                <span class="d-block text-truncate"><ng-content select="[dialog-header-title]"></ng-content></span>
+                <span class="d-block text-truncate">
+                    <ng-content select="[dialog-header-title]"></ng-content>
+                </span>
         </h1>
         <p class="text-caption text-gray-5 mb-0" #headerDescription>
             <ng-content select="[dialog-header-description]"></ng-content>

@@ -21,6 +21,7 @@ export interface IZoneServiceTypeUpdate {
     startHour: string;
     endHour: string;
     segmentGap: number;
+    channel: EChannel;
 }
 
 export interface IZoneServiceTypeRegister {
@@ -29,6 +30,7 @@ export interface IZoneServiceTypeRegister {
     startHour: string;
     endHour: string;
     segmentGap: string;
+    channel: EChannel;
 }
 
 export interface IZone {
@@ -39,11 +41,11 @@ export interface IZone {
     fulfillmentCenterCode: string;
     serviceTypes: IZoneServiceType[];
     storeCenter: IStore;
+    channel: EChannel[];
 }
 
 export interface IZoneDetail extends IZone {
     zoneType: string;
-    channel: EChannel[];
     companyCode: ECompany[];
     zoneBackup: IZoneBackUp;
     backUpZone: boolean;

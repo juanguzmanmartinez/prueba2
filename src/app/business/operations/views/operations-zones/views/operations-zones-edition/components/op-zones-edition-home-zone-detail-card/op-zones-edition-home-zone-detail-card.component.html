@@ -3,8 +3,8 @@
         <div class="col-12">
             <h5 class="text-h5 mb-2">
                 {{zoneDetail.name}}
-                <span class="text-caption text-gray-5 ms-3">
-                    {{zoneDetail.code}}
+                <span class="text-gray-5 ms-3">
+                    - {{zoneDetail.code}}
                 </span>
             </h5>
             <app-tag class="d-block"
@@ -19,11 +19,18 @@
         <div class="col-6">
             <app-card-static-information class="d-block mb-5" iconName="store">
                 <ng-container information-title>Local de atención</ng-container>
-                <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
+                <ng-container information-caption>
+                    <ng-container *ngIf="zoneDetail.assignedStore">
+                        {{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}
+                    </ng-container>
+                    <ng-container *ngIf="!zoneDetail.assignedStore">
+                        Sin local de atención
+                    </ng-container>
+                </ng-container>
             </app-card-static-information>
 
             <app-card-static-information class="d-block mb-5" iconName="location_searching">
-                <ng-container information-title>Tipo de zona</ng-container>
+                <ng-container information-title>Tipo de zona (cobertura)</ng-container>
                 <ng-container information-caption>{{zoneTypeName[zoneDetail.zoneType]}}</ng-container>
             </app-card-static-information>
 
@@ -52,24 +59,24 @@
             </app-card-static-information>
         </div>
         <div class="col-6">
-            <app-card-static-information class="d-block mb-5" iconName="shopping_bag">
-                <ng-container information-title>Marcas</ng-container>
-                <ng-container information-caption>
-                    <ng-container *ngFor="let company of zoneDetail.companyList; let last = last">
-                            <span>
-                                {{companyName[company]}}
-                                <span class="mx-2" *ngIf="!last">-</span>
-                            </span>
-                    </ng-container>
-                </ng-container>
-            </app-card-static-information>
-
             <app-card-static-information class="d-block mb-5" iconName="record_voice_over">
                 <ng-container information-title>Canales de atención</ng-container>
                 <ng-container information-caption>
                     <ng-container *ngFor="let channel of zoneDetail.channelList; let last = last">
                             <span>
                                 {{channelName[channel]}}
+                                <span class="mx-2" *ngIf="!last">-</span>
+                            </span>
+                    </ng-container>
+                </ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information class="d-block mb-5" iconName="shopping_bag">
+                <ng-container information-title>Marcas</ng-container>
+                <ng-container information-caption>
+                    <ng-container *ngFor="let company of zoneDetail.companyList; let last = last">
+                        <span>
+                                {{companyName[company]}}
                                 <span class="mx-2" *ngIf="!last">-</span>
                             </span>
                     </ng-container>

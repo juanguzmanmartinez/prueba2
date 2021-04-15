@@ -3,7 +3,7 @@ import { ETag } from '@models/tag/tag.model';
 export enum EState {
     active = 'active',
     inactive = 'inactive',
-    close = 'inactive',
+    closed = 'closed',
     disabled = 'disabled',
     enabled = 'enabled',
 }
@@ -11,7 +11,7 @@ export enum EState {
 export const CStateValue = {
     [EState.active]: true,
     [EState.inactive]: false,
-    [EState.close]: false,
+    [EState.closed]: false,
     [EState.disabled]: false,
     [EState.enabled]: true,
 };
@@ -19,7 +19,7 @@ export const CStateValue = {
 export const CStateTag = {
     [EState.active]: ETag.success,
     [EState.inactive]: ETag.error,
-    [EState.close]: ETag.error,
+    [EState.closed]: ETag.error,
     [EState.enabled]: ETag.success,
     [EState.disabled]: ETag.error,
 };
@@ -27,7 +27,7 @@ export const CStateTag = {
 export const CStateName = {
     [EState.active]: (vowel: string = 'o') => `activ${vowel}`,
     [EState.inactive]: (vowel: string = 'o') => `inactiv${vowel}`,
-    [EState.close]: (vowel: string = 'o') => `cerrad${vowel}`,
+    [EState.closed]: (vowel: string = 'o') => `cerrad${vowel}`,
     [EState.enabled]: (vowel: string = 'o') => `activad${vowel}`,
     [EState.disabled]: (vowel: string = 'o') => `desactivad${vowel}`,
 };
