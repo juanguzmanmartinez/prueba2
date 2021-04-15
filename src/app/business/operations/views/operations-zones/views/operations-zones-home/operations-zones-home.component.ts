@@ -80,8 +80,9 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
             const assignedStoreNameNormalize = normalizeValue(data.assignedStore ? data.assignedStore.name : '');
             const assignedStoreCodeNormalize = normalizeValue(data.assignedStoreCode);
             const serviceTypeNormalize = normalizeValue(data.serviceTypeList.map(serviceType => this.serviceTypeName[serviceType]).join(''));
+            const channelNormalize = normalizeValue(data.channelList.map(channel => this.channelName[channel]).join(''));
             const stateNormalize = normalizeValue(this.stateName[data.state]());
-            const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize, serviceTypeNormalize, stateNormalize];
+            const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize, serviceTypeNormalize, channelNormalize, stateNormalize];
 
             const concatValue = normalizeValue(valueArray.join(''));
             const everyValue = valueArray.some(value => value.includes(filterNormalize));
