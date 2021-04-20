@@ -8,5 +8,13 @@ export enum ETagAppearance {
     default = 'default',
     uppercase = 'uppercase',
     transparentPill = 'pill-transparent',
-    coloredPill = 'pill-colored',
+    coloredWhitePill = 'pill-colored-white',
+    coloredDarkPill = 'pill-colored-dark',
 }
+
+export type TTagAppearance =
+    ETagAppearance.default |
+    ETagAppearance.uppercase |
+    ETagAppearance.transparentPill |
+    ETagAppearance.coloredWhitePill |
+    ETagAppearance.coloredDarkPill;

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { Role } from '@parameters/auth/role.parameter';
 
 @Component({
@@ -10,7 +10,7 @@ import { Role } from '@parameters/auth/role.parameter';
 })
 export class SidenavComponent implements OnInit {
 
-  public concatPath = CONCAT_PATH;
+  public concatPath = ROUTER_PATH;
   public roles = Role;
 
   constructor() { }

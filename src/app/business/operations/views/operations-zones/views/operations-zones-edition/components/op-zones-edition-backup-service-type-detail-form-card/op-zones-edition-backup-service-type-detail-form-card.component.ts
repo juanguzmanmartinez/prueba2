@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ZoneBackup, ZoneDetail } from '../../../../models/operations-zones.model';
 import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { ZoneBackupServiceType } from '../../../../models/operations-zones-service-type.model';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OpZonesEditionBackupServiceTypeDetailFormCardFormService, ZoneBackupServiceTypeDetailControlName } from './form/op-zones-edition-backup-service-type-detail-form-card-form.service';
 import { CGStateSettingByState, CGStateSettingByValue, CStateValue, EStateSetting } from '@models/state/state.model';
 import { IZoneBackupUpdate } from '@interfaces/zones/zones.interface';
@@ -45,7 +45,7 @@ export class OpZonesEditionBackupServiceTypeDetailFormCardComponent implements O
     }
 
     get zoneBackupPath() {
-        return CONCAT_PATH.opZones_ZoneCode(this.zoneBackupDetail.code);
+        return ROUTER_PATH.opZones_Zone(this.zoneBackupDetail.code);
     }
 
     cancelEditionEvent() {

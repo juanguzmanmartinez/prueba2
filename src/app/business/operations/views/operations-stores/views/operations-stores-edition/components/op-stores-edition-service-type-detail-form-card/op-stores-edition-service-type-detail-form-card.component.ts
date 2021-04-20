@@ -5,7 +5,7 @@ import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { CStateValue } from '@models/state/state.model';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { IStoreServiceTypeUpdate } from '@interfaces/stores/stores.interface';
 import { OpStoresEditionServiceTypeDetailFormCardFormService, StoreServiceTypeControlName } from './form/op-stores-edition-service-type-detail-form-card-form-service';
 import { FormGroup } from '@angular/forms';
@@ -29,7 +29,7 @@ export class OpStoresEditionServiceTypeDetailFormCardComponent implements OnInit
     public serviceTypeName = CDeliveryServiceTypeName;
     public paymentMethodName = CPaymentMethodName;
     public controlNameList = StoreServiceTypeControlName;
-    public configurationPath = CONCAT_PATH.operationSettings;
+    public configurationPath = ROUTER_PATH.operationSettings;
 
     public splitSegmentList: string[] = [];
     public paymentMethodList: EPaymentMethod[] = [];

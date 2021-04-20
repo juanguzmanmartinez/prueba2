@@ -6,7 +6,7 @@ import { UserStoreService } from '@stores/user-store.service';
 import { TokenStoreService } from '@stores/token-store.service';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 
 @Injectable()
@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate, CanLoad {
             return false;
         }
         if (roles && !roles.some(role => this._userStore.hasRole(role))) {
-            this._router.navigate([CONCAT_PATH.notFound]);
+            this._router.navigate([ROUTER_PATH.notFound]);
             return false;
         }
         return true;

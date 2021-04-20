@@ -13,8 +13,8 @@ import { IZoneDetailUpdate } from '@interfaces/zones/zones.interface';
 import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
 import { AlertService } from '@molecules/alert/alert.service';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
-import { EZoneType } from '../../../../models/operations-zones-type.model';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { EZoneType } from '../../../../parameters/operations-zones-type.parameter';
 
 @Component({
     selector: 'app-operations-zones-edition-zone',
@@ -140,7 +140,7 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
     }
 
     zoneListRoute() {
-        this._router.navigate([CONCAT_PATH.operationZones]);
+        this._router.navigate([ROUTER_PATH.operationZones]);
     }
 
     ngOnDestroy() {

@@ -38,48 +38,51 @@
             </div>
         </div>
 
-        <div class="row mb-4">
-            <div class="col-12">
-                <app-form-field>
-                    <app-form-field-label>Duración de ventanas horarias</app-form-field-label>
-                    <div class="d-flex-vertical-center">
-                        <app-input [formControlName]="controlNameList.intervalTime"
-                                   placeholder="horas"
-                                   class="d-inline-block interval-time-input">
-                        </app-input>
+        <ng-container *ngIf="zoneServiceType.code !== serviceTypeCode.express">
 
-                        <p class="d-inline-flex align-items-center ms-3 mb-0"
-                           *appRouterAccess="configurationPath">
-                            <app-icon fontName="info"
-                                      fontSize="24px"
-                                      innerClass="text-gray-5 me-2"></app-icon>
-                            <span class=" text-caption text-gray-5">Puedes editar este valor en
+            <div class="row mb-4">
+                <div class="col-12">
+                    <app-form-field>
+                        <app-form-field-label>Duración de ventanas horarias</app-form-field-label>
+                        <div class="d-flex-vertical-center">
+                            <app-input [formControlName]="controlNameList.intervalTime"
+                                       placeholder="horas"
+                                       class="d-inline-block interval-time-input">
+                            </app-input>
+
+                            <p class="d-inline-flex align-items-center ms-3 mb-0"
+                               *appRouterAccess="configurationPath">
+                                <app-icon fontName="info"
+                                          fontSize="24px"
+                                          innerClass="text-gray-5 me-2"></app-icon>
+                                <span class=" text-caption text-gray-5">Puedes editar este valor en
                             <app-router [router]="configurationPath">
                                 <span class="text-decoration-underline text-gray-5 font-weight-bold">
                                     configuraciones
                                 </span>
                             </app-router>
                         </span>
-                        </p>
-                    </div>
-                </app-form-field>
+                            </p>
+                        </div>
+                    </app-form-field>
+                </div>
             </div>
-        </div>
 
-        <div class="row mb-5">
-            <div class="col-12">
-                <app-form-field>
-                    <app-form-field-label>Resultado de número de ventanas horarias</app-form-field-label>
-                    <app-input [formControlName]="controlNameList.splitSegment"
-                               class="d-inline-block me-4 service-segment-input">
-                    </app-input>
-                    <app-button (clicked)="openServiceTypeDetailDialog()"
-                                appearance="outline">Ver detalle
-                    </app-button>
-                </app-form-field>
+            <div class="row mb-5">
+                <div class="col-12">
+                    <app-form-field>
+                        <app-form-field-label>Resultado de número de ventanas horarias</app-form-field-label>
+                        <app-input [formControlName]="controlNameList.splitSegment"
+                                   class="d-inline-block me-4 service-segment-input">
+                        </app-input>
+                        <app-button (clicked)="openServiceTypeDetailDialog()"
+                                    appearance="outline">Ver detalle
+                        </app-button>
+                    </app-form-field>
+                </div>
             </div>
-        </div>
 
+        </ng-container>
 
         <div class="row mb-9">
             <div class="col-12">
@@ -103,6 +106,7 @@
             </app-button>
             <app-button appearance="primary"
                         appEditionAccess
+                        [disabled]="form$.invalid"
                         (access)="saveEditionEvent()">
                 Guardar cambios
             </app-button>

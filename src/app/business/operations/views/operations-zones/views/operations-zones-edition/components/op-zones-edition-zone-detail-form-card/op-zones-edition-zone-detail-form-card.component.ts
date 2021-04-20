@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { CZoneLabelColor, EZoneLabel } from '../../../../models/operations-zones-label.model';
 import { ETagAppearance } from '@models/tag/tag.model';
 import { IZoneDetailUpdate } from '@interfaces/zones/zones.interface';
-import { CZoneTypeName, CZoneTypeValue, EZoneType } from '../../../../models/operations-zones-type.model';
+import { CZoneTypeName, CZoneTypeValue, EZoneType } from '../../../../parameters/operations-zones-type.parameter';
 
 @Component({
     selector: 'app-op-zones-edition-zone-detail-form-card',

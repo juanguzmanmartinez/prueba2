@@ -4,7 +4,7 @@ import { User } from '@models/auth/user.model';
 import { TokenStoreService } from '@stores/token-store.service';
 import { IUser } from '@interfaces/auth/user.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -51,6 +51,6 @@ export class UserStoreService {
         this.user = null;
         this.userSubject.next(null);
         this._tokenStore.removeAccessToken();
-        this._router.navigate([CONCAT_PATH.login]);
+        this._router.navigate([ROUTER_PATH.login]);
     }
 }

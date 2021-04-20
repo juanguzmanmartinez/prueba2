@@ -23,4 +23,8 @@ export class TagDeleteComponent implements OnInit {
         this.delete.emit();
     }
 
+    get tagTextColor() {
+        return this.tagColor ? `dark-${this.tagColor}` : 'gray-6';
+    }
+
 }

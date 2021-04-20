@@ -7,7 +7,7 @@ import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-conf
 import { AlertService } from '@molecules/alert/alert.service';
 import { Subscription } from 'rxjs';
 import { parseUrl } from '@helpers/parse-url.helper';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { IZoneBackupUpdate } from '@interfaces/zones/zones.interface';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 
@@ -113,7 +113,7 @@ export class OperationsZonesEditionBackupComponent implements OnInit, OnDestroy 
     }
 
     zoneListRoute() {
-        this._router.navigate([CONCAT_PATH.operationZones]);
+        this._router.navigate([ROUTER_PATH.operationZones]);
     }
 
     ngOnDestroy() {

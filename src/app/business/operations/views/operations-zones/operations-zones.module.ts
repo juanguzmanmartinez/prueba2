@@ -57,6 +57,7 @@ import { OpZonesEditionBackupDetailCardComponent } from './views/operations-zone
 import { OpZonesEditionBackupDetailFormCardComponent } from './views/operations-zones-edition/components/op-zones-edition-backup-detail-form-card/op-zones-edition-backup-detail-form-card.component';
 import { OpZonesEditionBackupServiceTypeDetailFormCardComponent } from './views/operations-zones-edition/components/op-zones-edition-backup-service-type-detail-form-card/op-zones-edition-backup-service-type-detail-form-card.component';
 import { OpZonesEditionBackupServiceTypeDetailCardComponent } from './views/operations-zones-edition/components/op-zones-edition-backup-service-type-detail-card/op-zones-edition-backup-service-type-detail-card.component';
+import { GuardServiceModule } from '@guards/guard-service.module';
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { OpZonesEditionBackupServiceTypeDetailCardComponent } from './views/oper
     imports: [
         CommonModule,
         OperationsZonesRoutingModule,
+        GuardServiceModule,
         BackRouterModule,
         InputsModule,
         MatTableModule,

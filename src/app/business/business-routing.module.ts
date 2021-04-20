@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule, Routes } from '@angular/router';
 import { BusinessComponent } from './business.component';
-import { BUSINESS_PATH } from '@parameters/router/router-path.parameter';
+import { BUSINESS_PATH } from '@parameters/router/routing-module-path.parameter';
 import { AuthGuard } from '@guards/auth.guard';
 import { AccountGuard } from '@guards/account.guard';
 import { ROUTER_ACCESS } from '@parameters/router/router-access.parameter';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 const OPERATIONS: Route = {
     path: BUSINESS_PATH.operations.valueOf(),
@@ -20,7 +20,7 @@ const ACCOUNT: Route = {
 const ADMIN: Route = {
     path: BUSINESS_PATH.admin.valueOf(),
     canLoad: [AuthGuard],
-    data: {roles: ROUTER_ACCESS[CONCAT_PATH.admin.valueOf()]},
+    data: {roles: ROUTER_ACCESS[ROUTER_PATH.admin.valueOf()]},
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
 };
 

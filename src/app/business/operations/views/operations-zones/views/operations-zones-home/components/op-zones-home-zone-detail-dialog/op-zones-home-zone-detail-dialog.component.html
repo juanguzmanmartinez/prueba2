@@ -33,7 +33,14 @@
                     <div class="col-12 mb-5">
                         <app-card-static-information iconName="store">
                             <ng-container information-title>Local secundario</ng-container>
-                            <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
+                            <ng-container information-caption>
+                                <ng-container *ngIf="zoneDetail.zoneBackup">
+                                    {{zoneDetail.zoneBackup.assignedStoreCode}} {{zoneDetail.zoneBackup.assignedStoreName}}
+                                </ng-container>
+                                <ng-container *ngIf="!zoneDetail.zoneBackup">
+                                    Sin local secundario
+                                </ng-container>
+                            </ng-container>
                         </app-card-static-information>
                     </div>
                     <div class="col-12 mb-5">
@@ -79,7 +86,7 @@
                             <ng-container information-title>Etiquetas</ng-container>
                             <ng-container information-caption>
                                 <app-tag [tagColor]="labelColor[zoneDetail.label]"
-                                         [appearance]="tagAppearance.coloredPill">
+                                         [appearance]="tagAppearance.coloredDarkPill">
                                     {{zoneDetail.label}}
                                 </app-tag>
                             </ng-container>

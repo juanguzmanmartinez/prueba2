@@ -6,7 +6,7 @@ import { CGStateByStateSetting, EState } from '@models/state/state.model';
 import { ZonesStore } from './operations-zones-store.model';
 import { EZoneLabel } from './operations-zones-label.model';
 import { ZoneServiceType } from './operations-zones-service-type.model';
-import { CGZoneType, EZoneType } from './operations-zones-type.model';
+import { CGZoneType, EZoneType } from '../parameters/operations-zones-type.parameter';
 
 
 class ZoneBase {

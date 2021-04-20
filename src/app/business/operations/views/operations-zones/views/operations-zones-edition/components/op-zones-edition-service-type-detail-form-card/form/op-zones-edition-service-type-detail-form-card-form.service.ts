@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ZoneServiceTypeSegmentGapControl } from '../controls/zone-service-type-segment-gap.control';
 
 export class ZoneServiceTypeControlName {
     static state = 'state';
@@ -18,7 +19,7 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
     private _stateControl: FormControl = new FormControl(null);
     private _startHourControl: FormControl = new FormControl(null);
     private _endHourControl: FormControl = new FormControl(null);
-    private _segmentGapControl: FormControl = new FormControl('');
+    private _segmentGapControl: ZoneServiceTypeSegmentGapControl = new ZoneServiceTypeSegmentGapControl(null);
     private _intervalTimeControl: FormControl = new FormControl('');
     private _splitSegmentControl: FormControl = new FormControl('');
 
@@ -54,8 +55,8 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
         return this.form$.get(this._controlNameList.endHour) as FormControl;
     }
 
-    get segmentGapControl(): FormControl {
-        return this.form$.get(this._controlNameList.segmentGap) as FormControl;
+    get segmentGapControl(): ZoneServiceTypeSegmentGapControl {
+        return this.form$.get(this._controlNameList.segmentGap) as ZoneServiceTypeSegmentGapControl;
     }
 
     get intervalTimeControl(): FormControl {

@@ -150,9 +150,11 @@ export class ZoneBackupServiceTypeList {
     scheduled: ZoneBackupServiceTypeRegistered;
 
     constructor(zoneServiceTypeList: ZoneServiceType[], zoneBackup?: ZoneBackup) {
-        const zoneAmPm: ZoneServiceType = zoneServiceTypeList
+        const zoneDigitalServiceTypeList = zoneServiceTypeList
+            .filter((zoneServiceType) => zoneServiceType.channel === EChannel.digital);
+        const zoneAmPm: ZoneServiceType = zoneDigitalServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.amPm);
-        const zoneScheduled: ZoneServiceType = zoneServiceTypeList
+        const zoneScheduled: ZoneServiceType = zoneDigitalServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.scheduled);
         this.amPm = new ZoneBackupServiceTypeRegistered(zoneAmPm, zoneBackup?.forceServiceAMPM, EDeliveryServiceType.amPm);
         this.scheduled = new ZoneBackupServiceTypeRegistered(zoneScheduled, zoneBackup?.forceServiceSCHEDULED, EDeliveryServiceType.scheduled);

@@ -3,7 +3,7 @@ import { ZoneBackup, ZoneDetail } from '../../../../models/operations-zones.mode
 import { ZoneBackupServiceTypeList } from '../../../../models/operations-zones-service-type.model';
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { CStateValue } from '@models/state/state.model';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
     selector: 'app-op-zones-edition-home-backup-setting-tab',
@@ -35,6 +35,6 @@ export class OpZonesEditionHomeBackupSettingTabComponent implements OnInit {
     }
 
     get zoneBackupPath() {
-        return CONCAT_PATH.opZones_ZoneCode(this.zoneBackupDetail.code);
+        return ROUTER_PATH.opZones_Zone(this.zoneBackupDetail.code);
     }
 }

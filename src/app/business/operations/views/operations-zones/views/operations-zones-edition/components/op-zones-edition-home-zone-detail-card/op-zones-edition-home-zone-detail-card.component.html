@@ -87,7 +87,7 @@
                 <ng-container information-title>Etiquetas</ng-container>
                 <ng-container information-caption>
                     <app-tag [tagColor]="labelColor[zoneDetail.label]"
-                             [appearance]="tagAppearance.coloredPill">
+                             [appearance]="tagAppearance.coloredDarkPill">
                         {{zoneDetail.label}}
                     </app-tag>
                 </ng-container>
@@ -95,7 +95,9 @@
         </div>
     </div>
 
-    <div app-card-edit-button
-         [editMessage]="zoneDetail.name"
-         (click)="editEvent()"></div>
+    <ng-container *appRouterAccess="zoneEditionPath">
+        <div app-card-edit-button
+             [editMessage]="zoneDetail.name"
+             (click)="editEvent()"></div>
+    </ng-container>
 </app-card>

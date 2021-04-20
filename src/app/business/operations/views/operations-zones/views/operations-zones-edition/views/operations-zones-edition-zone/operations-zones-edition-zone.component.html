@@ -30,7 +30,7 @@
     </div>
 
     <app-empty-result (action)="zoneListRoute()"
-                      *ngIf="(!zoneDetail || !channelList || !storeList) && !zoneEditionLoader && !zoneListEditionLoader">
+                      *ngIf="!zoneDetail && !zoneEditionLoader && !zoneListEditionLoader">
         <ng-container empty-result-title>Esta zona no está disponible para edición.</ng-container>
         <ng-container empty-result-action>Ir a lista de zonas</ng-container>
     </app-empty-result>

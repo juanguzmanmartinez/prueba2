@@ -1,60 +1,46 @@
-export const BUSINESS_PATH = {
-    wildcard: '**',
-    account: 'cuenta',
-    admin: 'administrador',
-    operations: 'operaciones',
-    notFound: 'no-encontrado',
-};
+import { BUSINESS_PATH, LOGIN_PATH, OP_CAPACITIES_PATH, OP_STORES_PATH, OP_ZONES_PATH, OPERATIONS_PATH } from '@parameters/router/routing-module-path.parameter';
 
-export const DELIVERY_SERVICE_TYPE_PATH = {
-    deliveryAmPm: 'am-pm',
-    deliveryScheduled: 'programado',
-    deliveryExpress: 'express',
-    deliveryRet: 'retiro-tienda',
-};
+export const ROUTER_PATH = {
+    base: '/',
+    notFound: `/${BUSINESS_PATH.notFound}`,
 
 
-export const LOGIN_PATH = {
-    login: 'iniciar-sesion',
-    recoverPassword: 'recuperar-contrasena',
-    recoverPasswordReset: 'contrasena',
-    recoverPasswordUser: 'usuario',
-    recoverPasswordCode: 'codigo',
-};
+    operations: `/${BUSINESS_PATH.operations}`,
+    operationSettings: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.settings}`,
 
-export const OPERATIONS_PATH = {
-    stores: 'locales',
-    zones: 'zonas',
-    capacities: 'capacidades',
-    settings: 'configuraciones'
-};
+    operationStores: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}`,
+    opStores_StoreId: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}`,
+    opStores_StoreEdition: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}/${OP_STORES_PATH.storeEdition}`,
+    opStores_StoreAmPmEdition: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}/${OP_STORES_PATH.storeAmPm}`,
+    opStores_StoreScheduledEdition: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}/${OP_STORES_PATH.storeScheduled}`,
+    opStores_StoreExpressEdition: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}/${OP_STORES_PATH.storeExpress}`,
+    opStores_StoreRetEdition: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}/${OP_STORES_PATH.storeRet}`,
 
-export const OP_CAPACITIES_PATH = {
-    capacityAmPm: DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm,
-    capacityScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
-    capacityExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
-    capacityRet: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
-    report: 'reportes'
-};
+    operationZones: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}`,
+    opZones_Zone: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}`,
+    opZones_ZoneEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneEdition}`,
+    opZones_ZoneBackupEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneBackupEdition}`,
+    opZones_ZoneBackupAmPmEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneBackupAmPmEdition}`,
+    opZones_ZoneBackupScheduledEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneBackupScheduledEdition}`,
+    opZones_ZoneAmPmEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneAmPmEdition}`,
+    opZones_ZoneScheduledEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneScheduledEdition}`,
+    opZones_ZoneExpressEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneExpressEdition}`,
+    opZones_ZoneRetEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneRetEdition}`,
 
-export const OP_STORES_PATH = {
-    storeId: 'storeId',
-    storeEdition: 'editar-local',
-    storeAmPm: DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm,
-    storeScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
-    storeExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
-    storeRet: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
-};
+    operationCapacities: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.capacities}`,
+    opCapacitiesAmPm: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.capacities}/${OP_CAPACITIES_PATH.capacityAmPm}`,
+    opCapacitiesScheduled: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.capacities}/${OP_CAPACITIES_PATH.capacityScheduled}`,
+    opCapacitiesExpress: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.capacities}/${OP_CAPACITIES_PATH.capacityExpress}`,
+    opCapacitiesRet: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.capacities}/${OP_CAPACITIES_PATH.capacityRet}`,
+    opCapacitiesReport: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.capacities}/${OP_CAPACITIES_PATH.report}`,
 
 
-export const OP_ZONES_PATH = {
-    zoneCode: 'zoneCode',
-    zoneEdition: 'editar-zona',
-    zoneBackupEdition: 'editar-zona-backup',
-    zoneAmPm: DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm,
-    zoneExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
-    zoneRet: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
-    zoneScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
-    zoneBackupAmPm: `backup-${DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm}`,
-    zoneBackupScheduled: `backup-${DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled}`,
+    login: `/${BUSINESS_PATH.account}/${LOGIN_PATH.login}`,
+    recoverPassword: `/${BUSINESS_PATH.account}/${LOGIN_PATH.recoverPassword}`,
+    recoverPasswordReset: `/${BUSINESS_PATH.account}/${LOGIN_PATH.recoverPassword}/${LOGIN_PATH.recoverPasswordReset}`,
+    recoverPasswordUser: `/${BUSINESS_PATH.account}/${LOGIN_PATH.recoverPassword}/${LOGIN_PATH.recoverPasswordUser}`,
+    recoverPasswordCode: `/${BUSINESS_PATH.account}/${LOGIN_PATH.recoverPassword}/${LOGIN_PATH.recoverPasswordCode}`,
+
+
+    admin: `/${BUSINESS_PATH.admin}`,
 };

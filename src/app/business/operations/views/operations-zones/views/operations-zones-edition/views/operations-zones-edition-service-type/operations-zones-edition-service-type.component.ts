@@ -11,7 +11,7 @@ import { IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { AlertService } from '@molecules/alert/alert.service';
 import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
 
 @Component({
@@ -109,7 +109,7 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     }
 
     zoneListRoute() {
-        this._router.navigate([CONCAT_PATH.operationZones]);
+        this._router.navigate([ROUTER_PATH.operationZones]);
     }
 
     ngOnDestroy() {

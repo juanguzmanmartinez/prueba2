@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { Zone } from '../../models/operations-zones.model';
 import { OpZonesHomeZoneDetailDialogService } from './components/op-zones-home-zone-detail-dialog/op-zones-home-zone-detail-dialog.service';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
@@ -20,7 +20,6 @@ const ColumnNameList = {
     zoneCode: 'zoneCode',
     zoneName: 'zoneName',
     assignedStore: 'assignedStore',
-    serviceType: 'serviceType',
     zoneChannel: 'zoneChannel',
     zoneState: 'zoneState',
     actions: 'actions',
@@ -43,8 +42,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     public tableLoader = true;
 
     public displayedColumns: string[] = [
-        ColumnNameList.zoneCode, ColumnNameList.zoneName, ColumnNameList.assignedStore,
-        ColumnNameList.serviceType, ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
+        ColumnNameList.zoneCode, ColumnNameList.zoneName, ColumnNameList.assignedStore, ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
     public dataSource = new MatTableDataSource([]);
 
     @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
@@ -79,10 +77,9 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
             const nameNormalize = normalizeValue(data.name);
             const assignedStoreNameNormalize = normalizeValue(data.assignedStore ? data.assignedStore.name : '');
             const assignedStoreCodeNormalize = normalizeValue(data.assignedStoreCode);
-            const serviceTypeNormalize = normalizeValue(data.serviceTypeList.map(serviceType => this.serviceTypeName[serviceType]).join(''));
             const channelNormalize = normalizeValue(data.channelList.map(channel => this.channelName[channel]).join(''));
             const stateNormalize = normalizeValue(this.stateName[data.state]());
-            const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize, serviceTypeNormalize, channelNormalize, stateNormalize];
+            const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize, channelNormalize, stateNormalize];
 
             const concatValue = normalizeValue(valueArray.join(''));
             const everyValue = valueArray.some(value => value.includes(filterNormalize));
@@ -101,12 +98,6 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
                         const assignedStoreNameA = a.assignedStore ? a.assignedStore.name : '';
                         const assignedStoreNameB = b.assignedStore ? b.assignedStore.name : '';
                         return SortString(assignedStoreNameA, assignedStoreNameB, sort.direction);
-                    case ColumnNameList.serviceType:
-                        const serviceTypeListNameA = a.serviceTypeList
-                            .map(serviceType => this.serviceTypeName[serviceType]).join('');
-                        const serviceTypeListNameB = b.serviceTypeList
-                            .map(serviceType => this.serviceTypeName[serviceType]).join('');
-                        return SortString(serviceTypeListNameA, serviceTypeListNameB, sort.direction);
                     case ColumnNameList.zoneChannel:
                         const channelListNameA = a.channelList
                             .map(channel => this.channelName[channel]).join('');
@@ -136,7 +127,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
 
 
     editRow(zoneCode: string) {
-        this._router.navigate([CONCAT_PATH.opZones_ZoneCode(zoneCode)]);
+        this._router.navigate([ROUTER_PATH.opZones_Zone(zoneCode)]);
     }
 
     rowDetailDialog(zone: Zone) {

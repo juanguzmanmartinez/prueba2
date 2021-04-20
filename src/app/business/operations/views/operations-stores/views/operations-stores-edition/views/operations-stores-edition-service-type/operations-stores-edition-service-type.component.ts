@@ -7,7 +7,7 @@ import { OperationsStoresEditionStoreService } from '../../stores/operations-sto
 import { OperationsStoresImplementService } from '../../../../implements/operations-stores-implement.service';
 import { StoreDetail } from '../../../../models/operations-stores.model';
 import { Subscription } from 'rxjs';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { StoreServiceType } from '../../../../models/operations-stores-service-type';
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
@@ -114,7 +114,7 @@ export class OperationsStoresEditionServiceTypeComponent implements OnInit, OnDe
     }
 
     storeListRoute() {
-        this._router.navigate([CONCAT_PATH.operationZones]);
+        this._router.navigate([ROUTER_PATH.operationZones]);
     }
 
     ngOnDestroy() {

@@ -5,6 +5,7 @@ import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { CStateName } from '@models/state/state.model';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
     selector: 'app-op-zones-edition-home-backup-service-type-card',
@@ -60,6 +61,19 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent implements OnInit 
             return this.stateName[this.serviceType.serviceType.forceService]();
         }
         return 'No habilitado';
+    }
+
+    get serviceTypePath() {
+        let serviceTypePath;
+        switch (this.serviceType.code) {
+            case EDeliveryServiceType.amPm:
+                serviceTypePath = ROUTER_PATH.opZones_ZoneBackupAmPmEdition('?');
+                break;
+            case EDeliveryServiceType.scheduled:
+                serviceTypePath = ROUTER_PATH.opZones_ZoneBackupScheduledEdition('?');
+                break;
+        }
+        return serviceTypePath;
     }
 
 

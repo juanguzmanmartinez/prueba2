@@ -26,6 +26,17 @@ export class GenericValidator extends Validators {
         };
     }
 
+    static validateNumberMin(min: number): ValidatorFn {
+        return (control: AbstractControl): { [key: string]: boolean } | null => {
+            const value = control.value && !isNaN(control.value) ? control.value : 0;
+            const minValue = !isNaN(min) ? min : 0;
+            if (value < minValue) {
+                return {validateNumberMin: true};
+            }
+            return null;
+        };
+    }
+
     static wrongData(): ValidatorFn {
         return (): { [key: string]: boolean } | null => {
             return {wrongData: true};

@@ -6,7 +6,7 @@ import { OperationsStoresEditionComponent } from './views/operations-stores-edit
 import { OperationsStoresEditionHomeComponent } from './views/operations-stores-edition/views/operations-stores-edition-home/operations-stores-edition-home.component';
 import { OperationsStoresEditionStoreComponent } from './views/operations-stores-edition/views/operations-stores-edition-store/operations-stores-edition-store.component';
 import { OperationsStoresEditionServiceTypeComponent } from './views/operations-stores-edition/views/operations-stores-edition-service-type/operations-stores-edition-service-type.component';
-import { OP_STORES_PATH } from '@parameters/router/router-path.parameter';
+import { OP_STORES_PATH } from '@parameters/router/routing-module-path.parameter';
 
 const routes: Routes = [
     {

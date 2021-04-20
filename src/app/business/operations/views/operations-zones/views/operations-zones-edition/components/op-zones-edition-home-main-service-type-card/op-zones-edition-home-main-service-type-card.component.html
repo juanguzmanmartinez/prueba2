@@ -10,7 +10,7 @@
         </div>
 
         <div class="col-4">
-            <app-tag [appearance]="tagAppearance.coloredPill"
+            <app-tag [appearance]="tagAppearance.coloredWhitePill"
                     [tagColor]="segmentChannelColor">
                 {{segmentChannelName}}
             </app-tag>
@@ -31,7 +31,8 @@
         <ng-container information-caption>{{segmentGap}}</ng-container>
     </app-card-static-information>
 
-
+<ng-container
+        *appRouterAccess="serviceTypePath">
     <ng-container *ngIf="serviceType.available">
         <div *ngIf="serviceType.registered"
              app-card-edit-button
@@ -45,5 +46,6 @@
              (access)="addEvent()">
         </div>
     </ng-container>
+</ng-container>
 
 </app-card>

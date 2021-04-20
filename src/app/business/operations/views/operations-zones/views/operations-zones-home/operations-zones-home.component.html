@@ -44,21 +44,6 @@
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="serviceType">
-                    <th mat-header-cell columnWidth="145px" *matHeaderCellDef mat-sort-header>Despacho</th>
-                    <td mat-cell columnWidth="145px" cell-double-text *matCellDef="let element">
-                        <ng-container *ngIf="element.serviceTypeList?.length">
-                            <ng-container *ngFor="let serviceType of element.serviceTypeList; let last = last">
-                                {{serviceTypeName[serviceType]}}
-                                <span class="mx-2" *ngIf="!last">-</span>
-                            </ng-container>
-                        </ng-container>
-                        <ng-container *ngIf="!element.serviceTypeList?.length">
-                            <p class="text-center m-0">-</p>
-                        </ng-container>
-                    </td>
-                </ng-container>
-
                 <ng-container matColumnDef="zoneChannel">
                     <th mat-header-cell
                         columnWidth="145px"

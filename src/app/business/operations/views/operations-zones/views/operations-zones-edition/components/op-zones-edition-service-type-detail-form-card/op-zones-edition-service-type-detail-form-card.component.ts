@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
+import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { OpZonesEditionServiceTypeDetailFormCardFormService, ZoneServiceTypeControlName } from './form/op-zones-edition-service-type-detail-form-card-form.service';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { CStateValue } from '@models/state/state.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { Subscription } from 'rxjs';
@@ -27,9 +27,10 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
     private subscriptions: Subscription[] = [];
 
     public stateValue = CStateValue;
+    public serviceTypeCode = EDeliveryServiceType;
     public serviceTypeName = CDeliveryServiceTypeName;
     public controlNameList = ZoneServiceTypeControlName;
-    public configurationPath = CONCAT_PATH.operationSettings;
+    public configurationPath = ROUTER_PATH.operationSettings;
 
     public splitSegmentList: string[] = [];
 
@@ -93,6 +94,11 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
         } else {
             this._serviceTypeDetailForm.startHourControl.disable();
             this._serviceTypeDetailForm.endHourControl.disable();
+            this._serviceTypeDetailForm.segmentGapControl.disable();
+        }
+
+        if (this.zoneServiceType.code === EDeliveryServiceType.ret ||
+            this.zoneServiceType.code === EDeliveryServiceType.express) {
             this._serviceTypeDetailForm.segmentGapControl.disable();
         }
     }

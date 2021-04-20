@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from '@pages/not-found/not-found.component';
 import { AppGuard } from '@guards/app.guard';
-import { BUSINESS_PATH } from '@parameters/router/router-path.parameter';
+import { BUSINESS_PATH } from '@parameters/router/routing-module-path.parameter';
 
 
 const routes: Routes = [

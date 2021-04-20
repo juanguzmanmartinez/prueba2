@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { ECapacityStepGroupOrLocal } from '../op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
 import { ECapacitiesStepEditionMode } from '../op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-capacities-service-type-query-params.model';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
     selector: 'app-op-capacities-local-default-capacity',
@@ -128,7 +128,7 @@ export class OpCapacitiesLocalDefaultCapacityComponent implements OnInit, OnDest
     }
 
     localDefaultCapacityEditService(localService: CapacitiesLocalServiceDefaultCapacity) {
-        const localServiceTypePath = `${CONCAT_PATH.operationCapacities}/${CDeliveryServiceTypeRoute[localService.serviceType]}`;
+        const localServiceTypePath = `${ROUTER_PATH.operationCapacities}/${CDeliveryServiceTypeRoute[localService.serviceType]}`;
         const localServiceTypeParams = {
             groupOrLocal: ECapacityStepGroupOrLocal.local,
             localCode: this.capacitiesLocalSelection.localCode,

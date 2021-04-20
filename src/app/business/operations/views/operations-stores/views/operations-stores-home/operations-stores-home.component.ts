@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { OpStoresHomeStoreDetailDialogService } from './components/op-stores-home-store-detail-dialog/op-stores-home-store-detail-dialog.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { PaginatorComponent } from '@atoms/paginator/paginator.component';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
 import { CStateName, CStateTag } from '@models/state/state.model';
@@ -97,7 +97,7 @@ export class OperationsStoresHomeComponent implements OnInit, OnDestroy {
 
 
     editRow(storeCode: string) {
-        this._router.navigate([CONCAT_PATH.opStores_StoreId(storeCode)]);
+        this._router.navigate([ROUTER_PATH.opStores_StoreId(storeCode)]);
     }
 
     rowDetailDialog(store: Store) {

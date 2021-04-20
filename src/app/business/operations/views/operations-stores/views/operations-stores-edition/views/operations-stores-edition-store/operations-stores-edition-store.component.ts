@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, SkipSelf } from '@angular/core';
 import { parseUrl } from '@helpers/parse-url.helper';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
 import { AlertService } from '@molecules/alert/alert.service';
 import { OperationsStoresImplementService } from '../../../../implements/operations-stores-implement.service';
@@ -95,7 +95,7 @@ export class OperationsStoresEditionStoreComponent implements OnInit, OnDestroy 
     }
 
     storeListRoute() {
-        this._router.navigate([CONCAT_PATH.operationStores]);
+        this._router.navigate([ROUTER_PATH.operationStores]);
     }
 
     ngOnDestroy() {

@@ -9,7 +9,7 @@ import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { Subscription } from 'rxjs';
 import { IZoneBackupUpdate } from '@interfaces/zones/zones.interface';
 import { parseUrl } from '@helpers/parse-url.helper';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { ZoneBackupServiceType, ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 
@@ -117,7 +117,7 @@ export class OperationsZonesEditionBackupServiceTypeComponent implements OnInit,
     }
 
     zoneListRoute() {
-        this._router.navigate([CONCAT_PATH.operationZones]);
+        this._router.navigate([ROUTER_PATH.operationZones]);
     }
 
     ngOnDestroy() {

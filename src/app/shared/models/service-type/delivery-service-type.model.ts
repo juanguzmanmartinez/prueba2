@@ -1,4 +1,4 @@
-import { DELIVERY_SERVICE_TYPE_PATH } from '@parameters/router/router-path.parameter';
+import { DELIVERY_SERVICE_TYPE_PATH } from '@parameters/router/routing-module-path.parameter';
 
 export enum EDeliveryServiceType {
     amPm = 'AM_PM',

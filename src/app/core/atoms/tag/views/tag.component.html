@@ -9,8 +9,13 @@
               <ng-container *ngTemplateOutlet="ngContent"></ng-container>
     </span>
 </ng-container>
-<ng-container *ngIf="appearance === tagAppearance.coloredPill">
+<ng-container *ngIf="appearance === tagAppearance.coloredWhitePill">
     <span class="text-tag tag-pill text-uppercase text-white bg-{{tagColor}}">
+              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+    </span>
+</ng-container>
+<ng-container *ngIf="appearance === tagAppearance.coloredDarkPill">
+    <span class="text-tag tag-pill text-uppercase text-dark-{{tagColor}} bg-light-{{tagColor}}">
               <ng-container *ngTemplateOutlet="ngContent"></ng-container>
     </span>
 </ng-container>

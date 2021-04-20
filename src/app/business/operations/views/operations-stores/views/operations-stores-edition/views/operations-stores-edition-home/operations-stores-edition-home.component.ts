@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, SkipSelf } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OperationsStoresImplementService } from '../../../../implements/operations-stores-implement.service';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { StoreDetail } from '../../../../models/operations-stores.model';
 import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
@@ -57,11 +57,11 @@ export class OperationsStoresEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     editStore() {
-        this._router.navigate([CONCAT_PATH.opStores_StoreEdition(this.storeDetail.code)]);
+        this._router.navigate([ROUTER_PATH.opStores_StoreEdition(this.storeDetail.code)]);
     }
 
     editServiceType(serviceType: EDeliveryServiceType) {
-        const storeCodePath = CONCAT_PATH.opStores_StoreId(this.storeDetail.code);
+        const storeCodePath = ROUTER_PATH.opStores_StoreId(this.storeDetail.code);
         const serviceTypePath = `${storeCodePath}/${CDeliveryServiceTypeRoute[serviceType]}`;
         this._router.navigate([serviceTypePath]);
     }

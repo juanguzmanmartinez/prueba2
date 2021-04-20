@@ -4,6 +4,7 @@ import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
 import { CheckboxGroupControl, CheckboxGroupControlName } from '../controls/checkbox-group.control';
 import { GenericValidator } from '@validators/generic-validator';
+import { LabelControl } from '../controls/label.control';
 
 export class ZoneDetailControlName {
     static state = 'state';
@@ -29,7 +30,7 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
     private _zoneTypeControl: FormControl = new FormControl(null);
     private _companyArray: FormArray = new FormArray([], [GenericValidator.validateAtLeastOneCheckboxChecked()]);
     private _channelArray: FormArray = new FormArray([], [GenericValidator.validateAtLeastOneCheckboxChecked()]);
-    private _labelControl: FormControl = new FormControl(null);
+    private _labelControl: LabelControl = new LabelControl(null);
 
     private _controlNameList = ZoneDetailControlName;
 
@@ -71,7 +72,7 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
     }
 
     get labelControl() {
-        return this.form$.get(this._controlNameList.label);
+        return this.form$.get(this._controlNameList.label) as LabelControl;
     }
 
     createCompanyGroup(companyName: ECompany): CheckboxGroupControl {

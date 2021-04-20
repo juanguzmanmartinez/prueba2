@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, SkipSelf } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { ZoneBackupServiceTypeList, ZoneChannelServiceTypeList } from '../../../../models/operations-zones-service-type.model';
 import { OperationsZonesEditionStoreService } from '../../stores/operations-zones-edition-store.service';
@@ -16,6 +16,7 @@ import { AlertService } from '@molecules/alert/alert.service';
 import { parseUrl } from '@helpers/parse-url.helper';
 import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
 import { EChannel } from '@models/channel/channel.model';
+import { CZoneServiceTypeSegmentGap } from '../../../../parameters/operations-zones-service-type.parameter';
 
 @Component({
     selector: 'app-operations-zones-edition-home',
@@ -84,11 +85,11 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     editZone() {
-        this._router.navigate([CONCAT_PATH.opZones_ZoneEdition(this.zoneDetail.code)]);
+        this._router.navigate([ROUTER_PATH.opZones_ZoneEdition(this.zoneDetail.code)]);
     }
 
     editServiceType(serviceType: EDeliveryServiceType) {
-        const zoneCodePath = CONCAT_PATH.opZones_ZoneCode(this.zoneDetail.code);
+        const zoneCodePath = ROUTER_PATH.opZones_Zone(this.zoneDetail.code);
         const serviceTypePath = `${zoneCodePath}/${CDeliveryServiceTypeRoute[serviceType]}`;
         this._router.navigate([serviceTypePath]);
     }
@@ -113,7 +114,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
                 serviceTypeCode: serviceType.code,
                 startHour: DatesHelper.Date(assignedStoreServiceType.startHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
                 endHour: DatesHelper.Date(assignedStoreServiceType.endHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
-                segmentGap: '30',
+                segmentGap: CZoneServiceTypeSegmentGap[serviceType.code],
                 zoneId: this.zoneDetail.id,
                 channel: serviceType.channel
             } as IZoneServiceTypeRegister;
@@ -132,17 +133,17 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     editBackupZone() {
-        this._router.navigate([CONCAT_PATH.opZones_ZoneBackupEdition(this.zoneDetail.code)]);
+        this._router.navigate([ROUTER_PATH.opZones_ZoneBackupEdition(this.zoneDetail.code)]);
     }
 
     editBackupServiceType(serviceType: EDeliveryServiceType) {
         let serviceTypePath;
         switch (serviceType) {
             case EDeliveryServiceType.amPm:
-                serviceTypePath = CONCAT_PATH.opZones_ZoneBackupAmPmEdition(this.zoneDetail.code);
+                serviceTypePath = ROUTER_PATH.opZones_ZoneBackupAmPmEdition(this.zoneDetail.code);
                 break;
             case EDeliveryServiceType.scheduled:
-                serviceTypePath = CONCAT_PATH.opZones_ZoneBackupScheduledEdition(this.zoneDetail.code);
+                serviceTypePath = ROUTER_PATH.opZones_ZoneBackupScheduledEdition(this.zoneDetail.code);
                 break;
         }
         this._router.navigate([serviceTypePath]);

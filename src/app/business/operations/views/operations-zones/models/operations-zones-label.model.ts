@@ -19,7 +19,7 @@ export const CZoneLabelColor = {
     [EZoneLabel.hardAccess]: 'secondary-three',
     [EZoneLabel.dangerous]: 'secondary-two',
     [EZoneLabel.heavyTraffic]: 'secondary-one',
-    [EZoneLabel.daytimeZone]: 'secondary-one',
-    [EZoneLabel.regularZone]: 'secondary-two',
-    [EZoneLabel.dangerousZone]: 'secondary-three',
+    [EZoneLabel.daytimeZone]: 'primary',
+    [EZoneLabel.regularZone]: 'secondary-one',
+    [EZoneLabel.dangerousZone]: 'secondary-two',
 };

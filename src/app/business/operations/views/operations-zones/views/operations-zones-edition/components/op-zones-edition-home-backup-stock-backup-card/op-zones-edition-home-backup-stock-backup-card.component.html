@@ -41,8 +41,10 @@
         </div>
     </div>
 
-    <div app-card-edit-button
-         editMessage="zona backup"
-         (click)="editEvent()"></div>
+    <ng-container *appRouterAccess="backupEditionPath">
+        <div app-card-edit-button
+             editMessage="zona backup"
+             (click)="editEvent()"></div>
+    </ng-container>
 
 </app-card>

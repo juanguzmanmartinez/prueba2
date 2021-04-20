@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OperationsZonesEditionStoreService } from './stores/operations-zones-edition-store.service';
 import { ActivatedRoute } from '@angular/router';
 import { OperationsZonesImplementService } from '../../implements/operations-zones-implement.service';
-import { OP_ZONES_PATH } from '@parameters/router/router-path.parameter';
+import { OP_ZONES_PATH } from '@parameters/router/routing-module-path.parameter';
 import { ZoneDetail } from '../../models/operations-zones.model';
 import { Subscription } from 'rxjs';
 

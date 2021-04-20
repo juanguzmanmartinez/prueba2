@@ -27,7 +27,7 @@ export class OpZonesEditionHomeMainSettingTabComponent implements OnInit {
             this.channelTabList = sortByPresetOrder(channelTabList, ChannelTabListPriority);
 
             const hasDigitalChannel = this.channelTabList.find(channel => channel === EChannel.digital);
-            this.channelChange(hasDigitalChannel || this.channelTabList[0]);
+            this.channelChange(this.channelSelected || hasDigitalChannel || this.channelTabList[0]);
 
         }
     }

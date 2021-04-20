@@ -12,7 +12,7 @@ export const CChannelName = {
 };
 
 export const CChannelColor = {
-    [EChannel.digital]: 'dark-secondary-three',
+    [EChannel.digital]: 'secondary-three',
     [EChannel.call]: 'secondary-four',
     [EChannel.omnichannel]: 'secondary-two'
 };

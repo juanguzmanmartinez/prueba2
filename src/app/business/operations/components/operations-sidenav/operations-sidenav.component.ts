@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
     selector: 'app-operations-sidenav',
@@ -10,7 +10,7 @@ export class OperationsSidenavComponent {
 
     _operationsSidenavTitle = 'Operaciones';
     innerSidenavExpanded: boolean;
-    public concatPath = CONCAT_PATH;
+    public concatPath = ROUTER_PATH;
 
     constructor() {
     }
