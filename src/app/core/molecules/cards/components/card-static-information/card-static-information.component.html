@@ -8,13 +8,15 @@
 
     <div class="static-information-information mw-85">
         <div class="static-information-title mb-1">
-            <p class="text-caption mb-0 text-truncate"
+            <p class="text-caption mb-0"
+               [class.text-truncate]="truncate"
                [ngClass]="disabled ? 'text-gray-4':'text-gray-5'">
                 <ng-content select="[information-title]"></ng-content>
             </p>
         </div>
         <div class="static-information-caption">
-            <p class="text-label mb-0 text-truncate"
+            <p class="text-label mb-0"
+               [class.text-truncate]="truncate"
                [class.text-gray-4]="disabled">
                 <ng-content select="[information-caption]"></ng-content>
             </p>

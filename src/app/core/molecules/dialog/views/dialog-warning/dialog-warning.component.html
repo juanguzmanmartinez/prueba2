@@ -1,0 +1,28 @@
+<section class="dialog-edition-access" app-dialog-container>
+    <div class="px-5 pt-3">
+
+        <div class="mb-7">
+            <app-dialog-header containerClass="align-items-center"
+                               fontName="warning"
+                               fontClass="text-warning">
+                <ng-container dialog-header-title>
+                <span class="text-subtitle-1 text-wrap text-gray-6 font-weight-bold"
+                      [innerHTML]="title"></span>
+                </ng-container>
+            </app-dialog-header>
+        </div>
+
+        <div class="mb-7">
+            <p class="text-label text-gray-6 mb-0"
+               [innerHTML]="description"></p>
+        </div>
+
+        <div class="d-flex-horizontal-end">
+            <app-button appearance="primary"
+                        [mat-dialog-close]="true">
+                {{action}}
+            </app-button>
+        </div>
+
+    </div>
+</section>

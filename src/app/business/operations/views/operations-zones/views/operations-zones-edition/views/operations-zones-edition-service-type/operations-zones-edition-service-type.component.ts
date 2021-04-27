@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit, SkipSelf } from '@angular/core';
-import { parseUrl } from '@helpers/parse-url.helper';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { Subscription } from 'rxjs';
@@ -13,6 +12,8 @@ import { AlertService } from '@molecules/alert/alert.service';
 import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
+import { CChannelName, CChannelRoute, EChannel } from '@models/channel/channel.model';
+import { OP_ZONES_PATH } from '@parameters/router/routing-module-path.parameter';
 
 @Component({
     selector: 'app-operations-zones-edition-service-type',
@@ -23,9 +24,11 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     private subscriptions: Subscription[] = [];
     public zoneDetail: ZoneDetail;
     public serviceType: EDeliveryServiceType;
+    public channel: EChannel;
     public zoneServiceType: ZoneServiceType;
     public zonesStoreServiceType: ZonesStoreServiceType;
     public serviceTypeName = CDeliveryServiceTypeName;
+    public channelName = CChannelName;
 
     public serviceTypeEditionLoader = true;
     public saveEditionLoader: boolean;
@@ -42,9 +45,12 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
 
     ngOnInit(): void {
         this.getZoneDetail();
-        const path = this._activatedRoute.snapshot.routeConfig.path;
+        const serviceTypeCode = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeEdition];
+        const serviceTypeChannel = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeChannelEdition];
         this.serviceType = Object.keys(CDeliveryServiceTypeRoute)
-            .find((key) => CDeliveryServiceTypeRoute[key] === path) as EDeliveryServiceType;
+            .find((key) => CDeliveryServiceTypeRoute[key] === serviceTypeCode) as EDeliveryServiceType;
+        this.channel = Object.keys(CChannelRoute)
+            .find((key) => CChannelRoute[key] === serviceTypeChannel) as EChannel;
         this.setZoneServiceType();
     }
 
@@ -52,18 +58,20 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     getZoneDetail() {
         const subscription = this._operationsZonesEditionStore.zoneDetail$
             .subscribe((zoneDetail: ZoneDetail) => {
-                this.zoneDetail = zoneDetail;
-                this.setZoneServiceType();
-            }, () => {
-                this.zoneDetail = null;
-                this.serviceTypeEditionLoader = false;
+                if (zoneDetail) {
+                    this.zoneDetail = zoneDetail;
+                    this.setZoneServiceType();
+                } else {
+                    this.zoneDetail = null;
+                    this.serviceTypeEditionLoader = false;
+                }
             });
         this.subscriptions.push(subscription);
     }
 
     private setZoneServiceType() {
         this.zoneServiceType = this.zoneDetail?.serviceTypeList
-            .find((serviceType: ZoneServiceType) => serviceType.code === this.serviceType);
+            .find((serviceType: ZoneServiceType) => serviceType.code === this.serviceType && serviceType.channel === this.channel);
         this.zonesStoreServiceType = this.zoneDetail?.assignedStore.serviceTypeList
             .find((serviceType: ZonesStoreServiceType) => serviceType.code === this.serviceType);
         this.serviceTypeEditionLoader = !this.zoneDetail;
@@ -104,7 +112,7 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     }
 
     backRoute() {
-        const backRoute = parseUrl(this._router.url, '..');
+        const backRoute = ROUTER_PATH.opZones_Zone(this.zoneDetail.code);
         this._router.navigate([backRoute]);
     }
 

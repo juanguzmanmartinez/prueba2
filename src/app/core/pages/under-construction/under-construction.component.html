@@ -1,8 +1,14 @@
 <section class="under-construction d-flex-center">
   <div class="content text-center">
     <app-icon svgName="under-construction"
-              svgWidth="295px"></app-icon>
-    <h1 class="text-h5 mt-8 mb-0">Página en construcción</h1>
-    <p class="text-subtitle-1 mt-5 mb-0">Pronto verás nuevas funcionalidades aquí</p>
+              svgWidth="200px"></app-icon>
+    <h1 class="text-h4 mt-5 mb-5">Página en construcción</h1>
+    <p class="text-label text-gray-6 mb-5">Nos encontramos trabajando para brindarte <br> nuevas funcionalidades</p>
+
+    <p class="mb-0">
+      <app-router [router]="concatPath.base">
+        <app-button appearance="primary">Ir a inicio</app-button>
+      </app-router>
+    </p>
   </div>
 </section>

@@ -3,14 +3,9 @@ export enum EZoneType {
     backup = 'backup'
 }
 
-export const ZoneTypeList: EZoneType[] = [
-    EZoneType.main,
-    EZoneType.backup,
-];
-
 export const CZoneTypeName = {
-    [EZoneType.main]: 'Regular',
-    [EZoneType.backup]: 'Backup',
+    [EZoneType.main]: 'Para cobertura',
+    [EZoneType.backup]: 'No cobertura',
 };
 
 

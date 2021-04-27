@@ -58,6 +58,9 @@ import { OpZonesEditionBackupDetailFormCardComponent } from './views/operations-
 import { OpZonesEditionBackupServiceTypeDetailFormCardComponent } from './views/operations-zones-edition/components/op-zones-edition-backup-service-type-detail-form-card/op-zones-edition-backup-service-type-detail-form-card.component';
 import { OpZonesEditionBackupServiceTypeDetailCardComponent } from './views/operations-zones-edition/components/op-zones-edition-backup-service-type-detail-card/op-zones-edition-backup-service-type-detail-card.component';
 import { GuardServiceModule } from '@guards/guard-service.module';
+import { OperationsZoneServiceTypeEditionGuard } from './guards/operations-zone-service-type-edition-guard.service';
+import { GenericErrorModule } from '@pages/generic-error/generic-error.module';
+import { NotSearchResultModule } from '@pages/not-search-result/not-search-result.module';
 
 
 @NgModule({
@@ -119,10 +122,13 @@ import { GuardServiceModule } from '@guards/guard-service.module';
         InputTimeModule,
         SkeletonModule,
         EmptyResultModule,
-        TabModule
+        TabModule,
+        GenericErrorModule,
+        NotSearchResultModule
     ],
     providers: [
-        OperationsZonesImplementService
+        OperationsZonesImplementService,
+        OperationsZoneServiceTypeEditionGuard
     ]
 })
 export class OperationsZonesModule {

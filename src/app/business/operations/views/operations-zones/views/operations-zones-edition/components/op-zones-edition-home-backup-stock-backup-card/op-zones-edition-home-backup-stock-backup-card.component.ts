@@ -27,7 +27,7 @@ export class OpZonesEditionHomeBackupStockBackupCardComponent implements OnInit 
 
 
     get backupEditionPath() {
-        return  ROUTER_PATH.opZones_ZoneBackupEdition('?');
+        return  ROUTER_PATH.opZones_ZoneBackupEdition();
     }
 
     editEvent() {

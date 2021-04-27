@@ -151,7 +151,7 @@ export class ZoneBackupServiceTypeList {
 
     constructor(zoneServiceTypeList: ZoneServiceType[], zoneBackup?: ZoneBackup) {
         const zoneDigitalServiceTypeList = zoneServiceTypeList
-            .filter((zoneServiceType) => zoneServiceType.channel === EChannel.digital);
+            .filter((zoneServiceType) => zoneServiceType.channel === EChannel.digital && CStateValue[zoneServiceType.state]);
         const zoneAmPm: ZoneServiceType = zoneDigitalServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.amPm);
         const zoneScheduled: ZoneServiceType = zoneDigitalServiceTypeList

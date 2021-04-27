@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SkipSelf } from '@angular/core';
 import { ZoneChannelServiceTypeList, ZoneServiceTypeList } from '../../../../models/operations-zones-service-type.model';
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { CChannelName, EChannel } from '@models/channel/channel.model';
 import { sortByPresetOrder } from '@helpers/sort.helper';
+import { ZoneServiceTypeBasicRequest } from '../../../../parameters/operations-zones-service-type.parameter';
+import { OperationsZonesEditionActionsStoreService } from '../../stores/operations-zones-edition-actions-store.service';
 
 const ChannelTabListPriority = [EChannel.digital, EChannel.call, EChannel.omnichannel];
 
@@ -25,19 +27,21 @@ export class OpZonesEditionHomeMainSettingTabComponent implements OnInit {
             const channelTabList = zoneChannelServiceTypeList
                 .map((zoneChannelServiceType) => zoneChannelServiceType.channel);
             this.channelTabList = sortByPresetOrder(channelTabList, ChannelTabListPriority);
-
-            const hasDigitalChannel = this.channelTabList.find(channel => channel === EChannel.digital);
-            this.channelChange(this.channelSelected || hasDigitalChannel || this.channelTabList[0]);
+            const savedChannel = this._operationsZonesEditionActionsStore.serviceTypeChannelSelection || EChannel.digital;
+            const hasDigitalChannel = this.channelTabList.find(channel => channel === savedChannel);
+            this.channelChange(hasDigitalChannel || this.channelTabList[0]);
 
         }
     }
 
     @Input() homeEditionLoader: boolean;
 
-    @Output() edit = new EventEmitter<EDeliveryServiceType>();
-    @Output() add = new EventEmitter<{code: EDeliveryServiceType, channel: EChannel}>();
+    @Output() edit = new EventEmitter<ZoneServiceTypeBasicRequest>();
+    @Output() add = new EventEmitter<ZoneServiceTypeBasicRequest>();
 
-    constructor() {
+    constructor(
+        @SkipSelf() private _operationsZonesEditionActionsStore: OperationsZonesEditionActionsStoreService,
+    ) {
     }
 
     ngOnInit(): void {
@@ -48,10 +52,11 @@ export class OpZonesEditionHomeMainSettingTabComponent implements OnInit {
         const zoneChannelServiceTypeList = this.zoneChannelServiceTypeList
             .find((channelServiceTypeList) => channelServiceTypeList.channel === channel);
         this.zoneServiceTypeList = zoneChannelServiceTypeList.serviceTypeList;
+        this._operationsZonesEditionActionsStore.serviceTypeChannelSelection = channel;
     }
 
     editServiceType(serviceType: EDeliveryServiceType) {
-        this.edit.emit(serviceType);
+        this.edit.emit({code: serviceType, channel: this.channelSelected});
     }
 
     addServiceType(serviceType: EDeliveryServiceType) {

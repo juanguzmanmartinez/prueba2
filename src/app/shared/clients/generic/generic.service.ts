@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { catchError, tap, timeout } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { environment } from '@environments/environment';
-import { throwError, TimeoutError } from 'rxjs';
 
 @Injectable()
 export class GenericService {
@@ -19,16 +18,7 @@ export class GenericService {
     // tslint:disable-next-line:no-string-literal
     if (params) { options['params'] = params; }
     return this.http.get<T>(endpoint, options)
-      .pipe(
-          tap(() => this.log(`Get ` + endpoint)),
-          timeout(30000),
-          catchError((error) => {
-            if (error instanceof TimeoutError) {
-              return throwError('Timeout Exception');
-            }
-            return throwError(error);
-          })
-      );
+        .pipe(tap(() => this.log(`Get ` + endpoint)));
   }
 
   public genericPost<T>(

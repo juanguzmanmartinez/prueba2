@@ -13,6 +13,7 @@ import { ZoneServiceType } from '../../../../models/operations-zones-service-typ
 import { AlertService } from '@molecules/alert/alert.service';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
+import { minuteFormat } from '@helpers/date-name.helper';
 
 @Component({
     selector: 'app-op-zones-edition-service-type-detail-form-card',
@@ -63,7 +64,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
         this._serviceTypeDetailForm.startHourControl.patchValue(this.zoneServiceType.startHour);
         this._serviceTypeDetailForm.endHourControl.patchValue(this.zoneServiceType.endHour);
         this._serviceTypeDetailForm.segmentGapControl.patchValue(this.zoneServiceType.segmentGap);
-        this._serviceTypeDetailForm.intervalTimeControl.patchValue(`${this.zoneServiceType.intervalTime} minutos`);
+        this._serviceTypeDetailForm.intervalTimeControl.patchValue(minuteFormat(this.zoneServiceType.intervalTime));
         this._serviceTypeDetailForm.intervalTimeControl.disable();
         this.setSplitSegment();
 
@@ -97,8 +98,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
             this._serviceTypeDetailForm.segmentGapControl.disable();
         }
 
-        if (this.zoneServiceType.code === EDeliveryServiceType.ret ||
-            this.zoneServiceType.code === EDeliveryServiceType.express) {
+        if (this.zoneServiceType.code === EDeliveryServiceType.ret) {
             this._serviceTypeDetailForm.segmentGapControl.disable();
         }
     }

@@ -5,10 +5,14 @@ import { OperationsZonesImplementService } from '../../implements/operations-zon
 import { OP_ZONES_PATH } from '@parameters/router/routing-module-path.parameter';
 import { ZoneDetail } from '../../models/operations-zones.model';
 import { Subscription } from 'rxjs';
+import { OperationsZonesEditionActionsStoreService } from './stores/operations-zones-edition-actions-store.service';
 
 @Component({
     template: '<router-outlet></router-outlet>',
-    providers: [OperationsZonesEditionStoreService]
+    providers: [
+        OperationsZonesEditionStoreService,
+        OperationsZonesEditionActionsStoreService
+    ]
 })
 export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
@@ -18,6 +22,7 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
         private _activatedRoute: ActivatedRoute,
         private _operationsZonesImplement: OperationsZonesImplementService,
         private _operationsZonesEditionStore: OperationsZonesEditionStoreService,
+        private _operationsZonesEditionActionsStore: OperationsZonesEditionActionsStoreService,
     ) {
     }
 
@@ -25,6 +30,7 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
         const subscription = this._activatedRoute.paramMap.subscribe(() => {
             this.zoneCode = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneCode];
             this._operationsZonesEditionStore.updateZoneDetail = true;
+            this._operationsZonesEditionActionsStore.resetStore();
         });
         this.updateZoneDetail();
         this.subscriptions.push(subscription);
@@ -36,9 +42,12 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
                 this._operationsZonesEditionStore.zoneDetail = zoneDetail;
                 if (zoneDetail.zoneBackup) {
                     this.getZoneBackup(zoneDetail.zoneBackup.code);
+                }else {
+                    this._operationsZonesEditionStore.zoneBackupError();
                 }
-            }, (error) => {
-                this._operationsZonesEditionStore.zoneDetailError = error;
+            }, () => {
+                this._operationsZonesEditionStore.zoneDetailError();
+                this._operationsZonesEditionStore.zoneBackupError();
             });
     }
 
@@ -54,8 +63,8 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
         this._operationsZonesImplement.getZoneDetail(zoneCode)
             .subscribe((zoneDetail: ZoneDetail) => {
                 this._operationsZonesEditionStore.zoneBackup = zoneDetail;
-            }, (error) => {
-                this._operationsZonesEditionStore.zoneBackupError = error;
+            }, () => {
+                this._operationsZonesEditionStore.zoneBackupError();
             });
     }
 

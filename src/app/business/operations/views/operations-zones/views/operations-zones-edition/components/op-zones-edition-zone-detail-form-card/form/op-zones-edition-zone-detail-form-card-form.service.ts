@@ -9,7 +9,6 @@ import { LabelControl } from '../controls/label.control';
 export class ZoneDetailControlName {
     static state = 'state';
     static assignedStore = 'assignedStore';
-    static zoneType = 'type';
     static company = 'company';
     static channel = 'channel';
     static label = 'label';
@@ -27,7 +26,6 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
 
     private _stateControl: FormControl = new FormControl(null);
     private _assignedStoreControl: FormControl = new FormControl(null);
-    private _zoneTypeControl: FormControl = new FormControl(null);
     private _companyArray: FormArray = new FormArray([], [GenericValidator.validateAtLeastOneCheckboxChecked()]);
     private _channelArray: FormArray = new FormArray([], [GenericValidator.validateAtLeastOneCheckboxChecked()]);
     private _labelControl: LabelControl = new LabelControl(null);
@@ -40,7 +38,6 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
         this.formGroup = this._formBuilder.group({
             [this._controlNameList.state]: this._stateControl,
             [this._controlNameList.assignedStore]: this._assignedStoreControl,
-            [this._controlNameList.zoneType]: this._zoneTypeControl,
             [this._controlNameList.company]: this._companyArray,
             [this._controlNameList.channel]: this._channelArray,
             [this._controlNameList.label]: this._labelControl,
@@ -57,10 +54,6 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
 
     get assignedStoreControl(): FormControl {
         return this.form$.get(this._controlNameList.assignedStore) as FormControl;
-    }
-
-    get zoneTypeControl() {
-        return this.form$.get(this._controlNameList.zoneType);
     }
 
     get companyArray() {
@@ -86,7 +79,6 @@ export class OpZonesEditionZoneDetailFormCardFormService implements OnDestroy {
     resetForm() {
         this.stateControl.patchValue(null);
         this.assignedStoreControl.patchValue(null);
-        this.zoneTypeControl.patchValue(null);
         this.companyArray.patchValue([]);
         this.channelArray.patchValue([]);
         this.labelControl.patchValue(null);

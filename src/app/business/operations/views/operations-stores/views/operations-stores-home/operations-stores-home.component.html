@@ -89,7 +89,6 @@
             </table>
 
             <app-table-loader *ngIf="tableLoader" [cells]="6"></app-table-loader>
-            <app-table-empty *ngIf="!tableLoader && !dataSource.data.length"></app-table-empty>
         </div>
 
         <div class="col-12 d-flex-center" [hidden]="dataSource.paginator?.getNumberOfPages() < 2">

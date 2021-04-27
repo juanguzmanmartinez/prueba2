@@ -7,7 +7,6 @@ import { Observable, of } from 'rxjs';
 import { IZone, IZoneBackupUpdate, IZoneDetail, IZoneDetailUpdate, IZoneServiceTypeRegister, IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { EChannel } from '@models/channel/channel.model';
 import { EZoneLabel, ZoneLabelList } from '../../../business/operations/views/operations-zones/models/operations-zones-label.model';
-import { EZoneType, ZoneTypeList } from '../../../business/operations/views/operations-zones/parameters/operations-zones-type.parameter';
 
 @Injectable()
 export class ZonesClientService {
@@ -72,10 +71,6 @@ export class ZonesClientService {
                 map((response: EChannel[]) => {
                     return isArray(response) ? response : [];
                 }));
-    }
-
-    getZoneTypeList(): Observable<EZoneType[]> {
-        return of(ZoneTypeList);
     }
 
     getZoneLabelList(): Observable<EZoneLabel[]> {

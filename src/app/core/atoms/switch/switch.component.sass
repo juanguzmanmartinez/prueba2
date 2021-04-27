@@ -1,5 +1,6 @@
 @import "src/sass/variables/colors.variable"
 @import "src/sass/mixins/utilities.mixin"
+@import "src/sass/mixins/display.mixin"
 @import "src/sass/mixins/text.mixin"
 
 .switch-container
@@ -57,4 +58,5 @@
 
   .switch-content
     color: $black
-    @include text-h5()
+    @include d-flex-vertical-center()
+    @include text-subtitle-2()

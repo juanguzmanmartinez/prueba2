@@ -7,6 +7,7 @@ import { ETagAppearance } from '@models/tag/tag.model';
 import { CZoneLabelColor } from '../../../../models/operations-zones-label.model';
 import { CZoneTypeName } from '../../../../parameters/operations-zones-type.parameter';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { CDeliveryTypeName } from '@models/service-type/delivery-service-type.model';
 
 @Component({
     selector: ' app-op-zones-edition-home-zone-detail-card',
@@ -17,6 +18,7 @@ export class OpZonesEditionHomeZoneDetailCardComponent implements OnInit {
     public stateTag = CStateTag;
     public stateName = CStateName;
     public zoneTypeName = CZoneTypeName;
+    public deliveryTypeName = CDeliveryTypeName;
     public companyName = CCompanyName;
     public channelName = CChannelName;
     public labelColor = CZoneLabelColor;
@@ -33,7 +35,7 @@ export class OpZonesEditionHomeZoneDetailCardComponent implements OnInit {
     }
 
     get zoneEditionPath() {
-        return ROUTER_PATH.opZones_ZoneEdition('?');
+        return ROUTER_PATH.opZones_ZoneEdition();
     }
 
     editEvent() {

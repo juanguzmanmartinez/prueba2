@@ -57,11 +57,10 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
     checkEditionByStateControl() {
         if (this._editionZoneBackupDetailForm.stateControl.value) {
             this._editionZoneBackupDetailForm.zoneBackupControl.enable();
-            this._editionZoneBackupDetailForm.assignedStoreControl.enable();
         } else {
             this._editionZoneBackupDetailForm.zoneBackupControl.disable();
-            this._editionZoneBackupDetailForm.assignedStoreControl.disable();
         }
+        this._editionZoneBackupDetailForm.assignedStoreControl.disable();
     }
 
     updateStateControl() {
@@ -81,6 +80,7 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
                 const zoneBackup = this._editionZoneBackupDetailForm.zoneBackupControl.value;
                 const backupAssignedStore = zoneBackup?.assignedStore ? `${zoneBackup.assignedStore.code} ${zoneBackup.assignedStore.name}` : '';
                 this._editionZoneBackupDetailForm.assignedStoreControl.patchValue(backupAssignedStore);
+                this._editionZoneBackupDetailForm.assignedStoreControl.disable();
             });
         this.subscriptions.push(subscription);
     }

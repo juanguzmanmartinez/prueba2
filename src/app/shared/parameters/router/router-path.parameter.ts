@@ -3,7 +3,7 @@ import { BUSINESS_PATH, LOGIN_PATH, OP_CAPACITIES_PATH, OP_STORES_PATH, OP_ZONES
 export const ROUTER_PATH = {
     base: '/',
     notFound: `/${BUSINESS_PATH.notFound}`,
-
+    notInternetConnection: `/${BUSINESS_PATH.notInternetConnection}`,
 
     operations: `/${BUSINESS_PATH.operations}`,
     operationSettings: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.settings}`,
@@ -17,15 +17,12 @@ export const ROUTER_PATH = {
     opStores_StoreRetEdition: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}/${OP_STORES_PATH.storeRet}`,
 
     operationZones: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}`,
-    opZones_Zone: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}`,
-    opZones_ZoneEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneEdition}`,
-    opZones_ZoneBackupEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneBackupEdition}`,
-    opZones_ZoneBackupAmPmEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneBackupAmPmEdition}`,
-    opZones_ZoneBackupScheduledEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneBackupScheduledEdition}`,
-    opZones_ZoneAmPmEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneAmPmEdition}`,
-    opZones_ZoneScheduledEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneScheduledEdition}`,
-    opZones_ZoneExpressEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneExpressEdition}`,
-    opZones_ZoneRetEdition: (zoneCode: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneRetEdition}`,
+    opZones_Zone: (zoneCode = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}`,
+    opZones_ZoneEdition: (zoneCode = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneEdition}`,
+    opZones_ZoneBackupEdition: (zoneCode = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneBackupEdition}`,
+    opZones_ZoneBackupAmPmEdition: (zoneCode = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneBackupAmPmEdition}`,
+    opZones_ZoneBackupScheduledEdition: (zoneCode = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneBackupScheduledEdition}`,
+    opZones_ZoneServiceTypeEdition: (serviceType = '?', zoneCode = '?', zoneChannel = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${serviceType}/${zoneChannel}`,
 
     operationCapacities: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.capacities}`,
     opCapacitiesAmPm: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.capacities}/${OP_CAPACITIES_PATH.capacityAmPm}`,

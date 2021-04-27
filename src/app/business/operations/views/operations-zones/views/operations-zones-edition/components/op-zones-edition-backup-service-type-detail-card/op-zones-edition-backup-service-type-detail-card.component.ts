@@ -4,6 +4,7 @@ import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
 import { ZoneBackupServiceType } from '../../../../models/operations-zones-service-type.model';
+import { minuteFormat } from '@helpers/date-name.helper';
 
 @Component({
     selector: 'app-op-zones-edition-backup-service-type-detail-card',
@@ -37,7 +38,6 @@ export class OpZonesEditionBackupServiceTypeDetailCardComponent implements OnIni
 
 
     get segmentGap() {
-        const plural = this.zoneBackupServiceType.segmentGap > 1;
-        return `${this.zoneBackupServiceType.segmentGap} minuto${plural ? 's' : ''}`;
+        return minuteFormat(this.zoneBackupServiceType.segmentGap);
     }
 }

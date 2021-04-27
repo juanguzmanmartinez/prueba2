@@ -9,42 +9,45 @@
         </div>
     </div>
 
-
-    <div class="row mb-6"
-         [class.container-loader]="saveEditionLoader">
-        <div class="col-12">
-            <app-op-zones-edition-home-zone-detail-card
-                    *appSkeletonCard="!!zoneDetail; row: 5; loading: !homeEditionLoader"
-                    [zoneDetail]="zoneDetail"
-                    (edit)="editZone()">
-            </app-op-zones-edition-home-zone-detail-card>
+    <div [class.container-loader]="updateEditionLoader">
+        <div class="row mb-6"
+             [class.container-loader]="saveEditionLoader">
+            <div class="col-12">
+                <app-op-zones-edition-home-zone-detail-card
+                        *appSkeletonCard="!!zoneDetail; row: 5; loading: !homeEditionLoader"
+                        [zoneDetail]="zoneDetail"
+                        (edit)="editZone()">
+                </app-op-zones-edition-home-zone-detail-card>
+            </div>
         </div>
+
+        <app-tab-group [hidden]="(!zoneDetail || !zoneServiceTypeList) && !homeEditionLoader"
+                       (selectIndexChange)="setTabSettingsSelectionIndex($event)"
+                       [selectedIndex]="tabSettingsSelectionIndex">
+            <app-tab label="Configuración principal">
+                <app-op-zones-edition-home-main-setting-tab
+                        class="d-block"
+                        [class.container-loader]="saveEditionLoader"
+                        [zoneChannelServiceTypeList]="zoneServiceTypeList"
+                        [homeEditionLoader]="homeEditionLoader"
+                        (add)="addServiceType($event)"
+                        (edit)="editServiceType($event)">
+                </app-op-zones-edition-home-main-setting-tab>
+            </app-tab>
+
+            <app-tab label="Configuración backup">
+                <app-op-zones-edition-home-backup-setting-tab
+                        class="d-block"
+                        [class.container-loader]="saveEditionLoader"
+                        [zoneBackup]="zoneDetail?.zoneBackup"
+                        [zoneBackupDetail]="zoneBackupDetail"
+                        [zoneBackupServiceTypeList]="zoneBackupServiceTypeList"
+                        (editBackupZone)="editBackupZone()"
+                        (editServiceType)="editBackupServiceType($event)">
+                </app-op-zones-edition-home-backup-setting-tab>
+            </app-tab>
+        </app-tab-group>
     </div>
-
-    <app-tab-group [hidden]="(!zoneDetail || !zoneServiceTypeList) && !homeEditionLoader">
-        <app-tab label="Configuración principal">
-            <app-op-zones-edition-home-main-setting-tab
-                    class="d-block"
-                    [class.container-loader]="saveEditionLoader"
-                    [zoneChannelServiceTypeList]="zoneServiceTypeList"
-                    [homeEditionLoader]="homeEditionLoader"
-                    (add)="addServiceType($event)"
-                    (edit)="editServiceType($event)">
-            </app-op-zones-edition-home-main-setting-tab>
-        </app-tab>
-
-        <app-tab label="Configuración backup">
-            <app-op-zones-edition-home-backup-setting-tab
-                    class="d-block"
-                    [class.container-loader]="saveEditionLoader"
-                    [zoneBackup]="zoneDetail?.zoneBackup"
-                    [zoneBackupDetail]="zoneBackupDetail"
-                    [zoneBackupServiceTypeList]="zoneBackupServiceTypeList"
-                    (editBackupZone)="editBackupZone()"
-                    (editServiceType)="editBackupServiceType($event)">
-            </app-op-zones-edition-home-backup-setting-tab>
-        </app-tab>
-    </app-tab-group>
 
 
     <app-empty-result (action)="backRoute()"

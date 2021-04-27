@@ -16,10 +16,10 @@
                                          [disabled]="stockBackupDisabled">
                 <ng-container information-title>Local backup</ng-container>
                 <ng-container information-caption>
-                    <ng-container *ngIf="zoneBackupDetail">
+                    <ng-container *ngIf="zoneBackupDetail?.assignedStore">
                         {{zoneBackupDetail.assignedStore.code}} {{zoneBackupDetail.assignedStore.name}}
                     </ng-container>
-                    <ng-container *ngIf="!zoneBackupDetail">
+                    <ng-container *ngIf="!zoneBackupDetail?.assignedStore">
                         Sin local backup
                     </ng-container>
                 </ng-container>

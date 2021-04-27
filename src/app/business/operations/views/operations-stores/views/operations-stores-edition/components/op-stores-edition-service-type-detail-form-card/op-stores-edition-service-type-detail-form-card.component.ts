@@ -12,6 +12,7 @@ import { FormGroup } from '@angular/forms';
 import { CPaymentMethodName, EPaymentMethod } from '@models/payment-method/payment-method.model';
 import { OpStoresEditionServiceTypeDetailDialogService } from '../op-stores-edition-service-type-detail-dialog/op-stores-edition-service-type-detail-dialog.service';
 import { StoreDetail } from '../../../../models/operations-stores.model';
+import { minuteFormat } from '@helpers/date-name.helper';
 
 @Component({
     selector: 'app-op-stores-edition-service-type-detail-form-card',
@@ -66,7 +67,7 @@ export class OpStoresEditionServiceTypeDetailFormCardComponent implements OnInit
     updateFormValues() {
         this._serviceTypeDetailForm.startHourControl.patchValue(this.storeServiceType.startHour);
         this._serviceTypeDetailForm.endHourControl.patchValue(this.storeServiceType.endHour);
-        this._serviceTypeDetailForm.intervalTimeControl.patchValue(`${this.storeServiceType.intervalTime} minutos`);
+        this._serviceTypeDetailForm.intervalTimeControl.patchValue(minuteFormat(this.storeServiceType.intervalTime));
         this._serviceTypeDetailForm.intervalTimeControl.disable();
         this._serviceTypeDetailForm.paymentMethodArray.controls.forEach((paymentMethodGroup: FormGroup) => {
             const checkedPaymentMethod = this.storeServiceType.paymentMethodList

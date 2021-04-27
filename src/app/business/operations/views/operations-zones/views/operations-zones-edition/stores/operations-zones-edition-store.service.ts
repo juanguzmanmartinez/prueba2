@@ -1,12 +1,18 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ZoneDetail } from '../../../models/operations-zones.model';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
+
+export class ZoneEditionStoreError {
+    constructor() {
+    }
+
+}
 
 @Injectable()
 export class OperationsZonesEditionStoreService implements OnDestroy {
-    private zoneDetailSubject = new BehaviorSubject<ZoneDetail>(null);
-    private zoneBackupSubject = new BehaviorSubject<ZoneDetail>(null);
+    private zoneDetailSubject = new BehaviorSubject<ZoneDetail | ZoneEditionStoreError>(null);
+    private zoneBackupSubject = new BehaviorSubject<ZoneDetail | ZoneEditionStoreError>(null);
     private updateZoneDetailSubject = new BehaviorSubject<boolean>(null);
 
     constructor() {
@@ -14,15 +20,18 @@ export class OperationsZonesEditionStoreService implements OnDestroy {
 
     get zoneDetail$(): Observable<ZoneDetail> {
         return this.zoneDetailSubject.asObservable()
-            .pipe(filter(value => !!value));
+            .pipe(
+                filter(value => value instanceof ZoneDetail || value instanceof ZoneEditionStoreError),
+                map(value => value instanceof ZoneEditionStoreError ? null : value)
+            );
     }
 
     set zoneDetail(zoneDetail: ZoneDetail) {
         this.zoneDetailSubject.next(zoneDetail);
     }
 
-    set zoneDetailError(error: any) {
-        this.zoneDetailSubject.error(error);
+    zoneDetailError() {
+        this.zoneDetailSubject.next(new ZoneEditionStoreError());
     }
 
     get updateZoneDetail$(): Observable<boolean> {
@@ -36,15 +45,18 @@ export class OperationsZonesEditionStoreService implements OnDestroy {
 
     get zoneBackup$(): Observable<ZoneDetail> {
         return this.zoneBackupSubject.asObservable()
-            .pipe(filter(value => !!value));
+            .pipe(
+                filter(value => value instanceof ZoneDetail || value instanceof ZoneEditionStoreError),
+                map(value => value instanceof ZoneEditionStoreError ? null : value)
+            );
     }
 
     set zoneBackup(zoneDetail: ZoneDetail) {
         this.zoneBackupSubject.next(zoneDetail);
     }
 
-    set zoneBackupError(error: any) {
-        this.zoneBackupSubject.error(error);
+    zoneBackupError() {
+        this.zoneBackupSubject.next(new ZoneEditionStoreError());
     }
 
     ngOnDestroy() {

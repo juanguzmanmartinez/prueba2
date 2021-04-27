@@ -42,4 +42,6 @@ export const ICONS_SVG: IconsSvgModel[] = [
     {name: 'send-message', path: `${pathIllustrations}send-message.svg`},
     {name: 'sent', path: `${pathIllustrations}sent.svg`},
     {name: 'under-construction', path: `${pathIllustrations}under-construction.svg`},
+    {name: '404', path: `${pathIllustrations}404.svg`},
+    {name: 'responsive', path: `${pathIllustrations}responsive.svg`},
 ];

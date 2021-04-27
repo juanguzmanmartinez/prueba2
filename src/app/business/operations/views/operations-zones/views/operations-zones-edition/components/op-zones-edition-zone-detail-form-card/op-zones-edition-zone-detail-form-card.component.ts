@@ -10,7 +10,8 @@ import { Subscription } from 'rxjs';
 import { CZoneLabelColor, EZoneLabel } from '../../../../models/operations-zones-label.model';
 import { ETagAppearance } from '@models/tag/tag.model';
 import { IZoneDetailUpdate } from '@interfaces/zones/zones.interface';
-import { CZoneTypeName, CZoneTypeValue, EZoneType } from '../../../../parameters/operations-zones-type.parameter';
+import { CZoneTypeValue } from '../../../../parameters/operations-zones-type.parameter';
+import { CDeliveryTypeId, CDeliveryTypeName } from '@models/service-type/delivery-service-type.model';
 
 @Component({
     selector: 'app-op-zones-edition-zone-detail-form-card',
@@ -25,10 +26,11 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     public stateValue = CStateValue;
     public channelName = CChannelName;
     public companyName = CCompanyName;
-    public zoneTypeName = CZoneTypeName;
     public zoneTypeValue = CZoneTypeValue;
     public labelColor = CZoneLabelColor;
     public tagAppearance = ETagAppearance;
+    private deliveryTypeName = CDeliveryTypeName;
+    private deliveryTypeId = CDeliveryTypeId;
 
     public controlNameList = ZoneDetailControlName;
     public storeList: ZonesStore[] = [];
@@ -37,7 +39,6 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     public channelList: EChannel[] = [];
 
 
-    @Input() zoneTypeList: EZoneType[] = [];
     @Input() labelList: EZoneLabel[] = [];
     @Input() zoneDetail: ZoneDetail;
 
@@ -78,8 +79,9 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     }
 
     updateZoneDetailForm() {
-        this.form.assignedStoreControl.patchValue(this.zoneDetail.assignedStore);
-        this.form.zoneTypeControl.patchValue(this.zoneDetail.zoneType);
+        const findAssignedStore = this.storeList
+            .find((zoneStore) => zoneStore.code === this.zoneDetail.assignedStore?.code);
+        this.form.assignedStoreControl.patchValue(findAssignedStore);
         this.form.labelControl.patchValue(this.zoneDetail.label);
         this.form.companyArray.controls.forEach((companyGroup: CheckboxGroupControl) => {
             const checkedCompany = this.zoneDetail.companyList
@@ -97,13 +99,11 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     checkEditionByStateControl() {
         if (this.form.stateControl.value) {
             this.form.assignedStoreControl.enable();
-            this.form.zoneTypeControl.enable();
             this.form.companyArray.enable();
             this.form.channelArray.enable();
             this.form.labelControl.enable();
         } else {
             this.form.assignedStoreControl.disable();
-            this.form.zoneTypeControl.disable();
             this.form.companyArray.disable();
             this.form.channelArray.disable();
             this.form.labelControl.disable();
@@ -147,6 +147,15 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
         return option ? `${option.code} ${option.name}` : '';
     }
 
+    get deliveryType(): string {
+        const zonesStore = this.form.assignedStoreControl.value as ZonesStore;
+        const deliveryTypeName = this.deliveryTypeName[zonesStore.deliveryType];
+        if (deliveryTypeName) {
+            return deliveryTypeName;
+        }
+        return 'Sin delivery';
+    }
+
     cancelEditionEvent() {
         this.cancelEdition.emit();
     }
@@ -157,8 +166,9 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
         if (zoneDetailUpdate.enabled) {
             const assignedStore = this.form.assignedStoreControl.value as ZonesStore;
             zoneDetailUpdate.fulfillmentCenterCode = assignedStore.code;
-            zoneDetailUpdate.backUpZone = this.zoneTypeValue[this.form.zoneTypeControl.value];
+            zoneDetailUpdate.backUpZone = this.zoneTypeValue[this.zoneDetail.zoneType];
             zoneDetailUpdate.zoneType = this.form.labelControl.value;
+            zoneDetailUpdate.deliveryServiceId = this.deliveryTypeId[assignedStore.deliveryType];
             zoneDetailUpdate.companyCode = this.form.companyArray.value
                 .filter((company) => company[this.controlNameList.companyChecked])
                 .map((company) => company[this.controlNameList.companyName]);
@@ -169,6 +179,7 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
             zoneDetailUpdate.fulfillmentCenterCode = this.zoneDetail.assignedStore.code;
             zoneDetailUpdate.backUpZone = this.zoneTypeValue[this.zoneDetail.zoneType];
             zoneDetailUpdate.zoneType = this.zoneDetail.label;
+            zoneDetailUpdate.deliveryServiceId = this.deliveryTypeId[this.zoneDetail.assignedStore.deliveryType];
             zoneDetailUpdate.companyCode = this.zoneDetail.companyList;
             zoneDetailUpdate.channel = this.zoneDetail.channelList;
         }

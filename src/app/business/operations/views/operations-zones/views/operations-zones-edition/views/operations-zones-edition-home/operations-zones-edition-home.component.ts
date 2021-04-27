@@ -15,8 +15,9 @@ import { OperationMessages } from '../../../../../../parameters/operations-messa
 import { AlertService } from '@molecules/alert/alert.service';
 import { parseUrl } from '@helpers/parse-url.helper';
 import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
-import { EChannel } from '@models/channel/channel.model';
-import { CZoneServiceTypeSegmentGap } from '../../../../parameters/operations-zones-service-type.parameter';
+import { CChannelRoute, EChannel } from '@models/channel/channel.model';
+import { CZoneServiceTypeSegmentGap, ZoneServiceTypeBasicRequest } from '../../../../parameters/operations-zones-service-type.parameter';
+import { OperationsZonesEditionActionsStoreService } from '../../stores/operations-zones-edition-actions-store.service';
 
 @Component({
     selector: 'app-operations-zones-edition-home',
@@ -35,10 +36,12 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
 
     public homeEditionLoader = true;
     public saveEditionLoader: boolean;
+    public updateEditionLoader: boolean;
 
     constructor(
         private _router: Router,
         @SkipSelf() private _operationsZonesEditionStore: OperationsZonesEditionStoreService,
+        @SkipSelf() private _operationsZonesEditionActionsStore: OperationsZonesEditionActionsStoreService,
         private _dialogConfirmChanges: DialogConfirmChangesService,
         private _operationsZonesImplement: OperationsZonesImplementService,
         private _alert: AlertService
@@ -46,55 +49,80 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.updateZoneDetail();
         this.getZoneDetail();
         this.getZoneBackup();
+    }
+
+    updateZoneDetail() {
+        const subscription = this._operationsZonesEditionStore.updateZoneDetail$
+            .subscribe(() => {
+                this.updateEditionLoader = true;
+            });
+        this.subscriptions.push(subscription);
     }
 
     getZoneDetail() {
         const subscription = this._operationsZonesEditionStore.zoneDetail$
             .subscribe((zoneDetail: ZoneDetail) => {
-                    this.homeEditionLoader = false;
+                if (zoneDetail) {
                     this.saveEditionLoader = false;
+                    this.homeEditionLoader = false;
+                    this.updateEditionLoader = false;
                     this.zoneDetail = zoneDetail;
                     this.zoneServiceTypeList = zoneDetail.channelList
                         .map((channel: EChannel) => new ZoneChannelServiceTypeList(
                             zoneDetail.serviceTypeList,
                             zoneDetail.assignedStore?.serviceTypeList || [],
                             channel));
-                },
-                () => {
+                } else {
                     this.saveEditionLoader = false;
                     this.homeEditionLoader = false;
+                    this.updateEditionLoader = false;
                     this.zoneDetail = null;
                     this.zoneServiceTypeList = null;
-                });
+                }
+            });
         this.subscriptions.push(subscription);
     }
 
     getZoneBackup() {
         const subscription = this._operationsZonesEditionStore.zoneBackup$
             .subscribe((zoneBackupDetail: ZoneDetail) => {
+                if (zoneBackupDetail) {
                     this.zoneBackupDetail = zoneBackupDetail;
                     this.zoneBackupServiceTypeList = new ZoneBackupServiceTypeList(zoneBackupDetail.serviceTypeList, this.zoneDetail.zoneBackup);
-                },
-                () => {
+                } else {
                     this.zoneBackupDetail = null;
                     this.zoneBackupServiceTypeList = new ZoneBackupServiceTypeList([]);
-                });
+
+                }
+            });
         this.subscriptions.push(subscription);
+    }
+
+    setTabSettingsSelectionIndex(index) {
+        this._operationsZonesEditionActionsStore.tabSettingSelection = index;
+    }
+
+    get tabSettingsSelectionIndex(): number {
+        return this._operationsZonesEditionActionsStore.tabSettingSelection;
     }
 
     editZone() {
         this._router.navigate([ROUTER_PATH.opZones_ZoneEdition(this.zoneDetail.code)]);
     }
 
-    editServiceType(serviceType: EDeliveryServiceType) {
-        const zoneCodePath = ROUTER_PATH.opZones_Zone(this.zoneDetail.code);
-        const serviceTypePath = `${zoneCodePath}/${CDeliveryServiceTypeRoute[serviceType]}`;
+    editServiceType(serviceType: ZoneServiceTypeBasicRequest) {
+        const serviceTypePath = ROUTER_PATH.opZones_ZoneServiceTypeEdition(
+            CDeliveryServiceTypeRoute[serviceType.code],
+            this.zoneDetail.code,
+            CChannelRoute[serviceType.channel]
+        );
         this._router.navigate([serviceTypePath]);
     }
 
-    addServiceType(serviceType: {code: EDeliveryServiceType, channel: EChannel}) {
+    addServiceType(serviceType: ZoneServiceTypeBasicRequest) {
         const subscription = this._dialogConfirmChanges.open()
             .afterClosed()
             .subscribe((confirmChanges) => {
@@ -105,7 +133,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
         this.subscriptions.push(subscription);
     }
 
-    registerServiceType(serviceType: {code: EDeliveryServiceType, channel: EChannel}) {
+    registerServiceType(serviceType: ZoneServiceTypeBasicRequest) {
         const assignedStoreServiceType = this.zoneDetail?.assignedStore.serviceTypeList
             .find((storeServiceType: ZonesStoreServiceType) => storeServiceType.code === serviceType.code);
 

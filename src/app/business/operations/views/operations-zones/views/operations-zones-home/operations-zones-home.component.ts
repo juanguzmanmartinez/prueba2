@@ -40,13 +40,14 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
 
     public searchInput = '';
     public tableLoader = true;
+    public zoneList: Zone[];
 
     public displayedColumns: string[] = [
         ColumnNameList.zoneCode, ColumnNameList.zoneName, ColumnNameList.assignedStore, ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
     public dataSource = new MatTableDataSource([]);
 
-    @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
+    @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
+    @ViewChild(MatSort) sort: MatSort;
 
     constructor(
         private _router: Router,
@@ -60,10 +61,12 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
         this._operationsZonesImplement.zoneList
             .subscribe((zoneList: Zone[]) => {
                     this.tableLoader = false;
+                    this.zoneList = zoneList;
                     this.dataSource.data = zoneList;
                     this.setDataSourceService();
                 },
                 () => {
+                    this.zoneList = null;
                     this.tableLoader = false;
                 });
     }

@@ -5,20 +5,22 @@
         </div>
     </div>
 
-    <div class="row mb-10">
+    <div class="row mb-7">
         <div class="col">
             <h1 class="text-h3 text-black mb-0">Zonas</h1>
         </div>
+    </div>
 
-        <div class="col-6 col-lg-4 col-xl-3">
+    <div class="row mb-4">
+        <div class="col"></div>
+        <div class="col-6 col-lg-4 col-xl-3"
+             [hidden]="!tableLoader && !zoneList">
             <app-input-search placeholder="Buscar en lista"
                               [(ngModel)]="searchInput"
                               (ngModelChange)="filterBySearchInput()"></app-input-search>
         </div>
     </div>
-
-
-    <div class="row">
+    <div class="row" [hidden]="!tableLoader && !zoneList">
         <div class="col-12 mb-8">
             <table mat-table large-table [dataSource]="dataSource" matSort>
 
@@ -36,7 +38,7 @@
                     <th mat-header-cell columnWidth="18%" *matHeaderCellDef mat-sort-header>Local asignado</th>
                     <td mat-cell columnWidth="18%" *matCellDef="let element">
                         <ng-container *ngIf="element.assignedStore">
-                        {{element.assignedStore.name}}
+                            {{element.assignedStore.name}}
                         </ng-container>
                         <ng-container *ngIf="!element.assignedStore">
                             <p class="text-center m-0">-</p>
@@ -48,7 +50,8 @@
                     <th mat-header-cell
                         columnWidth="145px"
                         *matHeaderCellDef
-                        mat-sort-header>Canal</th>
+                        mat-sort-header>Canal
+                    </th>
                     <td mat-cell
                         columnWidth="145px"
                         cell-double-text
@@ -106,11 +109,18 @@
             </table>
 
             <app-table-loader *ngIf="tableLoader" [cells]="7"></app-table-loader>
-            <app-table-empty *ngIf="!tableLoader && !dataSource.data.length"></app-table-empty>
+            <app-not-search-result *ngIf="!tableLoader && !dataSource.filteredData.length"
+                                   [keyword]="searchInput"></app-not-search-result>
         </div>
 
         <div class="col-12 d-flex-center" [hidden]="dataSource.paginator?.getNumberOfPages() < 2">
             <app-paginator [pageSize]="10"></app-paginator>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!tableLoader && !zoneList">
+        <div class="col-12">
+            <app-generic-error></app-generic-error>
         </div>
     </div>
 </section>

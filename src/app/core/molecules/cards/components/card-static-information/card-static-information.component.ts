@@ -9,6 +9,7 @@ export class CardStaticInformationComponent implements OnInit {
 
     @Input() iconName: string;
     @Input() disabled: boolean;
+    @Input() truncate: boolean;
 
     constructor() {
     }

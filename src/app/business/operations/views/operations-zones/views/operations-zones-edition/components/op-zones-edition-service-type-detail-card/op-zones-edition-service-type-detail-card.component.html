@@ -3,8 +3,8 @@
         <div class="col-12">
             <h5 class="text-h5 mb-2">
                 {{zoneDetail.name}}
-                <span class="text-caption text-gray-5 ms-3">
-                    {{zoneDetail.code}}
+                <span class="text-gray-5 ms-3">
+                    - {{zoneDetail.code}}
                 </span>
             </h5>
         </div>
@@ -13,12 +13,14 @@
     <div class="row">
         <div class="col-12">
 
-            <app-card-static-information class="d-block mb-5" iconName="location_searching">
+            <app-card-static-information class="d-block mb-5"
+                                         iconName="location_searching">
                 <ng-container information-title>Local principal</ng-container>
                 <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
             </app-card-static-information>
 
-            <app-card-static-information class="d-block mb-5" iconName="location_searching">
+            <app-card-static-information class="d-block mb-5"
+                                         iconName="location_searching">
                 <ng-container information-title>Horario de atención {{serviceTypeName[zonesStoreServiceType.code]}} del local principal</ng-container>
                 <ng-container information-caption>{{serviceTypeDateRange}}</ng-container>
             </app-card-static-information>

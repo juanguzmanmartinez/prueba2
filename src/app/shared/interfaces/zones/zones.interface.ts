@@ -56,6 +56,7 @@ export interface IZoneDetailUpdate {
     enabled: boolean;
     backUpZone: boolean;
     zoneType: string;
+    deliveryServiceId: number;
     channel: EChannel[];
     companyCode: ECompany[];
 }

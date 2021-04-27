@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { CStateValue } from '@models/state/state.model';
@@ -7,6 +7,7 @@ import { ZoneServiceTypeRegistered } from '../../../../models/operations-zones-s
 import { CChannelColor, CChannelName } from '@models/channel/channel.model';
 import { ETagAppearance } from '@models/tag/tag.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { minuteFormat } from '@helpers/date-name.helper';
 
 @Component({
     selector: 'app-op-zones-edition-home-main-service-type-card',
@@ -59,15 +60,13 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent implements OnInit {
 
     get segmentGap() {
         if (this.serviceType.serviceType) {
-            const plural = this.serviceType.serviceType.segmentGap > 1;
-            return `${this.serviceType.serviceType.segmentGap} minuto${plural ? 's' : ''}`;
+            return minuteFormat(this.serviceType.serviceType.segmentGap);
         }
         return 'No habilitado';
     }
 
     get serviceTypePath() {
-        const zoneCodePath = ROUTER_PATH.opZones_Zone('?');
-        return `${zoneCodePath}/${CDeliveryServiceTypeRoute[this.serviceType.code]}`;
+        return ROUTER_PATH.opZones_ZoneServiceTypeEdition();
     }
 
     editEvent() {

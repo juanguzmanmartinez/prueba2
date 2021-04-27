@@ -1,4 +1,4 @@
-import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import { EDeliveryServiceType, EDeliveryType } from '@models/service-type/delivery-service-type.model';
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
 import { EPaymentMethod } from '@models/payment-method/payment-method.model';
@@ -9,7 +9,7 @@ export interface IStore {
     localCode: string;
     name: string;
     description: string;
-    localType: string;
+    localType: EDeliveryType;
     wmsEnabled: boolean;
     enabled: boolean;
     position: number;

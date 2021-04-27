@@ -14,7 +14,6 @@ import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-conf
 import { AlertService } from '@molecules/alert/alert.service';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
-import { EZoneType } from '../../../../parameters/operations-zones-type.parameter';
 
 @Component({
     selector: 'app-operations-zones-edition-zone',
@@ -27,7 +26,6 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
     public storeList: ZonesStore[];
     public channelList: EChannel[];
     public companyList: ECompany[];
-    public zoneTypeList: EZoneType[] = [];
     public labelList: EZoneLabel[] = [];
 
     public zoneEditionLoader = true;
@@ -48,18 +46,19 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
         this.getChannelList();
         this.getZoneDetail();
         this.getCompanyList();
-        this.getZoneTypeList();
         this.getLabelList();
     }
 
     getZoneDetail() {
         const subscription = this._operationsZonesEditionStore.zoneDetail$
             .subscribe((zoneDetail: ZoneDetail) => {
-                this.zoneDetail = zoneDetail;
-                this.zoneEditionLoader = false;
-            }, () => {
-                this.zoneDetail = null;
-                this.zoneEditionLoader = false;
+                if (zoneDetail) {
+                    this.zoneDetail = zoneDetail;
+                    this.zoneEditionLoader = false;
+                } else {
+                    this.zoneDetail = null;
+                    this.zoneEditionLoader = false;
+                }
             });
         this.subscriptions.push(subscription);
     }
@@ -99,13 +98,6 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
         this._operationsZonesImplement.companyList
             .subscribe((companyList: ECompany[]) => {
                 this.companyList = companyList;
-            });
-    }
-
-    getZoneTypeList() {
-        this._operationsZonesImplement.zoneTypeList
-            .subscribe((zoneTypeList: EZoneType[]) => {
-                this.zoneTypeList = zoneTypeList;
             });
     }
 

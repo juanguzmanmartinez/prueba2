@@ -2,15 +2,18 @@ import { IStore, IStoreServiceType } from '@interfaces/stores/stores.interface';
 import { EState } from '@models/state/state.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
+import { EDeliveryType } from '@models/service-type/delivery-service-type.model';
 
 export class ZonesStore {
     name: string;
     code: string;
     serviceTypeList: ZonesStoreServiceType[];
+    deliveryType: EDeliveryType;
 
     constructor(iStore: IStore) {
         this.code = iStore.localCode || null;
         this.name = iStore.name || null;
+        this.deliveryType = iStore.localType || null;
         this.serviceTypeList = iStore.services?.length ? iStore.services
             .map((serviceType) => new ZonesStoreServiceType(serviceType)) : [];
     }

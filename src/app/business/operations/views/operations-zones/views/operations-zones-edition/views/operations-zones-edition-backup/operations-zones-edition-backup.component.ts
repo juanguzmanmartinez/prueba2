@@ -44,12 +44,14 @@ export class OperationsZonesEditionBackupComponent implements OnInit, OnDestroy 
     getZoneDetail() {
         const subscription = this._operationsZonesEditionStore.zoneDetail$
             .subscribe((zoneDetail: ZoneDetail) => {
-                this.zoneDetail = zoneDetail;
-                this.backupEditionLoader = false;
-                this.setZoneList();
-            }, () => {
-                this.zoneDetail = null;
-                this.backupEditionLoader = false;
+                if (zoneDetail) {
+                    this.zoneDetail = zoneDetail;
+                    this.backupEditionLoader = false;
+                    this.setZoneList();
+                } else {
+                    this.zoneDetail = null;
+                    this.backupEditionLoader = false;
+                }
             });
         this.subscriptions.push(subscription);
     }

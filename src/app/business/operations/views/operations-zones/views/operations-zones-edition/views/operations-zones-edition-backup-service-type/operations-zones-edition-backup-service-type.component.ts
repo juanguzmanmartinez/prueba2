@@ -51,10 +51,12 @@ export class OperationsZonesEditionBackupServiceTypeComponent implements OnInit,
     getZoneDetail() {
         const subscription = this._operationsZonesEditionStore.zoneDetail$
             .subscribe((zoneDetail: ZoneDetail) => {
-                this.zoneDetail = zoneDetail;
-            }, () => {
-                this.zoneDetail = null;
-                this.backupServiceTypeEditionLoader = false;
+                if (zoneDetail) {
+                    this.zoneDetail = zoneDetail;
+                    this.backupServiceTypeEditionLoader = false;
+                } else {
+                    this.zoneDetail = null;
+                }
             });
         this.subscriptions.push(subscription);
     }
@@ -62,11 +64,13 @@ export class OperationsZonesEditionBackupServiceTypeComponent implements OnInit,
     getZoneBackupDetail() {
         const subscription = this._operationsZonesEditionStore.zoneBackup$
             .subscribe((zoneBackupDetail: ZoneDetail) => {
-                this.zoneBackupDetail = zoneBackupDetail;
-                this.setZoneBackupServiceType();
-            }, () => {
-                this.zoneBackupDetail = null;
-                this.backupServiceTypeEditionLoader = false;
+                if (zoneBackupDetail) {
+                    this.zoneBackupDetail = zoneBackupDetail;
+                    this.setZoneBackupServiceType();
+                } else {
+                    this.zoneBackupDetail = null;
+                    this.backupServiceTypeEditionLoader = false;
+                }
             });
         this.subscriptions.push(subscription);
     }

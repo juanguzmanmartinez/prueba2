@@ -20,3 +20,20 @@ export const CDeliveryServiceTypeRoute = {
     [EDeliveryServiceType.express]: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
     [EDeliveryServiceType.ret]: DELIVERY_SERVICE_TYPE_PATH.deliveryRet
 };
+
+
+export enum EDeliveryType {
+    deliveryCenter = 'DELIVERY_CENTER',
+    drugstore = 'DRUGSTORE'
+}
+
+export const CDeliveryTypeName = {
+    [EDeliveryType.deliveryCenter]: 'Inkatracker',
+    [EDeliveryType.drugstore]: 'Lite'
+};
+
+
+export const CDeliveryTypeId = {
+    [EDeliveryType.deliveryCenter]: 3,
+    [EDeliveryType.drugstore]: 4
+};

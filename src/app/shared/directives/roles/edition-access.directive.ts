@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import { EDITION_ACCESS } from '@parameters/router/edition-access-parameter';
 import { Router } from '@angular/router';
-import { DialogEditionAccessService } from '@molecules/dialog/views/dialog-edition-access/dialog-edition-access.service';
+import { DialogWarningService } from '@molecules/dialog/views/dialog-warning/dialog-warning.service';
 import { UserStoreService } from '@stores/user-store.service';
 
 @Directive({
@@ -19,7 +19,7 @@ export class EditionAccessDirective implements AfterViewInit {
         private _router: Router,
         public elementRef: ElementRef,
         private renderer: Renderer2,
-        private _dialogEditionAccess: DialogEditionAccessService,
+        private _dialogWarning: DialogWarningService,
         private userStore: UserStoreService,
     ) {
     }
@@ -29,8 +29,12 @@ export class EditionAccessDirective implements AfterViewInit {
         if (!this.hasEditionAccess) {
             event.stopPropagation();
             event.preventDefault();
-            this._dialogEditionAccess.open();
-        }else {
+            this._dialogWarning.open(
+                'Lo sentimos, no tienes permiso para editar',
+                'Por favor, pídele a un administrador permisos para editar esta configuración.',
+                'Entendido'
+            );
+        } else {
             this.access.emit(event);
         }
     }

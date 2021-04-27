@@ -4,6 +4,7 @@ export const BUSINESS_PATH = {
     admin: 'administrador',
     operations: 'operaciones',
     notFound: 'no-encontrado',
+    notInternetConnection: 'sin-internet',
 };
 
 export const DELIVERY_SERVICE_TYPE_PATH = {
@@ -11,6 +12,12 @@ export const DELIVERY_SERVICE_TYPE_PATH = {
     deliveryScheduled: 'programado',
     deliveryExpress: 'express',
     deliveryRet: 'retiro-tienda',
+};
+
+export const CHANNEL_PATH = {
+    channelDigital: 'digital',
+    channelCall: 'call-center',
+    channelOmnichannel: 'omnicanal'
 };
 
 
@@ -51,10 +58,8 @@ export const OP_ZONES_PATH = {
     zoneCode: 'zoneCode',
     zoneEdition: 'editar-zona',
     zoneBackupEdition: 'editar-zona-backup',
-    zoneAmPmEdition: DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm,
-    zoneExpressEdition: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
-    zoneRetEdition: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
-    zoneScheduledEdition: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
+    zoneServiceTypeEdition: 'zoneServiceType',
+    zoneServiceTypeChannelEdition: 'zoneChannel',
     zoneBackupAmPmEdition: `backup-${DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm}`,
     zoneBackupScheduledEdition: `backup-${DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled}`,
 };

@@ -33,17 +33,8 @@
 
             <div class="col-12 mb-6">
                 <app-form-field>
-                    <app-form-field-label>Tipo de zona (cobertura)</app-form-field-label>
-                    <div class="row mt-4">
-                        <ng-container *ngFor="let zoneType of zoneTypeList">
-                            <div class="col-6">
-                                <app-radio [formControlName]="controlNameList.zoneType"
-                                           [value]="zoneType">
-                                    {{zoneTypeName[zoneType]}}
-                                </app-radio>
-                            </div>
-                        </ng-container>
-                    </div>
+                    <app-form-field-label>Tipo de delivery</app-form-field-label>
+                    <span>{{deliveryType}}</span>
                 </app-form-field>
             </div>
 

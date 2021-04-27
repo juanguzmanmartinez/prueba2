@@ -1,7 +1,8 @@
 export enum EZoneLabel {
     normal = 'Normal',
     hardAccess = 'Dificil acceso',
-    dangerous = 'Peligrosa',
+    dangerousF = 'Peligrosa',
+    dangerousM = 'Peligroso',
     heavyTraffic = 'Tráfico pesado',
     daytimeZone = 'Zona Diurna',
     regularZone = 'Zona Regular',
@@ -17,7 +18,8 @@ export const ZoneLabelList: EZoneLabel[] = [
 export const CZoneLabelColor = {
     [EZoneLabel.normal]: 'secondary-four',
     [EZoneLabel.hardAccess]: 'secondary-three',
-    [EZoneLabel.dangerous]: 'secondary-two',
+    [EZoneLabel.dangerousF]: 'secondary-two',
+    [EZoneLabel.dangerousM]: 'secondary-two',
     [EZoneLabel.heavyTraffic]: 'secondary-one',
     [EZoneLabel.daytimeZone]: 'primary',
     [EZoneLabel.regularZone]: 'secondary-one',

@@ -17,7 +17,8 @@
 
     <div class="row">
         <div class="col-6">
-            <app-card-static-information class="d-block mb-5" iconName="store">
+            <app-card-static-information class="d-block mb-5"
+                                         iconName="store">
                 <ng-container information-title>Local de atención</ng-container>
                 <ng-container information-caption>
                     <ng-container *ngIf="zoneDetail.assignedStore">
@@ -29,12 +30,14 @@
                 </ng-container>
             </app-card-static-information>
 
-            <app-card-static-information class="d-block mb-5" iconName="location_searching">
-                <ng-container information-title>Tipo de zona (cobertura)</ng-container>
+            <app-card-static-information class="d-block mb-5"
+                                         iconName="location_searching">
+                <ng-container information-title>Tipo de zona</ng-container>
                 <ng-container information-caption>{{zoneTypeName[zoneDetail.zoneType]}}</ng-container>
             </app-card-static-information>
 
-            <app-card-static-information class="d-block mb-5" iconName="store">
+            <app-card-static-information class="d-block mb-5"
+                                         iconName="store">
                 <ng-container information-title>Local backup</ng-container>
                 <ng-container information-caption>
                     <ng-container *ngIf="zoneDetail.zoneBackup">
@@ -46,7 +49,8 @@
                 </ng-container>
             </app-card-static-information>
 
-            <app-card-static-information class="d-block mb-5" iconName="location_searching">
+            <app-card-static-information class="d-block mb-5"
+                                         iconName="location_searching">
                 <ng-container information-title>Zona backup</ng-container>
                 <ng-container information-caption>
                     <ng-container *ngIf="zoneDetail.zoneBackup">
@@ -59,7 +63,8 @@
             </app-card-static-information>
         </div>
         <div class="col-6">
-            <app-card-static-information class="d-block mb-5" iconName="record_voice_over">
+            <app-card-static-information class="d-block mb-5"
+                                         iconName="record_voice_over">
                 <ng-container information-title>Canales de atención</ng-container>
                 <ng-container information-caption>
                     <ng-container *ngFor="let channel of zoneDetail.channelList; let last = last">
@@ -71,7 +76,8 @@
                 </ng-container>
             </app-card-static-information>
 
-            <app-card-static-information class="d-block mb-5" iconName="shopping_bag">
+            <app-card-static-information class="d-block mb-5"
+                                         iconName="shopping_bag">
                 <ng-container information-title>Marcas</ng-container>
                 <ng-container information-caption>
                     <ng-container *ngFor="let company of zoneDetail.companyList; let last = last">
@@ -83,7 +89,21 @@
                 </ng-container>
             </app-card-static-information>
 
-            <app-card-static-information class="d-block" iconName="info">
+            <app-card-static-information class="d-block mb-5"
+                                         iconName="motorcycle">
+                <ng-container information-title>Tipo de delivery</ng-container>
+                <ng-container information-caption>
+                    <ng-container *ngIf="zoneDetail.assignedStore?.deliveryType">
+                        {{deliveryTypeName[zoneDetail.assignedStore.deliveryType]}}
+                    </ng-container>
+                    <ng-container *ngIf="!zoneDetail.assignedStore?.deliveryType">
+                        Sin delivery
+                    </ng-container>
+                </ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information class="d-block"
+                                         iconName="info">
                 <ng-container information-title>Etiquetas</ng-container>
                 <ng-container information-caption>
                     <app-tag [tagColor]="labelColor[zoneDetail.label]"

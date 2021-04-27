@@ -92,5 +92,6 @@ Update readme with the new icon name
 |![](../../../../assets/illustrations/look-orders.svg)          | look-orders           | |      ![](../../../../assets/illustrations/sent.svg)                  | sent                  |
 |![](../../../../assets/illustrations/looking-files.svg)        | looking-files         | |      ![](../../../../assets/illustrations/under-construction.svg)    | under-construction    |
 |![](../../../../assets/illustrations/search-store.svg)         | search-store          | |      ![](../../../../assets/illustrations/logo.svg)                  | logo                  |
+|![](../../../../assets/illustrations/404.svg)                  | 404                   | |      ![](../../../../assets/illustrations/responsive.svg)            |  responsive           |
 
 

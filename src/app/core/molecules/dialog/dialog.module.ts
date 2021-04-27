@@ -12,8 +12,8 @@ import { DialogConfirmChangesComponent } from '@molecules/dialog/views/dialog-co
 import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogEditionAccessComponent } from '@molecules/dialog/views/dialog-edition-access/dialog-edition-access.component';
-import { DialogEditionAccessService } from '@molecules/dialog/views/dialog-edition-access/dialog-edition-access.service';
+import { DialogWarningComponent } from '@molecules/dialog/views/dialog-warning/dialog-warning.component';
+import { DialogWarningService } from '@molecules/dialog/views/dialog-warning/dialog-warning.service';
 import { DialogTabDirective } from '@molecules/dialog/directives/dialog-tab.directive';
 
 const DECLARATIONS = [
@@ -24,7 +24,7 @@ const DECLARATIONS = [
     DialogHeaderComponent,
     DialogLoaderComponent,
     DialogConfirmChangesComponent,
-    DialogEditionAccessComponent
+    DialogWarningComponent
 ];
 
 @NgModule({
@@ -44,7 +44,7 @@ const DECLARATIONS = [
         DialogService,
         DialogLoaderService,
         DialogConfirmChangesService,
-        DialogEditionAccessService
+        DialogWarningService
     ]
 })
 export class DialogModule {
