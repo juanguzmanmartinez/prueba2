@@ -30,7 +30,7 @@ export class OperationsStoresHomeComponent implements OnInit, OnDestroy {
     public companyName = CCompanyName;
 
     public searchInput = '';
-    public tableLoader = true;
+    public storesHomeLoader = true;
 
     public displayedColumns: string[] = ['storeCode', 'storeName', 'company', 'channel', 'state', 'actions'];
     public dataSource = new MatTableDataSource([]);
@@ -48,11 +48,11 @@ export class OperationsStoresHomeComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this._operationsStoresImplement.storeList
             .subscribe((storeList: Store[]) => {
-                this.tableLoader = false;
+                this.storesHomeLoader = false;
                 this.dataSource.data = storeList;
                 this.setDataSourceService();
             }, () => {
-                this.tableLoader = false;
+                this.storesHomeLoader = false;
             });
     }
 

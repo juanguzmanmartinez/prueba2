@@ -88,7 +88,7 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
 
-            <app-table-loader *ngIf="tableLoader" [cells]="6"></app-table-loader>
+            <app-table-loader *ngIf="storesHomeLoader" [cells]="6"></app-table-loader>
         </div>
 
         <div class="col-12 d-flex-center" [hidden]="dataSource.paginator?.getNumberOfPages() < 2">
