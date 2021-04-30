@@ -56,7 +56,7 @@ export class ZoneServiceTypeRegistered {
 
             if (!!storeServiceType) {
                 this.serviceType = new ZoneServiceType({} as IZoneServiceType);
-                this.serviceType.state = EState.inactive;
+                this.serviceType.state = storeServiceType.state;
                 this.serviceType.startHour = storeServiceType.startHour;
                 this.serviceType.endHour = storeServiceType.endHour;
                 this.serviceType.segmentGap = CZoneServiceTypeSegmentGap[serviceTypeCode];

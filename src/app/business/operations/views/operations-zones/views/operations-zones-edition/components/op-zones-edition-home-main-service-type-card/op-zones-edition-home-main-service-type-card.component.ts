@@ -32,7 +32,7 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent implements OnInit {
     }
 
     get serviceTypeDisabled() {
-        return !this.serviceType.serviceType || !this.stateValue[this.serviceType.serviceType.state] || !this.serviceType.available;
+        return !this.serviceType.serviceType || !this.stateValue[this.serviceType.serviceType.state];
     }
 
     get segmentName() {
