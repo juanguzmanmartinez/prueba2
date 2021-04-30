@@ -141,7 +141,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
             .subscribe((edition) => {
                 if (edition) {
                     this.editRow(zone.code);
-                } else {
+                } else if (edition === false) {
                     this._alertService.alertError(OperationMessages.errorDetailDialog);
                 }
             });

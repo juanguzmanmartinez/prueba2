@@ -56,7 +56,7 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
                 this.settingDataSource();
             }, () => {
                 this.zoneDetail = null;
-                this._dialogRef.close();
+                this._dialogRef.close(false);
             }, () => {
                 this.zoneDetailLoader = false;
             });
