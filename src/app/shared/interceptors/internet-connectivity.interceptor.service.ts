@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { ERROR_CODE } from '@parameters/error/error-code.parameter';
+import { HTTP_ERROR } from '@parameters/error/error-code.parameter';
 import { catchError } from 'rxjs/operators';
 
 
@@ -16,7 +16,7 @@ export class InternetConnectivityInterceptor implements HttpInterceptor {
                 catchError(err => {
                     if (!window.navigator.onLine) {
                         const error = {
-                            status: ERROR_CODE.internetConnectivity,
+                            status: HTTP_ERROR.internetConnectivity,
                             error: {
                                 description: 'Service Unavailable'
                             },

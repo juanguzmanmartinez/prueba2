@@ -1,0 +1,7 @@
+<ng-container [ngSwitch]="errorStatus">
+    <app-timeout-error *ngSwitchCase="httpError.timeout.status"
+                       [reloadView]="reloadView"
+                       [reloadPage]="reloadPage"
+                       (customReload)="customReload.emit()"></app-timeout-error>
+    <app-generic-error *ngSwitchDefault></app-generic-error>
+</ng-container>

@@ -14,6 +14,8 @@ import { AlertService } from '@molecules/alert/alert.service';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { minuteFormat } from '@helpers/date-name.helper';
+import { ETagAppearance } from '@models/tag/tag.model';
+import { CChannelColor, CChannelName } from '@models/channel/channel.model';
 
 @Component({
     selector: 'app-op-zones-edition-service-type-detail-form-card',
@@ -32,6 +34,9 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
     public serviceTypeName = CDeliveryServiceTypeName;
     public controlNameList = ZoneServiceTypeControlName;
     public configurationPath = ROUTER_PATH.operationSettings;
+    public tagAppearance = ETagAppearance;
+    public channelName = CChannelName;
+    private channelColor = CChannelColor;
 
     public splitSegmentList: string[] = [];
 
@@ -54,6 +59,14 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
         this.updateFormValues();
         this.updateStateControl();
         this.checkEditionByStateControl();
+    }
+
+    get segmentChannelName() {
+        return this.channelName[this.zoneServiceType.channel];
+    }
+
+    get segmentChannelColor() {
+        return this.channelColor[this.zoneServiceType.channel];
     }
 
     get form$() {

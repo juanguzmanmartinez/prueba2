@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { OpZonesEditionBackupDetailFormCardFormService, ZoneBackupDetailControlName } from './form/op-zones-edition-backup-detail-form-card-form.service';
 import { CGStateSettingByValue, CStateValue } from '@models/state/state.model';
 import { IZoneBackupUpdate } from '@interfaces/zones/zones.interface';
+import { CZoneTypeName, EZoneType } from '../../../../parameters/operations-zones-type.parameter';
 
 @Component({
     selector: 'app-op-zones-edition-backup-detail-form-card',
@@ -15,17 +16,21 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
     private subscriptions: Subscription[] = [];
 
     public stateValue = CStateValue;
+    public zoneTypeName = CZoneTypeName;
 
     public controlNameList = ZoneBackupDetailControlName;
+    public zoneListStored: Zone[];
     public zoneList: Zone[];
 
     @Input() zoneDetail: ZoneDetail;
 
     @Input('zoneList')
     set _zoneList(zoneList: Zone[]) {
+        this.zoneListStored = zoneList;
         this.zoneList = zoneList;
     }
 
+    @Input() zoneTypeList: EZoneType[];
     @Output() cancelEdition = new EventEmitter();
     @Output() saveEdition = new EventEmitter<IZoneBackupUpdate>();
 
@@ -40,6 +45,7 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
 
         this.updateZoneBackupDetailForm();
         this.updateStateControl();
+        this.updateZoneTypeControl();
         this.updateZoneBackupControl();
     }
 
@@ -60,7 +66,6 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
         } else {
             this._editionZoneBackupDetailForm.zoneBackupControl.disable();
         }
-        this._editionZoneBackupDetailForm.assignedStoreControl.disable();
     }
 
     updateStateControl() {
@@ -74,19 +79,41 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
         this.subscriptions.push(subscription);
     }
 
+    updateZoneTypeControl() {
+        const subscription = this._editionZoneBackupDetailForm.zoneTypeControl.valueChanges
+            .subscribe(() => {
+                const zoneType = this._editionZoneBackupDetailForm.zoneTypeControl.value;
+                if (zoneType) {
+                    this.zoneList = this.zoneListStored
+                        .filter((zone: Zone) => {
+                            return zone.zoneType === zoneType;
+                        });
+                } else {
+                    this.zoneList = this.zoneListStored;
+                }
+
+                const zoneBackup = this.zoneList.find((zone) => zone.code === this.zoneDetail.zoneBackup?.code);
+                this._editionZoneBackupDetailForm.zoneBackupControl.setValue(zoneBackup);
+            });
+        this.subscriptions.push(subscription);
+    }
+
     updateZoneBackupControl() {
         const subscription = this._editionZoneBackupDetailForm.zoneBackupControl.valueChanges
             .subscribe(() => {
                 const zoneBackup = this._editionZoneBackupDetailForm.zoneBackupControl.value;
                 const backupAssignedStore = zoneBackup?.assignedStore ? `${zoneBackup.assignedStore.code} ${zoneBackup.assignedStore.name}` : '';
                 this._editionZoneBackupDetailForm.assignedStoreControl.patchValue(backupAssignedStore);
-                this._editionZoneBackupDetailForm.assignedStoreControl.disable();
             });
         this.subscriptions.push(subscription);
     }
 
     zoneBackupOptionName(option: Zone) {
         return option ? `${option.name} - ${option.code}` : '';
+    }
+
+    zoneTypeOptionName(option: EZoneType) {
+        return option ? this.zoneTypeName[option] : '';
     }
 
     cancelEditionEvent() {

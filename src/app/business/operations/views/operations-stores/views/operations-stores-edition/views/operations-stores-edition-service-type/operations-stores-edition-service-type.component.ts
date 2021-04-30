@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, SkipSelf } from '@angular/core';
-import { parseUrl } from '@helpers/parse-url.helper';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
+import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 import { AlertService } from '@molecules/alert/alert.service';
 import { OperationsStoresEditionStoreService } from '../../stores/operations-stores-edition-store.service';
 import { OperationsStoresImplementService } from '../../../../implements/operations-stores-implement.service';
@@ -13,6 +12,7 @@ import { StoreServiceType } from '../../../../models/operations-stores-service-t
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { IStoreServiceTypeUpdate } from '@interfaces/stores/stores.interface';
 import { EPaymentMethod } from '@models/payment-method/payment-method.model';
+import { RouterHelperService } from '@helpers/router-helper.service';
 
 @Component({
     selector: 'app-operations-stores-edition-service-type',
@@ -35,8 +35,9 @@ export class OperationsStoresEditionServiceTypeComponent implements OnInit, OnDe
         private _activatedRoute: ActivatedRoute,
         @SkipSelf() private _operationsStoresEditionStore: OperationsStoresEditionStoreService,
         private _operationsStoresImplement: OperationsStoresImplementService,
-        private _dialogConfirmChanges: DialogConfirmChangesService,
-        private _alert: AlertService
+        private _dialogTwoActions: DialogTwoActionsService,
+        private _alert: AlertService,
+        private _routerHelper: RouterHelperService,
     ) {
     }
 
@@ -96,7 +97,7 @@ export class OperationsStoresEditionServiceTypeComponent implements OnInit, OnDe
 
     saveEdition(storeServiceTypeUpdate: IStoreServiceTypeUpdate) {
         this.saveEditionLoader = true;
-        const subscription = this._dialogConfirmChanges.open()
+        const subscription = this._dialogTwoActions.openConfirmChanges()
             .afterClosed()
             .subscribe((confirmChanges) => {
                 if (confirmChanges) {
@@ -109,8 +110,7 @@ export class OperationsStoresEditionServiceTypeComponent implements OnInit, OnDe
     }
 
     backRoute() {
-        const backRoute = parseUrl(this._router.url, '..');
-        this._router.navigate([backRoute]);
+        this._routerHelper.backRoute();
     }
 
     storeListRoute() {

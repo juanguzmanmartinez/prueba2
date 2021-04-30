@@ -14,13 +14,13 @@
     <div class="row mb-4">
         <div class="col"></div>
         <div class="col-6 col-lg-4 col-xl-3"
-             [hidden]="!tableLoader && !zoneList">
+             [hidden]="errorResponse">
             <app-input-search placeholder="Buscar en lista"
                               [(ngModel)]="searchInput"
                               (ngModelChange)="filterBySearchInput()"></app-input-search>
         </div>
     </div>
-    <div class="row" [hidden]="!tableLoader && !zoneList">
+    <div class="row" [hidden]="errorResponse">
         <div class="col-12 mb-8">
             <table mat-table large-table [dataSource]="dataSource" matSort>
 
@@ -118,9 +118,7 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="!tableLoader && !zoneList">
-        <div class="col-12">
-            <app-generic-error></app-generic-error>
-        </div>
+    <div class="pt-6" *ngIf="errorResponse">
+        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
     </div>
 </section>

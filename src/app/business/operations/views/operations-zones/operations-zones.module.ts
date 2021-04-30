@@ -59,8 +59,9 @@ import { OpZonesEditionBackupServiceTypeDetailFormCardComponent } from './views/
 import { OpZonesEditionBackupServiceTypeDetailCardComponent } from './views/operations-zones-edition/components/op-zones-edition-backup-service-type-detail-card/op-zones-edition-backup-service-type-detail-card.component';
 import { GuardServiceModule } from '@guards/guard-service.module';
 import { OperationsZoneServiceTypeEditionGuard } from './guards/operations-zone-service-type-edition-guard.service';
-import { GenericErrorModule } from '@pages/generic-error/generic-error.module';
 import { NotSearchResultModule } from '@pages/not-search-result/not-search-result.module';
+import { HelpersModule } from '@helpers/helpers.module';
+import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
 
 
 @NgModule({
@@ -123,8 +124,9 @@ import { NotSearchResultModule } from '@pages/not-search-result/not-search-resul
         SkeletonModule,
         EmptyResultModule,
         TabModule,
-        GenericErrorModule,
-        NotSearchResultModule
+        NotSearchResultModule,
+        HelpersModule,
+        HttpErrorViewerModule
     ],
     providers: [
         OperationsZonesImplementService,

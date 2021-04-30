@@ -3,8 +3,9 @@
         <div class="col-12">
             <h5 class="text-h5 mb-2">
                 {{zoneDetail.name}}
-                <span class="text-gray-5 ms-3">
-                    - {{zoneDetail.code}}
+                <span class="mx-3">-</span>
+                <span class="text-gray-5 text-nowrap">
+                    COD {{zoneDetail.code}}
                 </span>
             </h5>
         </div>
@@ -13,14 +14,41 @@
     <div class="row">
         <div class="col-12">
 
-            <app-card-static-information iconName="store">
-                <ng-container information-title>Local principal</ng-container>
+            <app-card-static-information class="d-block mb-5"
+                                         iconName="store">
+                <ng-container information-title>Local de atención</ng-container>
                 <ng-container information-caption>
                     <ng-container *ngIf="zoneDetail.assignedStore">
                         {{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}
                     </ng-container>
                     <ng-container *ngIf="!zoneDetail.assignedStore">
-                        Sin local principal
+                        Sin local de atención
+                    </ng-container>
+                </ng-container>
+            </app-card-static-information>
+
+
+            <app-card-static-information class="d-block mb-5"
+                                         iconName="store">
+                <ng-container information-title>Local backup</ng-container>
+                <ng-container information-caption>
+                    <ng-container *ngIf="zoneDetail.zoneBackup">
+                        {{zoneDetail.zoneBackup.assignedStoreCode}} {{zoneDetail.zoneBackup.assignedStoreName}}
+                    </ng-container>
+                    <ng-container *ngIf="!zoneDetail.zoneBackup">
+                        Sin local backup
+                    </ng-container>
+                </ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information iconName="location_searching">
+                <ng-container information-title>Zona backup</ng-container>
+                <ng-container information-caption>
+                    <ng-container *ngIf="zoneDetail.zoneBackup">
+                        {{zoneDetail.zoneBackup.name}} - {{zoneDetail.zoneBackup.code}}
+                    </ng-container>
+                    <ng-container *ngIf="!zoneDetail.zoneBackup">
+                        Sin zona backup
                     </ng-container>
                 </ng-container>
             </app-card-static-information>

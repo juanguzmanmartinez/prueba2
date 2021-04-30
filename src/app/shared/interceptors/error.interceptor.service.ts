@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Observable, throwError, TimeoutError } from 'rxjs';
-import { catchError, timeout } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { UserStoreService } from '@stores/user-store.service';
-import { ERROR_CODE } from '@parameters/error/error-code.parameter';
+import { HTTP_ERROR } from '@parameters/error/error-code.parameter';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { Router } from '@angular/router';
-import { DialogWarningService } from '@molecules/dialog/views/dialog-warning/dialog-warning.service';
+import { DialogOneActionService } from '@molecules/dialog/views/dialog-one-action/dialog-one-action.service';
 
 
 @Injectable()
@@ -14,39 +14,34 @@ export class ErrorInterceptor implements HttpInterceptor {
     constructor(
         private userStore: UserStoreService,
         private _router: Router,
-        private _dialogWarning: DialogWarningService,
+        private _dialogOneAction: DialogOneActionService,
     ) {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request)
             .pipe(
-                timeout(3000),
                 catchError(err => {
-                    if ([ERROR_CODE.unauthorized, ERROR_CODE.forbidden].indexOf(err.status) !== -1) {
+                    if ([HTTP_ERROR.unauthorized, HTTP_ERROR.forbidden].indexOf(err.status) !== -1) {
                         this.userStore.logout();
                         this.unauthorizedNewLogin(err.error);
                     }
-                    if ([ERROR_CODE.internetConnectivity].indexOf(err.status) !== -1) {
+                    if (err.status === HTTP_ERROR.internetConnectivity) {
                         this.notInternetConnection();
                     }
 
-                    if (err instanceof TimeoutError) {
-                        return throwError('Timeout Exception');
-                    }
-
-                    const error = err.error.message || err.statusText;
-                    return throwError(error);
+                    return throwError(err);
                 })
             );
     }
 
     unauthorizedNewLogin(error: { code: string, message: string }) {
-        if (error.code === ERROR_CODE.unauthorizedNewLogin) {
-            this._dialogWarning.open(
-                'Has iniciado sesión en otro navegador',
-                'Por favor, cierra la sesión en otros dispositivos y vuelve a ingresar.',
-                'Aceptar'
+        if (error.code === HTTP_ERROR.unauthorizedNewLogin) {
+            this._dialogOneAction.openWarning({
+                    title: 'Has iniciado sesión en otro navegador',
+                    description: 'Por favor, cierra la sesión en otros dispositivos y vuelve a ingresar.',
+                    action: 'Aceptar'
+                }
             );
         }
     }

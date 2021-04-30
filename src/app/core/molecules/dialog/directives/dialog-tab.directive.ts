@@ -19,6 +19,12 @@ export class DialogTabDirective implements AfterViewInit {
         const tabLabelsElement = this.elementRef.nativeElement.querySelector('.mat-tab-labels');
         this.renderer.setStyle(tabLabelsElement, 'padding', '0 40px');
 
+        const tabLabelElementList = this.elementRef.nativeElement.querySelectorAll('.mat-tab-label');
+        tabLabelElementList.forEach((tabLabelElement: Node) => {
+            this.renderer.setStyle(tabLabelElement, 'padding', '0');
+            this.renderer.setStyle(tabLabelElement, 'margin-right', '24px');
+        });
+
         const tabBodyContentElementList = this.elementRef.nativeElement.querySelectorAll('.mat-tab-body-content') as NodeList;
         tabBodyContentElementList.forEach((tabBodyContentElement: Node) => {
             this.renderer.setStyle(tabBodyContentElement, 'padding', '28px 40px');

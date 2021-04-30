@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ZoneDetail } from '../../../../models/operations-zones.model';
+import { Zone, ZoneDetail } from '../../../../models/operations-zones.model';
 import { CStateName, CStateTag } from '@models/state/state.model';
 import { CCompanyName } from '@models/company/company.model';
 import { CDeliveryServiceTypeName, CDeliveryTypeName } from '@models/service-type/delivery-service-type.model';
@@ -10,6 +10,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
 import { MatSort } from '@angular/material/sort';
 import { CZoneTypeName } from '../../../../parameters/operations-zones-type.parameter';
+import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-op-zones-home-zone-detail-dialog',
@@ -28,16 +30,39 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
     public zoneTypeName = CZoneTypeName;
     public deliveryTypeName = CDeliveryTypeName;
 
+    public zoneDetailLoader = true;
+
+    public zoneDetail: ZoneDetail;
     public displayedColumns: string[] = ['zoneChannel', 'zoneServiceTypeList'];
-    public dataSource = new MatTableDataSource<{zoneChannel: string, zoneServiceTypeList: string}>([]);
+    public dataSource = new MatTableDataSource<{ zoneChannel: string, zoneServiceTypeList: string }>([]);
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-    @Input() zoneDetail: ZoneDetail;
+    @Input() zone: Zone;
 
-    constructor() {
+    constructor(
+        private _operationsZonesImplement: OperationsZonesImplementService,
+        public _dialogRef: MatDialogRef<OpZonesHomeZoneDetailDialogComponent>,
+    ) {
     }
 
     ngOnInit(): void {
+        this.getZoneDetail(this.zone.code);
+    }
+
+    getZoneDetail(zoneCode: string): void {
+        this._operationsZonesImplement.getZoneDetail(zoneCode)
+            .subscribe((zoneDetail: ZoneDetail) => {
+                this.zoneDetail = zoneDetail;
+                this.settingDataSource();
+            }, () => {
+                this.zoneDetail = null;
+                this._dialogRef.close();
+            }, () => {
+                this.zoneDetailLoader = false;
+            });
+    }
+
+    settingDataSource() {
         this.dataSource.data = this.zoneDetail.channelList
             .map((zoneChannel) => {
                 const serviceTypeList = this.zoneDetail.serviceTypeList

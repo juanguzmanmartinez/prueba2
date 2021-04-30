@@ -1,18 +1,19 @@
-<section class="dialog-edition-access" app-dialog-container>
+<section class="dialog-one-action" app-dialog-container>
     <div class="px-5 pt-3">
 
         <div class="mb-7">
             <app-dialog-header containerClass="align-items-center"
-                               fontName="warning"
-                               fontClass="text-warning">
+                               [fontName]="fontName"
+                               [fontClass]="fontClass"
+                               [svgName]="svgName">
                 <ng-container dialog-header-title>
-                <span class="text-subtitle-1 text-wrap text-gray-6 font-weight-bold"
-                      [innerHTML]="title"></span>
+                    <span class="text-subtitle-1 text-wrap text-gray-6 font-weight-bold"
+                          [innerHTML]="title"></span>
                 </ng-container>
             </app-dialog-header>
         </div>
 
-        <div class="mb-7">
+        <div class="mb-9">
             <p class="text-label text-gray-6 mb-0"
                [innerHTML]="description"></p>
         </div>

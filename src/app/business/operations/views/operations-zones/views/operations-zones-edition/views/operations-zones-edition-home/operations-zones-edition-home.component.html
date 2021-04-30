@@ -9,7 +9,8 @@
         </div>
     </div>
 
-    <div [class.container-loader]="updateEditionLoader">
+    <div [class.container-loader]="updateEditionLoader"
+         *ngIf="!errorResponse">
         <div class="row mb-6"
              [class.container-loader]="saveEditionLoader">
             <div class="col-12">
@@ -21,8 +22,7 @@
             </div>
         </div>
 
-        <app-tab-group [hidden]="(!zoneDetail || !zoneServiceTypeList) && !homeEditionLoader"
-                       (selectIndexChange)="setTabSettingsSelectionIndex($event)"
+        <app-tab-group (selectIndexChange)="setTabSettingsSelectionIndex($event)"
                        [selectedIndex]="tabSettingsSelectionIndex">
             <app-tab label="Configuración principal">
                 <app-op-zones-edition-home-main-setting-tab
@@ -49,11 +49,9 @@
         </app-tab-group>
     </div>
 
-
-    <app-empty-result (action)="backRoute()"
-                      *ngIf="(!zoneDetail || !zoneServiceTypeList) && !homeEditionLoader">
-        <ng-container empty-result-title>Esta zona no está disponible.</ng-container>
-        <ng-container empty-result-action>Ir a lista de zonas</ng-container>
-    </app-empty-result>
+    <div *ngIf="errorResponse"
+         class="pt-6">
+        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+    </div>
 
 </section>

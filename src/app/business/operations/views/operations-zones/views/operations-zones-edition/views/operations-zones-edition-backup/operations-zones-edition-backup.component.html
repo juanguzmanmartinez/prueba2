@@ -1,15 +1,18 @@
 <section class="operations-zones-edition-backup pt-12 pb-15">
-    <div class="row mb-8">
+    <div class="row mb-10">
         <div class="col-12">
-            <h3 class="text-h3 mb-0">Edición de zonas</h3>
+            <h3 class="text-h3 mb-5">Edición de zonas</h3>
+            <hr class="mt-0 mb-6 bg-gray-3">
+            <h5 class="text-h5 text-gray-6 mb-0">Edición de zona backup</h5>
         </div>
     </div>
 
 
-    <div class="row">
+    <div class="row"
+         *ngIf="!errorResponse">
         <div class="col-12 col-xl-6 mb-6 mb-xl-0">
             <app-op-zones-edition-backup-detail-card
-                    *appSkeletonCard="!!zoneDetail && !!zoneList; loading: !backupEditionLoader && !zoneListEditionLoader"
+                    *appSkeletonCard="!!zoneDetail && !!zoneList; loading: !editionBackupLoader"
                     [zoneDetail]="zoneDetail">
             </app-op-zones-edition-backup-detail-card>
         </div>
@@ -17,24 +20,19 @@
         <div class="col-12 col-xl-6"
              [class.container-loader]="saveEditionLoader">
             <app-op-zones-edition-backup-detail-form-card
-                    *appSkeletonCard="!!zoneDetail && !!zoneList; row: 8; loading: !backupEditionLoader && !zoneListEditionLoader"
+                    *appSkeletonCard="!!zoneDetail && !!zoneList; row: 8; loading: !editionBackupLoader"
                     [zoneDetail]="zoneDetail"
                     [zoneList]="zoneList"
+                    [zoneTypeList]="zoneTypeList"
                     (cancelEdition)="cancelEdition()"
                     (saveEdition)="saveEdition($event)">
             </app-op-zones-edition-backup-detail-form-card>
         </div>
     </div>
 
-    <app-empty-result (action)="zoneListRoute()"
-                      *ngIf="!zoneDetail && !backupEditionLoader && !zoneListEditionLoader">
-        <ng-container empty-result-title>Esta zona no está disponible para edición.</ng-container>
-        <ng-container empty-result-action>Ir a lista de zonas</ng-container>
-    </app-empty-result>
-    <app-empty-result (action)="backRoute()"
-                      *ngIf="!!zoneDetail && !zoneList && !backupEditionLoader && !zoneListEditionLoader">
-        <ng-container empty-result-title>Stock backup no está disponible para edición.</ng-container>
-        <ng-container empty-result-action>Ir a {{zoneDetail?.name || 'la zona'}}</ng-container>
-    </app-empty-result>
+    <div *ngIf="errorResponse"
+         class="pt-6">
+        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+    </div>
 
 </section>

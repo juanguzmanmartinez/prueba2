@@ -11,7 +11,7 @@ import { OperationsZonesEditionBackupComponent } from './views/operations-zones-
 import { OperationsZonesEditionBackupServiceTypeComponent } from './views/operations-zones-edition/views/operations-zones-edition-backup-service-type/operations-zones-edition-backup-service-type.component';
 import { ROUTER_ACCESS } from '@parameters/router/router-access.parameter';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
-import { AuthGuard } from '@guards/auth.guard';
+import { RoleGuard } from '@guards/role-guard.service';
 import { OperationsZoneServiceTypeEditionGuard } from './guards/operations-zone-service-type-edition-guard.service';
 
 const routes: Routes = [
@@ -35,35 +35,35 @@ const routes: Routes = [
                     },
                     {
                         path: OP_ZONES_PATH.zoneEdition.valueOf(),
-                        canActivate: [AuthGuard],
+                        canActivate: [RoleGuard],
                         data: {roles: ROUTER_ACCESS[ROUTER_PATH.opZones_ZoneEdition().valueOf()]},
                         component: OperationsZonesEditionZoneComponent,
                         pathMatch: 'full'
                     },
                     {
                         path: `:${OP_ZONES_PATH.zoneServiceTypeEdition.valueOf()}/:${OP_ZONES_PATH.zoneServiceTypeChannelEdition}`,
-                        canActivate: [AuthGuard, OperationsZoneServiceTypeEditionGuard],
+                        canActivate: [RoleGuard, OperationsZoneServiceTypeEditionGuard],
                         data: {roles: ROUTER_ACCESS[ROUTER_PATH.opZones_ZoneServiceTypeEdition().valueOf()]},
                         component: OperationsZonesEditionServiceTypeComponent,
                         pathMatch: 'full'
                     },
                     {
                         path: OP_ZONES_PATH.zoneBackupEdition.valueOf(),
-                        canActivate: [AuthGuard],
+                        canActivate: [RoleGuard],
                         data: {roles: ROUTER_ACCESS[ROUTER_PATH.opZones_ZoneBackupEdition().valueOf()]},
                         component: OperationsZonesEditionBackupComponent,
                         pathMatch: 'full'
                     },
                     {
                         path: `${OP_ZONES_PATH.zoneBackupAmPmEdition.valueOf()}`,
-                        canActivate: [AuthGuard],
+                        canActivate: [RoleGuard],
                         data: {roles: ROUTER_ACCESS[ROUTER_PATH.opZones_ZoneBackupAmPmEdition().valueOf()]},
                         component: OperationsZonesEditionBackupServiceTypeComponent,
                         pathMatch: 'full'
                     },
                     {
                         path: `${OP_ZONES_PATH.zoneBackupScheduledEdition.valueOf()}`,
-                        canActivate: [AuthGuard],
+                        canActivate: [RoleGuard],
                         data: {roles: ROUTER_ACCESS[ROUTER_PATH.opZones_ZoneBackupScheduledEdition().valueOf()]},
                         component: OperationsZonesEditionBackupServiceTypeComponent,
                         pathMatch: 'full'

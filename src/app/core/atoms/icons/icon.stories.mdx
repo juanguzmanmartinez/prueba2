@@ -1,11 +1,11 @@
 import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
-import {IconsComponent} from "./icons.component";
+import {IconComponent} from "./icon.component";
 import {MatIconModule} from "@angular/material/icon";
 import {IconsRegistryModule} from "./icons-registry.module";
 
 <Meta
     title="Atoms/Icon"
-    component={IconsComponent}/>
+    component={IconComponent}/>
 
 # Button Icon
 <br/>
@@ -28,11 +28,11 @@ import {IconsRegistryModule} from "./icons-registry.module";
 ------
 
 export const Template = (args) => ({
-    component: IconsComponent,
+    component: IconComponent,
     props: args,
     moduleMetadata: {
         imports: [MatIconModule, IconsRegistryModule],
-        declarations: [IconsComponent],
+        declarations: [IconComponent],
     },
     template: '<app-icon ' +
         '[fontName]="fontName" ' +

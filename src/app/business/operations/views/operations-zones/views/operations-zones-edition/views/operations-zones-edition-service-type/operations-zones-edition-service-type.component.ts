@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { OperationsZonesEditionStoreService } from '../../stores/operations-zones-edition-store.service';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
-import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
 import { IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { AlertService } from '@molecules/alert/alert.service';
@@ -14,6 +13,8 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
 import { CChannelName, CChannelRoute, EChannel } from '@models/channel/channel.model';
 import { OP_ZONES_PATH } from '@parameters/router/routing-module-path.parameter';
+import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-operations-zones-edition-service-type',
@@ -30,7 +31,8 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     public serviceTypeName = CDeliveryServiceTypeName;
     public channelName = CChannelName;
 
-    public serviceTypeEditionLoader = true;
+    public errorResponse: HttpErrorResponse;
+    public editionServiceTypeLoader = true;
     public saveEditionLoader: boolean;
 
     constructor(
@@ -38,19 +40,20 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
         private _activatedRoute: ActivatedRoute,
         @SkipSelf() private _operationsZonesEditionStore: OperationsZonesEditionStoreService,
         private _operationsZonesImplement: OperationsZonesImplementService,
-        private _dialogConfirmChanges: DialogConfirmChangesService,
+        private _dialogTwoActions: DialogTwoActionsService,
         private _alert: AlertService
     ) {
     }
 
     ngOnInit(): void {
-        this.getZoneDetail();
         const serviceTypeCode = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeEdition];
         const serviceTypeChannel = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeChannelEdition];
         this.serviceType = Object.keys(CDeliveryServiceTypeRoute)
             .find((key) => CDeliveryServiceTypeRoute[key] === serviceTypeCode) as EDeliveryServiceType;
         this.channel = Object.keys(CChannelRoute)
             .find((key) => CChannelRoute[key] === serviceTypeChannel) as EChannel;
+
+        this.getZoneDetail();
         this.setZoneServiceType();
     }
 
@@ -58,12 +61,13 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     getZoneDetail() {
         const subscription = this._operationsZonesEditionStore.zoneDetail$
             .subscribe((zoneDetail: ZoneDetail) => {
-                if (zoneDetail) {
+                if (zoneDetail instanceof ZoneDetail) {
                     this.zoneDetail = zoneDetail;
                     this.setZoneServiceType();
                 } else {
                     this.zoneDetail = null;
-                    this.serviceTypeEditionLoader = false;
+                    this.editionServiceTypeLoader = false;
+                    this.errorResponse = zoneDetail;
                 }
             });
         this.subscriptions.push(subscription);
@@ -74,7 +78,7 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
             .find((serviceType: ZoneServiceType) => serviceType.code === this.serviceType && serviceType.channel === this.channel);
         this.zonesStoreServiceType = this.zoneDetail?.assignedStore.serviceTypeList
             .find((serviceType: ZonesStoreServiceType) => serviceType.code === this.serviceType);
-        this.serviceTypeEditionLoader = !this.zoneDetail;
+        this.editionServiceTypeLoader = !this.zoneDetail;
     }
 
     putServiceType(zoneServiceTypeUpdate: IZoneServiceTypeUpdate) {
@@ -99,7 +103,7 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
 
     saveEdition(zoneServiceTypeUpdate: IZoneServiceTypeUpdate) {
         this.saveEditionLoader = true;
-        const subscription = this._dialogConfirmChanges.open()
+        const subscription = this._dialogTwoActions.openConfirmChanges()
             .afterClosed()
             .subscribe((confirmChanges) => {
                 if (confirmChanges) {
@@ -114,10 +118,6 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     backRoute() {
         const backRoute = ROUTER_PATH.opZones_Zone(this.zoneDetail.code);
         this._router.navigate([backRoute]);
-    }
-
-    zoneListRoute() {
-        this._router.navigate([ROUTER_PATH.operationZones]);
     }
 
     ngOnDestroy() {

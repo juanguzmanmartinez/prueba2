@@ -6,6 +6,7 @@ import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { ZoneBackup } from './operations-zones.model';
 import { EChannel } from '@models/channel/channel.model';
+import { CZoneServiceTypeSegmentGap } from '../parameters/operations-zones-service-type.parameter';
 
 export class ZoneServiceType {
     id: string;
@@ -45,8 +46,23 @@ export class ZoneServiceTypeRegistered {
         this.available = !!storeServiceType && CStateValue[storeServiceType.state];
         this.registered = !!serviceType;
         this.code = serviceTypeCode;
-        this.serviceType = serviceType || null;
         this.channel = serviceTypeChannel;
+        this.serviceType = serviceType || null;
+
+        // Exception RET Digital
+        if (serviceTypeCode === EDeliveryServiceType.ret && serviceTypeChannel === EChannel.digital) {
+            this.available = false;
+            this.serviceType = null;
+
+            if (!!storeServiceType) {
+                this.serviceType = new ZoneServiceType({} as IZoneServiceType);
+                this.serviceType.state = EState.inactive;
+                this.serviceType.startHour = storeServiceType.startHour;
+                this.serviceType.endHour = storeServiceType.endHour;
+                this.serviceType.segmentGap = CZoneServiceTypeSegmentGap[serviceTypeCode];
+            }
+        }
+
     }
 }
 
@@ -103,11 +119,6 @@ export class ZoneChannelServiceTypeList {
             zoneChannelServiceTypeList,
             zoneStoreServiceTypeList,
             zoneChannel);
-
-        // Exception
-        if (zoneChannel === EChannel.digital) {
-            this.serviceTypeList.ret.available = false;
-        }
     }
 
 }

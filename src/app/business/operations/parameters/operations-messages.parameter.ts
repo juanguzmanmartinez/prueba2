@@ -1,24 +1,25 @@
 export const OperationMessages = {
     successServiceTypeEdition: (serviceTypeName: string, parentName: string) => {
-        return `Se guardó con éxito la nueva configuración de <span class="text-button">tipo de despacho ${serviceTypeName} para ${parentName}.</span>`;
+        return `¡Listo! Se guardó con éxito la nueva configuración de <span class="text-button">tipo de despacho ${serviceTypeName}</span> para <span class="text-button">${parentName}</span>`;
     },
     errorServiceTypeEdition: (serviceTypeName: string, parentName: string) => {
-        return `Hubo un error al guardar la configuración de <span class="text-button">tipo de despacho ${serviceTypeName} para ${parentName}, por favor vuelve a intentarlo.</span>`;
+        return `Hubo un error al guardar la configuración de <span class="text-button">tipo de despacho ${serviceTypeName} </span> ` +
+            `para <span class="text-button"> ${parentName}</span>, por favor vuelve a intentarlo.`;
     },
     successOperationEdition: (parentName: string) => {
-        return `Se guardó con éxito la nueva configuración de <span class="text-button">${parentName}.</span>`;
+        return `¡Listo! Se guardó con éxito la nueva configuración de <span class="text-button">${parentName}</span>`;
     },
     errorOperationEdition: (parentName: string) => {
         return `Hubo un error al guardar la configuración de <span class="text-button">${parentName}, por favor vuelve a intentarlo.</span>`;
     },
     successServiceTypeRegistered: (serviceTypeName: string, parentName: string) => {
-        return `Se registró con éxito el <span class="text-button">tipo de despacho ${serviceTypeName} para ${parentName}.</span>`;
+        return `¡Listo! Se guardó con éxito la edición de capacidades <span class="text-button">${serviceTypeName}</span> para <span class="text-button">${parentName}</span>`;
     },
     errorServiceTypeRegistered: (serviceTypeName: string, parentName: string) => {
-        return `Hubo un error al registrar el <span class="text-button">tipo de despacho ${serviceTypeName} para ${parentName}, por favor vuelve a intentarlo.</span>`;
+        return `No se pudo guardar <span class="text-button">${serviceTypeName}</span> para <span class="text-button">${parentName}</span>, por favor vuelve a intentarlo.`;
     },
     warningServiceTypeDependency: (serviceTypeName: string, parentName: string) => {
-        return `${parentName} no tiene activo el tipo de despacho ${serviceTypeName}, por favor primero activalo en el local y vuelve a intentarlo.`;
+        return `${parentName} no tiene activo el <span class="text-button">tipo de despacho ${serviceTypeName}</span>, por favor primero activalo en el local y vuelve a intentarlo.`;
     },
     errorDetailDialog: 'Hubo un error al cargar más detalles, por favor vuelve a intentarlo.'
 };

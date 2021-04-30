@@ -25,4 +25,8 @@ export class DialogService {
     ): MatDialogRef<any> {
         return this.matDialog.open(template, config);
     }
+
+    closeAll() {
+        this.matDialog.closeAll();
+    }
 }

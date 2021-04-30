@@ -5,19 +5,19 @@ import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { ZoneBackupServiceTypeList, ZoneChannelServiceTypeList } from '../../../../models/operations-zones-service-type.model';
-import { OperationsZonesEditionStoreService } from '../../stores/operations-zones-edition-store.service';
-import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
+import { OperationsZonesEditionStoreService, TZoneBackup, TZoneDetail } from '../../stores/operations-zones-edition-store.service';
+import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
 import { IZoneServiceTypeRegister } from '@interfaces/zones/zones.interface';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { AlertService } from '@molecules/alert/alert.service';
-import { parseUrl } from '@helpers/parse-url.helper';
 import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
 import { CChannelRoute, EChannel } from '@models/channel/channel.model';
 import { CZoneServiceTypeSegmentGap, ZoneServiceTypeBasicRequest } from '../../../../parameters/operations-zones-service-type.parameter';
 import { OperationsZonesEditionActionsStoreService } from '../../stores/operations-zones-edition-actions-store.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-operations-zones-edition-home',
@@ -31,9 +31,13 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
 
     public zoneDetail: ZoneDetail;
     public zoneServiceTypeList: ZoneChannelServiceTypeList[];
+    public zoneDetailError: HttpErrorResponse;
+
     public zoneBackupDetail: ZoneDetail;
     public zoneBackupServiceTypeList: ZoneBackupServiceTypeList = new ZoneBackupServiceTypeList([]);
+    public zoneBackupDetailError: HttpErrorResponse;
 
+    public errorResponse: HttpErrorResponse;
     public homeEditionLoader = true;
     public saveEditionLoader: boolean;
     public updateEditionLoader: boolean;
@@ -42,9 +46,9 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
         private _router: Router,
         @SkipSelf() private _operationsZonesEditionStore: OperationsZonesEditionStoreService,
         @SkipSelf() private _operationsZonesEditionActionsStore: OperationsZonesEditionActionsStoreService,
-        private _dialogConfirmChanges: DialogConfirmChangesService,
+        private _dialogTwoActions: DialogTwoActionsService,
         private _operationsZonesImplement: OperationsZonesImplementService,
-        private _alert: AlertService
+        private _alert: AlertService,
     ) {
     }
 
@@ -64,11 +68,8 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
 
     getZoneDetail() {
         const subscription = this._operationsZonesEditionStore.zoneDetail$
-            .subscribe((zoneDetail: ZoneDetail) => {
-                if (zoneDetail) {
-                    this.saveEditionLoader = false;
-                    this.homeEditionLoader = false;
-                    this.updateEditionLoader = false;
+            .subscribe((zoneDetail: TZoneDetail) => {
+                if (zoneDetail instanceof ZoneDetail) {
                     this.zoneDetail = zoneDetail;
                     this.zoneServiceTypeList = zoneDetail.channelList
                         .map((channel: EChannel) => new ZoneChannelServiceTypeList(
@@ -76,11 +77,9 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
                             zoneDetail.assignedStore?.serviceTypeList || [],
                             channel));
                 } else {
-                    this.saveEditionLoader = false;
-                    this.homeEditionLoader = false;
-                    this.updateEditionLoader = false;
                     this.zoneDetail = null;
                     this.zoneServiceTypeList = null;
+                    this.zoneDetailError = zoneDetail;
                 }
             });
         this.subscriptions.push(subscription);
@@ -88,17 +87,28 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
 
     getZoneBackup() {
         const subscription = this._operationsZonesEditionStore.zoneBackup$
-            .subscribe((zoneBackupDetail: ZoneDetail) => {
-                if (zoneBackupDetail) {
+            .subscribe((zoneBackupDetail: TZoneBackup) => {
+                if (zoneBackupDetail instanceof ZoneDetail) {
                     this.zoneBackupDetail = zoneBackupDetail;
                     this.zoneBackupServiceTypeList = new ZoneBackupServiceTypeList(zoneBackupDetail.serviceTypeList, this.zoneDetail.zoneBackup);
                 } else {
                     this.zoneBackupDetail = null;
                     this.zoneBackupServiceTypeList = new ZoneBackupServiceTypeList([]);
-
+                    if (zoneBackupDetail instanceof HttpErrorResponse) {
+                        this.zoneBackupDetailError = zoneBackupDetail;
+                    }
                 }
+
+                this.settingData();
             });
         this.subscriptions.push(subscription);
+    }
+
+    settingData() {
+        this.errorResponse = this.zoneDetailError || this.zoneBackupDetailError;
+        this.homeEditionLoader = false;
+        this.saveEditionLoader = false;
+        this.updateEditionLoader = false;
     }
 
     setTabSettingsSelectionIndex(index) {
@@ -123,7 +133,12 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     addServiceType(serviceType: ZoneServiceTypeBasicRequest) {
-        const subscription = this._dialogConfirmChanges.open()
+        const subscription = this._dialogTwoActions.openInfo({
+            title: `Añadir servicio ${this.serviceTypeName[serviceType.code]}`,
+            description: `¿Deseas añadir ${this.serviceTypeName[serviceType.code]} a la zona ${this.zoneDetail.name}?`,
+            primaryAction: 'Añadir servicio',
+            secondaryAction: 'Cancelar'
+        })
             .afterClosed()
             .subscribe((confirmChanges) => {
                 if (confirmChanges) {
@@ -142,7 +157,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
                 serviceTypeCode: serviceType.code,
                 startHour: DatesHelper.Date(assignedStoreServiceType.startHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
                 endHour: DatesHelper.Date(assignedStoreServiceType.endHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
-                segmentGap: CZoneServiceTypeSegmentGap[serviceType.code],
+                segmentGap: CZoneServiceTypeSegmentGap[serviceType.code].toString(),
                 zoneId: this.zoneDetail.id,
                 channel: serviceType.channel
             } as IZoneServiceTypeRegister;
@@ -175,11 +190,6 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
                 break;
         }
         this._router.navigate([serviceTypePath]);
-    }
-
-    backRoute() {
-        const backRoute = parseUrl(this._router.url, '..');
-        this._router.navigate([backRoute]);
     }
 
     ngOnDestroy() {

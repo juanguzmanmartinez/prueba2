@@ -8,6 +8,10 @@ export const CZoneTypeName = {
     [EZoneType.backup]: 'No cobertura',
 };
 
+export const ZoneTypeList = [
+    EZoneType.main,
+    EZoneType.backup
+];
 
 export const CZoneTypeValue = {
     [EZoneType.main]: false,

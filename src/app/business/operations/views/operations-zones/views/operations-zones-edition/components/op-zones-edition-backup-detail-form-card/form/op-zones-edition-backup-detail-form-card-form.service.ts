@@ -4,6 +4,7 @@ import { ZoneBackupControl } from '../controls/zone-backup.control';
 
 export class ZoneBackupDetailControlName {
     static state = 'state';
+    static zoneType = 'zoneType';
     static zoneBackup = 'zoneBackup';
     static assignedStore = 'assignedStore';
 }
@@ -14,6 +15,7 @@ export class OpZonesEditionBackupDetailFormCardFormService implements OnDestroy 
     private readonly formGroup: FormGroup;
 
     private _stateControl: FormControl = new FormControl(null);
+    private _zoneTypeControl: FormControl = new FormControl(null);
     private _zoneBackupControl: FormControl = new ZoneBackupControl();
     private _assignedStoreControl: FormControl = new FormControl('');
 
@@ -24,6 +26,7 @@ export class OpZonesEditionBackupDetailFormCardFormService implements OnDestroy 
     ) {
         this.formGroup = this._formBuilder.group({
             [this._controlNameList.state]: this._stateControl,
+            [this._controlNameList.zoneType]: this._zoneTypeControl,
             [this._controlNameList.zoneBackup]: this._zoneBackupControl,
             [this._controlNameList.assignedStore]: this._assignedStoreControl,
         });
@@ -37,6 +40,11 @@ export class OpZonesEditionBackupDetailFormCardFormService implements OnDestroy 
         return this.form$.get(this._controlNameList.state) as FormControl;
     }
 
+    get zoneTypeControl(): FormControl {
+        return this.form$.get(this._controlNameList.zoneType) as FormControl;
+    }
+
+
     get zoneBackupControl(): FormControl {
         return this.form$.get(this._controlNameList.zoneBackup) as FormControl;
     }
@@ -47,6 +55,7 @@ export class OpZonesEditionBackupDetailFormCardFormService implements OnDestroy 
 
     resetForm() {
         this.stateControl.patchValue(null);
+        this.zoneTypeControl.patchValue(null);
         this.zoneBackupControl.patchValue(null);
         this.assignedStoreControl.patchValue(null);
     }

@@ -7,17 +7,21 @@
             <ng-container dialog-header-title>
                 <p class="mb-2">
                     <app-tag [appearance]="tagAppearance.uppercase"
-                             [tagColor]="stateTag[zoneDetail.state]">
-                        {{stateName[zoneDetail.state]()}}
+                             [tagColor]="stateTag[zone.state]">
+                        {{stateName[zone.state]()}}
                     </app-tag>
                 </p>
                 <p class="text-wrap mb-2">
-                    {{zoneDetail.name}}
-                    <span class="text-gray-5 ms-3">- {{zoneDetail.code}}</span>
+                    {{zone.name}}
+                    <span class="mx-3">-</span>
+                    <span class="text-gray-5 text-nowrap">
+                    COD {{zone.code}}
+                </span>
                 </p>
             </ng-container>
 
-            <ng-container dialog-header-description>
+            <ng-container dialog-header-description
+                          *ngIf="!zoneDetailLoader">
                 <app-tag [tagColor]="labelColor[zoneDetail.label]"
                          [appearance]="tagAppearance.coloredDarkPill">
                     {{zoneDetail.label}}
@@ -26,11 +30,12 @@
         </app-dialog-header>
     </div>
 
-    <div class="dialog-content mb-6">
+    <div class="dialog-content mb-4">
         <app-tab-group dialog-tab-group>
 
             <app-tab label="General">
-                <div class="row">
+                <div *ngIf="!zoneDetailLoader"
+                     class="row">
                     <div class="col-6">
                         <app-card-static-information class="d-block mb-5"
                                                      iconName="store">
@@ -96,10 +101,16 @@
                         </app-card-static-information>
                     </div>
                 </div>
+
+                <div *ngIf="zoneDetailLoader"
+                     class="d-flex-center py-6">
+                    <app-icon-animated-loader></app-icon-animated-loader>
+                </div>
             </app-tab>
 
             <app-tab label="Despacho">
-                <div class="row">
+                <div *ngIf="!zoneDetailLoader"
+                     class="row">
                     <div class="col-12">
                         <table mat-table
                                [dataSource]="dataSource"
@@ -120,6 +131,11 @@
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         </table>
                     </div>
+                </div>
+
+                <div *ngIf="zoneDetailLoader"
+                     class="d-flex-center py-6">
+                    <app-icon-animated-loader></app-icon-animated-loader>
                 </div>
             </app-tab>
 

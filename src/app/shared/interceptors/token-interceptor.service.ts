@@ -8,7 +8,7 @@ import { EHttpHeaderContentTypes, EHttpHeaders } from '@parameters/generic/http-
 import { API_GATEWAY, EndpointsParameter } from '@parameters/generic/endpoints.parameter';
 
 @Injectable()
-export class TokenInterceptor implements HttpInterceptor {
+export class TokenInterceptorService implements HttpInterceptor {
     private allowedUrls = [
         API_GATEWAY,
         EndpointsParameter.AUTH_UPDATE_PASSWORD,

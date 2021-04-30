@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit, SkipSelf } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OperationsZonesEditionStoreService } from '../../stores/operations-zones-edition-store.service';
+import { OperationsZonesEditionStoreService, TZoneBackup, TZoneDetail } from '../../stores/operations-zones-edition-store.service';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
-import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
+import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 import { AlertService } from '@molecules/alert/alert.service';
-import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { Subscription } from 'rxjs';
 import { IZoneBackupUpdate } from '@interfaces/zones/zones.interface';
-import { parseUrl } from '@helpers/parse-url.helper';
-import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { ZoneBackupServiceType, ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
+import { RouterHelperService } from '@helpers/router-helper.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-operations-zones-edition-backup-service-type',
@@ -20,12 +20,18 @@ import { OperationMessages } from '../../../../../../parameters/operations-messa
 })
 export class OperationsZonesEditionBackupServiceTypeComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
-    public zoneDetail: ZoneDetail;
-    public zoneBackupDetail: ZoneDetail;
+    public serviceTypeName = CDeliveryServiceTypeName;
     public serviceType: EDeliveryServiceType;
-    public zoneBackupServiceType: ZoneBackupServiceType;
 
-    public backupServiceTypeEditionLoader = true;
+    public zoneDetail: ZoneDetail;
+    public zoneDetailError: HttpErrorResponse;
+
+    public zoneBackupDetail: ZoneDetail;
+    public zoneBackupServiceType: ZoneBackupServiceType;
+    public zoneBackupDetailError: HttpErrorResponse;
+
+    public errorResponse: HttpErrorResponse;
+    public editionBackupServiceTypeLoader = true;
     public saveEditionLoader: boolean;
 
     constructor(
@@ -33,8 +39,9 @@ export class OperationsZonesEditionBackupServiceTypeComponent implements OnInit,
         private _activatedRoute: ActivatedRoute,
         @SkipSelf() private _operationsZonesEditionStore: OperationsZonesEditionStoreService,
         private _operationsZonesImplement: OperationsZonesImplementService,
-        private _dialogConfirmChanges: DialogConfirmChangesService,
-        private _alert: AlertService
+        private _dialogTwoActions: DialogTwoActionsService,
+        private _alert: AlertService,
+        private _routerHelper: RouterHelperService
     ) {
     }
 
@@ -50,12 +57,12 @@ export class OperationsZonesEditionBackupServiceTypeComponent implements OnInit,
 
     getZoneDetail() {
         const subscription = this._operationsZonesEditionStore.zoneDetail$
-            .subscribe((zoneDetail: ZoneDetail) => {
-                if (zoneDetail) {
+            .subscribe((zoneDetail: TZoneDetail) => {
+                if (zoneDetail instanceof ZoneDetail) {
                     this.zoneDetail = zoneDetail;
-                    this.backupServiceTypeEditionLoader = false;
                 } else {
                     this.zoneDetail = null;
+                    this.zoneDetailError = zoneDetail;
                 }
             });
         this.subscriptions.push(subscription);
@@ -63,16 +70,25 @@ export class OperationsZonesEditionBackupServiceTypeComponent implements OnInit,
 
     getZoneBackupDetail() {
         const subscription = this._operationsZonesEditionStore.zoneBackup$
-            .subscribe((zoneBackupDetail: ZoneDetail) => {
-                if (zoneBackupDetail) {
+            .subscribe((zoneBackupDetail: TZoneBackup) => {
+                if (zoneBackupDetail instanceof ZoneDetail) {
                     this.zoneBackupDetail = zoneBackupDetail;
                     this.setZoneBackupServiceType();
                 } else {
                     this.zoneBackupDetail = null;
-                    this.backupServiceTypeEditionLoader = false;
+                    if (zoneBackupDetail instanceof HttpErrorResponse) {
+                        this.zoneBackupDetailError = zoneBackupDetail;
+                    }
                 }
+
+                this.settingData();
             });
         this.subscriptions.push(subscription);
+    }
+
+    settingData() {
+        this.errorResponse = this.zoneDetailError || this.zoneBackupDetailError;
+        this.editionBackupServiceTypeLoader = false;
     }
 
     private setZoneBackupServiceType() {
@@ -81,7 +97,7 @@ export class OperationsZonesEditionBackupServiceTypeComponent implements OnInit,
         const forceService = this.serviceType === EDeliveryServiceType.amPm ?
             this.zoneDetail?.zoneBackup?.forceServiceAMPM : this.zoneDetail?.zoneBackup?.forceServiceSCHEDULED;
         this.zoneBackupServiceType = zoneServiceType ? new ZoneBackupServiceType(zoneServiceType, forceService) : null;
-        this.backupServiceTypeEditionLoader = !this.zoneBackupServiceType;
+        this.editionBackupServiceTypeLoader = !this.zoneBackupServiceType;
     }
 
     putBackupServiceType(zoneBackupUpdate: IZoneBackupUpdate) {
@@ -103,7 +119,7 @@ export class OperationsZonesEditionBackupServiceTypeComponent implements OnInit,
 
     saveEdition(zoneBackupUpdate: IZoneBackupUpdate) {
         this.saveEditionLoader = true;
-        const subscription = this._dialogConfirmChanges.open()
+        const subscription = this._dialogTwoActions.openConfirmChanges()
             .afterClosed()
             .subscribe((confirmChanges) => {
                 if (confirmChanges) {
@@ -116,12 +132,7 @@ export class OperationsZonesEditionBackupServiceTypeComponent implements OnInit,
     }
 
     backRoute() {
-        const backRoute = parseUrl(this._router.url, '..');
-        this._router.navigate([backRoute]);
-    }
-
-    zoneListRoute() {
-        this._router.navigate([ROUTER_PATH.operationZones]);
+        this._routerHelper.backRoute();
     }
 
     ngOnDestroy() {

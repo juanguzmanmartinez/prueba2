@@ -11,6 +11,7 @@ import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
 import { EZoneLabel } from '../models/operations-zones-label.model';
 import { ResourceClientService } from '@clients/resource/resource-client.service';
+import { EZoneType } from '../parameters/operations-zones-type.parameter';
 
 @Injectable()
 export class OperationsZonesImplementService {
@@ -57,6 +58,10 @@ export class OperationsZonesImplementService {
 
     get labelList(): Observable<EZoneLabel[]> {
         return this.zonesClient.getZoneLabelList();
+    }
+
+    get zoneTypeList(): Observable<EZoneType[]> {
+        return this.zonesClient.getZoneTypeList();
     }
 
     putZoneDetail(zoneCode: string, body: IZoneDetailUpdate) {

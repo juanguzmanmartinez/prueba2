@@ -8,13 +8,13 @@ import { DialogHeaderComponent } from '@molecules/dialog/components/dialog-heade
 import { IconsModule } from '@atoms/icons/icons.module';
 import { DialogLoaderService } from '@molecules/dialog/views/dialog-loader/dialog-loader.service';
 import { DialogLoaderComponent } from '@molecules/dialog/views/dialog-loader/dialog-loader.component';
-import { DialogConfirmChangesComponent } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.component';
-import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogWarningComponent } from '@molecules/dialog/views/dialog-warning/dialog-warning.component';
-import { DialogWarningService } from '@molecules/dialog/views/dialog-warning/dialog-warning.service';
 import { DialogTabDirective } from '@molecules/dialog/directives/dialog-tab.directive';
+import { DialogOneActionComponent } from '@molecules/dialog/views/dialog-one-action/dialog-one-action.component';
+import { DialogOneActionService } from '@molecules/dialog/views/dialog-one-action/dialog-one-action.service';
+import { DialogTwoActionsComponent } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.component';
+import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 
 const DECLARATIONS = [
     DialogDirective,
@@ -23,8 +23,8 @@ const DECLARATIONS = [
     DialogTabDirective,
     DialogHeaderComponent,
     DialogLoaderComponent,
-    DialogConfirmChangesComponent,
-    DialogWarningComponent
+    DialogOneActionComponent,
+    DialogTwoActionsComponent,
 ];
 
 @NgModule({
@@ -43,8 +43,8 @@ const DECLARATIONS = [
     providers: [
         DialogService,
         DialogLoaderService,
-        DialogConfirmChangesService,
-        DialogWarningService
+        DialogOneActionService,
+        DialogTwoActionsService
     ]
 })
 export class DialogModule {

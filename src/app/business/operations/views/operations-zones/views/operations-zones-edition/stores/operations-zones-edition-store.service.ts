@@ -1,28 +1,26 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ZoneDetail } from '../../../models/operations-zones.model';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
-export class ZoneEditionStoreError {
-    constructor() {
-    }
-
-}
+export const CZoneBackupNotRegistered = false;
+export type TZoneDetail = ZoneDetail | HttpErrorResponse;
+export type TZoneBackup = ZoneDetail | HttpErrorResponse | boolean;
 
 @Injectable()
 export class OperationsZonesEditionStoreService implements OnDestroy {
-    private zoneDetailSubject = new BehaviorSubject<ZoneDetail | ZoneEditionStoreError>(null);
-    private zoneBackupSubject = new BehaviorSubject<ZoneDetail | ZoneEditionStoreError>(null);
+    private zoneDetailSubject = new BehaviorSubject<TZoneDetail>(null);
+    private zoneBackupSubject = new BehaviorSubject<TZoneBackup>(null);
     private updateZoneDetailSubject = new BehaviorSubject<boolean>(null);
 
     constructor() {
     }
 
-    get zoneDetail$(): Observable<ZoneDetail> {
+    get zoneDetail$(): Observable<TZoneDetail> {
         return this.zoneDetailSubject.asObservable()
             .pipe(
-                filter(value => value instanceof ZoneDetail || value instanceof ZoneEditionStoreError),
-                map(value => value instanceof ZoneEditionStoreError ? null : value)
+                filter(value => value instanceof ZoneDetail || value instanceof HttpErrorResponse)
             );
     }
 
@@ -30,8 +28,8 @@ export class OperationsZonesEditionStoreService implements OnDestroy {
         this.zoneDetailSubject.next(zoneDetail);
     }
 
-    zoneDetailError() {
-        this.zoneDetailSubject.next(new ZoneEditionStoreError());
+    zoneDetailError(error) {
+        this.zoneDetailSubject.next(error);
     }
 
     get updateZoneDetail$(): Observable<boolean> {
@@ -43,11 +41,10 @@ export class OperationsZonesEditionStoreService implements OnDestroy {
         this.updateZoneDetailSubject.next(updateZoneDetail);
     }
 
-    get zoneBackup$(): Observable<ZoneDetail> {
+    get zoneBackup$(): Observable<TZoneBackup> {
         return this.zoneBackupSubject.asObservable()
             .pipe(
-                filter(value => value instanceof ZoneDetail || value instanceof ZoneEditionStoreError),
-                map(value => value instanceof ZoneEditionStoreError ? null : value)
+                filter(value => value instanceof ZoneDetail || value instanceof HttpErrorResponse || value === CZoneBackupNotRegistered)
             );
     }
 
@@ -55,8 +52,12 @@ export class OperationsZonesEditionStoreService implements OnDestroy {
         this.zoneBackupSubject.next(zoneDetail);
     }
 
-    zoneBackupError() {
-        this.zoneBackupSubject.next(new ZoneEditionStoreError());
+    zoneBackupNotRegistered() {
+        this.zoneBackupSubject.next(CZoneBackupNotRegistered);
+    }
+
+    zoneBackupError(error) {
+        this.zoneBackupSubject.next(error);
     }
 
     ngOnDestroy() {

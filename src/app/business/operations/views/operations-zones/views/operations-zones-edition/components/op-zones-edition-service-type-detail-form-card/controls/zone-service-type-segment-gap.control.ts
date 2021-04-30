@@ -10,7 +10,7 @@ export class ZoneServiceTypeSegmentGapControl extends FormControl {
     private settingValidators() {
         this.setValidators([
             Validators.required,
-            GenericValidator.validateNumberMin(5)
+            GenericValidator.validateNumberMin(1)
         ]);
     }
 }

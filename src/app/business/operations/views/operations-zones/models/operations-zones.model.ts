@@ -17,6 +17,7 @@ class ZoneBase {
     assignedStoreCode: string;
     channelList: EChannel[];
     state: EState;
+    zoneType: EZoneType;
 
     constructor(iZone: IZone) {
         this.id = iZone.id || null;
@@ -26,6 +27,7 @@ class ZoneBase {
         this.state = iZone.enabled ? EState.active : EState.inactive;
         this.assignedStore = iZone.storeCenter ? new ZonesStore(iZone.storeCenter) : null;
         this.channelList = iZone.channel || [];
+        this.zoneType = CGZoneType(iZone.backUpZone);
     }
 }
 
@@ -45,13 +47,11 @@ export class ZoneDetail extends ZoneBase {
     label: EZoneLabel;
     companyList: ECompany[];
     zoneBackup: ZoneBackup;
-    zoneType: EZoneType;
 
     constructor(iZoneDetail: IZoneDetail) {
         super(iZoneDetail);
         this.label = iZoneDetail.zoneType as EZoneLabel;
         this.companyList = iZoneDetail.companyCode || [];
-        this.zoneType = CGZoneType(iZoneDetail.backUpZone);
         this.serviceTypeList = iZoneDetail.serviceTypes ? iZoneDetail.serviceTypes
             .map(serviceType => new ZoneServiceType(serviceType)) : [];
         if (iZoneDetail.zoneBackup) {

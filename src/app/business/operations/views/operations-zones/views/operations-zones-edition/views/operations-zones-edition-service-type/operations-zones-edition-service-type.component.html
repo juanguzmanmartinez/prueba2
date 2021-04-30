@@ -1,23 +1,26 @@
 <section class="operations-stores-edition-service-type pt-12 pb-15">
-    <div class="row mb-8">
+    <div class="row mb-7">
         <div class="col-12">
-            <h3 class="text-h3 mb-0">Edición de zonas</h3>
+            <h3 class="text-h3 mb-5">Configuración principal</h3>
+            <h5 class="text-h5 text-gray-6 mb-7">Editar {{serviceTypeName[serviceType]}}</h5>
+            <hr class="m-0 bg-gray-3">
         </div>
     </div>
 
 
     <div class="row"
-         [class.container-loader]="saveEditionLoader">
+         [class.container-loader]="saveEditionLoader"
+         *ngIf="!errorResponse">
         <div class="col-12 col-xl-5 mb-6 mb-xl-0">
             <app-op-zones-edition-service-type-detail-card
-                    *appSkeletonCard="!!zoneServiceType && !!zonesStoreServiceType; loading: !serviceTypeEditionLoader"
+                    *appSkeletonCard="!!zoneDetail && !!zonesStoreServiceType; loading: !editionServiceTypeLoader"
                     [zoneDetail]="zoneDetail"
                     [zonesStoreServiceType]="zonesStoreServiceType">
             </app-op-zones-edition-service-type-detail-card>
         </div>
         <div class="col-12 col-xl-7">
             <app-op-zones-edition-service-type-detail-form-card
-                    *appSkeletonCard="!!zoneServiceType && !!zonesStoreServiceType; row: 7; loading: !serviceTypeEditionLoader"
+                    *appSkeletonCard="!!zoneDetail && !!zonesStoreServiceType; row: 7; loading: !editionServiceTypeLoader"
                     [zoneDetail]="zoneDetail"
                     [zoneServiceType]="zoneServiceType"
                     [zonesStoreServiceType]="zonesStoreServiceType"
@@ -27,19 +30,8 @@
         </div>
     </div>
 
-    <app-empty-result (action)="backRoute()"
-                      *ngIf="!!zoneDetail && (!zoneServiceType || !zonesStoreServiceType) && !serviceTypeEditionLoader">
-        <ng-container empty-result-title>
-            El tipo de despacho {{serviceTypeName[serviceType]}} - {{channelName[channel]}} para {{zoneDetail?.name || 'esta zona'}} no está disponible.
-        </ng-container>
-        <ng-container empty-result-action>
-            Ir a {{zoneDetail?.name || 'la zona'}}
-        </ng-container>
-    </app-empty-result>
-
-    <app-empty-result (action)="zoneListRoute()"
-                      *ngIf="!zoneDetail && !serviceTypeEditionLoader">
-        <ng-container empty-result-title> Esta zona no está disponible para edición.</ng-container>
-        <ng-container empty-result-action>Ir a lista de zonas</ng-container>
-    </app-empty-result>
+    <div *ngIf="errorResponse"
+         class="pt-6">
+        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+    </div>
 </section>

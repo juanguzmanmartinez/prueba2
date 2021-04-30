@@ -15,6 +15,7 @@ import { AlertService } from '@molecules/alert/alert.service';
 import { OperationMessages } from '../../../../parameters/operations-messages.parameter';
 import { CChannelName } from '@models/channel/channel.model';
 import { SortAlphanumeric, SortString } from '@helpers/sort.helper';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const ColumnNameList = {
     zoneCode: 'zoneCode',
@@ -41,6 +42,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     public searchInput = '';
     public tableLoader = true;
     public zoneList: Zone[];
+    public errorResponse: HttpErrorResponse;
 
     public displayedColumns: string[] = [
         ColumnNameList.zoneCode, ColumnNameList.zoneName, ColumnNameList.assignedStore, ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
@@ -65,9 +67,9 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
                     this.dataSource.data = zoneList;
                     this.setDataSourceService();
                 },
-                () => {
-                    this.zoneList = null;
+                (error) => {
                     this.tableLoader = false;
+                    this.errorResponse = error;
                 });
     }
 
@@ -134,13 +136,14 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     }
 
     rowDetailDialog(zone: Zone) {
-        const subscription = this._zoneDetailDialog.open(zone.code)
+        const subscription = this._zoneDetailDialog.open(zone)
+            .afterClosed()
             .subscribe((edition) => {
                 if (edition) {
                     this.editRow(zone.code);
+                } else {
+                    this._alertService.alertError(OperationMessages.errorDetailDialog);
                 }
-            }, () => {
-                this._alertService.alertError(OperationMessages.errorDetailDialog);
             });
         this.subscriptions.push(subscription);
     }

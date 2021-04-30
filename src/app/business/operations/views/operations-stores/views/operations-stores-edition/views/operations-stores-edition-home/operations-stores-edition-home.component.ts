@@ -5,13 +5,13 @@ import { OperationsStoresImplementService } from '../../../../implements/operati
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { StoreDetail } from '../../../../models/operations-stores.model';
-import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
+import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 import { AlertService } from '@molecules/alert/alert.service';
 import { OperationsStoresEditionStoreService } from '../../stores/operations-stores-edition-store.service';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
-import { parseUrl } from '@helpers/parse-url.helper';
+import { RouterHelperService } from '@helpers/router-helper.service';
 import { IStoreServiceTypeRegister } from '@interfaces/stores/stores.interface';
 import { StoreServiceTypeList } from '../../../../models/operations-stores-service-type';
 
@@ -33,9 +33,10 @@ export class OperationsStoresEditionHomeComponent implements OnInit, OnDestroy {
     constructor(
         private _router: Router,
         @SkipSelf() private _operationsStoresEditionStore: OperationsStoresEditionStoreService,
-        private _dialogConfirmChanges: DialogConfirmChangesService,
+        private _dialogTwoActions: DialogTwoActionsService,
         private _operationsStoresImplement: OperationsStoresImplementService,
-        private _alert: AlertService
+        private _alert: AlertService,
+        public _routerHelper: RouterHelperService,
     ) {
     }
 
@@ -67,7 +68,13 @@ export class OperationsStoresEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     addServiceType(serviceType: EDeliveryServiceType) {
-        const subscription = this._dialogConfirmChanges.open()
+        const subscription = this._dialogTwoActions.openInfo({
+                title: `Añadir servicio ${this.serviceTypeName[serviceType]}`,
+                description: `¿Deseas añadir ${this.serviceTypeName[serviceType]} al local ${this.storeDetail.name}?`,
+                primaryAction: 'Añadir servicio',
+                secondaryAction: 'Cancelar'
+            }
+        )
             .afterClosed()
             .subscribe((confirmChanges) => {
                 if (confirmChanges) {
@@ -96,8 +103,7 @@ export class OperationsStoresEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     backRoute() {
-        const backRoute = parseUrl(this._router.url, '..');
-        this._router.navigate([backRoute]);
+        this._routerHelper.backRoute();
     }
 
     ngOnDestroy() {

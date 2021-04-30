@@ -43,11 +43,11 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
                 if (zoneDetail.zoneBackup) {
                     this.getZoneBackup(zoneDetail.zoneBackup.code);
                 }else {
-                    this._operationsZonesEditionStore.zoneBackupError();
+                    this._operationsZonesEditionStore.zoneBackupNotRegistered();
                 }
-            }, () => {
-                this._operationsZonesEditionStore.zoneDetailError();
-                this._operationsZonesEditionStore.zoneBackupError();
+            }, (error) => {
+                this._operationsZonesEditionStore.zoneDetailError(error);
+                this._operationsZonesEditionStore.zoneBackupError(error);
             });
     }
 
@@ -63,8 +63,8 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
         this._operationsZonesImplement.getZoneDetail(zoneCode)
             .subscribe((zoneDetail: ZoneDetail) => {
                 this._operationsZonesEditionStore.zoneBackup = zoneDetail;
-            }, () => {
-                this._operationsZonesEditionStore.zoneBackupError();
+            }, (error) => {
+                this._operationsZonesEditionStore.zoneBackupError(error);
             });
     }
 

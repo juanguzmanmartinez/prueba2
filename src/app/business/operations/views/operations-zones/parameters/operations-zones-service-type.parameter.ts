@@ -7,8 +7,8 @@ export type ZoneServiceTypeBasicRequest = {
 };
 
 export const CZoneServiceTypeSegmentGap = {
-    [EDeliveryServiceType.amPm]: '30',
-    [EDeliveryServiceType.scheduled]: '30',
-    [EDeliveryServiceType.express]: '5',
-    [EDeliveryServiceType.ret]: '0'
+    [EDeliveryServiceType.amPm]: 30,
+    [EDeliveryServiceType.scheduled]: 30,
+    [EDeliveryServiceType.express]: 5,
+    [EDeliveryServiceType.ret]: 0
 };

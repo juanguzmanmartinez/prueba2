@@ -42,6 +42,7 @@ export interface IZone {
     serviceTypes: IZoneServiceType[];
     storeCenter: IStore;
     channel: EChannel[];
+    backUpZone: boolean;
 }
 
 export interface IZoneDetail extends IZone {

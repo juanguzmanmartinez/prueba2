@@ -1,19 +1,19 @@
 import { Component, OnDestroy, OnInit, SkipSelf } from '@angular/core';
 import { Router } from '@angular/router';
-import { parseUrl } from '@helpers/parse-url.helper';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
-import { OperationsZonesEditionStoreService } from '../../stores/operations-zones-edition-store.service';
+import { OperationsZonesEditionStoreService, TZoneDetail } from '../../stores/operations-zones-edition-store.service';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
 import { ZonesStore } from '../../../../models/operations-zones-store.model';
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
 import { EZoneLabel } from '../../../../models/operations-zones-label.model';
 import { IZoneDetailUpdate } from '@interfaces/zones/zones.interface';
-import { DialogConfirmChangesService } from '@molecules/dialog/views/dialog-confirmate-changes/dialog-confirm-changes.service';
 import { AlertService } from '@molecules/alert/alert.service';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
-import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
+import { RouterHelperService } from '@helpers/router-helper.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-operations-zones-edition-zone',
@@ -28,36 +28,34 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
     public companyList: ECompany[];
     public labelList: EZoneLabel[] = [];
 
-    public zoneEditionLoader = true;
-    public zoneListEditionLoader = true;
+    public errorResponse: HttpErrorResponse;
+    public homeEditionZoneLoader = true;
     public saveEditionLoader: boolean;
 
     constructor(
         private _router: Router,
         @SkipSelf() private _operationsZonesEditionStore: OperationsZonesEditionStoreService,
         private _operationsZonesImplement: OperationsZonesImplementService,
-        private _dialogConfirmChanges: DialogConfirmChangesService,
-        private _alert: AlertService
+        private _dialogTwoActions: DialogTwoActionsService,
+        private _alert: AlertService,
+        private _routerHelper: RouterHelperService,
     ) {
     }
 
     ngOnInit(): void {
-        this.getStoreList();
-        this.getChannelList();
         this.getZoneDetail();
-        this.getCompanyList();
-        this.getLabelList();
     }
 
     getZoneDetail() {
         const subscription = this._operationsZonesEditionStore.zoneDetail$
-            .subscribe((zoneDetail: ZoneDetail) => {
-                if (zoneDetail) {
+            .subscribe((zoneDetail: TZoneDetail) => {
+                if (zoneDetail instanceof ZoneDetail) {
                     this.zoneDetail = zoneDetail;
-                    this.zoneEditionLoader = false;
+                    this.settingData();
                 } else {
                     this.zoneDetail = null;
-                    this.zoneEditionLoader = false;
+                    this.homeEditionZoneLoader = false;
+                    this.errorResponse = zoneDetail;
                 }
             });
         this.subscriptions.push(subscription);
@@ -69,52 +67,41 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
             .subscribe(() => {
                 this._operationsZonesEditionStore.updateZoneDetail = true;
                 this._alert.alertSuccess(OperationMessages.successOperationEdition(this.zoneDetail.name));
-                this.backRoute();
+                this._routerHelper.backRoute();
             }, () => {
                 this._alert.alertError(OperationMessages.errorOperationEdition(this.zoneDetail.name));
-                this.backRoute();
+                this._routerHelper.backRoute();
             });
     }
 
-    getStoreList() {
-        this._operationsZonesImplement.storeList
-            .subscribe((storeList: ZonesStore[]) => {
+    settingData() {
+        const storeList$ = this._operationsZonesImplement.storeList;
+        const channelList$ = this._operationsZonesImplement.channelList;
+        const labelList$ = this._operationsZonesImplement.labelList;
+        const companyList$ = this._operationsZonesImplement.companyList;
+
+        const subscription = forkJoin([storeList$, channelList$, labelList$, companyList$])
+            .subscribe(([storeList, channelList, labelList, companyList]) => {
                 this.storeList = storeList;
-                this.zoneListEditionLoader = false;
-            }, () => {
-                this.storeList = null;
-                this.zoneListEditionLoader = false;
-            });
-    }
-
-    getChannelList() {
-        this._operationsZonesImplement.channelList
-            .subscribe((channelList: EChannel[]) => {
                 this.channelList = channelList;
-            });
-    }
-
-    getCompanyList() {
-        this._operationsZonesImplement.companyList
-            .subscribe((companyList: ECompany[]) => {
                 this.companyList = companyList;
+                this.labelList = labelList;
+            }, (error) => {
+                this.errorResponse = error;
+            }, () => {
+                this.homeEditionZoneLoader = false;
             });
-    }
 
-    getLabelList() {
-        this._operationsZonesImplement.labelList
-            .subscribe((zoneLabelList: EZoneLabel[]) => {
-                this.labelList = zoneLabelList;
-            });
+        this.subscriptions.push(subscription);
     }
 
     cancelEdition() {
-        this.backRoute();
+        this._routerHelper.backRoute();
     }
 
     saveEdition(zoneDetailUpdate: IZoneDetailUpdate) {
         this.saveEditionLoader = true;
-        const subscription = this._dialogConfirmChanges.open()
+        const subscription = this._dialogTwoActions.openConfirmChanges()
             .afterClosed()
             .subscribe((confirmChanges) => {
                 if (confirmChanges) {
@@ -124,15 +111,6 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
                 }
             });
         this.subscriptions.push(subscription);
-    }
-
-    backRoute() {
-        const backRoute = parseUrl(this._router.url, '..');
-        this._router.navigate([backRoute]);
-    }
-
-    zoneListRoute() {
-        this._router.navigate([ROUTER_PATH.operationZones]);
     }
 
     ngOnDestroy() {

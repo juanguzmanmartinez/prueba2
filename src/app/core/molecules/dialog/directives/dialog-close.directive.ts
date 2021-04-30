@@ -1,5 +1,5 @@
 import { AfterViewInit, ApplicationRef, ComponentFactoryResolver, Directive, ElementRef, EmbeddedViewRef, Injector, Renderer2 } from '@angular/core';
-import { IconsComponent } from '@atoms/icons/icons.component';
+import { IconComponent } from '@atoms/icons/icon.component';
 
 @Directive({
     selector: '[app-dialog-close]'
@@ -30,7 +30,7 @@ export class DialogCloseDirective implements AfterViewInit {
 
 
     addIconCloseElement() {
-        const iconComponentFactory = this.componentFactoryResolver.resolveComponentFactory(IconsComponent);
+        const iconComponentFactory = this.componentFactoryResolver.resolveComponentFactory(IconComponent);
 
         const iconComponentRef = iconComponentFactory.create(this.injector);
         iconComponentRef.instance.fontName = 'close';

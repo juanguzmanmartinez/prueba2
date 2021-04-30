@@ -3,8 +3,9 @@
         <div class="col-12">
             <h5 class="text-h5 mb-2">
                 {{zoneDetail.name}}
-                <span class="text-gray-5 ms-3">
-                    - {{zoneDetail.code}}
+                <span class="mx-3">-</span>
+                <span class="text-gray-5 text-nowrap">
+                    COD {{zoneDetail.code}}
                 </span>
             </h5>
         </div>
@@ -15,7 +16,7 @@
 
             <app-card-static-information class="d-block mb-5"
                                          iconName="location_searching">
-                <ng-container information-title>Local principal</ng-container>
+                <ng-container information-title>Local de atención</ng-container>
                 <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
             </app-card-static-information>
 
