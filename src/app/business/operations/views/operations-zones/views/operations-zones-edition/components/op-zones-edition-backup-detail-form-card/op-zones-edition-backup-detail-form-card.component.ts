@@ -56,6 +56,7 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
     updateZoneBackupDetailForm() {
         const zoneBackup = this.zoneList.find((zone) => zone.code === this.zoneDetail.zoneBackup?.code);
         this._editionZoneBackupDetailForm.zoneBackupControl.setValue(zoneBackup);
+        this._editionZoneBackupDetailForm.zoneTypeControl.setValue(null);
 
         this.checkEditionByStateControl();
     }
@@ -63,8 +64,12 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
     checkEditionByStateControl() {
         if (this._editionZoneBackupDetailForm.stateControl.value) {
             this._editionZoneBackupDetailForm.zoneBackupControl.enable();
+            this._editionZoneBackupDetailForm.zoneTypeControl.enable();
+            this._editionZoneBackupDetailForm.assignedStoreControl.enable();
         } else {
             this._editionZoneBackupDetailForm.zoneBackupControl.disable();
+            this._editionZoneBackupDetailForm.zoneTypeControl.disable();
+            this._editionZoneBackupDetailForm.assignedStoreControl.disable();
         }
     }
 
