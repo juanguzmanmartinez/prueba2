@@ -11,22 +11,22 @@
         </div>
     </div>
 
-    <div class="row mb-4">
-        <div class="col"></div>
-        <div class="col-6 col-lg-4 col-xl-3"
-             [hidden]="errorResponse">
+    <div class="row justify-content-end mb-4"
+         [hidden]="errorResponse">
+        <div class="col-6 col-lg-4">
             <app-input-search placeholder="Buscar en lista"
                               [(ngModel)]="searchInput"
                               (ngModelChange)="filterBySearchInput()"></app-input-search>
         </div>
     </div>
+
     <div class="row" [hidden]="errorResponse">
         <div class="col-12 mb-8">
             <table mat-table large-table [dataSource]="dataSource" matSort>
 
                 <ng-container matColumnDef="zoneCode">
-                    <th mat-header-cell columnWidth="8%" *matHeaderCellDef mat-sort-header>Código</th>
-                    <td mat-cell columnWidth="8%" cell-bold *matCellDef="let element">{{element.code}}</td>
+                    <th mat-header-cell column-width="8%" *matHeaderCellDef mat-sort-header>Código</th>
+                    <td mat-cell column-width="8%" cell-bold *matCellDef="let element">{{element.code}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="zoneName">
@@ -35,8 +35,8 @@
                 </ng-container>
 
                 <ng-container matColumnDef="assignedStore">
-                    <th mat-header-cell columnWidth="18%" *matHeaderCellDef mat-sort-header>Local asignado</th>
-                    <td mat-cell columnWidth="18%" *matCellDef="let element">
+                    <th mat-header-cell column-width="18%" *matHeaderCellDef mat-sort-header>Local asignado</th>
+                    <td mat-cell column-width="18%" *matCellDef="let element">
                         <ng-container *ngIf="element.assignedStore">
                             {{element.assignedStore.name}}
                         </ng-container>
@@ -48,19 +48,20 @@
 
                 <ng-container matColumnDef="zoneChannel">
                     <th mat-header-cell
-                        columnWidth="145px"
+                        column-width="153px"
                         *matHeaderCellDef
-                        mat-sort-header>Canal
+                        mat-sort-header>
+                        Canal
                     </th>
                     <td mat-cell
-                        columnWidth="145px"
+                        column-width="153px"
                         cell-double-text
                         *matCellDef="let element">
                         <ng-container *ngIf="element.channelList?.length">
-                            <ng-container *ngFor="let channel of element.channelList; let last = last">
+                            <p class="mb-0" *ngFor="let channel of element.channelList; let last = last">
                                 {{channelName[channel]}}
                                 <span class="mx-2" *ngIf="!last">-</span>
-                            </ng-container>
+                            </p>
                         </ng-container>
                         <ng-container *ngIf="!element.channelList?.length">
                             <p class="text-center m-0">-</p>
@@ -70,14 +71,14 @@
 
                 <ng-container matColumnDef="zoneState">
                     <th mat-header-cell
-                        columnWidth="12%"
+                        column-width="12%"
                         header-cell-center
                         *matHeaderCellDef
                         mat-sort-header>
                         Estado
                     </th>
                     <td mat-cell
-                        columnWidth="12%"
+                        column-width="12%"
                         cell-center
                         *matCellDef="let element">
                         <app-tag [tagColor]="stateTag[element.state]">
@@ -87,8 +88,8 @@
                 </ng-container>
 
                 <ng-container matColumnDef="actions">
-                    <th mat-header-cell customColumn="actions" *matHeaderCellDef></th>
-                    <td mat-cell customColumn="actions"
+                    <th mat-header-cell column-actions *matHeaderCellDef></th>
+                    <td mat-cell column-actions
                         *matCellDef="let element">
                         <app-tooltip class="me-4" value="Editar">
                             <app-button-action-icon (clicked)="editRow(element.code)"

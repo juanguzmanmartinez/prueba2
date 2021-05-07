@@ -2,7 +2,6 @@ import { EDeliveryServiceType, EDeliveryType } from '@models/service-type/delive
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
 import { EPaymentMethod } from '@models/payment-method/payment-method.model';
-import { IZone } from '@interfaces/zones/zones.interface';
 
 export interface IStore {
     legacyId: number;
@@ -16,17 +15,17 @@ export interface IStore {
     services: IStoreServiceType[];
     companies: IStoreCompany[];
     channel: EChannel[];
-}
-
-export interface IStoreDetail extends IStore {
-    startHour: string;
-    endHour: string;
     address: string;
     latitude: number;
     longitude: number;
+    startHour: string;
+    endHour: string;
+}
+
+export interface IStoreDetail extends IStore {
     group: string;
     paymentMethodList: EPaymentMethod[];
-    zoneList: IZone[];
+    zoneList: IStoreZone[];
 }
 
 export interface IStoreDetailUpdate {
@@ -66,6 +65,13 @@ export interface IStoreServiceTypeRegister {
 export interface IStoreCompany {
     company: string;
     code: ECompany;
+}
+
+export interface IStoreZone {
+    idZone: string;
+    name: string;
+    backupZone: string;
+    backupAssignedStore: string;
 }
 
 export interface ILocalGroup {

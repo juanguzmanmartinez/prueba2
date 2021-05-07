@@ -27,5 +27,6 @@ export class DialogDirective implements AfterViewInit {
 
         const overlayElement = matDialogContainerElement.parentElement;
         this.renderer.setStyle(overlayElement, 'max-width', '90vw');
+        this.renderer.setStyle(overlayElement, 'transition', 'width .5s, height .5s');
     }
 }

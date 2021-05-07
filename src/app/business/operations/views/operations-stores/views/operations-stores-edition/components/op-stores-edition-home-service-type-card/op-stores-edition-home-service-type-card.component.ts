@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
-import { StoreServiceTypeRegistered } from '../../../../models/operations-stores-service-type';
+import { StoreServiceTypeRegistered } from '../../../../models/operations-stores-service-type.model';
 import { CStateValue } from '@models/state/state.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';

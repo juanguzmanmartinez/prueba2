@@ -15,7 +15,7 @@ const SERVICES = [
     AuthClientService,
     StorageClientService,
     ZonesClientService,
-    ResourceClientService
+    ResourceClientService,
 ];
 
 

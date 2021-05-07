@@ -7,7 +7,7 @@ import { TableHeaderCellDirective } from './table-header-cell.directive';
 import { TableRowDirective } from '@molecules/table/table-row.directive';
 import { TableColumnWidthDirective } from '@molecules/table/table-column-width.directive';
 import { TableHeaderRowDirective } from '@molecules/table/table-header-row.directive';
-import { TableCustomColumnDirective } from '@molecules/table/table-custom-column.directive';
+import { TableColumnDirective } from '@molecules/table/table-column.directive';
 import { TableComponent } from '@molecules/table/table.component';
 import { TableLoaderDirective } from '@molecules/table/table-loader.directive';
 
@@ -20,7 +20,7 @@ const DECLARATIONS = [
     TableRowDirective,
     TableCellDirective,
     TableColumnWidthDirective,
-    TableCustomColumnDirective,
+    TableColumnDirective,
     TableLoaderDirective,
 ];
 

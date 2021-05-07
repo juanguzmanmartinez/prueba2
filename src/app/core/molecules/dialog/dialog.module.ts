@@ -15,6 +15,7 @@ import { DialogOneActionComponent } from '@molecules/dialog/views/dialog-one-act
 import { DialogOneActionService } from '@molecules/dialog/views/dialog-one-action/dialog-one-action.service';
 import { DialogTwoActionsComponent } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.component';
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
+import { DialogGenericErrorComponent } from '@molecules/dialog/components/dialog-generic-error/dialog-generic-error.component';
 
 const DECLARATIONS = [
     DialogDirective,
@@ -25,6 +26,7 @@ const DECLARATIONS = [
     DialogLoaderComponent,
     DialogOneActionComponent,
     DialogTwoActionsComponent,
+    DialogGenericErrorComponent,
 ];
 
 @NgModule({

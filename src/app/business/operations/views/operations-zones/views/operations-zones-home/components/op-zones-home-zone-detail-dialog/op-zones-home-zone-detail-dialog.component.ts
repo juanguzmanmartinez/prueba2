@@ -12,6 +12,7 @@ import { MatSort } from '@angular/material/sort';
 import { CZoneTypeName } from '../../../../parameters/operations-zones-type.parameter';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-op-zones-home-zone-detail-dialog',
@@ -31,8 +32,9 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
     public deliveryTypeName = CDeliveryTypeName;
 
     public zoneDetailLoader = true;
-
     public zoneDetail: ZoneDetail;
+    public errorResponse: HttpErrorResponse;
+
     public displayedColumns: string[] = ['zoneChannel', 'zoneServiceTypeList'];
     public dataSource = new MatTableDataSource<{ zoneChannel: string, zoneServiceTypeList: string }>([]);
     @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -54,9 +56,10 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
             .subscribe((zoneDetail: ZoneDetail) => {
                 this.zoneDetail = zoneDetail;
                 this.settingDataSource();
-            }, () => {
+            }, (error) => {
                 this.zoneDetail = null;
                 this._dialogRef.close(false);
+                this.errorResponse = error;
             }, () => {
                 this.zoneDetailLoader = false;
             });

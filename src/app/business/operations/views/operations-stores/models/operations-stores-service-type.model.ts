@@ -20,7 +20,7 @@ export class StoreServiceType {
         this.startHour = DatesHelper.date(iStoreServiceType.startHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
         this.endHour = DatesHelper.date(iStoreServiceType.endHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
         this.state = iStoreServiceType.enabled ? EState.active : EState.inactive;
-        this.paymentMethodList = [EPaymentMethod.online];
+        this.paymentMethodList = [EPaymentMethod.online, EPaymentMethod.pos, EPaymentMethod.cash];
         this.intervalTime = 125;
     }
 }

@@ -15,5 +15,8 @@ export class HrefComponent {
     @Input()
     hrefTarget: '_blank' | '_self' | '_parent' | '_top' | 'framename' = '_self';
 
+    @Input()
+    disabled: boolean;
+
 
 }

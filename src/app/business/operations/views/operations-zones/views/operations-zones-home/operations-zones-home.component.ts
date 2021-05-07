@@ -11,8 +11,6 @@ import { OperationsZonesImplementService } from '../../implements/operations-zon
 import { PaginatorComponent } from '@atoms/paginator/paginator.component';
 import { normalizeValue } from '@helpers/string.helper';
 import { CStateName, CStateTag } from '@models/state/state.model';
-import { AlertService } from '@molecules/alert/alert.service';
-import { OperationMessages } from '../../../../parameters/operations-messages.parameter';
 import { CChannelName } from '@models/channel/channel.model';
 import { SortAlphanumeric, SortString } from '@helpers/sort.helper';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -41,7 +39,6 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
 
     public searchInput = '';
     public tableLoader = true;
-    public zoneList: Zone[];
     public errorResponse: HttpErrorResponse;
 
     public displayedColumns: string[] = [
@@ -55,7 +52,6 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
         private _router: Router,
         private _zoneDetailDialog: OpZonesHomeZoneDetailDialogService,
         private _operationsZonesImplement: OperationsZonesImplementService,
-        private _alertService: AlertService,
     ) {
     }
 
@@ -63,7 +59,6 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
         this._operationsZonesImplement.zoneList
             .subscribe((zoneList: Zone[]) => {
                     this.tableLoader = false;
-                    this.zoneList = zoneList;
                     this.dataSource.data = zoneList;
                     this.setDataSourceService();
                 },
@@ -98,11 +93,11 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
                     case ColumnNameList.zoneCode:
                         return SortAlphanumeric(a.code, b.code, sort.direction);
                     case ColumnNameList.zoneName:
-                        return SortString(a.name, b.name, sort.direction);
+                        return SortAlphanumeric(a.name, b.name, sort.direction);
                     case ColumnNameList.assignedStore:
                         const assignedStoreNameA = a.assignedStore ? a.assignedStore.name : '';
                         const assignedStoreNameB = b.assignedStore ? b.assignedStore.name : '';
-                        return SortString(assignedStoreNameA, assignedStoreNameB, sort.direction);
+                        return SortAlphanumeric(assignedStoreNameA, assignedStoreNameB, sort.direction);
                     case ColumnNameList.zoneChannel:
                         const channelListNameA = a.channelList
                             .map(channel => this.channelName[channel]).join('');
@@ -116,7 +111,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
                     default:
                         const defaultA = a[sort.active];
                         const defaultB = b[sort.active];
-                        return SortString(defaultA, defaultB, sort.direction);
+                        return SortAlphanumeric(defaultA, defaultB, sort.direction);
                 }
             });
         };
@@ -141,8 +136,6 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
             .subscribe((edition) => {
                 if (edition) {
                     this.editRow(zone.code);
-                } else if (edition === false) {
-                    this._alertService.alertError(OperationMessages.errorDetailDialog);
                 }
             });
         this.subscriptions.push(subscription);

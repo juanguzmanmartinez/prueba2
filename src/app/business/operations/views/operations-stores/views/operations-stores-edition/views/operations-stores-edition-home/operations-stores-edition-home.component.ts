@@ -13,7 +13,7 @@ import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { RouterHelperService } from '@helpers/router-helper.service';
 import { IStoreServiceTypeRegister } from '@interfaces/stores/stores.interface';
-import { StoreServiceTypeList } from '../../../../models/operations-stores-service-type';
+import { StoreServiceTypeList } from '../../../../models/operations-stores-service-type.model';
 
 @Component({
     selector: 'app-operations-stores-edition-home',

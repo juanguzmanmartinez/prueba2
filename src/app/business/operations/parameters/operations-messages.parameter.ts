@@ -20,6 +20,5 @@ export const OperationMessages = {
     },
     warningServiceTypeDependency: (serviceTypeName: string, parentName: string) => {
         return `${parentName} no tiene activo el <span class="text-button">tipo de despacho ${serviceTypeName}</span>, por favor primero activalo en el local y vuelve a intentarlo.`;
-    },
-    errorDetailDialog: 'Hubo un error al cargar más detalles, por favor vuelve a intentarlo.'
+    }
 };

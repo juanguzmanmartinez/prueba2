@@ -41,6 +41,8 @@ import { EmptyResultModule } from '@pages/empty-result/empty-result.module';
 import { InputTimeModule } from '@atoms/input-time/input-time.module';
 import { OpStoresEditionServiceTypeDetailDialogComponent } from './views/operations-stores-edition/components/op-stores-edition-service-type-detail-dialog/op-stores-edition-service-type-detail-dialog.component';
 import { LinksModule } from '@atoms/links/links.module';
+import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
+import { NotSearchResultModule } from '@pages/not-search-result/not-search-result.module';
 
 
 @NgModule({
@@ -87,7 +89,9 @@ import { LinksModule } from '@atoms/links/links.module';
         DirectivesModule,
         EmptyResultModule,
         InputTimeModule,
-        LinksModule
+        LinksModule,
+        HttpErrorViewerModule,
+        NotSearchResultModule
     ],
     providers: [
         OperationsStoresImplementService

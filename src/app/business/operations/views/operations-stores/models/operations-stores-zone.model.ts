@@ -1,11 +1,15 @@
-import { IZone } from '@interfaces/zones/zones.interface';
+import { IStoreZone } from '@interfaces/stores/stores.interface';
 
 export class StoresZone {
     code: string;
     name: string;
+    backupZone: string;
+    backupAssignedStore: string;
 
-    constructor(iZone: IZone) {
+    constructor(iZone: IStoreZone) {
         this.code = iZone.idZone || null;
         this.name = iZone.name || null;
+        this.backupZone = iZone.backupZone || null;
+        this.backupAssignedStore = iZone.backupAssignedStore || null;
     }
 }

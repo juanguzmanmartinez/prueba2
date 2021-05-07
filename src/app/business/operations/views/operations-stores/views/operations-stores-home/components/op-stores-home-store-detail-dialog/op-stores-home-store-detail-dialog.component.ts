@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { StoreDetail } from '../../../../models/operations-stores.model';
+import { Store, StoreDetail } from '../../../../models/operations-stores.model';
 import { CStateName, CStateTag } from '@models/state/state.model';
 import { ETagAppearance } from '@models/tag/tag.model';
 import { DatesHelper } from '@helpers/dates.helper';
@@ -7,9 +7,17 @@ import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { CCompanyName } from '@models/company/company.model';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
 import { CChannelName } from '@models/channel/channel.model';
-import { CPaymentMethodName } from '@models/payment-method/payment-method.model';
+import { CPaymentMethodName, EPaymentMethod } from '@models/payment-method/payment-method.model';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { OperationsStoresImplementService } from '../../../../implements/operations-stores-implement.service';
+import { forkJoin } from 'rxjs';
+import { MatDialogRef } from '@angular/material/dialog';
+import { PaginatorComponent } from '@atoms/paginator/paginator.component';
+import { HttpErrorResponse } from '@angular/common/http';
+
+type DeliveryTable = { serviceType: string, paymentMethod: string };
+type ZoneTable = { zoneCode: string, zoneName: string, backupZone: string, backupAssignedStore: string };
 
 @Component({
     selector: 'app-op-stores-home-store-detail-dialog',
@@ -17,38 +25,79 @@ import { MatTableDataSource } from '@angular/material/table';
     styleUrls: ['./op-stores-home-store-detail-dialog.component.sass']
 })
 export class OpStoresHomeStoreDetailDialogComponent implements OnInit {
-    public displayedColumns: string[] = ['zoneCode', 'zoneName'];
-    public dataSource = new MatTableDataSource([]);
 
     public tagAppearance = ETagAppearance;
     public stateTag = CStateTag;
     public stateName = CStateName;
     public companyName = CCompanyName;
-    public serviceTypeName = CDeliveryServiceTypeName;
     public channelName = CChannelName;
-    public paymentMethodName = CPaymentMethodName;
+    private serviceTypeName = CDeliveryServiceTypeName;
+    private paymentMethodName = CPaymentMethodName;
+    public tabIndexActive = 0;
 
+    public storeDetailLoader = true;
+    public storeDetail: StoreDetail;
+    public paymentMethodList: EPaymentMethod[];
+    public errorResponse: HttpErrorResponse;
 
-    @Input() storeDetail: StoreDetail;
+    public deliveryDisplayedColumns: string[] = ['serviceType', 'paymentMethod'];
+    public deliveryDataSource = new MatTableDataSource<DeliveryTable>([]);
+    @ViewChild('deliverySort') deliverySort: MatSort;
 
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
+    public zoneDisplayedColumns: string[] = ['zoneCode', 'zoneName', 'backupZone', 'backupAssignedStore', 'actions'];
+    public zoneDataSource = new MatTableDataSource<ZoneTable>([]);
+    @ViewChild('zoneSort') zoneSort: MatSort;
+    @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
 
-    constructor() {
+    @Input() store: Store;
+
+    constructor(
+        private _operationsStoresImplement: OperationsStoresImplementService,
+        private dialogRef: MatDialogRef<OpStoresHomeStoreDetailDialogComponent>,
+    ) {
     }
 
     ngOnInit(): void {
-        this.dataSource.data = this.storeDetail.zoneList;
-        this.dataSource.sortingDataAccessor = (data: StoreDetail, sortHeaderId: string) => {
-            switch (sortHeaderId) {
-                case 'zoneCode':
-                    return data.code;
-                case 'zoneName':
-                    return data.name;
-                default:
-                    return data[sortHeaderId];
-            }
-        };
-        this.dataSource.sort = this.sort;
+        this.loadData(this.store.code);
+    }
+
+    loadData(storeCode: string): void {
+        const paymentMethod$ = this._operationsStoresImplement.paymentMethodList;
+        const storeDetail$ = this._operationsStoresImplement.getStoreDetail(storeCode);
+
+        forkJoin([storeDetail$, paymentMethod$])
+            .subscribe(([storeDetail, paymentMethodList]) => {
+                    this.storeDetail = storeDetail;
+                    this.paymentMethodList = paymentMethodList;
+                    this.settingDataSource();
+                    this.storeDetailLoader = false;
+                }, (error) => {
+                    this.storeDetail = null;
+                    this.paymentMethodList = null;
+                    this.storeDetailLoader = false;
+                    this.errorResponse = error;
+                }
+            );
+    }
+
+    settingDataSource() {
+        this.deliveryDataSource.data = this.storeDetail.serviceTypeList.map((serviceType): DeliveryTable => {
+            const paymentMethodName = serviceType.paymentMethodList
+                .map((paymentMethod) => this.paymentMethodName[paymentMethod]).join(' - ');
+            return {serviceType: this.serviceTypeName[serviceType.code], paymentMethod: paymentMethodName};
+        });
+
+        this.zoneDataSource.data = this.storeDetail.zoneList.map((zone): ZoneTable => {
+            return {
+                zoneCode: zone.code,
+                zoneName: zone.name,
+                backupZone: zone.backupZone,
+                backupAssignedStore: zone.backupAssignedStore
+            };
+        });
+        this.deliveryDataSource.sort = this.deliverySort;
+        this.zoneDataSource.sort = this.zoneSort;
+        this.zoneDataSource.paginator = this.paginator.paginator;
     }
 
     get startAndEndHour() {
@@ -57,6 +106,15 @@ export class OpStoresHomeStoreDetailDialogComponent implements OnInit {
         const endHour = DatesHelper.date(this.storeDetail.endHour, DATES_FORMAT.millisecond)
             .format(DATES_FORMAT.hourMinuteDateTime);
         return `De ${startHour} a ${endHour}`;
+    }
+
+    indexSelected(index) {
+        this.tabIndexActive = index;
+        if (index === 2) {
+            this.dialogRef.updateSize('708px');
+        } else {
+            this.dialogRef.updateSize('526px');
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import { TimeoutErrorComponent } from './timeout-error.component';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
 import { LinksModule } from '@atoms/links/links.module';
+import { HelpersModule } from '@helpers/helpers.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { LinksModule } from '@atoms/links/links.module';
         IconsModule,
         ButtonsModule,
         LinksModule,
+        HelpersModule
     ]
 })
 export class TimeoutErrorModule {

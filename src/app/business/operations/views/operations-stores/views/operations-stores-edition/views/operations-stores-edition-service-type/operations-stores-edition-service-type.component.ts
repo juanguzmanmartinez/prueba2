@@ -8,7 +8,7 @@ import { StoreDetail } from '../../../../models/operations-stores.model';
 import { Subscription } from 'rxjs';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
-import { StoreServiceType } from '../../../../models/operations-stores-service-type';
+import { StoreServiceType } from '../../../../models/operations-stores-service-type.model';
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { IStoreServiceTypeUpdate } from '@interfaces/stores/stores.interface';
 import { EPaymentMethod } from '@models/payment-method/payment-method.model';

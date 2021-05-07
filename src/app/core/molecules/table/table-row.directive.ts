@@ -1,9 +1,15 @@
-import { AfterViewInit, Directive, ElementRef, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 
 @Directive({
-    selector: 'tr[mat-row],[mat-row][row-small],[mat-row][row-hover]'
+    selector: 'tr[mat-row],[mat-row][row-small],[mat-row][row-hover],[mat-row][row-selector]'
 })
 export class TableRowDirective implements AfterViewInit {
+
+    @Input('row-selector')
+    set rowSelector(isSelected: boolean) {
+        this.serRowSelectorStyle(isSelected);
+    }
+
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer2
@@ -28,6 +34,15 @@ export class TableRowDirective implements AfterViewInit {
 
         if (hoverRow) {
             this.renderer.addClass(rowElement, 'row-hover');
+        }
+    }
+
+    serRowSelectorStyle(isSelected: boolean) {
+        const rowElement = this.elementRef.nativeElement;
+        if (isSelected) {
+            this.renderer.addClass(rowElement, 'bg-light-primary');
+        } else {
+            this.renderer.removeClass(rowElement, 'bg-light-primary');
         }
     }
 }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { StoreServiceType } from '../../../../models/operations-stores-service-type';
+import { StoreServiceType } from '../../../../models/operations-stores-service-type.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { CStateValue } from '@models/state/state.model';

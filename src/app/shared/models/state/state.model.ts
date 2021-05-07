@@ -31,6 +31,13 @@ export const CStateName = {
     [EState.enabled]: (vowel: string = 'o') => `activad${vowel}`,
     [EState.disabled]: (vowel: string = 'o') => `desactivad${vowel}`,
 };
+export const CStateCode = {
+    [EState.active]: 'SI',
+    [EState.inactive]: 'NO',
+    [EState.closed]: 'NO',
+    [EState.enabled]: 'NO',
+    [EState.disabled]: 'NO',
+};
 
 export enum EStateSetting {
     true = 'Y',
