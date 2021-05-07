@@ -45,12 +45,9 @@ export const OP_CAPACITIES_PATH = {
 };
 
 export const OP_STORES_PATH = {
-    storeId: 'storeId',
+    storeCode: 'storeId',
     storeEdition: 'editar-local',
-    storeAmPm: DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm,
-    storeScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
-    storeExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
-    storeRet: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
+    storeServiceTypeEdition: 'storeServiceType',
 };
 
 

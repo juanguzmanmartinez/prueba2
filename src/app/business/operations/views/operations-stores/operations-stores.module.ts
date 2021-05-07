@@ -24,7 +24,7 @@ import { OperationsStoresEditionHomeComponent } from './views/operations-stores-
 import { OperationsStoresEditionStoreComponent } from './views/operations-stores-edition/views/operations-stores-edition-store/operations-stores-edition-store.component';
 import { OperationsStoresEditionServiceTypeComponent } from './views/operations-stores-edition/views/operations-stores-edition-service-type/operations-stores-edition-service-type.component';
 import { OpStoresHomeStoreDetailDialogComponent } from './views/operations-stores-home/components/op-stores-home-store-detail-dialog/op-stores-home-store-detail-dialog.component';
-import { OpStoresEditionHomeServiceTypeCardComponent } from './views/operations-stores-edition/components/op-stores-edition-home-service-type-card/op-stores-edition-home-service-type-card.component';
+import { OpStoresEditionHomeMainServiceTypeCardComponent } from './views/operations-stores-edition/components/op-stores-edition-home-main-service-type-card/op-stores-edition-home-main-service-type-card.component';
 import { OpStoresEditionHomeStoreDetailCardComponent } from './views/operations-stores-edition/components/op-stores-edition-home-store-detail-card/op-stores-edition-home-store-detail-card.component';
 import { SwitchModule } from '@atoms/switch/switch.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -43,6 +43,9 @@ import { OpStoresEditionServiceTypeDetailDialogComponent } from './views/operati
 import { LinksModule } from '@atoms/links/links.module';
 import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
 import { NotSearchResultModule } from '@pages/not-search-result/not-search-result.module';
+import { OpStoresEditionHomeMainSettingTabComponent } from './views/operations-stores-edition/components/op-stores-edition-home-main-setting-tab/op-stores-edition-home-main-setting-tab.component';
+import { OpStoresEditionHomeZonesSettingTabComponent } from './views/operations-stores-edition/components/op-stores-edition-home-zones-setting-tab/op-stores-edition-home-zones-setting-tab.component';
+import { OperationsStoresServiceTypeEditionGuard } from './guards/operations-stores-service-type-edition-guard.service';
 
 
 @NgModule({
@@ -50,16 +53,18 @@ import { NotSearchResultModule } from '@pages/not-search-result/not-search-resul
         OperationsStoresComponent,
         OperationsStoresHomeComponent,
         OperationsStoresEditionComponent,
-        OpStoresHomeStoreDetailDialogComponent,
         OperationsStoresEditionHomeComponent,
         OperationsStoresEditionStoreComponent,
         OperationsStoresEditionServiceTypeComponent,
-        OpStoresEditionHomeServiceTypeCardComponent,
+        OpStoresHomeStoreDetailDialogComponent,
+        OpStoresEditionHomeMainServiceTypeCardComponent,
+        OpStoresEditionHomeMainSettingTabComponent,
         OpStoresEditionHomeStoreDetailCardComponent,
+        OpStoresEditionHomeZonesSettingTabComponent,
         OpStoresEditionStoreDetailCardComponent,
         OpStoresEditionStoreDetailFormCardComponent,
         OpStoresEditionServiceTypeDetailFormCardComponent,
-        OpStoresEditionServiceTypeDetailDialogComponent
+        OpStoresEditionServiceTypeDetailDialogComponent,
     ],
     imports: [
         CommonModule,
@@ -94,7 +99,8 @@ import { NotSearchResultModule } from '@pages/not-search-result/not-search-resul
         NotSearchResultModule
     ],
     providers: [
-        OperationsStoresImplementService
+        OperationsStoresImplementService,
+        OperationsStoresServiceTypeEditionGuard
     ]
 })
 export class OperationsStoresModule {

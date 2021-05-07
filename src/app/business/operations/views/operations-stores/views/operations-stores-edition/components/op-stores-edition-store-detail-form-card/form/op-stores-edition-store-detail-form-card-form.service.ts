@@ -1,6 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ECompany } from '@models/company/company.model';
+import { GenericValidator } from '@validators/generic-validator';
+import {
+    CheckboxGroupControl,
+    CheckboxGroupControlName
+} from '../../../../../../operations-zones/views/operations-zones-edition/components/op-zones-edition-zone-detail-form-card/controls/checkbox-group.control';
+import { EChannel } from '@models/channel/channel.model';
 
 export class StoreDetailControlName {
     static state = 'state';
@@ -10,8 +16,8 @@ export class StoreDetailControlName {
     static latitude = 'latitude';
     static longitude = 'longitude';
 
-    static companyName = 'companyName';
-    static companyChecked = 'companyChecked';
+    static companyName = CheckboxGroupControlName.value;
+    static companyChecked = CheckboxGroupControlName.checked;
 }
 
 @Injectable()
@@ -22,7 +28,7 @@ export class OpStoresEditionStoreDetailFormCardFormService implements OnDestroy 
     private _stateControl: FormControl = new FormControl(null);
     private _startHourControl: FormControl = new FormControl(null);
     private _endHourControl: FormControl = new FormControl(null);
-    private _companyArray: FormArray = new FormArray([]);
+    private _companyArray: FormArray = new FormArray([], [GenericValidator.validateAtLeastOneCheckboxChecked()]);
     private _latitudeControl: FormControl = new FormControl(null);
     private _longitudeControl: FormControl = new FormControl(null);
 
@@ -69,15 +75,13 @@ export class OpStoresEditionStoreDetailFormCardFormService implements OnDestroy 
         return this.form$.get(this._controlNameList.longitude) as FormControl;
     }
 
-    createCompanyChildGroup(companyName: ECompany) {
-        return new FormGroup({
-            [this._controlNameList.companyName]: new FormControl(companyName),
-            [this._controlNameList.companyChecked]: new FormControl(false)
-        });
+
+    createCompanyGroup(companyName: ECompany): CheckboxGroupControl {
+        return new CheckboxGroupControl(companyName);
     }
 
-    getCompanyChildCheckedControl(companyChildGroup: FormGroup) {
-        return companyChildGroup?.get(this._controlNameList.companyChecked);
+    createChannelGroup(channelName: EChannel): CheckboxGroupControl {
+        return new CheckboxGroupControl(channelName);
     }
 
     resetForm() {

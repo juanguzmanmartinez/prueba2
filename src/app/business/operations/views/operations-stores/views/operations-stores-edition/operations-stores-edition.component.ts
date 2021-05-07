@@ -5,32 +5,38 @@ import { ActivatedRoute } from '@angular/router';
 import { OperationsStoresImplementService } from '../../implements/operations-stores-implement.service';
 import { OP_STORES_PATH } from '@parameters/router/routing-module-path.parameter';
 import { StoreDetail } from '../../models/operations-stores.model';
+import { OperationsStoresEditionActionsStoreService } from './stores/operations-stores-edition-actions-store.service';
 
 @Component({
     template: '<router-outlet></router-outlet>',
-    providers: [OperationsStoresEditionStoreService]
+    providers: [
+        OperationsStoresEditionStoreService,
+        OperationsStoresEditionActionsStoreService
+    ]
 })
 export class OperationsStoresEditionComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
-    private storeId: string;
+    private storeCode: string;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _operationsStoresImplement: OperationsStoresImplementService,
         private _operationsStoresEditionStore: OperationsStoresEditionStoreService,
+        private _operationsStoresEditionActionsStore: OperationsStoresEditionActionsStoreService,
     ) {
     }
 
     ngOnInit(): void {
         const subscription = this._activatedRoute.paramMap.subscribe(() => {
-            this.storeId = this._activatedRoute.snapshot.params[OP_STORES_PATH.storeId];
-            this.getZoneDetail(this.storeId);
+            this.storeCode = this._activatedRoute.snapshot.params[OP_STORES_PATH.storeCode];
+            this._operationsStoresEditionStore.updateStoreDetail = true;
+            this._operationsStoresEditionActionsStore.resetStore();
         });
         this.updateStoreDetail();
         this.subscriptions.push(subscription);
     }
 
-    getZoneDetail(storeCode: string) {
+    getStoreDetail(storeCode: string) {
         this._operationsStoresImplement.getStoreDetail(storeCode)
             .subscribe((storeDetail: StoreDetail) => {
                 this._operationsStoresEditionStore.storeDetail = storeDetail;
@@ -42,7 +48,7 @@ export class OperationsStoresEditionComponent implements OnInit, OnDestroy {
     updateStoreDetail() {
         const subscription = this._operationsStoresEditionStore.updateStoreDetail$
             .subscribe(() => {
-                this.getZoneDetail(this.storeId);
+                this.getStoreDetail(this.storeCode);
             });
         this.subscriptions.push(subscription);
     }

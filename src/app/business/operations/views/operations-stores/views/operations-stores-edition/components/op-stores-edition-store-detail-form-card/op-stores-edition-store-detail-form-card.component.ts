@@ -4,10 +4,10 @@ import { IStoreDetailUpdate } from '@interfaces/stores/stores.interface';
 import { StoreDetail } from '../../../../models/operations-stores.model';
 import { CCompanyName, ECompany } from '@models/company/company.model';
 import { OpStoresEditionStoreDetailFormCardFormService, StoreDetailControlName } from './form/op-stores-edition-store-detail-form-card-form.service';
-import { FormGroup } from '@angular/forms';
-import { CStateName, CStateValue } from '@models/state/state.model';
+import { CStateName, CStateValue, EState } from '@models/state/state.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
+import { CheckboxGroupControl } from '../../../../../operations-zones/views/operations-zones-edition/components/op-zones-edition-zone-detail-form-card/controls/checkbox-group.control';
 
 @Component({
     selector: 'app-op-stores-edition-store-detail-form-card',
@@ -38,50 +38,54 @@ export class OpStoresEditionStoreDetailFormCardComponent implements OnInit, OnDe
     @Output() saveEdition = new EventEmitter<IStoreDetailUpdate>();
 
     constructor(
-        public _editionStoreDetailForm: OpStoresEditionStoreDetailFormCardFormService
+        private _editionStoreDetailForm: OpStoresEditionStoreDetailFormCardFormService
     ) {
     }
 
     ngOnInit(): void {
-        this._editionStoreDetailForm.stateControl.patchValue(this.stateValue[this.storeDetail.state]);
+        this.form.stateControl.patchValue(this.stateValue[this.storeDetail.state]);
 
         this.updateStoreDetailForm();
         this.updateStateControl();
     }
 
+    get form() {
+        return this._editionStoreDetailForm;
+    }
+
     updateStoreDetailForm() {
-        this._editionStoreDetailForm.startHourControl.patchValue(this.storeDetail.startHour);
-        this._editionStoreDetailForm.endHourControl.patchValue(this.storeDetail.endHour);
-        this._editionStoreDetailForm.latitudeControl.setValue(this.storeDetail.latitude);
-        this._editionStoreDetailForm.longitudeControl.patchValue(this.storeDetail.longitude);
-        this._editionStoreDetailForm.companyArray.controls.forEach((companyGroup: FormGroup) => {
+        this.form.startHourControl.patchValue(this.storeDetail.startHour);
+        this.form.endHourControl.patchValue(this.storeDetail.endHour);
+        this.form.latitudeControl.setValue(this.storeDetail.latitude);
+        this.form.longitudeControl.patchValue(this.storeDetail.longitude);
+        this.form.companyArray.controls.forEach((companyGroup: CheckboxGroupControl) => {
             const checkedCompany = this.storeDetail.companyList
-                .find((company: ECompany) => companyGroup.value[this.controlNameList.companyName] === company);
-            this._editionStoreDetailForm.getCompanyChildCheckedControl(companyGroup)?.patchValue(!!checkedCompany);
+                .find((company: ECompany) => companyGroup.valueControl?.value === company);
+            companyGroup.checkedControl?.patchValue(!!checkedCompany);
         });
         this.checkEditionByStateControl();
     }
 
     checkEditionByStateControl() {
-        if (this._editionStoreDetailForm.stateControl.value) {
-            this._editionStoreDetailForm.startHourControl.enable();
-            this._editionStoreDetailForm.endHourControl.enable();
-            this._editionStoreDetailForm.companyArray.enable();
-            this._editionStoreDetailForm.latitudeControl.enable();
-            this._editionStoreDetailForm.longitudeControl.enable();
+        if (this.form.stateControl.value) {
+            this.form.startHourControl.enable();
+            this.form.endHourControl.enable();
+            this.form.companyArray.enable();
+            this.form.latitudeControl.enable();
+            this.form.longitudeControl.enable();
         } else {
-            this._editionStoreDetailForm.startHourControl.disable();
-            this._editionStoreDetailForm.endHourControl.disable();
-            this._editionStoreDetailForm.companyArray.disable();
-            this._editionStoreDetailForm.latitudeControl.disable();
-            this._editionStoreDetailForm.longitudeControl.disable();
+            this.form.startHourControl.disable();
+            this.form.endHourControl.disable();
+            this.form.companyArray.disable();
+            this.form.latitudeControl.disable();
+            this.form.longitudeControl.disable();
         }
     }
 
     updateStateControl() {
-        const subscription = this._editionStoreDetailForm.stateControl.valueChanges
+        const subscription = this.form.stateControl.valueChanges
             .subscribe(() => {
-                if (this._editionStoreDetailForm.stateControl.value === false) {
+                if (this.form.stateControl.value === false) {
                     this.updateStoreDetailForm();
                 }
                 this.checkEditionByStateControl();
@@ -90,20 +94,25 @@ export class OpStoresEditionStoreDetailFormCardComponent implements OnInit, OnDe
     }
 
     updateCompanyControl() {
-        this._editionStoreDetailForm.companyArray.clear();
+        this.form.companyArray.clear();
         this.companyList.forEach((company: ECompany) => {
-            const companyGroup = this._editionStoreDetailForm.createCompanyChildGroup(company);
-            this._editionStoreDetailForm.companyArray.push(companyGroup);
+            const companyGroup = this.form.createCompanyGroup(company);
+            this.form.companyArray.push(companyGroup);
         });
         this.updateStoreDetailForm();
     }
 
     updateStartHourControl(time: number) {
-        this._editionStoreDetailForm.startHourControl.patchValue(time);
+        this.form.startHourControl.patchValue(time);
     }
 
     updateEndHourControl(time: number) {
-        this._editionStoreDetailForm.endHourControl.patchValue(time);
+        this.form.endHourControl.patchValue(time);
+    }
+
+
+    get stateControlName() {
+        return this.stateName[this.form.stateControl.value ? EState.active : EState.inactive]();
     }
 
     cancelEditionEvent() {
@@ -112,17 +121,17 @@ export class OpStoresEditionStoreDetailFormCardComponent implements OnInit, OnDe
 
     saveEditionEvent() {
         const storeDetailUpdate = {} as IStoreDetailUpdate;
-        storeDetailUpdate.enabled = this._editionStoreDetailForm.stateControl.value;
+        storeDetailUpdate.enabled = this.form.stateControl.value;
         if (storeDetailUpdate.enabled) {
-            const startHour =  this._editionStoreDetailForm.startHourControl.value;
-            const endHour =  this._editionStoreDetailForm.endHourControl.value;
+            const startHour = this.form.startHourControl.value;
+            const endHour = this.form.endHourControl.value;
             storeDetailUpdate.startHour = DatesHelper.Date(startHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond);
             storeDetailUpdate.endHour = DatesHelper.Date(endHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond);
-            storeDetailUpdate.latitude = this._editionStoreDetailForm.latitudeControl.value;
-            storeDetailUpdate.longitude = this._editionStoreDetailForm.longitudeControl.value;
-            const companyList = this._editionStoreDetailForm.companyArray.value as { name: ECompany, checked: boolean }[];
-            storeDetailUpdate.companyList = companyList.filter((company) => company.checked)
-                .map((company) => company.name);
+            storeDetailUpdate.latitude = this.form.latitudeControl.value;
+            storeDetailUpdate.longitude = this.form.longitudeControl.value;
+            storeDetailUpdate.companyList = this.form.companyArray.value
+                .filter((company) => company[this.controlNameList.companyChecked])
+                .map((company) => company[this.controlNameList.companyName]);
         } else {
             storeDetailUpdate.startHour = DatesHelper.Date(this.storeDetail.startHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond);
             storeDetailUpdate.endHour = DatesHelper.Date(this.storeDetail.endHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond);

@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, SkipSelf } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 import { AlertService } from '@molecules/alert/alert.service';
 import { OperationsStoresImplementService } from '../../../../implements/operations-stores-implement.service';
@@ -11,6 +10,7 @@ import { StoreDetail } from '../../../../models/operations-stores.model';
 import { ECompany } from '@models/company/company.model';
 import { IStoreDetailUpdate } from '@interfaces/stores/stores.interface';
 import { RouterHelperService } from '@helpers/router-helper.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-operations-stores-edition-store',
@@ -22,6 +22,7 @@ export class OperationsStoresEditionStoreComponent implements OnInit, OnDestroy 
     public storeDetail: StoreDetail;
     public companyList: ECompany[] = [];
 
+    public errorResponse: HttpErrorResponse;
     public storeEditionLoader = true;
     public saveEditionLoader: boolean;
 
@@ -37,7 +38,6 @@ export class OperationsStoresEditionStoreComponent implements OnInit, OnDestroy 
 
     ngOnInit(): void {
         this.getStoreDetail();
-        this.getCompanyList();
     }
 
     getStoreDetail() {
@@ -45,11 +45,28 @@ export class OperationsStoresEditionStoreComponent implements OnInit, OnDestroy 
             .subscribe((storeDetail: StoreDetail) => {
                 this.storeDetail = storeDetail;
                 this.storeEditionLoader = false;
-            }, () => {
-                this.storeDetail = null;
-                this.storeEditionLoader = false;
+                if (storeDetail instanceof StoreDetail) {
+                    this.storeDetail = storeDetail;
+                    this.settingData();
+                } else {
+                    this.storeDetail = null;
+                    this.storeEditionLoader = false;
+                    this.errorResponse = storeDetail;
+                }
+
             });
         this.subscriptions.push(subscription);
+    }
+
+    settingData() {
+        this._operationsStoresImplement.companyList
+            .subscribe((companyList: ECompany[]) => {
+                this.companyList = companyList;
+            }, (error) => {
+                this.errorResponse = error;
+            }, () => {
+                this.storeEditionLoader = false;
+            });
     }
 
     putStoreDetail(storeDetailUpdate: IStoreDetailUpdate) {
@@ -62,13 +79,6 @@ export class OperationsStoresEditionStoreComponent implements OnInit, OnDestroy 
             }, () => {
                 this._alert.alertError(OperationMessages.errorOperationEdition(this.storeDetail.name));
                 this.backRoute();
-            });
-    }
-
-    getCompanyList() {
-        this._operationsStoresImplement.companyList
-            .subscribe((companyList: ECompany[]) => {
-                this.companyList = companyList;
             });
     }
 
@@ -92,10 +102,6 @@ export class OperationsStoresEditionStoreComponent implements OnInit, OnDestroy 
 
     backRoute() {
         this._routerHelper.backRoute();
-    }
-
-    storeListRoute() {
-        this._router.navigate([ROUTER_PATH.operationStores]);
     }
 
     ngOnDestroy() {

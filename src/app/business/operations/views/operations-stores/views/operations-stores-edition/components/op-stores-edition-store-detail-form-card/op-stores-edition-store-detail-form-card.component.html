@@ -1,9 +1,9 @@
 <app-card>
-    <form [formGroup]="_editionStoreDetailForm.form$">
+    <form [formGroup]="form.form$">
         <div class="row mb-6">
             <div class="col-12">
                 <app-switch [formControlName]="controlNameList.state">
-                    Local {{stateName[storeDetail.state]()}}
+                    <span class="text-h5">Local {{stateControlName}}</span>
                 </app-switch>
             </div>
         </div>
@@ -14,8 +14,8 @@
                     <app-form-field-label>Inicio</app-form-field-label>
                     <app-input-time name="start-hour-time"
                                     format="12"
-                                    [class.time-input]="!_editionStoreDetailForm.stateControl.value"
-                                    [maxHour]="_editionStoreDetailForm.endHourControl.value"
+                                    [class.time-input]="!form.stateControl.value"
+                                    [maxHour]="form.endHourControl.value"
                                     (timeChange)="updateStartHourControl($event)"
                                     [formControlName]="controlNameList.startHour"></app-input-time>
                 </app-form-field>
@@ -25,8 +25,8 @@
                     <app-form-field-label>Fin</app-form-field-label>
                     <app-input-time name="end-hour-time"
                                     format="12"
-                                    [class.time-input]="!_editionStoreDetailForm.stateControl.value"
-                                    [minHour]="_editionStoreDetailForm.startHourControl.value"
+                                    [class.time-input]="!form.stateControl.value"
+                                    [minHour]="form.startHourControl.value"
                                     (timeChange)="updateEndHourControl($event)"
                                     [formControlName]="controlNameList.endHour"></app-input-time>
                 </app-form-field>
@@ -34,12 +34,12 @@
         </div>
 
 
-        <div class="row mb-7"  *ngIf="_editionStoreDetailForm.companyArray.controls.length">
+        <div class="row mb-7"  *ngIf="form.companyArray.controls.length">
             <div class="col-12">
                 <app-form-field>
                     <app-form-field-label>Marcas</app-form-field-label>
                     <div class="row mt-4" [formArrayName]="controlNameList.company">
-                        <ng-container *ngFor="let companyControl of _editionStoreDetailForm.companyArray.controls; let index = index"
+                        <ng-container *ngFor="let companyControl of form.companyArray.controls; let index = index"
                                       [formGroupName]="index">
                             <div class="col-6">
                                 <app-checkbox [formControlName]="controlNameList.companyChecked">
@@ -74,6 +74,7 @@
                 Cancelar edición
             </app-button>
             <app-button appearance="primary"
+                        [disabled]="form.form$.invalid"
                         (clicked)="saveEditionEvent()">
                 Guardar cambios
             </app-button>

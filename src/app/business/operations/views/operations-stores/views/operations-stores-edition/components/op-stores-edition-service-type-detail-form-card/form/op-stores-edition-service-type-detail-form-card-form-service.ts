@@ -1,6 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { EPaymentMethod } from '@models/payment-method/payment-method.model';
+import {
+    CheckboxGroupControl,
+    CheckboxGroupControlName
+} from '../../../../../../operations-zones/views/operations-zones-edition/components/op-zones-edition-zone-detail-form-card/controls/checkbox-group.control';
+import { GenericValidator } from '@validators/generic-validator';
 
 export class StoreServiceTypeControlName {
     static state = 'state';
@@ -10,8 +15,8 @@ export class StoreServiceTypeControlName {
     static intervalTime = 'intervalTime';
     static splitSegment = 'splitSegment';
 
-    static paymentMethodName = 'paymentMethodName';
-    static paymentMethodChecked = 'paymentMethodChecked';
+    static paymentMethodName = CheckboxGroupControlName.value;
+    static paymentMethodChecked = CheckboxGroupControlName.checked;
 }
 
 @Injectable()
@@ -22,7 +27,7 @@ export class OpStoresEditionServiceTypeDetailFormCardFormService implements OnDe
     private _stateControl: FormControl = new FormControl(null);
     private _startHourControl: FormControl = new FormControl(null);
     private _endHourControl: FormControl = new FormControl(null);
-    private _paymentMethodArray: FormArray = new FormArray([]);
+    private _paymentMethodArray: FormArray = new FormArray([], [GenericValidator.validateAtLeastOneCheckboxChecked()]);
     private _intervalTimeControl: FormControl = new FormControl('');
     private _splitSegmentControl: FormControl = new FormControl('');
 
@@ -70,16 +75,8 @@ export class OpStoresEditionServiceTypeDetailFormCardFormService implements OnDe
         return this.form$.get(this._controlNameList.splitSegment) as FormControl;
     }
 
-
-    createPaymentMethodChildGroup(paymentMethodName: EPaymentMethod) {
-        return new FormGroup({
-            [this._controlNameList.paymentMethodName]: new FormControl(paymentMethodName),
-            [this._controlNameList.paymentMethodChecked]: new FormControl(false)
-        });
-    }
-
-    getPaymentMethodChildCheckedControl(paymentMethodChildGroup: FormGroup) {
-        return paymentMethodChildGroup?.get(this._controlNameList.paymentMethodChecked);
+    createPaymentMethodGroup(paymentMethodName: EPaymentMethod): CheckboxGroupControl {
+        return new CheckboxGroupControl(paymentMethodName);
     }
 
     resetForm(): void {

@@ -4,15 +4,15 @@ import { StoreServiceType } from '../../../../models/operations-stores-service-t
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { CStateValue } from '@models/state/state.model';
-import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
+import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { IStoreServiceTypeUpdate } from '@interfaces/stores/stores.interface';
 import { OpStoresEditionServiceTypeDetailFormCardFormService, StoreServiceTypeControlName } from './form/op-stores-edition-service-type-detail-form-card-form-service';
-import { FormGroup } from '@angular/forms';
 import { CPaymentMethodName, EPaymentMethod } from '@models/payment-method/payment-method.model';
 import { OpStoresEditionServiceTypeDetailDialogService } from '../op-stores-edition-service-type-detail-dialog/op-stores-edition-service-type-detail-dialog.service';
 import { StoreDetail } from '../../../../models/operations-stores.model';
 import { minuteFormat } from '@helpers/date-name.helper';
+import { CheckboxGroupControl } from '../../../../../operations-zones/views/operations-zones-edition/components/op-zones-edition-zone-detail-form-card/controls/checkbox-group.control';
 
 @Component({
     selector: 'app-op-stores-edition-service-type-detail-form-card',
@@ -31,6 +31,7 @@ export class OpStoresEditionServiceTypeDetailFormCardComponent implements OnInit
     public paymentMethodName = CPaymentMethodName;
     public controlNameList = StoreServiceTypeControlName;
     public configurationPath = ROUTER_PATH.operationSettings;
+    public serviceTypeCode = EDeliveryServiceType;
 
     public splitSegmentList: string[] = [];
     public paymentMethodList: EPaymentMethod[] = [];
@@ -69,10 +70,10 @@ export class OpStoresEditionServiceTypeDetailFormCardComponent implements OnInit
         this._serviceTypeDetailForm.endHourControl.patchValue(this.storeServiceType.endHour);
         this._serviceTypeDetailForm.intervalTimeControl.patchValue(minuteFormat(this.storeServiceType.intervalTime));
         this._serviceTypeDetailForm.intervalTimeControl.disable();
-        this._serviceTypeDetailForm.paymentMethodArray.controls.forEach((paymentMethodGroup: FormGroup) => {
+        this._serviceTypeDetailForm.paymentMethodArray.controls.forEach((paymentMethodGroup: CheckboxGroupControl) => {
             const checkedPaymentMethod = this.storeServiceType.paymentMethodList
-                .find((paymentMethod: EPaymentMethod) => paymentMethodGroup.value[this.controlNameList.paymentMethodName] === paymentMethod);
-            this._serviceTypeDetailForm.getPaymentMethodChildCheckedControl(paymentMethodGroup)?.patchValue(!!checkedPaymentMethod);
+                .find((paymentMethod: EPaymentMethod) => paymentMethodGroup.valueControl?.value === paymentMethod);
+            paymentMethodGroup.checkedControl?.patchValue(!!checkedPaymentMethod);
         });
 
         this.setSplitSegment();
@@ -105,7 +106,7 @@ export class OpStoresEditionServiceTypeDetailFormCardComponent implements OnInit
     updatePaymentMethodListControl() {
         this._serviceTypeDetailForm.paymentMethodArray.clear();
         this.paymentMethodList.forEach((paymentMethod: EPaymentMethod) => {
-            const paymentMethodGroup = this._serviceTypeDetailForm.createPaymentMethodChildGroup(paymentMethod);
+            const paymentMethodGroup = this._serviceTypeDetailForm.createPaymentMethodGroup(paymentMethod);
             this._serviceTypeDetailForm.paymentMethodArray.push(paymentMethodGroup);
         });
         if (this.storeServiceType) {
@@ -160,9 +161,9 @@ export class OpStoresEditionServiceTypeDetailFormCardComponent implements OnInit
                 .format(DATES_FORMAT.hourMinuteSecond);
             storeServiceTypeUpdate.endHour = DatesHelper.Date(this._serviceTypeDetailForm.endHourControl.value, DATES_FORMAT.millisecond)
                 .format(DATES_FORMAT.hourMinuteSecond);
-            const paymentMethodList = this._serviceTypeDetailForm.paymentMethodArray.value as { name: EPaymentMethod, checked: boolean }[];
-            storeServiceTypeUpdate.paymentMethod = paymentMethodList.filter((paymentMethod) => paymentMethod.checked)
-                .map((company) => company.name);
+            storeServiceTypeUpdate.paymentMethod = this._serviceTypeDetailForm.paymentMethodArray.value
+                .filter((paymentMethod) => paymentMethod[this.controlNameList.paymentMethodChecked])
+                .map((paymentMethod) => paymentMethod[this.controlNameList.paymentMethodName]);
         } else {
             storeServiceTypeUpdate.startHour = DatesHelper.Date(this.storeServiceType.startHour, DATES_FORMAT.millisecond)
                 .format(DATES_FORMAT.hourMinuteSecond);

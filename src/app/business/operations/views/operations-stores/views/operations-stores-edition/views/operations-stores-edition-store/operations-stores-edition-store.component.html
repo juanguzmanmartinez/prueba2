@@ -1,11 +1,15 @@
 <section class="operations-stores-edition-store pt-12 pb-15">
-    <div class="row mb-8">
+    <div class="row mb-10">
         <div class="col-12">
-            <h3 class="text-h3 mb-0">Edición de locales</h3>
+            <h3 class="text-h3 mb-5">Edición de locales</h3>
+            <h5 class="text-h5 text-gray-6 mb-7">Editar local principal</h5>
+            <hr class="m-0 bg-gray-3">
         </div>
     </div>
 
-    <div class="row">
+
+    <div class="row"
+         *ngIf="!errorResponse">
         <div class="col-12 col-xl-6 mb-6 mb-xl-0">
             <app-op-stores-edition-store-detail-card
                     *appSkeletonCard="!!storeDetail; loading: !storeEditionLoader"
@@ -25,9 +29,8 @@
         </div>
     </div>
 
-    <app-empty-result (action)="storeListRoute()"
-                      *ngIf="!storeDetail && !storeEditionLoader">
-        <ng-container empty-result-title>Este local no está disponible para edición.</ng-container>
-        <ng-container empty-result-action>Ir a lista de locales</ng-container>
-    </app-empty-result>
+    <div *ngIf="errorResponse"
+         class="pt-6">
+        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+    </div>
 </section>

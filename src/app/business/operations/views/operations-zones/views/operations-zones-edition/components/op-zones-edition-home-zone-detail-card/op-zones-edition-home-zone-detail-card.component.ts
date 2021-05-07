@@ -35,7 +35,7 @@ export class OpZonesEditionHomeZoneDetailCardComponent implements OnInit {
     }
 
     get zoneEditionPath() {
-        return ROUTER_PATH.opZones_ZoneEdition();
+        return ROUTER_PATH.opStores_StoreEdition();
     }
 
     editEvent() {

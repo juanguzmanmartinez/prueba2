@@ -152,7 +152,7 @@ export class OperationsStoresHomeComponent implements OnInit, OnDestroy {
 
 
     editRow(storeCode: string) {
-        this._router.navigate([ROUTER_PATH.opStores_StoreId(storeCode)]);
+        this._router.navigate([ROUTER_PATH.opStores_Store(storeCode)]);
     }
 
     editZoneRow(zoneCode: string) {

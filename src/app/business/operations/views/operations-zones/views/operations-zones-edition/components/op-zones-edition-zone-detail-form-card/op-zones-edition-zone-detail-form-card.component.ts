@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
-import { CStateName, CStateValue } from '@models/state/state.model';
+import { CStateName, CStateValue, EState } from '@models/state/state.model';
 import { OpZonesEditionZoneDetailFormCardFormService, ZoneDetailControlName } from './form/op-zones-edition-zone-detail-form-card-form.service';
 import { ZonesStore } from '../../../../models/operations-zones-store.model';
 import { CChannelName, EChannel } from '@models/channel/channel.model';
@@ -154,6 +154,10 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
             return deliveryTypeName;
         }
         return 'Sin delivery';
+    }
+
+    get stateControlName() {
+        return this.stateName[this.form.stateControl.value ? EState.active : EState.inactive]('a');
     }
 
     cancelEditionEvent() {

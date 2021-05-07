@@ -9,12 +9,9 @@ export const ROUTER_PATH = {
     operationSettings: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.settings}`,
 
     operationStores: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}`,
-    opStores_StoreId: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}`,
-    opStores_StoreEdition: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}/${OP_STORES_PATH.storeEdition}`,
-    opStores_StoreAmPmEdition: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}/${OP_STORES_PATH.storeAmPm}`,
-    opStores_StoreScheduledEdition: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}/${OP_STORES_PATH.storeScheduled}`,
-    opStores_StoreExpressEdition: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}/${OP_STORES_PATH.storeExpress}`,
-    opStores_StoreRetEdition: (storeId: string) => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeId}/${OP_STORES_PATH.storeRet}`,
+    opStores_Store: (storeCode = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeCode}`,
+    opStores_StoreEdition: (storeCode = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeCode}/${OP_STORES_PATH.storeEdition}`,
+    opStores_StoreServiceTypeEdition: (storeCode = '?', serviceType = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.stores}/${storeCode}/${serviceType}`,
 
     operationZones: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}`,
     opZones_Zone: (zoneCode = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}`,

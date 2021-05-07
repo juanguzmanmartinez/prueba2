@@ -29,22 +29,15 @@ export class StoreServiceType {
 export class StoreServiceTypeRegistered {
     serviceType: StoreServiceType;
     registered: boolean;
+    code: EDeliveryServiceType;
 
     constructor(
         serviceType: StoreServiceType,
         serviceTypeCode: EDeliveryServiceType
     ) {
         this.registered = !!serviceType;
-        this.serviceType = serviceType || new StoreServiceType({
-            id: '',
-            code: serviceTypeCode,
-            startHour: '08:00:00',
-            endHour: '19:00:00',
-            enabled: false,
-            service: '',
-            shortName: '',
-            intervalTime: 0
-        });
+        this.serviceType = serviceType || null;
+        this.code = serviceTypeCode;
     }
 }
 

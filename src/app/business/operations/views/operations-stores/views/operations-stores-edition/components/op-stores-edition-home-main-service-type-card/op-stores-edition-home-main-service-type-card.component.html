@@ -20,7 +20,7 @@
                                  iconName="paid"
                                  [disabled]="serviceTypeDisabled">
         <ng-container information-title>Medios de pago</ng-container>
-        <ng-container information-caption>Efectivo - POS - Pago en línea - Agora</ng-container>
+        <ng-container information-caption>{{paymentMethod}}</ng-container>
     </app-card-static-information>
 
     <div *ngIf="serviceType.registered"

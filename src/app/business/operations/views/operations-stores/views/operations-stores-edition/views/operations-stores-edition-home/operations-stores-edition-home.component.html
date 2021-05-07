@@ -9,56 +9,40 @@
         </div>
     </div>
 
-    <div class="row mb-6"
-         [class.container-loader]="saveEditionLoader">
-        <div class="col-12">
-            <app-op-stores-edition-home-store-detail-card
-                    *appSkeletonCard="!!storeDetail; row: 5; loading: !homeEditionLoader"
-                    [storeDetail]="storeDetail"
-                    (edit)="editStore()">
-            </app-op-stores-edition-home-store-detail-card>
+    <div [class.container-loader]="updateEditionLoader || saveEditionLoader"
+         *ngIf="!errorResponse">
+        <div class="row mb-6">
+            <div class="col-12">
+                <app-op-stores-edition-home-store-detail-card
+                        *appSkeletonCard="!!storeDetail; row: 5; loading: !homeEditionLoader"
+                        [storeDetail]="storeDetail"
+                        (edit)="editStore()">
+                </app-op-stores-edition-home-store-detail-card>
+            </div>
         </div>
+
+        <app-tab-group (selectIndexChange)="setTabSettingsSelectionIndex($event)"
+                       [selectedIndex]="tabSettingsSelectionIndex">
+            <app-tab label="Configuración principal">
+                <app-op-stores-edition-home-main-setting-tab
+                        [storeServiceTypeList]="storeServiceTypeList"
+                        [homeEditionLoader]="homeEditionLoader"
+                        (add)="addServiceType($event)"
+                        (edit)="editServiceType($event)">
+                </app-op-stores-edition-home-main-setting-tab>
+            </app-tab>
+
+            <app-tab label="Zonas atendidas">
+                <app-op-stores-edition-home-zones-setting-tab
+                        [affiliatedZoneList]="storeDetail?.zoneList"
+                        (edit)="editAffiliatedZone($event)">
+                </app-op-stores-edition-home-zones-setting-tab>
+            </app-tab>
+        </app-tab-group>
     </div>
 
-    <div class="row justify-content-between"
-         [class.container-loader]="saveEditionLoader">
-        <div class="col-5 mb-6">
-            <app-op-stores-edition-home-service-type-card
-                    *appSkeletonCard="!!storeServiceTypeList; row: 5; loading: !homeEditionLoader"
-                    [serviceType]="storeServiceTypeList.amPm"
-                    (edit)="editServiceType($event)"
-                    (add)="addServiceType($event)">
-            </app-op-stores-edition-home-service-type-card>
-        </div>
-        <div class="col-5 mb-6">
-            <app-op-stores-edition-home-service-type-card
-                    *appSkeletonCard="!!storeServiceTypeList; row: 5; loading: !homeEditionLoader"
-                    [serviceType]="storeServiceTypeList.scheduled"
-                    (edit)="editServiceType($event)"
-                    (add)="addServiceType($event)">
-            </app-op-stores-edition-home-service-type-card>
-        </div>
-        <div class="col-5 mb-6">
-            <app-op-stores-edition-home-service-type-card
-                    *appSkeletonCard="!!storeServiceTypeList; row: 5; loading: !homeEditionLoader"
-                    [serviceType]="storeServiceTypeList.express"
-                    (edit)="editServiceType($event)"
-                    (add)="addServiceType($event)">
-            </app-op-stores-edition-home-service-type-card>
-        </div>
-        <div class="col-5 mb-6">
-            <app-op-stores-edition-home-service-type-card
-                    *appSkeletonCard="!!storeServiceTypeList; row: 5; loading: !homeEditionLoader"
-                    [serviceType]="storeServiceTypeList.ret"
-                    (edit)="editServiceType($event)"
-                    (add)="addServiceType($event)">
-            </app-op-stores-edition-home-service-type-card>
-        </div>
+    <div *ngIf="errorResponse"
+         class="pt-6">
+        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
     </div>
-
-    <app-empty-result (action)="backRoute()"
-                      *ngIf="(!storeDetail || !storeServiceTypeList) && !homeEditionLoader">
-        <ng-container empty-result-title>Este local no está disponible.</ng-container>
-        <ng-container empty-result-action>Ir a lista de locales</ng-container>
-    </app-empty-result>
 </section>

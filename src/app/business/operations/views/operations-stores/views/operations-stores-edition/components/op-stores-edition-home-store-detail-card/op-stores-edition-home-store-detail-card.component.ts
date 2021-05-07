@@ -6,6 +6,7 @@ import { CChannelName } from '@models/channel/channel.model';
 import { ETagAppearance } from '@models/tag/tag.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
     selector: 'app-op-stores-edition-home-store-detail-card',
@@ -34,6 +35,10 @@ export class OpStoresEditionHomeStoreDetailCardComponent implements OnInit {
         const endHour = DatesHelper.date(this.storeDetail.endHour, DATES_FORMAT.millisecond)
             .format(DATES_FORMAT.hourMinuteDateTime);
         return `De ${startHour} a ${endHour}`;
+    }
+
+    get storeEditionPath() {
+        return ROUTER_PATH.opZones_ZoneEdition();
     }
 
     editEvent() {

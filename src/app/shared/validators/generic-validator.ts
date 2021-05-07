@@ -87,4 +87,12 @@ export class GenericValidator extends Validators {
             return null;
         };
     }
+
+    static validateStringEmptiness(control: AbstractControl): { [key: string]: boolean } | null {
+        const validString = !!control.value;
+        if (!validString) {
+            return {lowerCaseError: true};
+        }
+        return null;
+    }
 }

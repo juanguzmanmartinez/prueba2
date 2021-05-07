@@ -13,6 +13,8 @@ import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceTy
 import { IStoreServiceTypeUpdate } from '@interfaces/stores/stores.interface';
 import { EPaymentMethod } from '@models/payment-method/payment-method.model';
 import { RouterHelperService } from '@helpers/router-helper.service';
+import { OP_STORES_PATH } from '@parameters/router/routing-module-path.parameter';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-operations-stores-edition-service-type',
@@ -27,6 +29,7 @@ export class OperationsStoresEditionServiceTypeComponent implements OnInit, OnDe
     public paymentMethodList: EPaymentMethod[] = [];
     public serviceTypeName = CDeliveryServiceTypeName;
 
+    public errorResponse: HttpErrorResponse;
     public serviceTypeEditionLoader = true;
     public saveEditionLoader: boolean;
 
@@ -42,22 +45,26 @@ export class OperationsStoresEditionServiceTypeComponent implements OnInit, OnDe
     }
 
     ngOnInit(): void {
-        this.getStoreDetail();
-        this.getPaymentMethodList();
-        const path = this._activatedRoute.snapshot.routeConfig.path;
+        const serviceTypeCode = this._activatedRoute.snapshot.params[OP_STORES_PATH.storeServiceTypeEdition];
         this.serviceType = Object.keys(CDeliveryServiceTypeRoute)
-            .find((key) => CDeliveryServiceTypeRoute[key] === path) as EDeliveryServiceType;
+            .find((key) => CDeliveryServiceTypeRoute[key] === serviceTypeCode) as EDeliveryServiceType;
+
+        this.getStoreDetail();
         this.setStoreServiceType();
     }
 
     getStoreDetail() {
         const subscription = this._operationsStoresEditionStore.storeDetail$
             .subscribe((storeDetail: StoreDetail) => {
-                this.storeDetail = storeDetail;
-                this.setStoreServiceType();
-            }, () => {
-                this.storeDetail = null;
-                this.serviceTypeEditionLoader = false;
+                if (storeDetail instanceof StoreDetail) {
+                    this.storeDetail = storeDetail;
+                    this.setStoreServiceType();
+                    this.getPaymentMethodList();
+                } else {
+                    this.storeDetail = null;
+                    this.serviceTypeEditionLoader = false;
+                    this.errorResponse = storeDetail;
+                }
             });
         this.subscriptions.push(subscription);
     }
@@ -66,6 +73,9 @@ export class OperationsStoresEditionServiceTypeComponent implements OnInit, OnDe
         this._operationsStoresImplement.paymentMethodList
             .subscribe((paymentMethodList: EPaymentMethod[]) => {
                 this.paymentMethodList = paymentMethodList;
+            }, (error) => {
+                this.errorResponse = error;
+                this.serviceTypeEditionLoader = false;
             });
     }
 
@@ -74,6 +84,10 @@ export class OperationsStoresEditionServiceTypeComponent implements OnInit, OnDe
         this.storeServiceType = this.storeDetail?.serviceTypeList
             .find((serviceType: StoreServiceType) => serviceType.code === this.serviceType);
         this.serviceTypeEditionLoader = !this.storeDetail;
+
+        if (!this.storeServiceType && !this.serviceTypeEditionLoader) {
+            this.errorResponse = new HttpErrorResponse({});
+        }
     }
 
     putServiceType(storeServiceTypeUpdate: IStoreServiceTypeUpdate) {

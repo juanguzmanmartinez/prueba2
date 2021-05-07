@@ -2,18 +2,23 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { StoreDetail } from '../../../models/operations-stores.model';
+import { HttpErrorResponse } from '@angular/common/http';
+
+export type TStoreDetail = StoreDetail | HttpErrorResponse;
 
 @Injectable()
 export class OperationsStoresEditionStoreService implements OnDestroy {
-    private storeDetailSubject = new BehaviorSubject<StoreDetail>(null);
+    private storeDetailSubject = new BehaviorSubject<TStoreDetail>(null);
     private updateStoreDetailSubject = new BehaviorSubject<boolean>(null);
 
     constructor() {
     }
 
-    get storeDetail$(): Observable<StoreDetail> {
+    get storeDetail$(): Observable<TStoreDetail> {
         return this.storeDetailSubject.asObservable()
-            .pipe(filter(value => !!value));
+            .pipe(
+                filter(value => value instanceof StoreDetail || value instanceof HttpErrorResponse)
+            );
     }
 
     set storeDetail(storeDetail: StoreDetail) {
@@ -21,7 +26,7 @@ export class OperationsStoresEditionStoreService implements OnDestroy {
     }
 
     set storeDetailError(error: any) {
-        this.storeDetailSubject.error(error);
+        this.storeDetailSubject.next(error);
     }
 
     get updateStoreDetail$(): Observable<boolean> {

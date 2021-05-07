@@ -79,6 +79,10 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
         this.zonesStoreServiceType = this.zoneDetail?.assignedStore.serviceTypeList
             .find((serviceType: ZonesStoreServiceType) => serviceType.code === this.serviceType);
         this.editionServiceTypeLoader = !this.zoneDetail;
+
+        if (!this.zoneServiceType && !this.editionServiceTypeLoader) {
+            this.errorResponse = new HttpErrorResponse({});
+        }
     }
 
     putServiceType(zoneServiceTypeUpdate: IZoneServiceTypeUpdate) {

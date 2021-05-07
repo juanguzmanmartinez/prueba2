@@ -10,6 +10,7 @@ export const ROUTER_ACCESS = {
     [ROUTER_PATH.admin]: [DEVELOPER],
 
     [ROUTER_PATH.operationZones]: [ADMIN, VIEWER, ASSISTANT],
+    [ROUTER_PATH.opZones_Zone()]: [ADMIN, VIEWER, ASSISTANT],
     [ROUTER_PATH.opZones_ZoneEdition()]: [ADMIN, ASSISTANT],
     [ROUTER_PATH.opZones_ZoneServiceTypeEdition()]: [ADMIN, ASSISTANT],
     [ROUTER_PATH.opZones_ZoneBackupEdition()]: [ADMIN, ASSISTANT],
@@ -17,6 +18,10 @@ export const ROUTER_ACCESS = {
     [ROUTER_PATH.opZones_ZoneBackupScheduledEdition()]: [ADMIN, ASSISTANT],
 
     [ROUTER_PATH.operationStores]: [DEVELOPER],
+    [ROUTER_PATH.opStores_Store()]: [ADMIN, VIEWER, ASSISTANT],
+    [ROUTER_PATH.opStores_StoreEdition()]: [ADMIN, ASSISTANT],
+    [ROUTER_PATH.opStores_StoreServiceTypeEdition()]: [ADMIN, ASSISTANT],
+
     [ROUTER_PATH.operationCapacities]: [ADMIN, VIEWER, ASSISTANT],
     [ROUTER_PATH.operationSettings]: [DEVELOPER, ADMIN],
     [ROUTER_PATH.opCapacitiesReport]: [DEVELOPER],

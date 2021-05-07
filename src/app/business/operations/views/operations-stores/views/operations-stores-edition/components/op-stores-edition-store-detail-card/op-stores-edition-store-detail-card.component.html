@@ -3,20 +3,24 @@
         <div class="col-12">
             <h5 class="text-h5 mb-2">
                 {{storeDetail.name}}
+                <span class="text-gray-5 mx-3">-</span>
+                <span class="text-gray-5 text-nowrap">
+                    COD {{storeDetail.code}}
+                </span>
             </h5>
         </div>
     </div>
 
     <div class="row">
         <div class="col-12">
-            <app-card-static-information class="d-block mb-5" iconName="store">
-                <ng-container information-title>Nomenclatura</ng-container>
-                <ng-container information-caption>{{storeDetail.code}} {{storeDetail.name}}</ng-container>
-            </app-card-static-information>
-
             <app-card-static-information class="d-block mb-5" iconName="location_on">
                 <ng-container information-title>Ubicación</ng-container>
                 <ng-container information-caption>{{storeDetail.address || 'No registrada'}}</ng-container>
+            </app-card-static-information>
+
+            <app-card-static-information class="d-block mb-5" iconName="location_searching">
+                <ng-container information-title>Latitud y longitud</ng-container>
+                <ng-container information-caption>{{storeDetail.latitude}}, {{storeDetail.longitude}}</ng-container>
             </app-card-static-information>
 
             <app-card-static-information class="d-block mb-5" iconName="group_work">

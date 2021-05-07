@@ -28,7 +28,7 @@ export class OperationsZonesEditionStoreService implements OnDestroy {
         this.zoneDetailSubject.next(zoneDetail);
     }
 
-    zoneDetailError(error) {
+    zoneDetailError(error: any) {
         this.zoneDetailSubject.next(error);
     }
 

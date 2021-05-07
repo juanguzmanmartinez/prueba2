@@ -11,9 +11,10 @@ import { OperationsStoresEditionStoreService } from '../../stores/operations-sto
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
-import { RouterHelperService } from '@helpers/router-helper.service';
 import { IStoreServiceTypeRegister } from '@interfaces/stores/stores.interface';
 import { StoreServiceTypeList } from '../../../../models/operations-stores-service-type.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { OperationsStoresEditionActionsStoreService } from '../../stores/operations-stores-edition-actions-store.service';
 
 @Component({
     selector: 'app-operations-stores-edition-home',
@@ -22,39 +23,64 @@ import { StoreServiceTypeList } from '../../../../models/operations-stores-servi
 })
 export class OperationsStoresEditionHomeComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
+    private serviceTypeName = CDeliveryServiceTypeName;
     public deliveryServiceType = EDeliveryServiceType;
+
     public storeDetail: StoreDetail;
     public storeServiceTypeList: StoreServiceTypeList;
-    private serviceTypeName = CDeliveryServiceTypeName;
 
+    public errorResponse: HttpErrorResponse;
     public homeEditionLoader = true;
     public saveEditionLoader: boolean;
+    public updateEditionLoader: boolean;
 
     constructor(
         private _router: Router,
         @SkipSelf() private _operationsStoresEditionStore: OperationsStoresEditionStoreService,
+        @SkipSelf() private _operationsStoresEditionActionsStore: OperationsStoresEditionActionsStoreService,
         private _dialogTwoActions: DialogTwoActionsService,
         private _operationsStoresImplement: OperationsStoresImplementService,
         private _alert: AlertService,
-        public _routerHelper: RouterHelperService,
     ) {
     }
 
     ngOnInit(): void {
+        this.updateStoreDetail();
+        this.getStoreDetail();
+    }
+
+    updateStoreDetail() {
+        const subscription = this._operationsStoresEditionStore.updateStoreDetail$
+            .subscribe(() => {
+                this.updateEditionLoader = true;
+            });
+        this.subscriptions.push(subscription);
+    }
+
+    getStoreDetail() {
         const subscription = this._operationsStoresEditionStore.storeDetail$
             .subscribe((storeDetail: StoreDetail) => {
-                    this.homeEditionLoader = false;
-                    this.saveEditionLoader = false;
+                if (storeDetail instanceof StoreDetail) {
                     this.storeDetail = storeDetail;
                     this.storeServiceTypeList = new StoreServiceTypeList(storeDetail.serviceTypeList);
-                },
-                () => {
-                    this.saveEditionLoader = false;
-                    this.homeEditionLoader = false;
+                } else {
                     this.storeDetail = null;
                     this.storeServiceTypeList = null;
-                });
+                    this.errorResponse = storeDetail;
+                }
+                this.homeEditionLoader = false;
+                this.saveEditionLoader = false;
+                this.updateEditionLoader = false;
+            });
         this.subscriptions.push(subscription);
+    }
+
+    setTabSettingsSelectionIndex(index) {
+        this._operationsStoresEditionActionsStore.tabSettingSelection = index;
+    }
+
+    get tabSettingsSelectionIndex(): number {
+        return this._operationsStoresEditionActionsStore.tabSettingSelection;
     }
 
     editStore() {
@@ -62,8 +88,10 @@ export class OperationsStoresEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     editServiceType(serviceType: EDeliveryServiceType) {
-        const storeCodePath = ROUTER_PATH.opStores_StoreId(this.storeDetail.code);
-        const serviceTypePath = `${storeCodePath}/${CDeliveryServiceTypeRoute[serviceType]}`;
+        const serviceTypePath = ROUTER_PATH.opStores_StoreServiceTypeEdition(
+            this.storeDetail.code,
+            CDeliveryServiceTypeRoute[serviceType],
+        );
         this._router.navigate([serviceTypePath]);
     }
 
@@ -102,8 +130,8 @@ export class OperationsStoresEditionHomeComponent implements OnInit, OnDestroy {
             });
     }
 
-    backRoute() {
-        this._routerHelper.backRoute();
+    editAffiliatedZone(zoneCode: string) {
+        this._router.navigate([ROUTER_PATH.opZones_Zone(zoneCode)]);
     }
 
     ngOnDestroy() {

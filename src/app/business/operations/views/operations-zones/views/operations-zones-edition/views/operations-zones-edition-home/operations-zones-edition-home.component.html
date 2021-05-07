@@ -9,10 +9,9 @@
         </div>
     </div>
 
-    <div [class.container-loader]="updateEditionLoader"
+    <div [class.container-loader]="updateEditionLoader || saveEditionLoader"
          *ngIf="!errorResponse">
-        <div class="row mb-6"
-             [class.container-loader]="saveEditionLoader">
+        <div class="row mb-6">
             <div class="col-12">
                 <app-op-zones-edition-home-zone-detail-card
                         *appSkeletonCard="!!zoneDetail; row: 5; loading: !homeEditionLoader"
@@ -26,8 +25,6 @@
                        [selectedIndex]="tabSettingsSelectionIndex">
             <app-tab label="Configuración principal">
                 <app-op-zones-edition-home-main-setting-tab
-                        class="d-block"
-                        [class.container-loader]="saveEditionLoader"
                         [zoneChannelServiceTypeList]="zoneServiceTypeList"
                         [homeEditionLoader]="homeEditionLoader"
                         (add)="addServiceType($event)"
@@ -37,8 +34,6 @@
 
             <app-tab label="Configuración backup">
                 <app-op-zones-edition-home-backup-setting-tab
-                        class="d-block"
-                        [class.container-loader]="saveEditionLoader"
                         [zoneBackup]="zoneDetail?.zoneBackup"
                         [zoneBackupDetail]="zoneBackupDetail"
                         [zoneBackupServiceTypeList]="zoneBackupServiceTypeList"
