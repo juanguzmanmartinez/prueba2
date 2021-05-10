@@ -18,9 +18,9 @@ export const ROUTER_ACCESS = {
     [ROUTER_PATH.opZones_ZoneBackupScheduledEdition()]: [ADMIN, ASSISTANT],
 
     [ROUTER_PATH.operationStores]: [DEVELOPER],
-    [ROUTER_PATH.opStores_Store()]: [ADMIN, VIEWER, ASSISTANT],
-    [ROUTER_PATH.opStores_StoreEdition()]: [ADMIN, ASSISTANT],
-    [ROUTER_PATH.opStores_StoreServiceTypeEdition()]: [ADMIN, ASSISTANT],
+    [ROUTER_PATH.opStores_Store()]: [DEVELOPER],
+    [ROUTER_PATH.opStores_StoreEdition()]: [DEVELOPER],
+    [ROUTER_PATH.opStores_StoreServiceTypeEdition()]: [DEVELOPER],
 
     [ROUTER_PATH.operationCapacities]: [ADMIN, VIEWER, ASSISTANT],
     [ROUTER_PATH.operationSettings]: [DEVELOPER, ADMIN],
