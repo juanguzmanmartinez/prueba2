@@ -10,7 +10,7 @@ import { Role } from '@parameters/auth/role.parameter';
 })
 export class SidenavComponent implements OnInit {
 
-  public concatPath = ROUTER_PATH;
+  public routerPath = ROUTER_PATH;
   public roles = Role;
 
   constructor() { }

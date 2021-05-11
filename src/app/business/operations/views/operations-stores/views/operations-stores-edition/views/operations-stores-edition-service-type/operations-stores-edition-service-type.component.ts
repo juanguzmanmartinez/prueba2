@@ -13,8 +13,8 @@ import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceTy
 import { IStoreServiceTypeUpdate } from '@interfaces/stores/stores.interface';
 import { EPaymentMethod } from '@models/payment-method/payment-method.model';
 import { RouterHelperService } from '@helpers/router-helper.service';
-import { OP_STORES_PATH } from '@parameters/router/routing-module-path.parameter';
 import { HttpErrorResponse } from '@angular/common/http';
+import { OP_STORES_PATH } from '@parameters/router/paths/operations-path.parameter';
 
 @Component({
     selector: 'app-operations-stores-edition-service-type',

@@ -11,7 +11,7 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 export class OperationsHomeComponent implements OnInit {
 
     public user: User;
-    public concatPath = ROUTER_PATH;
+    public routerPath = ROUTER_PATH;
 
     constructor(private userStore: UserStoreService) {
     }

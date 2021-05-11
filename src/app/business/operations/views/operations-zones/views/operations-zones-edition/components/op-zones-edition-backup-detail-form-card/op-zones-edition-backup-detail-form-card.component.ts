@@ -43,10 +43,10 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
         const state = !!this.zoneDetail.zoneBackup ? CStateValue[this.zoneDetail.zoneBackup.state] : false;
         this._editionZoneBackupDetailForm.stateControl.patchValue(state);
 
-        this.updateZoneBackupDetailForm();
         this.updateStateControl();
         this.updateZoneTypeControl();
         this.updateZoneBackupControl();
+        this.updateZoneBackupDetailForm();
     }
 
     get form() {
@@ -54,9 +54,7 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
     }
 
     updateZoneBackupDetailForm() {
-        const zoneBackup = this.zoneList.find((zone) => zone.code === this.zoneDetail.zoneBackup?.code);
-        this._editionZoneBackupDetailForm.zoneBackupControl.setValue(zoneBackup);
-        this._editionZoneBackupDetailForm.zoneTypeControl.setValue(null);
+        this._editionZoneBackupDetailForm.zoneTypeControl.patchValue(null);
 
         this.checkEditionByStateControl();
     }
@@ -96,16 +94,16 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
                 } else {
                     this.zoneList = this.zoneListStored;
                 }
-
                 const zoneBackup = this.zoneList.find((zone) => zone.code === this.zoneDetail.zoneBackup?.code);
-                this._editionZoneBackupDetailForm.zoneBackupControl.setValue(zoneBackup);
+                this._editionZoneBackupDetailForm.zoneBackupControl.patchValue(zoneBackup);
             });
         this.subscriptions.push(subscription);
     }
 
     updateZoneBackupControl() {
         const subscription = this._editionZoneBackupDetailForm.zoneBackupControl.valueChanges
-            .subscribe(() => {
+            .subscribe((value) => {
+                console.log(value);
                 const zoneBackup = this._editionZoneBackupDetailForm.zoneBackupControl.value;
                 const backupAssignedStore = zoneBackup?.assignedStore ? `${zoneBackup.assignedStore.code} ${zoneBackup.assignedStore.name}` : '';
                 this._editionZoneBackupDetailForm.assignedStoreControl.patchValue(backupAssignedStore);

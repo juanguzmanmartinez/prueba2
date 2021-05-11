@@ -3,9 +3,9 @@ import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserStoreService } from '@stores/user-store.service';
 import { TokenStoreService } from '@stores/token-store.service';
-import { OP_STORES_PATH } from '@parameters/router/routing-module-path.parameter';
 import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { OP_STORES_PATH } from '@parameters/router/paths/operations-path.parameter';
 
 
 @Injectable()

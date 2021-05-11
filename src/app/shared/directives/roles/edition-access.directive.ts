@@ -1,5 +1,5 @@
 import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
-import { EDITION_ACCESS } from '@parameters/router/edition-access-parameter';
+import { EDITION_ACCESS } from '@parameters/router/edition-access.parameter';
 import { Router } from '@angular/router';
 import { DialogOneActionService } from '@molecules/dialog/views/dialog-one-action/dialog-one-action.service';
 import { UserStoreService } from '@stores/user-store.service';

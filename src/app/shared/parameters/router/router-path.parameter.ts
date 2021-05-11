@@ -1,4 +1,5 @@
-import { BUSINESS_PATH, LOGIN_PATH, OP_CAPACITIES_PATH, OP_STORES_PATH, OP_ZONES_PATH, OPERATIONS_PATH } from '@parameters/router/routing-module-path.parameter';
+import { BUSINESS_PATH, LOGIN_PATH } from '@parameters/router/routing-module-path.parameter';
+import { OP_CAPACITIES_PATH, OP_STORES_PATH, OP_ZONES_PATH, OPERATIONS_PATH } from '@parameters/router/paths/operations-path.parameter';
 
 export const ROUTER_PATH = {
     base: '/',

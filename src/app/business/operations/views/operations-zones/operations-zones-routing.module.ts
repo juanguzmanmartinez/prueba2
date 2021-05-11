@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OperationsZonesComponent } from './operations-zones.component';
 import { OperationsZonesHomeComponent } from './views/operations-zones-home/operations-zones-home.component';
-import { OP_ZONES_PATH } from '@parameters/router/routing-module-path.parameter';
 import { OperationsZonesEditionComponent } from './views/operations-zones-edition/operations-zones-edition.component';
 import { OperationsZonesEditionHomeComponent } from './views/operations-zones-edition/views/operations-zones-edition-home/operations-zones-edition-home.component';
 import { OperationsZonesEditionZoneComponent } from './views/operations-zones-edition/views/operations-zones-edition-zone/operations-zones-edition-zone.component';
@@ -13,6 +12,7 @@ import { ROUTER_ACCESS } from '@parameters/router/router-access.parameter';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { RoleGuard } from '@guards/role-guard.service';
 import { OperationsZoneServiceTypeEditionGuard } from './guards/operations-zone-service-type-edition-guard.service';
+import { OP_ZONES_PATH } from '@parameters/router/paths/operations-path.parameter';
 
 const routes: Routes = [
     {

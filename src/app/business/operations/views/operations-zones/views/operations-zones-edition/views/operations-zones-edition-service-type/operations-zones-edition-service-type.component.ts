@@ -12,9 +12,9 @@ import { ZonesStoreServiceType } from '../../../../models/operations-zones-store
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
 import { CChannelName, CChannelRoute, EChannel } from '@models/channel/channel.model';
-import { OP_ZONES_PATH } from '@parameters/router/routing-module-path.parameter';
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { OP_ZONES_PATH } from '@parameters/router/paths/operations-path.parameter';
 
 @Component({
     selector: 'app-operations-zones-edition-service-type',

@@ -7,7 +7,7 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
   styleUrls: ['./under-construction.component.scss']
 })
 export class UnderConstructionComponent implements OnInit {
-  public concatPath = ROUTER_PATH;
+  public routerPath = ROUTER_PATH;
 
   constructor() { }
 

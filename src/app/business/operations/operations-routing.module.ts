@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule, Routes } from '@angular/router';
 import { OperationsComponent } from './operations.component';
 import { OperationsHomeComponent } from './views/operations-home/operations-home.component';
-import { OPERATIONS_PATH } from '@parameters/router/routing-module-path.parameter';
 import { RoleGuard } from '@guards/role-guard.service';
 import { ROUTER_ACCESS } from '@parameters/router/router-access.parameter';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { OPERATIONS_PATH } from '@parameters/router/paths/operations-path.parameter';
 
 const STORES: Route = {
     path: OPERATIONS_PATH.stores.valueOf(),

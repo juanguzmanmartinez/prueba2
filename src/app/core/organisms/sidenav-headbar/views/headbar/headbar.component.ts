@@ -8,7 +8,7 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 })
 export class HeadbarComponent implements OnInit {
 
-  public concatPath = ROUTER_PATH;
+  public routerPath = ROUTER_PATH;
 
   constructor() { }
 

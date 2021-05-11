@@ -14,7 +14,7 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 })
 export class OperationsCapacityHomeComponent {
 
-    public concatPath = ROUTER_PATH;
+    public routerPath = ROUTER_PATH;
 
     constructor(
         private _operationsCapacityHomeStoreService: OperationsCapacityHomeStoreService

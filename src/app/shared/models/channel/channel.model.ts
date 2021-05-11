@@ -1,4 +1,4 @@
-import { CHANNEL_PATH } from '@parameters/router/routing-module-path.parameter';
+import { CHANNEL_PATH } from '@parameters/router/paths/shared-path.parameter';
 
 export enum EChannel {
     default = 'DEFAULT',

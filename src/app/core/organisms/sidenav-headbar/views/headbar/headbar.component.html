@@ -9,16 +9,16 @@
 
             <mat-menu #headbarMenu="matMenu">
 
-                <div class="headerbar-menu-items">
-                    <app-router [router]="concatPath.operations">
-                        <span mat-menu-item>Operaciones</span>
+                <div class="headerbar-menu-items"
+                     *appRouterAccess="routerPath.admin">
+                    <app-router [router]="routerPath.admin">
+                        <span mat-menu-item>Administrador</span>
                     </app-router>
                 </div>
 
-                <div class="headerbar-menu-items"
-                     *appRouterAccess="concatPath.admin">
-                    <app-router [router]="concatPath.admin">
-                        <span mat-menu-item>Administrador</span>
+                <div class="headerbar-menu-items">
+                    <app-router [router]="routerPath.operations">
+                        <span mat-menu-item>Operaciones</span>
                     </app-router>
                 </div>
 
@@ -26,7 +26,7 @@
         </div>
 
         <div class="static-headbar-logo">
-            <app-router [router]="concatPath.base">
+            <app-router [router]="routerPath.base">
                 <app-icon svgName="main-logo"
                           svgWidth="32px"></app-icon>
             </app-router>

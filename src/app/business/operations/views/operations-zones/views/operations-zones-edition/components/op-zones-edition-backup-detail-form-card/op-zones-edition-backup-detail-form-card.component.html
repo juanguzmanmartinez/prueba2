@@ -29,8 +29,7 @@
                     <div class="col-12 mb-5">
                         <app-form-field>
                             <app-form-field-label>Zona backup</app-form-field-label>
-                            <app-select-search [hidden]="form.zoneBackupControl.disabled"
-                                               selectId="zoneSelect"
+                            <app-select-search selectId="zoneSelect"
                                                placeholder="Sin zona backup"
                                                [formControlName]="controlNameList.zoneBackup"
                                                [optionList]="zoneList">
@@ -39,11 +38,6 @@
                                 <ng-template #optionTemplate
                                              let-option>{{zoneBackupOptionName(option)}}</ng-template>
                             </app-select-search>
-                            <app-input [hidden]="form.zoneBackupControl.enabled"
-                                       [disabled]="form.zoneBackupControl.disabled"
-                                       [value]="zoneBackupOptionName(form.zoneBackupControl.value)"
-                                       placeholder="Sin zona backup">
-                            </app-input>
                         </app-form-field>
                     </div>
 

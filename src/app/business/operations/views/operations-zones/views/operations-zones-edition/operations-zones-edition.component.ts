@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OperationsZonesEditionStoreService } from './stores/operations-zones-edition-store.service';
 import { ActivatedRoute } from '@angular/router';
 import { OperationsZonesImplementService } from '../../implements/operations-zones-implement.service';
-import { OP_ZONES_PATH } from '@parameters/router/routing-module-path.parameter';
 import { ZoneDetail } from '../../models/operations-zones.model';
 import { Subscription } from 'rxjs';
 import { OperationsZonesEditionActionsStoreService } from './stores/operations-zones-edition-actions-store.service';
+import { OP_ZONES_PATH } from '@parameters/router/paths/operations-path.parameter';
 
 @Component({
     template: '<router-outlet></router-outlet>',

@@ -3,9 +3,9 @@ import { OperationsStoresEditionStoreService } from './stores/operations-stores-
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { OperationsStoresImplementService } from '../../implements/operations-stores-implement.service';
-import { OP_STORES_PATH } from '@parameters/router/routing-module-path.parameter';
 import { StoreDetail } from '../../models/operations-stores.model';
 import { OperationsStoresEditionActionsStoreService } from './stores/operations-stores-edition-actions-store.service';
+import { OP_STORES_PATH } from '@parameters/router/paths/operations-path.parameter';
 
 @Component({
     template: '<router-outlet></router-outlet>',

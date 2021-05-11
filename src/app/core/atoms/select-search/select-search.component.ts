@@ -146,7 +146,7 @@ export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, A
             });
             if (index !== -1) {
                 const validIndex = !!this.clearValue ? index + 1 : index;
-                if (this.selectSearch.options.length === 0) {
+                if (this.selectSearch.options.length === 0 || this.selectSearch.options.length !== this.optionList.length) {
                     timer(0, 500)
                         .pipe(takeUntil(this.killTrigger))
                         .subscribe(() => this.setOption(validIndex));

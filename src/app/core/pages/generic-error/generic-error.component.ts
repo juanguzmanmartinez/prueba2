@@ -7,7 +7,7 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
   styleUrls: ['./generic-error.component.scss']
 })
 export class GenericErrorComponent implements OnInit {
-  public concatPath = ROUTER_PATH;
+  public routerPath = ROUTER_PATH;
 
   constructor() { }
 
