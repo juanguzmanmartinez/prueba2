@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Zone, ZoneDetail } from '../../../../models/operations-zones.model';
-import { CStateName, CStateTag } from '@models/state/state.model';
+import { CStateName, CStateTag, CStateValue } from '@models/state/state.model';
 import { CCompanyName } from '@models/company/company.model';
 import { CDeliveryServiceTypeName, CDeliveryTypeName } from '@models/service-type/delivery-service-type.model';
 import { CChannelName } from '@models/channel/channel.model';
@@ -11,7 +11,6 @@ import { ZoneServiceType } from '../../../../models/operations-zones-service-typ
 import { MatSort } from '@angular/material/sort';
 import { CZoneTypeName } from '../../../../parameters/operations-zones-type.parameter';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
-import { MatDialogRef } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -23,6 +22,7 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
 
     public stateTag = CStateTag;
     public stateName = CStateName;
+    private stateValue = CStateValue;
     public companyName = CCompanyName;
     public channelName = CChannelName;
     public serviceTypeName = CDeliveryServiceTypeName;
@@ -43,7 +43,6 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
 
     constructor(
         private _operationsZonesImplement: OperationsZonesImplementService,
-        public _dialogRef: MatDialogRef<OpZonesHomeZoneDetailDialogComponent>,
     ) {
     }
 
@@ -58,7 +57,6 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
                 this.settingDataSource();
             }, (error) => {
                 this.zoneDetail = null;
-                this._dialogRef.close(false);
                 this.errorResponse = error;
             }, () => {
                 this.zoneDetailLoader = false;
@@ -78,6 +76,21 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
                 };
             });
         this.dataSource.sort = this.sort;
+    }
+
+
+    get zoneEditionZoneBackup() {
+        return !this.zoneDetail?.zoneBackup ?
+            'Sin zona backup' : this.stateValue[this.zoneDetail.zoneBackup.state] ?
+                `${this.zoneDetail.zoneBackup.name} - ${this.zoneDetail.zoneBackup.code}` :
+                this.stateName[this.zoneDetail.zoneBackup.state]();
+    }
+
+    get zoneEditionDrugstoreBackup() {
+        return !this.zoneDetail?.zoneBackup ?
+            'Sin local backup' : this.stateValue[this.zoneDetail.zoneBackup.state] ?
+                `${this.zoneDetail.zoneBackup.assignedStoreCode} - ${this.zoneDetail.zoneBackup.assignedStoreName}` :
+                this.stateName[this.zoneDetail.zoneBackup.state]();
     }
 
 }

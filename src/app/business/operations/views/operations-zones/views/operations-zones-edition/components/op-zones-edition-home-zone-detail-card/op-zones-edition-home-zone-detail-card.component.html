@@ -41,12 +41,7 @@
                                          iconName="store">
                 <ng-container information-title>Local backup</ng-container>
                 <ng-container information-caption>
-                    <ng-container *ngIf="zoneDetail.zoneBackup">
-                        {{zoneDetail.zoneBackup.assignedStoreCode}} {{zoneDetail.zoneBackup.assignedStoreName}}
-                    </ng-container>
-                    <ng-container *ngIf="!zoneDetail.zoneBackup">
-                        Sin local backup
-                    </ng-container>
+                    <span class="text-capitalize">{{zoneEditionDrugstoreBackup}}</span>
                 </ng-container>
             </app-card-static-information>
 
@@ -54,12 +49,7 @@
                                          iconName="location_searching">
                 <ng-container information-title>Zona backup</ng-container>
                 <ng-container information-caption>
-                    <ng-container *ngIf="zoneDetail.zoneBackup">
-                        {{zoneDetail.zoneBackup.name}} - {{zoneDetail.zoneBackup.code}}
-                    </ng-container>
-                    <ng-container *ngIf="!zoneDetail.zoneBackup">
-                        Sin zona backup
-                    </ng-container>
+                    <span class="text-capitalize">{{zoneEditionZoneBackup}}</span>
                 </ng-container>
             </app-card-static-information>
         </div>
@@ -83,9 +73,9 @@
                 <ng-container information-caption>
                     <ng-container *ngFor="let company of zoneDetail.companyList; let last = last">
                         <span>
-                                {{companyName[company]}}
-                                <span class="mx-2" *ngIf="!last">-</span>
-                            </span>
+                            {{companyName[company]}}
+                            <span *ngIf="!last" class="mx-2">-</span>
+                        </span>
                     </ng-container>
                 </ng-container>
             </app-card-static-information>

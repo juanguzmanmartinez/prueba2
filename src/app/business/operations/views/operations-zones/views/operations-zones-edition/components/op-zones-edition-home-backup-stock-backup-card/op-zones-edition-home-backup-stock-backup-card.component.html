@@ -16,12 +16,7 @@
                                          [disabled]="stockBackupDisabled">
                 <ng-container information-title>Local backup</ng-container>
                 <ng-container information-caption>
-                    <ng-container *ngIf="zoneBackupDetail?.assignedStore">
-                        {{zoneBackupDetail.assignedStore.code}} {{zoneBackupDetail.assignedStore.name}}
-                    </ng-container>
-                    <ng-container *ngIf="!zoneBackupDetail?.assignedStore">
-                        Sin local backup
-                    </ng-container>
+                    <span class="text-capitalize">{{zoneEditionDrugstoreBackup}}</span>
                 </ng-container>
             </app-card-static-information>
         </div>
@@ -30,12 +25,7 @@
                                          [disabled]="stockBackupDisabled">
                 <ng-container information-title>Zona backup</ng-container>
                 <ng-container information-caption>
-                    <ng-container *ngIf="zoneBackupDetail">
-                        {{zoneBackupDetail.name}} - {{zoneBackupDetail.code}}
-                    </ng-container>
-                    <ng-container *ngIf="!zoneBackupDetail">
-                        Sin zona backup
-                    </ng-container>
+                    <span class="text-capitalize">{{zoneEditionZoneBackup}}</span>
                 </ng-container>
             </app-card-static-information>
         </div>

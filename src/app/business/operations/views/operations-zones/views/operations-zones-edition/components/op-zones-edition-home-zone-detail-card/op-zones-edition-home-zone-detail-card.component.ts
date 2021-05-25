@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
-import { CStateName, CStateTag } from '@models/state/state.model';
+import { CStateName, CStateTag, CStateValue } from '@models/state/state.model';
 import { CCompanyName } from '@models/company/company.model';
 import { CChannelName } from '@models/channel/channel.model';
 import { ETagAppearance } from '@models/tag/tag.model';
@@ -17,6 +17,7 @@ import { CDeliveryTypeName } from '@models/service-type/delivery-service-type.mo
 export class OpZonesEditionHomeZoneDetailCardComponent implements OnInit {
     public stateTag = CStateTag;
     public stateName = CStateName;
+    public stateValue = CStateValue;
     public zoneTypeName = CZoneTypeName;
     public deliveryTypeName = CDeliveryTypeName;
     public companyName = CCompanyName;
@@ -32,6 +33,20 @@ export class OpZonesEditionHomeZoneDetailCardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+    }
+
+    get zoneEditionZoneBackup() {
+        return !this.zoneDetail?.zoneBackup ?
+            'Sin zona backup' : this.stateValue[this.zoneDetail.zoneBackup.state] ?
+                `${this.zoneDetail.zoneBackup.name} - ${this.zoneDetail.zoneBackup.code}` :
+                this.stateName[this.zoneDetail.zoneBackup.state]();
+    }
+
+    get zoneEditionDrugstoreBackup() {
+        return !this.zoneDetail?.zoneBackup ?
+            'Sin local backup' : this.stateValue[this.zoneDetail.zoneBackup.state] ?
+                `${this.zoneDetail.zoneBackup.assignedStoreCode} - ${this.zoneDetail.zoneBackup.assignedStoreName}` :
+                this.stateName[this.zoneDetail.zoneBackup.state]();
     }
 
     get zoneEditionPath() {

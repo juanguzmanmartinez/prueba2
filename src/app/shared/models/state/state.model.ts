@@ -49,8 +49,8 @@ export const CStateSettingValue = {
     [EStateSetting.false]: false,
 };
 
-export const CGStateByStateSetting = (stateSetting: EStateSetting) => {
-    return CStateSettingValue[stateSetting] ? EState.enabled : EState.disabled;
+export const CGStateByStateSetting = (stateSetting: EStateSetting, options?: { true?: EState, false?: EState }) => {
+    return CStateSettingValue[stateSetting] ? options?.true || EState.enabled : options?.false || EState.disabled;
 };
 
 export const CGStateSettingByValue = (value: boolean) => {

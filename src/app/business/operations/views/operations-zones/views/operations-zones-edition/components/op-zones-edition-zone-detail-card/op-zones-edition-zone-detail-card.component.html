@@ -31,12 +31,7 @@
                                          iconName="store">
                 <ng-container information-title>Local backup</ng-container>
                 <ng-container information-caption>
-                    <ng-container *ngIf="zoneDetail.zoneBackup">
-                        {{zoneDetail.zoneBackup.assignedStoreCode}} {{zoneDetail.zoneBackup.assignedStoreName}}
-                    </ng-container>
-                    <ng-container *ngIf="!zoneDetail.zoneBackup">
-                        Sin local backup
-                    </ng-container>
+                    <span class="text-capitalize">{{zoneEditionDrugstoreBackup}}</span>
                 </ng-container>
             </app-card-static-information>
 
@@ -44,12 +39,7 @@
                                          iconName="location_searching">
                 <ng-container information-title>Zona backup</ng-container>
                 <ng-container information-caption>
-                    <ng-container *ngIf="zoneDetail.zoneBackup">
-                        {{zoneDetail.zoneBackup.name}} - {{zoneDetail.zoneBackup.code}}
-                    </ng-container>
-                    <ng-container *ngIf="!zoneDetail.zoneBackup">
-                        Sin zona backup
-                    </ng-container>
+                    <span class="text-capitalize">{{zoneEditionZoneBackup}}</span>
                 </ng-container>
             </app-card-static-information>
 

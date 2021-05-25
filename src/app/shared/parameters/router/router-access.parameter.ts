@@ -23,7 +23,7 @@ export const ROUTER_ACCESS = {
     [ROUTER_PATH.opStores_StoreServiceTypeEdition()]: [DEVELOPER],
 
     [ROUTER_PATH.operationCapacities]: [ADMIN, VIEWER, ASSISTANT],
-    [ROUTER_PATH.operationSettings]: [DEVELOPER, ADMIN],
+    [ROUTER_PATH.operationSettings]: [DEVELOPER],
     [ROUTER_PATH.opCapacitiesReport]: [DEVELOPER],
 };
 

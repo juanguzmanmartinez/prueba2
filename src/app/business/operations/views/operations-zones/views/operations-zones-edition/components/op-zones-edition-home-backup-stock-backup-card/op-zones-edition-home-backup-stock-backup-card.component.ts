@@ -21,13 +21,24 @@ export class OpZonesEditionHomeBackupStockBackupCardComponent implements OnInit 
     }
 
 
+    get zoneEditionZoneBackup() {
+        return !this.zoneBackupDetail ?
+            'Sin zona backup' : `${this.zoneBackupDetail.name} - ${this.zoneBackupDetail.code}`;
+    }
+
+    get zoneEditionDrugstoreBackup() {
+        return !this.zoneBackupDetail?.assignedStore ?
+            'Sin local backup' : `${this.zoneBackupDetail.assignedStore.code} - ${this.zoneBackupDetail.assignedStore.name}`;
+    }
+
+
     get stockBackupDisabled() {
         return !this.zoneBackupDetail || this.disabled;
     }
 
 
     get backupEditionPath() {
-        return  ROUTER_PATH.opZones_ZoneBackupEdition();
+        return ROUTER_PATH.opZones_ZoneBackupEdition();
     }
 
     editEvent() {

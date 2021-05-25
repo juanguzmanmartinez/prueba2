@@ -102,8 +102,7 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
 
     updateZoneBackupControl() {
         const subscription = this._editionZoneBackupDetailForm.zoneBackupControl.valueChanges
-            .subscribe((value) => {
-                console.log(value);
+            .subscribe(() => {
                 const zoneBackup = this._editionZoneBackupDetailForm.zoneBackupControl.value;
                 const backupAssignedStore = zoneBackup?.assignedStore ? `${zoneBackup.assignedStore.code} ${zoneBackup.assignedStore.name}` : '';
                 this._editionZoneBackupDetailForm.assignedStoreControl.patchValue(backupAssignedStore);

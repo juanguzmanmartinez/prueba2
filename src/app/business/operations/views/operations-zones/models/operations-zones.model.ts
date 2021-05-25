@@ -74,7 +74,7 @@ export class ZoneBackup {
         this.id = iZoneBackup.zoneId;
         this.code = `${iZoneBackup.idZone}`;
         this.name = iZoneBackup.name;
-        this.state = CGStateByStateSetting(iZoneBackup.preferableLocalBackupToShow);
+        this.state = CGStateByStateSetting(iZoneBackup.preferableLocalBackupToShow, {false: EState.inactive});
         this.assignedStoreCode = iZoneBackup.fulfillmentCenterCode;
         this.assignedStoreName = iZoneBackup.fulfillmentCenterName;
         this.forceServiceAMPM = CGStateByStateSetting(iZoneBackup.forceServiceAMPM);

@@ -6,6 +6,9 @@ import { MatDialogConfig } from '@angular/material/dialog/dialog-config';
 
 @Injectable()
 export class DialogTwoActionsService {
+
+    private dialogRef: MatDialogRef<DialogTwoActionsComponent>;
+
     constructor(private _dialogService: DialogService) {
     }
 
@@ -20,24 +23,28 @@ export class DialogTwoActionsService {
             svgName?: string
         },
         config: MatDialogConfig = {}
-    ): MatDialogRef<DialogTwoActionsComponent> {
-        const dialogRef = this._dialogService.open(DialogTwoActionsComponent, {
+    ): MatDialogRef<DialogTwoActionsComponent, boolean> {
+        this.dialogRef = this._dialogService.open(DialogTwoActionsComponent, {
             width: '444px',
             minHeight: '240px',
             ...config
         });
 
-        dialogRef.componentInstance.title = data.title;
-        dialogRef.componentInstance.description = data.description;
-        dialogRef.componentInstance.primaryAction = data.primaryAction;
-        dialogRef.componentInstance.secondaryAction = data.secondaryAction;
-        dialogRef.componentInstance.fontName = data.fontName;
-        dialogRef.componentInstance.fontClass = data.fontClass;
-        dialogRef.componentInstance.svgName = data.svgName;
-        return dialogRef;
+        this.dialogRef.componentInstance.title = data.title;
+        this.dialogRef.componentInstance.description = data.description;
+        this.dialogRef.componentInstance.primaryAction = data.primaryAction;
+        this.dialogRef.componentInstance.secondaryAction = data.secondaryAction;
+        this.dialogRef.componentInstance.fontName = data.fontName;
+        this.dialogRef.componentInstance.fontClass = data.fontClass;
+        this.dialogRef.componentInstance.svgName = data.svgName;
+        return this.dialogRef;
     }
 
-    closeAll(){
+    close(dialogResult?: boolean) {
+        this.dialogRef.close(dialogResult);
+    }
+
+    closeAll() {
         this._dialogService.closeAll();
     }
 
@@ -62,7 +69,7 @@ export class DialogTwoActionsService {
             secondaryAction: string
         },
         config: MatDialogConfig = {}
-    ): MatDialogRef<DialogTwoActionsComponent> {
+    ): MatDialogRef<DialogTwoActionsComponent, boolean> {
         return this.open({
             ...data,
             fontName: 'info',

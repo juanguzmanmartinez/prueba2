@@ -96,7 +96,7 @@ export class AuthGuard implements CanActivate {
                         }, () => {
                             this.tokenExpiredAction();
                         });
-                } else {
+                } else if (refreshToken === false) {
                     this._userStore.logout();
                 }
             });
@@ -143,6 +143,8 @@ export class AuthGuard implements CanActivate {
         interval(CTokenSettings.expiredIntervalMinutes)
             .pipe(takeUntil(this.expiredIntervalSubject))
             .subscribe(() => {
+                this.removeExpiredInterval();
+                this._dialogTwoActions?.close();
                 this.tokenExpiredAction();
             });
     }
