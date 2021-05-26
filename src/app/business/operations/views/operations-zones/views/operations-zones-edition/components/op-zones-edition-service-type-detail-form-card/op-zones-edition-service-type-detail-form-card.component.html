@@ -20,7 +20,6 @@
                     <app-form-field-label>Inicio</app-form-field-label>
                     <app-input-time name="start-hour-time"
                                     format="12"
-                                    [class.time-input]="!_serviceTypeDetailForm.stateControl.value"
                                     [minHour]="zonesStoreServiceType.startHour"
                                     [maxHour]="_serviceTypeDetailForm.endHourControl.value"
                                     (timeChange)="updateStartHourControl($event)"
@@ -33,7 +32,7 @@
                     <app-form-field-label>Fin</app-form-field-label>
                     <app-input-time name="end-hour-time"
                                     format="12"
-                                    [class.time-input]="!_serviceTypeDetailForm.stateControl.value"
+                                    [options]="{minutesGap: 30}"
                                     [minHour]="_serviceTypeDetailForm.startHourControl.value"
                                     [maxHour]="zonesStoreServiceType.endHour"
                                     (timeChange)="updateEndHourControl($event)"

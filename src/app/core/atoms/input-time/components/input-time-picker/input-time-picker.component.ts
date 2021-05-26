@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { DatesHelper } from '@helpers/dates.helper';
+import { InputTimePickerOptions } from '@atoms/input-time/models/input-time-picker.models';
 
 @Component({
     selector: 'app-input-time-picker',
@@ -17,6 +18,7 @@ export class InputTimePickerComponent implements OnInit {
     public dateTime: boolean;
     private minHourDate = this.defaultMinHour.clone();
     private maxHourDate = this.defaultMaxHour.clone();
+    private options: InputTimePickerOptions = {minutesGap: 1, hoursGap: 1};
 
     public dateTimePickerList = [];
     public hoursPickerList = [];
@@ -26,8 +28,14 @@ export class InputTimePickerComponent implements OnInit {
     public minutesPickerValue = '00';
     public dateTimePickerValue = this.dateTimePickerList[0];
 
+    @Input('options')
+    set _options(options: InputTimePickerOptions) {
+        this.options.minutesGap = options?.minutesGap ? options.minutesGap : this.options.minutesGap;
+        this.options.hoursGap = options?.hoursGap ? options.hoursGap : this.options.hoursGap;
+    }
 
-    @Input('time') set _time(time: number) {
+    @Input('time')
+    set _time(time: number) {
         this.time = time ? time : DatesHelper.Date().valueOf();
         this.setTimePicker();
     }
@@ -128,7 +136,7 @@ export class InputTimePickerComponent implements OnInit {
         const maxHourByDateTime = this.maxHourByDateTime.clone();
         while (minHourByDateTime.isSameOrBefore(maxHourByDateTime, 'hour')) {
             hoursPickerList.push(minHourByDateTime.format(this.hourFormat));
-            minHourByDateTime.add(1, 'hour');
+            minHourByDateTime.add(this.options.hoursGap, 'hour');
         }
 
         this.hoursPickerList = [...new Set(hoursPickerList)];
@@ -147,7 +155,7 @@ export class InputTimePickerComponent implements OnInit {
 
         while (minMinutes.isSameOrBefore(maxMinutes, 'minutes')) {
             minutesPickerList.push(minMinutes.format('mm'));
-            minMinutes.add(1, 'minute');
+            minMinutes.add(this.options.minutesGap, 'minute');
         }
 
         this.minutesPickerList = [...new Set(minutesPickerList)];

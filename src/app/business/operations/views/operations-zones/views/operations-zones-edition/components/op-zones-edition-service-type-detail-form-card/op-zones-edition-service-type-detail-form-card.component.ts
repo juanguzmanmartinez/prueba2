@@ -75,6 +75,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
 
     updateFormValues() {
         this._serviceTypeDetailForm.startHourControl.patchValue(this.zoneServiceType.startHour);
+        this._serviceTypeDetailForm.startHourControl.disable();
         this._serviceTypeDetailForm.endHourControl.patchValue(this.zoneServiceType.endHour);
         this._serviceTypeDetailForm.segmentGapControl.patchValue(this.zoneServiceType.segmentGap);
         this._serviceTypeDetailForm.intervalTimeControl.patchValue(minuteFormat(this.zoneServiceType.intervalTime));
@@ -102,7 +103,6 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
 
     checkEditionByStateControl() {
         if (this._serviceTypeDetailForm.stateControl.value) {
-            this._serviceTypeDetailForm.startHourControl.enable();
             this._serviceTypeDetailForm.endHourControl.enable();
             this._serviceTypeDetailForm.segmentGapControl.enable();
         } else {

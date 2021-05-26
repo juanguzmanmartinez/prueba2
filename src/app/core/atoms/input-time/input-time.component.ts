@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { DocumentListener } from '../../../shared/listeners/document.listener';
+import { InputTimePickerOptions } from '@atoms/input-time/models/input-time-picker.models';
 
 @Component({
     selector: 'app-input-time',
@@ -27,6 +28,7 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit, OnDestr
     @Input() format: '12' | '24' = '24';
     @Input() minHour: number;
     @Input() maxHour: number;
+    @Input() options: InputTimePickerOptions;
 
     @Input('value')
     set value(time: number) {
