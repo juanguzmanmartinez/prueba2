@@ -2,7 +2,7 @@
         [innerClass]="'button-action-icon ' + innerClass"
         [inlineStyle]="inlineStyle"
         [disabled]="disabled"
-        (click)="onClick($event)">
+        (clicked)="clicked.emit($event)">
   <span class="d-inline-flex">
     <app-icon class="button-action-icon"
               [fontName]="iconName"

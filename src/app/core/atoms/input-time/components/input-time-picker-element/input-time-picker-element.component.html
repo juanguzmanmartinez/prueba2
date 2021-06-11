@@ -1,0 +1,25 @@
+<div class="time-picker">
+    <div class="up-icon d-inline-flex">
+        <app-icon (click)="upPicker()"
+                  [class.pointer-events-none]="upPickerDisabled"
+                  fontName="keyboard_arrow_up"
+                  fontSize="24px"
+                  innerClass="{{upPickerDisabled ? 'text-gray-4':'text-primary'}} cursor-pointer">
+        </app-icon>
+    </div>
+
+    <div class="hour-value my-2">
+        <app-input [readOnly]="true"
+                   [value]="pickerText"
+                   innerClass="text-center px-3"></app-input>
+    </div>
+
+    <div class="down-icon d-inline-flex">
+        <app-icon (click)="downPicker()"
+                  [class.pointer-events-none]="downPickerDisabled"
+                  fontName="keyboard_arrow_down"
+                  fontSize="24px"
+                  innerClass="{{downPickerDisabled ? 'text-gray-4':'text-primary'}} cursor-pointer">
+        </app-icon>
+    </div>
+</div>

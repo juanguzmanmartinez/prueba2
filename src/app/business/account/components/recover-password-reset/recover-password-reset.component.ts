@@ -1,10 +1,10 @@
 import { Component, OnInit, SkipSelf, ViewChild } from '@angular/core';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { Router } from '@angular/router';
 import { CUpdatePasswordMessages } from '@organisms/update-password-form/parameters/update-password-messages.parameter';
 import { AuthImplementService } from '@implements/auth/auth-implement.service';
 import { AlertService } from '@molecules/alert/alert.service';
-import { RecoveryPasswordStore } from '../../stores/recovery-password.store';
+import { RecoveryPasswordStoreService } from '../../stores/recovery-password-store.service';
 import { UpdatePasswordFormComponent } from '@organisms/update-password-form/update-password-form.component';
 
 @Component({
@@ -22,7 +22,7 @@ export class RecoverPasswordResetComponent implements OnInit {
         private _router: Router,
         private _authImplement: AuthImplementService,
         private  _alertService: AlertService,
-        @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStore,
+        @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStoreService,
     ) {
     }
 
@@ -61,7 +61,7 @@ export class RecoverPasswordResetComponent implements OnInit {
         this._alertService.alertSuccess(CUpdatePasswordMessages.success);
         this.recoveryPasswordStore.resetStore();
         this.updatePasswordForm.resetPasswordForm();
-        this._router.navigate([CONCAT_PATH.operations]);
+        this._router.navigate([ROUTER_PATH.operations]);
     }
 
     invalidSignIn() {
@@ -72,7 +72,7 @@ export class RecoverPasswordResetComponent implements OnInit {
     formCancelled(): void {
         this.recoveryPasswordStore.resetStore();
         this.updatePasswordForm.resetPasswordForm();
-        this._router.navigate([CONCAT_PATH.login]);
+        this._router.navigate([ROUTER_PATH.login]);
     }
 
 }

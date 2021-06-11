@@ -1,0 +1,39 @@
+<section class="operations-zones-edition-zone pt-12 pb-15">
+    <div class="row mb-10">
+        <div class="col-12">
+            <h3 class="text-h3 mb-5">Edición de zonas</h3>
+            <hr class="mt-0 mb-6 bg-gray-3">
+            <h5 class="text-h5 text-gray-6 mb-0">Edición de zona principal</h5>
+        </div>
+    </div>
+
+
+    <div class="row"
+         *ngIf="!errorResponse">
+        <div class="col-12 col-xl-6 mb-6 mb-xl-0">
+            <app-op-zones-edition-zone-detail-card
+                    *appSkeletonCard="!!zoneDetail && !!channelList && !!storeList; loading: !homeEditionZoneLoader"
+                    [zoneDetail]="zoneDetail">
+            </app-op-zones-edition-zone-detail-card>
+        </div>
+
+        <div class="col-12 col-xl-6"
+             [class.container-loader]="saveEditionLoader">
+            <app-op-zones-edition-zone-detail-form-card
+                    *appSkeletonCard="!!zoneDetail && !!channelList && !!storeList; row: 8; loading: !homeEditionZoneLoader"
+                    [zoneDetail]="zoneDetail"
+                    [storeList]="storeList"
+                    [channelList]="channelList"
+                    [companyList]="companyList"
+                    [labelList]="labelList"
+                    (cancelEdition)="cancelEdition()"
+                    (saveEdition)="saveEdition($event)">
+            </app-op-zones-edition-zone-detail-form-card>
+        </div>
+    </div>
+
+    <div *ngIf="errorResponse"
+         class="pt-6">
+        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+    </div>
+</section>

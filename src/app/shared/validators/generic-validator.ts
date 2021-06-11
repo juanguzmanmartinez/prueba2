@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, ValidatorFn, Validators } from '@angular/forms';
 
 const validCharacters = /^[A-Za-zÀ-ÿ\u00f1\u00d1 ]+$/;
 const validNumbers = /^[0-9]*$/;
@@ -21,6 +21,17 @@ export class GenericValidator extends Validators {
             const maxValue = !isNaN(max) ? Number(Array.from({length: max}, () => 9).join('')) : 1;
             if (control.value && (isNaN(control.value) || stringValue.length > max || control.value > maxValue)) {
                 return {range: true};
+            }
+            return null;
+        };
+    }
+
+    static validateNumberMin(min: number): ValidatorFn {
+        return (control: AbstractControl): { [key: string]: boolean } | null => {
+            const value = control.value && !isNaN(control.value) ? control.value : 0;
+            const minValue = !isNaN(min) ? min : 0;
+            if (value < minValue) {
+                return {validateNumberMin: true};
             }
             return null;
         };
@@ -62,6 +73,25 @@ export class GenericValidator extends Validators {
         const pattern = /(.*[-+_!@#$%^&*.,?\d].*)/;
         if (!pattern.test(control.value)) {
             return {numberOrCharacterError: true};
+        }
+        return null;
+    }
+
+    static validateAtLeastOneCheckboxChecked(): ValidatorFn {
+        return (formArray: FormArray): { [key: string]: any } | null => {
+            const checkedControl = formArray.controls
+                .filter((control) => control.value.checked);
+            if (!checkedControl || !checkedControl.length) {
+                return {validateAtLeastOneCheckboxChecked: true};
+            }
+            return null;
+        };
+    }
+
+    static validateStringEmptiness(control: AbstractControl): { [key: string]: boolean } | null {
+        const validString = !!control.value;
+        if (!validString) {
+            return {lowerCaseError: true};
         }
         return null;
     }

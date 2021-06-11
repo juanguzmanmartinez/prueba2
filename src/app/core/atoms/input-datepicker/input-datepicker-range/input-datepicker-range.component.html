@@ -1,5 +1,5 @@
-<div class="input-datepicker-range-container">
-    <label class="input-datepicker-range-label"
+<div class="input-datepicker-range-container datepicker-container">
+    <label class="datepicker-label"
            [class.disabled]="disabled">
 
         <mat-date-range-input [rangePicker]="pickerRange"
@@ -9,17 +9,17 @@
                               [disabled]="disabled"
                               separator="-">
             <input matStartDate
-                   class="input-datepicker-range-input text-label"
+                   class="datepicker-input"
                    formControlName="startDate"
                    [name]="name"
                    [placeholder]="placeholder">
             <input matEndDate
-                   class="input-datepicker-range-input text-label"
+                   class="datepicker-input"
                    formControlName="endDate"
                    [name]="name"
                    [placeholder]="placeholder">
         </mat-date-range-input>
-        <mat-datepicker-toggle class="input-datepicker-range-icon"
+        <mat-datepicker-toggle class="datepicker-icon"
                                [for]="pickerRange"
                                [disabled]="disabled"
                                [disableRipple]="true">

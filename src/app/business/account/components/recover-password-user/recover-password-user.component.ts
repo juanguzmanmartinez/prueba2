@@ -1,9 +1,9 @@
 import { Component, OnInit, SkipSelf } from '@angular/core';
 import { RecoverPasswordUserForm } from '../../form/recover-password-user.form';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { Router } from '@angular/router';
 import { AuthImplementService } from '@implements/auth/auth-implement.service';
-import { RecoveryPasswordStore } from '../../stores/recovery-password.store';
+import { RecoveryPasswordStoreService } from '../../stores/recovery-password-store.service';
 
 @Component({
     templateUrl: './recover-password-user.component.html',
@@ -18,7 +18,7 @@ export class RecoverPasswordUserComponent implements OnInit {
         private _router: Router,
         private authImplement: AuthImplementService,
         public recoverPasswordUserForm: RecoverPasswordUserForm,
-        @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStore
+        @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStoreService
     ) {
     }
 
@@ -36,7 +36,7 @@ export class RecoverPasswordUserComponent implements OnInit {
     validUsername() {
         this.recoveryPasswordStore.username = this.recoverPasswordUserForm.usernameControl.value;
         this._router.navigate(
-            [CONCAT_PATH.recoverPasswordCode],
+            [ROUTER_PATH.recoverPasswordCode],
             {skipLocationChange: true});
     }
 
@@ -54,6 +54,6 @@ export class RecoverPasswordUserComponent implements OnInit {
     }
 
     formCancel() {
-        this._router.navigate([CONCAT_PATH.login]);
+        this._router.navigate([ROUTER_PATH.login]);
     }
 }

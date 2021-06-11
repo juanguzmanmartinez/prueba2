@@ -2,71 +2,18 @@
 @import "src/sass/mixins";
 
 .input-datepicker-range-container {
-  .input-datepicker-range-label {
-    margin: 0;
-    position: relative;
+  .datepicker-label {
     background-color: $white;
     padding-right: 40px;
     border: 1px solid $gray-3;
     border-radius: 4px;
     height: 38px;
     width: 248px;
-
-    &.disabled {
-      pointer-events: none;
-      filter: grayscale(100%);
-    }
   }
 
 
-  .input-datepicker-range-input {
-    color: $black;
-    height: 38px;
+  .datepicker-input {
     padding: 12px 0;
-
-    @include placeholder {
-      color: $gray-4;
-    }
   }
 }
 
-
-:host {
-  .mat-date-range-input {
-    padding-left: 16px;
-  }
-  .input-datepicker-range-container {
-    .input-datepicker-range-icon {
-      position: absolute;
-      right: 0;
-      top: 0;
-
-      ::ng-deep {
-        .mat-icon-button {
-          height: 38px;
-          width: auto;
-          padding-right: 16px;
-          padding-left: 12px;
-          outline: none;
-        }
-
-        .mat-button-focus-overlay {
-          display: none;
-        }
-      }
-    }
-
-    ::ng-deep {
-      .mat-date-range-input-start-wrapper,
-      .mat-date-range-input-end-wrapper{
-        height: 38px;
-        min-width: 80px;
-      }
-
-      .mat-date-range-input-separator {
-        opacity: 1;
-        color: $gray-3;
-      }
-    }
-  }
-}

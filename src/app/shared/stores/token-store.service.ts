@@ -8,7 +8,9 @@ import { TokenDetail } from '@models/auth/token.model';
 @Injectable()
 export class TokenStoreService {
     private readonly STORAGE_SESSION_TOKEN = 'access-token';
+    private readonly STORAGE_REFRESH_TOKEN = 'refresh-token';
     private _accessToken: string;
+    private _refreshToken: string;
     private _tokenDetail: TokenDetail;
     private _decodeToken: IDecodeToken;
 
@@ -17,6 +19,7 @@ export class TokenStoreService {
 
     constructor(private storage: StorageClientService) {
         this.accessToken = this.storedAccessToken;
+        this.refreshToken = this.storedRefreshToken;
         this.accessToken$.subscribe((token) => {
             if (token) {
                 this.decodeToken = this.tokenDecoder;
@@ -39,6 +42,21 @@ export class TokenStoreService {
         storage.removeStorageItem(STORAGE_SESSION_TOKEN);
     }
 
+    private set storedRefreshToken(token: string) {
+        const {storage, STORAGE_REFRESH_TOKEN} = this;
+        storage.setStorageItem(STORAGE_REFRESH_TOKEN, token);
+    }
+
+    private get storedRefreshToken(): string {
+        const {storage, STORAGE_REFRESH_TOKEN} = this;
+        return storage.getStorageItem(STORAGE_REFRESH_TOKEN);
+    }
+
+    private removeStoredRefreshToken(): void {
+        const {storage, STORAGE_REFRESH_TOKEN} = this;
+        storage.removeStorageItem(STORAGE_REFRESH_TOKEN);
+    }
+
 
     get accessToken$(): Observable<string> {
         return this.accessTokenSubject.asObservable();
@@ -59,7 +77,24 @@ export class TokenStoreService {
     removeAccessToken() {
         this.accessToken = null;
         this.decodeToken = null;
+        this.removeRefreshToken();
         this.removeStoredAccessToken();
+    }
+
+    get refreshToken(): string {
+        return this._refreshToken;
+    }
+
+    set refreshToken(token: string) {
+        this._refreshToken = token;
+        if (token) {
+            this.storedRefreshToken = token;
+        }
+    }
+
+    removeRefreshToken() {
+        this.refreshToken = null;
+        this.removeStoredRefreshToken();
     }
 
 

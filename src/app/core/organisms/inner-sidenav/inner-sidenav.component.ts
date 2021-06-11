@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
     styleUrls: ['./inner-sidenav.component.scss']
 })
 export class InnerSidenavComponent implements OnInit, OnDestroy {
-    public subscriptions: Subscription[] = [];
+    private subscriptions: Subscription[] = [];
 
     public innerSidenavMode: MatDrawerMode = 'side';
     public overSidenav: boolean;
@@ -55,7 +55,7 @@ export class InnerSidenavComponent implements OnInit, OnDestroy {
 
     innerSidenavClosedEvent() {
         this.innerSidenavExpanded.emit(false);
-        if (!this.overSidenavRouteSubscription.closed) {
+        if (this.overSidenavRouteSubscription && !this.overSidenavRouteSubscription.closed) {
             this.overSidenavRouteSubscription.unsubscribe();
         }
     }

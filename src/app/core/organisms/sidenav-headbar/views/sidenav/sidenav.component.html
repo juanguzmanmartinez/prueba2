@@ -6,23 +6,23 @@
             <div class="sidenav-top-taps">
 
                 <div class="sidenav-taps">
-                    <app-router [router]="concatPath.base">
+                    <app-router [router]="routerPath.base">
                         <app-icon svgName="main-logo"
                                   svgWidth="32px"></app-icon>
                     </app-router>
                 </div>
 
-                <div class="sidenav-taps">
-                    <app-sidenav-navigation navigationTooltip="Operaciones"
-                                            navigationText="OP"
-                                            [navigationRoute]="concatPath.operations">
+                <div class="sidenav-taps" *appRouterAccess="routerPath.admin">
+                    <app-sidenav-navigation navigationTooltip="Administrador"
+                                            navigationText="AD"
+                                            [navigationRoute]="routerPath.admin">
                     </app-sidenav-navigation>
                 </div>
 
-                <div class="sidenav-taps" *appRouterAccess="concatPath.admin">
-                    <app-sidenav-navigation navigationTooltip="Administrador"
-                                            navigationText="AD"
-                                            [navigationRoute]="concatPath.admin">
+                <div class="sidenav-taps">
+                    <app-sidenav-navigation navigationTooltip="Operaciones"
+                                            navigationText="OP"
+                                            [navigationRoute]="routerPath.operations">
                     </app-sidenav-navigation>
                 </div>
             </div>

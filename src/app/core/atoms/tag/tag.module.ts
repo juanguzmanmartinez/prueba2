@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TagComponent } from './tag.component';
-
+import { TagComponent } from './views/tag.component';
+import { TagDeleteComponent } from '@atoms/tag/views/tag-delete/tag-delete.component';
+import { IconsModule } from '@atoms/icons/icons.module';
 
 
 @NgModule({
   declarations: [
-    TagComponent
+    TagComponent,
+    TagDeleteComponent
   ],
   exports: [
-    TagComponent
+    TagComponent,
+    TagDeleteComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    IconsModule
   ]
 })
 export class TagModule { }

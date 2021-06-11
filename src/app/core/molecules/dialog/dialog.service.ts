@@ -8,7 +8,8 @@ export class DialogService {
 
     private readonly config: MatDialogConfig = {
         width: '526px',
-        minHeight: '347px'
+        minHeight: '347px',
+        closeOnNavigation: true,
     };
 
     constructor(private matDialog: MatDialog) {
@@ -23,5 +24,9 @@ export class DialogService {
         config: MatDialogConfig = this.config
     ): MatDialogRef<any> {
         return this.matDialog.open(template, config);
+    }
+
+    closeAll() {
+        this.matDialog.closeAll();
     }
 }

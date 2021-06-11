@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
-import { CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity, CapacityServiceTypeSegment } from '../../models/operations-capacities-responses.model';
+import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import { CapacitiesLocalServiceDefaultCapacity, CapacitiesStore, CapacityServiceTypeSegment } from '../../models/operations-capacities-responses.model';
 
 @Component({
     selector: 'app-op-capacities-local-default-capacity-dialog',
@@ -8,14 +8,14 @@ import { CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity, CapacityService
     styleUrls: ['./op-capacities-local-default-capacity-dialog.component.scss']
 })
 export class OpCapacitiesLocalDefaultCapacityDialogComponent {
-    defaultCapacityTableDisplayedColumns: string[] = ['hour', 'capacity'];
+    displayedColumns: string[] = ['hour', 'capacity'];
 
     public capacityServiceTypeName = CDeliveryServiceTypeName;
     public eCapacityServiceType = EDeliveryServiceType;
 
-    @Input() capacitiesLocal: CapacitiesLocal;
+    @Input() capacitiesLocal: CapacitiesStore;
     @Input() localServiceTypeTable: CapacitiesLocalServiceDefaultCapacity;
-    @Input() defaultCapacityTableDataSource: CapacityServiceTypeSegment[];
+    @Input() dataSource: CapacityServiceTypeSegment[];
 
     constructor() {
     }

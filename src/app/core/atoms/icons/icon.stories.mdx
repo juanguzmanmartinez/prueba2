@@ -1,11 +1,11 @@
 import {Canvas, Meta, Story} from '@storybook/addon-docs/blocks';
-import {IconsComponent} from "./icons.component";
+import {IconComponent} from "./icon.component";
 import {MatIconModule} from "@angular/material/icon";
 import {IconsRegistryModule} from "./icons-registry.module";
 
 <Meta
     title="Atoms/Icon"
-    component={IconsComponent}/>
+    component={IconComponent}/>
 
 # Button Icon
 <br/>
@@ -28,11 +28,11 @@ import {IconsRegistryModule} from "./icons-registry.module";
 ------
 
 export const Template = (args) => ({
-    component: IconsComponent,
+    component: IconComponent,
     props: args,
     moduleMetadata: {
         imports: [MatIconModule, IconsRegistryModule],
-        declarations: [IconsComponent],
+        declarations: [IconComponent],
     },
     template: '<app-icon ' +
         '[fontName]="fontName" ' +
@@ -196,14 +196,15 @@ Update file with new icons
 
 | Icon | Name |   |Icon | Name |
 |------|------|---|-----|------|
-|![](../../../../assets/icons/ampm.svg)             | ampm                  ||      ![](../../../../assets/icons/mifarma.svg)       | mifarma             |
-|![](../../../../assets/icons/avatar.svg)           | avatar                ||      ![](../../../../assets/icons/moto.svg)          | moto                |
-|![](../../../../assets/icons/book.svg)             | book                  ||      ![](../../../../assets/icons/navigation.svg)    | navigation          |
-|![](../../../../assets/icons/calendar.svg)         | calendar              ||      ![](../../../../assets/icons/stores.svg)        | stores              |
-|![](../../../../assets/icons/configuration.svg)    | configuration         ||      ![](../../../../assets/icons/truck.svg)         | truck               |
-|![](../../../../assets/icons/inkafarma.svg)        | inkafarma             ||      ![](../../../../assets/icons/search.svg)        | search              |
-|![](../../../../assets/icons/main-logo.svg)        | main-logo             ||      ![](../../../../assets/icons/datepicker.svg)    | datepicker          |
-|![](../../../../assets/icons/ellipse-success.svg)  | ellipse-success       ||           |            |
+|![](../../../../assets/icons/ampm.svg)             | ampm                  ||      ![](../../../../assets/icons/mifarma.svg)           | mifarma             |
+|![](../../../../assets/icons/avatar.svg)           | avatar                ||      ![](../../../../assets/icons/moto.svg)              | moto                |
+|![](../../../../assets/icons/book.svg)             | book                  ||      ![](../../../../assets/icons/navigation.svg)        | navigation          |
+|![](../../../../assets/icons/calendar.svg)         | calendar              ||      ![](../../../../assets/icons/stores.svg)            | stores              |
+|![](../../../../assets/icons/configuration.svg)    | configuration         ||      ![](../../../../assets/icons/truck.svg)             | truck               |
+|![](../../../../assets/icons/inkafarma.svg)        | inkafarma             ||      ![](../../../../assets/icons/search.svg)            | search              |
+|![](../../../../assets/icons/main-logo.svg)        | main-logo             ||      ![](../../../../assets/icons/datepicker.svg)        | datepicker          |
+|![](../../../../assets/icons/ellipse-success.svg)  | ellipse-success       ||      ![](../../../../assets/icons/ellipse-disabled.svg)  | ellipse-disabled    |
+|![](../../../../assets/icons/loader.svg)           | loader                ||           |               |
 
 <br/>
 

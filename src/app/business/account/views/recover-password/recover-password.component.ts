@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LOGIN_PATH } from '@parameters/router/router-path.parameter';
-import { RecoveryPasswordStore } from '../../stores/recovery-password.store';
+import { LOGIN_PATH } from '@parameters/router/routing-module-path.parameter';
+import { RecoveryPasswordStoreService } from '../../stores/recovery-password-store.service';
 
 @Component({
     template: '<router-outlet></router-outlet>',
-    providers: [RecoveryPasswordStore]
+    providers: [RecoveryPasswordStoreService]
 })
 export class RecoverPasswordComponent {
 

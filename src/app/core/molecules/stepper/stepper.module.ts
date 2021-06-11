@@ -4,6 +4,7 @@ import { StepComponent } from './step/step.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
+import { DirectivesModule } from '../../../shared/directives/directives.module';
 
 
 @NgModule({
@@ -13,12 +14,13 @@ import { ButtonsModule } from '@atoms/buttons/buttons.module';
   exports: [
     StepComponent,
   ],
-  imports: [
-    CommonModule,
-    MatExpansionModule,
-    IconsModule,
-    ButtonsModule
-  ]
+    imports: [
+        CommonModule,
+        MatExpansionModule,
+        IconsModule,
+        ButtonsModule,
+        DirectivesModule
+    ]
 })
 export class StepperModule {
 }

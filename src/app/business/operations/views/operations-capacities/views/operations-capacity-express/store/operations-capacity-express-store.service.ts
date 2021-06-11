@@ -13,7 +13,7 @@ import { ECapacitiesStepExpressResource, OpCapacitiesStepExpressResourceService 
 import { ICapacityStepExpressResourceSegments } from '../../../components/op-capacities-step-express-resource/models/op-capacities-step-express-resource.model';
 import { OperationsCapacitiesImplementService } from '../../../implements/operations-capacities-implement.service';
 import { capacityAlertSuccessMessage } from '../../../parameters/operations-capacities-alert-message.parameter';
-import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/capacities/capacities-service-type.model';
+import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { EChannel } from '@models/channel/channel.model';
 import { CapacitiesServiceType } from '../../../models/operations-capacities-responses.model';
 

@@ -3,7 +3,7 @@
         [class.button-action-text-active]="active"
         [inlineStyle]="inlineStyle"
         [disabled]="disabled"
-        (click)="onClick($event)">
+        (clicked)="clicked.emit($event)">
   <span class="text-uppercase text-tag font-weight-bold">
     <ng-content></ng-content>
   </span>

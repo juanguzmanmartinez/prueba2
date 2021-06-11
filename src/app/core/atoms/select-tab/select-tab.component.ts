@@ -1,4 +1,5 @@
 import { Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-select-tab',
@@ -7,25 +8,26 @@ import { Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateR
 })
 export class SelectTabComponent implements OnInit {
 
-    public _selectTabValue = '';
-    public _selectTabDisabled = false;
+    public optionControl = new FormControl(null);
 
-    @Input() selectTabList: Array<string> = [];
+    @Input() optionList: string[] = [];
 
-    @Input('selectTabValue')
-    set selectTabValue(value: string) {
-        const selectTabValue = value !== null && value !== undefined ? value : this.selectTabList[0];
-        if (this._selectTabValue !== value) {
-            this._selectTabValue = selectTabValue;
+    @Input('value')
+    set value(value: string) {
+        const validValue = value !== null && value !== undefined ? value : this.optionList[0];
+        this.optionControl.patchValue(validValue);
+    }
+
+    @Input('disabled')
+    set disabled(disabled: boolean) {
+        if (disabled) {
+            this.optionControl.disable();
+        } else {
+            this.optionControl.enable();
         }
     }
 
-    @Input('selectTabDisabled')
-    set selectTabDisabled(disabled: boolean) {
-        this._selectTabDisabled = disabled || false;
-    }
-
-    @Output() selectTabSelection = new EventEmitter();
+    @Output() optionChange = new EventEmitter();
 
     @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
@@ -35,8 +37,9 @@ export class SelectTabComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    changeSelectTabValue() {
-        this.selectTabSelection.emit(this._selectTabValue);
+
+    changeSelectTab() {
+        this.optionChange.emit(this.optionControl.value);
     }
 
 

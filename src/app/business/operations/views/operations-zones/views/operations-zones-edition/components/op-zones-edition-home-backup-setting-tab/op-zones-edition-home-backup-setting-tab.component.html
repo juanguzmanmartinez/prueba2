@@ -1,0 +1,45 @@
+<div class="row justify-content-between mt-6">
+    <div class="col-12 mb-6">
+        <app-op-zones-edition-home-backup-stock-backup-card
+                [disabled]="!stateValue[zoneBackup?.state]"
+                [zoneBackupDetail]="zoneBackupDetail"
+                (edit)="editBackupZonEvent()">
+        </app-op-zones-edition-home-backup-stock-backup-card>
+    </div>
+
+    <div class="col-12 col-lg-6 col-xl-5 mb-4">
+        <app-op-zones-edition-home-backup-service-type-card
+                [disabled]="!stateValue[zoneBackup?.state]"
+                [zoneBackupDetail]="zoneBackupDetail"
+                [serviceType]="zoneBackupServiceTypeList?.amPm"
+                (edit)="editServiceTypeEvent($event)">
+        </app-op-zones-edition-home-backup-service-type-card>
+    </div>
+
+    <div class="col-12 col-lg-6 col-xl-5 mb-4">
+        <app-op-zones-edition-home-backup-service-type-card
+                [disabled]="!stateValue[zoneBackup?.state]"
+                [zoneBackupDetail]="zoneBackupDetail"
+                [serviceType]="zoneBackupServiceTypeList?.scheduled"
+                (edit)="editServiceTypeEvent($event)">
+        </app-op-zones-edition-home-backup-service-type-card>
+    </div>
+</div>
+
+
+<div class="row" *ngIf="zoneBackupDetail">
+    <div class="col-12">
+        <p class="d-inline-flex align-items-center mb-0">
+            <app-icon fontName="info"
+                      fontSize="24px"
+                      innerClass="text-gray-5 me-2"></app-icon>
+            <span class="text-caption text-gray-5">Puedes editar el horario y GAP en la configuración de la zona
+                        <app-router [router]="zoneBackupPath">
+                            <span class="text-decoration-underline text-gray-5 font-weight-bold">
+                                 {{zoneBackupDetail.name}} - {{zoneBackupDetail.code}}
+                            </span>
+                        </app-router>
+                    </span>
+        </p>
+    </div>
+</div>

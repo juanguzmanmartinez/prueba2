@@ -20,14 +20,14 @@
                 value="Más detalles"
           class="d-inline-block me-4">
           <app-button-action-icon iconName="launch"
-                                  (click)="localCapacityViewMoreEmit()"
+                                  (clicked)="localCapacityViewMoreEmit()"
                                   [disabled]="localCapacityDisabled"></app-button-action-icon>
         </app-tooltip>
       </ng-container>
 
       <app-tooltip value="Editar">
         <app-button-action-icon iconName="edit"
-                                (click)="localCapacityEditServiceEmit()"
+                                (clicked)="localCapacityEditServiceEmit()"
                                 [disabled]="localCapacityDisabled"></app-button-action-icon>
       </app-tooltip>
     </div>

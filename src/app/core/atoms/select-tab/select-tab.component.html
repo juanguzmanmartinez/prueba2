@@ -1,14 +1,20 @@
-<div class="select-tab">
-  <ng-container *ngFor="let selectTab of selectTabList">
-    <app-radio [value]="selectTab"
-               [(ngModel)]="_selectTabValue"
-               (ngModelChange)="changeSelectTabValue()"
-               innerClass="select-tab-radio"
-               class="select-tab-content">
-      <ng-container *ngIf="!templateRef">{{selectTab}}</ng-container>
-      <ng-template [ngTemplateOutlet]="templateRef"
-                   [ngTemplateOutletContext]="{$implicit: selectTab}">
-      </ng-template>
-    </app-radio>
-  </ng-container>
+<div class="select-tab-container">
+    <ng-container *ngFor="let option of optionList">
+        <label class="select-tab-label">
+            <input
+                    type="radio"
+                    class="select-tab"
+                    name="select-tab"
+                    [value]="option"
+                    [formControl]="optionControl"
+                    (change)="changeSelectTab()">
+
+            <span class="select-tab-content">
+                <ng-container *ngIf="!templateRef">{{option}}</ng-container>
+                <ng-template [ngTemplateOutlet]="templateRef"
+                             [ngTemplateOutletContext]="{$implicit: option}">
+                </ng-template>
+            </span>
+        </label>
+    </ng-container>
 </div>

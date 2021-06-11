@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
     selector: 'app-not-found',
@@ -8,7 +8,7 @@ import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 })
 export class NotFoundComponent implements OnInit {
 
-    public concatPath = CONCAT_PATH;
+    public routerPath = ROUTER_PATH;
 
     constructor() {
     }

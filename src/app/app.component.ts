@@ -1,30 +1,37 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
+import { DocumentListener } from './shared/listeners/document.listener';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnDestroy {
-  public subscriptions: Subscription[] = [];
+    private subscriptions: Subscription[] = [];
 
-  public notSupport: boolean;
+    public notSupport: boolean;
 
-  constructor(
-    public _breakpointObserver: BreakpointObserver,
-  ) {
+    @HostListener('document:click', ['$event'])
+    documentClick(event: any): void {
+        this._documentListener.click = event.target;
+    }
 
-    const subscription = this._breakpointObserver.observe([
-      `(min-width: 768px)`
-    ]).subscribe((state) => {
-      this.notSupport = !state.matches;
-    });
-    this.subscriptions.push(subscription);
-  }
+    constructor(
+        private _breakpointObserver: BreakpointObserver,
+        private _documentListener: DocumentListener
+    ) {
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
+        const subscription = this._breakpointObserver.observe([
+            `(min-width: 768px)`
+        ]).subscribe((state) => {
+            this.notSupport = !state.matches;
+        });
+        this.subscriptions.push(subscription);
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
 }

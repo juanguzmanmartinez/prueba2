@@ -15,7 +15,8 @@ import { HrefComponent } from './href/href.component';
         RouterModule,
     ],
     exports: [
-        RouterComponent
+        RouterComponent,
+        HrefComponent
     ]
 })
 export class LinksModule {

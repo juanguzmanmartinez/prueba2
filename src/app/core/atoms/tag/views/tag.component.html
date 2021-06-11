@@ -1,0 +1,32 @@
+<ng-container *ngIf="appearance === tagAppearance.uppercase">
+    <span class="text-tag text-{{tagColor}}">
+        <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+    </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.transparentPill">
+    <span class="text-tag tag-pill text-uppercase text-{{tagColor}}">
+              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+    </span>
+</ng-container>
+<ng-container *ngIf="appearance === tagAppearance.coloredWhitePill">
+    <span class="text-tag tag-pill text-uppercase text-white bg-{{tagColor}}">
+              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+    </span>
+</ng-container>
+<ng-container *ngIf="appearance === tagAppearance.coloredDarkPill">
+    <span class="text-tag tag-pill text-uppercase text-dark-{{tagColor}} bg-light-{{tagColor}}">
+              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+    </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.default">
+    <span class="text-subtitle-2 tag-default  text-{{tagColor}}">
+              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+    </span>
+</ng-container>
+
+
+<ng-template #ngContent>
+    <ng-content></ng-content>
+</ng-template>

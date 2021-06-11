@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OperationsCapacityHomeStoreService } from './store/operations-capacity-home-store.service';
 import { OpCapacitiesLocalDefaultCapacityService } from '../../components/op-capacities-local-default-capacity/op-capacities-local-default-capacity.service';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
     selector: 'app-operations-capacity-home',
@@ -14,7 +14,7 @@ import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 })
 export class OperationsCapacityHomeComponent {
 
-    public concatPath = CONCAT_PATH;
+    public routerPath = ROUTER_PATH;
 
     constructor(
         private _operationsCapacityHomeStoreService: OperationsCapacityHomeStoreService

@@ -4,10 +4,6 @@
 
 $select-input-height: 38px;
 
-:host {
-  display: inline-block;
-}
-
 .select-search {
   background-color: $white;
   border: 1px solid $gray-3;
@@ -45,6 +41,12 @@ $select-input-height: 38px;
 
   &.select-search-disabled {
     pointer-events: none;
+    background-color: $gray-2;
+    border-color: $gray-3;
+
+    .select-search-span {
+      color: $gray-4;
+    }
   }
 }
 

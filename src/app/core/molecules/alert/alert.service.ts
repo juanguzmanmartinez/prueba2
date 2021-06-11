@@ -14,7 +14,7 @@ export class AlertService {
 
     public alert(message: string, status: EAlertStatus, config: MatSnackBarConfig = {}) {
         config.duration = 5000;
-        config.verticalPosition = 'bottom';
+        config.verticalPosition = 'top';
         config.panelClass = 'alert';
         config.data = {message, status};
         return this.matSnackbar.openFromComponent(AlertComponent, config);

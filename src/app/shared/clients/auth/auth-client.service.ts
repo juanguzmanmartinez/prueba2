@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { EndpointsParameter } from '@parameters/generic/endpoints.parameter';
 import { GenericService } from '@clients/generic/generic.service';
 import { take } from 'rxjs/operators';
-import { IAuthCodeRequest, IAuthRequest, IAuthResponse, IAuthRestorePasswordRequest } from '@interfaces/auth/auth.interface';
+import { IAuthCodeRequest, IAuthRefreshTokenRequest, IAuthResponse, IAuthRestorePasswordRequest, IAuthSignInRequest } from '@interfaces/auth/auth.interface';
 import { Observable } from 'rxjs';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { CAuthCredentials } from '@parameters/auth/auth.parameters';
@@ -17,11 +17,8 @@ export class AuthClientService {
     ) {
     }
 
-    signIn(iAuthRequest: IAuthRequest): Observable<IAuthResponse> {
+    authToken(body: string): Observable<IAuthResponse> {
         const endpoint = `${EndpointsParameter.AUTH_TOKEN}`;
-
-        iAuthRequest.grant_type = CAuthCredentials.grant_type;
-        const body = new HttpParams({fromObject: {...iAuthRequest}}).toString();
 
         const header = new HttpHeaders({
             [EHttpHeaders.contentType]: EHttpHeaderContentTypes.xWwwFormUrlencoded,
@@ -30,6 +27,18 @@ export class AuthClientService {
 
         return this.genericService.genericPost<IAuthResponse>(endpoint, body, null, header)
             .pipe(take(1));
+    }
+
+    signIn(iAuthSignInRequest: IAuthSignInRequest): Observable<IAuthResponse> {
+        iAuthSignInRequest.grant_type = CAuthCredentials.grant_type_password;
+        const body = new HttpParams({fromObject: {...iAuthSignInRequest}}).toString();
+        return this.authToken(body);
+    }
+
+    refreshToken(iAuthRefreshTokenRequest: IAuthRefreshTokenRequest): Observable<IAuthResponse> {
+        iAuthRefreshTokenRequest.grant_type = CAuthCredentials.grant_type_refresh_token;
+        const body = new HttpParams({fromObject: {...iAuthRefreshTokenRequest}}).toString();
+        return this.authToken(body);
     }
 
     sendPasswordCode(username: string): Observable<boolean> {

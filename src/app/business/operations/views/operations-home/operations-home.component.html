@@ -8,8 +8,8 @@
 
     <div class="row">
         <div class="col-12 col-xl-6 mb-4"
-             *appRouterAccess="concatPath.operationStores">
-            <app-router [router]="concatPath.operationStores">
+             *appRouterAccess="routerPath.operationStores">
+            <app-router [router]="routerPath.operationStores">
                 <app-card-action cardIcon="stores">
                     <span card-title>Locales</span>
                     <span card-description>Visualiza todos los locales y edita algunos de sus características.</span>
@@ -17,8 +17,8 @@
             </app-router>
         </div>
         <div class="col-12 col-xl-6 mb-4"
-             *appRouterAccess="concatPath.operationZones">
-            <app-router [router]="concatPath.operationZones">
+             *appRouterAccess="routerPath.operationZones">
+            <app-router [router]="routerPath.operationZones">
                 <app-card-action cardIcon="navigation">
                     <span card-title>Zonas</span>
                     <span card-description>Visualiza todas las zonas, edita los tipos de despacho y exporta csv.</span>
@@ -26,8 +26,8 @@
             </app-router>
         </div>
         <div class="col-12 col-xl-6 mb-4"
-             *appRouterAccess="concatPath.operationCapacities">
-            <app-router [router]="concatPath.operationCapacities">
+             *appRouterAccess="routerPath.operationCapacities">
+            <app-router [router]="routerPath.operationCapacities">
                 <app-card-action cardIcon="truck">
                     <span card-title>Capacidades</span>
                     <span card-description>Visualiza reportes y edita capacidades por tipo de despacho.</span>
@@ -35,8 +35,8 @@
             </app-router>
         </div>
         <div class="col-12 col-xl-6 mb-4"
-             *appRouterAccess="concatPath.operationSettings">
-            <app-router [router]="concatPath.operationSettings">
+             *appRouterAccess="routerPath.operationSettings">
+            <app-router [router]="routerPath.operationSettings">
                 <app-card-action cardIcon="configuration">
                     <span card-title>Configuraciones</span>
                     <span card-description>Conoce los parámentros generales acerca de los tipos de despacho.</span>

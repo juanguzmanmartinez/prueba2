@@ -25,7 +25,7 @@ export interface ICapacity {
   serviceTypeCode: string;
   capacitiesQuantity: number;
   ordersQuantity: number;
-  segments: Array<ISegment>;
+  segments: ISegment[];
 }
 
 export interface ISegment {
@@ -44,7 +44,7 @@ export class Capacity {
   public serviceTypeCode: string;
   public capacitiesQuantity: number;
   public ordersQuantity: number;
-  public segments: Array<ISegment>;
+  public segments: ISegment[];
 
   constructor(schedules: ICapacity) {
     const currentValue = isObject(schedules) ? schedules : {} as ICapacity;
@@ -60,7 +60,7 @@ export class ResponseDetailCapacity {
   public serviceTypeCode: string;
   public capacitiesQuantity: number;
   public ordersQuantity: number;
-  public segments: Array<ISegment>;
+  public segments: ISegment[];
 
   constructor(schedules: ICapacity) {
     const currentValue = isObject(schedules) ? schedules : {} as ICapacity;

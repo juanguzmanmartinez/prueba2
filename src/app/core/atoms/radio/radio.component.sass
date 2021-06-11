@@ -13,6 +13,9 @@
     left: 99999px
     opacity: 0
 
+    &:checked ~ .radio-content
+      @include text-button
+
     &:checked ~ .radio-mark:after
       top: 2px
       left: 2px

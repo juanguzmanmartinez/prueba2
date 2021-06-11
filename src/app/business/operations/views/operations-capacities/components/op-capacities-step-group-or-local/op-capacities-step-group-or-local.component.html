@@ -10,27 +10,27 @@
           (stepCloseEvent)="closeGroupOrLocalStep()"
           (saveButtonEvent)="saveGroupOrLocal()"
           (cancelButtonEvent)="cancelGroupOrLocal()">
-  <div class="card-step-content py-5 px-md-4 d-flex align-items-center flex-column flex-md-row">
-    <div class="mb-4 mb-md-0 me-4">
-      <app-select-tab [selectTabList]="groupOrLocalTabList"
-                      [selectTabDisabled]="groupOrLocalTabReadonly"
-                      [selectTabValue]="groupOrLocalTabSelection"
-                      (selectTabSelection)="changeGroupOrLocalTab($event)">
-        <ng-template let-tab>{{groupOrLocalTabName[tab]}}</ng-template>
-      </app-select-tab>
+    <div class="card-step-content py-5 px-md-4 d-flex align-items-center flex-column flex-md-row">
+        <div class="mb-4 mb-md-0 me-4">
+            <app-select-tab [optionList]="groupOrLocalTabList"
+                            [disabled]="groupOrLocalTabReadonly"
+                            [value]="groupOrLocalTabSelection"
+                            (optionChange)="changeGroupOrLocalTab($event)">
+                <ng-template let-tab>{{groupOrLocalTabName[tab]}}</ng-template>
+            </app-select-tab>
+        </div>
+        <div class="w-100">
+            <app-select-search class="w-100 w-md-auto"
+                               [placeholder]="'Elige un ' + groupOrLocalTabName[groupOrLocalTabSelection]"
+                               [(ngModel)]="groupOrLocalSelection"
+                               [disabled]="groupOrLocalTabReadonly"
+                               [optionList]="groupOrLocalList"
+                               (optionSelected)="changeGroupOrLocalSelection($event)">
+                <ng-template #optionSelectedTemplate
+                             let-optionSelected>{{groupOrLocalSelectionName(optionSelected)}}</ng-template>
+                <ng-template #optionTemplate
+                             let-option>{{groupOrLocalSelectionName(option)}}</ng-template>
+            </app-select-search>
+        </div>
     </div>
-    <div class="w-100">
-      <app-select-search class="w-100 w-md-auto"
-              [placeholder]="'Elige un ' + groupOrLocalTabName[groupOrLocalTabSelection]"
-                         [value]="groupOrLocalSelection"
-                         [disabled]="groupOrLocalTabReadonly"
-                         [optionList]="groupOrLocalList"
-                         (optionSelected)="changeGroupOrLocalSelection($event)">
-        <ng-template #optionSelectedTemplate
-                     let-optionSelected>{{groupOrLocalSelectionName(optionSelected)}}</ng-template>
-        <ng-template #optionTemplate
-                     let-option>{{groupOrLocalSelectionName(option)}}</ng-template>
-      </app-select-search>
-    </div>
-  </div>
 </app-step>

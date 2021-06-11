@@ -23,6 +23,7 @@ export class StepComponent implements OnDestroy {
     @Input() cancelButtonText = 'Cancelar edición';
     @Input() saveButtonText = 'Guardar cambios';
     @Input() saveButtonDisabled = true;
+    @Input() validateAccess = false;
 
     @Output() stepOpenEvent = new EventEmitter();
     @Output() stepCloseEvent = new EventEmitter();

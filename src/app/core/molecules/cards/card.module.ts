@@ -7,14 +7,16 @@ import { RadioModule } from '@atoms/radio/radio.module';
 import { FormsModule } from '@angular/forms';
 import { CardStaticInformationComponent } from './components/card-static-information/card-static-information.component';
 import { CardComponent } from '@molecules/cards/components/card/card.component';
-import { CardEditButtonDirective } from '@molecules/cards/directives/card-edit-button/dialog-edit-button.directive';
+import { CardEditButtonDirective } from '@molecules/cards/directives/card-edit-button/card-edit-button.directive';
+import { CardAddButtonDirective } from '@molecules/cards/directives/card-add-button/card-add-button.directive';
 
 const DECLARATIONS = [
     CardComponent,
     CardActionComponent,
     CardRadioComponent,
     CardStaticInformationComponent,
-    CardEditButtonDirective
+    CardEditButtonDirective,
+    CardAddButtonDirective
 ];
 
 @NgModule({
