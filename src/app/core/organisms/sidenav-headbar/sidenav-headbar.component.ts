@@ -9,7 +9,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class SidenavHeadbarComponent implements OnDestroy {
     public responsive: boolean;
-    public subscriptions: Subscription[] = [];
+    private subscriptions: Subscription[] = [];
 
 
     constructor(

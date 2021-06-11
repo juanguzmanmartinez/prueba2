@@ -1,16 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-dialog-header',
-  templateUrl: './dialog-header.component.html'
+    selector: 'app-dialog-header',
+    templateUrl: './dialog-header.component.html'
 })
-export class DialogHeaderComponent implements OnInit {
+export class DialogHeaderComponent {
 
-  @Input() iconName: string;
 
-  constructor() { }
+    @Input() fontName: string;
+    @Input() fontClass: string;
+    @Input() svgName: string;
 
-  ngOnInit(): void {
-  }
+    @Input() containerClass: string;
+
+    constructor() {
+    }
 
 }

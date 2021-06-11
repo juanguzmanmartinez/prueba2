@@ -22,6 +22,18 @@ export class AuthImplementService {
             .pipe(
                 map((iAuthResponse: IAuthResponse) => {
                     this.tokenStore.accessToken = iAuthResponse.access_token;
+                    this.tokenStore.refreshToken = iAuthResponse.refresh_token;
+                    return iAuthResponse;
+                })
+            );
+    }
+
+    refreshToken(refreshToken: string): Observable<IAuthResponse> {
+        return this.authClient.refreshToken({refresh_token: refreshToken})
+            .pipe(
+                map((iAuthResponse: IAuthResponse) => {
+                    this.tokenStore.accessToken = iAuthResponse.access_token;
+                    this.tokenStore.refreshToken = iAuthResponse.refresh_token;
                     return iAuthResponse;
                 })
             );

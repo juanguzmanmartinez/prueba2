@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-button-action-text',
@@ -19,6 +19,6 @@ export class ButtonActionTextComponent {
     @Input()
     disabled = false;
 
-    onClick = (_: any) => {};
+    @Output() clicked = new EventEmitter();
 
 }

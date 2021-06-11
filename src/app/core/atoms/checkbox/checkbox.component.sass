@@ -12,6 +12,7 @@
     position: fixed
     left: 99999px
     opacity: 0
+
     &:checked ~ .checkbox-content
       @include text-button
 
@@ -33,6 +34,9 @@
       border: 1px solid $gray-2
       pointer-events: none
       cursor: default
+
+    &[disabled]:checked ~ .checkbox-mark:after
+      background-color: $gray-3
 
     &[disabled] ~ .checkbox-content
       opacity: .5

@@ -1,8 +1,8 @@
 import { Component, OnInit, SkipSelf } from '@angular/core';
 import { RecoverPasswordCodeForm } from '../../form/recover-password-code.form';
 import { Router } from '@angular/router';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
-import { RecoveryPasswordStore } from '../../stores/recovery-password.store';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { RecoveryPasswordStoreService } from '../../stores/recovery-password-store.service';
 import { emailMasking } from '@helpers/email-mask.helper';
 import { AuthImplementService } from '@implements/auth/auth-implement.service';
 import { AlertService } from '@molecules/alert/alert.service';
@@ -22,7 +22,7 @@ export class RecoverPasswordCodeComponent implements OnInit {
         private authImplement: AuthImplementService,
         private  alertService: AlertService,
         public recoverPasswordCodeForm: RecoverPasswordCodeForm,
-        @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStore,
+        @SkipSelf() private recoveryPasswordStore: RecoveryPasswordStoreService,
     ) {
     }
 
@@ -47,7 +47,7 @@ export class RecoverPasswordCodeComponent implements OnInit {
     validCode() {
         this.recoveryPasswordStore.code = this.recoverPasswordCodeForm.codeControl.value;
         this._router.navigate(
-            [CONCAT_PATH.recoverPasswordReset],
+            [ROUTER_PATH.recoverPasswordReset],
             {skipLocationChange: true});
     }
 
@@ -60,12 +60,12 @@ export class RecoverPasswordCodeComponent implements OnInit {
     invalidUsername() {
         this.recoveryPasswordStore.resetStore();
         this.alertService.alertError(RecoveryPasswordAlertMessages.invalidUserName);
-        this._router.navigate([CONCAT_PATH.recoverPasswordUser]);
+        this._router.navigate([ROUTER_PATH.recoverPasswordUser]);
     }
 
     formCancel() {
         this.recoveryPasswordStore.resetStore();
-        this._router.navigate([CONCAT_PATH.login]);
+        this._router.navigate([ROUTER_PATH.login]);
     }
 
     resetFormValidators() {

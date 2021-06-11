@@ -18,7 +18,7 @@ export class GenericService {
     // tslint:disable-next-line:no-string-literal
     if (params) { options['params'] = params; }
     return this.http.get<T>(endpoint, options)
-      .pipe(tap(() => this.log(`Get ` + endpoint)));
+        .pipe(tap(() => this.log(`Get ` + endpoint)));
   }
 
   public genericPost<T>(

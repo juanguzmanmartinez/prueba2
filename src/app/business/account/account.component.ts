@@ -8,7 +8,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
     styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnDestroy {
-    public subscriptions: Subscription[] = [];
+    private subscriptions: Subscription[] = [];
 
     public logoWidth = '348px';
 

@@ -1,6 +1,7 @@
 <a class="href"
    [ngClass]="hrefClass"
+   [class.disabled]="disabled"
    [href]="hrefUrl"
    [target]="hrefTarget">
-  <ng-content></ng-content>
+    <ng-content></ng-content>
 </a>

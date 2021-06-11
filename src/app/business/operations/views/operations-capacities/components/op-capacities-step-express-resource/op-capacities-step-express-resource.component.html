@@ -4,6 +4,7 @@
           [stepExpandedToggle]="expressResourceStepStatus === eCapacityStepStatus.open"
           [stepDisabled]="expressResourceStepStatus === eCapacityStepStatus.disabled  || expressResourceSaveLoad"
           [saveButtonDisabled]="!_opCapacitiesStepExpressResourceForm.expressResourceForm$.valid || expressResourceSaveLoad"
+          [validateAccess]="true"
           (stepOpenEvent)="openExpressResourceStep()"
           (stepCloseEvent)="closeExpressResourceStep()"
           (saveButtonEvent)="saveExpressResource()"

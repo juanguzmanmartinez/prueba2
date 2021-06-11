@@ -4,7 +4,7 @@ export interface IDecodeToken {
     client_id: string;
     exp: number;
     jti: string;
-    scope: Array<'read' | 'write'>;
+    scope: ('read' | 'write')[];
     authorities: Role[];
     email: string;
     user_name: string;

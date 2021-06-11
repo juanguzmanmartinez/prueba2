@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '@models/auth/user.model';
 import { UserStoreService } from '@stores/user-store.service';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
     selector: 'app-operations-home',
@@ -11,7 +11,7 @@ import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
 export class OperationsHomeComponent implements OnInit {
 
     public user: User;
-    public concatPath = CONCAT_PATH;
+    public routerPath = ROUTER_PATH;
 
     constructor(private userStore: UserStoreService) {
     }

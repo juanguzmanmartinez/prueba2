@@ -6,7 +6,7 @@ import { OpCapacitiesStepGroupOrLocalService } from '../../components/op-capacit
 import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
 import { OpCapacitiesStepEditionModeService } from '../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { OperationsCapacityExpressStoreService } from './store/operations-capacity-express-store.service';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Injectable()
 export class OperationsCapacityExpressService implements OnDestroy {
@@ -28,7 +28,7 @@ export class OperationsCapacityExpressService implements OnDestroy {
     ])
       .subscribe(([save, cancel]) => {
         if (save || cancel) {
-          this._router.navigate([CONCAT_PATH.operationCapacities]);
+          this._router.navigate([ROUTER_PATH.operationCapacities]);
         }
       });
 

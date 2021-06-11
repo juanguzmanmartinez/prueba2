@@ -34,7 +34,7 @@ import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/
 import { OpCapacitiesLocalDefaultCapacityDialogComponent } from './components/op-capacities-local-default-capacity-dialog/op-capacities-local-default-capacity-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { IconsModule } from '@atoms/icons/icons.module';
-import { MatTabsModule } from '@angular/material/tabs';
+import { TabModule } from '@molecules/tab/tab.module';
 import { SelectSearchModule } from '@atoms/select-search/select-search.module';
 import { DirectivesModule } from '../../../../shared/directives/directives.module';
 import { TableModule } from '@molecules/table/table.module';
@@ -78,7 +78,7 @@ import { DialogModule } from '@molecules/dialog/dialog.module';
         TooltipModule,
         MatDialogModule,
         IconsModule,
-        MatTabsModule,
+        TabModule,
         SelectSearchModule,
         DirectivesModule,
         TableModule,

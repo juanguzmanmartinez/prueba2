@@ -4,7 +4,7 @@
   [behavior]="behavior"
   [inlineStyle]="inlineStyle"
   [disabled]="disabled"
-  (click)="onClick($event)">
+  (clicked)="clicked.emit($event)">
   <span class="d-inline-flex">
     <app-icon class="d-inline-block me-2 button-icon-icon"
               [class.button-icon-disabled]="disabled"

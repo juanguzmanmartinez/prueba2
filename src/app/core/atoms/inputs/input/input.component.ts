@@ -22,6 +22,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
     @Input() labelClass = '';
     @Input() error: boolean;
     @Input() disabled: boolean;
+    @Input() readOnly: boolean;
 
     @Input('value')
     set value(value: string) {

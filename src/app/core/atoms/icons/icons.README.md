@@ -67,13 +67,15 @@ Update readme with the new icon name
 
 | Icon | Name |   |Icon | Name |
 |------|------|---|-----|------|
-|![](../../../../assets/icons/ampm.svg)             | ampm                  | |      ![](../../../../assets/icons/mifarma.svg)       | mifarma             |
-|![](../../../../assets/icons/avatar.svg)           | avatar                | |      ![](../../../../assets/icons/moto.svg)          | moto                |
-|![](../../../../assets/icons/book.svg)             | book                  | |      ![](../../../../assets/icons/navigation.svg)    | navigation          |
-|![](../../../../assets/icons/calendar.svg)         | calendar              | |      ![](../../../../assets/icons/stores.svg)        | stores              |
-|![](../../../../assets/icons/configuration.svg)    | configuration         | |      ![](../../../../assets/icons/truck.svg)         | truck               |
-|![](../../../../assets/icons/inkafarma.svg)        | inkafarma             | |      ![](../../../../assets/icons/search.svg)        | search              |
-|![](../../../../assets/icons/main-logo.svg)        | main-logo             | |      ![](../../../../assets/icons/datepicker.svg)    | datepicker          |
+|![](../../../../assets/icons/ampm.svg)             | ampm                  | |      ![](../../../../assets/icons/mifarma.svg)              | mifarma             |
+|![](../../../../assets/icons/avatar.svg)           | avatar                | |      ![](../../../../assets/icons/moto.svg)                 | moto                |
+|![](../../../../assets/icons/book.svg)             | book                  | |      ![](../../../../assets/icons/navigation.svg)           | navigation          |
+|![](../../../../assets/icons/calendar.svg)         | calendar              | |      ![](../../../../assets/icons/stores.svg)               | stores              |
+|![](../../../../assets/icons/configuration.svg)    | configuration         | |      ![](../../../../assets/icons/truck.svg)                | truck               |
+|![](../../../../assets/icons/inkafarma.svg)        | inkafarma             | |      ![](../../../../assets/icons/search.svg)               | search              |
+|![](../../../../assets/icons/main-logo.svg)        | main-logo             | |      ![](../../../../assets/icons/datepicker.svg)           | datepicker          |
+|![](../../../../assets/icons/ellipse-success.svg)  | ellipse-success       | |      ![](../../../../assets/icons/ellipse-disabled.svg)     | ellipse-disabled    |
+|![](../../../../assets/icons/loader.svg)           | loader                | |           |               |
 
 <br/>
 
@@ -90,5 +92,6 @@ Update readme with the new icon name
 |![](../../../../assets/illustrations/look-orders.svg)          | look-orders           | |      ![](../../../../assets/illustrations/sent.svg)                  | sent                  |
 |![](../../../../assets/illustrations/looking-files.svg)        | looking-files         | |      ![](../../../../assets/illustrations/under-construction.svg)    | under-construction    |
 |![](../../../../assets/illustrations/search-store.svg)         | search-store          | |      ![](../../../../assets/illustrations/logo.svg)                  | logo                  |
+|![](../../../../assets/illustrations/404.svg)                  | 404                   | |      ![](../../../../assets/illustrations/responsive.svg)            |  responsive           |
 
 

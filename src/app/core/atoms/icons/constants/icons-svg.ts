@@ -3,7 +3,7 @@ import { IconsSvgModel } from '../models/icons-svg.model';
 const pathIcons = '../assets/icons/';
 const pathIllustrations = '../assets/illustrations/';
 
-export const ICONS_SVG: Array<IconsSvgModel> = [
+export const ICONS_SVG: IconsSvgModel[] = [
     {name: 'ampm', path: `${pathIcons}ampm.svg`},
     {name: 'avatar', path: `${pathIcons}avatar.svg`},
     {name: 'book', path: `${pathIcons}book.svg`},
@@ -19,6 +19,8 @@ export const ICONS_SVG: Array<IconsSvgModel> = [
     {name: 'search', path: `${pathIcons}search.svg`},
     {name: 'datepicker', path: `${pathIcons}datepicker.svg`},
     {name: 'ellipse-success', path: `${pathIcons}ellipse-success.svg`},
+    {name: 'ellipse-disabled', path: `${pathIcons}ellipse-disabled.svg`},
+    {name: 'loader', path: `${pathIcons}loader.svg`},
 
     {name: 'logo', path: `${pathIllustrations}logo.svg`},
     {name: 'assigned-orders', path: `${pathIllustrations}assigned-orders.svg`},
@@ -40,4 +42,6 @@ export const ICONS_SVG: Array<IconsSvgModel> = [
     {name: 'send-message', path: `${pathIllustrations}send-message.svg`},
     {name: 'sent', path: `${pathIllustrations}sent.svg`},
     {name: 'under-construction', path: `${pathIllustrations}under-construction.svg`},
+    {name: '404', path: `${pathIllustrations}404.svg`},
+    {name: 'responsive', path: `${pathIllustrations}responsive.svg`},
 ];

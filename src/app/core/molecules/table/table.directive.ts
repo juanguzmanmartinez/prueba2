@@ -1,91 +1,41 @@
-import { AfterViewInit, Directive, ElementRef, Renderer2 } from '@angular/core';
+import { AfterViewInit, ApplicationRef, ComponentFactoryResolver, Directive, ElementRef, EmbeddedViewRef, Injector, Renderer2 } from '@angular/core';
+import { TableComponent } from '@molecules/table/table.component';
 
 @Directive({
-    selector: '[mat-table][table-regular],[mat-table][table-small],[mat-table][table-no-hover]'
+    selector: 'table[mat-table],table[mat-table][large-table]'
 })
 export class TableDirective implements AfterViewInit {
 
     constructor(
         private elementRef: ElementRef,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private componentFactoryResolver: ComponentFactoryResolver,
+        private injector: Injector,
+        private applicationRef: ApplicationRef
     ) {
     }
 
     ngAfterViewInit() {
         this.renderer.addClass(this.elementRef.nativeElement, 'w-100');
-        this.setHeaderStyle();
-        this.setRowStyle();
-        this.setRowCellStyle();
-    }
-
-    setHeaderStyle() {
-        const headerRowElement = this.elementRef.nativeElement.querySelector('.mat-header-row');
-        const headerCellElementList = this.elementRef.nativeElement.querySelectorAll('.mat-header-cell');
-
-        const borderRadius = '12px';
-        const headerCellPadding = '24px';
-        this.renderer.addClass(headerRowElement, 'bg-gray-5');
-        this.renderer.setStyle(headerRowElement, 'height', '50px');
-        this.renderer.setStyle(headerCellElementList[0], 'border-top-left-radius', borderRadius);
-        this.renderer.setStyle(headerCellElementList[headerCellElementList.length - 1], 'border-top-right-radius', borderRadius);
-        for (const headerCellElement of headerCellElementList) {
-            this.renderer.addClass(headerCellElement, 'text-label');
-            this.renderer.addClass(headerCellElement, 'text-white');
-            this.renderer.addClass(headerCellElement, 'border-0');
-            this.renderer.setStyle(headerCellElement, 'paddingLeft', headerCellPadding);
-            this.renderer.setStyle(headerCellElement, 'paddingRight', headerCellPadding);
+        const hasLargeTable = this.elementRef.nativeElement.hasAttribute('large-table');
+        if (hasLargeTable) {
+            this.renderer.setStyle(this.elementRef.nativeElement, 'minWidth', '950px');
         }
+        this.addTableComponentParent();
     }
 
-    setRowStyle() {
-        const rowElementList = this.elementRef.nativeElement.querySelectorAll('.mat-row');
+    addTableComponentParent() {
+        const parentElement = this.elementRef.nativeElement.parentElement;
+        const tableComponentFactory = this.componentFactoryResolver.resolveComponentFactory(TableComponent);
 
-        const smallTable = this.elementRef.nativeElement.hasAttribute('table-small');
-        const noHover = this.elementRef.nativeElement.hasAttribute('table-no-hover');
-        const cellHeight = smallTable ? '48px' : '64px';
-        for (const rowElement of rowElementList) {
-            this.renderer.setStyle(rowElement, 'height', cellHeight);
-            this.renderer.addClass(rowElement, 'border-end');
-            this.renderer.addClass(rowElement, 'border-start');
-            this.renderer.addClass(rowElement, 'border-gray-1');
-            if (rowElement.rowIndex % 2 === 0) {
-                this.renderer.addClass(rowElement, 'bg-gray-1');
-            }
-            if (rowElement.rowIndex === rowElementList.length && rowElement.rowIndex % 2 !== 0) {
-                this.renderer.addClass(rowElement, 'border-bottom');
-            }
+        const tableComponentRef = tableComponentFactory.create(this.injector);
+        this.applicationRef.attachView(tableComponentRef.hostView);
+        const tableElement = (tableComponentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+        this.renderer.addClass(tableElement, 'd-block');
+        this.renderer.setStyle(tableElement, 'overflow-x', 'auto');
 
-            if (!noHover) {
-                this.listenRowElementHover(rowElement);
-            }
-        }
-
-    }
-
-    listenRowElementHover(rowElement) {
-        rowElement.addEventListener('mouseenter', () => {
-            this.renderer.addClass(rowElement, 'bg-light-primary');
-            if (rowElement.rowIndex % 2 === 0) {
-                this.renderer.removeClass(rowElement, 'bg-gray-1');
-            }
-        });
-        rowElement.addEventListener('mouseleave', () => {
-            this.renderer.removeClass(rowElement, 'bg-light-primary');
-            if (rowElement.rowIndex % 2 === 0) {
-                this.renderer.addClass(rowElement, 'bg-gray-1');
-            }
-        });
-    }
-
-    setRowCellStyle() {
-        const cellPadding = '24px';
-        const cellElementList = this.elementRef.nativeElement.querySelectorAll('.mat-cell');
-        for (const cellElement of cellElementList) {
-            this.renderer.addClass(cellElement, 'border-0');
-            this.renderer.addClass(cellElement, 'text-label');
-            this.renderer.addClass(this.elementRef.nativeElement, 'text-gray-6');
-            this.renderer.setStyle(cellElement, 'paddingLeft', cellPadding);
-            this.renderer.setStyle(cellElement, 'paddingRight', cellPadding);
-        }
+        this.renderer.insertBefore(parentElement, tableElement, this.elementRef.nativeElement);
+        this.renderer.removeChild(parentElement, this.elementRef.nativeElement);
+        this.renderer.appendChild(tableElement, this.elementRef.nativeElement);
     }
 }

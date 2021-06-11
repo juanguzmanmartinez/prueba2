@@ -1,19 +1,22 @@
-import { Component, Input, OnInit, Optional, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-checkbox',
     templateUrl: './checkbox.component.html',
     styleUrls: ['./checkbox.component.sass']
 })
-export class CheckboxComponent implements OnInit, ControlValueAccessor {
+export class CheckboxComponent implements OnInit, ControlValueAccessor, OnDestroy {
+    private subscriptions: Subscription[] = [];
 
     public _checked: boolean;
     public _indeterminate: boolean;
 
     @Input() disabled: boolean;
-    @Input() name = 'checkbox';
+    @Input() name: string | number = 'checkbox';
     @Input() innerClass: string;
+    @Input() value: string;
 
     @Input('checked')
     get checked(): boolean {
@@ -33,9 +36,9 @@ export class CheckboxComponent implements OnInit, ControlValueAccessor {
         this._indeterminate = checked;
     }
 
-    onChange = (_: any) => {};
+    @Output() clicked = new EventEmitter();
 
-    onClick = (_: any) => {};
+    onChange = (_: any) => {};
     onTouched = () => {};
 
 
@@ -46,14 +49,25 @@ export class CheckboxComponent implements OnInit, ControlValueAccessor {
     }
 
     ngOnInit(): void {
+        if (this.ngControl) {
+            if (this.ngControl.name) {
+                this.name = this.ngControl.name;
+            }
+            if (this.ngControl.control) {
+                const subscription = this.ngControl.valueChanges.subscribe(() => {
+                    this._checked = this.ngControl.value;
+                });
+                this.subscriptions.push(subscription);
+            }
+        }
     }
 
     checkboxClick(event) {
-        this.onClick(event);
+        this.clicked.emit(event);
     }
 
     chooseCheckbox() {
-        this.onChange(this._checked);
+        this.onChange(this.value || this._checked);
         this._indeterminate = false;
     }
 
@@ -71,6 +85,10 @@ export class CheckboxComponent implements OnInit, ControlValueAccessor {
 
     writeValue(obj: any): void {
         this._checked = obj;
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
 }

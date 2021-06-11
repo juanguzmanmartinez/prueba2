@@ -1,0 +1,19 @@
+<div class="empty-result-container">
+    <div class="text-center py-10">
+        <app-icon svgName="empty-orders-1"
+                  svgWidth="300px">
+        </app-icon>
+    </div>
+    <div class="text-center">
+        <p class="text-h4">
+            <ng-content select="[empty-result-title]"></ng-content>
+        </p>
+
+        <p class="mt-7">
+            <app-button appearance="primary"
+                        (clicked)="actionEvent()">
+                <ng-content select="[empty-result-action]"></ng-content>
+            </app-button>
+        </p>
+    </div>
+</div>

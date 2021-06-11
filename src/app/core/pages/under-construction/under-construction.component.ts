@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
   selector: 'app-under-construction',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./under-construction.component.scss']
 })
 export class UnderConstructionComponent implements OnInit {
+  public routerPath = ROUTER_PATH;
 
   constructor() { }
 

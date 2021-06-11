@@ -1,4 +1,4 @@
-import { EDeliveryServiceType } from '../capacities/capacities-service-type.model';
+import { EDeliveryServiceType } from '../service-type/delivery-service-type.model';
 
 export interface ICalendarServiceDefaultCapacities {
     serviceTypeCode: EDeliveryServiceType;

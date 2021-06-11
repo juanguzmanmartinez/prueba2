@@ -6,7 +6,7 @@ import { OperationsCapacityAmPmComponent } from './views/operations-capacity-am-
 import { OperationsCapacityScheduledComponent } from './views/operations-capacity-scheduled/operations-capacity-scheduled.component';
 import { OperationsCapacityExpressComponent } from './views/operations-capacity-express/operations-capacity-express.component';
 import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
-import { OP_CAPACITIES_PATH } from '@parameters/router/router-path.parameter';
+import { OP_CAPACITIES_PATH } from '@parameters/router/paths/operations-path.parameter';
 
 
 const routes: Routes = [

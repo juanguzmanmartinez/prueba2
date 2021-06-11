@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginForm } from '../../form/login.form';
-import { CONCAT_PATH } from '@parameters/router/concat-path.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { AuthImplementService } from '@implements/auth/auth-implement.service';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
     public capsLock: boolean;
     public submitLogin: boolean;
 
-    public resetPasswordPath = CONCAT_PATH.recoverPassword;
+    public resetPasswordPath = ROUTER_PATH.recoverPassword;
 
     constructor(
         public _loginForm: LoginForm,
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
             this._loginForm.passwordControl.value,
         )
             .subscribe(() => {
-                this._router.navigate([CONCAT_PATH.operations]);
+                this._router.navigate([ROUTER_PATH.operations]);
             }, () => {
                 this.errorFormRequest();
             });

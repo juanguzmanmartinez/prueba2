@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-button-action-icon[iconName]',
@@ -19,6 +19,6 @@ export class ButtonActionIconComponent {
     @Input()
     disabled = false;
 
-    onClick = (_: any) => {};
+    @Output() clicked = new EventEmitter();
 
 }

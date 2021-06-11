@@ -1,0 +1,18 @@
+@import "src/sass/variables/colors.variable";
+
+.separator {
+  border-top: 1px solid $gray-3;
+  margin: 0;
+}
+
+.operations-sidenav {
+
+  .operations-sidenav-header {
+    padding: 32px 32px 24px;
+  }
+
+  .operations-sidenav-content {
+    padding: 16px;
+  }
+
+}

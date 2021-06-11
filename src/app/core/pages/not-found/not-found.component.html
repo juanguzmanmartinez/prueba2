@@ -1,14 +1,13 @@
-<section class="not-found-page d-flex-center">
-    <div class="content text-center mb-10">
-        <app-icon svgName="look-orders"
-                  svgWidth="295px"></app-icon>
-        <h1 class="text-h1 mt-8 mb-8">Oops!</h1>
-        <p class="text-caption text-gray-5 mb-2">No hemos podido encontrar la página que buscas.</p>
-        <p class="text-caption text-gray-5 mb-0">Es posible que la entrada haya sido eliminada o que la dirección no exista.</p>
+<section class="not-found-page d-flex-center vh-100">
+    <div class="content text-center mb-6">
+        <app-icon svgName="404"
+                  svgWidth="200px"></app-icon>
+        <h1 class="text-h4 mt-5 mb-5">¡Oh, no!</h1>
+        <p class="text-label text-gray-6 mb-5">La página que estás buscando posiblemente <br> no exista</p>
 
-        <p class="mt-7">
-            <app-router [router]="concatPath.base">
-                <app-button appearance="primary">Ir a la página principal</app-button>
+        <p class="mb-0">
+            <app-router [router]="routerPath.base">
+                <app-button appearance="primary">Ir a inicio</app-button>
             </app-router>
         </p>
     </div>

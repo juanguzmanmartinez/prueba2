@@ -1,0 +1,142 @@
+<section class="op-zone-home-detail-dialog" app-dialog-container>
+    <div app-dialog-close mat-dialog-close></div>
+
+    <ng-container *ngIf="!errorResponse">
+        <div *ngIf="!zoneDetailLoader"
+             app-dialog-edit-button
+             [mat-dialog-close]="true"></div>
+
+        <div class="content mb-6">
+            <app-dialog-header svgName="navigation">
+                <ng-container dialog-header-title>
+                    <p class="mb-2">
+                        <app-tag [appearance]="tagAppearance.uppercase"
+                                 [tagColor]="stateTag[zone.state]">
+                            {{stateName[zone.state]()}}
+                        </app-tag>
+                    </p>
+                    <p class="text-wrap mb-2">
+                        {{zone.name}}
+                        <span class="text-gray-5 mx-3">-</span>
+                        <span class="text-gray-5 text-nowrap">
+                    COD {{zone.code}}
+                </span>
+                    </p>
+                </ng-container>
+
+                <ng-container dialog-header-description
+                              *ngIf="!zoneDetailLoader">
+                    <app-tag [tagColor]="labelColor[zoneDetail.label]"
+                             [appearance]="tagAppearance.coloredDarkPill">
+                        {{zoneDetail.label}}
+                    </app-tag>
+                </ng-container>
+            </app-dialog-header>
+        </div>
+
+        <div class="dialog-content mb-4">
+            <app-tab-group dialog-tab-group>
+
+                <app-tab label="General">
+                    <div *ngIf="!zoneDetailLoader"
+                         class="row">
+                        <div class="col-6">
+                            <app-card-static-information class="d-block mb-5"
+                                                         iconName="store">
+                                <ng-container information-title>Local asignado</ng-container>
+                                <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
+                            </app-card-static-information>
+
+                            <app-card-static-information class="d-block mb-5"
+                                                         iconName="store">
+                                <ng-container information-title>Local backup</ng-container>
+                                <ng-container information-caption>
+                                    <span class="text-capitalize">{{zoneEditionDrugstoreBackup}}</span>
+                                </ng-container>
+                            </app-card-static-information>
+
+                            <app-card-static-information class="d-block mb-5"
+                                                         iconName="store">
+                                <ng-container information-title>Tipo de delivery</ng-container>
+                                <ng-container information-caption>
+                                    <ng-container *ngIf="zoneDetail.assignedStore?.deliveryType">
+                                        {{deliveryTypeName[zoneDetail.assignedStore.deliveryType]}}
+                                    </ng-container>
+                                    <ng-container *ngIf="!zoneDetail.assignedStore?.deliveryType">
+                                        Sin delivery
+                                    </ng-container>
+                                </ng-container>
+                            </app-card-static-information>
+                        </div>
+
+                        <div class="col-6">
+                            <app-card-static-information class="d-block mb-5"
+                                                         iconName="store">
+                                <ng-container information-title>Tipo de zona</ng-container>
+                                <ng-container information-caption>{{zoneTypeName[zoneDetail.zoneType]}}</ng-container>
+                            </app-card-static-information>
+
+                            <app-card-static-information class="d-block mb-5"
+                                                         iconName="store">
+                                <ng-container information-title>Zona backup</ng-container>
+                                <ng-container information-caption>
+                                    <span class="text-capitalize">{{zoneEditionZoneBackup}}</span>
+                                </ng-container>
+                            </app-card-static-information>
+
+                            <app-card-static-information iconName="shopping_bag">
+                                <ng-container information-title>Marcas</ng-container>
+                                <ng-container information-caption>
+                                    <ng-container *ngFor="let company of zoneDetail.companyList; let last = last">
+                                        {{companyName[company]}}
+                                        <span class="mx-2" *ngIf="!last">-</span>
+                                    </ng-container>
+                                </ng-container>
+                            </app-card-static-information>
+                        </div>
+                    </div>
+
+                    <div *ngIf="zoneDetailLoader"
+                         class="d-flex-center py-6">
+                        <app-icon-animated-loader></app-icon-animated-loader>
+                    </div>
+                </app-tab>
+
+                <app-tab label="Despacho">
+                    <div *ngIf="!zoneDetailLoader"
+                         class="row">
+                        <div class="col-12">
+                            <table mat-table
+                                   [dataSource]="dataSource"
+                                   matSort>
+
+                                <ng-container matColumnDef="zoneChannel">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Canal</th>
+                                    <td mat-cell *matCellDef="let element">{{element.zoneChannel}}</td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="zoneServiceTypeList">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Despacho</th>
+                                    <td mat-cell *matCellDef="let element">{{element.zoneServiceTypeList || '-'}}</td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div *ngIf="zoneDetailLoader"
+                         class="d-flex-center py-6">
+                        <app-icon-animated-loader></app-icon-animated-loader>
+                    </div>
+                </app-tab>
+
+            </app-tab-group>
+        </div>
+    </ng-container>
+
+    <div *ngIf="errorResponse">
+        <app-dialog-generic-error></app-dialog-generic-error>
+    </div>
+</section>

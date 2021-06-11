@@ -1,0 +1,48 @@
+<section class="operations-stores-edition-home pt-8 pb-15">
+    <div class="row mb-8">
+        <div class="col-12 mb-4">
+            <app-back-router>Locales</app-back-router>
+        </div>
+
+        <div class="col-12">
+            <h3 class="text-h3 mb-0">Edición de locales</h3>
+        </div>
+    </div>
+
+    <div [class.container-loader]="updateEditionLoader || saveEditionLoader"
+         *ngIf="!errorResponse">
+        <div class="row mb-6">
+            <div class="col-12">
+                <app-op-stores-edition-home-store-detail-card
+                        *appSkeletonCard="!!storeDetail; row: 5; loading: !homeEditionLoader"
+                        [storeDetail]="storeDetail"
+                        (edit)="editStore()">
+                </app-op-stores-edition-home-store-detail-card>
+            </div>
+        </div>
+
+        <app-tab-group (selectIndexChange)="setTabSettingsSelectionIndex($event)"
+                       [selectedIndex]="tabSettingsSelectionIndex">
+            <app-tab label="Configuración principal">
+                <app-op-stores-edition-home-main-setting-tab
+                        [storeServiceTypeList]="storeServiceTypeList"
+                        [homeEditionLoader]="homeEditionLoader"
+                        (add)="addServiceType($event)"
+                        (edit)="editServiceType($event)">
+                </app-op-stores-edition-home-main-setting-tab>
+            </app-tab>
+
+            <app-tab label="Zonas atendidas">
+                <app-op-stores-edition-home-zones-setting-tab
+                        [affiliatedZoneList]="storeDetail?.zoneList"
+                        (edit)="editAffiliatedZone($event)">
+                </app-op-stores-edition-home-zones-setting-tab>
+            </app-tab>
+        </app-tab-group>
+    </div>
+
+    <div *ngIf="errorResponse"
+         class="pt-6">
+        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+    </div>
+</section>

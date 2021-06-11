@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, Optional, Self, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit, Optional, Self, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-switch',
@@ -7,38 +8,53 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
     styleUrls: ['./switch.component.sass'],
     encapsulation: ViewEncapsulation.None
 })
-export class SwitchComponent implements OnInit, ControlValueAccessor {
+export class SwitchComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-    public _checked: boolean;
+    private subscriptions: Subscription[] = [];
+    public switchControl = new FormControl(false);
 
-    @Input() disabled: boolean;
-    @Input() name = 'switch';
+    @Input() name: number | string = 'switch';
     @Input() innerClass: string;
 
     @Input('checked')
-    get checked(): boolean {
-        return this._checked;
+    set checked(checked: boolean) {
+        this.switchControl.patchValue(checked);
     }
 
-    set checked(checked) {
-        this._checked = checked;
+    @Input('disabled')
+    set disabled(disabled: boolean) {
+        this.setDisabledState(disabled);
     }
 
     onChange = (_: any) => {};
-    onClick = (_: any) => {};
     onTouched = () => {};
 
-    constructor(@Optional() @Self() public ngControl: NgControl) {
+    constructor(
+        @Optional() @Self() public ngControl: NgControl,
+    ) {
         if (ngControl) {
             ngControl.valueAccessor = this;
         }
     }
 
     ngOnInit(): void {
+        if (this.ngControl?.name) {
+            this.name = this.ngControl.name;
+        }
+        if (this.ngControl?.control) {
+            const subscription = this.ngControl.valueChanges.subscribe(() => {
+                this.switchControl.patchValue(this.ngControl.value);
+            });
+            this.subscriptions.push(subscription);
+        }
     }
 
-    slideToggle() {
-        this.onChange(this._checked);
+    ngOnDestroy() {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
+
+    toggle() {
+        this.onChange(this.switchControl.value);
     }
 
     registerOnChange(fn: any): void {
@@ -50,11 +66,15 @@ export class SwitchComponent implements OnInit, ControlValueAccessor {
     }
 
     setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        if (isDisabled) {
+            this.switchControl.disable();
+        } else {
+            this.switchControl.enable();
+        }
     }
 
-    writeValue(obj: any): void {
-        this._checked = obj;
+    writeValue(value: boolean): void {
+        this.switchControl.patchValue(value);
     }
 
 }

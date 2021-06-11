@@ -16,7 +16,7 @@
                 <mat-panel-description class="step-header-description-container justify-content-center justify-content-md-end"
                                        [class.step-header-description-container-readonly]="stepReadonly"
                                        *ngIf="!stepExpanded && _stepDescription && (!stepDisabled || stepReadonly)">
-                    <span class="step-header-description text-truncate">{{_stepDescription}}</span>
+                    <span class="step-header-description">{{_stepDescription}}</span>
                     <app-icon *ngIf="!stepReadonly"
                               class="step-header-description-icon"
                               fontName="edit"
@@ -33,14 +33,16 @@
                 <app-button appearance="secondary"
                             class="me-md-4"
                             innerClass="w-100 w-md-auto"
-                            (click)="cancelButtonEvent.emit()">
+                            (clicked)="cancelButtonEvent.emit()">
                     {{cancelButtonText}}
                 </app-button>
                 <app-button appearance="primary"
                             class="mb-4 mb-md-0"
                             innerClass="w-100 w-md-auto"
+                            appEditionAccess
+                            [validateAccess]="validateAccess"
                             [disabled]="saveButtonDisabled"
-                            (click)="saveButtonEvent.emit()">
+                            (access)="saveButtonEvent.emit()">
                     {{saveButtonText}}
                 </app-button>
             </div>

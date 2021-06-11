@@ -1,6 +1,7 @@
 @import 'src/sass/variables/colors.variable';
 @import 'src/sass/mixins/text.mixin';
 @import 'src/sass/mixins/display.mixin';
+@import 'src/sass/mixins/utilities.mixin';
 
 :host .step {
   &.step-disabled {
@@ -73,7 +74,7 @@
     .step-header-description-container {
       justify-content: flex-end;
       margin-right: 0;
-      max-width: 250px;
+      max-width: 190px;
       width: 100%;
       @include d-flex-vertical-center;
 
@@ -84,8 +85,10 @@
 
     .step-header-description {
       color: $dark-primary;
-      margin-right: 8px;
-      @include text-button
+      padding-right: 16px;
+      text-align: right;
+      @include text-button;
+      @include text-truncate;
     }
 
     .step-header-description-icon {

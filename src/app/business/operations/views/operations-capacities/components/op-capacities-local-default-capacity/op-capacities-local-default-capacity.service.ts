@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { CapacitiesLocal, CapacitiesLocalServiceDefaultCapacity, CapacitiesServiceType } from '../../models/operations-capacities-responses.model';
+import { CapacitiesLocalServiceDefaultCapacity, CapacitiesServiceType, CapacitiesStore } from '../../models/operations-capacities-responses.model';
 
 
 @Injectable()
 export class OpCapacitiesLocalDefaultCapacityService {
 
-    private localDefaultCapacityLocalListSubject = new BehaviorSubject<CapacitiesLocal[]>(null);
-    private localDefaultCapacityLocalSelectionSubject = new BehaviorSubject<CapacitiesLocal>(null);
+    private localDefaultCapacityLocalListSubject = new BehaviorSubject<CapacitiesStore[]>(null);
+    private localDefaultCapacityLocalSelectionSubject = new BehaviorSubject<CapacitiesStore>(null);
     private localDefaultCapacityLocalServiceTypeListSubject = new BehaviorSubject<CapacitiesLocalServiceDefaultCapacity[]>(null);
     private localDefaultCapacityLocalServiceTypeSelectionSubject = new BehaviorSubject<CapacitiesLocalServiceDefaultCapacity>(null);
     private localDefaultCapacityListSubject = new BehaviorSubject<CapacitiesServiceType>(null);
@@ -16,21 +16,21 @@ export class OpCapacitiesLocalDefaultCapacityService {
     constructor() {
     }
 
-    get localDefaultCapacityLocalList$(): Observable<CapacitiesLocal[]> {
+    get localDefaultCapacityLocalList$(): Observable<CapacitiesStore[]> {
         return this.localDefaultCapacityLocalListSubject.asObservable()
             .pipe(filter((value) => !!value));
     }
 
-    set localDefaultCapacityLocalList(capacitiesLocalList: CapacitiesLocal[]) {
+    set localDefaultCapacityLocalList(capacitiesLocalList: CapacitiesStore[]) {
         this.localDefaultCapacityLocalListSubject.next(capacitiesLocalList);
     }
 
-    get localDefaultCapacityLocalSelection$(): Observable<CapacitiesLocal> {
+    get localDefaultCapacityLocalSelection$(): Observable<CapacitiesStore> {
         return this.localDefaultCapacityLocalSelectionSubject.asObservable()
             .pipe(filter((value) => !!value));
     }
 
-    set localDefaultCapacityLocalSelection(capacitiesLocal: CapacitiesLocal) {
+    set localDefaultCapacityLocalSelection(capacitiesLocal: CapacitiesStore) {
         this.localDefaultCapacityLocalSelectionSubject.next(capacitiesLocal);
     }
 

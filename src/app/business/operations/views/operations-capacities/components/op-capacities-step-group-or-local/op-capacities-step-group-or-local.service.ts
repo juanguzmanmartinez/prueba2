@@ -17,7 +17,7 @@ export const CCapacityStepGroupOrLocalName = {
 @Injectable()
 export class OpCapacitiesStepGroupOrLocalService {
 
-  private groupOrLocalListSubject = new BehaviorSubject<Array<ICustomSelectOption>>(null);
+  private groupOrLocalListSubject = new BehaviorSubject<ICustomSelectOption[]>(null);
   private getGroupOrLocalTabSubject = new BehaviorSubject<ECapacityStepGroupOrLocal>(null);
   private groupOrLocalCancelSubject = new BehaviorSubject<boolean>(null);
   private groupOrLocalSaveSubject = new BehaviorSubject<ICustomSelectOption>(null);
@@ -48,11 +48,11 @@ export class OpCapacitiesStepGroupOrLocalService {
     this.getGroupOrLocalTabSubject.next(groupList);
   }
 
-  get groupOrLocalList$(): Observable<Array<ICustomSelectOption>> {
+  get groupOrLocalList$(): Observable<ICustomSelectOption[]> {
     return this.groupOrLocalListSubject.asObservable();
   }
 
-  set groupOrLocalList(groupOrLocalList: Array<ICustomSelectOption>) {
+  set groupOrLocalList(groupOrLocalList: ICustomSelectOption[]) {
     this.groupOrLocalListSubject.next(groupOrLocalList);
   }
 

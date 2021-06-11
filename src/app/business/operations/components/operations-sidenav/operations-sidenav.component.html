@@ -12,53 +12,54 @@
         <div class="operations-sidenav-content">
             <app-inner-sidenav-navigation
                     navigationIcon="home"
-                    [navigationRoute]="[concatPath.operations]"
-                    navigationText="Home">
+                    [navigationRoute]="[routerPath.operations]"
+                    navigationText="Inicio">
             </app-inner-sidenav-navigation>
 
             <app-inner-sidenav-navigation
-                    *appRouterAccess="concatPath.operationStores"
+                    *appRouterAccess="routerPath.operationStores"
                     navigationIcon="store"
-                    [navigationRoute]="[concatPath.operationStores]"
+                    [navigationRoute]="[routerPath.operationStores]"
                     [navigationRouteOptions]="{exact: false}"
                     navigationText="Locales">
             </app-inner-sidenav-navigation>
 
             <app-inner-sidenav-navigation
-                    *appRouterAccess="concatPath.operationZones"
+                    *appRouterAccess="routerPath.operationZones"
                     navigationIcon="location_on"
-                    [navigationRoute]="[concatPath.operationZones]"
+                    [navigationRoute]="[routerPath.operationZones]"
+                    [navigationRouteOptions]="{exact: false}"
                     navigationText="Zonas">
             </app-inner-sidenav-navigation>
 
             <app-inner-sidenav-navigation-expansion
-                    *appRouterAccess="concatPath.operationCapacities"
+                    *appRouterAccess="routerPath.operationCapacities"
                     navigationIcon="date_range"
                     navigationText="Capacidades"
-                    [navigationRoute]="concatPath.operationCapacities"
+                    [navigationRoute]="routerPath.operationCapacities"
                     [navigationDisabledChildren]="!innerSidenavExpanded"
                     [navigationRouteOptions]="{exact: false}">
 
                 <app-router
-                        [router]="concatPath.opCapacitiesAmPm"
+                        [router]="routerPath.opCapacitiesAmPm"
                         routerActive="inner-sidenav-navigation-active"
                         routerClass="inner-sidenav-navigation-expansion-child">
                     <span class="text-label">Editar AM/PM</span>
                 </app-router>
                 <app-router
-                        [router]="concatPath.opCapacitiesScheduled"
+                        [router]="routerPath.opCapacitiesScheduled"
                         routerActive="inner-sidenav-navigation-active"
                         routerClass="inner-sidenav-navigation-expansion-child">
                     <span class="text-label">Editar Programado</span>
                 </app-router>
                 <app-router
-                        [router]="concatPath.opCapacitiesExpress"
+                        [router]="routerPath.opCapacitiesExpress"
                         routerActive="inner-sidenav-navigation-active"
                         routerClass="inner-sidenav-navigation-expansion-child">
                     <span class="text-label">Editar Express</span>
                 </app-router>
                 <app-router
-                        [router]="concatPath.opCapacitiesRet"
+                        [router]="routerPath.opCapacitiesRet"
                         routerActive="inner-sidenav-navigation-active"
                         routerClass="inner-sidenav-navigation-expansion-child">
                     <span class="text-label">Editar RET</span>
@@ -66,9 +67,9 @@
             </app-inner-sidenav-navigation-expansion>
 
             <app-inner-sidenav-navigation
-                    *appRouterAccess="concatPath.operationSettings"
+                    *appRouterAccess="routerPath.operationSettings"
                     navigationIcon="settings"
-                    [navigationRoute]="[concatPath.operationSettings]"
+                    [navigationRoute]="[routerPath.operationSettings]"
                     navigationText="Configuraciones">
             </app-inner-sidenav-navigation>
         </div>

@@ -12,9 +12,15 @@ export class EndpointsParameter {
 
     public static GET_DRUGSTORE = `${API_GATEWAY}/fulfillment/store`;
     public static GET_DRUGSTORE_BY_SERVICE_TYPE = `${API_GATEWAY}/fulfillment/store/servicetype/`;
+    public static STORE_SERVICE_TYPE = `${API_GATEWAY}/store-service-type`;
 
     public static GET_CALENDAR_SERVICE_TYPE = `${API_GATEWAY}/fulfillment/calendar/template`;
     public static PATCH_CALENDAR_UPDATE = `${API_GATEWAY}/fulfillment/calendar/template/detail/hours/quantities`;
     public static PATCH_CALENDAR_RANGE_UPDATE = `${API_GATEWAY}/fulfillment/calendar/detail/hours/quantities`;
     public static GET_CALENDAR_CAPACITIES = `${API_GATEWAY}/fulfillment/calendar/capacities`;
+
+    public static GET_ZONES = `${API_GATEWAY}/zone`;
+    public static ZONES_SERVICE_TYPE = `${API_GATEWAY}/zone-service-type`;
+    public static ZONE_BACKUP = `${API_GATEWAY}/zone/zone-backup`;
+    public static GET_ZONES_CHANNEL = `${API_GATEWAY}/zone/channel`;
 }
