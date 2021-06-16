@@ -11,4 +11,8 @@ export class ButtonIconComponent extends ButtonComponent {
     @Input()
     iconName: string;
 
+    @Input()
+    iconStyle: 'round' | 'outlined' | 'sharp' | 'two-tone' | '' = '';
+
+
 }

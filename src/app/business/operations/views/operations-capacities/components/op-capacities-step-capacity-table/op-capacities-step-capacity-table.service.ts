@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
@@ -12,7 +12,7 @@ export enum ECapacitiesStepCapacityTable {
 }
 
 @Injectable()
-export class OpCapacitiesStepCapacityTableService {
+export class OpCapacitiesStepCapacityTableService implements OnDestroy {
 
   private capacityTableFormViewSubject = new BehaviorSubject<ECapacitiesStepCapacityTable>(ECapacitiesStepCapacityTable.daysRange);
   private capacityTableSegmentsSubject = new BehaviorSubject<ICapacityStepCapacityTableSegments>(null);
@@ -23,12 +23,14 @@ export class OpCapacitiesStepCapacityTableService {
   private capacityTableSaveSubject = new BehaviorSubject<ICapacityStepCapacityTableSegments>(null);
   private capacityTableCancelSubject = new BehaviorSubject<boolean>(false);
 
+  private capacityTableEditionAccessPathStored: string;
+
   constructor() {
   }
 
   get capacityTableStepStatus$(): Observable<ECapacityStepStatus> {
     return this.capacityTableStepStatusSubject.asObservable()
-      .pipe(filter((value) => !!value));
+        .pipe(filter((value) => !!value));
   }
 
   set capacityTableStepStatus(capacityTableDisabled: ECapacityStepStatus) {
@@ -83,11 +85,29 @@ export class OpCapacitiesStepCapacityTableService {
 
   get capacityTableSave$(): Observable<ICapacityStepCapacityTableSegments> {
     return this.capacityTableSaveSubject.asObservable()
-      .pipe(filter((value) => !!value));
+        .pipe(filter((value) => !!value));
   }
 
   set capacityTableSave(capacityTableFormValue: ICapacityStepCapacityTableSegments) {
     this.capacityTableSaveSubject.next(capacityTableFormValue);
+  }
+
+  get capacityTableEditionAccessPath(): string {
+    return this.capacityTableEditionAccessPathStored;
+  }
+
+  set capacityTableEditionAccessPath(capacityTableEditionAccessPath: string) {
+    this.capacityTableEditionAccessPathStored = capacityTableEditionAccessPath;
+  }
+
+  ngOnDestroy() {
+    this.capacityTableFormViewSubject.complete();
+    this.capacityTableSegmentsSubject.complete();
+    this.capacityTableRangeLimitSubject.complete();
+    this.capacityTableStepStatusSubject.complete();
+    this.capacityTableResetStepStatusSubject.complete();
+    this.capacityTableSaveSubject.complete();
+    this.capacityTableCancelSubject.complete();
   }
 
 }

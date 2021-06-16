@@ -10,11 +10,11 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { StoreServiceType } from '../../../../models/operations-stores-service-type.model';
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
-import { IStoreServiceTypeUpdate } from '@interfaces/stores/stores.interface';
+import { IDrugstoreServiceTypeUpdate } from '@interfaces/drugstores/drugstores.interface';
 import { EPaymentMethod } from '@models/payment-method/payment-method.model';
 import { RouterHelperService } from '@helpers/router-helper.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { OP_STORES_PATH } from '@parameters/router/paths/operations-path.parameter';
+import { OP_STORES_PATH } from '@parameters/router/routing/operations-routing.parameter';
 
 @Component({
     selector: 'app-operations-stores-edition-service-type',
@@ -90,7 +90,7 @@ export class OperationsStoresEditionServiceTypeComponent implements OnInit, OnDe
         }
     }
 
-    putServiceType(storeServiceTypeUpdate: IStoreServiceTypeUpdate) {
+    putServiceType(storeServiceTypeUpdate: IDrugstoreServiceTypeUpdate) {
         this._operationsStoresImplement.putStoreServiceType(
             `${this.storeServiceType.id}`, storeServiceTypeUpdate)
             .subscribe(() => {
@@ -109,7 +109,7 @@ export class OperationsStoresEditionServiceTypeComponent implements OnInit, OnDe
         this.backRoute();
     }
 
-    saveEdition(storeServiceTypeUpdate: IStoreServiceTypeUpdate) {
+    saveEdition(storeServiceTypeUpdate: IDrugstoreServiceTypeUpdate) {
         this.saveEditionLoader = true;
         const subscription = this._dialogTwoActions.openConfirmChanges()
             .afterClosed()

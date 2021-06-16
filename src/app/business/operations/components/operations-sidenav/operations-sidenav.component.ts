@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { OPERATIONS_ROUTING } from '@parameters/router/routing/operations-routing.parameter';
 
 @Component({
     selector: 'app-operations-sidenav',
@@ -8,9 +9,10 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 })
 export class OperationsSidenavComponent {
 
-    _operationsSidenavTitle = 'Operaciones';
-    innerSidenavExpanded: boolean;
+    public innerSidenavExpanded: boolean;
     public routerPath = ROUTER_PATH;
+
+    private operationRouting = OPERATIONS_ROUTING;
 
     constructor() {
     }
@@ -19,8 +21,8 @@ export class OperationsSidenavComponent {
         this.innerSidenavExpanded = expanded;
     }
 
-    get operationsSidenavTitle() {
+    get sidenavTitle() {
         return this.innerSidenavExpanded ?
-            this._operationsSidenavTitle : this._operationsSidenavTitle.slice(0, 2);
+            this.operationRouting.name : this.operationRouting.shortName;
     }
 }

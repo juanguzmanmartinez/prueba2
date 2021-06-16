@@ -2,16 +2,16 @@ import { isObject } from '@helpers/objects-equal.helper';
 import { CalendarServiceDefaultCapacities, ICalendarServiceDefaultCapacities } from '@models/calendar/calendar-response.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
-import { IServiceType, IServiceTypeSegment, IStore, IStoreCompany, IStoreServiceType, ServiceType, ServiceTypeSegment } from '@interfaces/stores/stores.interface';
+import { IDrugstore, IDrugstoreCompany, IDrugstoreServiceType, IServiceType, IServiceTypeSegment, ServiceType, ServiceTypeSegment } from '@interfaces/drugstores/drugstores.interface';
 
-export class CapacitiesStore {
-    localCode: string;
+export class CapacitiesDrugstore {
+    drugstoreCode: string;
     name: string;
     description: string;
     position: number;
     address: string;
     wmsEnabled: boolean;
-    companies: IStoreCompany[];
+    companies: IDrugstoreCompany[];
     legacyId: number;
     latitude: number;
     longitude: number;
@@ -20,17 +20,17 @@ export class CapacitiesStore {
     endHour: string;
     drugstoreWareHouseId: number;
     localType: string;
-    services: IStoreServiceType[];
+    services: IDrugstoreServiceType[];
 
-    constructor(iLocal: IStore) {
-        const local = isObject(iLocal) ? iLocal : {} as IStore;
-        this.localCode = local.localCode;
+    constructor(iLocal: IDrugstore) {
+        const local = isObject(iLocal) ? iLocal : {} as IDrugstore;
+        this.drugstoreCode = local.localCode;
         this.name = local.name;
     }
 }
 
 
-export class CapacitiesLocalServiceDefaultCapacity extends CalendarServiceDefaultCapacities {
+export class CapacitiesDrugstoreServiceDefaultCapacity extends CalendarServiceDefaultCapacities {
     constructor(iCalendarServiceDefaultCapacities: ICalendarServiceDefaultCapacities) {
         super();
         const serviceDefaultCapacities = isObject(iCalendarServiceDefaultCapacities) ?

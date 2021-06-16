@@ -62,8 +62,8 @@
                 Cancelar edición
             </app-button>
             <app-button appearance="primary"
-                        appEditionAccess
-                        (access)="saveEditionEvent()">
+                        (editionAccess)="saveEditionEvent()"
+                        [pathAccess]="zoneBackupServiceTypePath">
                 Guardar cambios
             </app-button>
         </div>

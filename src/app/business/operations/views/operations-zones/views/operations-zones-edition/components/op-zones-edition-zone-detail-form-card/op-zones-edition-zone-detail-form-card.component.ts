@@ -12,6 +12,7 @@ import { ETagAppearance } from '@models/tag/tag.model';
 import { IZoneDetailUpdate } from '@interfaces/zones/zones.interface';
 import { CZoneTypeValue } from '../../../../parameters/operations-zones-type.parameter';
 import { CDeliveryTypeId, CDeliveryTypeName } from '@models/service-type/delivery-service-type.model';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
     selector: 'app-op-zones-edition-zone-detail-form-card',
@@ -158,6 +159,10 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
 
     get stateControlName() {
         return this.stateName[this.form.stateControl.value ? EState.active : EState.inactive]('a');
+    }
+
+    get zoneDetailPath() {
+        return ROUTER_PATH.opZones_ZoneEdition();
     }
 
     cancelEditionEvent() {

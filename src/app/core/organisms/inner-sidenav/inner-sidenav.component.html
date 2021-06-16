@@ -1,23 +1,36 @@
 <mat-drawer-container class="inner-sidenav-container">
-  <mat-drawer #innerSidenav
-              [mode]="innerSidenavMode"
-              class="inner-sidenav"
-              (openedStart)="innerSidenavOpenedEvent()"
-              (closedStart)="innerSidenavClosedEvent()"
-              [class.inner-sidenav-close]="!innerSidenav.opened">
-    <div class="inner-sidenav-menu">
-      <button class="inner-sidenav-button"
-              [class.inner-sidenav-button-close]="!innerSidenav.opened"
-              (click)="innerSidenav.toggle()">
-        <app-icon class="inner-sidenav-icon"
-                  fontName="keyboard_arrow_right"></app-icon>
-      </button>
-      <ng-content select="[sidenav]"></ng-content>
-    </div>
-  </mat-drawer>
-  <mat-drawer-content
-    [class.inner-sidenav-content-close]="!innerSidenav.opened">
-<!--    <button (click)="innerSidenav.open()">Open</button>-->
-    <ng-content select="[sidenav-content]"></ng-content>
-  </mat-drawer-content>
+    <mat-drawer #innerSidenav
+                (closedStart)="innerSidenavClosedEvent()"
+                (openedStart)="innerSidenavOpenedEvent()"
+                [class.inner-sidenav-close]="!innerSidenav.opened"
+                [mode]="innerSidenavMode"
+                class="inner-sidenav">
+        <div class="inner-sidenav-menu">
+            <button (click)="innerSidenav.toggle()"
+                    [class.inner-sidenav-button-close]="!innerSidenav.opened"
+                    class="inner-sidenav-button">
+                <app-icon class="inner-sidenav-icon"
+                          fontName="keyboard_arrow_right"></app-icon>
+            </button>
+
+            <div class="inner-sidenav-menu-content">
+
+                <div class="inner-sidenav-menu-header">
+                    <h1 class="text-subtitle-2 text-gray-6 mb-0">
+                        <ng-content select="[sidenav-menu-header]"></ng-content>
+                    </h1>
+                </div>
+                <hr class="separator">
+
+                <div class="inner-sidenav-menu-body">
+                    <ng-content select="[sidenav-menu-body]"></ng-content>
+                </div>
+            </div>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content
+            [class.inner-sidenav-content-close]="!innerSidenav.opened">
+        <!--    <button (click)="innerSidenav.open()">Open</button>-->
+        <ng-content select="[sidenav-content]"></ng-content>
+    </mat-drawer-content>
 </mat-drawer-container>

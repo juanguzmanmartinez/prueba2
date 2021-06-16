@@ -1,23 +1,23 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { Role } from '@parameters/auth/role.parameter';
 import { UserStoreService } from '@stores/user-store.service';
-import { ROUTER_ACCESS } from '@parameters/router/router-access.parameter';
+import { PERMISSIONS } from '@parameters/auth/permissions.parameter';
+import { LocalPermissions } from '@models/auth/permissions.model';
 
 @Directive({
     selector: '[appRouterAccess]'
 })
 export class RouterAccessDirective implements OnInit {
 
-    private userRoles: Role[];
-    private routerAccess = ROUTER_ACCESS;
+    private permissions: LocalPermissions;
+    private localPermissions = PERMISSIONS;
 
     @Input()
     set appRouterAccess(route: string) {
-        const roles = this.routerAccess[route] as Role[];
-        if (!roles || !roles.length) {
-            throw new Error('Router access is empty or missed');
+        const permissions = this.localPermissions[route] as LocalPermissions;
+        if (!permissions) {
+            throw new Error('Permission is empty or missed');
         }
-        this.userRoles = roles;
+        this.permissions = permissions;
     }
 
     constructor(
@@ -28,11 +28,32 @@ export class RouterAccessDirective implements OnInit {
     }
 
     ngOnInit() {
-        let hasAccess = false;
-        if (this.userStore.authenticated() && this.userRoles) {
-            hasAccess = this.userRoles.some(role => this.userStore.hasRole(role));
+        let hasAccess = this.userStore.hasAccess(this.permissions?.access);
+        let access = this.permissions?.access;
+        let hasRole = false;
+
+        if (!hasAccess && this.permissions?.parent) {
+            const hasParentAccess = this.userStore.hasAccess(this.permissions.parent.access);
+            const hasSiblingAccess = !!this.permissions.parent.children
+                .find((childrenAccess) => this.userStore.hasAccess(childrenAccess));
+
+            hasAccess = hasParentAccess && !hasSiblingAccess;
+            access = hasAccess ? this.permissions.parent.access : access;
         }
+
+        if (!hasAccess && this.permissions?.children) {
+            const hasChildrenAccess = this.permissions.children
+                .find((children) => this.userStore.hasAccess(children));
+            hasAccess = !!hasChildrenAccess;
+            access = hasAccess ? hasChildrenAccess : access;
+        }
+
         if (hasAccess) {
+            hasRole = this.permissions.roles.some(role => this.userStore.hasAccessByRole(role, access));
+        }
+
+        const hasPermissions = hasAccess && hasRole;
+        if (hasPermissions) {
             this.viewContainer.createEmbeddedView(this.templateRef);
         } else {
             this.viewContainer.clear();

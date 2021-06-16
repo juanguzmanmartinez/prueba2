@@ -8,7 +8,7 @@ import { OperationsStoresEditionStoreService } from '../../stores/operations-sto
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { StoreDetail } from '../../../../models/operations-stores.model';
 import { ECompany } from '@models/company/company.model';
-import { IStoreDetailUpdate } from '@interfaces/stores/stores.interface';
+import { IDrugstoreDetailUpdate } from '@interfaces/drugstores/drugstores.interface';
 import { RouterHelperService } from '@helpers/router-helper.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -69,7 +69,7 @@ export class OperationsStoresEditionStoreComponent implements OnInit, OnDestroy 
             });
     }
 
-    putStoreDetail(storeDetailUpdate: IStoreDetailUpdate) {
+    putStoreDetail(storeDetailUpdate: IDrugstoreDetailUpdate) {
         this._operationsStoresImplement.putStoreDetail(
             this.storeDetail.code, storeDetailUpdate)
             .subscribe(() => {
@@ -86,7 +86,7 @@ export class OperationsStoresEditionStoreComponent implements OnInit, OnDestroy 
         this.backRoute();
     }
 
-    saveEdition(storeDetailUpdate: IStoreDetailUpdate) {
+    saveEdition(storeDetailUpdate: IDrugstoreDetailUpdate) {
         this.saveEditionLoader = true;
         const subscription = this._dialogTwoActions.openConfirmChanges()
             .afterClosed()

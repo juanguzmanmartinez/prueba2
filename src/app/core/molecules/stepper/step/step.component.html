@@ -39,10 +39,10 @@
                 <app-button appearance="primary"
                             class="mb-4 mb-md-0"
                             innerClass="w-100 w-md-auto"
-                            appEditionAccess
-                            [validateAccess]="validateAccess"
                             [disabled]="saveButtonDisabled"
-                            (access)="saveButtonEvent.emit()">
+                            (editionAccess)="saveButtonEvent.emit()"
+                            [enableAccess]="enableAccess"
+                            [pathAccess]="pathAccess">
                     {{saveButtonText}}
                 </app-button>
             </div>

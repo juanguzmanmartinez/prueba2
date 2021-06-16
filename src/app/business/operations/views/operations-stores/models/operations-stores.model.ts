@@ -1,7 +1,7 @@
 import { ECompany } from '@models/company/company.model';
 import { EChannel } from '@models/channel/channel.model';
 import { EState } from '@models/state/state.model';
-import { IStore, IStoreDetail } from '@interfaces/stores/stores.interface';
+import { IDrugstore, IDrugstoreDetail } from '@interfaces/drugstores/drugstores.interface';
 import { StoreServiceType } from './operations-stores-service-type.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
@@ -21,7 +21,7 @@ export class Store {
     endHour: number;
     serviceTypeList: StoreServiceType[];
 
-    constructor(iStore: IStore) {
+    constructor(iStore: IDrugstore) {
         this.id = iStore.legacyId || null;
         this.code = iStore.localCode || '';
         this.name = iStore.name || '';
@@ -44,7 +44,7 @@ export class StoreDetail extends Store {
     groupName: string;
     zoneList: StoresZone[];
 
-    constructor(iStoreDetail: IStoreDetail) {
+    constructor(iStoreDetail: IDrugstoreDetail) {
         super(iStoreDetail);
         this.groupName = iStoreDetail.group || 'San Borja Sur';
         this.zoneList = iStoreDetail.zoneList ? iStoreDetail.zoneList

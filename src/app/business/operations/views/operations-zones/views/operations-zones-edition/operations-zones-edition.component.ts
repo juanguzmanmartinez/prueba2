@@ -5,7 +5,7 @@ import { OperationsZonesImplementService } from '../../implements/operations-zon
 import { ZoneDetail } from '../../models/operations-zones.model';
 import { Subscription } from 'rxjs';
 import { OperationsZonesEditionActionsStoreService } from './stores/operations-zones-edition-actions-store.service';
-import { OP_ZONES_PATH } from '@parameters/router/paths/operations-path.parameter';
+import { OP_ZONES_PATH } from '@parameters/router/routing/operations-routing.parameter';
 
 @Component({
     template: '<router-outlet></router-outlet>',

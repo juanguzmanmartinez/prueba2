@@ -11,7 +11,7 @@
         </div>
 
         <div class="col-12 mb-6">
-            <app-op-capacities-local-default-capacity></app-op-capacities-local-default-capacity>
+            <app-op-capacities-drugstore-default-capacity></app-op-capacities-drugstore-default-capacity>
         </div>
 
         <div class="col-12" *appRouterAccess="routerPath.opCapacitiesReport">
@@ -30,7 +30,7 @@
 
         <div class="col-12 col-xl-6 mb-4 mb-xl-0">
             <app-router [router]="routerPath.opCapacitiesAmPm">
-                <app-card-action cardIcon="ampm">
+                <app-card-action cardIconSVG="ampm">
                     <span card-title>AM/PM</span>
                     <span card-description>Edita las capacidades del rango de la mañana y tarde</span>
                 </app-card-action>
@@ -38,7 +38,7 @@
         </div>
         <div class="col-12 col-xl-6">
             <app-router [router]="routerPath.opCapacitiesExpress">
-                <app-card-action cardIcon="moto">
+                <app-card-action cardIconSVG="moto">
                     <span card-title>Express</span>
                     <span card-description>Edita la disponibilidad de recursos para este servicio en el día</span>
                 </app-card-action>
@@ -49,7 +49,7 @@
     <div class="row">
         <div class="col-12 col-xl-6 mb-4 mb-xl-0">
             <app-router [router]="routerPath.opCapacitiesScheduled">
-                <app-card-action cardIcon="calendar">
+                <app-card-action cardIconSVG="calendar">
                     <span card-title>Programado</span>
                     <span card-description>Edita las capacidades por rangos de horas en el día</span>
                 </app-card-action>
@@ -58,7 +58,7 @@
 
         <div class="col-12 col-xl-6">
             <app-router [router]="routerPath.opCapacitiesRet">
-                <app-card-action cardIcon="stores">
+                <app-card-action cardIconSVG="stores">
                     <span card-title>Retiro en tienda</span>
                     <span card-description>Edita la cantidad de pedidos que podrás atender con este servicio</span>
                 </app-card-action>

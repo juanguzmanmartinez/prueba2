@@ -110,9 +110,9 @@
                 Cancelar edición
             </app-button>
             <app-button appearance="primary"
-                        appEditionAccess
                         [disabled]="form$.invalid"
-                        (access)="saveEditionEvent()">
+                        (editionAccess)="saveEditionEvent()"
+                        [pathAccess]="serviceTypePath">
                 Guardar cambios
             </app-button>
         </div>

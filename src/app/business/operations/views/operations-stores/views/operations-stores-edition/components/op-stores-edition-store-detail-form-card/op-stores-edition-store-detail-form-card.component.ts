@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IStoreDetailUpdate } from '@interfaces/stores/stores.interface';
+import { IDrugstoreDetailUpdate } from '@interfaces/drugstores/drugstores.interface';
 import { StoreDetail } from '../../../../models/operations-stores.model';
 import { CCompanyName, ECompany } from '@models/company/company.model';
 import { OpStoresEditionStoreDetailFormCardFormService, StoreDetailControlName } from './form/op-stores-edition-store-detail-form-card-form.service';
@@ -35,7 +35,7 @@ export class OpStoresEditionStoreDetailFormCardComponent implements OnInit, OnDe
     }
 
     @Output() cancelEdition = new EventEmitter();
-    @Output() saveEdition = new EventEmitter<IStoreDetailUpdate>();
+    @Output() saveEdition = new EventEmitter<IDrugstoreDetailUpdate>();
 
     constructor(
         private _editionStoreDetailForm: OpStoresEditionStoreDetailFormCardFormService
@@ -120,7 +120,7 @@ export class OpStoresEditionStoreDetailFormCardComponent implements OnInit, OnDe
     }
 
     saveEditionEvent() {
-        const storeDetailUpdate = {} as IStoreDetailUpdate;
+        const storeDetailUpdate = {} as IDrugstoreDetailUpdate;
         storeDetailUpdate.enabled = this.form.stateControl.value;
         if (storeDetailUpdate.enabled) {
             const startHour = this.form.startHourControl.value;

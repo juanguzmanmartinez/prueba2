@@ -6,6 +6,7 @@ import { ECapacityStepStatus } from '../../models/operations-capacity-step-statu
 import { FromFormToCapacityStepCapacityTableSegments, ICapacityStepCapacityTableFormValue, ICapacityStepCapacityTableSegments } from './models/op-capacities-step-capacity-table.model';
 import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 import { DatesHelper } from '@helpers/dates.helper';
+import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 
 @Component({
     selector: 'app-op-capacities-step-capacity-table',
@@ -28,10 +29,13 @@ export class OpCapacitiesStepCapacityTableComponent implements OnInit, OnDestroy
     public capacityTableMinDateRange: number = DatesHelper.Date().valueOf();
     public capacityTableMaxDateRange: number = DatesHelper.Date().add(2, 'M').valueOf();
     public capacityTableSegments: ICapacityStepCapacityTableSegments;
+    public capacityPathAccess: string;
+
 
     constructor(
         @Optional() @SkipSelf() private _opCapacitiesStepCapacityTable: OpCapacitiesStepCapacityTableService,
-        public _opCapacitiesStepCapacityTableForm: OpCapacitiesStepCapacityTableFormService
+        public _opCapacitiesStepCapacityTableForm: OpCapacitiesStepCapacityTableFormService,
+        private _dialogTwoActions: DialogTwoActionsService,
     ) {
     }
 
@@ -41,6 +45,8 @@ export class OpCapacitiesStepCapacityTableComponent implements OnInit, OnDestroy
         this.updateCapacityTableRangeLimit();
         this.resetCapacityTableStep();
         this.updateCapacityTableStepStatus();
+
+        this.capacityPathAccess = this._opCapacitiesStepCapacityTable.capacityTableEditionAccessPath;
     }
 
     ngOnDestroy() {
@@ -56,12 +62,19 @@ export class OpCapacitiesStepCapacityTableComponent implements OnInit, OnDestroy
     }
 
     saveCapacityTable() {
-        if (this._opCapacitiesStepCapacityTableForm.capacityTableForm$.valid) {
-            this.capacityTableSaveLoad = true;
-            this._opCapacitiesStepCapacityTable.capacityTableSave = new FromFormToCapacityStepCapacityTableSegments(
-                this._opCapacitiesStepCapacityTableForm.capacityTableForm$.value as ICapacityStepCapacityTableFormValue
-            );
-        }
+        const subscription = this._dialogTwoActions.openConfirmChanges()
+            .afterClosed()
+            .subscribe((confirmChanges) => {
+                if (confirmChanges) {
+                    if (this._opCapacitiesStepCapacityTableForm.capacityTableForm$.valid) {
+                        this.capacityTableSaveLoad = true;
+                        this._opCapacitiesStepCapacityTable.capacityTableSave = new FromFormToCapacityStepCapacityTableSegments(
+                            this._opCapacitiesStepCapacityTableForm.capacityTableForm$.value as ICapacityStepCapacityTableFormValue
+                        );
+                    }
+                }
+            });
+        this.subscriptions.push(subscription);
     }
 
     cancelCapacityTable() {

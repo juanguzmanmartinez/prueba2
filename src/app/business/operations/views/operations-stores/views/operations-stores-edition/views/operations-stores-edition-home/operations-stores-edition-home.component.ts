@@ -11,7 +11,7 @@ import { OperationsStoresEditionStoreService } from '../../stores/operations-sto
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
-import { IStoreServiceTypeRegister } from '@interfaces/stores/stores.interface';
+import { IDrugstoreServiceTypeRegister } from '@interfaces/drugstores/drugstores.interface';
 import { StoreServiceTypeList } from '../../../../models/operations-stores-service-type.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { OperationsStoresEditionActionsStoreService } from '../../stores/operations-stores-edition-actions-store.service';
@@ -118,7 +118,7 @@ export class OperationsStoresEditionHomeComponent implements OnInit, OnDestroy {
             serviceTypeCode: serviceType,
             startHour: DatesHelper.Date(this.storeDetail.startHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
             endHour: DatesHelper.Date(this.storeDetail.endHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
-        } as IStoreServiceTypeRegister;
+        } as IDrugstoreServiceTypeRegister;
 
         this._operationsStoresImplement.postStoreServiceType(storeServiceTypRegister)
             .subscribe(() => {

@@ -1,43 +1,46 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule, Routes } from '@angular/router';
 import { BusinessComponent } from './business.component';
-import { BUSINESS_PATH } from '@parameters/router/routing-module-path.parameter';
-import { RoleGuard } from '@guards/role-guard.service';
+import { ROUTING } from '@parameters/router/routing.parameter';
+import { PermissionsGuard } from '@guards/permissions-guard.service';
 import { AccountGuard } from '@guards/account.guard';
-import { ROUTER_ACCESS } from '@parameters/router/router-access.parameter';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { AuthGuard } from '@guards/auth.guard';
+import { PERMISSIONS } from '@parameters/auth/permissions.parameter';
 
-const OPERATIONS: Route = {
-    path: BUSINESS_PATH.operations.valueOf(),
-    loadChildren: () => import('./operations/operations.module').then(m => m.OperationsModule),
-};
 const ACCOUNT: Route = {
-    path: BUSINESS_PATH.account.valueOf(),
+    path: ROUTING.account.valueOf(),
     canActivate: [AccountGuard],
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
 };
 
-const ADMIN: Route = {
-    path: BUSINESS_PATH.admin.valueOf(),
-    canLoad: [RoleGuard],
-    data: {roles: ROUTER_ACCESS[ROUTER_PATH.admin.valueOf()]},
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+const ADMINISTRATOR: Route = {
+    path: ROUTING.administrator.valueOf(),
+    canLoad: [PermissionsGuard],
+    data: {permissions: PERMISSIONS[ROUTER_PATH.administrator.valueOf()]},
+    loadChildren: () => import('./administrator/administrator.module').then(m => m.AdministratorModule)
+};
+
+const OPERATIONS: Route = {
+    path: ROUTING.operations.valueOf(),
+    canLoad: [PermissionsGuard],
+    data: {permissions: PERMISSIONS[ROUTER_PATH.operations.valueOf()]},
+    loadChildren: () => import('./operations/operations.module').then(m => m.OperationsModule),
 };
 
 const routes: Routes = [
     {
         path: '',
-        canActivate: [RoleGuard, AuthGuard],
+        canActivate: [AuthGuard],
         component: BusinessComponent,
         children: [
             {
                 path: '',
-                redirectTo: BUSINESS_PATH.operations.valueOf(),
+                redirectTo: ROUTING.operations.valueOf(),
                 pathMatch: 'full'
             },
             OPERATIONS,
-            ADMIN
+            ADMINISTRATOR
         ]
     },
     ACCOUNT,

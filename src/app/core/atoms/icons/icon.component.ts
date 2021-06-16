@@ -10,6 +10,7 @@ export class IconComponent {
     @Input() fontName: string;
     @Input() fontColor: string;
     @Input() fontSize: '16px' | '24px' | '32px' | '48px' | string = '16px';
+    @Input() fontStyle: 'round' | 'outlined' | 'sharp' | 'two-tone' | '' = '';
 
     @Input() svgName: string;
     @Input() svgWidth: '16px' | '24px' | '32px' | '48px' | string = '16px';
@@ -18,6 +19,10 @@ export class IconComponent {
     @Input() innerClass: string;
 
     constructor() {
+    }
+
+    get fontStyleClass() {
+        return this.fontStyle ? `material-icons-${this.fontStyle}` : 'material-icons';
     }
 
 }

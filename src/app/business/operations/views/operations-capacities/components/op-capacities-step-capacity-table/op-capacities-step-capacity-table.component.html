@@ -4,30 +4,31 @@
           [stepExpandedToggle]="capacityTableStepStatus === eCapacityStepStatus.open"
           [stepDisabled]="capacityTableStepStatus === eCapacityStepStatus.disabled  || capacityTableSaveLoad"
           [saveButtonDisabled]="!_opCapacitiesStepCapacityTableForm.capacityTableForm$.valid || capacityTableSaveLoad"
-          [validateAccess]="true"
+          [enableAccess]="true"
+          [pathAccess]="capacityPathAccess"
           (stepOpenEvent)="openCapacityTableStep()"
           (stepCloseEvent)="closeCapacityTableStep()"
           (saveButtonEvent)="saveCapacityTable()"
           (cancelButtonEvent)="cancelCapacityTable()">
-  <div class="card-step-content">
-    <form [formGroup]="_opCapacitiesStepCapacityTableForm.capacityTableForm$">
-      <div class="row">
+    <div class="card-step-content">
+        <form [formGroup]="_opCapacitiesStepCapacityTableForm.capacityTableForm$">
+            <div class="row">
 
-        <div class="col-12 mb-5" *ngIf="capacityTableDateRange">
-          <label class="text-caption text-gray-5 mb-2">Selecciona días</label>
-          <app-input-datepicker-range
-            formControlName="capacityRange"
-            [minDate]="capacityTableMinDateRange"
-            [maxDate]="capacityTableMaxDateRange">
-          </app-input-datepicker-range>
-        </div>
+                <div *ngIf="capacityTableDateRange" class="col-12 mb-5">
+                    <label class="text-caption text-gray-5 mb-2">Selecciona días</label>
+                    <app-input-datepicker-range
+                            [maxDate]="capacityTableMaxDateRange"
+                            [minDate]="capacityTableMinDateRange"
+                            formControlName="capacityRange">
+                    </app-input-datepicker-range>
+                </div>
 
-        <div class="col-12">
-          <app-op-capacities-step-capacity-table-form>
-          </app-op-capacities-step-capacity-table-form>
-        </div>
+                <div class="col-12">
+                    <app-op-capacities-step-capacity-table-form>
+                    </app-op-capacities-step-capacity-table-form>
+                </div>
 
-      </div>
+            </div>
     </form>
   </div>
 </app-step>

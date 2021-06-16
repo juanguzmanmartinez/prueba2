@@ -12,16 +12,16 @@
                     </app-router>
                 </div>
 
-                <div class="sidenav-taps" *appRouterAccess="routerPath.admin">
-                    <app-sidenav-navigation navigationTooltip="Administrador"
-                                            navigationText="AD"
-                                            [navigationRoute]="routerPath.admin">
+                <div *appRouterAccess="routerPath.administrator" class="sidenav-taps">
+                    <app-sidenav-navigation [navigationRoute]="routerPath.administrator"
+                                            [navigationText]="administratorRouting.shortName"
+                                            [navigationTooltip]="administratorRouting.name">
                     </app-sidenav-navigation>
                 </div>
 
-                <div class="sidenav-taps">
-                    <app-sidenav-navigation navigationTooltip="Operaciones"
-                                            navigationText="OP"
+                <div *appRouterAccess="routerPath.operations" class="sidenav-taps">
+                    <app-sidenav-navigation [navigationText]="operationsRouting.shortName"
+                                            [navigationTooltip]="operationsRouting.name"
                                             [navigationRoute]="routerPath.operations">
                     </app-sidenav-navigation>
                 </div>

@@ -1,4 +1,4 @@
-import { IStore, IStoreServiceType } from '@interfaces/stores/stores.interface';
+import { IDrugstore, IDrugstoreServiceType } from '@interfaces/drugstores/drugstores.interface';
 import { EState } from '@models/state/state.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
@@ -10,7 +10,7 @@ export class ZonesStore {
     serviceTypeList: ZonesStoreServiceType[];
     deliveryType: EDeliveryType;
 
-    constructor(iStore: IStore) {
+    constructor(iStore: IDrugstore) {
         this.code = iStore.localCode || null;
         this.name = iStore.name || null;
         this.deliveryType = iStore.localType || null;
@@ -25,7 +25,7 @@ export class ZonesStoreServiceType {
     startHour: number;
     endHour: number;
 
-    constructor(iStoreService: IStoreServiceType) {
+    constructor(iStoreService: IDrugstoreServiceType) {
         this.code = iStoreService.code || null;
         this.state = iStoreService.enabled ? EState.active : EState.inactive;
         this.startHour = DatesHelper.date(iStoreService.startHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;

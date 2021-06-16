@@ -1,7 +1,7 @@
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
-import { IStore } from '@interfaces/stores/stores.interface';
+import { IDrugstore } from '@interfaces/drugstores/drugstores.interface';
 import { EStateSetting } from '@models/state/state.model';
 
 export interface IZoneServiceType {
@@ -40,7 +40,7 @@ export interface IZone {
     enabled: boolean;
     fulfillmentCenterCode: string;
     serviceTypes: IZoneServiceType[];
-    storeCenter: IStore;
+    storeCenter: IDrugstore;
     channel: EChannel[];
     companyCode: ECompany[];
     backUpZone: boolean;

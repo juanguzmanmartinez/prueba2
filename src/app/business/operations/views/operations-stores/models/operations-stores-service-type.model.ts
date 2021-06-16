@@ -2,7 +2,7 @@ import { EDeliveryServiceType } from '@models/service-type/delivery-service-type
 import { EState } from '@models/state/state.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
-import { IStoreServiceType } from '@interfaces/stores/stores.interface';
+import { IDrugstoreServiceType } from '@interfaces/drugstores/drugstores.interface';
 import { EPaymentMethod } from '@models/payment-method/payment-method.model';
 
 export class StoreServiceType {
@@ -14,7 +14,7 @@ export class StoreServiceType {
     intervalTime: number;
     paymentMethodList: EPaymentMethod[];
 
-    constructor(iStoreServiceType: IStoreServiceType) {
+    constructor(iStoreServiceType: IDrugstoreServiceType) {
         this.id = iStoreServiceType.id || null;
         this.code = iStoreServiceType.code || null;
         this.startHour = DatesHelper.date(iStoreServiceType.startHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;

@@ -1,86 +1,78 @@
 <app-inner-sidenav (innerSidenavExpanded)="operationsInnerSidenavOpened($event)">
-    <section sidenav
-             class="operations-sidenav">
+    <ng-container sidenav-menu-header>{{sidenavTitle}}</ng-container>
 
-        <div class="operations-sidenav-header">
-            <h1 class="text-subtitle-2 text-gray-6 mb-0">
-                {{operationsSidenavTitle}}
-            </h1>
-        </div>
-        <hr class="separator">
+    <ng-container sidenav-menu-body>
 
-        <div class="operations-sidenav-content">
-            <app-inner-sidenav-navigation
-                    navigationIcon="home"
-                    [navigationRoute]="[routerPath.operations]"
-                    navigationText="Inicio">
-            </app-inner-sidenav-navigation>
+        <app-inner-sidenav-navigation
+                [navigationRoute]="[routerPath.operations]"
+                navigationIcon="home"
+                navigationText="Inicio">
+        </app-inner-sidenav-navigation>
 
-            <app-inner-sidenav-navigation
-                    *appRouterAccess="routerPath.operationStores"
-                    navigationIcon="store"
-                    [navigationRoute]="[routerPath.operationStores]"
-                    [navigationRouteOptions]="{exact: false}"
-                    navigationText="Locales">
-            </app-inner-sidenav-navigation>
+        <app-inner-sidenav-navigation
+                *appRouterAccess="routerPath.operationStores"
+                [navigationRouteOptions]="{exact: false}"
+                [navigationRoute]="[routerPath.operationStores]"
+                navigationIcon="store"
+                navigationText="Locales">
+        </app-inner-sidenav-navigation>
 
-            <app-inner-sidenav-navigation
-                    *appRouterAccess="routerPath.operationZones"
-                    navigationIcon="location_on"
-                    [navigationRoute]="[routerPath.operationZones]"
-                    [navigationRouteOptions]="{exact: false}"
-                    navigationText="Zonas">
-            </app-inner-sidenav-navigation>
+        <app-inner-sidenav-navigation
+                *appRouterAccess="routerPath.operationZones"
+                [navigationRouteOptions]="{exact: false}"
+                [navigationRoute]="[routerPath.operationZones]"
+                navigationIcon="location_on"
+                navigationText="Zonas">
+        </app-inner-sidenav-navigation>
 
-            <app-inner-sidenav-navigation-expansion
-                    *appRouterAccess="routerPath.operationCapacities"
-                    navigationIcon="date_range"
-                    navigationText="Capacidades"
-                    [navigationRoute]="routerPath.operationCapacities"
-                    [navigationDisabledChildren]="!innerSidenavExpanded"
-                    [navigationRouteOptions]="{exact: false}">
+        <app-inner-sidenav-navigation-expansion
+                *appRouterAccess="routerPath.operationCapacities"
+                [navigationDisabledChildren]="!innerSidenavExpanded"
+                [navigationRouteOptions]="{exact: false}"
+                [navigationRoute]="routerPath.operationCapacities"
+                navigationIcon="date_range"
+                navigationText="Capacidades">
 
-                <app-router
-                        [router]="routerPath.opCapacitiesAmPm"
-                        routerActive="inner-sidenav-navigation-active"
-                        routerClass="inner-sidenav-navigation-expansion-child">
-                    <span class="text-label">Editar AM/PM</span>
-                </app-router>
-                <app-router
-                        [router]="routerPath.opCapacitiesScheduled"
-                        routerActive="inner-sidenav-navigation-active"
-                        routerClass="inner-sidenav-navigation-expansion-child">
-                    <span class="text-label">Editar Programado</span>
-                </app-router>
-                <app-router
-                        [router]="routerPath.opCapacitiesExpress"
-                        routerActive="inner-sidenav-navigation-active"
-                        routerClass="inner-sidenav-navigation-expansion-child">
-                    <span class="text-label">Editar Express</span>
-                </app-router>
-                <app-router
-                        [router]="routerPath.opCapacitiesRet"
-                        routerActive="inner-sidenav-navigation-active"
-                        routerClass="inner-sidenav-navigation-expansion-child">
-                    <span class="text-label">Editar RET</span>
-                </app-router>
-                <app-router
-                        [router]="routerPath.opCapacitiesReport"
-                        routerActive="inner-sidenav-navigation-active"
-                        routerClass="inner-sidenav-navigation-expansion-child">
-                    <span class="text-label">Reporte Capacidades</span>
-                </app-router>
-            </app-inner-sidenav-navigation-expansion>
+            <app-router
+                    [router]="routerPath.opCapacitiesAmPm"
+                    routerActive="inner-sidenav-navigation-active"
+                    routerClass="inner-sidenav-navigation-expansion-child">
+                <span class="text-label">Editar AM/PM</span>
+            </app-router>
+            <app-router
+                    [router]="routerPath.opCapacitiesScheduled"
+                    routerActive="inner-sidenav-navigation-active"
+                    routerClass="inner-sidenav-navigation-expansion-child">
+                <span class="text-label">Editar Programado</span>
+            </app-router>
+            <app-router
+                    [router]="routerPath.opCapacitiesExpress"
+                    routerActive="inner-sidenav-navigation-active"
+                    routerClass="inner-sidenav-navigation-expansion-child">
+                <span class="text-label">Editar Express</span>
+            </app-router>
+            <app-router
+                    [router]="routerPath.opCapacitiesRet"
+                    routerActive="inner-sidenav-navigation-active"
+                    routerClass="inner-sidenav-navigation-expansion-child">
+                <span class="text-label">Editar RET</span>
+            </app-router>
+            <app-router
+                    [router]="routerPath.opCapacitiesReport"
+                    routerActive="inner-sidenav-navigation-active"
+                    routerClass="inner-sidenav-navigation-expansion-child">
+                <span class="text-label">Reporte Capacidades</span>
+            </app-router>
+        </app-inner-sidenav-navigation-expansion>
 
-            <app-inner-sidenav-navigation
-                    *appRouterAccess="routerPath.operationSettings"
-                    navigationIcon="settings"
-                    [navigationRoute]="[routerPath.operationSettings]"
-                    navigationText="Configuraciones">
-            </app-inner-sidenav-navigation>
-        </div>
+        <app-inner-sidenav-navigation
+                *appRouterAccess="routerPath.operationSettings"
+                [navigationRoute]="[routerPath.operationSettings]"
+                navigationIcon="settings"
+                navigationText="Configuraciones">
+        </app-inner-sidenav-navigation>
 
-    </section>
+    </ng-container>
 
     <ng-content sidenav-content></ng-content>
 </app-inner-sidenav>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppGuard } from '@guards/app.guard';
-import { BUSINESS_PATH } from '@parameters/router/routing-module-path.parameter';
+import { ROUTING } from '@parameters/router/routing.parameter';
 
 
 const routes: Routes = [
@@ -14,16 +14,16 @@ const routes: Routes = [
                 loadChildren: () => import('./business/business.module').then(m => m.BusinessModule)
             },
             {
-                path: BUSINESS_PATH.notFound.valueOf(),
+                path: ROUTING.notFound.valueOf(),
                 loadChildren: () => import('./core/pages/not-found/not-found.module').then(m => m.NotFoundModule)
             },
             {
-                path: BUSINESS_PATH.notInternetConnection.valueOf(),
+                path: ROUTING.notInternetConnection.valueOf(),
                 loadChildren: () => import('./core/pages/not-internet-connection/not-internet-connection.module').then(m => m.NotInternetConnectionModule)
             },
             {
-                path: BUSINESS_PATH.wildcard.valueOf(),
-                redirectTo: BUSINESS_PATH.notFound.valueOf()
+                path: ROUTING.wildcard.valueOf(),
+                redirectTo: ROUTING.notFound.valueOf()
             }
         ],
     },

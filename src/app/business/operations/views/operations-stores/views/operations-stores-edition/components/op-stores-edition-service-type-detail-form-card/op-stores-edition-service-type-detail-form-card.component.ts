@@ -6,7 +6,7 @@ import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { CStateValue } from '@models/state/state.model';
 import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
-import { IStoreServiceTypeUpdate } from '@interfaces/stores/stores.interface';
+import { IDrugstoreServiceTypeUpdate } from '@interfaces/drugstores/drugstores.interface';
 import { OpStoresEditionServiceTypeDetailFormCardFormService, StoreServiceTypeControlName } from './form/op-stores-edition-service-type-detail-form-card-form-service';
 import { CPaymentMethodName, EPaymentMethod } from '@models/payment-method/payment-method.model';
 import { OpStoresEditionServiceTypeDetailDialogService } from '../op-stores-edition-service-type-detail-dialog/op-stores-edition-service-type-detail-dialog.service';
@@ -149,12 +149,16 @@ export class OpStoresEditionServiceTypeDetailFormCardComponent implements OnInit
         this._serviceTypeDetailDialog.open(this.splitSegmentList);
     }
 
+    get serviceTypePath() {
+        return ROUTER_PATH.opStores_StoreServiceTypeEdition();
+    }
+
     cancelEditionEvent() {
         this.cancelEdition.emit();
     }
 
     saveEditionEvent() {
-        const storeServiceTypeUpdate = {} as IStoreServiceTypeUpdate;
+        const storeServiceTypeUpdate = {} as IDrugstoreServiceTypeUpdate;
         storeServiceTypeUpdate.enabled = this._serviceTypeDetailForm.stateControl.value;
         if (storeServiceTypeUpdate.enabled) {
             storeServiceTypeUpdate.startHour = DatesHelper.Date(this._serviceTypeDetailForm.startHourControl.value, DATES_FORMAT.millisecond)

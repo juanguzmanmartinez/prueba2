@@ -151,6 +151,10 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
         this._serviceTypeDetailDialog.open(this.splitSegmentList);
     }
 
+    get zoneServiceTypePath() {
+        return ROUTER_PATH.opZones_ZoneServiceTypeEdition();
+    }
+
     cancelEditionEvent() {
         this.cancelEdition.emit();
     }

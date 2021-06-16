@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CardActionComponent implements OnInit {
 
-    @Input() cardIcon: string;
+    @Input() cardIconSVG: string;
 
     constructor() {
     }

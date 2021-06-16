@@ -5,6 +5,7 @@ import { CStateValue } from '@models/state/state.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { CPaymentMethodName } from '@models/payment-method/payment-method.model';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
     selector: 'app-op-stores-edition-home-main-service-type-card',
@@ -52,6 +53,10 @@ export class OpStoresEditionHomeMainServiceTypeCardComponent implements OnInit {
                 .join(' - ');
         }
         return 'No habilitado';
+    }
+
+    get serviceTypePath() {
+        return ROUTER_PATH.opStores_StoreServiceTypeEdition();
     }
 
     editEvent() {
