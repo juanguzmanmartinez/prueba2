@@ -9,7 +9,7 @@ export enum ECapacityStepGroupOrDrugstore {
   drugstore = 'LOCAL'
 }
 
-export const CCapacityStepGroupOrLocalName = {
+export const CCapacityStepGroupOrDrugstoreName = {
   [ECapacityStepGroupOrDrugstore.group]: 'Grupo',
   [ECapacityStepGroupOrDrugstore.drugstore]: 'Local',
 };
@@ -17,60 +17,60 @@ export const CCapacityStepGroupOrLocalName = {
 @Injectable()
 export class OpCapacitiesStepGroupOrDrugstoreService {
 
-  private groupOrLocalListSubject = new BehaviorSubject<ICustomSelectOption[]>(null);
-  public defaultGroupOrLocalTabSelection: ECapacityStepGroupOrDrugstore = ECapacityStepGroupOrDrugstore.group;
-  private groupOrLocalCancelSubject = new BehaviorSubject<boolean>(null);
-  private groupOrLocalSaveSubject = new BehaviorSubject<ICustomSelectOption>(null);
-  private groupOrLocalStepStatusSubject = new BehaviorSubject<ECapacityStepStatus>(null);
-  private getGroupOrLocalTabSubject = new BehaviorSubject<ECapacityStepGroupOrDrugstore>(null);
-  public defaultGroupOrLocalSelection: ICustomSelectOption;
-  public defaultGroupOrLocalSelectionSaved: boolean;
+  public defaultGroupOrDrugstoreTabSelection: ECapacityStepGroupOrDrugstore = ECapacityStepGroupOrDrugstore.group;
+  public defaultGroupOrDrugstoreSelection: ICustomSelectOption;
+  public defaultGroupOrDrugstoreSelectionSaved: boolean;
+  private groupOrDrugstoreListSubject = new BehaviorSubject<ICustomSelectOption[]>(null);
+  private groupOrDrugstoreCancelSubject = new BehaviorSubject<boolean>(null);
+  private groupOrDrugstoreSaveSubject = new BehaviorSubject<ICustomSelectOption>(null);
+  private groupOrDrugstoreStepStatusSubject = new BehaviorSubject<ECapacityStepStatus>(null);
+  private getGroupOrDrugstoreTabSubject = new BehaviorSubject<ECapacityStepGroupOrDrugstore>(null);
 
 
   constructor() {
   }
 
-  get groupOrLocalStepStatus$(): Observable<ECapacityStepStatus> {
-    return this.groupOrLocalStepStatusSubject.asObservable()
-      .pipe(filter((value) => !!value));
+  get groupOrDrugstoreStepStatus$(): Observable<ECapacityStepStatus> {
+    return this.groupOrDrugstoreStepStatusSubject.asObservable()
+        .pipe(filter((value) => !!value));
   }
 
-  set groupOrLocalStepStatus(groupOrLocalDisabled: ECapacityStepStatus) {
-    this.groupOrLocalStepStatusSubject.next(groupOrLocalDisabled);
+  set groupOrDrugstoreStepStatus(groupOrDrugstoreDisabled: ECapacityStepStatus) {
+    this.groupOrDrugstoreStepStatusSubject.next(groupOrDrugstoreDisabled);
   }
 
-  get groupOrLocalTab$(): Observable<ECapacityStepGroupOrDrugstore> {
-    return this.getGroupOrLocalTabSubject.asObservable();
+  get groupOrDrugstoreTab$(): Observable<ECapacityStepGroupOrDrugstore> {
+    return this.getGroupOrDrugstoreTabSubject.asObservable();
   }
 
-  set groupOrLocalTab(groupList: ECapacityStepGroupOrDrugstore) {
-    this.getGroupOrLocalTabSubject.next(groupList);
+  set groupOrDrugstoreTab(groupList: ECapacityStepGroupOrDrugstore) {
+    this.getGroupOrDrugstoreTabSubject.next(groupList);
   }
 
-  get groupOrLocalList$(): Observable<ICustomSelectOption[]> {
-    return this.groupOrLocalListSubject.asObservable();
+  get groupOrDrugstoreList$(): Observable<ICustomSelectOption[]> {
+    return this.groupOrDrugstoreListSubject.asObservable();
   }
 
-  set groupOrLocalList(groupOrLocalList: ICustomSelectOption[]) {
-    this.groupOrLocalListSubject.next(groupOrLocalList);
+  set groupOrDrugstoreList(groupOrDrugstoreList: ICustomSelectOption[]) {
+    this.groupOrDrugstoreListSubject.next(groupOrDrugstoreList);
   }
 
-  get groupOrLocalCancel$(): Observable<boolean> {
-    return this.groupOrLocalCancelSubject.asObservable()
-      .pipe(filter((value) => !!value));
+  get groupOrDrugstoreCancel$(): Observable<boolean> {
+    return this.groupOrDrugstoreCancelSubject.asObservable()
+        .pipe(filter((value) => !!value));
   }
 
-  set groupOrLocalCancel(groupOrLocalCancel: boolean) {
-    this.groupOrLocalCancelSubject.next(groupOrLocalCancel);
+  set groupOrDrugstoreCancel(groupOrDrugstoreCancel: boolean) {
+    this.groupOrDrugstoreCancelSubject.next(groupOrDrugstoreCancel);
   }
 
-  get groupOrLocalSave$(): Observable<ICustomSelectOption> {
-    return this.groupOrLocalSaveSubject.asObservable()
-      .pipe(filter((value) => !!value));
+  get groupOrDrugstoreSave$(): Observable<ICustomSelectOption> {
+    return this.groupOrDrugstoreSaveSubject.asObservable()
+        .pipe(filter((value) => !!value));
   }
 
-  set groupOrLocalSave(groupOrLocalSelected: ICustomSelectOption) {
-    this.groupOrLocalSaveSubject.next(groupOrLocalSelected);
+  set groupOrDrugstoreSave(groupOrDrugstoreSelected: ICustomSelectOption) {
+    this.groupOrDrugstoreSaveSubject.next(groupOrDrugstoreSelected);
   }
 
 }

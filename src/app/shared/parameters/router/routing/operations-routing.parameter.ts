@@ -7,7 +7,7 @@ export const OPERATIONS_ROUTING = {
 };
 
 export const OP_CHILDREN_PATH = {
-    stores: 'locales',
+    drugstores: 'locales',
     zones: 'zonas',
     capacities: 'capacidades',
     settings: 'configuraciones'
@@ -21,10 +21,10 @@ export const OP_CAPACITIES_PATH = {
     capacityReport: 'reportes'
 };
 
-export const OP_STORES_PATH = {
-    storeCode: 'storeId',
-    storeEdition: 'editar-local',
-    storeServiceTypeEdition: 'storeServiceType',
+export const OP_DRUGSTORES_PATH = {
+    drugstoreCode: 'storeId',
+    drugstoreEdition: 'editar-local',
+    drugstoreServiceTypeEdition: 'storeServiceType',
 };
 
 export const OP_ZONES_PATH = {

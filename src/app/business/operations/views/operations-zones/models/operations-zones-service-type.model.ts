@@ -1,5 +1,5 @@
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
-import { ZonesStoreServiceType } from './operations-zones-store.model';
+import { ZonesDrugstoreServiceType } from './operations-zones-store.model';
 import { CStateValue, EState } from '@models/state/state.model';
 import { IZoneServiceType } from '@interfaces/zones/zones.interface';
 import { DatesHelper } from '@helpers/dates.helper';
@@ -39,7 +39,7 @@ export class ZoneServiceTypeRegistered {
 
     constructor(
         serviceType: ZoneServiceType,
-        storeServiceType: ZonesStoreServiceType,
+        storeServiceType: ZonesDrugstoreServiceType,
         serviceTypeCode: EDeliveryServiceType,
         serviceTypeChannel: EChannel
     ) {
@@ -74,7 +74,7 @@ export class ZoneServiceTypeList {
 
     constructor(
         zoneServiceTypeList: ZoneServiceType[],
-        zoneStoreServiceTypeList: ZonesStoreServiceType[],
+        zoneStoreServiceTypeList: ZonesDrugstoreServiceType[],
         zoneChannel: EChannel
     ) {
         const zoneAmPm: ZoneServiceType = zoneServiceTypeList
@@ -86,13 +86,13 @@ export class ZoneServiceTypeList {
         const zoneRet: ZoneServiceType = zoneServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.ret);
 
-        const zoneStoreAmPm: ZonesStoreServiceType = zoneStoreServiceTypeList
+        const zoneStoreAmPm: ZonesDrugstoreServiceType = zoneStoreServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.amPm);
-        const zoneStoreExpress: ZonesStoreServiceType = zoneStoreServiceTypeList
+        const zoneStoreExpress: ZonesDrugstoreServiceType = zoneStoreServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.express);
-        const zoneStoreScheduled: ZonesStoreServiceType = zoneStoreServiceTypeList
+        const zoneStoreScheduled: ZonesDrugstoreServiceType = zoneStoreServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.scheduled);
-        const zoneStoreRet: ZonesStoreServiceType = zoneStoreServiceTypeList
+        const zoneStoreRet: ZonesDrugstoreServiceType = zoneStoreServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.ret);
 
         this.amPm = new ZoneServiceTypeRegistered(zoneAmPm, zoneStoreAmPm, EDeliveryServiceType.amPm, zoneChannel);
@@ -108,7 +108,7 @@ export class ZoneChannelServiceTypeList {
 
     constructor(
         zoneServiceTypeList: ZoneServiceType[],
-        zoneStoreServiceTypeList: ZonesStoreServiceType[],
+        zoneStoreServiceTypeList: ZonesDrugstoreServiceType[],
         zoneChannel: EChannel) {
 
         const zoneChannelServiceTypeList: ZoneServiceType[] = zoneServiceTypeList

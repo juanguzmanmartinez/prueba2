@@ -14,16 +14,16 @@ export class UserPermissions {
 
 }
 
-export class LocalPermissions {
+export class DefaultPermissions {
     roles: Role[];
     access: Access;
-    parent: LocalPermissions;
+    parent: DefaultPermissions;
     children: Access[];
 
     constructor(
         roles: Role[],
         access: Access,
-        parent?: LocalPermissions,
+        parent?: DefaultPermissions,
         children?: Access[],
     ) {
         this.roles = roles;

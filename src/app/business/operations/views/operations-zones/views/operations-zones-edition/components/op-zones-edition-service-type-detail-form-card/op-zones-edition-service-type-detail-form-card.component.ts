@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { OpZonesEditionServiceTypeDetailDialogService } from '../op-zones-edition-service-type-detail-dialog/op-zones-edition-service-type-detail-dialog.service';
-import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
+import { ZonesDrugstoreServiceType } from '../../../../models/operations-zones-store.model';
 import { ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
 import { AlertService } from '@molecules/alert/alert.service';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
@@ -42,7 +42,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
 
     @Input() zoneDetail: ZoneDetail;
     @Input() zoneServiceType: ZoneServiceType;
-    @Input() zonesStoreServiceType: ZonesStoreServiceType;
+    @Input() zonesStoreServiceType: ZonesDrugstoreServiceType;
 
     @Output() cancelEdition = new EventEmitter();
     @Output() saveEdition = new EventEmitter();

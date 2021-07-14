@@ -4,7 +4,7 @@ import { DialogOneActionService } from '@molecules/dialog/views/dialog-one-actio
 import { UserStoreService } from '@stores/user-store.service';
 import { Role } from '@parameters/auth/role.parameter';
 import { PERMISSIONS } from '@parameters/auth/permissions.parameter';
-import { LocalPermissions } from '@models/auth/permissions.model';
+import { DefaultPermissions } from '@models/auth/permissions.model';
 
 @Directive({
     selector: '[editionAccess][pathAccess]'
@@ -16,7 +16,7 @@ export class EditionAccessDirective implements AfterViewInit {
     @Input() pathAccess: string;
     @Output() editionAccess = new EventEmitter();
     private editorRole = Role.Editor;
-    private localPermissions = PERMISSIONS;
+    private defaultPermissions = PERMISSIONS;
 
     constructor(
         private _router: Router,
@@ -45,11 +45,11 @@ export class EditionAccessDirective implements AfterViewInit {
 
     ngAfterViewInit() {
         if (this.enableAccess) {
-            const localPermissions: LocalPermissions = this.pathAccess ? this.localPermissions[this.pathAccess] : null;
-            const hasAccessByRole = this.userStore.hasAccessByRole(this.editorRole, localPermissions?.access);
-            const localCanEdit = !!localPermissions.roles.find((role) => role === this.editorRole);
+            const defaultPermissions: DefaultPermissions = this.pathAccess ? this.defaultPermissions[this.pathAccess] : null;
+            const hasAccessByRole = this.userStore.hasAccessByRole(this.editorRole, defaultPermissions?.access);
+            const defaultPermissionCanEdit = !!defaultPermissions.roles.find((role) => role === this.editorRole);
 
-            this.hasEditionAccess = !!hasAccessByRole && !!localCanEdit;
+            this.hasEditionAccess = !!hasAccessByRole && !!defaultPermissionCanEdit;
             if (!this.hasEditionAccess) {
                 this.renderer.addClass(this.elementRef.nativeElement, 'cursor-pointer');
                 this.renderer.addClass(this.elementRef.nativeElement, 'd-inline-block');

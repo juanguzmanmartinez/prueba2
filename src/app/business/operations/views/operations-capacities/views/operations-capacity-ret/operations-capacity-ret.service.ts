@@ -14,7 +14,7 @@ export class OperationsCapacityRetService implements OnDestroy {
 
   constructor(
       private _operationsCapacityRetStore: OperationsCapacityRetStoreService,
-      private _opCapacitiesStepGroupOrLocal: OpCapacitiesStepGroupOrDrugstoreService,
+      private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
       private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
       private _router: Router,
   ) {
@@ -41,11 +41,11 @@ export class OperationsCapacityRetService implements OnDestroy {
 
   set serviceQueryParams(serviceQueryParams: IOpCapacitiesServiceTypeQueryParams) {
     if (serviceQueryParams.groupOrDrugstore) {
-      this._opCapacitiesStepGroupOrLocal.defaultGroupOrLocalTabSelection = serviceQueryParams.groupOrDrugstore;
+      this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreTabSelection = serviceQueryParams.groupOrDrugstore;
     }
     if (serviceQueryParams.groupOrDrugstore && serviceQueryParams.drugstoreCode) {
-      this._opCapacitiesStepGroupOrLocal.defaultGroupOrLocalSelection = {fulfillmentCenterCode: serviceQueryParams.drugstoreCode} as ICustomSelectOption;
-      this._opCapacitiesStepGroupOrLocal.defaultGroupOrLocalSelectionSaved = true;
+      this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelection = {fulfillmentCenterCode: serviceQueryParams.drugstoreCode} as ICustomSelectOption;
+      this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelectionSaved = true;
     }
     if (serviceQueryParams.groupOrDrugstore && serviceQueryParams.drugstoreCode && serviceQueryParams.editionMode) {
       this._opCapacitiesStepEditionMode.defaultEditionModeSelection = serviceQueryParams.editionMode;

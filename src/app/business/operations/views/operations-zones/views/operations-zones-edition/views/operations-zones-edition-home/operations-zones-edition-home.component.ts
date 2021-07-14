@@ -13,7 +13,7 @@ import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { AlertService } from '@molecules/alert/alert.service';
-import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
+import { ZonesDrugstoreServiceType } from '../../../../models/operations-zones-store.model';
 import { CChannelRoute, EChannel } from '@models/channel/channel.model';
 import { CZoneServiceTypeSegmentGap, ZoneServiceTypeBasicRequest } from '../../../../parameters/operations-zones-service-type.parameter';
 import { OperationsZonesEditionActionsStoreService } from '../../stores/operations-zones-edition-actions-store.service';
@@ -150,7 +150,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
 
     registerServiceType(serviceType: ZoneServiceTypeBasicRequest) {
         const assignedStoreServiceType = this.zoneDetail?.assignedStore.serviceTypeList
-            .find((storeServiceType: ZonesStoreServiceType) => storeServiceType.code === serviceType.code);
+            .find((storeServiceType: ZonesDrugstoreServiceType) => storeServiceType.code === serviceType.code);
 
         if (assignedStoreServiceType) {
             const zoneServiceTypRegister = {

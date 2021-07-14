@@ -4,32 +4,32 @@ import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { EDeliveryType } from '@models/service-type/delivery-service-type.model';
 
-export class ZonesStore {
+export class ZonesDrugstore {
     name: string;
     code: string;
-    serviceTypeList: ZonesStoreServiceType[];
+    serviceTypeList: ZonesDrugstoreServiceType[];
     deliveryType: EDeliveryType;
 
-    constructor(iStore: IDrugstore) {
-        this.code = iStore.localCode || null;
-        this.name = iStore.name || null;
-        this.deliveryType = iStore.localType || null;
-        this.serviceTypeList = iStore.services?.length ? iStore.services
-            .map((serviceType) => new ZonesStoreServiceType(serviceType)) : [];
+    constructor(iDrugstore: IDrugstore) {
+        this.code = iDrugstore.localCode || null;
+        this.name = iDrugstore.name || null;
+        this.deliveryType = iDrugstore.localType || null;
+        this.serviceTypeList = iDrugstore.services?.length ? iDrugstore.services
+            .map((serviceType) => new ZonesDrugstoreServiceType(serviceType)) : [];
     }
 }
 
-export class ZonesStoreServiceType {
+export class ZonesDrugstoreServiceType {
     code: string;
     state: EState;
     startHour: number;
     endHour: number;
 
-    constructor(iStoreService: IDrugstoreServiceType) {
-        this.code = iStoreService.code || null;
-        this.state = iStoreService.enabled ? EState.active : EState.inactive;
-        this.startHour = DatesHelper.date(iStoreService.startHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
-        this.endHour = DatesHelper.date(iStoreService.endHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
+    constructor(iDrugstoreServiceType: IDrugstoreServiceType) {
+        this.code = iDrugstoreServiceType.code || null;
+        this.state = iDrugstoreServiceType.enabled ? EState.active : EState.inactive;
+        this.startHour = DatesHelper.date(iDrugstoreServiceType.startHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
+        this.endHour = DatesHelper.date(iDrugstoreServiceType.endHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
     }
 
 }

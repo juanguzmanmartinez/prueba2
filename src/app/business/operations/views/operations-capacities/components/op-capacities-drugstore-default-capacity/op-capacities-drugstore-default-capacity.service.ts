@@ -7,58 +7,58 @@ import { CapacitiesDrugstore, CapacitiesDrugstoreServiceDefaultCapacity, Capacit
 @Injectable()
 export class OpCapacitiesDrugstoreDefaultCapacityService {
 
-    private localDefaultCapacityLocalListSubject = new BehaviorSubject<CapacitiesDrugstore[]>(null);
-    private localDefaultCapacityLocalSelectionSubject = new BehaviorSubject<CapacitiesDrugstore>(null);
-    private localDefaultCapacityLocalServiceTypeListSubject = new BehaviorSubject<CapacitiesDrugstoreServiceDefaultCapacity[]>(null);
-    private localDefaultCapacityLocalServiceTypeSelectionSubject = new BehaviorSubject<CapacitiesDrugstoreServiceDefaultCapacity>(null);
-    private localDefaultCapacityListSubject = new BehaviorSubject<CapacitiesServiceType>(null);
+    private drugstoreListSubject = new BehaviorSubject<CapacitiesDrugstore[]>(null);
+    private drugstoreSelectionSubject = new BehaviorSubject<CapacitiesDrugstore>(null);
+    private drugstoreServiceTypeListSubject = new BehaviorSubject<CapacitiesDrugstoreServiceDefaultCapacity[]>(null);
+    private drugstoreServiceTypeSelectionSubject = new BehaviorSubject<CapacitiesDrugstoreServiceDefaultCapacity>(null);
+    private drugstoreDefaultCapacityListSubject = new BehaviorSubject<CapacitiesServiceType>(null);
 
     constructor() {
     }
 
-    get drugstoreDefaultCapacityDrugstoreList$(): Observable<CapacitiesDrugstore[]> {
-        return this.localDefaultCapacityLocalListSubject.asObservable()
+    get drugstoreList$(): Observable<CapacitiesDrugstore[]> {
+        return this.drugstoreListSubject.asObservable()
             .pipe(filter((value) => !!value));
     }
 
-    set localDefaultCapacityLocalList(capacitiesLocalList: CapacitiesDrugstore[]) {
-        this.localDefaultCapacityLocalListSubject.next(capacitiesLocalList);
+    set drugstoreList(capacitiesDrugstoreList: CapacitiesDrugstore[]) {
+        this.drugstoreListSubject.next(capacitiesDrugstoreList);
     }
 
-    get localDefaultCapacityLocalSelection$(): Observable<CapacitiesDrugstore> {
-        return this.localDefaultCapacityLocalSelectionSubject.asObservable()
+    get drugstoreSelection$(): Observable<CapacitiesDrugstore> {
+        return this.drugstoreSelectionSubject.asObservable()
             .pipe(filter((value) => !!value));
     }
 
-    set drugstoreDefaultCapacityDrugstoreSelection(capacitiesLocal: CapacitiesDrugstore) {
-        this.localDefaultCapacityLocalSelectionSubject.next(capacitiesLocal);
+    set drugstoreSelection(capacitiesDrugstore: CapacitiesDrugstore) {
+        this.drugstoreSelectionSubject.next(capacitiesDrugstore);
     }
 
-    get drugstoreDefaultCapacityDrugstoreServiceList$(): Observable<CapacitiesDrugstoreServiceDefaultCapacity[]> {
-        return this.localDefaultCapacityLocalServiceTypeListSubject.asObservable()
+    get drugstoreServiceList$(): Observable<CapacitiesDrugstoreServiceDefaultCapacity[]> {
+        return this.drugstoreServiceTypeListSubject.asObservable()
             .pipe(filter((value) => !!value));
     }
 
-    set localDefaultCapacityLocalServiceList(serviceDefaultCapacityList: CapacitiesDrugstoreServiceDefaultCapacity[]) {
-        this.localDefaultCapacityLocalServiceTypeListSubject.next(serviceDefaultCapacityList);
+    set drugstoreServiceList(serviceDefaultCapacityList: CapacitiesDrugstoreServiceDefaultCapacity[]) {
+        this.drugstoreServiceTypeListSubject.next(serviceDefaultCapacityList);
     }
 
-    get localDefaultCapacityLocalServiceTypeSelection$(): Observable<CapacitiesDrugstoreServiceDefaultCapacity> {
-        return this.localDefaultCapacityLocalServiceTypeSelectionSubject.asObservable()
+    get drugstoreServiceTypeSelection$(): Observable<CapacitiesDrugstoreServiceDefaultCapacity> {
+        return this.drugstoreServiceTypeSelectionSubject.asObservable()
             .pipe(filter((value) => !!value));
     }
 
-    set drugstoreDefaultCapacityDrugstoreServiceTypeSelection(serviceDefaultCapacity: CapacitiesDrugstoreServiceDefaultCapacity) {
-        this.localDefaultCapacityLocalServiceTypeSelectionSubject.next(serviceDefaultCapacity);
+    set drugstoreServiceTypeSelection(serviceDefaultCapacity: CapacitiesDrugstoreServiceDefaultCapacity) {
+        this.drugstoreServiceTypeSelectionSubject.next(serviceDefaultCapacity);
     }
 
     get drugstoreDefaultCapacityList$(): Observable<CapacitiesServiceType> {
-        return this.localDefaultCapacityListSubject.asObservable()
+        return this.drugstoreDefaultCapacityListSubject.asObservable()
             .pipe(filter((value) => !!value));
     }
 
-    set localDefaultCapacityList(capacitiesServiceType: CapacitiesServiceType) {
-        this.localDefaultCapacityListSubject.next(capacitiesServiceType);
+    set drugstoreDefaultCapacityList(capacitiesServiceType: CapacitiesServiceType) {
+        this.drugstoreDefaultCapacityListSubject.next(capacitiesServiceType);
     }
 
 }

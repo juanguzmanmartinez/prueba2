@@ -8,7 +8,7 @@ import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceTy
 import { IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { AlertService } from '@molecules/alert/alert.service';
-import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
+import { ZonesDrugstoreServiceType } from '../../../../models/operations-zones-store.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
 import { CChannelName, CChannelRoute, EChannel } from '@models/channel/channel.model';
@@ -27,7 +27,7 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     public serviceType: EDeliveryServiceType;
     public channel: EChannel;
     public zoneServiceType: ZoneServiceType;
-    public zonesStoreServiceType: ZonesStoreServiceType;
+    public zonesStoreServiceType: ZonesDrugstoreServiceType;
     public serviceTypeName = CDeliveryServiceTypeName;
     public channelName = CChannelName;
 
@@ -77,7 +77,7 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
         this.zoneServiceType = this.zoneDetail?.serviceTypeList
             .find((serviceType: ZoneServiceType) => serviceType.code === this.serviceType && serviceType.channel === this.channel);
         this.zonesStoreServiceType = this.zoneDetail?.assignedStore.serviceTypeList
-            .find((serviceType: ZonesStoreServiceType) => serviceType.code === this.serviceType);
+            .find((serviceType: ZonesDrugstoreServiceType) => serviceType.code === this.serviceType);
         this.editionServiceTypeLoader = !this.zoneDetail;
 
         if (!this.zoneServiceType && !this.editionServiceTypeLoader) {

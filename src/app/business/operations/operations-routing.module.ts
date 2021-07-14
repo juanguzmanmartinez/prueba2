@@ -8,10 +8,10 @@ import { OP_CHILDREN_PATH } from '@parameters/router/routing/operations-routing.
 import { PERMISSIONS } from '@parameters/auth/permissions.parameter';
 
 const STORES: Route = {
-    path: OP_CHILDREN_PATH.stores.valueOf(),
+    path: OP_CHILDREN_PATH.drugstores.valueOf(),
     canLoad: [PermissionsGuard],
-    data: {permissions: PERMISSIONS[ROUTER_PATH.operationStores.valueOf()]},
-    loadChildren: () => import('./views/operations-stores/operations-stores.module').then(m => m.OperationsStoresModule),
+    data: {permissions: PERMISSIONS[ROUTER_PATH.operationDrugstores.valueOf()]},
+    loadChildren: () => import('./views/operations-drugstores/operations-drugstores.module').then(m => m.OperationsDrugstoresModule),
 };
 
 const ZONES: Route = {

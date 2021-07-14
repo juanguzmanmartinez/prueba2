@@ -19,13 +19,13 @@ export class CapacitiesDrugstore {
     startHour: string;
     endHour: string;
     drugstoreWareHouseId: number;
-    localType: string;
+    drugstoreType: string;
     services: IDrugstoreServiceType[];
 
-    constructor(iLocal: IDrugstore) {
-        const local = isObject(iLocal) ? iLocal : {} as IDrugstore;
-        this.drugstoreCode = local.localCode;
-        this.name = local.name;
+    constructor(iDrugstore: IDrugstore) {
+        const validIDrugstore = isObject(iDrugstore) ? iDrugstore : {} as IDrugstore;
+        this.drugstoreCode = validIDrugstore.localCode;
+        this.name = validIDrugstore.name;
     }
 }
 
@@ -52,15 +52,15 @@ export class CapacityServiceTypeSegment extends ServiceTypeSegment {
 
 export class CapacitiesServiceType extends ServiceType {
 
-    constructor(store: IServiceType) {
+    constructor(iServiceType: IServiceType) {
         super();
-        const currentValue = isObject(store) ? store : {} as IServiceType;
+        const currentValue = isObject(iServiceType) ? iServiceType : {} as IServiceType;
         this.capacitiesQuantity = currentValue.capacitiesQuantity || 0;
         this.segmentList = currentValue.segments ? currentValue.segments
             .map((iServiceTypeSegment) => new CapacityServiceTypeSegment(iServiceTypeSegment)) : [];
         this.serviceTypeCode = currentValue.serviceTypeCode || '';
-        this.startDay = store.startDay ? DatesHelper.Date(store.startDay, DATES_FORMAT.yearMonthDay).valueOf() : null;
-        this.endDay = store.endDay ? DatesHelper.Date(store.endDay, DATES_FORMAT.yearMonthDay).valueOf() : null;
+        this.startDay = iServiceType.startDay ? DatesHelper.Date(iServiceType.startDay, DATES_FORMAT.yearMonthDay).valueOf() : null;
+        this.endDay = iServiceType.endDay ? DatesHelper.Date(iServiceType.endDay, DATES_FORMAT.yearMonthDay).valueOf() : null;
     }
 
 }

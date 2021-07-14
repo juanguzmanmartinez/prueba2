@@ -13,56 +13,56 @@ export class OperationsCapacityHomeStoreService implements OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    private capacitiesLocalSelection: CapacitiesDrugstore;
+    private capacitiesDrugstoreSelection: CapacitiesDrugstore;
 
     constructor(
         private _operationsCapacityImplement: OperationsCapacitiesImplementService,
-        private _opCapacitiesLocalDefaultCapacity: OpCapacitiesDrugstoreDefaultCapacityService,
+        private _opCapacitiesDrugstoreDefaultCapacity: OpCapacitiesDrugstoreDefaultCapacityService,
         private _alertService: AlertService,
     ) {
-        this.getLocalList();
-        this.getLocalSelection();
-        this.getLocalServiceTypeSelection();
+        this.getDrugstoreList();
+        this.getDrugstoreSelection();
+        this.getDrugstoreServiceTypeSelection();
     }
 
     ngOnDestroy(): void {
         this.subscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
-    getLocalList() {
-        this._operationsCapacityImplement.getLocalImplement$()
-            .subscribe((capacitiesLocalList: CapacitiesDrugstore[]) => {
-                this._opCapacitiesLocalDefaultCapacity.localDefaultCapacityLocalList = capacitiesLocalList;
+    getDrugstoreList() {
+        this._operationsCapacityImplement.getDrugstoreImplement$()
+            .subscribe((capacitiesDrugstoreList: CapacitiesDrugstore[]) => {
+                this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList = capacitiesDrugstoreList;
             });
     }
 
-    getLocalSelection() {
-        const subscription = this._opCapacitiesLocalDefaultCapacity.localDefaultCapacityLocalSelection$
-            .subscribe((capacityLocalSelection: CapacitiesDrugstore) => {
-                this.capacitiesLocalSelection = capacityLocalSelection;
-                this.getLocalAvailableServices(capacityLocalSelection);
+    getDrugstoreSelection() {
+        const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreSelection$
+            .subscribe((capacityDrugstoreSelection: CapacitiesDrugstore) => {
+                this.capacitiesDrugstoreSelection = capacityDrugstoreSelection;
+                this.getDrugstoreAvailableServices(capacityDrugstoreSelection);
             });
         this.subscriptions.push(subscription);
     }
 
 
-    getLocalAvailableServices(capacityLocal: CapacitiesDrugstore) {
-        this._operationsCapacityImplement.getCalendarDefaultCapacitiesImplement$(capacityLocal)
+    getDrugstoreAvailableServices(drugstore: CapacitiesDrugstore) {
+        this._operationsCapacityImplement.getCalendarDefaultCapacitiesImplement$(drugstore)
             .subscribe((serviceDefaultCapacityList: CapacitiesDrugstoreServiceDefaultCapacity[]) => {
-                this._opCapacitiesLocalDefaultCapacity.localDefaultCapacityLocalServiceList = serviceDefaultCapacityList;
+                this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceList = serviceDefaultCapacityList;
             });
 
     }
 
-    getLocalServiceTypeSelection() {
-        const subscription = this._opCapacitiesLocalDefaultCapacity.localDefaultCapacityLocalServiceTypeSelection$
-            .subscribe((localService: CapacitiesDrugstoreServiceDefaultCapacity) => {
-                const localSelection = {fulfillmentCenterCode: this.capacitiesLocalSelection.drugstoreCode} as ICustomSelectOption;
+    getDrugstoreServiceTypeSelection() {
+        const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceTypeSelection$
+            .subscribe((drugstoreService: CapacitiesDrugstoreServiceDefaultCapacity) => {
+                const drugstoreSelection = {fulfillmentCenterCode: this.capacitiesDrugstoreSelection.drugstoreCode} as ICustomSelectOption;
 
                 this._operationsCapacityImplement.getTypeOperationImplements$(
-                    ECapacitiesStepEditionMode.default, localSelection, localService.serviceType)
+                    ECapacitiesStepEditionMode.default, drugstoreSelection, drugstoreService.serviceType)
                     .subscribe((capacitiesServiceType) => {
-                        this._opCapacitiesLocalDefaultCapacity.localDefaultCapacityList = capacitiesServiceType;
+                        this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityList = capacitiesServiceType;
                     });
             });
         this.subscriptions.push(subscription);

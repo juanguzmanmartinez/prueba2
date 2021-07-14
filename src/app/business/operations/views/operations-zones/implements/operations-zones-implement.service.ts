@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { IZone, IZoneBackupUpdate, IZoneDetail, IZoneDetailUpdate, IZoneServiceTypeRegister, IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { Zone, ZoneDetail } from '../models/operations-zones.model';
 import { DrugstoresClientService } from '@clients/drugstores/drugstores-client.service';
-import { ZonesStore } from '../models/operations-zones-store.model';
+import { ZonesDrugstore } from '../models/operations-zones-store.model';
 import { IDrugstore } from '@interfaces/drugstores/drugstores.interface';
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
@@ -43,8 +43,8 @@ export class OperationsZonesImplementService {
     get storeList() {
         return this.storesClient.getDrugstoreList()
             .pipe(
-                map((storeList: IDrugstore[]) => {
-                    return storeList ? storeList.map(store => new ZonesStore(store)) : [];
+                map((drugstoreList: IDrugstore[]) => {
+                    return drugstoreList ? drugstoreList.map(drugstore => new ZonesDrugstore(drugstore)) : [];
                 }));
     }
 

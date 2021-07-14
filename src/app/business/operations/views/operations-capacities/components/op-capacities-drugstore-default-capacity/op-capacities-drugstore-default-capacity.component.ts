@@ -49,7 +49,7 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent implements OnInit, On
     }
 
     updateDefaultCapacityDrugstoreList() {
-        const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityDrugstoreList$
+        const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList$
             .subscribe((capacitiesDrugstoreList) => {
                 this.capacitiesDrugstoreList = capacitiesDrugstoreList;
                 this.changeCapacitiesDrugstoreSelection(capacitiesDrugstoreList[0]);
@@ -59,12 +59,12 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent implements OnInit, On
 
     changeCapacitiesDrugstoreSelection(capacitiesDrugstore: CapacitiesDrugstore) {
         this.capacitiesDrugstoreSelection = capacitiesDrugstore;
-        this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityDrugstoreSelection = capacitiesDrugstore;
+        this._opCapacitiesDrugstoreDefaultCapacity.drugstoreSelection = capacitiesDrugstore;
         this.resetDrugstoreServiceList();
     }
 
     updateDefaultCapacityDrugstoreServiceList() {
-        const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityDrugstoreServiceList$
+        const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceList$
             .subscribe((drugstoreServiceList: CapacitiesDrugstoreServiceDefaultCapacity[]) => {
                 this.resetDrugstoreServiceList();
                 drugstoreServiceList.forEach((drugstoreService) => {
@@ -122,7 +122,7 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent implements OnInit, On
 
     drugstoreDefaultCapacityViewMore(drugstoreService: CapacitiesDrugstoreServiceDefaultCapacity) {
         this.drugstoreDefaultCapacitySelection = drugstoreService;
-        this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityDrugstoreServiceTypeSelection = drugstoreService;
+        this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceTypeSelection = drugstoreService;
     }
 
     drugstoreDefaultCapacityEditService(drugstoreService: CapacitiesDrugstoreServiceDefaultCapacity) {

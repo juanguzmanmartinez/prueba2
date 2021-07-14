@@ -1,5 +1,5 @@
 import { ROUTING } from '@parameters/router/routing.parameter';
-import { OP_CAPACITIES_PATH, OP_CHILDREN_PATH, OP_STORES_PATH, OP_ZONES_PATH } from '@parameters/router/routing/operations-routing.parameter';
+import { OP_CAPACITIES_PATH, OP_CHILDREN_PATH, OP_DRUGSTORES_PATH, OP_ZONES_PATH } from '@parameters/router/routing/operations-routing.parameter';
 import { AC_CHILDREN_PATH } from '@parameters/router/routing/account-routing.parameter';
 import { AD_CHILDREN_PATH } from '@parameters/router/routing/administrator-routing.parameter';
 
@@ -21,10 +21,10 @@ export const ROUTER_PATH = {
     operations: `/${ROUTING.operations}`,
     operationSettings: `/${ROUTING.operations}/${OP_CHILDREN_PATH.settings}`,
 
-    operationStores: `/${ROUTING.operations}/${OP_CHILDREN_PATH.stores}`,
-    opStores_Store: (storeCode = '?') => `/${ROUTING.operations}/${OP_CHILDREN_PATH.stores}/${storeCode}`,
-    opStores_StoreEdition: (storeCode = '?') => `/${ROUTING.operations}/${OP_CHILDREN_PATH.stores}/${storeCode}/${OP_STORES_PATH.storeEdition}`,
-    opStores_StoreServiceTypeEdition: (storeCode = '?', serviceType = '?') => `/${ROUTING.operations}/${OP_CHILDREN_PATH.stores}/${storeCode}/${serviceType}`,
+    operationDrugstores: `/${ROUTING.operations}/${OP_CHILDREN_PATH.drugstores}`,
+    opDrugstores_Drugstore: (drugstoreCode = '?') => `/${ROUTING.operations}/${OP_CHILDREN_PATH.drugstores}/${drugstoreCode}`,
+    opDrugstores_DrugstoreEdition: (drugstoreCode = '?') => `/${ROUTING.operations}/${OP_CHILDREN_PATH.drugstores}/${drugstoreCode}/${OP_DRUGSTORES_PATH.drugstoreEdition}`,
+    opDrugstores_DrugstoreServiceTypeEdition: (drugstoreCode = '?', serviceType = '?') => `/${ROUTING.operations}/${OP_CHILDREN_PATH.drugstores}/${drugstoreCode}/${serviceType}`,
 
     operationZones: `/${ROUTING.operations}/${OP_CHILDREN_PATH.zones}`,
     opZones_Zone: (zoneCode = '?') => `/${ROUTING.operations}/${OP_CHILDREN_PATH.zones}/${zoneCode}`,

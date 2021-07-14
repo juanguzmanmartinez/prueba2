@@ -27,20 +27,20 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   private operationsCapacityAmPmCancelSubject = new BehaviorSubject<boolean>(false);
   private operationsCapacityAmPmSaveSubject = new BehaviorSubject<boolean>(false);
 
-  private groupOrLocalTabSelection: ECapacityStepGroupOrDrugstore;
-  private groupOrLocalSelection: ICustomSelectOption;
+  private groupOrDrugstoreTabSelection: ECapacityStepGroupOrDrugstore;
+  private groupOrDrugstoreSelection: ICustomSelectOption;
   private editionModeSelection: ECapacitiesStepEditionMode;
   private amPmCapacitySelection: ICapacityStepCapacityTableSegments;
 
   constructor(
       private _operationsCapacityImplement: OperationsCapacitiesImplementService,
-      private _opCapacitiesStepGroupOrLocal: OpCapacitiesStepGroupOrDrugstoreService,
+      private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
       private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
       private _opCapacitiesStepAmPmCapacity: OpCapacitiesStepCapacityTableService,
       private _alertService: AlertService,
   ) {
-    this.groupOrLocalTab();
-    this.groupOrLocalActions();
+    this.groupOrDrugstoreTab();
+    this.groupOrDrugstoreActions();
     this.editionModeActions();
     this.amPmCapacityActions();
     this.initService();
@@ -53,7 +53,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
     const request = {} as ICalendarUpdateRequestParams;
     request.serviceTypeCode = this.amPmCapacityId;
     request.channel = this.amPmChannel;
-    request.fulfillmentCenterCode = this.groupOrLocalSelection.fulfillmentCenterCode;
+    request.fulfillmentCenterCode = this.groupOrDrugstoreSelection.fulfillmentCenterCode;
     request.quantities = this.amPmCapacitySelection?.capacitySegmentList ?
         this.amPmCapacitySelection.capacitySegmentList
             .map(segment => segment.segmentCapacity || 0).join(',') : '';
@@ -65,7 +65,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
           this.amPmCapacitySelection.capacityRange.endDate,
           this.amPmCapacitySelection.capacityRange.startDate);
     }
-    if (this.groupOrLocalTabSelection === ECapacityStepGroupOrDrugstore.group) {
+    if (this.groupOrDrugstoreTabSelection === ECapacityStepGroupOrDrugstore.group) {
       request.filter = ECapacityStepGroupOrDrugstore.group;
     }
     return request;
@@ -79,36 +79,36 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
     this._opCapacitiesStepAmPmCapacity.capacityTableEditionAccessPath = ROUTER_PATH.opCapacitiesAmPm;
   }
 
-  getLocalGroupList() {
-    const subscription = this._operationsCapacityImplement.getLocalGroupImplements$(this.amPmCapacityId)
+  getDrugstoreGroupList() {
+    const subscription = this._operationsCapacityImplement.getDrugstoreGroupImplements$(this.amPmCapacityId)
         .subscribe((stores: ICustomSelectOption[]) => {
-          this._opCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
+          this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreList = stores;
         });
     this.subscriptions.push(subscription);
   }
 
-  getLocalList() {
-    const subscription = this._operationsCapacityImplement.getLocalByServiceTypeImplement$(this.amPmCapacityId)
-      .subscribe((stores: ICustomSelectOption[]) => {
-        this._opCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
-      });
+  getDrugstoreList() {
+    const subscription = this._operationsCapacityImplement.getDrugstoreByServiceTypeImplement$(this.amPmCapacityId)
+        .subscribe((stores: ICustomSelectOption[]) => {
+          this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreList = stores;
+        });
     this.subscriptions.push(subscription);
   }
 
-  groupOrLocalActions() {
-    const subscriptionSave = this._opCapacitiesStepGroupOrLocal.groupOrLocalSave$
-      .subscribe((local: ICustomSelectOption) => {
-        this.groupOrLocalSelection = local;
-        this._opCapacitiesStepEditionMode.editionModeResetStepStatus = true;
-        this._opCapacitiesStepAmPmCapacity.capacityTableResetStepStatus = true;
-        this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.open;
-        this._opCapacitiesStepAmPmCapacity.capacityTableStepStatus = ECapacityStepStatus.disabled;
-      });
+  groupOrDrugstoreActions() {
+    const subscriptionSave = this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreSave$
+        .subscribe((drugstore: ICustomSelectOption) => {
+          this.groupOrDrugstoreSelection = drugstore;
+          this._opCapacitiesStepEditionMode.editionModeResetStepStatus = true;
+          this._opCapacitiesStepAmPmCapacity.capacityTableResetStepStatus = true;
+          this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.open;
+          this._opCapacitiesStepAmPmCapacity.capacityTableStepStatus = ECapacityStepStatus.disabled;
+        });
 
-    const subscriptionCancel = this._opCapacitiesStepGroupOrLocal.groupOrLocalCancel$
-      .subscribe(() => {
-        this.operationsCapacityAmPmCancel = true;
-      });
+    const subscriptionCancel = this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreCancel$
+        .subscribe(() => {
+          this.operationsCapacityAmPmCancel = true;
+        });
     this.subscriptions.push(subscriptionSave, subscriptionCancel);
   }
 
@@ -124,10 +124,10 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
         this._opCapacitiesStepAmPmCapacity.capacityTableResetStepStatus = true;
         switch (editionMode) {
           case ECapacitiesStepEditionMode.calendar:
-            this.editionModeAndGroupOrLocal();
+            this.editionModeAndGroupOrDrugstore();
             break;
           case ECapacitiesStepEditionMode.default:
-            this.editionModeAndGroupOrLocal();
+            this.editionModeAndGroupOrDrugstore();
             break;
         }
       });
@@ -140,19 +140,19 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   }
 
   /**
-   * Step 1: Local Group or Local
+   * Step 1: Drugstore Group or Drugstore
    */
 
-  groupOrLocalTab() {
-    const subscription = this._opCapacitiesStepGroupOrLocal.groupOrLocalTab$
-        .subscribe((groupOrLocal: ECapacityStepGroupOrDrugstore) => {
-          this.groupOrLocalTabSelection = groupOrLocal;
-          switch (groupOrLocal) {
+  groupOrDrugstoreTab() {
+    const subscription = this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreTab$
+        .subscribe((groupOrDrugstore: ECapacityStepGroupOrDrugstore) => {
+          this.groupOrDrugstoreTabSelection = groupOrDrugstore;
+          switch (groupOrDrugstore) {
             case ECapacityStepGroupOrDrugstore.drugstore:
-              this.getLocalList();
+              this.getDrugstoreList();
               break;
             case ECapacityStepGroupOrDrugstore.group:
-              this.getLocalGroupList();
+              this.getDrugstoreGroupList();
               break;
           }
         });
@@ -193,7 +193,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
     const subscriptionSave = this._opCapacitiesStepAmPmCapacity.capacityTableSave$
       .subscribe((amPmCapacitySegments: ICapacityStepCapacityTableSegments) => {
         this.amPmCapacitySelection = amPmCapacitySegments;
-        this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.disabled;
+        this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreStepStatus = ECapacityStepStatus.disabled;
         this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
         this.saveCapacityAmPm();
       });
@@ -205,16 +205,16 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
     this.subscriptions.push(subscriptionSave, subscriptionCancel);
   }
 
-  editionModeAndGroupOrLocal() {
-    switch (this.groupOrLocalTabSelection) {
+  editionModeAndGroupOrDrugstore() {
+    switch (this.groupOrDrugstoreTabSelection) {
       case ECapacityStepGroupOrDrugstore.drugstore:
-        this._operationsCapacityImplement.getTypeOperationImplements$(this.editionModeSelection, this.groupOrLocalSelection, this.amPmCapacityId)
+        this._operationsCapacityImplement.getTypeOperationImplements$(this.editionModeSelection, this.groupOrDrugstoreSelection, this.amPmCapacityId)
             .subscribe(
                 (capacitiesServiceType: CapacitiesServiceType) => this.editionModeAndCapacity(capacitiesServiceType),
                 (error) => this.editionModeAndCapacityError(error));
         break;
       case ECapacityStepGroupOrDrugstore.group:
-        this._operationsCapacityImplement.getTypeOperationGroupImplements$(this.editionModeSelection, this.groupOrLocalSelection, this.amPmCapacityId)
+        this._operationsCapacityImplement.getTypeOperationGroupImplements$(this.editionModeSelection, this.groupOrDrugstoreSelection, this.amPmCapacityId)
             .subscribe(
                 (capacitiesServiceType: CapacitiesServiceType) => this.editionModeAndCapacity(capacitiesServiceType),
                 (error) => this.editionModeAndCapacityError(error));
@@ -244,7 +244,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   capacityAmPmSaveSuccess() {
     const message = capacityAlertSuccessMessage(
         CDeliveryServiceTypeName[this.amPmCapacityId],
-      `${this.groupOrLocalSelection.fulfillmentCenterCode} ${this.groupOrLocalSelection.text}`);
+        `${this.groupOrDrugstoreSelection.fulfillmentCenterCode} ${this.groupOrDrugstoreSelection.text}`);
     this._alertService.alertSuccess(message);
     this.operationsCapacityAmPmSave = true;
   }
@@ -255,7 +255,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
 
     this._opCapacitiesStepAmPmCapacity.capacityTableStepStatus = ECapacityStepStatus.disabled;
     this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
-    this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.open;
+    this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreStepStatus = ECapacityStepStatus.open;
   }
 
 

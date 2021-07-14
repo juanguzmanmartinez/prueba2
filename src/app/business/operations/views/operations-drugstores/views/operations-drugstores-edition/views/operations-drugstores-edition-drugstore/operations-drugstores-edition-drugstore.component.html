@@ -1,0 +1,36 @@
+<section class="operations-drugstores-edition-store pt-12 pb-15">
+    <div class="row mb-10">
+        <div class="col-12">
+            <h3 class="text-h3 mb-5">Edición de locales</h3>
+            <h5 class="text-h5 text-gray-6 mb-7">Editar local principal</h5>
+            <hr class="m-0 bg-gray-3">
+        </div>
+    </div>
+
+
+    <div class="row"
+         *ngIf="!errorResponse">
+        <div class="col-12 col-xl-6 mb-6 mb-xl-0">
+            <app-op-drugstores-edition-drugstore-detail-card
+                    *appSkeletonCard="!!drugstoreDetail; loading: !drugstoreEditionLoader"
+                    [drugstoreDetail]="drugstoreDetail">
+            </app-op-drugstores-edition-drugstore-detail-card>
+        </div>
+
+        <div class="col-12 col-xl-6"
+             [class.container-loader]="saveEditionLoader">
+            <app-op-drugstores-edition-drugstore-detail-form-card
+                    *appSkeletonCard="!!drugstoreDetail; row: 8; loading: !drugstoreEditionLoader"
+                    [drugstoreDetail]="drugstoreDetail"
+                    [companyList]="companyList"
+                    (cancelEdition)="cancelEdition()"
+                    (saveEdition)="saveEdition($event)">
+            </app-op-drugstores-edition-drugstore-detail-form-card>
+        </div>
+    </div>
+
+    <div *ngIf="errorResponse"
+         class="pt-6">
+        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+    </div>
+</section>

@@ -45,20 +45,20 @@ export class DrugstoresClientService {
         return this.getDrugstoreList()
             .pipe(
                 take(1),
-                map((iStoreList: IDrugstoreDetail[]) => {
-                    const findStoreDetail = iStoreList.find((store) => store.localCode === storeCode);
-                    if (!findStoreDetail) {
+                map((iDrugstoreList: IDrugstoreDetail[]) => {
+                    const findDrugstoreDetail = iDrugstoreList.find((iDrugstore) => iDrugstore.localCode === storeCode);
+                    if (!findDrugstoreDetail) {
                         throw new Error('Store not found');
                     }
-                    return findStoreDetail;
+                    return findDrugstoreDetail;
                 }),
                 map((response: IDrugstoreDetail) => {
                     return isObject(response) ? response : null;
                 }));
     }
 
-    public putStoreDetail(storeCode: string, body: IDrugstoreDetailUpdate): Observable<any> {
-        const endpoint = `${this.DRUGSTORE_LIST}/${storeCode}`;
+    public putStoreDetail(drugstoreCode: string, body: IDrugstoreDetailUpdate): Observable<any> {
+        const endpoint = `${this.DRUGSTORE_LIST}/${drugstoreCode}`;
         return this.generic.genericPut<any>(endpoint, body)
             .pipe(take(1));
     }
@@ -75,7 +75,7 @@ export class DrugstoresClientService {
             .pipe(take(1));
     }
 
-    public getLocalByServiceTypeClient$(serviceType: EDeliveryServiceType): Observable<IDrugstore[]> {
+    public getDrugstoreByServiceTypeClient$(serviceType: EDeliveryServiceType): Observable<IDrugstore[]> {
         const endpoint = `${this.DRUGSTORE_BY_SERVICE_TYPE}${serviceType}`;
         return this.generic.genericGet<IDrugstore[]>(endpoint)
             .pipe(
@@ -85,7 +85,7 @@ export class DrugstoresClientService {
                 }));
     }
 
-    public getLocalGroupByServiceTypeClient$(serviceType: EDeliveryServiceType): Observable<IDrugstoreGroup[]> {
+    public getDrugstoreGroupByServiceTypeClient$(serviceType: EDeliveryServiceType): Observable<IDrugstoreGroup[]> {
         const httpParams = new HttpParams()
             .set('filter', String('GROUP'));
 
@@ -98,11 +98,11 @@ export class DrugstoresClientService {
                 }));
     }
 
-    public getTypeOperationClient$(iLocalParams: IDrugstoreParams): Observable<IServiceType> {
+    public getTypeOperationClient$(iDrugstoreParams: IDrugstoreParams): Observable<IServiceType> {
         const httpParams = new HttpParams()
-            .set('fulfillmentCenterCode', String(iLocalParams.fulfillmentCenter))
-            .set('serviceTypeCode', String(iLocalParams.serviceType))
-            .set('detailType', String(iLocalParams.detailType))
+            .set('fulfillmentCenterCode', String(iDrugstoreParams.fulfillmentCenter))
+            .set('serviceTypeCode', String(iDrugstoreParams.serviceType))
+            .set('detailType', String(iDrugstoreParams.detailType))
             .set('channel', String(EChannel.digital));
 
         const endpoint = `${this.TYPE_SERVICE_ENDPOINT}`;
@@ -114,11 +114,11 @@ export class DrugstoresClientService {
                 }));
     }
 
-    public getTypeOperationGroupClient$(iLocalParams: IDrugstoreParams): Observable<IServiceType> {
+    public getTypeOperationGroupClient$(iDrugstoreParams: IDrugstoreParams): Observable<IServiceType> {
         const httpParams = new HttpParams()
-            .set('fulfillmentCenterCode', String(iLocalParams.fulfillmentCenter))
-            .set('serviceTypeCode', String(iLocalParams.serviceType))
-            .set('detailType', String(iLocalParams.detailType))
+            .set('fulfillmentCenterCode', String(iDrugstoreParams.fulfillmentCenter))
+            .set('serviceTypeCode', String(iDrugstoreParams.serviceType))
+            .set('detailType', String(iDrugstoreParams.detailType))
             .set('channel', String(EChannel.digital))
             .set('filter', String('GROUP'));
 

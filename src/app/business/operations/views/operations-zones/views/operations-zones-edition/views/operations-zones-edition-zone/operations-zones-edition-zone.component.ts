@@ -4,7 +4,7 @@ import { forkJoin, Subscription } from 'rxjs';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { OperationsZonesEditionStoreService, TZoneDetail } from '../../stores/operations-zones-edition-store.service';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
-import { ZonesStore } from '../../../../models/operations-zones-store.model';
+import { ZonesDrugstore } from '../../../../models/operations-zones-store.model';
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
 import { EZoneLabel } from '../../../../models/operations-zones-label.model';
@@ -23,7 +23,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     public zoneDetail: ZoneDetail;
-    public storeList: ZonesStore[];
+    public storeList: ZonesDrugstore[];
     public channelList: EChannel[];
     public companyList: ECompany[];
     public labelList: EZoneLabel[] = [];

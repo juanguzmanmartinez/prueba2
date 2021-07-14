@@ -1,7 +1,7 @@
 export enum Access {
     Operations = 'OP',
     OperationZones = 'OP-Z',
-    OperationStores = 'OP-S',
+    OperationStores = 'OP-L',
     OperationCapacities = 'OP-C',
     OperationSettings = 'OP-S',
 

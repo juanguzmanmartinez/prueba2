@@ -18,7 +18,7 @@ import { SelectTabModule } from '@atoms/select-tab/select-tab.module';
 import { InputDatepickerModule } from '@atoms/input-datepicker/input-datepicker.module';
 import { InputsModule } from '@atoms/inputs/inputs.module';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
-import { OpCapacitiesStepGroupOrLocalComponent } from './components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-local.component';
+import { OpCapacitiesStepGroupOrDrugstoreComponent } from './components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.component';
 import { OpCapacitiesStepEditionModeComponent } from './components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.component';
 import { OpCapacitiesStepCapacityTableComponent } from './components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.component';
 import { OpCapacitiesStepExpressResourceComponent } from './components/op-capacities-step-express-resource/op-capacities-step-express-resource.component';
@@ -50,7 +50,7 @@ import { PipesModule } from '@pipes/pipes.module';
       OperationsCapacityScheduledComponent,
       OperationsCapacityExpressComponent,
       OperationsCapacityRetComponent,
-      OpCapacitiesStepGroupOrLocalComponent,
+      OpCapacitiesStepGroupOrDrugstoreComponent,
       OpCapacitiesStepEditionModeComponent,
       OpCapacitiesStepCapacityTableComponent,
       OpCapacitiesStepExpressResourceComponent,
