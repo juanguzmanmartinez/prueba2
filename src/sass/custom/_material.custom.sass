@@ -1,31 +1,31 @@
+@use '~@angular/material' as mat
 @import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp")
 @import 'node_modules/@angular/material/theming'
 
+
+$custom-typography: mat.define-typography-config($font-family: $font-family-base)
+
+@include mat.core($custom-typography)
+
 $cdk-overlay-dark-backdrop-background: rgba($black, 0.7)
-$custom-typography: mat-typography-config($font-family: $font-family-base)
 
-$primary-color: mat-palette($mat-indigo)
-$accent-color: mat-palette($mat-pink, A200, A100, A400)
-$warn-color: mat-palette($mat-red)
-$custom-theme: mat-light-theme((color: (primary: $primary-color, accent: $accent-color, warn: $warn-color)))
-
-@include mat-core($custom-typography)
-
-//@include angular-material-theme($theme)
-@include mat-private-check-duplicate-theme-styles($custom-theme, 'angular-material-theme')
-  @include mat-core-theme($custom-theme)
-  @include mat-button-color($custom-theme)
-  @include mat-datepicker-theme($custom-theme)
-  @include mat-dialog-theme($custom-theme)
-  @include mat-divider-theme($custom-theme)
-  @include mat-expansion-panel-theme($custom-theme)
-  @include mat-icon-theme($custom-theme)
-  @include mat-select-theme($custom-theme)
-  @include mat-sidenav-theme($custom-theme)
-  @include mat-sort-theme($custom-theme)
-  //@include mat-tabs-theme($custom-theme)
-  @include mat-tooltip-theme($custom-theme)
-  @include mat-snack-bar-theme($custom-theme)
-  @include mat-menu-theme($custom-theme)
+$primary-color: mat.define-palette(mat.$indigo-palette, 500)
+$accent-color: mat.define-palette(mat.$pink-palette, A200, A100, A400)
+$warn-color: mat.define-palette(mat.$red-palette)
+$custom-theme: mat.define-light-theme((color: (primary: $primary-color, accent: $accent-color, warn: $warn-color)))
 
 
+@include mat.core-theme($custom-theme)
+@include mat.button-theme($custom-theme)
+@include mat.datepicker-theme($custom-theme)
+@include mat.dialog-theme($custom-theme)
+@include mat.divider-theme($custom-theme)
+@include mat.expansion-theme($custom-theme)
+@include mat.icon-theme($custom-theme)
+@include mat.select-theme($custom-theme)
+@include mat.sidenav-theme($custom-theme)
+@include mat.sort-theme($custom-theme)
+//@include mat.tabs-theme($custom-theme)
+@include mat.tooltip-theme($custom-theme)
+@include mat.snack-bar-theme($custom-theme)
+@include mat.menu-theme($custom-theme)

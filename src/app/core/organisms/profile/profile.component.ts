@@ -21,8 +21,12 @@ export class ProfileComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    get user() {
+        return this.userStore.currentUser;
+    }
+
     openProfileUserInformationDialog() {
-        this.profileUserInformationDialog.openProfileUserInformationDialog()
+        this.profileUserInformationDialog.open()
             .beforeClosed()
             .subscribe((profileDialogType: EProfileDialogType) => {
                 switch (profileDialogType) {

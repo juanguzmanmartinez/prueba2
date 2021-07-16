@@ -9,7 +9,7 @@ export class ProfileUserInformationDialogService {
     constructor(private dialog: DialogService) {
     }
 
-    openProfileUserInformationDialog(): MatDialogRef<ProfileUserInformationDialogComponent> {
+    open(): MatDialogRef<ProfileUserInformationDialogComponent> {
         return this.dialog.open(ProfileUserInformationDialogComponent);
     }
 }

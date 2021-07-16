@@ -12,6 +12,7 @@ import { ProfileUpdatePasswordDialogService } from '@organisms/profile/views/pro
 import { UpdatePasswordFormModule } from '@organisms/update-password-form/update-password-form.module';
 import { AlertModule } from '@molecules/alert/alert.module';
 import { DialogModule } from '@molecules/dialog/dialog.module';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { DialogModule } from '@molecules/dialog/dialog.module';
         ButtonsModule,
         UpdatePasswordFormModule,
         AlertModule,
-        DialogModule
+        DialogModule,
+        MatBadgeModule
     ],
     providers: [
         ProfileUserInformationDialogService,

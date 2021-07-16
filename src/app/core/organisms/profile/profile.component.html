@@ -1,4 +1,19 @@
-<section class="profile">
+<section class="profile d-flex-center">
+    <app-icon fontName="notifications"
+              fontSize="24px"
+              innerClass="text-white"
+              matBadge="15">
+    </app-icon>
+
+    <span class="text-button text-gray-1 ms-4 me-2">
+        {{user.name}} {{user.firstLastName}} {{user.secondLastName}}
+    </span>
+
+    <app-icon fontName="keyboard_arrow_down"
+              fontSize="16px"
+              innerClass="text-white">
+    </app-icon>
+
     <app-icon (click)="openProfileUserInformationDialog()"
               class="cursor-pointer"
               svgName="avatar"
