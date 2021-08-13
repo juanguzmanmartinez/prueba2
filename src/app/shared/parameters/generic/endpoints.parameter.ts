@@ -2,6 +2,7 @@ import { environment } from '@environments/environment';
 
 export const API_GATEWAY = `${environment.api_gateway}`;
 export const API_GATEWAY_AUTH = `${environment.api_gateway_auth}`;
+export const DATA_STUDIO = `${environment.dataStudio}`;
 
 export class EndpointsParameter {
     public static AUTH_TOKEN = `${API_GATEWAY_AUTH}/oauth/token`;
@@ -23,4 +24,7 @@ export class EndpointsParameter {
     public static ZONES_SERVICE_TYPE = `${API_GATEWAY}/zone-service-type`;
     public static ZONE_BACKUP = `${API_GATEWAY}/zone/zone-backup`;
     public static GET_ZONES_CHANNEL = `${API_GATEWAY}/zone/channel`;
+
+    public static DRUGSTORE_LIST_REPORT = `${DATA_STUDIO}/page/fClLC`;
+    public static DRUGSTORE_DETAIL_REPORT = `${DATA_STUDIO}/page/XElLC`;
 }

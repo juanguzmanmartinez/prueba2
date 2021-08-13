@@ -40,25 +40,26 @@ import { DirectivesModule } from '../../../../shared/directives/directives.modul
 import { TableModule } from '@molecules/table/table.module';
 import { DialogModule } from '@molecules/dialog/dialog.module';
 import { OperationsCapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
+import { PipesModule } from '@pipes/pipes.module';
 
 @NgModule({
-  declarations: [
-    OperationsCapacitiesComponent,
-    OperationsCapacityHomeComponent,
-    OperationsCapacityAmPmComponent,
-      OperationsCapacityScheduledComponent,
-      OperationsCapacityExpressComponent,
-      OperationsCapacityRetComponent,
-      OpCapacitiesStepGroupOrLocalComponent,
-      OpCapacitiesStepEditionModeComponent,
-      OpCapacitiesStepCapacityTableComponent,
-      OpCapacitiesStepExpressResourceComponent,
-      OpCapacitiesStepCapacityTableFormComponent,
-      OpCapacitiesLocalDefaultCapacityComponent,
-      OpCapacitiesLocalDefaultCapacityCardComponent,
-      OpCapacitiesLocalDefaultCapacityDialogComponent,
-      OperationsCapacityReportComponent
-  ],
+    declarations: [
+        OperationsCapacitiesComponent,
+        OperationsCapacityHomeComponent,
+        OperationsCapacityAmPmComponent,
+        OperationsCapacityScheduledComponent,
+        OperationsCapacityExpressComponent,
+        OperationsCapacityRetComponent,
+        OpCapacitiesStepGroupOrLocalComponent,
+        OpCapacitiesStepEditionModeComponent,
+        OpCapacitiesStepCapacityTableComponent,
+        OpCapacitiesStepExpressResourceComponent,
+        OpCapacitiesStepCapacityTableFormComponent,
+        OpCapacitiesLocalDefaultCapacityComponent,
+        OpCapacitiesLocalDefaultCapacityCardComponent,
+        OpCapacitiesLocalDefaultCapacityDialogComponent,
+        OperationsCapacityReportComponent
+    ],
     imports: [
         CommonModule,
         OperationsCapacitiesRoutingModule,
@@ -84,11 +85,12 @@ import { OperationsCapacityReportComponent } from './views/operations-capacity-r
         SelectSearchModule,
         DirectivesModule,
         TableModule,
-        DialogModule
+        DialogModule,
+        PipesModule
     ],
-  providers: [
-    OperationsCapacitiesImplementService
-  ]
+    providers: [
+        OperationsCapacitiesImplementService
+    ]
 })
 export class OperationsCapacitiesModule {
 }

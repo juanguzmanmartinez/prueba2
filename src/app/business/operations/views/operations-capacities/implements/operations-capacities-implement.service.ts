@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { ICalendarParams } from '@models/calendar/calendar-params.model';
 import { ILocalParams } from '@interfaces/stores/stores.interface';
+import { ReportsClientService } from '@clients/reports/reports-client.service';
 
 @Injectable()
 export class OperationsCapacitiesImplementService {
@@ -16,6 +17,7 @@ export class OperationsCapacitiesImplementService {
     constructor(
         private storesClient: StoresClientService,
         private calendarClient: CalendarClientService,
+        private reportsClient: ReportsClientService,
     ) {
     }
 
@@ -114,4 +116,11 @@ export class OperationsCapacitiesImplementService {
         return this.calendarClient.patchCalendarRangeUpdateClient$(request);
     }
 
+    public get drugstoreListReport(): string {
+        return this.reportsClient.drugstoreListReport();
+    }
+
+    public get drugstoreDetailReport(): string {
+        return this.reportsClient.drugstoreDetailReport();
+    }
 }
