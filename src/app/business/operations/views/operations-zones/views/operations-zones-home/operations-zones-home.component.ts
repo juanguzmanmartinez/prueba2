@@ -23,7 +23,6 @@ const ColumnNameList = {
     zoneState: 'zoneState',
     actions: 'actions',
 };
-
 @Component({
     selector: 'app-operations-zones-home',
     templateUrl: './operations-zones-home.component.html',
@@ -123,6 +122,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
         }
+        /*prueba*/
     }
 
 
