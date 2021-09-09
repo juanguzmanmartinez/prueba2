@@ -41,7 +41,7 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
             .subscribe((zoneDetail: ZoneDetail) => {
                 this._operationsZonesEditionStore.zoneDetail = zoneDetail;
                 if (zoneDetail.zoneBackup) {
-                    this.getZoneBackup(zoneDetail.zoneBackup.code);
+                    this.getZoneBackup(zoneDetail.zoneBackup.id);
                 }else {
                     this._operationsZonesEditionStore.zoneBackupNotRegistered();
                 }

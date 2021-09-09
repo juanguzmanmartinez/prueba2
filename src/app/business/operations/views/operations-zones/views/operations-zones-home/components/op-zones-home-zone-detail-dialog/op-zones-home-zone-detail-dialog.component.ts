@@ -47,7 +47,7 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getZoneDetail(this.zone.code);
+        this.getZoneDetail(this.zone.id);
     }
 
     getZoneDetail(zoneCode: string): void {
