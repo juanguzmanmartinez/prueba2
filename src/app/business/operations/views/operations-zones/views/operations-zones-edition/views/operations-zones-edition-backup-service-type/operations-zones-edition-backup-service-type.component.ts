@@ -102,7 +102,7 @@ export class OperationsZonesEditionBackupServiceTypeComponent implements OnInit,
 
     putBackupServiceType(zoneBackupUpdate: IZoneBackupUpdate) {
         this._operationsZonesImplement.putZoneBackup(
-            this.zoneDetail.code, zoneBackupUpdate)
+            this.zoneDetail.id, zoneBackupUpdate)
             .subscribe(() => {
                 this._operationsZonesEditionStore.updateZoneDetail = true;
                 this._alert.alertSuccess(OperationMessages.successOperationEdition(this.zoneDetail.name));

@@ -13,7 +13,7 @@ import { EZoneType, ZoneTypeList } from '../../../business/operations/views/oper
 export class ZonesClientService {
 
     private readonly ZONE_LIST = EndpointsParameter.GET_ZONES;
-    private readonly ZONE_LIST_V2 = EndpointsParameter.GET_ZONE_DETAIL;
+    private readonly ZONE_LIST_DETAIL = EndpointsParameter.GET_ZONE_DETAIL;
     private readonly ZONE_BACKUP = EndpointsParameter.ZONE_BACKUP;
     private readonly ZONE_CHANNEL = EndpointsParameter.GET_ZONES_CHANNEL;
     private readonly ZONE_SERVICE_TYPE = EndpointsParameter.ZONES_SERVICE_TYPE;
@@ -34,8 +34,7 @@ export class ZonesClientService {
     }
 
     getZoneDetail(zoneCode: string): Observable<IZoneDetail> {
-       // const endpoint = `${this.ZONE_LIST}/${zoneCode}`;
-      const endpoint = `${this.ZONE_LIST_V2}/${zoneCode}`;
+      const endpoint = `${this.ZONE_LIST_DETAIL}/${zoneCode}`;
         return this.generic.genericGet<IZoneDetail>(endpoint)
             .pipe(
                 take(1),
@@ -45,7 +44,7 @@ export class ZonesClientService {
     }
 
     putZoneDetail(zoneCode: string, body: IZoneDetailUpdate): Observable<any> {
-        const endpoint = `${this.ZONE_LIST}/${zoneCode}`;
+        const endpoint = `${this.ZONE_LIST_DETAIL}/${zoneCode}`;
         return this.generic.genericPut<any>(endpoint, body)
             .pipe(take(1));
     }
