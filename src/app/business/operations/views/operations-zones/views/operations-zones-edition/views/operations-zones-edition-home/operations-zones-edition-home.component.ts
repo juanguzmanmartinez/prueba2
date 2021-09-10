@@ -126,7 +126,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     editServiceType(serviceType: ZoneServiceTypeBasicRequest) {
         const serviceTypePath = ROUTER_PATH.opZones_ZoneServiceTypeEdition(
             CDeliveryServiceTypeRoute[serviceType.code],
-            this.zoneDetail.code,
+            this.zoneDetail.id,
             CChannelRoute[serviceType.channel]
         );
         this._router.navigate([serviceTypePath]);
