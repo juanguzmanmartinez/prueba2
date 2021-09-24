@@ -22,9 +22,9 @@ export class EndpointsParameter {
 
 
     public static GET_ZONES = `${API_GATEWAY}/zone`;
-    public static GET_ZONE_DETAIL = `${API_GATEWAY}/v2/zone`;
+    public static GET_ZONE_DETAIL = `${API_GATEWAY}/operations/zone`;
     public static ZONES_SERVICE_TYPE = `${API_GATEWAY}/zone-service-type`;
-    public static ZONE_BACKUP = `${API_GATEWAY}/v2/zone/zone-backup`;
+    public static ZONE_BACKUP = `${API_GATEWAY}/operations/zone/zone-backup`;
     public static GET_ZONES_CHANNEL = `${API_GATEWAY}/zone/channel`;
 
     public static DRUGSTORE_LIST_REPORT = `${DATA_STUDIO}/page/fClLC`;
