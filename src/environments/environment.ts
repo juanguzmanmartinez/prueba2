@@ -7,18 +7,10 @@ export const environment = {
   show_logs: false,
   envName: 'dev',
 
-  //direccion de manera Local
-  // api_gateway: 'http://192.168.1.9:8040',
-  api_gateway: 'https://4kz2r4t838.execute-api.us-east-1.amazonaws.com/QA02',
-  api_gateway_auth: 'https://28c9y4dvs8.execute-api.us-east-1.amazonaws.com/QA02',
-  authUsername: 'adm-operations',
-  authPassword:'ypej47Qm14QhjB93Sf',
-
-  /* api_gateway: 'https://4kz2r4t838.execute-api.us-east-1.amazonaws.com/CI02',
+   api_gateway: 'https://4kz2r4t838.execute-api.us-east-1.amazonaws.com/CI02',
    api_gateway_auth: 'https://28c9y4dvs8.execute-api.us-east-1.amazonaws.com/CI02',
    authUsername: 'adm-operations',
    authPassword: '12345',
-*/
-  dataStudio: 'https://datastudio.google.com/embed/reporting/6ac0e5bb-786a-4371-98f2-5a2e8035d871'
+   dataStudio: 'https://datastudio.google.com/embed/reporting/6ac0e5bb-786a-4371-98f2-5a2e8035d871'
 
 };
