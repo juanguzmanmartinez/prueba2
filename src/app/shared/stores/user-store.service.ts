@@ -65,6 +65,6 @@ export class UserStoreService {
         this.user = null;
         this.userSubject.next(null);
         this._tokenStore.removeAccessToken();
-        this._router.navigate([ROUTER_PATH.login]);
+        this._router.navigate([ROUTER_PATH.accountLogin]);
     }
 }

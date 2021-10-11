@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router } from '@an
 import { Observable } from 'rxjs';
 import { UserStoreService } from '@stores/user-store.service';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
-import { DefaultPermissions } from '@models/auth/permissions.model';
+import { PathPermissions } from '@models/auth/permissions.model';
 
 @Injectable()
 export class PermissionsGuard implements CanActivate, CanLoad {
@@ -16,17 +16,17 @@ export class PermissionsGuard implements CanActivate, CanLoad {
 
 
     canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        const permissions = route.data && route.data.permissions as DefaultPermissions;
+        const permissions = route.data && route.data.permissions as PathPermissions;
         return this.guardValidation(permissions);
     }
 
     canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-        const permissions = route.data && route.data.permissions as DefaultPermissions;
+        const permissions = route.data && route.data.permissions as PathPermissions;
         return this.guardValidation(permissions);
     }
 
 
-    guardValidation(permissions: DefaultPermissions) {
+    guardValidation(permissions: PathPermissions) {
         let hasAccess = this._userStore.hasAccess(permissions?.access);
         let access = permissions?.access;
         let hasRole = false;

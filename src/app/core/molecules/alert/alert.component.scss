@@ -1,4 +1,4 @@
-@import 'src/sass/variables/colors.variable';
+@import 'src/sass/variables';
 @import 'src/sass/mixins/text.mixin';
 @import 'src/sass/mixins/display.mixin';
 
@@ -12,12 +12,12 @@
 
 .alert-container {
   padding: 18px 24px;
-  border-radius: 8px;
+  border-radius: $border-radius;
   @include d-flex-vertical-center;
 
   .alert-text {
     color: $white;
     margin-left: 12px;
-    @include text-label;
+    @include text-body-1-regular;
   }
 }

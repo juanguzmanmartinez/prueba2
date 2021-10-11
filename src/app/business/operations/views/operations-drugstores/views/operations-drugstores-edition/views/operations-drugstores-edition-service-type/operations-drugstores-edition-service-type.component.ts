@@ -13,7 +13,7 @@ import { IDrugstoreServiceTypeUpdate } from '@interfaces/drugstores/drugstores.i
 import { EPaymentMethod } from '@models/payment-method/payment-method.model';
 import { RouterHelperService } from '@helpers/router-helper.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { OP_DRUGSTORES_PATH } from '@parameters/router/routing/operations-routing.parameter';
+import { OP_DRUGSTORES_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
 
 @Component({
     selector: 'app-operations-drugstores-edition-service-type',

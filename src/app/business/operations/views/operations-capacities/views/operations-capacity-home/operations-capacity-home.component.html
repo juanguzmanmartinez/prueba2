@@ -15,9 +15,9 @@
         </div>
 
         <div class="col-12" *appRouterAccess="routerPath.opCapacitiesReport">
-            <p class="text-label text-gray-6 mb-0">Puedes revisar el consumo de capacidades semanal en la
+            <p class="text-body-1-regular text-gray-6 mb-0">Puedes revisar el consumo de capacidades semanal en la
                 <app-router [router]="routerPath.opCapacitiesReport">
-                    <span class="text-primary">sección de reportes</span>
+                    <span class="text-link-1">sección de reportes</span>
                 </app-router>
             </p>
         </div>
@@ -28,7 +28,7 @@
             <h2 class="text-h4 text-black mb-0">Más opciones de capacidades</h2>
         </div>
 
-        <div class="col-12 col-xl-6 mb-4 mb-xl-0">
+        <div class="col-12 col-xlg-6 mb-4 mb-xlg-0">
             <app-router [router]="routerPath.opCapacitiesAmPm">
                 <app-card-action cardIconSVG="ampm">
                     <span card-title>AM/PM</span>
@@ -36,7 +36,7 @@
                 </app-card-action>
             </app-router>
         </div>
-        <div class="col-12 col-xl-6">
+        <div class="col-12 col-xlg-6">
             <app-router [router]="routerPath.opCapacitiesExpress">
                 <app-card-action cardIconSVG="moto">
                     <span card-title>Express</span>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="row">
-        <div class="col-12 col-xl-6 mb-4 mb-xl-0">
+        <div class="col-12 col-xlg-6 mb-4 mb-xlg-0">
             <app-router [router]="routerPath.opCapacitiesScheduled">
                 <app-card-action cardIconSVG="calendar">
                     <span card-title>Programado</span>
@@ -56,7 +56,7 @@
             </app-router>
         </div>
 
-        <div class="col-12 col-xl-6">
+        <div class="col-12 col-xlg-6">
             <app-router [router]="routerPath.opCapacitiesRet">
                 <app-card-action cardIconSVG="stores">
                     <span card-title>Retiro en tienda</span>

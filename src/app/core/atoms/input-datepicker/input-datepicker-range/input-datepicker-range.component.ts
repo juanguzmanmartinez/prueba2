@@ -12,7 +12,7 @@ export interface IDatepickerRange {
 @Component({
     selector: 'app-input-datepicker-range',
     templateUrl: './input-datepicker-range.component.html',
-    styleUrls: ['../styles/datepicker.component.sass', './input-datepicker-range.component.scss'],
+    styleUrls: ['../styles/datepicker.component.sass', './input-datepicker-range.component.sass'],
     encapsulation: ViewEncapsulation.None
 })
 export class InputDatepickerRangeComponent implements ControlValueAccessor, OnInit, OnDestroy {

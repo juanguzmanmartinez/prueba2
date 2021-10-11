@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
     public capsLock: boolean;
     public submitLogin: boolean;
 
-    public resetPasswordPath = ROUTER_PATH.recoverPassword;
+    public resetPasswordPath = ROUTER_PATH.acctRecoverPassword;
 
     constructor(
         public _loginForm: LoginForm,

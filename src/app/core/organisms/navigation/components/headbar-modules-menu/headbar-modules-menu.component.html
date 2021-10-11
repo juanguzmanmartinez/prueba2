@@ -1,0 +1,11 @@
+<div (click)="toggleSidenav()"
+     class="nav-headbar-menu-container cursor-pointer">
+    <div class="nav-headbar-menu">
+        <div [@sidenavMenu]="!sidenavOpened ? 'opened' : 'topX'"
+             class="nav-headbar-menu-bar"></div>
+        <div [@sidenavMenu]="!sidenavOpened ? 'opened' : 'hide'"
+             class="nav-headbar-menu-bar"></div>
+        <div [@sidenavMenu]="!sidenavOpened ? 'opened' : 'bottomX'"
+             class="nav-headbar-menu-bar"></div>
+    </div>
+</div>

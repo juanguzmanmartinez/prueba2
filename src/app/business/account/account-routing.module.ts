@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './views/login/login.component';
 import { RecoverPasswordResetComponent } from './components/recover-password-reset/recover-password-reset.component';
-import { AC_CHILDREN_PATH } from '@parameters/router/routing/account-routing.parameter';
+import { AC_CHILDREN_PATH } from '@parameters/router/routing/account/account-router.parameter';
 import { AccountComponent } from './account.component';
 import { RecoverPasswordComponent } from './views/recover-password/recover-password.component';
 import { RecoverPasswordUserComponent } from './components/recover-password-user/recover-password-user.component';

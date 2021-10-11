@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfileComponent } from './profile.component';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { ProfileUserInformationDialogComponent } from './views/profile-user-information-dialog/profile-user-information-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -12,17 +11,13 @@ import { ProfileUpdatePasswordDialogService } from '@organisms/profile/views/pro
 import { UpdatePasswordFormModule } from '@organisms/update-password-form/update-password-form.module';
 import { AlertModule } from '@molecules/alert/alert.module';
 import { DialogModule } from '@molecules/dialog/dialog.module';
-import { MatBadgeModule } from '@angular/material/badge';
+import { ProfileService } from '@organisms/profile/profile.service';
 
 
 @NgModule({
     declarations: [
-        ProfileComponent,
         ProfileUserInformationDialogComponent,
         ProfileUpdatePasswordDialogComponent,
-    ],
-    exports: [
-        ProfileComponent
     ],
     imports: [
         CommonModule,
@@ -33,11 +28,11 @@ import { MatBadgeModule } from '@angular/material/badge';
         UpdatePasswordFormModule,
         AlertModule,
         DialogModule,
-        MatBadgeModule
     ],
     providers: [
         ProfileUserInformationDialogService,
-        ProfileUpdatePasswordDialogService
+        ProfileUpdatePasswordDialogService,
+        ProfileService
     ]
 })
 export class ProfileModule {

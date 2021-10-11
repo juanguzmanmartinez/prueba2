@@ -1,14 +1,14 @@
-@import "src/sass/variables/colors.variable";
+@import "src/sass/variables";
 
 .drugstore-default-capacity-card {
   padding: 30px 24px 24px;
   background-color: $white;
   border: 1px solid $gray-1;
-  border-radius: 8px;
+  border-radius: $border-radius;
   text-align: center;
 
   &:hover {
-    box-shadow: 0 20px 40px rgba(9, 39, 85, 0.08);
+    box-shadow: $box-shadow;
   }
 
   .capacity-card-name {

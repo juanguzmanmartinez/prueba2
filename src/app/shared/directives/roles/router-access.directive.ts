@@ -1,19 +1,19 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { UserStoreService } from '@stores/user-store.service';
-import { PERMISSIONS } from '@parameters/auth/permissions.parameter';
-import { DefaultPermissions } from '@models/auth/permissions.model';
+import { ROUTER_PERMISSIONS } from '@parameters/router/router-permissions.parameter';
+import { PathPermissions } from '@models/auth/permissions.model';
 
 @Directive({
     selector: '[appRouterAccess]'
 })
 export class RouterAccessDirective implements OnInit {
 
-    private permissions: DefaultPermissions;
-    private defaultPermissions = PERMISSIONS;
+    private permissions: PathPermissions;
+    private pathPermissions = ROUTER_PERMISSIONS;
 
     @Input()
     set appRouterAccess(route: string) {
-        const permissions = this.defaultPermissions[route] as DefaultPermissions;
+        const permissions = this.pathPermissions[route] as PathPermissions;
         if (!permissions) {
             throw new Error('Permission is empty or missed');
         }

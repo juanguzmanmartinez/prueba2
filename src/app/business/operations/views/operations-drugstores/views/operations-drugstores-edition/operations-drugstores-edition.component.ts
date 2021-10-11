@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OperationsDrugstoresImplementService } from '../../implements/operations-drugstores-implement.service';
 import { DrugstoreDetail } from '../../models/operations-drugstores.model';
 import { OperationsDrugstoresEditionActionsStoreService } from './stores/operations-drugstores-edition-actions-store.service';
-import { OP_DRUGSTORES_PATH } from '@parameters/router/routing/operations-routing.parameter';
+import { OP_DRUGSTORES_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
 
 @Component({
     template: '<router-outlet></router-outlet>',

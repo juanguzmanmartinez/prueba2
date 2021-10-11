@@ -1,6 +1,6 @@
 <div class="row mt-6" *ngIf="channelTabList?.length > 1">
     <div class="col d-flex-horizontal-end align-items-center pe-0">
-        <span class="text-subtitle-2">Canal de atención:</span>
+        <span class="text-h5">Canal de atención:</span>
     </div>
     <div class="col-3">
         <app-select placeholder="Agrega una etiqueta a la zona"
@@ -16,7 +16,7 @@
 </div>
 
 <div class="row justify-content-between mt-6">
-    <div class="col-12 col-lg-6 col-xl-5 mb-6">
+    <div class="col-12 col-lg-6 col-xlg-5 mb-6">
         <app-op-zones-edition-home-main-service-type-card
                 *appSkeletonCard="!!zoneServiceTypeList; row: 5; loading: !homeEditionLoader"
                 [serviceType]="zoneServiceTypeList.amPm"
@@ -24,7 +24,7 @@
                 (add)="addServiceType($event)">
         </app-op-zones-edition-home-main-service-type-card>
     </div>
-    <div class="col-12 col-lg-6 col-xl-5 mb-6">
+    <div class="col-12 col-lg-6 col-xlg-5 mb-6">
         <app-op-zones-edition-home-main-service-type-card
                 *appSkeletonCard="!!zoneServiceTypeList; row: 5; loading: !homeEditionLoader"
                 [serviceType]="zoneServiceTypeList.scheduled"
@@ -32,7 +32,7 @@
                 (add)="addServiceType($event)">
         </app-op-zones-edition-home-main-service-type-card>
     </div>
-    <div class="col-12 col-lg-6 col-xl-5 mb-6">
+    <div class="col-12 col-lg-6 col-xlg-5 mb-6">
         <app-op-zones-edition-home-main-service-type-card
                 *appSkeletonCard="!!zoneServiceTypeList; row: 5; loading: !homeEditionLoader"
                 [serviceType]="zoneServiceTypeList.express"
@@ -40,7 +40,7 @@
                 (add)="addServiceType($event)">
         </app-op-zones-edition-home-main-service-type-card>
     </div>
-    <div class="col-12 col-lg-6 col-xl-5 mb-6">
+    <div class="col-12 col-lg-6 col-xlg-5 mb-6">
         <app-op-zones-edition-home-main-service-type-card
                 *appSkeletonCard="!!zoneServiceTypeList; row: 5; loading: !homeEditionLoader"
                 [serviceType]="zoneServiceTypeList.ret"

@@ -1,18 +1,5 @@
-@import "src/sass/variables/colors.variable"
-@import "src/sass/mixins/display.mixin"
+$headbar-height: 64px
 
-$head-bar-height: 56px
-
-.navigation-head-bar-container
-  padding-bottom: $head-bar-height
-
-  .navigation-head-bar
-    background-color: $black
-    height: $head-bar-height
-    position: fixed
-    top: 0
-    left: 0
-    right: 0
-    z-index: 5
-    @include d-flex-vertical-center
-    justify-content: space-between
+$sidenav-height: calc(100vh - #{$headbar-height})
+$sidenav-width-open: 256px
+$sidenav-width-close: 64px

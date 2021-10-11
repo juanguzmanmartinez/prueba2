@@ -14,7 +14,7 @@ import { ZoneServiceType } from '../../../../models/operations-zones-service-typ
 import { CChannelName, CChannelRoute, EChannel } from '@models/channel/channel.model';
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { OP_ZONES_PATH } from '@parameters/router/routing/operations-routing.parameter';
+import { OP_ZONES_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
 
 @Component({
     selector: 'app-operations-zones-edition-service-type',

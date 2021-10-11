@@ -1,13 +1,17 @@
-<section class="operations-home-container pt-6 pt-md-12 pb-8 pb-md-15">
-    <div class="row mb-9">
-        <div class="col">
-            <h1 class="text-h3 text-black mb-5">Hola {{user?.name}},</h1>
-            <p class="text-subtitle-1 text-gray-6">¿Qué módulo quieres gestionar?</p>
+<section class="operations-home-container pt-7">
+    <div class="row mb-7">
+        <div class="col text-center">
+            <h1 class="text-h3 text-black mb-4">👋 Hola, {{user?.name}}</h1>
+            <p class="text-body-2-regular text-gray-6 mb-0">¿Qué módulo quieres gestionar?</p>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-12 col-xl-6 mb-4"
+        <div class="col-12 mb-2">
+            <h2 class="text-h3 mb-0">Operaciones</h2>
+        </div>
+
+        <div class="col-12 col-xlg-6 mb-4"
              *appRouterAccess="routerPath.operationDrugstores">
             <app-router [router]="routerPath.operationDrugstores">
                 <app-card-action cardIconSVG="stores">
@@ -16,7 +20,7 @@
                 </app-card-action>
             </app-router>
         </div>
-        <div class="col-12 col-xl-6 mb-4"
+        <div class="col-12 col-xlg-6 mb-4"
              *appRouterAccess="routerPath.operationZones">
             <app-router [router]="routerPath.operationZones">
                 <app-card-action cardIconSVG="navigation">
@@ -25,7 +29,7 @@
                 </app-card-action>
             </app-router>
         </div>
-        <div class="col-12 col-xl-6 mb-4"
+        <div class="col-12 col-xlg-6 mb-4"
              *appRouterAccess="routerPath.operationCapacities">
             <app-router [router]="routerPath.operationCapacities">
                 <app-card-action cardIconSVG="truck">
@@ -34,7 +38,7 @@
                 </app-card-action>
             </app-router>
         </div>
-        <div class="col-12 col-xl-6 mb-4"
+        <div class="col-12 col-xlg-6 mb-4"
              *appRouterAccess="routerPath.operationSettings">
             <app-router [router]="routerPath.operationSettings">
                 <app-card-action cardIconSVG="configuration">

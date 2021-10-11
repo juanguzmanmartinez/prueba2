@@ -5,7 +5,7 @@ export enum Access {
     OperationCapacities = 'OP-C',
     OperationSettings = 'OP-S',
 
-    Administrator = 'ACCESS_ADMINISTRATOR',
-    AdministratorUsers = 'ACCESS_ADMINISTRATOR_USERS',
+    Administrator = 'AD',
+    AdministratorUsers = 'AD-US',
 }
 

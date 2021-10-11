@@ -1,18 +1,18 @@
 <div [class.capacity-card-disabled]="disabled" class="drugstore-default-capacity-card">
     <div class="row">
         <div class="col-12 mb-5">
-            <h5 class="text-subtitle-1 capacity-card-name mb-0">{{serviceName}}</h5>
+            <h5 class="text-h4 capacity-card-name mb-0">{{serviceName}}</h5>
         </div>
         <div class="col-12 mb-4">
             <ng-container *ngIf="!disabled">
-                <h4 class="text-h3 capacity-card-quantity mb-0">{{capacityQuantity}}</h4>
+                <h4 class="text-h2 capacity-card-quantity mb-0">{{capacityQuantity}}</h4>
             </ng-container>
             <ng-container *ngIf="disabled">
-                <h4 class="text-h3 capacity-card-quantity mb-0">--</h4>
+                <h4 class="text-h2 capacity-card-quantity mb-0">--</h4>
             </ng-container>
         </div>
         <div class="col-12 mb-6">
-            <p class="text-caption capacity-card-text mb-0">pedidos por día</p>
+            <p class="text-body-2-regular capacity-card-text mb-0">pedidos por día</p>
         </div>
         <div class="col-12">
             <ng-container *ngIf="hasDetail">

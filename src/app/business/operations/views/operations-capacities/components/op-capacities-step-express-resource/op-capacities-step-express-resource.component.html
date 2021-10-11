@@ -15,7 +15,7 @@
 
             <div class="row">
                 <div *ngIf="expressResourceDateRange" class="col-12 mb-5">
-                    <label class="text-caption text-gray-5 mb-2">Selecciona días</label>
+                    <label class="text-body-2-regular text-gray-5 mb-2">Selecciona días</label>
                     <app-input-datepicker-range
                             [maxDate]="expressResourceMaxDateRange"
                             [minDate]="expressResourceMinDateRange"
@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="col-12 mb-5">
-                    <label class="text-caption text-gray-5 mb-2 d-block">Nro. de motorizados</label>
+                    <label class="text-body-2-regular text-gray-5 mb-2 d-block">Nro. de motorizados</label>
                     <app-input-number formControlName="expressResource"
                                       placeholder="10"></app-input-number>
                 </div>

@@ -1,4 +1,20 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self, TemplateRef, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Optional,
+    Output,
+    Self,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { MatAutocomplete } from '@angular/material/autocomplete/autocomplete';
@@ -9,7 +25,8 @@ import { Subject, Subscription, timer } from 'rxjs';
 @Component({
     selector: 'app-select-search',
     templateUrl: './select-search.component.html',
-    styleUrls: ['./select-search.component.scss']
+    styleUrls: ['./select-search.component.sass'],
+    encapsulation: ViewEncapsulation.None
 })
 export class SelectSearchComponent<T> implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
     private subscriptions: Subscription[] = [];

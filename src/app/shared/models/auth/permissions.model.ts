@@ -14,26 +14,12 @@ export class UserPermissions {
 
 }
 
-export class DefaultPermissions {
+export type TBasePermissions = { [key: string]: [Role[], Access] };
+export type TPathPermissions = { [key: string]: PathPermissions };
+
+export class PathPermissions {
     roles: Role[];
     access: Access;
-    parent: DefaultPermissions;
-    children: Access[];
-
-    constructor(
-        roles: Role[],
-        access: Access,
-        parent?: DefaultPermissions,
-        children?: Access[],
-    ) {
-        this.roles = roles;
-        this.access = access;
-        if (parent) {
-            this.parent = parent;
-        }
-        if (children) {
-            this.children = children;
-        }
-    }
-
+    parent?: PathPermissions;
+    children?: Access[];
 }

@@ -19,8 +19,8 @@
                                   innerClass="text-gray-5"></app-icon>
 
                         <div class="ms-4">
-                            <h5 class="text-caption text-gray-5 mb-2">Local</h5>
-                            <p class="text-label text-black mb-0">{{capacitiesDrugstore.drugstoreCode}} {{capacitiesDrugstore.name}}</p>
+                            <h5 class="text-body-2-regular text-gray-5 mb-2">Local</h5>
+                            <p class="text-body-1-regular text-black mb-0">{{capacitiesDrugstore.drugstoreCode}} {{capacitiesDrugstore.name}}</p>
                         </div>
                     </div>
                     <div class="col-12 d-flex mt-5">
@@ -28,8 +28,8 @@
                                   fontSize="24px"
                                   innerClass="text-gray-5"></app-icon>
                         <div class="ms-4">
-                            <h5 class="text-caption text-gray-5 mb-2">Tipo de despacho</h5>
-                            <p class="text-label text-black mb-0">{{capacityServiceTypeName[drugstoreServiceTypeTable.serviceType]}}</p>
+                            <h5 class="text-body-2-regular text-gray-5 mb-2">Tipo de despacho</h5>
+                            <p class="text-body-1-regular text-black mb-0">{{capacityServiceTypeName[drugstoreServiceTypeTable.serviceType]}}</p>
                         </div>
                     </div>
                     <div class="col-12 d-flex mt-5">
@@ -37,8 +37,8 @@
                                   fontSize="24px"
                                   innerClass="text-gray-5"></app-icon>
                         <div class="ms-4">
-                            <h5 class="text-caption text-gray-5 mb-2">Total del día</h5>
-                            <p class="text-label text-black mb-0">{{drugstoreServiceTypeTable.capacityQuantity}} pedidos</p>
+                            <h5 class="text-body-2-regular text-gray-5 mb-2">Total del día</h5>
+                            <p class="text-body-1-regular text-black mb-0">{{drugstoreServiceTypeTable.capacityQuantity}} pedidos</p>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                     <ng-container matColumnDef="capacity">
                         <th mat-header-cell column-width="140px" header-cell-center *matHeaderCellDef>Capacidad</th>
                         <td mat-cell column-width="140px" cell-center *matCellDef="let element">
-                            <span class="text-button">{{element.segmentCapacity}}</span>
+                            <span class="text-h5">{{element.segmentCapacity}}</span>
                         </td>
                     </ng-container>
 

@@ -72,7 +72,7 @@ export class RecoverPasswordResetComponent implements OnInit {
     formCancelled(): void {
         this.recoveryPasswordStore.resetStore();
         this.updatePasswordForm.resetPasswordForm();
-        this._router.navigate([ROUTER_PATH.login]);
+        this._router.navigate([ROUTER_PATH.accountLogin]);
     }
 
 }

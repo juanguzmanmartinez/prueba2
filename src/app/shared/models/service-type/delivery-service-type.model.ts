@@ -1,4 +1,4 @@
-import { DELIVERY_SERVICE_TYPE_PATH } from '@parameters/router/routing/shared-routing.parameter';
+import { DELIVERY_SERVICE_TYPE_PATH } from '@parameters/router/routing/shared/shared-router.parameter';
 
 export enum EDeliveryServiceType {
     amPm = 'AM_PM',

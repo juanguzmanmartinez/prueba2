@@ -1,0 +1,40 @@
+@import "src/sass/variables/colors.variable"
+@import "src/sass/variables/spacing.variable"
+@import "../../navigation.component"
+
+$sidenav-route-menu-height: 48px
+
+.sidenav-route-menu-container
+  .sidenav-route-menu
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: 0 $spacer-5
+    height: $sidenav-route-menu-height
+    background: $white
+
+    &:hover
+      background: $gray-0
+
+  .sidenav-route-menu-active .sidenav-route-menu
+    background: $light-primary
+
+  .sidenav-route-menu-text
+    margin-left: $spacer-6
+    margin-right: $spacer-4
+
+  .sidenav-route-menu-text,
+  .sidenav-route-menu-icon
+    color: $gray-6
+
+  .sidenav-route-menu-active .sidenav-route-menu,
+  .sidenav-route-menu:hover
+    .sidenav-route-menu-text,
+    .sidenav-route-menu-icon
+      color: $dark-primary
+
+
+.sidenav-route-menu-panel
+  margin-top: -#{$sidenav-route-menu-height}
+  margin-left: $sidenav-width-open
+  padding-left: 2px

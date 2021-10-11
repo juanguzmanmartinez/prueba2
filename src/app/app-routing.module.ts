@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppGuard } from '@guards/app.guard';
-import { ROUTING } from '@parameters/router/routing.parameter';
 import { AuthGuard } from '@guards/auth.guard';
+import { CORE_ROUTER } from '@parameters/router/routing/core/core-router.parameter';
 
 
 const routes: Routes = [
@@ -11,29 +11,29 @@ const routes: Routes = [
         canActivate: [AppGuard],
         children: [
             {
-                path: '',
+                path: CORE_ROUTER.base.path,
                 loadChildren: () => import('./business/business.module').then(m => m.BusinessModule)
             },
             {
-                path: ROUTING.notFound.valueOf(),
+                path: CORE_ROUTER.notFound.path.valueOf(),
                 canActivate: [AuthGuard],
                 loadChildren: () => import('./core/pages/not-found/not-found.module').then(m => m.NotFoundModule)
             },
             {
-                path: ROUTING.notInternetConnection.valueOf(),
+                path: CORE_ROUTER.notInternetConnection.path.valueOf(),
                 canActivate: [AuthGuard],
                 loadChildren: () => import('./core/pages/not-internet-connection/not-internet-connection.module').then(m => m.NotInternetConnectionModule)
             },
             {
-                path: ROUTING.wildcard.valueOf(),
-                redirectTo: ROUTING.notFound.valueOf()
+                path: CORE_ROUTER.wildcard.path.valueOf(),
+                redirectTo: CORE_ROUTER.notFound.path.valueOf()
             }
         ],
     },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+    imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],
     exports: [RouterModule]
 })
 export class AppRoutingModule {

@@ -1,0 +1,30 @@
+@import "src/sass/variables/colors.variable"
+@import "src/sass/variables/spacing.variable"
+
+.sidenav-route-container
+  .sidenav-route
+    display: flex
+    align-items: center
+    padding: 0 $spacer-5
+    height: 48px
+    background: $white
+
+    &:hover
+      background: $gray-0
+
+  .sidenav-route-active .sidenav-route
+    background: $light-primary
+
+
+  .sidenav-route-text,
+  .sidenav-route-icon
+    color: $gray-6
+    margin-left: $spacer-4
+
+  .sidenav-route-active .sidenav-route,
+  .sidenav-route:hover
+    .sidenav-route-text,
+    .sidenav-route-icon
+      color: $dark-primary
+
+

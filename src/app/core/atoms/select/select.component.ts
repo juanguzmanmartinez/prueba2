@@ -1,4 +1,4 @@
-import { Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self, TemplateRef } from '@angular/core';
+import { Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { isObject } from '@helpers/objects-equal.helper';
@@ -7,7 +7,8 @@ import { normalizeValue } from '@helpers/string.helper';
 @Component({
     selector: 'app-select',
     templateUrl: './select.component.html',
-    styleUrls: ['./select.component.scss']
+    styleUrls: ['./select.component.sass'],
+    encapsulation: ViewEncapsulation.None
 })
 export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];

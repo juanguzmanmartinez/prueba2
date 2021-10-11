@@ -1,4 +1,4 @@
-@import 'src/sass/variables/colors.variable';
+@import 'src/sass/variables';
 @import 'src/sass/mixins/text.mixin';
 @import 'src/sass/mixins/display.mixin';
 @import 'src/sass/mixins/utilities.mixin';
@@ -14,7 +14,7 @@
     background-color: $white;
     border: 1px solid $gray-1;
     box-sizing: border-box;
-    border-radius: 8px;
+    border-radius: $border-radius;
   }
 
   .step-header {
@@ -57,14 +57,14 @@
     }
 
     .step-header-id {
-      border-radius: 4px;
-      padding: 6px 8px;
+      border-radius: $border-radius;
+      padding: 5px 8px;
       width: 24px;
       height: 24px;
       color: $white;
       background-color: $gray-6;
       margin-right: 18px;
-      @include text-caption
+      @include text-body-2-regular
     }
 
     .step-header-title {
@@ -87,7 +87,7 @@
       color: $dark-primary;
       padding-right: 16px;
       text-align: right;
-      @include text-button;
+      @include text-h5;
       @include text-truncate;
     }
 

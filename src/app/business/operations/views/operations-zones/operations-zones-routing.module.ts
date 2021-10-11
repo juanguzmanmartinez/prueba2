@@ -11,8 +11,8 @@ import { OperationsZonesEditionBackupServiceTypeComponent } from './views/operat
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { PermissionsGuard } from '@guards/permissions-guard.service';
 import { OperationsZoneServiceTypeEditionGuard } from './guards/operations-zone-service-type-edition-guard.service';
-import { OP_ZONES_PATH } from '@parameters/router/routing/operations-routing.parameter';
-import { PERMISSIONS } from '@parameters/auth/permissions.parameter';
+import { OP_ZONES_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
+import { ROUTER_PERMISSIONS } from '@parameters/router/router-permissions.parameter';
 
 const routes: Routes = [
     {
@@ -36,35 +36,35 @@ const routes: Routes = [
                     {
                         path: OP_ZONES_PATH.zoneEdition.valueOf(),
                         canActivate: [PermissionsGuard],
-                        data: {permissions: PERMISSIONS[ROUTER_PATH.opZones_ZoneEdition().valueOf()]},
+                        data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.opZones_ZoneEdition().valueOf()]},
                         component: OperationsZonesEditionZoneComponent,
                         pathMatch: 'full'
                     },
                     {
                         path: `:${OP_ZONES_PATH.zoneServiceTypeEdition.valueOf()}/:${OP_ZONES_PATH.zoneServiceTypeChannelEdition}`,
                         canActivate: [PermissionsGuard, OperationsZoneServiceTypeEditionGuard],
-                        data: {permissions: PERMISSIONS[ROUTER_PATH.opZones_ZoneServiceTypeEdition().valueOf()]},
+                        data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.opZones_ZoneServiceTypeEdition().valueOf()]},
                         component: OperationsZonesEditionServiceTypeComponent,
                         pathMatch: 'full'
                     },
                     {
                         path: OP_ZONES_PATH.zoneBackupEdition.valueOf(),
                         canActivate: [PermissionsGuard],
-                        data: {permissions: PERMISSIONS[ROUTER_PATH.opZones_ZoneBackupEdition().valueOf()]},
+                        data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.opZones_ZoneBackupEdition().valueOf()]},
                         component: OperationsZonesEditionBackupComponent,
                         pathMatch: 'full'
                     },
                     {
                         path: `${OP_ZONES_PATH.zoneBackupAmPmEdition.valueOf()}`,
                         canActivate: [PermissionsGuard],
-                        data: {permissions: PERMISSIONS[ROUTER_PATH.opZones_ZoneBackupAmPmEdition().valueOf()]},
+                        data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.opZones_ZoneBackupAmPmEdition().valueOf()]},
                         component: OperationsZonesEditionBackupServiceTypeComponent,
                         pathMatch: 'full'
                     },
                     {
                         path: `${OP_ZONES_PATH.zoneBackupScheduledEdition.valueOf()}`,
                         canActivate: [PermissionsGuard],
-                        data: {permissions: PERMISSIONS[ROUTER_PATH.opZones_ZoneBackupScheduledEdition().valueOf()]},
+                        data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.opZones_ZoneBackupScheduledEdition().valueOf()]},
                         component: OperationsZonesEditionBackupServiceTypeComponent,
                         pathMatch: 'full'
                     },

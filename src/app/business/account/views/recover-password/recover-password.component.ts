@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AC_CHILDREN_PATH } from '@parameters/router/routing/account-routing.parameter';
+import { AC_CHILDREN_PATH } from '@parameters/router/routing/account/account-router.parameter';
 import { RecoveryPasswordStoreService } from '../../stores/recovery-password-store.service';
 
 @Component({

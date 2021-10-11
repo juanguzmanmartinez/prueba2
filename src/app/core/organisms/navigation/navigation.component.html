@@ -1,16 +1,4 @@
-<mat-toolbar class="navigation-head-bar-container line-height-0">
-    <div class="navigation-head-bar ps-8 pe-6">
-        <div class="navigation-head-bar-logo">
-            <app-router [router]="routerPath.base">
-                <app-icon svgName="main-logo"
-                          svgWidth="40px"></app-icon>
-            </app-router>
-        </div>
-
-        <div class="navigation-head-bar-profile">
-            <app-profile></app-profile>
-        </div>
-    </div>
-</mat-toolbar>
-
-<ng-content></ng-content>
+<app-headbar></app-headbar>
+<app-sidenav>
+    <ng-content></ng-content>
+</app-sidenav>

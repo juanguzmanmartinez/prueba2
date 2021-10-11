@@ -9,8 +9,8 @@ import { OperationsDrugstoresEditionServiceTypeComponent } from './views/operati
 import { PermissionsGuard } from '@guards/permissions-guard.service';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OperationsDrugstoresServiceTypeEditionGuard } from './guards/operations-drugstores-service-type-edition-guard.service';
-import { OP_DRUGSTORES_PATH } from '@parameters/router/routing/operations-routing.parameter';
-import { PERMISSIONS } from '@parameters/auth/permissions.parameter';
+import { OP_DRUGSTORES_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
+import { ROUTER_PERMISSIONS } from '@parameters/router/router-permissions.parameter';
 
 const routes: Routes = [
     {
@@ -34,14 +34,14 @@ const routes: Routes = [
                     {
                         path: OP_DRUGSTORES_PATH.drugstoreEdition.valueOf(),
                         canActivate: [PermissionsGuard],
-                        data: {permissions: PERMISSIONS[ROUTER_PATH.opDrugstores_DrugstoreEdition().valueOf()]},
+                        data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.opDrugstores_DrugstoreEdition().valueOf()]},
                         component: OperationsDrugstoresEditionDrugstoreComponent,
                         pathMatch: 'full'
                     },
                     {
                         path: `:${OP_DRUGSTORES_PATH.drugstoreServiceTypeEdition.valueOf()}`,
                         canActivate: [PermissionsGuard, OperationsDrugstoresServiceTypeEditionGuard],
-                        data: {permissions: PERMISSIONS[ROUTER_PATH.opDrugstores_DrugstoreServiceTypeEdition().valueOf()]},
+                        data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.opDrugstores_DrugstoreServiceTypeEdition().valueOf()]},
                         component: OperationsDrugstoresEditionServiceTypeComponent,
                         pathMatch: 'full'
                     }

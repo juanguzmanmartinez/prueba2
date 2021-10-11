@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { DialogOneActionService } from '@molecules/dialog/views/dialog-one-action/dialog-one-action.service';
 import { UserStoreService } from '@stores/user-store.service';
 import { Role } from '@parameters/auth/role.parameter';
-import { PERMISSIONS } from '@parameters/auth/permissions.parameter';
-import { DefaultPermissions } from '@models/auth/permissions.model';
+import { ROUTER_PERMISSIONS } from '@parameters/router/router-permissions.parameter';
+import { PathPermissions } from '@models/auth/permissions.model';
 
 @Directive({
     selector: '[editionAccess][pathAccess]'
@@ -16,7 +16,7 @@ export class EditionAccessDirective implements AfterViewInit {
     @Input() pathAccess: string;
     @Output() editionAccess = new EventEmitter();
     private editorRole = Role.Editor;
-    private defaultPermissions = PERMISSIONS;
+    private pathPermissions = ROUTER_PERMISSIONS;
 
     constructor(
         private _router: Router,
@@ -45,11 +45,11 @@ export class EditionAccessDirective implements AfterViewInit {
 
     ngAfterViewInit() {
         if (this.enableAccess) {
-            const defaultPermissions: DefaultPermissions = this.pathAccess ? this.defaultPermissions[this.pathAccess] : null;
-            const hasAccessByRole = this.userStore.hasAccessByRole(this.editorRole, defaultPermissions?.access);
-            const defaultPermissionCanEdit = !!defaultPermissions.roles.find((role) => role === this.editorRole);
+            const pathPermissions: PathPermissions = this.pathAccess ? this.pathPermissions[this.pathAccess] : null;
+            const hasAccessByRole = this.userStore.hasAccessByRole(this.editorRole, pathPermissions?.access);
+            const pathPermissionCanEdit = !!pathPermissions.roles.find((role) => role === this.editorRole);
 
-            this.hasEditionAccess = !!hasAccessByRole && !!defaultPermissionCanEdit;
+            this.hasEditionAccess = !!hasAccessByRole && !!pathPermissionCanEdit;
             if (!this.hasEditionAccess) {
                 this.renderer.addClass(this.elementRef.nativeElement, 'cursor-pointer');
                 this.renderer.addClass(this.elementRef.nativeElement, 'd-inline-block');

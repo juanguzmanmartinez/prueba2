@@ -1,20 +1,21 @@
 <div class="card-action">
-  <div class="card-action-container">
-    <div class="card-action-icon">
-      <app-icon [svgName]="cardIconSVG"
-                svgWidth="40px"></app-icon>
+    <div class="card-action-container">
+        <div class="card-action-icon">
+            <app-icon [svgName]="cardIconSVG"
+                      svgWidth="40px"></app-icon>
+        </div>
+        <div class="card-action-content">
+            <h4 class="text-body-1-bold mb-1">
+                <ng-content select="[card-title]"></ng-content>
+            </h4>
+            <p class="text-body-2-regular text-gray-5 mb-0">
+                <ng-content select="[card-description]"></ng-content>
+            </p>
+        </div>
+        <div class="card-action-arrow">
+            <app-icon fontName="keyboard_arrow_right"
+                      fontSize="24px"
+                      innerClass="text-gray-6"></app-icon>
+        </div>
     </div>
-    <div class="card-action-content">
-      <h4 class="text-subtitle-1 mb-3">
-        <ng-content select="[card-title]"></ng-content>
-      </h4>
-      <p class="text-caption text-gray-5 mb-0">
-        <ng-content select="[card-description]"></ng-content>
-      </p>
-    </div>
-    <div class="card-action-arrow">
-      <app-icon fontName="keyboard_arrow_right"
-                fontSize="24px"></app-icon>
-    </div>
-  </div>
 </div>

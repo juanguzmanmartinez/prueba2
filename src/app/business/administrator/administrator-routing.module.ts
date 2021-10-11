@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule, Routes } from '@angular/router';
 import { AdministratorComponent } from './administrator.component';
-import { AD_CHILDREN_PATH } from '@parameters/router/routing/administrator-routing.parameter';
+import { AD_CHILDREN_PATH } from '@parameters/router/routing/administrator/administrator-router.parameter';
 import { AdministratorHomeComponent } from './views/administrator-home/administrator-home.component';
 
 const USERS: Route = {

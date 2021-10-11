@@ -24,17 +24,11 @@
 
         </div>
 
-        <div class="profile-dialog-actions d-flex-horizontal-end flex-column flex-md-row">
-            <app-button appearance="secondary"
+        <div class="profile-dialog-actions d-flex-horizontal-end flex-md-row">
+            <app-button [mat-dialog-close]="true"
                         innerClass="w-100 w-md-auto"
-                        class="me-md-4 mb-4 mb-md-0"
-                        [mat-dialog-close]="profileDialogType.updatePassword">
+                        appearance="primary">
                 Cambiar de contraseña
-            </app-button>
-            <app-button appearance="primary"
-                        innerClass="w-100 w-md-auto"
-                        [mat-dialog-close]="profileDialogType.logout">
-                Cerrar sesión
             </app-button>
         </div>
     </div>

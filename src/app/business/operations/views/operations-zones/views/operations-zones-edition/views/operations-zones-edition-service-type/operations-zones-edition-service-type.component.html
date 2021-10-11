@@ -11,14 +11,14 @@
     <div class="row"
          [class.container-loader]="saveEditionLoader"
          *ngIf="!errorResponse">
-        <div class="col-12 col-xl-5 mb-6 mb-xl-0">
+        <div class="col-12 col-xlg-5 mb-6 mb-xlg-0">
             <app-op-zones-edition-service-type-detail-card
                     *appSkeletonCard="!!zoneDetail && !!zonesStoreServiceType; loading: !editionServiceTypeLoader"
                     [zoneDetail]="zoneDetail"
                     [zonesStoreServiceType]="zonesStoreServiceType">
             </app-op-zones-edition-service-type-detail-card>
         </div>
-        <div class="col-12 col-xl-7">
+        <div class="col-12 col-xlg-7">
             <app-op-zones-edition-service-type-detail-form-card
                     *appSkeletonCard="!!zoneDetail && !!zonesStoreServiceType; row: 7; loading: !editionServiceTypeLoader"
                     [zoneDetail]="zoneDetail"

@@ -18,6 +18,11 @@ export class AppComponent implements OnDestroy {
         this._documentListener.click = event.target;
     }
 
+    @HostListener('document:mouseover', ['$event'])
+    documentMouseover(event: any): void {
+        this._documentListener.mouseover = event.target;
+    }
+
     constructor(
         private _breakpointObserver: BreakpointObserver,
         private _documentListener: DocumentListener

@@ -1,0 +1,65 @@
+@import "src/sass/variables/colors.variable"
+@import "src/sass/variables/spacing.variable"
+
+$sidenav-route-height: 48px
+
+.sidenav-route-expansion-container
+
+  .mat-expansion-panel-body
+    padding: 0
+
+  .sidenav-route-expansion
+    background-color: transparent
+    box-shadow: none
+
+  .sidenav-route-expansion-header
+    background: $white
+    display: flex
+    align-items: center
+    padding: 0
+    height: $sidenav-route-height !important
+
+    &:hover
+      background-color: $gray-0 !important
+
+    .sidenav-route-expansion-text
+      width: 100%
+      margin-left: $spacer-4
+
+    .sidenav-route-expansion-text,
+    .sidenav-route-expansion-icon
+      color: $gray-6
+
+  .sidenav-route-expansion-header-router-container
+    width: calc(100% - #{$spacer-9})
+
+  .sidenav-route-expansion-header-router,
+  .sidenav-route-expansion-header-toggle
+    display: flex
+    align-items: center
+    height: $sidenav-route-height
+
+  .sidenav-route-expansion-header-router
+    padding-left: $spacer-5
+
+  .sidenav-route-expansion-header-toggle
+    padding-left: $spacer-4
+    padding-right: $spacer-5
+
+  .sidenav-route-expansion-icon
+    display: flex
+    transition: .5s
+    transform: rotate(0deg)
+
+  .sidenav-route-expansion-active .sidenav-route-expansion-header
+    background-color: $light-primary !important
+
+  .sidenav-route-expansion-active .sidenav-route-expansion-header,
+  .sidenav-route-expansion-header:hover
+    .sidenav-route-expansion-text,
+    .sidenav-route-expansion-icon
+      color: $dark-primary
+
+  .sidenav-route-expansion-closed
+    .sidenav-route-expansion-header-router-container
+      width: 100%
