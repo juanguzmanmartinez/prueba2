@@ -3,7 +3,7 @@
                          (closed)="sidenavRouteExpansionState = false"
                          (opened)="sidenavRouteExpansionState = true"
                          [class.sidenav-route-expansion-active]="activeHeaderRoute"
-                         [class.sidenav-route-expansion-closed]="sidenavRouteExpansionState"
+                         [class.sidenav-route-expansion-closed]="!sidenavRouteExpansionState"
                          [disabled]="true"
                          class="sidenav-route-expansion"
                          hideToggle="true">
@@ -26,7 +26,7 @@
                  class="sidenav-route-expansion-header-toggle">
                 <app-icon [@openClose]="sidenavRouteExpansionState ? 'open' : 'closed'"
                           class="sidenav-route-expansion-icon"
-                          fontName="keyboard_arrow_down"></app-icon>
+                          fontName="keyboard_arrow_up"></app-icon>
             </div>
         </mat-expansion-panel-header>
 
