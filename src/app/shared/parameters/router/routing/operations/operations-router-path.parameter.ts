@@ -33,5 +33,5 @@ export const OPERATIONS_ROUTER_PATH = {
     opCapacitiesScheduled: `/${OPERATIONS_ROUTER.path}/${OP_CHILDREN_PATH.capacities}/${OP_CAPACITIES_PATH.capacityScheduled}`,
     opCapacitiesExpress: `/${OPERATIONS_ROUTER.path}/${OP_CHILDREN_PATH.capacities}/${OP_CAPACITIES_PATH.capacityExpress}`,
     opCapacitiesRet: `/${OPERATIONS_ROUTER.path}/${OP_CHILDREN_PATH.capacities}/${OP_CAPACITIES_PATH.capacityRet}`,
-    opCapacitiesReport: `/${OPERATIONS_ROUTER.path}/${OP_CHILDREN_PATH.capacities}/${OP_CAPACITIES_PATH.report}`,
+    opCapacitiesReport: `/${OPERATIONS_ROUTER.path}/${OP_CHILDREN_PATH.capacities}/${OP_CAPACITIES_PATH.capacityReport}`,
 };

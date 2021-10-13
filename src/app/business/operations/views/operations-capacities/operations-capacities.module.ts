@@ -50,6 +50,7 @@ import { PipesModule } from '@pipes/pipes.module';
       OperationsCapacityScheduledComponent,
       OperationsCapacityExpressComponent,
       OperationsCapacityRetComponent,
+      OperationsCapacityReportComponent,
       OpCapacitiesStepGroupOrDrugstoreComponent,
       OpCapacitiesStepEditionModeComponent,
       OpCapacitiesStepCapacityTableComponent,
@@ -58,7 +59,6 @@ import { PipesModule } from '@pipes/pipes.module';
       OpCapacitiesDrugstoreDefaultCapacityComponent,
       OpCapacitiesDrugstoreDefaultCapacityCardComponent,
       OpCapacitiesDrugstoreDefaultCapacityDialogComponent,
-      OperationsCapacityReportComponent
   ],
     imports: [
         CommonModule,

@@ -140,8 +140,8 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     }
 
 
-    editRow(zoneCode: string) {
-         this._router.navigate([ROUTER_PATH.opZones_Zone(zoneCode)]);
+    editRow(zoneId: string) {
+        this._router.navigate([ROUTER_PATH.opZones_Zone(zoneId)]);
     }
 
     rowDetailDialog(zone: Zone) {
@@ -149,7 +149,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
             .afterClosed()
             .subscribe((edition) => {
                 if (edition) {
-                  this.editRow(zone.id);
+                    this.editRow(zone.id);
                 }
             });
         this.subscriptions.push(subscription);
