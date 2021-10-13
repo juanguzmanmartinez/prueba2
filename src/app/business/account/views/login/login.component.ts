@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
             this._loginForm.passwordControl.value,
         )
             .subscribe(() => {
-                this._router.navigate([ROUTER_PATH.operations]);
+                this._router.navigate([ROUTER_PATH.base]);
             }, () => {
                 this.errorFormRequest();
             });
