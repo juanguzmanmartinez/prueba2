@@ -24,12 +24,7 @@
     <div class="row" [hidden]="errorResponse">
         <div class="col-12 mb-8">
             <table mat-table large-table [dataSource]="dataSource" matSort>
-              <div [hidden]="true">
-              <ng-container matColumnDef="zoneId">
-                <th mat-header-cell column-width="8%" *matHeaderCellDef mat-sort-header>ID</th>
-                <td mat-cell column-width="8%" cell-bold *matCellDef="let element">{{element.id}}</td>
-              </ng-container>
-              </div>
+
                 <ng-container matColumnDef="zoneCode">
                     <th mat-header-cell column-width="8%" *matHeaderCellDef mat-sort-header>Código</th>
                     <td mat-cell column-width="8%" cell-bold *matCellDef="let element">{{element.code}}</td>
@@ -63,19 +58,15 @@
                     cell-double-text
                     *matCellDef="let element">
                   <ng-container *ngFor="let company of element.companyList">
-                    <!--<p class="mb-0" *ngFor="let company of element.companyList; let last = last">
-                      {{companyName[company]}}
-                      <span class="mx-2" *ngIf="!last">-</span>
-                    </p>-->
                     <span class="me-4">
                             <app-icon
                               [svgName]="companyIcon[company]"
                               svgWidth="24px"></app-icon>
                             </span>
                   </ng-container>
-                  <ng-container *ngIf="!element.channelList?.length">
-                    <p class="text-center m-0">-</p>
-                  </ng-container>
+                    <ng-container *ngIf="!element.companyList?.length">
+                        <p class="text-center m-0">-</p>
+                    </ng-container>
                 </td>
               </ng-container>
 

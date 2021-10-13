@@ -20,7 +20,7 @@ const ColumnNameList = {
     zoneCode: 'zoneCode',
     zoneName: 'zoneName',
     assignedStore: 'assignedStore',
-    zoneCompany:'zoneCompany',
+    zoneCompany: 'zoneCompany',
     zoneChannel: 'zoneChannel',
     zoneState: 'zoneState',
     actions: 'actions',
@@ -46,7 +46,9 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     public errorResponse: HttpErrorResponse;
 
     public displayedColumns: string[] = [
-        ColumnNameList.zoneCode, ColumnNameList.zoneName, ColumnNameList.assignedStore,ColumnNameList.zoneCompany, ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
+        ColumnNameList.zoneCode, ColumnNameList.zoneName,
+        ColumnNameList.assignedStore, ColumnNameList.zoneCompany,
+        ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
     public dataSource = new MatTableDataSource([]);
 
     @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
@@ -85,7 +87,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
 
             const channelNormalize = normalizeValue(data.channelList.map(channel => this.channelName[channel]).join(''));
             const stateNormalize = normalizeValue(this.stateName[data.state]());
-            const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize,companyNormalize, channelNormalize, stateNormalize];
+            const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize, companyNormalize, channelNormalize, stateNormalize];
 
             const concatValue = normalizeValue(valueArray.join(''));
             const everyValue = valueArray.some(value => value.includes(filterNormalize));

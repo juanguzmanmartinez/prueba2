@@ -34,7 +34,7 @@ export class ZonesClientService {
     }
 
     getZoneDetail(zoneCode: string): Observable<IZoneDetail> {
-      const endpoint = `${this.ZONE_LIST_DETAIL}/${zoneCode}`;
+        const endpoint = `${this.ZONE_LIST_DETAIL}/${zoneCode}`;
         return this.generic.genericGet<IZoneDetail>(endpoint)
             .pipe(
                 take(1),
