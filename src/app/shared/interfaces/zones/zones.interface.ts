@@ -42,6 +42,7 @@ export interface IZone {
     serviceTypes: IZoneServiceType[];
     storeCenter: IStore;
     channel: EChannel[];
+    companyCode: ECompany[];
     backUpZone: boolean;
 }
 

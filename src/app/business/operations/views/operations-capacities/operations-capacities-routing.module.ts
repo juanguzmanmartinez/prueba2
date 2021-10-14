@@ -7,6 +7,7 @@ import { OperationsCapacityScheduledComponent } from './views/operations-capacit
 import { OperationsCapacityExpressComponent } from './views/operations-capacity-express/operations-capacity-express.component';
 import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
 import { OP_CAPACITIES_PATH } from '@parameters/router/paths/operations-path.parameter';
+import { OperationsCapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,11 @@ const routes: Routes = [
             {
                 path: OP_CAPACITIES_PATH.capacityRet.toString(),
                 component: OperationsCapacityRetComponent,
+                pathMatch: 'full'
+            },
+            {
+                path: OP_CAPACITIES_PATH.capacityReport.toString(),
+                component: OperationsCapacityReportComponent,
                 pathMatch: 'full'
             },
         ]

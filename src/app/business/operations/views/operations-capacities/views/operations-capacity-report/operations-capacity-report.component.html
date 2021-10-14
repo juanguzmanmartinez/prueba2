@@ -1,0 +1,32 @@
+<section class="operations-capacity-am-pm pt-6 pt-md-8 pb-8 pb-md-15">
+    <div class="row mb-4">
+        <div class="col">
+            <app-back-router>Inicio</app-back-router>
+        </div>
+    </div>
+
+    <div class="row mb-5 mb-md-9">
+        <div class="col">
+            <h1 class="text-h4 text-md-h3 text-black mb-5">Reporte Capacidades</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <iframe allowfullscreen
+                    height="900"
+                    [src]="drugstoreListReport | safeUrl"
+                    style="border:0"
+                    width="100%">
+            </iframe>
+        </div>
+
+        <div class="col-12">
+            <iframe allowfullscreen
+                    height="900"
+                    [src]="drugstoreDetailReport | safeUrl"
+                    style="border:0"
+                    width="100%"></iframe>
+        </div>
+    </div>
+</section>

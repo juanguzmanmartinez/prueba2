@@ -120,13 +120,13 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     editZone() {
-        this._router.navigate([ROUTER_PATH.opZones_ZoneEdition(this.zoneDetail.code)]);
+        this._router.navigate([ROUTER_PATH.opZones_ZoneEdition(this.zoneDetail.id)]);
     }
 
     editServiceType(serviceType: ZoneServiceTypeBasicRequest) {
         const serviceTypePath = ROUTER_PATH.opZones_ZoneServiceTypeEdition(
             CDeliveryServiceTypeRoute[serviceType.code],
-            this.zoneDetail.code,
+            this.zoneDetail.id,
             CChannelRoute[serviceType.channel]
         );
         this._router.navigate([serviceTypePath]);
@@ -176,17 +176,17 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     }
 
     editBackupZone() {
-        this._router.navigate([ROUTER_PATH.opZones_ZoneBackupEdition(this.zoneDetail.code)]);
+        this._router.navigate([ROUTER_PATH.opZones_ZoneBackupEdition(this.zoneDetail.id)]);
     }
 
     editBackupServiceType(serviceType: EDeliveryServiceType) {
         let serviceTypePath;
         switch (serviceType) {
             case EDeliveryServiceType.amPm:
-                serviceTypePath = ROUTER_PATH.opZones_ZoneBackupAmPmEdition(this.zoneDetail.code);
+                serviceTypePath = ROUTER_PATH.opZones_ZoneBackupAmPmEdition(this.zoneDetail.id);
                 break;
             case EDeliveryServiceType.scheduled:
-                serviceTypePath = ROUTER_PATH.opZones_ZoneBackupScheduledEdition(this.zoneDetail.code);
+                serviceTypePath = ROUTER_PATH.opZones_ZoneBackupScheduledEdition(this.zoneDetail.id);
                 break;
         }
         this._router.navigate([serviceTypePath]);

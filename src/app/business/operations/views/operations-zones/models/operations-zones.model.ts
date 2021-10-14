@@ -16,6 +16,7 @@ class ZoneBase {
     assignedStore: ZonesStore;
     assignedStoreCode: string;
     channelList: EChannel[];
+    companyList: ECompany[];
     state: EState;
     zoneType: EZoneType;
 
@@ -27,6 +28,7 @@ class ZoneBase {
         this.state = iZone.enabled ? EState.active : EState.inactive;
         this.assignedStore = iZone.storeCenter ? new ZonesStore(iZone.storeCenter) : null;
         this.channelList = iZone.channel || [];
+        this.companyList = iZone.companyCode || [];
         this.zoneType = CGZoneType(iZone.backUpZone);
     }
 }

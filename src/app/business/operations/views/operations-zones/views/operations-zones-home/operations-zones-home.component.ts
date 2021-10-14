@@ -14,11 +14,13 @@ import { CStateName, CStateTag } from '@models/state/state.model';
 import { CChannelName } from '@models/channel/channel.model';
 import { SortAlphanumeric, SortString } from '@helpers/sort.helper';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CCompanyIcon, CCompanyName } from '@models/company/company.model';
 
 const ColumnNameList = {
     zoneCode: 'zoneCode',
     zoneName: 'zoneName',
     assignedStore: 'assignedStore',
+    zoneCompany: 'zoneCompany',
     zoneChannel: 'zoneChannel',
     zoneState: 'zoneState',
     actions: 'actions',
@@ -33,6 +35,8 @@ const ColumnNameList = {
 export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     public serviceTypeName = CDeliveryServiceTypeName;
+    public companyName = CCompanyName;
+    public companyIcon = CCompanyIcon;
     public channelName = CChannelName;
     public stateTag = CStateTag;
     public stateName = CStateName;
@@ -42,7 +46,9 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     public errorResponse: HttpErrorResponse;
 
     public displayedColumns: string[] = [
-        ColumnNameList.zoneCode, ColumnNameList.zoneName, ColumnNameList.assignedStore, ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
+        ColumnNameList.zoneCode, ColumnNameList.zoneName,
+        ColumnNameList.assignedStore, ColumnNameList.zoneCompany,
+        ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
     public dataSource = new MatTableDataSource([]);
 
     @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
@@ -77,9 +83,11 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
             const nameNormalize = normalizeValue(data.name);
             const assignedStoreNameNormalize = normalizeValue(data.assignedStore ? data.assignedStore.name : '');
             const assignedStoreCodeNormalize = normalizeValue(data.assignedStoreCode);
+            const companyNormalize = normalizeValue(data.companyList.map(company => this.companyName[company]).join(''));
+
             const channelNormalize = normalizeValue(data.channelList.map(channel => this.channelName[channel]).join(''));
             const stateNormalize = normalizeValue(this.stateName[data.state]());
-            const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize, channelNormalize, stateNormalize];
+            const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize, companyNormalize, channelNormalize, stateNormalize];
 
             const concatValue = normalizeValue(valueArray.join(''));
             const everyValue = valueArray.some(value => value.includes(filterNormalize));
@@ -98,6 +106,12 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
                         const assignedStoreNameA = a.assignedStore ? a.assignedStore.name : '';
                         const assignedStoreNameB = b.assignedStore ? b.assignedStore.name : '';
                         return SortAlphanumeric(assignedStoreNameA, assignedStoreNameB, sort.direction);
+                  case ColumnNameList.zoneCompany:
+                    const companyListNameA = a.companyList
+                      .map(company => this.companyName[company]).join('');
+                    const companyListNameB = b.companyList
+                      .map(company => this.companyName[company]).join('');
+                    return SortString(companyListNameA, companyListNameB, sort.direction);
                     case ColumnNameList.zoneChannel:
                         const channelListNameA = a.channelList
                             .map(channel => this.channelName[channel]).join('');
@@ -127,7 +141,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
 
 
     editRow(zoneCode: string) {
-        this._router.navigate([ROUTER_PATH.opZones_Zone(zoneCode)]);
+         this._router.navigate([ROUTER_PATH.opZones_Zone(zoneCode)]);
     }
 
     rowDetailDialog(zone: Zone) {
@@ -135,7 +149,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
             .afterClosed()
             .subscribe((edition) => {
                 if (edition) {
-                    this.editRow(zone.code);
+                  this.editRow(zone.id);
                 }
             });
         this.subscriptions.push(subscription);
