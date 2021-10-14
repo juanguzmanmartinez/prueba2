@@ -46,6 +46,29 @@
                         </ng-container>
                     </td>
                 </ng-container>
+              <ng-container matColumnDef="zoneCompany">
+                <th mat-header-cell
+                    column-width="153px"
+                    *matHeaderCellDef
+                    mat-sort-header>
+                  Marca
+                </th>
+                <td mat-cell
+                    column-width="153px"
+                    cell-double-text
+                    *matCellDef="let element">
+                  <ng-container *ngFor="let company of element.companyList">
+                    <span class="me-4">
+                            <app-icon
+                              [svgName]="companyIcon[company]"
+                              svgWidth="24px"></app-icon>
+                            </span>
+                  </ng-container>
+                    <ng-container *ngIf="!element.companyList?.length">
+                        <p class="text-center m-0">-</p>
+                    </ng-container>
+                </td>
+              </ng-container>
 
                 <ng-container matColumnDef="zoneChannel">
                     <th mat-header-cell
@@ -93,7 +116,7 @@
                     <td mat-cell column-actions
                         *matCellDef="let element">
                         <app-tooltip class="me-4" value="Editar">
-                            <app-button-action-icon (clicked)="editRow(element.code)"
+                            <app-button-action-icon (clicked)="editRow(element.id)"
                                                     iconName="edit">
                             </app-button-action-icon>
                         </app-tooltip>

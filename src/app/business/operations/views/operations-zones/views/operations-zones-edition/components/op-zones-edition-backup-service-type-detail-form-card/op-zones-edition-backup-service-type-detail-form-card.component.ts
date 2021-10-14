@@ -45,7 +45,7 @@ export class OpZonesEditionBackupServiceTypeDetailFormCardComponent implements O
     }
 
     get zoneBackupPath() {
-        return ROUTER_PATH.opZones_Zone(this.zoneBackupDetail.code);
+        return ROUTER_PATH.opZones_Zone(this.zoneBackupDetail.id);
     }
 
     cancelEditionEvent() {

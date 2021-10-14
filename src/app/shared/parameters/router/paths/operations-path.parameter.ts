@@ -12,7 +12,7 @@ export const OP_CAPACITIES_PATH = {
     capacityScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
     capacityExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
     capacityRet: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
-    report: 'reportes'
+    capacityReport: 'reportes'
 };
 
 export const OP_STORES_PATH = {

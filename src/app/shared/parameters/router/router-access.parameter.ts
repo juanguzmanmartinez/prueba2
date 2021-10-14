@@ -24,6 +24,6 @@ export const ROUTER_ACCESS = {
 
     [ROUTER_PATH.operationCapacities]: [ADMIN, VIEWER, ASSISTANT],
     [ROUTER_PATH.operationSettings]: [DEVELOPER],
-    [ROUTER_PATH.opCapacitiesReport]: [DEVELOPER],
+    [ROUTER_PATH.opCapacitiesReport]: [ADMIN, VIEWER, ASSISTANT],
 };
 

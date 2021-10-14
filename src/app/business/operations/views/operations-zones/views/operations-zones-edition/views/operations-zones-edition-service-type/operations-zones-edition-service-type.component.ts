@@ -120,7 +120,7 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     }
 
     backRoute() {
-        const backRoute = ROUTER_PATH.opZones_Zone(this.zoneDetail.code);
+        const backRoute = ROUTER_PATH.opZones_Zone(this.zoneDetail.id);
         this._router.navigate([backRoute]);
     }
 
