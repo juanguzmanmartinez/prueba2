@@ -10,3 +10,8 @@ export const CHANNEL_PATH = {
     channelCall: 'call-center',
     channelOmnichannel: 'omnicanal'
 };
+export const COMPANY_PATH = {
+  companyInkafarma: 'inkafarma',
+  companyMifarma: 'mifarma',
+  compoanyTodos: 'todos'
+};

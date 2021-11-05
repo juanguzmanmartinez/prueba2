@@ -14,7 +14,19 @@
             </app-tag>
         </div>
     </div>
-
+    <div class="row mb-6">
+      <div class="col-12 d-flex-vertical-center justify-content-between">
+        <app-tag [appearance]="tagAppearance.transparentPill"
+           [tagColor]="segmentCompanyColor">
+             <span class="me-2">
+                <app-icon
+                  [svgName]="segmentCompanyIcon"
+                  svgWidth="22px"></app-icon>
+             </span>
+            {{segmentCompanyName}}
+         </app-tag>
+      </div>
+    </div>
     <app-card-static-information class="d-block mb-5"
                                  iconName="access_time"
                                  [disabled]="serviceTypeDisabled">

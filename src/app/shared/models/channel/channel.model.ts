@@ -6,7 +6,6 @@ export enum EChannel {
     call = 'CALL',
     omnichannel = 'OMNI'
 }
-
 export const CChannelName = {
     [EChannel.digital]: 'Digital',
     [EChannel.call]: 'Call Center',

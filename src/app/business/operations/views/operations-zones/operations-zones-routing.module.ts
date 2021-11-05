@@ -41,7 +41,7 @@ const routes: Routes = [
                         pathMatch: 'full'
                     },
                     {
-                        path: `:${OP_ZONES_PATH.zoneServiceTypeEdition.valueOf()}/:${OP_ZONES_PATH.zoneServiceTypeChannelEdition}`,
+                        path: `:${OP_ZONES_PATH.zoneServiceTypeEdition.valueOf()}/:${OP_ZONES_PATH.zoneServiceTypeChannelEdition}/:${OP_ZONES_PATH.zoneServiceTypeCompanyEdition}`,
                         canActivate: [RoleGuard, OperationsZoneServiceTypeEditionGuard],
                         data: {roles: ROUTER_ACCESS[ROUTER_PATH.opZones_ZoneServiceTypeEdition().valueOf()]},
                         component: OperationsZonesEditionServiceTypeComponent,

@@ -1,9 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { EChannel } from '@models/channel/channel.model';
+import { ECompany } from '@models/company/company.model';
 
 @Injectable()
 export class OperationsZonesEditionActionsStoreService implements OnDestroy {
     private serviceTypeChannelSelected: EChannel = EChannel.digital;
+  private serviceTypeCompanySelected: ECompany = ECompany.inkafarma;
     private tabSettingSelected = 0;
 
     constructor() {
@@ -17,14 +19,18 @@ export class OperationsZonesEditionActionsStoreService implements OnDestroy {
         this.serviceTypeChannelSelected = selection;
     }
 
-    get tabSettingSelection(): number {
+    set serviceTypeCompanySelection(selection: ECompany) {
+      this.serviceTypeCompanySelected = selection;
+    }
+
+
+  get tabSettingSelection(): number {
         return this.tabSettingSelected;
     }
 
     set tabSettingSelection(selection: number) {
         this.tabSettingSelected = selection;
     }
-
     resetStore() {
         this.serviceTypeChannelSelection = EChannel.digital;
         this.tabSettingSelection = 0;

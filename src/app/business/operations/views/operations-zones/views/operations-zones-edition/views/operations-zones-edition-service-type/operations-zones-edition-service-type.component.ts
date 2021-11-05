@@ -15,6 +15,7 @@ import { CChannelName, CChannelRoute, EChannel } from '@models/channel/channel.m
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { OP_ZONES_PATH } from '@parameters/router/paths/operations-path.parameter';
+import { CCompanyRoute, ECompany } from '@models/company/company.model';
 
 @Component({
     selector: 'app-operations-zones-edition-service-type',
@@ -26,6 +27,7 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     public zoneDetail: ZoneDetail;
     public serviceType: EDeliveryServiceType;
     public channel: EChannel;
+    public company: ECompany;
     public zoneServiceType: ZoneServiceType;
     public zonesStoreServiceType: ZonesStoreServiceType;
     public serviceTypeName = CDeliveryServiceTypeName;
@@ -48,10 +50,16 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     ngOnInit(): void {
         const serviceTypeCode = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeEdition];
         const serviceTypeChannel = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeChannelEdition];
+        const serviceTypeCompany = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeCompanyEdition];
+
+        console.log( this._activatedRoute.snapshot);
         this.serviceType = Object.keys(CDeliveryServiceTypeRoute)
             .find((key) => CDeliveryServiceTypeRoute[key] === serviceTypeCode) as EDeliveryServiceType;
         this.channel = Object.keys(CChannelRoute)
             .find((key) => CChannelRoute[key] === serviceTypeChannel) as EChannel;
+
+      this.company = Object.keys(CCompanyRoute)
+        .find((key) => CCompanyRoute[key] === serviceTypeCompany) as ECompany;
 
         this.getZoneDetail();
         this.setZoneServiceType();

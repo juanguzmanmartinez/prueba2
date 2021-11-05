@@ -8,6 +8,7 @@ import { CChannelColor, CChannelName } from '@models/channel/channel.model';
 import { ETagAppearance } from '@models/tag/tag.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { minuteFormat } from '@helpers/date-name.helper';
+import { CCompanyColor, CCompanyIcon, CCompanyName, ECompany } from '@models/company/company.model';
 
 @Component({
     selector: 'app-op-zones-edition-home-main-service-type-card',
@@ -19,12 +20,15 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent implements OnInit {
     private stateValue = CStateValue;
     private channelName = CChannelName;
     private channelColor = CChannelColor;
+    private companyName= CCompanyName;
+    private companyColor = CCompanyColor;
+    public companyIcon = CCompanyIcon;
     public tagAppearance = ETagAppearance;
 
     @Input() serviceType: ZoneServiceTypeRegistered;
+    @Input() company: ECompany;
     @Output() edit = new EventEmitter<EDeliveryServiceType>();
     @Output() add = new EventEmitter<EDeliveryServiceType>();
-
     constructor() {
     }
 
@@ -47,6 +51,17 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent implements OnInit {
         return this.serviceTypeDisabled ? 'gray-3' : this.channelColor[this.serviceType.channel];
     }
 
+    get segmentCompanyName() {
+
+      return this.companyName[this.company];
+    }
+    get segmentCompanyIcon() {
+      return this.companyIcon[this.company];
+    }
+    get segmentCompanyColor() {
+      return this.serviceTypeDisabled ? 'gray-3' : this.companyColor[this.company];
+    }
+
     get startAndEndHour() {
         if (this.serviceType.serviceType) {
             const startHour = DatesHelper.date(this.serviceType.serviceType.startHour, DATES_FORMAT.millisecond)
@@ -66,6 +81,7 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent implements OnInit {
     }
 
     get serviceTypePath() {
+      this.serviceType.company=this.company;
         return ROUTER_PATH.opZones_ZoneServiceTypeEdition();
     }
 

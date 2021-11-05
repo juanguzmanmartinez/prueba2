@@ -14,6 +14,7 @@ export interface IZoneServiceType {
     enabled: boolean;
     intervalTime: number;
     channel: EChannel;
+    company: ECompany;
 }
 
 export interface IZoneServiceTypeUpdate {
@@ -22,6 +23,7 @@ export interface IZoneServiceTypeUpdate {
     endHour: string;
     segmentGap: number;
     channel: EChannel;
+    companyCode:ECompany;
 }
 
 export interface IZoneServiceTypeRegister {
@@ -31,6 +33,7 @@ export interface IZoneServiceTypeRegister {
     endHour: string;
     segmentGap: string;
     channel: EChannel;
+    companyCode:ECompany;
 }
 
 export interface IZone {

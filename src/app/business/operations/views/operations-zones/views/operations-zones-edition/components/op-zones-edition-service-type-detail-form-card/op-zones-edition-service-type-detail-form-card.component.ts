@@ -16,6 +16,7 @@ import { OperationMessages } from '../../../../../../parameters/operations-messa
 import { minuteFormat } from '@helpers/date-name.helper';
 import { ETagAppearance } from '@models/tag/tag.model';
 import { CChannelColor, CChannelName } from '@models/channel/channel.model';
+import { CCompanyColor, CCompanyIcon, CCompanyName } from '@models/company/company.model';
 
 @Component({
     selector: 'app-op-zones-edition-service-type-detail-form-card',
@@ -38,11 +39,16 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
     public channelName = CChannelName;
     private channelColor = CChannelColor;
 
+    private companyName= CCompanyName;
+    private companyColor = CCompanyColor;
+    public companyIcon = CCompanyIcon;
+
     public splitSegmentList: string[] = [];
 
     @Input() zoneDetail: ZoneDetail;
     @Input() zoneServiceType: ZoneServiceType;
     @Input() zonesStoreServiceType: ZonesStoreServiceType;
+
 
     @Output() cancelEdition = new EventEmitter();
     @Output() saveEdition = new EventEmitter();
@@ -54,6 +60,16 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
     ) {
     }
 
+    get segmentCompanyName() {
+
+      return this.companyName[this.zoneServiceType.company];
+    }
+    get segmentCompanyIcon() {
+      return this.companyIcon[this.zoneServiceType.company];
+    }
+    get segmentCompanyColor() {
+      return this.companyColor[this.zoneServiceType.company];
+    }
     ngOnInit(): void {
         this._serviceTypeDetailForm.stateControl.patchValue(this.stateValue[this.zoneServiceType.state]);
         this.updateFormValues();
@@ -80,6 +96,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
         this._serviceTypeDetailForm.segmentGapControl.patchValue(this.zoneServiceType.segmentGap);
         this._serviceTypeDetailForm.intervalTimeControl.patchValue(minuteFormat(this.zoneServiceType.intervalTime));
         this._serviceTypeDetailForm.intervalTimeControl.disable();
+       // this._serviceTypeDetailForm.companySegmentControl.patchValue(this.zoneServiceType.company);
         this.setSplitSegment();
 
         this.checkEditionByStateControl();
@@ -145,6 +162,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
         });
         this._serviceTypeDetailForm.splitSegmentControl.patchValue(this.splitSegmentList.length);
         this._serviceTypeDetailForm.splitSegmentControl.disable();
+
     }
 
     openServiceTypeDetailDialog() {
@@ -159,6 +177,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent implements OnInit,
         const zoneServiceTypeUpdate = {} as IZoneServiceTypeUpdate;
         zoneServiceTypeUpdate.enabled = this._serviceTypeDetailForm.stateControl.value;
         zoneServiceTypeUpdate.channel = this.zoneServiceType.channel;
+        zoneServiceTypeUpdate.companyCode = this.zoneServiceType.company;
         if (zoneServiceTypeUpdate.enabled) {
             zoneServiceTypeUpdate.startHour = DatesHelper.Date(this._serviceTypeDetailForm.startHourControl.value, DATES_FORMAT.millisecond)
                 .format(DATES_FORMAT.hourMinuteSecond);

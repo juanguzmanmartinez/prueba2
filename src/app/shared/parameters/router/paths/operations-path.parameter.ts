@@ -27,6 +27,7 @@ export const OP_ZONES_PATH = {
     zoneBackupEdition: 'editar-zona-backup',
     zoneServiceTypeEdition: 'zoneServiceType',
     zoneServiceTypeChannelEdition: 'zoneChannel',
+    zoneServiceTypeCompanyEdition: 'zoneCompany',
     zoneBackupAmPmEdition: `backup-${DELIVERY_SERVICE_TYPE_PATH.deliveryAmPm}`,
     zoneBackupScheduledEdition: `backup-${DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled}`,
 };

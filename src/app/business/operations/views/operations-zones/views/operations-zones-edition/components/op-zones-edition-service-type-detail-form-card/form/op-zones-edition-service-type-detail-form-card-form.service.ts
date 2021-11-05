@@ -9,6 +9,7 @@ export class ZoneServiceTypeControlName {
     static segmentGap = 'segmentGap';
     static intervalTime = 'intervalTime';
     static splitSegment = 'splitSegment';
+    static company ='companyCode'
 }
 
 @Injectable()
@@ -22,6 +23,7 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
     private _segmentGapControl: ZoneServiceTypeSegmentGapControl = new ZoneServiceTypeSegmentGapControl(null);
     private _intervalTimeControl: FormControl = new FormControl('');
     private _splitSegmentControl: FormControl = new FormControl('');
+  private _splitCompanyControl: FormControl = new FormControl('');
 
     private _controlNameList = ZoneServiceTypeControlName;
 
@@ -35,6 +37,7 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
             [this._controlNameList.segmentGap]: this._segmentGapControl,
             [this._controlNameList.intervalTime]: this._intervalTimeControl,
             [this._controlNameList.splitSegment]: this._splitSegmentControl,
+          [this._controlNameList.company]: this._splitCompanyControl,
         });
     }
 
@@ -67,6 +70,10 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
         return this.form$.get(this._controlNameList.splitSegment) as FormControl;
     }
 
+  get companySegmentControl(): FormControl {
+    return this.form$.get(this._controlNameList.company) as FormControl;
+  }
+
     resetForm(): void {
         this.stateControl.patchValue(null);
         this.startHourControl.patchValue(null);
@@ -74,6 +81,7 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
         this.segmentGapControl.patchValue(null);
         this.intervalTimeControl.patchValue(null);
         this.splitSegmentControl.patchValue(null);
+        this.companySegmentControl.patchValue(null);
     }
 
     ngOnDestroy(): void {

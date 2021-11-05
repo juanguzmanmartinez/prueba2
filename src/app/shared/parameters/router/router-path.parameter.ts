@@ -20,7 +20,7 @@ export const ROUTER_PATH = {
     opZones_ZoneBackupEdition: (zoneCode = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneBackupEdition}`,
     opZones_ZoneBackupAmPmEdition: (zoneCode = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneBackupAmPmEdition}`,
     opZones_ZoneBackupScheduledEdition: (zoneCode = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${OP_ZONES_PATH.zoneBackupScheduledEdition}`,
-    opZones_ZoneServiceTypeEdition: (serviceType = '?', zoneCode = '?', zoneChannel = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${serviceType}/${zoneChannel}`,
+    opZones_ZoneServiceTypeEdition: (serviceType = '?', zoneCode = '?', zoneChannel = '?',zoneCompany = '?') => `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.zones}/${zoneCode}/${serviceType}/${zoneChannel}/${zoneCompany}`,
 
     operationCapacities: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.capacities}`,
     opCapacitiesAmPm: `/${BUSINESS_PATH.operations}/${OPERATIONS_PATH.capacities}/${OP_CAPACITIES_PATH.capacityAmPm}`,
