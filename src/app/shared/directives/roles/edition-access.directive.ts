@@ -1,19 +1,22 @@
 import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
-import { EDITION_ACCESS } from '@parameters/router/edition-access.parameter';
 import { Router } from '@angular/router';
 import { DialogOneActionService } from '@molecules/dialog/views/dialog-one-action/dialog-one-action.service';
 import { UserStoreService } from '@stores/user-store.service';
+import { Role } from '@parameters/auth/role.parameter';
+import { ROUTER_PERMISSIONS } from '@parameters/router/router-permissions.parameter';
+import { PathPermissions } from '@models/auth/permissions.model';
 
 @Directive({
-    selector: '[appEditionAccess]'
+    selector: '[editionAccess][pathAccess]'
 })
 export class EditionAccessDirective implements AfterViewInit {
 
-    private editionAccess = EDITION_ACCESS;
+    @Input() enableAccess = true;
     private hasEditionAccess: boolean;
-
-    @Input() validateAccess = true;
-    @Output() access = new EventEmitter();
+    @Input() pathAccess: string;
+    @Output() editionAccess = new EventEmitter();
+    private editorRole = Role.Editor;
+    private pathPermissions = ROUTER_PERMISSIONS;
 
     constructor(
         private _router: Router,
@@ -36,18 +39,17 @@ export class EditionAccessDirective implements AfterViewInit {
                 }
             );
         } else {
-            this.access.emit(event);
+            this.editionAccess.emit(event);
         }
     }
 
     ngAfterViewInit() {
-        if (this.validateAccess) {
-            const route = Object.keys(this.editionAccess)
-                .find((concatRoute) => {
-                    return this._router.url.includes(concatRoute);
-                });
-            const userRoles = route ? this.editionAccess[route] : [];
-            this.hasEditionAccess = userRoles.some(role => this.userStore.hasRole(role));
+        if (this.enableAccess) {
+            const pathPermissions: PathPermissions = this.pathAccess ? this.pathPermissions[this.pathAccess] : null;
+            const hasAccessByRole = this.userStore.hasAccessByRole(this.editorRole, pathPermissions?.access);
+            const pathPermissionCanEdit = !!pathPermissions.roles.find((role) => role === this.editorRole);
+
+            this.hasEditionAccess = !!hasAccessByRole && !!pathPermissionCanEdit;
             if (!this.hasEditionAccess) {
                 this.renderer.addClass(this.elementRef.nativeElement, 'cursor-pointer');
                 this.renderer.addClass(this.elementRef.nativeElement, 'd-inline-block');

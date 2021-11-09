@@ -1,0 +1,39 @@
+<div class="sidenav-route-expansion-container">
+    <mat-expansion-panel #sidenavRouteExpansion
+                         (closed)="sidenavRouteExpansionState = false"
+                         (opened)="sidenavRouteExpansionState = true"
+                         [class.sidenav-route-expansion-active]="activeHeaderRoute"
+                         [class.sidenav-route-expansion-closed]="!sidenavRouteExpansionState"
+                         [disabled]="true"
+                         class="sidenav-route-expansion"
+                         hideToggle="true">
+
+        <mat-expansion-panel-header class="sidenav-route-expansion-header"
+                                    collapsedHeight="40px"
+                                    expandedHeight="40px">
+            <app-router [routerActiveOptions]="routePathOptions"
+                        [router]="routePath"
+                        class="sidenav-route-expansion-header-router-container">
+                <div class="sidenav-route-expansion-header-router">
+                    <app-icon [fontName]="routeIcon"
+                              class="sidenav-route-expansion-icon-container"></app-icon>
+                    <span [hidden]="disableChildren"
+                            class="sidenav-route-expansion-text text-body-1-regular text-truncate">{{routeText}}</span>
+                </div>
+            </app-router>
+            <div (click)="sidenavRouteExpansion.toggle()"
+                 [hidden]="disableChildren"
+                 class="sidenav-route-expansion-header-toggle">
+                <app-icon [@openClose]="sidenavRouteExpansionState ? 'open' : 'closed'"
+                          class="sidenav-route-expansion-icon"
+                          fontName="keyboard_arrow_up"></app-icon>
+            </div>
+        </mat-expansion-panel-header>
+
+        <div (click)="$event.stopPropagation()"
+             [hidden]="disableChildren"
+             class="sidenav-route-expansion-content">
+            <ng-content></ng-content>
+        </div>
+    </mat-expansion-panel>
+</div>

@@ -20,7 +20,7 @@ const ColumnNameList = {
     zoneCode: 'zoneCode',
     zoneName: 'zoneName',
     assignedStore: 'assignedStore',
-    zoneCompany:'zoneCompany',
+    zoneCompany: 'zoneCompany',
     zoneChannel: 'zoneChannel',
     zoneState: 'zoneState',
     actions: 'actions',
@@ -46,7 +46,9 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     public errorResponse: HttpErrorResponse;
 
     public displayedColumns: string[] = [
-        ColumnNameList.zoneCode, ColumnNameList.zoneName, ColumnNameList.assignedStore,ColumnNameList.zoneCompany, ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
+        ColumnNameList.zoneCode, ColumnNameList.zoneName,
+        ColumnNameList.assignedStore, ColumnNameList.zoneCompany,
+        ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
     public dataSource = new MatTableDataSource([]);
 
     @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
@@ -85,7 +87,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
 
             const channelNormalize = normalizeValue(data.channelList.map(channel => this.channelName[channel]).join(''));
             const stateNormalize = normalizeValue(this.stateName[data.state]());
-            const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize,companyNormalize, channelNormalize, stateNormalize];
+            const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize, companyNormalize, channelNormalize, stateNormalize];
 
             const concatValue = normalizeValue(valueArray.join(''));
             const everyValue = valueArray.some(value => value.includes(filterNormalize));
@@ -138,8 +140,8 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     }
 
 
-    editRow(zoneCode: string) {
-         this._router.navigate([ROUTER_PATH.opZones_Zone(zoneCode)]);
+    editRow(zoneId: string) {
+        this._router.navigate([ROUTER_PATH.opZones_Zone(zoneId)]);
     }
 
     rowDetailDialog(zone: Zone) {
@@ -147,7 +149,7 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
             .afterClosed()
             .subscribe((edition) => {
                 if (edition) {
-                  this.editRow(zone.id);
+                    this.editRow(zone.id);
                 }
             });
         this.subscriptions.push(subscription);

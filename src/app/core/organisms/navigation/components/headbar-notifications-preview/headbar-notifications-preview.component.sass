@@ -1,0 +1,20 @@
+@import "src/sass/variables/colors.variable"
+@import "src/sass/mixins/text.mixin"
+@import "src/sass/mixins/display.mixin"
+
+.nav-headbar-notifications-preview
+  .mat-badge-content
+    background-color: $danger
+    height: 4px
+    width: 4px
+    right: 3px
+    top: 5px
+    @include text-tag
+    @include d-flex-center
+
+  &.notifications-counter-active
+    .mat-badge-content
+      height: 15px
+      width: 15px
+      right: -7px
+      top: -3px

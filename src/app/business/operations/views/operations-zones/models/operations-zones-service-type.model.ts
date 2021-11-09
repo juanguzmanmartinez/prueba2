@@ -1,5 +1,5 @@
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
-import { ZonesStoreServiceType } from './operations-zones-store.model';
+import { ZonesDrugstoreServiceType } from './operations-zones-store.model';
 import { CStateValue, EState } from '@models/state/state.model';
 import { IZoneServiceType } from '@interfaces/zones/zones.interface';
 import { DatesHelper } from '@helpers/dates.helper';
@@ -7,7 +7,6 @@ import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { ZoneBackup } from './operations-zones.model';
 import { EChannel } from '@models/channel/channel.model';
 import { CZoneServiceTypeSegmentGap } from '../parameters/operations-zones-service-type.parameter';
-import { ECompany } from '@models/company/company.model';
 
 export class ZoneServiceType {
     id: string;
@@ -18,8 +17,6 @@ export class ZoneServiceType {
     state: EState;
     intervalTime: number;
     channel: EChannel;
-    company:ECompany;
-
 
     constructor(iZoneServiceType: IZoneServiceType) {
         this.id = iZoneServiceType.id || null;
@@ -30,7 +27,6 @@ export class ZoneServiceType {
         this.endHour = DatesHelper.date(iZoneServiceType.endHour, DATES_FORMAT.hourMinuteSecond).valueOf() || null;
         this.state = iZoneServiceType.enabled ? EState.active : EState.inactive;
         this.channel = iZoneServiceType.channel || EChannel.default;
-        this.company = iZoneServiceType.company || ECompany.default;
     }
 }
 
@@ -38,22 +34,19 @@ export class ZoneServiceTypeRegistered {
     serviceType: ZoneServiceType;
     code: EDeliveryServiceType;
     channel: EChannel;
-    company: ECompany;
     registered: boolean;
     available: boolean;
 
     constructor(
         serviceType: ZoneServiceType,
-        storeServiceType: ZonesStoreServiceType,
+        storeServiceType: ZonesDrugstoreServiceType,
         serviceTypeCode: EDeliveryServiceType,
-        serviceTypeChannel: EChannel,
-        serviceTypeCompany:ECompany
+        serviceTypeChannel: EChannel
     ) {
         this.available = !!storeServiceType && CStateValue[storeServiceType.state];
         this.registered = !!serviceType;
         this.code = serviceTypeCode;
         this.channel = serviceTypeChannel;
-        this.company= serviceTypeCompany;
         this.serviceType = serviceType || null;
 
         // Exception RET Digital
@@ -81,9 +74,8 @@ export class ZoneServiceTypeList {
 
     constructor(
         zoneServiceTypeList: ZoneServiceType[],
-        zoneStoreServiceTypeList: ZonesStoreServiceType[],
-        zoneChannel: EChannel,
-        zoneCompany: ECompany
+        zoneStoreServiceTypeList: ZonesDrugstoreServiceType[],
+        zoneChannel: EChannel
     ) {
         const zoneAmPm: ZoneServiceType = zoneServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.amPm);
@@ -94,62 +86,43 @@ export class ZoneServiceTypeList {
         const zoneRet: ZoneServiceType = zoneServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.ret);
 
-        const zoneStoreAmPm: ZonesStoreServiceType = zoneStoreServiceTypeList
+        const zoneStoreAmPm: ZonesDrugstoreServiceType = zoneStoreServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.amPm);
-        const zoneStoreExpress: ZonesStoreServiceType = zoneStoreServiceTypeList
+        const zoneStoreExpress: ZonesDrugstoreServiceType = zoneStoreServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.express);
-        const zoneStoreScheduled: ZonesStoreServiceType = zoneStoreServiceTypeList
+        const zoneStoreScheduled: ZonesDrugstoreServiceType = zoneStoreServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.scheduled);
-        const zoneStoreRet: ZonesStoreServiceType = zoneStoreServiceTypeList
+        const zoneStoreRet: ZonesDrugstoreServiceType = zoneStoreServiceTypeList
             .find((serviceType) => serviceType.code === EDeliveryServiceType.ret);
 
-        this.amPm = new ZoneServiceTypeRegistered(zoneAmPm, zoneStoreAmPm, EDeliveryServiceType.amPm, zoneChannel,zoneCompany);
-        this.express = new ZoneServiceTypeRegistered(zoneExpress, zoneStoreExpress, EDeliveryServiceType.express, zoneChannel,zoneCompany);
-        this.scheduled = new ZoneServiceTypeRegistered(zoneScheduled, zoneStoreScheduled, EDeliveryServiceType.scheduled, zoneChannel,zoneCompany);
-        this.ret = new ZoneServiceTypeRegistered(zoneRet, zoneStoreRet, EDeliveryServiceType.ret, zoneChannel,zoneCompany);
+        this.amPm = new ZoneServiceTypeRegistered(zoneAmPm, zoneStoreAmPm, EDeliveryServiceType.amPm, zoneChannel);
+        this.express = new ZoneServiceTypeRegistered(zoneExpress, zoneStoreExpress, EDeliveryServiceType.express, zoneChannel);
+        this.scheduled = new ZoneServiceTypeRegistered(zoneScheduled, zoneStoreScheduled, EDeliveryServiceType.scheduled, zoneChannel);
+        this.ret = new ZoneServiceTypeRegistered(zoneRet, zoneStoreRet, EDeliveryServiceType.ret, zoneChannel);
     }
 }
 
 export class ZoneChannelServiceTypeList {
     channel: EChannel;
-    company:ECompany[];
     serviceTypeList: ZoneServiceTypeList;
+
     constructor(
         zoneServiceTypeList: ZoneServiceType[],
-        zoneStoreServiceTypeList: ZonesStoreServiceType[],
-        zoneChannel: EChannel,
-        zoneCompany: ECompany[]
-    ) {
+        zoneStoreServiceTypeList: ZonesDrugstoreServiceType[],
+        zoneChannel: EChannel) {
 
         const zoneChannelServiceTypeList: ZoneServiceType[] = zoneServiceTypeList
             .filter((serviceType: ZoneServiceType) => serviceType.channel === zoneChannel);
 
         this.channel = zoneChannel;
-        this.company=zoneCompany;
-
         this.serviceTypeList = new ZoneServiceTypeList(
             zoneChannelServiceTypeList,
             zoneStoreServiceTypeList,
-            zoneChannel,
-          zoneCompany[0]
-    );
+            zoneChannel);
     }
 
 }
 
-export class ZoneCompanyServiceTypeList {
-  company:ECompany;
-  listCompany:ECompany[];
-    serviceTypeList: ZoneServiceTypeList;
-  constructor(
-       zoneListCompany: ECompany[],
-       zoneCompany:ECompany
-  ) {
-   this.company=zoneCompany;
-   this.listCompany=zoneListCompany;
-  }
-
-}
 export class ZoneBackupServiceType {
     id: string;
     code: EDeliveryServiceType;

@@ -45,16 +45,16 @@ export class OpCapacitiesStepEditionModeService {
 
   get editionModeCancel$(): Observable<boolean> {
     return this.editionModeCancelSubject.asObservable()
-      .pipe(filter((value) => !!value));
+        .pipe(filter((value) => !!value));
   }
 
-  set editionModeCancel(groupOrLocalCancel: boolean) {
-    this.editionModeCancelSubject.next(groupOrLocalCancel);
+  set editionModeCancel(groupOrDrugstoreCancel: boolean) {
+    this.editionModeCancelSubject.next(groupOrDrugstoreCancel);
   }
 
   get editionModeSave$(): Observable<ECapacitiesStepEditionMode> {
     return this.editionModeSaveSubject.asObservable()
-      .pipe(filter((value) => !!value));
+        .pipe(filter((value) => !!value));
   }
 
   set editionModeSave(editionModeSelection: ECapacitiesStepEditionMode) {

@@ -1,0 +1,71 @@
+<section class="operations-capacities-local-default-capacity-dialog" app-dialog-container>
+    <div app-dialog-close mat-dialog-close></div>
+    <div app-dialog-edit-button [mat-dialog-close]="true"></div>
+
+    <div class="content mb-6">
+        <app-dialog-header svgName="book">
+            <ng-container dialog-header-title>Por defecto</ng-container>
+            <ng-container dialog-header-description>Detalle de capacidad</ng-container>
+        </app-dialog-header>
+    </div>
+
+    <div class="dialog-content">
+        <app-tab-group dialog-table-tab-group>
+            <app-tab *ngIf="capacitiesDrugstore && drugstoreServiceTypeTable" label="General">
+                <div class="row">
+                    <div class="col-12 d-flex">
+                        <app-icon fontName="store"
+                                  fontSize="24px"
+                                  innerClass="text-gray-5"></app-icon>
+
+                        <div class="ms-4">
+                            <h5 class="text-body-2-regular text-gray-5 mb-2">Local</h5>
+                            <p class="text-body-1-regular text-black mb-0">{{capacitiesDrugstore.drugstoreCode}} {{capacitiesDrugstore.name}}</p>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex mt-5">
+                        <app-icon fontName="motorcycle"
+                                  fontSize="24px"
+                                  innerClass="text-gray-5"></app-icon>
+                        <div class="ms-4">
+                            <h5 class="text-body-2-regular text-gray-5 mb-2">Tipo de despacho</h5>
+                            <p class="text-body-1-regular text-black mb-0">{{capacityServiceTypeName[drugstoreServiceTypeTable.serviceType]}}</p>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex mt-5">
+                        <app-icon fontName="assignment"
+                                  fontSize="24px"
+                                  innerClass="text-gray-5"></app-icon>
+                        <div class="ms-4">
+                            <h5 class="text-body-2-regular text-gray-5 mb-2">Total del día</h5>
+                            <p class="text-body-1-regular text-black mb-0">{{drugstoreServiceTypeTable.capacityQuantity}} pedidos</p>
+                        </div>
+                    </div>
+                </div>
+            </app-tab>
+            <app-tab label="Tabla" *ngIf="dataSource">
+                <table mat-table
+                       [dataSource]="dataSource">
+
+                    <ng-container matColumnDef="hour">
+                        <th mat-header-cell *matHeaderCellDef>Bloque horario</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.segmentHour}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="capacity">
+                        <th mat-header-cell column-width="140px" header-cell-center *matHeaderCellDef>Capacidad</th>
+                        <td mat-cell column-width="140px" cell-center *matCellDef="let element">
+                            <span class="text-h5">{{element.segmentCapacity}}</span>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row row-small *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </app-tab>
+        </app-tab-group>
+    </div>
+
+</section>

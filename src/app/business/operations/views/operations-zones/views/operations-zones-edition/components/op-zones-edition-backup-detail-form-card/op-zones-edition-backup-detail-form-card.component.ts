@@ -5,6 +5,7 @@ import { OpZonesEditionBackupDetailFormCardFormService, ZoneBackupDetailControlN
 import { CGStateSettingByValue, CStateValue } from '@models/state/state.model';
 import { IZoneBackupUpdate } from '@interfaces/zones/zones.interface';
 import { CZoneTypeName, EZoneType } from '../../../../parameters/operations-zones-type.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
     selector: 'app-op-zones-edition-backup-detail-form-card',
@@ -116,6 +117,10 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
 
     zoneTypeOptionName(option: EZoneType) {
         return option ? this.zoneTypeName[option] : '';
+    }
+
+    get zoneBackupPath() {
+        return ROUTER_PATH.opZones_ZoneBackupEdition();
     }
 
     cancelEditionEvent() {

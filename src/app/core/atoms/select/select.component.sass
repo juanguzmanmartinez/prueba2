@@ -1,0 +1,99 @@
+@import "src/sass/variables/colors.variable"
+@import "src/sass/variables/utilities.variable"
+@import "src/sass/mixins/text.mixin"
+@import "src/sass/mixins/position.mixin"
+
+$select-height: 40px
+
+.select
+  position: relative
+  height: $select-height
+
+  .select-icon
+    pointer-events: none
+    right: 16px
+    display: inline-flex
+    @include position-vertical-center
+
+
+.select
+  mat-select
+
+    .mat-select-trigger
+      background-color: $white
+      padding: 0 16px
+      border: 1px solid $gray-2
+      border-radius: $border-radius
+      height: $select-height
+      display: block
+
+
+    .mat-select-value
+      @include text-body-1-regular
+      .mat-select-min-line
+        height: $select-height
+        display: flex
+        align-items: center
+
+
+    .mat-select-arrow-wrapper
+      visibility: hidden
+
+
+    .mat-select-placeholder
+      color: $gray-4
+      @include text-body-1-regular
+
+
+    &.select-active .mat-select-placeholder
+      color: $black
+
+
+    &.select-focus:focus .mat-select-placeholder
+      color: $black
+
+
+    &.mat-select-disabled .mat-select-trigger
+      background-color: $gray-2
+      border-color: $gray-3
+
+
+.mat-select-panel.select-component
+  background-color: transparent
+  border: 0
+  box-shadow: none
+  position: absolute
+  top: 40px
+  padding-right: 16px
+  padding-left: 16px
+  overflow: initial
+
+
+  .option-container
+    border-radius: $border-radius
+    background-color: $white
+    box-shadow: $box-shadow
+    box-sizing: border-box
+    overflow: auto
+    max-height: 300px
+
+  mat-option.select-basic-option,
+  mat-option.select-basic-option.mat-option.mat-active
+    color: $black
+    background-color: transparent
+    height: $select-height
+    @include text-body-1-regular
+
+    &:hover
+      background-color: $gray-1
+
+
+    &.mat-selected
+      background-color: $light-primary
+
+
+  mat-option.select-basic-option.select-basic-option-clear,
+  mat-option.select-basic-option.select-basic-option-clear.mat-active
+    color: $gray-4
+
+

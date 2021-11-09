@@ -2,16 +2,16 @@ import { isObject } from '@helpers/objects-equal.helper';
 import { CalendarServiceDefaultCapacities, ICalendarServiceDefaultCapacities } from '@models/calendar/calendar-response.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
-import { IServiceType, IServiceTypeSegment, IStore, IStoreCompany, IStoreServiceType, ServiceType, ServiceTypeSegment } from '@interfaces/stores/stores.interface';
+import { IDrugstore, IDrugstoreCompany, IDrugstoreServiceType, IServiceType, IServiceTypeSegment, ServiceType, ServiceTypeSegment } from '@interfaces/drugstores/drugstores.interface';
 
-export class CapacitiesStore {
-    localCode: string;
+export class CapacitiesDrugstore {
+    drugstoreCode: string;
     name: string;
     description: string;
     position: number;
     address: string;
     wmsEnabled: boolean;
-    companies: IStoreCompany[];
+    companies: IDrugstoreCompany[];
     legacyId: number;
     latitude: number;
     longitude: number;
@@ -19,18 +19,18 @@ export class CapacitiesStore {
     startHour: string;
     endHour: string;
     drugstoreWareHouseId: number;
-    localType: string;
-    services: IStoreServiceType[];
+    drugstoreType: string;
+    services: IDrugstoreServiceType[];
 
-    constructor(iLocal: IStore) {
-        const local = isObject(iLocal) ? iLocal : {} as IStore;
-        this.localCode = local.localCode;
-        this.name = local.name;
+    constructor(iDrugstore: IDrugstore) {
+        const validIDrugstore = isObject(iDrugstore) ? iDrugstore : {} as IDrugstore;
+        this.drugstoreCode = validIDrugstore.localCode;
+        this.name = validIDrugstore.name;
     }
 }
 
 
-export class CapacitiesLocalServiceDefaultCapacity extends CalendarServiceDefaultCapacities {
+export class CapacitiesDrugstoreServiceDefaultCapacity extends CalendarServiceDefaultCapacities {
     constructor(iCalendarServiceDefaultCapacities: ICalendarServiceDefaultCapacities) {
         super();
         const serviceDefaultCapacities = isObject(iCalendarServiceDefaultCapacities) ?
@@ -52,15 +52,15 @@ export class CapacityServiceTypeSegment extends ServiceTypeSegment {
 
 export class CapacitiesServiceType extends ServiceType {
 
-    constructor(store: IServiceType) {
+    constructor(iServiceType: IServiceType) {
         super();
-        const currentValue = isObject(store) ? store : {} as IServiceType;
+        const currentValue = isObject(iServiceType) ? iServiceType : {} as IServiceType;
         this.capacitiesQuantity = currentValue.capacitiesQuantity || 0;
         this.segmentList = currentValue.segments ? currentValue.segments
             .map((iServiceTypeSegment) => new CapacityServiceTypeSegment(iServiceTypeSegment)) : [];
         this.serviceTypeCode = currentValue.serviceTypeCode || '';
-        this.startDay = store.startDay ? DatesHelper.Date(store.startDay, DATES_FORMAT.yearMonthDay).valueOf() : null;
-        this.endDay = store.endDay ? DatesHelper.Date(store.endDay, DATES_FORMAT.yearMonthDay).valueOf() : null;
+        this.startDay = iServiceType.startDay ? DatesHelper.Date(iServiceType.startDay, DATES_FORMAT.yearMonthDay).valueOf() : null;
+        this.endDay = iServiceType.endDay ? DatesHelper.Date(iServiceType.endDay, DATES_FORMAT.yearMonthDay).valueOf() : null;
     }
 
 }

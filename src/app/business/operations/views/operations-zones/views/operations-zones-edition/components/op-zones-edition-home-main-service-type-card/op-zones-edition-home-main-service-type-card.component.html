@@ -51,9 +51,9 @@
 
         <div *ngIf="!serviceType.registered"
              app-card-add-button
-             appEditionAccess
              [addMessage]="segmentName"
-             (access)="addEvent()">
+             (editionAccess)="addEvent()"
+             [pathAccess]="serviceTypePath">
         </div>
     </ng-container>
 </ng-container>

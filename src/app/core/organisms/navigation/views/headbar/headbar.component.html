@@ -1,0 +1,30 @@
+<mat-toolbar class="navigation-headbar-container line-height-0">
+    <div class="navigation-headbar">
+
+        <div class="navigation-headbar-left">
+            <div class="navigation-headbar-modules-menu me-6">
+                <app-headbar-modules-menu></app-headbar-modules-menu>
+            </div>
+            <div class="navigation-headbar-logo">
+                <app-headbar-breadcrumbs></app-headbar-breadcrumbs>
+            </div>
+        </div>
+
+        <div class="navigation-headbar-right">
+            <div [hidden]="true"
+                 class="navigation-headbar-panel">
+                <div class="navigation-headbar-panel-search">
+                    <app-headbar-search></app-headbar-search>
+                </div>
+                <div class="navigation-headbar-panel-notifications">
+                    <app-headbar-notifications-preview></app-headbar-notifications-preview>
+                </div>
+            </div>
+
+            <div class="navigation-headbar-user-menu">
+                <app-headbar-user-menu></app-headbar-user-menu>
+            </div>
+        </div>
+
+    </div>
+</mat-toolbar>

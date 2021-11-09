@@ -1,0 +1,220 @@
+<section app-dialog-container class="op-drugstores-drugstore-detail-dialog">
+    <div app-dialog-close mat-dialog-close></div>
+
+    <ng-container *ngIf="!errorResponse">
+        <div *ngIf="!drugstoreDetailLoader"
+             app-dialog-edit-button
+             [mat-dialog-close]="true"></div>
+
+        <div class="content mb-6">
+            <app-dialog-header svgName="stores">
+                <ng-container dialog-header-title>
+                    <p class="mb-2">
+                        <app-tag [appearance]="tagAppearance.uppercase"
+                                 [tagColor]="stateTag[drugstore.state]">
+                            {{stateName[drugstore.state]()}}
+                        </app-tag>
+                    </p>
+                    <p class="text-wrap mb-0">
+                        {{drugstore.name}}
+                        <span class="text-gray-5 mx-3">-</span>
+                        <span class="text-gray-5 text-nowrap">
+                    COD {{drugstore.code}}
+                </span>
+                    </p>
+                </ng-container>
+
+                <ng-container dialog-header-description
+                              *ngIf="!drugstoreDetailLoader">
+                    Detalle de local
+                </ng-container>
+            </app-dialog-header>
+        </div>
+
+        <div class="dialog-content">
+            <app-tab-group dialog-tab-group (selectIndexChange)="indexSelected($event)">
+
+                <app-tab label="General">
+                    <div *ngIf="!drugstoreDetailLoader"
+                         [hidden]="tabIndexActive !== 0"
+                         class="row mb-10">
+                        <div class="col-6">
+                            <app-card-static-information class="d-block mb-5"
+                                                         iconName="location_on">
+                                <ng-container information-title>Ubicación</ng-container>
+                                <ng-container information-caption>{{drugstoreDetail.address}}</ng-container>
+                            </app-card-static-information>
+
+                            <app-card-static-information class="d-block mb-5"
+                                                         iconName="shopping_bag">
+                                <ng-container information-title>Marcas</ng-container>
+                                <ng-container information-caption>
+                                    <ng-container *ngFor="let company of drugstoreDetail.companyList; let last = last">
+                                        {{companyName[company]}}
+                                        <span class="mx-2" *ngIf="!last">-</span>
+                                    </ng-container>
+                                </ng-container>
+                            </app-card-static-information>
+                        </div>
+                        <div class="col-6">
+                            <app-card-static-information class="d-block mb-5"
+                                                         iconName="access_time">
+                                <ng-container information-title>Horario de atención</ng-container>
+                                <ng-container information-caption>{{startAndEndHour}}</ng-container>
+                            </app-card-static-information>
+                        </div>
+                    </div>
+
+                    <div *ngIf="drugstoreDetailLoader"
+                         class="d-flex-center py-6">
+                        <app-icon-animated-loader></app-icon-animated-loader>
+                    </div>
+
+                </app-tab>
+
+                <app-tab label="Despacho">
+                    <div class="row"
+                         [hidden]="drugstoreDetailLoader || tabIndexActive !== 1">
+
+                        <div class="col-6">
+                            <app-card-static-information iconName="record_voice_over">
+                                <ng-container information-title>Canales de atención</ng-container>
+                                <ng-container information-caption>
+                                    <ng-container *ngFor="let channel of drugstoreDetail?.channelList; let last = last">
+                                        {{channelName[channel]}}
+                                        <span class="mx-2" *ngIf="!last">-</span>
+                                    </ng-container>
+                                </ng-container>
+                            </app-card-static-information>
+                        </div>
+
+                        <div class="col-6">
+                            <app-card-static-information iconName="group_work">
+                                <ng-container information-title>Grupo</ng-container>
+                                <ng-container information-caption>{{drugstoreDetail?.groupName}}</ng-container>
+                            </app-card-static-information>
+                        </div>
+
+                        <div class="col-12 mt-6">
+                            <table mat-table
+                                   [dataSource]="deliveryDataSource"
+                                   #deliverySort="matSort"
+                                   matSort>
+
+                                <ng-container matColumnDef="serviceType">
+                                    <th mat-header-cell
+                                        *matHeaderCellDef
+                                        mat-sort-header>Tipo de despacho
+                                    </th>
+                                    <td mat-cell
+                                        *matCellDef="let element">
+                                        {{element.serviceType}}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="paymentMethod">
+                                    <th mat-header-cell
+                                        *matHeaderCellDef
+                                        mat-sort-header>Método de pago
+                                    </th>
+                                    <td mat-cell
+                                        *matCellDef="let element">
+                                        {{element.paymentMethod}}
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="deliveryDisplayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: deliveryDisplayedColumns;"></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div *ngIf="drugstoreDetailLoader"
+                         class="d-flex-center py-6">
+                        <app-icon-animated-loader></app-icon-animated-loader>
+                    </div>
+
+                </app-tab>
+
+                <app-tab label="Zonas atendidas">
+                    <div class="row"
+                         [hidden]="drugstoreDetailLoader">
+
+                        <div class="col-12 mb-8">
+                            <table mat-table
+                                   [hidden]="tabIndexActive !== 2"
+                                   [dataSource]="zoneDataSource"
+                                   #zoneSort="matSort"
+                                   matSort>
+
+                                <ng-container matColumnDef="zoneCode">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Código</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <span class="text-h5">{{element.zoneCode}}</span>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="zoneName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre de zona</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.zoneName}}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="backupZone">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Zona Backup</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.backupZone}}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="backupAssignedDrugstore">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Local Backup</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.backupAssignedStore}}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="actions">
+                                    <th mat-header-cell
+                                        column-width="70px"
+                                        *matHeaderCellDef>
+                                    </th>
+                                    <td mat-cell
+                                        column-width="70px"
+                                        *matCellDef="let element">
+                                        <app-tooltip class="me-4"
+                                                     value="Editar">
+                                            <app-button-action-icon [mat-dialog-close]="element.zoneCode"
+                                                                    iconName="edit">
+                                            </app-button-action-icon>
+                                        </app-tooltip>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="zoneDisplayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: zoneDisplayedColumns;"></tr>
+                            </table>
+                        </div>
+
+                        <div class="col-12 d-flex-center" [hidden]="zoneDataSource.paginator?.getNumberOfPages() < 2">
+                            <app-paginator [pageSize]="4"></app-paginator>
+                        </div>
+                    </div>
+
+                    <div *ngIf="drugstoreDetailLoader"
+                         class="d-flex-center py-6">
+                        <app-icon-animated-loader></app-icon-animated-loader>
+                    </div>
+
+                </app-tab>
+
+            </app-tab-group>
+        </div>
+
+    </ng-container>
+
+    <div *ngIf="errorResponse">
+        <app-dialog-generic-error></app-dialog-generic-error>
+    </div>
+</section>

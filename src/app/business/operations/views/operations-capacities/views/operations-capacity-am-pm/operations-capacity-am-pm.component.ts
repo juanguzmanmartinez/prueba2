@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { OperationsCapacityAmPmStoreService } from './store/operations-capacity-am-pm-store.service';
-import { OpCapacitiesStepGroupOrLocalService } from '../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
+import { OpCapacitiesStepGroupOrDrugstoreService } from '../../components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.service';
 import { OpCapacitiesStepEditionModeService } from '../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { OpCapacitiesStepCapacityTableService } from '../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
 import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-capacities-service-type-query-params.model';
@@ -16,7 +16,7 @@ import { objectHasElements } from '@helpers/objects-equal.helper';
   providers: [
     OperationsCapacityAmPmService,
     OperationsCapacityAmPmStoreService,
-    OpCapacitiesStepGroupOrLocalService,
+    OpCapacitiesStepGroupOrDrugstoreService,
     OpCapacitiesStepEditionModeService,
     OpCapacitiesStepCapacityTableService
   ]

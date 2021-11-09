@@ -8,14 +8,13 @@ import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceTy
 import { IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { AlertService } from '@molecules/alert/alert.service';
-import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
+import { ZonesDrugstoreServiceType } from '../../../../models/operations-zones-store.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { ZoneServiceType } from '../../../../models/operations-zones-service-type.model';
 import { CChannelName, CChannelRoute, EChannel } from '@models/channel/channel.model';
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { OP_ZONES_PATH } from '@parameters/router/paths/operations-path.parameter';
-import { CCompanyRoute, ECompany } from '@models/company/company.model';
+import { OP_ZONES_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
 
 @Component({
     selector: 'app-operations-zones-edition-service-type',
@@ -27,9 +26,8 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     public zoneDetail: ZoneDetail;
     public serviceType: EDeliveryServiceType;
     public channel: EChannel;
-    public company: ECompany;
     public zoneServiceType: ZoneServiceType;
-    public zonesStoreServiceType: ZonesStoreServiceType;
+    public zonesStoreServiceType: ZonesDrugstoreServiceType;
     public serviceTypeName = CDeliveryServiceTypeName;
     public channelName = CChannelName;
 
@@ -50,16 +48,10 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
     ngOnInit(): void {
         const serviceTypeCode = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeEdition];
         const serviceTypeChannel = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeChannelEdition];
-        const serviceTypeCompany = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeCompanyEdition];
-
-        console.log( this._activatedRoute.snapshot);
         this.serviceType = Object.keys(CDeliveryServiceTypeRoute)
             .find((key) => CDeliveryServiceTypeRoute[key] === serviceTypeCode) as EDeliveryServiceType;
         this.channel = Object.keys(CChannelRoute)
             .find((key) => CChannelRoute[key] === serviceTypeChannel) as EChannel;
-
-      this.company = Object.keys(CCompanyRoute)
-        .find((key) => CCompanyRoute[key] === serviceTypeCompany) as ECompany;
 
         this.getZoneDetail();
         this.setZoneServiceType();
@@ -85,7 +77,7 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
         this.zoneServiceType = this.zoneDetail?.serviceTypeList
             .find((serviceType: ZoneServiceType) => serviceType.code === this.serviceType && serviceType.channel === this.channel);
         this.zonesStoreServiceType = this.zoneDetail?.assignedStore.serviceTypeList
-            .find((serviceType: ZonesStoreServiceType) => serviceType.code === this.serviceType);
+            .find((serviceType: ZonesDrugstoreServiceType) => serviceType.code === this.serviceType);
         this.editionServiceTypeLoader = !this.zoneDetail;
 
         if (!this.zoneServiceType && !this.editionServiceTypeLoader) {

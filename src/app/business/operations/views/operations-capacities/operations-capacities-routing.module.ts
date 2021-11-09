@@ -6,14 +6,20 @@ import { OperationsCapacityAmPmComponent } from './views/operations-capacity-am-
 import { OperationsCapacityScheduledComponent } from './views/operations-capacity-scheduled/operations-capacity-scheduled.component';
 import { OperationsCapacityExpressComponent } from './views/operations-capacity-express/operations-capacity-express.component';
 import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
-import { OP_CAPACITIES_PATH } from '@parameters/router/paths/operations-path.parameter';
+import { OP_CAPACITIES_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
 import { OperationsCapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
 
 
 const routes: Routes = [
     {
-        path: '', component: OperationsCapacitiesComponent, children: [
-            {path: '', component: OperationsCapacityHomeComponent, pathMatch: 'full'},
+        path: '',
+        component: OperationsCapacitiesComponent,
+        children: [
+            {
+                path: '',
+                component: OperationsCapacityHomeComponent,
+                pathMatch: 'full'
+            },
             {
                 path: OP_CAPACITIES_PATH.capacityAmPm.toString(),
                 component: OperationsCapacityAmPmComponent,

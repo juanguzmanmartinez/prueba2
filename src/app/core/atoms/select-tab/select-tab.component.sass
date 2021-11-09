@@ -1,0 +1,48 @@
+@import "src/sass/variables"
+@import "src/sass/mixins/text.mixin"
+@import "src/sass/mixins/display.mixin"
+
+.select-tab-container
+  flex-wrap: nowrap
+  display: flex
+
+  .select-tab
+    position: fixed
+    left: 99999px
+    opacity: 0
+
+    &:checked ~ .select-tab-content
+      background-color: $black
+      border-color: $black
+      color: $white
+      @include text-h5
+
+
+    &[disabled] ~ .select-tab-content
+      opacity: 0.5
+      pointer-events: none
+      cursor: default
+
+
+
+  .select-tab-content
+    background-color: $white
+    border: 1px solid $gray-2
+    padding: 0 $spacer-4
+    height: 40px
+    display: inline-block
+    cursor: pointer
+    @include text-body-1-regular
+    @include d-flex-vertical-center
+
+
+  .select-tab-label
+    &:first-child .select-tab-content
+      border-radius: $border-radius 0 0 $border-radius
+
+
+    &:last-child .select-tab-content
+      border-radius: 0 $border-radius $border-radius 0
+
+
+

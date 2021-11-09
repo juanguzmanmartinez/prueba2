@@ -1,0 +1,26 @@
+<main class="container pt-7">
+    <div class="row">
+        <div class="col-12">
+            <div class="row mb-7">
+                <div class="col text-center">
+                    <h1 class="text-h3 text-black mb-4">👋 Hola, {{user?.name}}</h1>
+                    <p class="text-body-2-regular text-gray-6 mb-0">¿Qué módulo quieres gestionar?</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <ng-container *ngFor="let router of routeList">
+                    <div *appRouterAccess="'/' + router.path"
+                         class="col-12 col-xlg-6 mb-4">
+                        <app-router [router]="router.path">
+                            <app-card-action [cardIconSVG]="router.iconCard">
+                                <span card-title>{{router.name}}</span>
+                                <span card-description>{{router.description}}</span>
+                            </app-card-action>
+                        </app-router>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</main>

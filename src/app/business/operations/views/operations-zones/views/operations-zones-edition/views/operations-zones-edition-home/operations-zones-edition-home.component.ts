@@ -4,10 +4,7 @@ import { Subscription } from 'rxjs';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
-import {
-  ZoneBackupServiceTypeList,
-  ZoneChannelServiceTypeList, ZoneCompanyServiceTypeList
-} from '../../../../models/operations-zones-service-type.model';
+import { ZoneBackupServiceTypeList, ZoneChannelServiceTypeList } from '../../../../models/operations-zones-service-type.model';
 import { OperationsZonesEditionStoreService, TZoneBackup, TZoneDetail } from '../../stores/operations-zones-edition-store.service';
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
@@ -16,12 +13,11 @@ import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { AlertService } from '@molecules/alert/alert.service';
-import { ZonesStoreServiceType } from '../../../../models/operations-zones-store.model';
+import { ZonesDrugstoreServiceType } from '../../../../models/operations-zones-store.model';
 import { CChannelRoute, EChannel } from '@models/channel/channel.model';
 import { CZoneServiceTypeSegmentGap, ZoneServiceTypeBasicRequest } from '../../../../parameters/operations-zones-service-type.parameter';
 import { OperationsZonesEditionActionsStoreService } from '../../stores/operations-zones-edition-actions-store.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CCompanyRoute,ECompany } from '@models/company/company.model';
 
 @Component({
     selector: 'app-operations-zones-edition-home',
@@ -35,7 +31,6 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
 
     public zoneDetail: ZoneDetail;
     public zoneServiceTypeList: ZoneChannelServiceTypeList[];
-  public zoneCompanyServiceTypeList: ZoneCompanyServiceTypeList[];
     public zoneDetailError: HttpErrorResponse;
 
     public zoneBackupDetail: ZoneDetail;
@@ -46,7 +41,6 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     public homeEditionLoader = true;
     public saveEditionLoader: boolean;
     public updateEditionLoader: boolean;
-    public listCompany: ECompany[];
 
     constructor(
         private _router: Router,
@@ -77,21 +71,12 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
             .subscribe((zoneDetail: TZoneDetail) => {
                 if (zoneDetail instanceof ZoneDetail) {
                     this.zoneDetail = zoneDetail;
-                     this.zoneServiceTypeList = zoneDetail.channelList
-                     .map((channel: EChannel) => new ZoneChannelServiceTypeList(
+                    this.zoneServiceTypeList = zoneDetail.channelList
+                        .map((channel: EChannel) => new ZoneChannelServiceTypeList(
                             zoneDetail.serviceTypeList,
                             zoneDetail.assignedStore?.serviceTypeList || [],
-                            channel,
-                       zoneDetail.companyList
-                       ));
-                  this.zoneCompanyServiceTypeList=zoneDetail.companyList.
-                  map((company:ECompany) => new ZoneCompanyServiceTypeList(
-                    zoneDetail.companyList,
-                    company
-                  ))
-
+                            channel));
                 } else {
-                    this.listCompany=[];
                     this.zoneDetail = null;
                     this.zoneServiceTypeList = null;
                     this.zoneDetailError = zoneDetail;
@@ -142,8 +127,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
         const serviceTypePath = ROUTER_PATH.opZones_ZoneServiceTypeEdition(
             CDeliveryServiceTypeRoute[serviceType.code],
             this.zoneDetail.id,
-            CChannelRoute[serviceType.channel],
-          CCompanyRoute[serviceType.company]
+            CChannelRoute[serviceType.channel]
         );
         this._router.navigate([serviceTypePath]);
     }
@@ -166,7 +150,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
 
     registerServiceType(serviceType: ZoneServiceTypeBasicRequest) {
         const assignedStoreServiceType = this.zoneDetail?.assignedStore.serviceTypeList
-            .find((storeServiceType: ZonesStoreServiceType) => storeServiceType.code === serviceType.code);
+            .find((storeServiceType: ZonesDrugstoreServiceType) => storeServiceType.code === serviceType.code);
 
         if (assignedStoreServiceType) {
             const zoneServiceTypRegister = {
@@ -175,8 +159,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
                 endHour: DatesHelper.Date(assignedStoreServiceType.endHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
                 segmentGap: CZoneServiceTypeSegmentGap[serviceType.code].toString(),
                 zoneId: this.zoneDetail.id,
-                channel: serviceType.channel,
-              companyCode:serviceType.company
+                channel: serviceType.channel
             } as IZoneServiceTypeRegister;
 
             this._operationsZonesImplement.postZoneServiceType(zoneServiceTypRegister)

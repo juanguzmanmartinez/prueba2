@@ -61,9 +61,9 @@
                 Cancelar edición
             </app-button>
             <app-button appearance="primary"
-                        appEditionAccess
                         [disabled]="form.form$.invalid || !form.zoneBackupControl.value"
-                        (access)="saveEditionEvent()">
+                        (editionAccess)="saveEditionEvent()"
+                        [pathAccess]="zoneBackupPath">
                 Guardar cambios
             </app-button>
         </div>

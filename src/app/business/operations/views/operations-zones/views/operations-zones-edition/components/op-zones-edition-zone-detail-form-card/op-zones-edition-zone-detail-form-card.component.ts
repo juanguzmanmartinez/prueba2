@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { CStateName, CStateValue, EState } from '@models/state/state.model';
 import { OpZonesEditionZoneDetailFormCardFormService, ZoneDetailControlName } from './form/op-zones-edition-zone-detail-form-card-form.service';
-import { ZonesStore } from '../../../../models/operations-zones-store.model';
+import { ZonesDrugstore } from '../../../../models/operations-zones-store.model';
 import { CChannelName, EChannel } from '@models/channel/channel.model';
 import { CheckboxGroupControl } from './controls/checkbox-group.control';
 import { CCompanyName, ECompany } from '@models/company/company.model';
@@ -12,6 +12,7 @@ import { ETagAppearance } from '@models/tag/tag.model';
 import { IZoneDetailUpdate } from '@interfaces/zones/zones.interface';
 import { CZoneTypeValue } from '../../../../parameters/operations-zones-type.parameter';
 import { CDeliveryTypeId, CDeliveryTypeName } from '@models/service-type/delivery-service-type.model';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
     selector: 'app-op-zones-edition-zone-detail-form-card',
@@ -33,8 +34,8 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     private deliveryTypeId = CDeliveryTypeId;
 
     public controlNameList = ZoneDetailControlName;
-    public storeList: ZonesStore[] = [];
-    public storeBackupList: ZonesStore[] = [];
+    public storeList: ZonesDrugstore[] = [];
+    public storeBackupList: ZonesDrugstore[] = [];
     public companyList: ECompany[] = [];
     public channelList: EChannel[] = [];
 
@@ -55,7 +56,7 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     }
 
     @Input('storeList')
-    set _storeList(zoneStoreList: ZonesStore[]) {
+    set _storeList(zoneStoreList: ZonesDrugstore[]) {
         this.storeList = zoneStoreList;
     }
 
@@ -143,12 +144,8 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
         this.form.labelControl.patchValue(null);
     }
 
-    assignedStoreOptionName(option: ZonesStore) {
-        return option ? `${option.code} ${option.name}` : '';
-    }
-
     get deliveryType(): string {
-        const zonesStore = this.form.assignedStoreControl.value as ZonesStore;
+        const zonesStore = this.form.assignedStoreControl.value as ZonesDrugstore;
         const deliveryTypeName = this.deliveryTypeName[zonesStore.deliveryType];
         if (deliveryTypeName) {
             return deliveryTypeName;
@@ -156,8 +153,16 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
         return 'Sin delivery';
     }
 
+    assignedStoreOptionName(option: ZonesDrugstore) {
+        return option ? `${option.code} ${option.name}` : '';
+    }
+
     get stateControlName() {
         return this.stateName[this.form.stateControl.value ? EState.active : EState.inactive]('a');
+    }
+
+    get zoneDetailPath() {
+        return ROUTER_PATH.opZones_ZoneEdition();
     }
 
     cancelEditionEvent() {
@@ -168,7 +173,7 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
         const zoneDetailUpdate = {} as IZoneDetailUpdate;
         zoneDetailUpdate.enabled = this.form.stateControl.value;
         if (zoneDetailUpdate.enabled) {
-            const assignedStore = this.form.assignedStoreControl.value as ZonesStore;
+            const assignedStore = this.form.assignedStoreControl.value as ZonesDrugstore;
             zoneDetailUpdate.fulfillmentCenterCode = assignedStore.code;
             zoneDetailUpdate.backUpZone = this.zoneTypeValue[this.zoneDetail.zoneType];
             zoneDetailUpdate.zoneType = this.form.labelControl.value;

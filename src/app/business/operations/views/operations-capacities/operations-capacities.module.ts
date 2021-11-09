@@ -18,7 +18,7 @@ import { SelectTabModule } from '@atoms/select-tab/select-tab.module';
 import { InputDatepickerModule } from '@atoms/input-datepicker/input-datepicker.module';
 import { InputsModule } from '@atoms/inputs/inputs.module';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
-import { OpCapacitiesStepGroupOrLocalComponent } from './components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.component';
+import { OpCapacitiesStepGroupOrDrugstoreComponent } from './components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.component';
 import { OpCapacitiesStepEditionModeComponent } from './components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.component';
 import { OpCapacitiesStepCapacityTableComponent } from './components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.component';
 import { OpCapacitiesStepExpressResourceComponent } from './components/op-capacities-step-express-resource/op-capacities-step-express-resource.component';
@@ -26,12 +26,12 @@ import { AlertModule } from '@molecules/alert/alert.module';
 import { OpCapacitiesStepCapacityTableFormComponent } from './components/op-capacities-step-capacity-table-form/op-capacities-step-capacity-table-form.component';
 import { MatTableModule } from '@angular/material/table';
 import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
-import { OpCapacitiesLocalDefaultCapacityComponent } from './components/op-capacities-local-default-capacity/op-capacities-local-default-capacity.component';
+import { OpCapacitiesDrugstoreDefaultCapacityComponent } from './components/op-capacities-drugstore-default-capacity/op-capacities-drugstore-default-capacity.component';
 import { TooltipModule } from '@atoms/tooltip/tooltip.module';
-import { OpCapacitiesLocalDefaultCapacityCardComponent } from './components/op-capacities-local-default-capacity-card/op-capacities-local-default-capacity-card.component';
+import { OpCapacitiesDrugstoreDefaultCapacityCardComponent } from './components/op-capacities-drugstore-default-capacity-card/op-capacities-drugstore-default-capacity-card.component';
 import { OperationsCapacitiesImplementService } from './implements/operations-capacities-implement.service';
 import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
-import { OpCapacitiesLocalDefaultCapacityDialogComponent } from './components/op-capacities-local-default-capacity-dialog/op-capacities-local-default-capacity-dialog.component';
+import { OpCapacitiesDrugstoreDefaultCapacityDialogComponent } from './components/op-capacities-drugstore-default-capacity-dialog/op-capacities-drugstore-default-capacity-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { TabModule } from '@molecules/tab/tab.module';
@@ -43,23 +43,23 @@ import { OperationsCapacityReportComponent } from './views/operations-capacity-r
 import { PipesModule } from '@pipes/pipes.module';
 
 @NgModule({
-    declarations: [
-        OperationsCapacitiesComponent,
-        OperationsCapacityHomeComponent,
-        OperationsCapacityAmPmComponent,
-        OperationsCapacityScheduledComponent,
-        OperationsCapacityExpressComponent,
-        OperationsCapacityRetComponent,
-        OpCapacitiesStepGroupOrLocalComponent,
-        OpCapacitiesStepEditionModeComponent,
-        OpCapacitiesStepCapacityTableComponent,
-        OpCapacitiesStepExpressResourceComponent,
-        OpCapacitiesStepCapacityTableFormComponent,
-        OpCapacitiesLocalDefaultCapacityComponent,
-        OpCapacitiesLocalDefaultCapacityCardComponent,
-        OpCapacitiesLocalDefaultCapacityDialogComponent,
-        OperationsCapacityReportComponent
-    ],
+  declarations: [
+      OperationsCapacitiesComponent,
+      OperationsCapacityHomeComponent,
+      OperationsCapacityAmPmComponent,
+      OperationsCapacityScheduledComponent,
+      OperationsCapacityExpressComponent,
+      OperationsCapacityRetComponent,
+      OperationsCapacityReportComponent,
+      OpCapacitiesStepGroupOrDrugstoreComponent,
+      OpCapacitiesStepEditionModeComponent,
+      OpCapacitiesStepCapacityTableComponent,
+      OpCapacitiesStepExpressResourceComponent,
+      OpCapacitiesStepCapacityTableFormComponent,
+      OpCapacitiesDrugstoreDefaultCapacityComponent,
+      OpCapacitiesDrugstoreDefaultCapacityCardComponent,
+      OpCapacitiesDrugstoreDefaultCapacityDialogComponent,
+  ],
     imports: [
         CommonModule,
         OperationsCapacitiesRoutingModule,

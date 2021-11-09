@@ -2,8 +2,8 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AlertService } from '@molecules/alert/alert.service';
 import { OperationsCapacitiesImplementService } from '../../../implements/operations-capacities-implement.service';
-import { CapacitiesLocalServiceDefaultCapacity, CapacitiesStore } from '../../../models/operations-capacities-responses.model';
-import { OpCapacitiesLocalDefaultCapacityService } from '../../../components/op-capacities-local-default-capacity/op-capacities-local-default-capacity.service';
+import { CapacitiesDrugstore, CapacitiesDrugstoreServiceDefaultCapacity } from '../../../models/operations-capacities-responses.model';
+import { OpCapacitiesDrugstoreDefaultCapacityService } from '../../../components/op-capacities-drugstore-default-capacity/op-capacities-drugstore-default-capacity.service';
 import { ECapacitiesStepEditionMode } from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
 
@@ -11,61 +11,61 @@ import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
 @Injectable()
 export class OperationsCapacityHomeStoreService implements OnDestroy {
 
-  private subscriptions: Subscription[] = [];
+    private subscriptions: Subscription[] = [];
 
-  private capacitiesLocalSelection: CapacitiesStore;
+    private capacitiesDrugstoreSelection: CapacitiesDrugstore;
 
-  constructor(
-    private _operationsCapacityImplement: OperationsCapacitiesImplementService,
-    private _opCapacitiesLocalDefaultCapacity: OpCapacitiesLocalDefaultCapacityService,
-    private  _alertService: AlertService,
-  ) {
-    this.getLocalList();
-    this.getLocalSelection();
-    this.getLocalServiceTypeSelection();
-  }
+    constructor(
+        private _operationsCapacityImplement: OperationsCapacitiesImplementService,
+        private _opCapacitiesDrugstoreDefaultCapacity: OpCapacitiesDrugstoreDefaultCapacityService,
+        private _alertService: AlertService,
+    ) {
+        this.getDrugstoreList();
+        this.getDrugstoreSelection();
+        this.getDrugstoreServiceTypeSelection();
+    }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
+    ngOnDestroy(): void {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
 
-  getLocalList() {
-    this._operationsCapacityImplement.getLocalImplement$()
-      .subscribe((capacitiesLocalList: CapacitiesStore[]) => {
-        this._opCapacitiesLocalDefaultCapacity.localDefaultCapacityLocalList = capacitiesLocalList;
-      });
-  }
+    getDrugstoreList() {
+        this._operationsCapacityImplement.getDrugstoreImplement$()
+            .subscribe((capacitiesDrugstoreList: CapacitiesDrugstore[]) => {
+                this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList = capacitiesDrugstoreList;
+            });
+    }
 
-  getLocalSelection() {
-    const subscription = this._opCapacitiesLocalDefaultCapacity.localDefaultCapacityLocalSelection$
-      .subscribe((capacityLocalSelection: CapacitiesStore) => {
-        this.capacitiesLocalSelection = capacityLocalSelection;
-        this.getLocalAvailableServices(capacityLocalSelection);
-      });
-    this.subscriptions.push(subscription);
-  }
+    getDrugstoreSelection() {
+        const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreSelection$
+            .subscribe((capacityDrugstoreSelection: CapacitiesDrugstore) => {
+                this.capacitiesDrugstoreSelection = capacityDrugstoreSelection;
+                this.getDrugstoreAvailableServices(capacityDrugstoreSelection);
+            });
+        this.subscriptions.push(subscription);
+    }
 
 
-  getLocalAvailableServices(capacityLocal: CapacitiesStore) {
-    this._operationsCapacityImplement.getCalendarDefaultCapacitiesImplement$(capacityLocal)
-      .subscribe((serviceDefaultCapacityList: CapacitiesLocalServiceDefaultCapacity[]) => {
-        this._opCapacitiesLocalDefaultCapacity.localDefaultCapacityLocalServiceList = serviceDefaultCapacityList;
-      });
+    getDrugstoreAvailableServices(drugstore: CapacitiesDrugstore) {
+        this._operationsCapacityImplement.getCalendarDefaultCapacitiesImplement$(drugstore)
+            .subscribe((serviceDefaultCapacityList: CapacitiesDrugstoreServiceDefaultCapacity[]) => {
+                this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceList = serviceDefaultCapacityList;
+            });
 
-  }
+    }
 
-  getLocalServiceTypeSelection() {
-    const subscription = this._opCapacitiesLocalDefaultCapacity.localDefaultCapacityLocalServiceTypeSelection$
-      .subscribe((localService: CapacitiesLocalServiceDefaultCapacity) => {
-        const localSelection = {fulfillmentCenterCode: this.capacitiesLocalSelection.localCode} as ICustomSelectOption;
+    getDrugstoreServiceTypeSelection() {
+        const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceTypeSelection$
+            .subscribe((drugstoreService: CapacitiesDrugstoreServiceDefaultCapacity) => {
+                const drugstoreSelection = {fulfillmentCenterCode: this.capacitiesDrugstoreSelection.drugstoreCode} as ICustomSelectOption;
 
-        this._operationsCapacityImplement.getTypeOperationImplements$(
-          ECapacitiesStepEditionMode.default, localSelection, localService.serviceType)
-          .subscribe((capacitiesServiceType) => {
-            this._opCapacitiesLocalDefaultCapacity.localDefaultCapacityList = capacitiesServiceType;
-          });
-      });
-    this.subscriptions.push(subscription);
-  }
+                this._operationsCapacityImplement.getTypeOperationImplements$(
+                    ECapacitiesStepEditionMode.default, drugstoreSelection, drugstoreService.serviceType)
+                    .subscribe((capacitiesServiceType) => {
+                        this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityList = capacitiesServiceType;
+                    });
+            });
+        this.subscriptions.push(subscription);
+    }
 
 }

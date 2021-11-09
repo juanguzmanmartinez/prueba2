@@ -43,7 +43,7 @@
                     <app-icon fontName="info"
                               fontSize="24px"
                               innerClass="text-gray-5 me-2"></app-icon>
-                    <span class="text-caption text-gray-5">Puedes editar el horario y GAP en la configuración de la zona
+                    <span class="text-body-2-regular text-gray-5">Puedes editar el horario y GAP en la configuración de la zona
                         <app-router [router]="zoneBackupPath">
                             <span class="text-decoration-underline text-gray-5 font-weight-bold">
                                  {{zoneBackupDetail.name}} - {{zoneBackupDetail.code}}
@@ -62,8 +62,8 @@
                 Cancelar edición
             </app-button>
             <app-button appearance="primary"
-                        appEditionAccess
-                        (access)="saveEditionEvent()">
+                        (editionAccess)="saveEditionEvent()"
+                        [pathAccess]="zoneBackupServiceTypePath">
                 Guardar cambios
             </app-button>
         </div>

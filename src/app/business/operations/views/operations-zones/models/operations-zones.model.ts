@@ -3,7 +3,7 @@ import { IZone, IZoneBackUp, IZoneDetail, IZoneServiceType } from '@interfaces/z
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
 import { CGStateByStateSetting, EState } from '@models/state/state.model';
-import { ZonesStore } from './operations-zones-store.model';
+import { ZonesDrugstore } from './operations-zones-store.model';
 import { EZoneLabel } from './operations-zones-label.model';
 import { ZoneServiceType } from './operations-zones-service-type.model';
 import { CGZoneType, EZoneType } from '../parameters/operations-zones-type.parameter';
@@ -13,7 +13,7 @@ class ZoneBase {
     id: string;
     code: string;
     name: string;
-    assignedStore: ZonesStore;
+    assignedStore: ZonesDrugstore;
     assignedStoreCode: string;
     channelList: EChannel[];
     companyList: ECompany[];
@@ -26,7 +26,7 @@ class ZoneBase {
         this.assignedStoreCode = iZone.fulfillmentCenterCode || '';
         this.name = iZone.name || '';
         this.state = iZone.enabled ? EState.active : EState.inactive;
-        this.assignedStore = iZone.storeCenter ? new ZonesStore(iZone.storeCenter) : null;
+        this.assignedStore = iZone.storeCenter ? new ZonesDrugstore(iZone.storeCenter) : null;
         this.channelList = iZone.channel || [];
         this.companyList = iZone.companyCode || [];
         this.zoneType = CGZoneType(iZone.backUpZone);

@@ -1,3 +1,5 @@
+import { IUserPermissions, IUserPosition } from '@interfaces/auth/user.interface';
+
 export interface IAuthSignInRequest {
     username: string;
     password: string;
@@ -22,6 +24,8 @@ export interface IAuthResponse {
     email: string;
     jti: string;
     uuid: string;
+    access_list: IUserPermissions[];
+    cargo: IUserPosition;
 }
 
 export interface IAuthCodeRequest {

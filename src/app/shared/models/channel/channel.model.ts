@@ -1,4 +1,4 @@
-import { CHANNEL_PATH } from '@parameters/router/paths/shared-path.parameter';
+import { CHANNEL_PATH } from '@parameters/router/routing/shared/shared-router.parameter';
 
 export enum EChannel {
     default = 'DEFAULT',
@@ -13,9 +13,9 @@ export const CChannelName = {
 };
 
 export const CChannelColor = {
-    [EChannel.digital]: 'secondary-three',
-    [EChannel.call]: 'secondary-four',
-    [EChannel.omnichannel]: 'secondary-two'
+    [EChannel.digital]: 'complementary-three',
+    [EChannel.call]: 'complementary-one',
+    [EChannel.omnichannel]: 'complementary-two'
 };
 
 export const CChannelRoute = {

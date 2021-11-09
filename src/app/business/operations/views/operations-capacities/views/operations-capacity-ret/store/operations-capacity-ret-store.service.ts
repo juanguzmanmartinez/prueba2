@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { OperationsCapacitiesImplementService } from '../../../implements/operations-capacities-implement.service';
-import { ECapacityStepGroupOrLocal, OpCapacitiesStepGroupOrLocalService } from '../../../components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.service';
+import { ECapacityStepGroupOrDrugstore, OpCapacitiesStepGroupOrDrugstoreService } from '../../../components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.service';
 import { ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService } from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { ECapacitiesStepCapacityTable, OpCapacitiesStepCapacityTableService } from '../../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
 import { ECapacityStepStatus } from '../../../models/operations-capacity-step-status.model';
@@ -15,6 +15,7 @@ import { CapacityRangeLimit, ToCapacityStepRetCapacitySegments } from '../../../
 import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { EChannel } from '@models/channel/channel.model';
 import { CapacitiesServiceType } from '../../../models/operations-capacities-responses.model';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 
 @Injectable()
@@ -26,78 +27,88 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
   private opCapacityRetCancelSubject = new BehaviorSubject<boolean>(false);
   private opCapacityRetSaveSubject = new BehaviorSubject<boolean>(false);
 
-  private groupOrLocalTabSelection: ECapacityStepGroupOrLocal;
-  private groupOrLocalSelection: ICustomSelectOption;
+  private groupOrDrugstoreTabSelection: ECapacityStepGroupOrDrugstore;
+  private groupOrDrugstoreSelection: ICustomSelectOption;
   private editionModeSelection: ECapacitiesStepEditionMode;
   private retCapacitySelection: ICapacityStepCapacityTableSegments;
 
   constructor(
-    private _operationsCapacityImplement: OperationsCapacitiesImplementService,
-    private _opCapacitiesStepGroupOrLocal: OpCapacitiesStepGroupOrLocalService,
-    private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
-    private _opCapacitiesStepRetCapacity: OpCapacitiesStepCapacityTableService,
-    private  _alertService: AlertService,
+      private _operationsCapacityImplement: OperationsCapacitiesImplementService,
+      private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
+      private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
+      private _opCapacitiesStepRetCapacity: OpCapacitiesStepCapacityTableService,
+      private _alertService: AlertService,
   ) {
-    this.groupOrLocalTab();
-    this.groupOrLocalActions();
+    this.groupOrDrugstoreTab();
+    this.groupOrDrugstoreActions();
     this.editionModeActions();
     this.retCapacityActions();
+    this.initService();
+  }
+
+  /**
+   * Save Capacity RET
+   */
+  get capacityRetRequest() {
+    const request = {} as ICalendarUpdateRequestParams;
+    request.serviceTypeCode = this.retCapacityId;
+    request.channel = this.retChannel;
+    request.fulfillmentCenterCode = this.groupOrDrugstoreSelection.fulfillmentCenterCode;
+    request.quantities = this.retCapacitySelection?.capacitySegmentList ?
+        this.retCapacitySelection.capacitySegmentList
+            .map(segment => segment.segmentCapacity || 0).join(',') : '';
+    request.hours = this.retCapacitySelection?.capacitySegmentList ?
+        this.retCapacitySelection.capacitySegmentList
+            .map(segment => segment.segmentValue || '').join(',') : '';
+    if (this.editionModeSelection === ECapacitiesStepEditionMode.calendar && this.retCapacitySelection?.capacityRange) {
+      request.days = getDaysRangeBetweenDates(
+          this.retCapacitySelection.capacityRange.endDate,
+          this.retCapacitySelection.capacityRange.startDate);
+    }
+    if (this.groupOrDrugstoreTabSelection === ECapacityStepGroupOrDrugstore.group) {
+      request.filter = ECapacityStepGroupOrDrugstore.group;
+    }
+    return request;
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  /**
-   * Step 1: Local Group or Local
-   */
+  initService() {
+    this._opCapacitiesStepRetCapacity.capacityTableEditionAccessPath = ROUTER_PATH.opCapacitiesRet;
+  }
 
-  groupOrLocalTab() {
-    const subscription = this._opCapacitiesStepGroupOrLocal.groupOrLocalTab$
-      .subscribe((groupOrLocal: ECapacityStepGroupOrLocal) => {
-        this.groupOrLocalTabSelection = groupOrLocal;
-        switch (groupOrLocal) {
-          case ECapacityStepGroupOrLocal.local:
-            this.getLocalList();
-            break;
-          case ECapacityStepGroupOrLocal.group:
-            this.getLocalGroupList();
-            break;
-        }
-      });
+  getDrugstoreGroupList() {
+    const subscription = this._operationsCapacityImplement.getDrugstoreGroupImplements$(this.retCapacityId)
+        .subscribe((stores: ICustomSelectOption[]) => {
+          this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreList = stores;
+        });
     this.subscriptions.push(subscription);
   }
 
-  getLocalGroupList() {
-    const subscription = this._operationsCapacityImplement.getLocalGroupImplements$(this.retCapacityId)
-      .subscribe((stores: ICustomSelectOption[]) => {
-        this._opCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
-      });
+  getDrugstoreList() {
+    const subscription = this._operationsCapacityImplement.getDrugstoreByServiceTypeImplement$(this.retCapacityId)
+        .subscribe((stores: ICustomSelectOption[]) => {
+          this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreList = stores;
+        });
     this.subscriptions.push(subscription);
   }
 
-  getLocalList() {
-    const subscription = this._operationsCapacityImplement.getLocalByServiceTypeImplement$(this.retCapacityId)
-      .subscribe((stores: ICustomSelectOption[]) => {
-        this._opCapacitiesStepGroupOrLocal.groupOrLocalList = stores;
-      });
-    this.subscriptions.push(subscription);
-  }
+  groupOrDrugstoreActions() {
+    const subscriptionSave = this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreSave$
+        .subscribe((drugstore: ICustomSelectOption) => {
+          this.groupOrDrugstoreSelection = drugstore;
+          this._opCapacitiesStepEditionMode.editionModeResetStepStatus = true;
+          this._opCapacitiesStepRetCapacity.capacityTableResetStepStatus = true;
+          this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.open;
+          this._opCapacitiesStepRetCapacity.capacityTableStepStatus = ECapacityStepStatus.disabled;
+        });
 
-  groupOrLocalActions() {
-    const subscriptionSave = this._opCapacitiesStepGroupOrLocal.groupOrLocalSave$
-      .subscribe((local: ICustomSelectOption) => {
-        this.groupOrLocalSelection = local;
-        this._opCapacitiesStepEditionMode.editionModeResetStepStatus = true;
-        this._opCapacitiesStepRetCapacity.capacityTableResetStepStatus = true;
-        this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.open;
-        this._opCapacitiesStepRetCapacity.capacityTableStepStatus = ECapacityStepStatus.disabled;
-      });
-
-    const subscriptionCancel = this._opCapacitiesStepGroupOrLocal.groupOrLocalCancel$
-      .subscribe(() => {
-        this.operationsCapacityRetCancel = true;
-      });
+    const subscriptionCancel = this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreCancel$
+        .subscribe(() => {
+          this.operationsCapacityRetCancel = true;
+        });
     this.subscriptions.push(subscriptionSave, subscriptionCancel);
   }
 
@@ -113,36 +124,39 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
         this._opCapacitiesStepRetCapacity.capacityTableResetStepStatus = true;
         switch (editionMode) {
           case ECapacitiesStepEditionMode.calendar:
-            this.editionModeAndGroupOrLocal();
+            this.editionModeAndGroupOrDrugstore();
             break;
           case ECapacitiesStepEditionMode.default:
-            this.editionModeAndGroupOrLocal();
+            this.editionModeAndGroupOrDrugstore();
             break;
         }
       });
 
     const subscriptionCancel = this._opCapacitiesStepEditionMode.editionModeCancel$
-      .subscribe(() => {
-        this.operationsCapacityRetCancel = true;
-      });
+        .subscribe(() => {
+          this.operationsCapacityRetCancel = true;
+        });
     this.subscriptions.push(subscriptionSave, subscriptionCancel);
   }
 
-  editionModeAndGroupOrLocal() {
-    switch (this.groupOrLocalTabSelection) {
-      case ECapacityStepGroupOrLocal.local:
-        this._operationsCapacityImplement.getTypeOperationImplements$(this.editionModeSelection, this.groupOrLocalSelection, this.retCapacityId)
-          .subscribe(
-            (data) => this.editionModeAndCapacity(data),
-            (error) => this.editionModeAndCapacityError(error));
-        break;
-      case ECapacityStepGroupOrLocal.group:
-        this._operationsCapacityImplement.getTypeOperationGroupImplements$(this.editionModeSelection, this.groupOrLocalSelection, this.retCapacityId)
-          .subscribe(
-            (data) => this.editionModeAndCapacity(data),
-            (error) => this.editionModeAndCapacityError(error));
-        break;
-    }
+  /**
+   * Step 1: Drugstore Group or Drugstore
+   */
+
+  groupOrDrugstoreTab() {
+    const subscription = this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreTab$
+        .subscribe((groupOrDrugstore: ECapacityStepGroupOrDrugstore) => {
+          this.groupOrDrugstoreTabSelection = groupOrDrugstore;
+          switch (groupOrDrugstore) {
+            case ECapacityStepGroupOrDrugstore.drugstore:
+              this.getDrugstoreList();
+              break;
+            case ECapacityStepGroupOrDrugstore.group:
+              this.getDrugstoreGroupList();
+              break;
+          }
+        });
+    this.subscriptions.push(subscription);
   }
 
   editionModeAndCapacity(capacitiesServiceType: CapacitiesServiceType) {
@@ -179,42 +193,33 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
     const subscriptionSave = this._opCapacitiesStepRetCapacity.capacityTableSave$
       .subscribe((retCapacitySegments: ICapacityStepCapacityTableSegments) => {
         this.retCapacitySelection = retCapacitySegments;
-        this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.disabled;
+        this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreStepStatus = ECapacityStepStatus.disabled;
         this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
         this.saveCapacityRet();
       });
 
     const subscriptionCancel = this._opCapacitiesStepRetCapacity.capacityTableCancel$
-      .subscribe(() => {
-        this.operationsCapacityRetCancel = true;
-      });
+        .subscribe(() => {
+          this.operationsCapacityRetCancel = true;
+        });
     this.subscriptions.push(subscriptionSave, subscriptionCancel);
   }
 
-
-  /**
-   * Save Capacity RET
-   */
-  get capacityRetRequest() {
-    const request = {} as ICalendarUpdateRequestParams;
-    request.serviceTypeCode = this.retCapacityId;
-    request.channel = this.retChannel;
-    request.fulfillmentCenterCode = this.groupOrLocalSelection.fulfillmentCenterCode;
-    request.quantities = this.retCapacitySelection?.capacitySegmentList ?
-      this.retCapacitySelection.capacitySegmentList
-        .map(segment => segment.segmentCapacity || 0).join(',') : '';
-    request.hours = this.retCapacitySelection?.capacitySegmentList ?
-      this.retCapacitySelection.capacitySegmentList
-        .map(segment => segment.segmentValue || '').join(',') : '';
-    if (this.editionModeSelection === ECapacitiesStepEditionMode.calendar && this.retCapacitySelection?.capacityRange) {
-      request.days = getDaysRangeBetweenDates(
-        this.retCapacitySelection.capacityRange.endDate,
-        this.retCapacitySelection.capacityRange.startDate);
+  editionModeAndGroupOrDrugstore() {
+    switch (this.groupOrDrugstoreTabSelection) {
+      case ECapacityStepGroupOrDrugstore.drugstore:
+        this._operationsCapacityImplement.getTypeOperationImplements$(this.editionModeSelection, this.groupOrDrugstoreSelection, this.retCapacityId)
+            .subscribe(
+                (data) => this.editionModeAndCapacity(data),
+                (error) => this.editionModeAndCapacityError(error));
+        break;
+      case ECapacityStepGroupOrDrugstore.group:
+        this._operationsCapacityImplement.getTypeOperationGroupImplements$(this.editionModeSelection, this.groupOrDrugstoreSelection, this.retCapacityId)
+            .subscribe(
+                (data) => this.editionModeAndCapacity(data),
+                (error) => this.editionModeAndCapacityError(error));
+        break;
     }
-    if (this.groupOrLocalTabSelection === ECapacityStepGroupOrLocal.group) {
-      request.filter = ECapacityStepGroupOrLocal.group;
-    }
-    return request;
   }
 
   saveCapacityRet() {
@@ -222,9 +227,9 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
     switch (this.editionModeSelection) {
       case ECapacitiesStepEditionMode.default:
         this._operationsCapacityImplement.patchCalendarUpdateClient$(capacityRetRequest)
-          .subscribe(
-            () => this.capacityRetSaveSuccess(),
-            (error) => this.capacityRetSaveError(error));
+            .subscribe(
+                () => this.capacityRetSaveSuccess(),
+                (error) => this.capacityRetSaveError(error));
         break;
       case ECapacitiesStepEditionMode.calendar:
         this._operationsCapacityImplement.patchCalendarRangeUpdateClient$(capacityRetRequest)
@@ -238,7 +243,7 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
   capacityRetSaveSuccess() {
     const message = capacityAlertSuccessMessage(
         CDeliveryServiceTypeName[this.retCapacityId],
-      `${this.groupOrLocalSelection.fulfillmentCenterCode} ${this.groupOrLocalSelection.text}`);
+        `${this.groupOrDrugstoreSelection.fulfillmentCenterCode} ${this.groupOrDrugstoreSelection.text}`);
     this._alertService.alertSuccess(message);
     this.operationsCapacityRetSave = true;
   }
@@ -249,7 +254,7 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
 
     this._opCapacitiesStepRetCapacity.capacityTableStepStatus = ECapacityStepStatus.disabled;
     this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
-    this._opCapacitiesStepGroupOrLocal.groupOrLocalStepStatus = ECapacityStepStatus.open;
+    this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreStepStatus = ECapacityStepStatus.open;
   }
 
 

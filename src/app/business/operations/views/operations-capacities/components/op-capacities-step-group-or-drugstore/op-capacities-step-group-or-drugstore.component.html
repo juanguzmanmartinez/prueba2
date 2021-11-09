@@ -1,0 +1,36 @@
+<app-step (cancelButtonEvent)="cancelGroupOrDrugstore()"
+          (saveButtonEvent)="saveGroupOrDrugstore()"
+          (stepCloseEvent)="closeGroupOrDrugstoreStep()"
+          (stepOpenEvent)="openGroupOrDrugstoreStep()"
+          [saveButtonDisabled]="!groupOrDrugstoreSelection || groupOrDrugstoreTabReadonly"
+          [stepDescription]="groupOrDrugstoreStepDescription"
+          [stepDisabled]="groupOrDrugstoreStepStatus === eCapacityStepStatus.disabled"
+          [stepExpandedToggle]="groupOrDrugstoreStepStatus === eCapacityStepStatus.open"
+          [stepReadonly]="groupOrDrugstoreStepStatus === eCapacityStepStatus.readonly"
+          saveButtonText="Continuar"
+          stepId="1"
+          stepTitle="Grupo o Local">
+    <div class="card-step-content py-5 px-md-4 d-flex align-items-center flex-column flex-md-row">
+        <div class="mb-4 mb-md-0 me-4">
+            <app-select-tab (optionChange)="changeGroupOrDrugstoreTab($event)"
+                            [disabled]="groupOrDrugstoreTabReadonly"
+                            [optionList]="groupOrDrugstoreTabList"
+                            [value]="groupOrDrugstoreTabSelection">
+                <ng-template let-tab>{{groupOrDrugstoreTabName[tab]}}</ng-template>
+            </app-select-tab>
+        </div>
+        <div class="w-100">
+            <app-select-search (optionSelected)="changeGroupOrDrugstoreSelection($event)"
+                               [(ngModel)]="groupOrDrugstoreSelection"
+                               [disabled]="groupOrDrugstoreTabReadonly"
+                               [optionList]="groupOrDrugstoreList"
+                               [placeholder]="'Elige un ' + groupOrDrugstoreTabName[groupOrDrugstoreTabSelection]"
+                               class="w-100 w-md-auto">
+                <ng-template #optionSelectedTemplate
+                             let-optionSelected>{{groupOrDrugstoreSelectionName(optionSelected)}}</ng-template>
+                <ng-template #optionTemplate
+                             let-option>{{groupOrDrugstoreSelectionName(option)}}</ng-template>
+            </app-select-search>
+        </div>
+    </div>
+</app-step>

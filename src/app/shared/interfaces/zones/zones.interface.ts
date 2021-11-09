@@ -1,7 +1,7 @@
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { EChannel } from '@models/channel/channel.model';
 import { ECompany } from '@models/company/company.model';
-import { IStore } from '@interfaces/stores/stores.interface';
+import { IDrugstore } from '@interfaces/drugstores/drugstores.interface';
 import { EStateSetting } from '@models/state/state.model';
 
 export interface IZoneServiceType {
@@ -14,7 +14,6 @@ export interface IZoneServiceType {
     enabled: boolean;
     intervalTime: number;
     channel: EChannel;
-    company: ECompany;
 }
 
 export interface IZoneServiceTypeUpdate {
@@ -23,7 +22,6 @@ export interface IZoneServiceTypeUpdate {
     endHour: string;
     segmentGap: number;
     channel: EChannel;
-    companyCode:ECompany;
 }
 
 export interface IZoneServiceTypeRegister {
@@ -33,7 +31,6 @@ export interface IZoneServiceTypeRegister {
     endHour: string;
     segmentGap: string;
     channel: EChannel;
-    companyCode:ECompany;
 }
 
 export interface IZone {
@@ -43,9 +40,9 @@ export interface IZone {
     enabled: boolean;
     fulfillmentCenterCode: string;
     serviceTypes: IZoneServiceType[];
-    storeCenter: IStore;
+    storeCenter: IDrugstore;
     channel: EChannel[];
-    companyCode:ECompany[];
+    companyCode: ECompany[];
     backUpZone: boolean;
 }
 

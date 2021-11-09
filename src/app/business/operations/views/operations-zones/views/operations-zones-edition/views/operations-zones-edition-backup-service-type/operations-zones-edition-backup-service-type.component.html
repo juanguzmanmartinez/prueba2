@@ -10,7 +10,7 @@
 
     <div class="row"
          *ngIf="!errorResponse">
-        <div class="col-12 col-xl-5 mb-6 mb-xl-0">
+        <div class="col-12 col-xlg-5 mb-6 mb-xlg-0">
             <app-op-zones-edition-backup-service-type-detail-card
                     *appSkeletonCard="!!zoneDetail && !!zoneBackupServiceType; loading: !editionBackupServiceTypeLoader"
                     [zoneDetail]="zoneDetail"
@@ -18,7 +18,7 @@
             </app-op-zones-edition-backup-service-type-detail-card>
         </div>
 
-        <div class="col-12 col-xl-7"
+        <div class="col-12 col-xlg-7"
              [class.container-loader]="saveEditionLoader">
             <app-op-zones-edition-backup-service-type-detail-form-card
                     *appSkeletonCard="!!zoneDetail && !!zoneBackupServiceType; row: 8; loading: !editionBackupServiceTypeLoader"

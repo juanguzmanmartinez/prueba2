@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-input-datepicker',
     templateUrl: './input-datepicker.component.html',
-    styleUrls: ['../styles/datepicker.component.sass', './input-datepicker.component.scss'],
+    styleUrls: ['../styles/datepicker.component.sass', './input-datepicker.component.sass'],
     encapsulation: ViewEncapsulation.None
 })
 export class InputDatepickerComponent implements ControlValueAccessor, OnInit, OnDestroy {

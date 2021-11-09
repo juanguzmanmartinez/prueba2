@@ -1,0 +1,186 @@
+<section class="operations-capacity-drugstores pt-8 pb-15">
+    <div class="row mb-4">
+        <div class="col">
+            <app-back-router>Inicio</app-back-router>
+        </div>
+    </div>
+
+    <div class="row mb-7">
+        <div class="col">
+            <h1 class="text-h3 text-black mb-0">Locales</h1>
+        </div>
+    </div>
+
+    <div class="row mb-4" *ngIf="!errorResponse">
+        <div class="col-6 col-lg-4">
+            <app-input-search placeholder="Buscar en lista"
+                              [(ngModel)]="searchInput"
+                              (ngModelChange)="filterBySearchInput()"></app-input-search>
+        </div>
+
+        <div class="col d-flex-horizontal-end">
+            <app-button-icon iconName="cloud_download"
+                             (clicked)="saveSelectedDataInCsv()"
+                             [disabled]="rowSelection.isEmpty()">
+                Descargar selección
+            </app-button-icon>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!errorResponse">
+        <div class="col-12 mb-8">
+            <table mat-table
+                   large-table
+                   [dataSource]="dataSource"
+                   matSort>
+
+                <ng-container [matColumnDef]="columnNameList.selector">
+                    <th mat-header-cell
+                        column-selector
+                        *matHeaderCellDef>
+                        <app-checkbox (change)="$event ? masterToggle() : null"
+                                      [checked]="rowSelection.hasValue() && isAllSelected()"
+                                      [indeterminate]="rowSelection.hasValue() && !isAllSelected()">
+                        </app-checkbox>
+                    </th>
+                    <td mat-cell
+                        column-selector
+                        *matCellDef="let row">
+                        <app-checkbox (clicked)="$event.stopPropagation()"
+                                      (change)="$event ? rowSelection.toggle(row) : null"
+                                      [checked]="rowSelection.isSelected(row)">
+                        </app-checkbox>
+                    </td>
+                </ng-container>
+
+                <ng-container [matColumnDef]="columnNameList.code">
+                    <th mat-header-cell
+                        column-width="12%"
+                        *matHeaderCellDef
+                        mat-sort-header>
+                        Código
+                    </th>
+                    <td mat-cell
+                        column-width="12%"
+                        cell-bold
+                        *matCellDef="let element">
+                        {{element.code}}
+                    </td>
+                </ng-container>
+
+                <ng-container [matColumnDef]="columnNameList.name">
+                    <th mat-header-cell
+                        *matHeaderCellDef
+                        mat-sort-header>
+                        Nombre
+                    </th>
+                    <td mat-cell
+                        *matCellDef="let element">
+                        {{element.name}}
+                    </td>
+                </ng-container>
+
+                <ng-container [matColumnDef]="columnNameList.company">
+                    <th mat-header-cell
+                        column-width="15%"
+                        header-cell-center
+                        *matHeaderCellDef
+                        mat-sort-header>
+                        Marca
+                    </th>
+                    <td mat-cell
+                        column-width="15%"
+                        cell-center
+                        *matCellDef="let element">
+                        <ng-container *ngFor="let company of element.companyList">
+                            <span class="me-4">
+                            <app-icon
+                                    [svgName]="companyIcon[company]"
+                                    svgWidth="24px"></app-icon>
+                            </span>
+                        </ng-container>
+                    </td>
+                </ng-container>
+
+                <ng-container [matColumnDef]="columnNameList.channel">
+                    <th mat-header-cell
+                        column-width="153px"
+                        *matHeaderCellDef
+                        mat-sort-header>
+                        Canal
+                    </th>
+                    <td mat-cell
+                        column-width="153px"
+                        cell-double-text
+                        *matCellDef="let element">
+                        <ng-container *ngIf="element.channelList?.length">
+                            <p class="mb-0"
+                               *ngFor="let channel of element.channelList; let last = last">
+                                {{channelName[channel]}}
+                                <span class="mx-2" *ngIf="!last">-</span>
+                            </p>
+                        </ng-container>
+                        <ng-container *ngIf="!element.channelList?.length">
+                            <p class="text-center m-0">-</p>
+                        </ng-container>
+                    </td>
+                </ng-container>
+
+                <ng-container [matColumnDef]="columnNameList.state">
+                    <th mat-header-cell
+                        column-state
+                        *matHeaderCellDef
+                        mat-sort-header>
+                        Estado
+                    </th>
+                    <td mat-cell
+                        column-state
+                        *matCellDef="let element">
+                        <app-tag [tagColor]="stateTag[element.state]">
+                            {{stateName[element.state]()}}
+                        </app-tag>
+                    </td>
+                </ng-container>
+
+                <ng-container [matColumnDef]="columnNameList.actions">
+                    <th mat-header-cell
+                        column-actions
+                        *matHeaderCellDef></th>
+                    <td mat-cell
+                        column-actions
+                        *matCellDef="let element">
+                        <app-tooltip class="me-4" value="Editar">
+                            <app-button-action-icon (clicked)="editRow(element.code)"
+                                                    iconName="edit">
+                            </app-button-action-icon>
+                        </app-tooltip>
+                        <app-tooltip value="Más detalles">
+                            <app-button-action-icon (clicked)="rowDetailDialog(element)"
+                                                    iconName="launch">
+                            </app-button-action-icon>
+                        </app-tooltip>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row
+                    *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row
+                    [row-selector]="rowSelection.isSelected(row)"
+                    *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <app-table-loader *ngIf="drugstoresHomeLoader" [cells]="7"></app-table-loader>
+            <app-not-search-result *ngIf="!drugstoresHomeLoader && !dataSource.filteredData.length"
+                                   [keyword]="searchInput"></app-not-search-result>
+        </div>
+
+        <div class="col-12 d-flex-center" [hidden]="dataSource.paginator?.getNumberOfPages() < 2">
+            <app-paginator [pageSize]="10"></app-paginator>
+        </div>
+    </div>
+
+
+    <div class="pt-6" *ngIf="errorResponse">
+        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+    </div>
+</section>

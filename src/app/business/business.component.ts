@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  template: '<app-sidenav-headbar><router-outlet></router-outlet></app-sidenav-headbar>'
+  template: '<app-navigation><router-outlet></router-outlet></app-navigation>'
 })
 export class BusinessComponent {
 }

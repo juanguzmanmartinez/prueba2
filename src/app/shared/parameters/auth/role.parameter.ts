@@ -1,12 +1,10 @@
 export enum Role {
     Developer = 'ROLE_DEVELOPER',
-    Admin = 'ROLE_ADMINISTRATOR',
+    Editor = 'ROLE_EDITOR',
     Viewer = 'ROLE_VIEWER',
-    Assistant = 'ROLE_ASSISTANT'
 }
 
-export const RolesNames = {
-    [Role.Admin]: 'Administrador de cuentas',
-    [Role.Viewer]: 'Solo puede ver',
-    [Role.Assistant]: 'Algunos permisos habilitados'
+export const CRoleName = {
+    [Role.Viewer]: 'Visualizar',
+    [Role.Editor]: 'Editar'
 };
