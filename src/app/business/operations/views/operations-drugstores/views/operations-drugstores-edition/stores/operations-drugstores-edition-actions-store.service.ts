@@ -2,24 +2,24 @@ import { Injectable, OnDestroy } from '@angular/core';
 
 @Injectable()
 export class OperationsDrugstoresEditionActionsStoreService implements OnDestroy {
-    private tabSettingSelected = 0;
 
-    constructor() {
-    }
+  private tabSettingSelected = 0;
 
-    get tabSettingSelection(): number {
-        return this.tabSettingSelected;
-    }
+  get tabSettingSelection(): number {
+    return this.tabSettingSelected;
+  }
 
-    set tabSettingSelection(selection: number) {
-        this.tabSettingSelected = selection;
-    }
+  set tabSettingSelection(selection: number) {
+    this.tabSettingSelected = selection;
+  }
 
-    resetStore() {
-        this.tabSettingSelection = 0;
-    }
+  constructor() { }
 
-    ngOnDestroy() {
-        this.resetStore();
-    }
+  resetStore(): void {
+    this.tabSettingSelection = 0;
+  }
+
+  ngOnDestroy(): void {
+    this.resetStore();
+  }
 }

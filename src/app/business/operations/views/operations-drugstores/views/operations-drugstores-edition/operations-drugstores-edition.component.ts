@@ -8,53 +8,55 @@ import { OperationsDrugstoresEditionActionsStoreService } from './stores/operati
 import { OP_DRUGSTORES_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
 
 @Component({
-    template: '<router-outlet></router-outlet>',
-    providers: [
-        OperationsDrugstoresEditionStoreService,
-        OperationsDrugstoresEditionActionsStoreService
-    ]
+  template: '<router-outlet></router-outlet>',
+  providers: [
+    OperationsDrugstoresEditionStoreService,
+    OperationsDrugstoresEditionActionsStoreService
+  ]
 })
 export class OperationsDrugstoresEditionComponent implements OnInit, OnDestroy {
-    private subscriptions: Subscription[] = [];
-    private drugstoreCode: string;
 
-    constructor(
-        private _activatedRoute: ActivatedRoute,
-        private _operationsStoresImplement: OperationsDrugstoresImplementService,
-        private _operationsDrugstoresEditionStore: OperationsDrugstoresEditionStoreService,
-        private _operationsDrugstoresEditionActionsStore: OperationsDrugstoresEditionActionsStoreService,
-    ) {
-    }
+  private subscriptions = new Subscription();
 
-    ngOnInit(): void {
-        const subscription = this._activatedRoute.paramMap.subscribe(() => {
-            this.drugstoreCode = this._activatedRoute.snapshot.params[OP_DRUGSTORES_PATH.drugstoreCode];
-            this._operationsDrugstoresEditionStore.updateDrugstoreDetail = true;
-            this._operationsDrugstoresEditionActionsStore.resetStore();
-        });
-        this.updateDrugstoreDetail();
-        this.subscriptions.push(subscription);
-    }
+  private drugstoreCode: string;
 
-    getDrugstoreDetail(drugstoreCode: string) {
-        this._operationsStoresImplement.getDrugstoreDetail(drugstoreCode)
-            .subscribe((drugstoreDetail: DrugstoreDetail) => {
-                this._operationsDrugstoresEditionStore.drugstoreDetail = drugstoreDetail;
-            }, (error) => {
-                this._operationsDrugstoresEditionStore.drugstoreDetailError = error;
-            });
-    }
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _operationsStoresImplement: OperationsDrugstoresImplementService,
+    private _operationsDrugstoresEditionStore: OperationsDrugstoresEditionStoreService,
+    private _operationsDrugstoresEditionActionsStore: OperationsDrugstoresEditionActionsStoreService,
+  ) {
+  }
 
-    updateDrugstoreDetail() {
-        const subscription = this._operationsDrugstoresEditionStore.updateDrugstoreDetail$
-            .subscribe(() => {
-                this.getDrugstoreDetail(this.drugstoreCode);
-            });
-        this.subscriptions.push(subscription);
-    }
+  ngOnInit(): void {
+    const subscription = this._activatedRoute.paramMap.subscribe(() => {
+      this.drugstoreCode = this._activatedRoute.snapshot.params[OP_DRUGSTORES_PATH.drugstoreCode];
+      this._operationsDrugstoresEditionStore.updateDrugstoreDetail = true;
+      this._operationsDrugstoresEditionActionsStore.resetStore();
+    });
+    this.updateDrugstoreDetail();
+    this.subscriptions.add(subscription);
+  }
 
-    ngOnDestroy(): void {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    }
+  getDrugstoreDetail(drugstoreCode: string): void {
+    this._operationsStoresImplement.getDrugstoreDetail(drugstoreCode)
+      .subscribe((drugstoreDetail: DrugstoreDetail) => {
+        this._operationsDrugstoresEditionStore.drugstoreDetail = drugstoreDetail;
+      }, (error) => {
+        this._operationsDrugstoresEditionStore.drugstoreDetailError = error;
+      });
+  }
+
+  updateDrugstoreDetail(): void {
+    const subscription = this._operationsDrugstoresEditionStore.updateDrugstoreDetail$
+      .subscribe(() => {
+        this.getDrugstoreDetail(this.drugstoreCode);
+      });
+    this.subscriptions.add(subscription);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
 }

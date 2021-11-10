@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DrugstoreDetail } from '../../../../models/operations-drugstores.model';
 import { CChannelName } from '@models/channel/channel.model';
 
@@ -7,15 +7,12 @@ import { CChannelName } from '@models/channel/channel.model';
   templateUrl: './op-drugstores-edition-drugstore-detail-card.component.html',
   styleUrls: ['./op-drugstores-edition-drugstore-detail-card.component.sass']
 })
-export class OpDrugstoresEditionDrugstoreDetailCardComponent implements OnInit {
+export class OpDrugstoresEditionDrugstoreDetailCardComponent {
+
   public channelName = CChannelName;
 
   @Input() drugstoreDetail: DrugstoreDetail;
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
+  constructor() { }
 
 }

@@ -1,7 +1,11 @@
 import { Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
 import { OpCapacitiesDrugstoreDefaultCapacityService } from './op-capacities-drugstore-default-capacity.service';
 import { Subscription } from 'rxjs';
-import { CapacitiesDrugstore, CapacitiesDrugstoreServiceDefaultCapacity, CapacitiesServiceType } from '../../models/operations-capacities-responses.model';
+import {
+  CapacitiesDrugstore,
+  CapacitiesDrugstoreServiceDefaultCapacity,
+  CapacitiesServiceType
+} from '../../models/operations-capacities-responses.model';
 import { CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { OpCapacitiesDrugstoreDefaultCapacityDialogService } from '../op-capacities-drugstore-default-capacity-dialog/op-capacities-drugstore-default-capacity-dialog.service';
 import { Router } from '@angular/router';
@@ -11,127 +15,125 @@ import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-cap
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
-    selector: 'app-op-capacities-drugstore-default-capacity',
-    templateUrl: './op-capacities-drugstore-default-capacity.component.html',
-    styleUrls: ['./op-capacities-drugstore-default-capacity.component.scss'],
-    providers: [
-        OpCapacitiesDrugstoreDefaultCapacityDialogService
-    ]
+  selector: 'app-op-capacities-drugstore-default-capacity',
+  templateUrl: './op-capacities-drugstore-default-capacity.component.html',
+  styleUrls: ['./op-capacities-drugstore-default-capacity.component.scss'],
+  providers: [OpCapacitiesDrugstoreDefaultCapacityDialogService]
 })
 export class OpCapacitiesDrugstoreDefaultCapacityComponent implements OnInit, OnDestroy {
 
-    public capacitiesServiceType = EDeliveryServiceType;
-    public capacitiesDrugstoreList: CapacitiesDrugstore[] = [];
-    public capacitiesDrugstoreSelection: CapacitiesDrugstore;
-    public drugstoreDefaultCapacitySelection: CapacitiesDrugstoreServiceDefaultCapacity;
-    public capacitiesServiceTypeSelection: CapacitiesServiceType;
-    public capacityDrugstoreServiceAmPm: CapacitiesDrugstoreServiceDefaultCapacity;
-    public capacityDrugstoreServiceExpress: CapacitiesDrugstoreServiceDefaultCapacity;
-    public capacityDrugstoreServiceScheduled: CapacitiesDrugstoreServiceDefaultCapacity;
-    public capacityDrugstoreServiceRet: CapacitiesDrugstoreServiceDefaultCapacity;
-    private subscriptions: Subscription[] = [];
+  private subscriptions = new Subscription();
 
-    constructor(
-        @Optional() @SkipSelf() private _opCapacitiesDrugstoreDefaultCapacity: OpCapacitiesDrugstoreDefaultCapacityService,
-        private _opCapacitiesDrugstoreDefaultCapacityDialog: OpCapacitiesDrugstoreDefaultCapacityDialogService,
-        private _router: Router
-    ) {
-    }
+  public capacitiesServiceType = EDeliveryServiceType;
+  public capacitiesDrugstoreList: CapacitiesDrugstore[] = [];
+  public capacitiesDrugstoreSelection: CapacitiesDrugstore;
+  public drugstoreDefaultCapacitySelection: CapacitiesDrugstoreServiceDefaultCapacity;
+  public capacitiesServiceTypeSelection: CapacitiesServiceType;
+  public capacityDrugstoreServiceAmPm: CapacitiesDrugstoreServiceDefaultCapacity;
+  public capacityDrugstoreServiceExpress: CapacitiesDrugstoreServiceDefaultCapacity;
+  public capacityDrugstoreServiceScheduled: CapacitiesDrugstoreServiceDefaultCapacity;
+  public capacityDrugstoreServiceRet: CapacitiesDrugstoreServiceDefaultCapacity;
 
-    ngOnInit(): void {
-        this.updateDefaultCapacityDrugstoreList();
-        this.updateDefaultCapacityDrugstoreServiceList();
-        this.updateDrugstoreCapacitiesServiceType();
-    }
+  constructor(
+    @Optional() @SkipSelf() private _opCapacitiesDrugstoreDefaultCapacity: OpCapacitiesDrugstoreDefaultCapacityService,
+    private _opCapacitiesDrugstoreDefaultCapacityDialog: OpCapacitiesDrugstoreDefaultCapacityDialogService,
+    private _router: Router
+  ) { }
 
-    ngOnDestroy() {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    }
+  ngOnInit(): void {
+    this.updateDefaultCapacityDrugstoreList();
+    this.updateDefaultCapacityDrugstoreServiceList();
+    this.updateDrugstoreCapacitiesServiceType();
+  }
 
-    updateDefaultCapacityDrugstoreList() {
-        const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList$
-            .subscribe((capacitiesDrugstoreList) => {
-                this.capacitiesDrugstoreList = capacitiesDrugstoreList;
-                this.changeCapacitiesDrugstoreSelection(capacitiesDrugstoreList[0]);
-            });
-        this.subscriptions.push(subscription);
-    }
+  updateDefaultCapacityDrugstoreList(): void {
+    const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList$
+      .subscribe((capacitiesDrugstoreList) => {
+        this.capacitiesDrugstoreList = capacitiesDrugstoreList;
+        this.changeCapacitiesDrugstoreSelection(capacitiesDrugstoreList[0]);
+      });
+    this.subscriptions.add(subscription);
+  }
 
-    changeCapacitiesDrugstoreSelection(capacitiesDrugstore: CapacitiesDrugstore) {
-        this.capacitiesDrugstoreSelection = capacitiesDrugstore;
-        this._opCapacitiesDrugstoreDefaultCapacity.drugstoreSelection = capacitiesDrugstore;
+  changeCapacitiesDrugstoreSelection(capacitiesDrugstore: CapacitiesDrugstore): void {
+    this.capacitiesDrugstoreSelection = capacitiesDrugstore;
+    this._opCapacitiesDrugstoreDefaultCapacity.drugstoreSelection = capacitiesDrugstore;
+    this.resetDrugstoreServiceList();
+  }
+
+  updateDefaultCapacityDrugstoreServiceList(): void {
+    const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceList$
+      .subscribe((drugstoreServiceList: CapacitiesDrugstoreServiceDefaultCapacity[]) => {
         this.resetDrugstoreServiceList();
-    }
+        drugstoreServiceList.forEach((drugstoreService) => {
+          switch (drugstoreService.serviceType) {
+            case EDeliveryServiceType.amPm:
+              this.capacityDrugstoreServiceAmPm = drugstoreService;
+              break;
+            case EDeliveryServiceType.express:
+              this.capacityDrugstoreServiceExpress = drugstoreService;
+              break;
+            case EDeliveryServiceType.scheduled:
+              this.capacityDrugstoreServiceScheduled = drugstoreService;
+              break;
+            case EDeliveryServiceType.ret:
+              this.capacityDrugstoreServiceRet = drugstoreService;
+              break;
+          }
+        });
+      });
+    this.subscriptions.add(subscription);
+  }
 
-    updateDefaultCapacityDrugstoreServiceList() {
-        const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceList$
-            .subscribe((drugstoreServiceList: CapacitiesDrugstoreServiceDefaultCapacity[]) => {
-                this.resetDrugstoreServiceList();
-                drugstoreServiceList.forEach((drugstoreService) => {
-                    switch (drugstoreService.serviceType) {
-                        case EDeliveryServiceType.amPm:
-                            this.capacityDrugstoreServiceAmPm = drugstoreService;
-                            break;
-                        case EDeliveryServiceType.express:
-                            this.capacityDrugstoreServiceExpress = drugstoreService;
-                            break;
-                        case EDeliveryServiceType.scheduled:
-                            this.capacityDrugstoreServiceScheduled = drugstoreService;
-                            break;
-                        case EDeliveryServiceType.ret:
-                            this.capacityDrugstoreServiceRet = drugstoreService;
-                            break;
-                    }
-                });
-            });
-        this.subscriptions.push(subscription);
-    }
+  resetDrugstoreServiceList(): void {
+    this.capacityDrugstoreServiceAmPm = null;
+    this.capacityDrugstoreServiceExpress = null;
+    this.capacityDrugstoreServiceScheduled = null;
+    this.capacityDrugstoreServiceRet = null;
+  }
 
-    resetDrugstoreServiceList() {
-        this.capacityDrugstoreServiceAmPm = null;
-        this.capacityDrugstoreServiceExpress = null;
-        this.capacityDrugstoreServiceScheduled = null;
-        this.capacityDrugstoreServiceRet = null;
-    }
+  updateDrugstoreCapacitiesServiceType(): void {
+    const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityList$
+      .subscribe((capacitiesServiceType: CapacitiesServiceType) => {
+        this.capacitiesServiceTypeSelection = capacitiesServiceType;
+        this.openServiceDefaultCapacity();
+      });
+    this.subscriptions.add(subscription);
+  }
 
-    updateDrugstoreCapacitiesServiceType() {
-        const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityList$
-            .subscribe((capacitiesServiceType: CapacitiesServiceType) => {
-                this.capacitiesServiceTypeSelection = capacitiesServiceType;
-                this.openServiceDefaultCapacity();
-            });
-        this.subscriptions.push(subscription);
-    }
-
-    openServiceDefaultCapacity() {
-        const serviceDefaultCapacityDialogRef = this._opCapacitiesDrugstoreDefaultCapacityDialog
-            .openServiceDefaultCapacityDialog(
-                this.capacitiesDrugstoreSelection,
-                this.drugstoreDefaultCapacitySelection,
-                this.capacitiesServiceTypeSelection
-            );
-        const subscription = serviceDefaultCapacityDialogRef.afterClosed()
-            .subscribe((editService) => {
-                if (editService) {
-                    this.drugstoreDefaultCapacityEditService(this.drugstoreDefaultCapacitySelection);
-                }
-            });
-        this.subscriptions.push(subscription);
-    }
+  openServiceDefaultCapacity(): void {
+    const serviceDefaultCapacityDialogRef = this._opCapacitiesDrugstoreDefaultCapacityDialog
+      .openServiceDefaultCapacityDialog(
+        this.capacitiesDrugstoreSelection,
+        this.drugstoreDefaultCapacitySelection,
+        this.capacitiesServiceTypeSelection
+      );
+    const subscription = serviceDefaultCapacityDialogRef.afterClosed()
+      .subscribe((editService) => {
+        if (editService) {
+          this.drugstoreDefaultCapacityEditService(this.drugstoreDefaultCapacitySelection);
+        }
+      });
+    this.subscriptions.add(subscription);
+  }
 
 
-    drugstoreDefaultCapacityViewMore(drugstoreService: CapacitiesDrugstoreServiceDefaultCapacity) {
-        this.drugstoreDefaultCapacitySelection = drugstoreService;
-        this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceTypeSelection = drugstoreService;
-    }
+  drugstoreDefaultCapacityViewMore(drugstoreService: CapacitiesDrugstoreServiceDefaultCapacity): void {
+    this.drugstoreDefaultCapacitySelection = drugstoreService;
+    this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceTypeSelection = drugstoreService;
+  }
 
-    drugstoreDefaultCapacityEditService(drugstoreService: CapacitiesDrugstoreServiceDefaultCapacity) {
-        const drugstoreServiceTypePath = `${ROUTER_PATH.operationCapacities}/${CDeliveryServiceTypeRoute[drugstoreService.serviceType]}`;
-        const drugstoreServiceTypeParams = {
-            groupOrDrugstore: ECapacityStepGroupOrDrugstore.drugstore,
-            drugstoreCode: this.capacitiesDrugstoreSelection.drugstoreCode,
-            editionMode: ECapacitiesStepEditionMode.default
-        } as IOpCapacitiesServiceTypeQueryParams;
-        this._router.navigate([drugstoreServiceTypePath], {queryParams: drugstoreServiceTypeParams});
-    }
+  drugstoreDefaultCapacityEditService(drugstoreService: CapacitiesDrugstoreServiceDefaultCapacity): void {
+    const drugstoreServiceTypePath = `${ROUTER_PATH.operationCapacities}/${CDeliveryServiceTypeRoute[drugstoreService.serviceType]}`;
+    const drugstoreServiceTypeParams = {
+      groupOrDrugstore: ECapacityStepGroupOrDrugstore.drugstore,
+      drugstoreCode: this.capacitiesDrugstoreSelection.drugstoreCode,
+      editionMode: ECapacitiesStepEditionMode.default
+    } as IOpCapacitiesServiceTypeQueryParams;
+    this._router.navigate([drugstoreServiceTypePath], {queryParams: drugstoreServiceTypeParams});
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

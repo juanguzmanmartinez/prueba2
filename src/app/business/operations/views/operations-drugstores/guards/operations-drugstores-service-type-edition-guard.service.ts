@@ -11,24 +11,22 @@ import { OP_DRUGSTORES_PATH } from '@parameters/router/routing/operations/operat
 @Injectable()
 export class OperationsDrugstoresServiceTypeEditionGuard implements CanActivate {
 
-    constructor(
-        private _router: Router,
-        private _userStore: UserStoreService,
-        private _tokenStore: TokenStoreService,
-    ) {
+  constructor(
+    private _router: Router,
+    private _userStore: UserStoreService,
+    private _tokenStore: TokenStoreService,
+  ) { }
+
+  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    const path = route.params[OP_DRUGSTORES_PATH.drugstoreServiceTypeEdition];
+    const serviceType = Object.keys(CDeliveryServiceTypeRoute)
+      .find((key) => CDeliveryServiceTypeRoute[key] === path) as EDeliveryServiceType;
+
+    if (!serviceType) {
+      this._router.navigate([ROUTER_PATH.notFound]);
+      return false;
     }
-
-
-    canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        const path = route.params[OP_DRUGSTORES_PATH.drugstoreServiceTypeEdition];
-        const serviceType = Object.keys(CDeliveryServiceTypeRoute)
-            .find((key) => CDeliveryServiceTypeRoute[key] === path) as EDeliveryServiceType;
-
-        if (!serviceType) {
-            this._router.navigate([ROUTER_PATH.notFound]);
-            return false;
-        }
-        return true;
-    }
+    return true;
+  }
 
 }

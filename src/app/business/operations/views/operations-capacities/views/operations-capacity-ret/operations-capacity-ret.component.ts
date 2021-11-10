@@ -10,38 +10,38 @@ import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-cap
 import { objectHasElements } from '@helpers/objects-equal.helper';
 
 @Component({
-    selector: 'app-operations-capacity-ret',
-    templateUrl: './operations-capacity-ret.component.html',
-    styleUrls: ['./operations-capacity-ret.component.scss'],
-    providers: [
-        OperationsCapacityRetService,
-        OperationsCapacityRetStoreService,
-        OpCapacitiesStepGroupOrDrugstoreService,
-        OpCapacitiesStepEditionModeService,
-        OpCapacitiesStepCapacityTableService
-    ]
+  selector: 'app-operations-capacity-ret',
+  templateUrl: './operations-capacity-ret.component.html',
+  styleUrls: ['./operations-capacity-ret.component.scss'],
+  providers: [
+    OperationsCapacityRetService,
+    OperationsCapacityRetStoreService,
+    OpCapacitiesStepGroupOrDrugstoreService,
+    OpCapacitiesStepEditionModeService,
+    OpCapacitiesStepCapacityTableService
+  ]
 })
 export class OperationsCapacityRetComponent implements OnInit, OnDestroy {
 
-    private subscriptions: Subscription[] = [];
+  private subscriptions = new Subscription();
 
-    constructor(
-        private _operationsCapacityRet: OperationsCapacityRetService,
-        private _activatedRoute: ActivatedRoute
-    ) {
-    }
+  constructor(
+    private _operationsCapacityRet: OperationsCapacityRetService,
+    private _activatedRoute: ActivatedRoute
+  ) { }
 
-    ngOnInit() {
-        const subscription = this._activatedRoute.queryParams
-            .subscribe((serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
-                if (objectHasElements(serviceTypeQueryParams)) {
-                    this._operationsCapacityRet.serviceQueryParams = serviceTypeQueryParams;
-                }
-            });
-        this.subscriptions.push(subscription);
-    }
+  ngOnInit(): void {
+    const subscription = this._activatedRoute.queryParams
+      .subscribe((serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+        if (objectHasElements(serviceTypeQueryParams)) {
+          this._operationsCapacityRet.serviceQueryParams = serviceTypeQueryParams;
+        }
+      });
+    this.subscriptions.add(subscription);
+  }
 
-    ngOnDestroy() {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
 }

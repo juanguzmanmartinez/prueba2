@@ -1,72 +1,65 @@
 <app-card>
-    <form [formGroup]="form.form$">
-        <div class="row mb-6">
-            <div class="col-12">
-                <app-switch [formControlName]="controlNameList.state">
-                    Stock backup
-                </app-switch>
-            </div>
+  <form [formGroup]="form.form$">
+    <div class="row mb-6">
+      <div class="col-12">
+        <app-switch [formControlName]="controlNameList.state">
+          Stock backup
+        </app-switch>
+      </div>
+    </div>
+
+    <div class="row mb-9">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-12 mb-5">
+            <app-form-field>
+              <app-form-field-label>Tipo de zona</app-form-field-label>
+              <app-select [optionList]="zoneTypeList" [formControlName]="controlNameList.zoneType"
+                          clearValue="Todo" placeholder="Selecciona el tipo de zona">
+                <ng-template #optionTemplate let-option>{{ zoneTypeOptionName(option) }}</ng-template>
+              </app-select>
+            </app-form-field>
+          </div>
+
+          <div class="col-12 mb-5">
+            <app-form-field>
+              <app-form-field-label>Zona backup</app-form-field-label>
+              <app-select-search selectId="zoneSelect" placeholder="Sin zona backup"
+                                 [formControlName]="controlNameList.zoneBackup" [optionList]="zoneList">
+                <ng-template #optionSelectedTemplate
+                             let-optionSelected>{{ zoneBackupOptionName(optionSelected) }}</ng-template>
+                <ng-template #optionTemplate
+                             let-option>{{ zoneBackupOptionName(option) }}</ng-template>
+              </app-select-search>
+            </app-form-field>
+          </div>
+
+          <div class="col-12 mb-6">
+            <app-form-field>
+              <app-form-field-label>Local backup</app-form-field-label>
+              <app-input
+                placeholder="Sin local backup"
+                [readOnly]="true"
+                [formControlName]="controlNameList.assignedStore">
+              </app-input>
+            </app-form-field>
+          </div>
         </div>
 
+      </div>
+    </div>
 
-        <div class="row mb-9">
-            <div class="col-8">
-                <div class="row">
-
-                    <div class="col-12 mb-5">
-                        <app-form-field>
-                            <app-form-field-label>Tipo de zona</app-form-field-label>
-                            <app-select [optionList]="zoneTypeList"
-                                        [formControlName]="controlNameList.zoneType"
-                                        clearValue="Todo"
-                                        placeholder="Selecciona el tipo de zona">
-                                <ng-template #optionTemplate
-                                             let-option>{{zoneTypeOptionName(option)}}</ng-template>
-                            </app-select>
-                        </app-form-field>
-                    </div>
-
-                    <div class="col-12 mb-5">
-                        <app-form-field>
-                            <app-form-field-label>Zona backup</app-form-field-label>
-                            <app-select-search selectId="zoneSelect"
-                                               placeholder="Sin zona backup"
-                                               [formControlName]="controlNameList.zoneBackup"
-                                               [optionList]="zoneList">
-                                <ng-template #optionSelectedTemplate
-                                             let-optionSelected>{{zoneBackupOptionName(optionSelected)}}</ng-template>
-                                <ng-template #optionTemplate
-                                             let-option>{{zoneBackupOptionName(option)}}</ng-template>
-                            </app-select-search>
-                        </app-form-field>
-                    </div>
-
-                    <div class="col-12 mb-6">
-                        <app-form-field>
-                            <app-form-field-label>Local backup</app-form-field-label>
-                            <app-input placeholder="Sin local backup"
-                                       [readOnly]="true"
-                                       [formControlName]="controlNameList.assignedStore"></app-input>
-                        </app-form-field>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="card-actions d-flex-horizontal-end pt-5 border-top border-gray-1">
-            <app-button appearance="secondary"
-                        class="me-4"
-                        (clicked)="cancelEditionEvent()">
-                Cancelar edición
-            </app-button>
-            <app-button appearance="primary"
-                        [disabled]="form.form$.invalid || !form.zoneBackupControl.value"
-                        (editionAccess)="saveEditionEvent()"
-                        [pathAccess]="zoneBackupPath">
-                Guardar cambios
-            </app-button>
-        </div>
-
-    </form>
+    <div class="card-actions d-flex-horizontal-end pt-5 border-top border-gray-1">
+      <app-button appearance="secondary" class="me-4" (clicked)="cancelEditionEvent()">
+        Cancelar edición
+      </app-button>
+      <app-button
+        appearance="primary"
+        [disabled]="form.form$.invalid || !form.zoneBackupControl.value"
+        (editionAccess)="saveEditionEvent()"
+        [pathAccess]="zoneBackupPath">
+        Guardar cambios
+      </app-button>
+    </div>
+  </form>
 </app-card>

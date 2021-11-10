@@ -5,7 +5,6 @@ import { ECapacityStepStatus } from '../../models/operations-capacity-step-statu
 import { ICapacityStepCapacityTableSegments } from './models/op-capacities-step-capacity-table.model';
 import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 
-
 export enum ECapacitiesStepCapacityTable {
   daysRange = 'daysRange',
   hourlyCapacity = 'hourlyCapacity'
@@ -25,12 +24,9 @@ export class OpCapacitiesStepCapacityTableService implements OnDestroy {
 
   private capacityTableEditionAccessPathStored: string;
 
-  constructor() {
-  }
-
   get capacityTableStepStatus$(): Observable<ECapacityStepStatus> {
     return this.capacityTableStepStatusSubject.asObservable()
-        .pipe(filter((value) => !!value));
+      .pipe(filter((value) => !!value));
   }
 
   set capacityTableStepStatus(capacityTableDisabled: ECapacityStepStatus) {
@@ -85,7 +81,7 @@ export class OpCapacitiesStepCapacityTableService implements OnDestroy {
 
   get capacityTableSave$(): Observable<ICapacityStepCapacityTableSegments> {
     return this.capacityTableSaveSubject.asObservable()
-        .pipe(filter((value) => !!value));
+      .pipe(filter((value) => !!value));
   }
 
   set capacityTableSave(capacityTableFormValue: ICapacityStepCapacityTableSegments) {
@@ -100,7 +96,9 @@ export class OpCapacitiesStepCapacityTableService implements OnDestroy {
     this.capacityTableEditionAccessPathStored = capacityTableEditionAccessPath;
   }
 
-  ngOnDestroy() {
+  constructor() { }
+
+  ngOnDestroy(): void {
     this.capacityTableFormViewSubject.complete();
     this.capacityTableSegmentsSubject.complete();
     this.capacityTableRangeLimitSubject.complete();

@@ -20,19 +20,16 @@ export class OpCapacitiesStepGroupOrDrugstoreService {
   public defaultGroupOrDrugstoreTabSelection: ECapacityStepGroupOrDrugstore = ECapacityStepGroupOrDrugstore.group;
   public defaultGroupOrDrugstoreSelection: ICustomSelectOption;
   public defaultGroupOrDrugstoreSelectionSaved: boolean;
+
   private groupOrDrugstoreListSubject = new BehaviorSubject<ICustomSelectOption[]>(null);
   private groupOrDrugstoreCancelSubject = new BehaviorSubject<boolean>(null);
   private groupOrDrugstoreSaveSubject = new BehaviorSubject<ICustomSelectOption>(null);
   private groupOrDrugstoreStepStatusSubject = new BehaviorSubject<ECapacityStepStatus>(null);
   private getGroupOrDrugstoreTabSubject = new BehaviorSubject<ECapacityStepGroupOrDrugstore>(null);
 
-
-  constructor() {
-  }
-
   get groupOrDrugstoreStepStatus$(): Observable<ECapacityStepStatus> {
     return this.groupOrDrugstoreStepStatusSubject.asObservable()
-        .pipe(filter((value) => !!value));
+      .pipe(filter((value) => !!value));
   }
 
   set groupOrDrugstoreStepStatus(groupOrDrugstoreDisabled: ECapacityStepStatus) {
@@ -57,7 +54,7 @@ export class OpCapacitiesStepGroupOrDrugstoreService {
 
   get groupOrDrugstoreCancel$(): Observable<boolean> {
     return this.groupOrDrugstoreCancelSubject.asObservable()
-        .pipe(filter((value) => !!value));
+      .pipe(filter((value) => !!value));
   }
 
   set groupOrDrugstoreCancel(groupOrDrugstoreCancel: boolean) {
@@ -66,11 +63,13 @@ export class OpCapacitiesStepGroupOrDrugstoreService {
 
   get groupOrDrugstoreSave$(): Observable<ICustomSelectOption> {
     return this.groupOrDrugstoreSaveSubject.asObservable()
-        .pipe(filter((value) => !!value));
+      .pipe(filter((value) => !!value));
   }
 
   set groupOrDrugstoreSave(groupOrDrugstoreSelected: ICustomSelectOption) {
     this.groupOrDrugstoreSaveSubject.next(groupOrDrugstoreSelected);
   }
+
+  constructor() { }
 
 }

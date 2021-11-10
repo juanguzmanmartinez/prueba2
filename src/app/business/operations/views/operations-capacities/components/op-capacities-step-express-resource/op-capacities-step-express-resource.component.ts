@@ -1,9 +1,15 @@
 import { Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
-import { ECapacitiesStepExpressResource, OpCapacitiesStepExpressResourceService } from './op-capacities-step-express-resource.service';
+import {
+  ECapacitiesStepExpressResource,
+  OpCapacitiesStepExpressResourceService
+} from './op-capacities-step-express-resource.service';
 import { OpCapacitiesStepExpressResourceFormService } from './form/op-capacities-step-express-resource-form.service';
 import { Subscription } from 'rxjs';
 import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
-import { FromFormToCapacityStepExpressResourceSegments, ICapacityStepExpressResourceSegments } from './models/op-capacities-step-express-resource.model';
+import {
+  FromFormToCapacityStepExpressResourceSegments,
+  ICapacityStepExpressResourceSegments
+} from './models/op-capacities-step-express-resource.model';
 import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
@@ -19,12 +25,11 @@ import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-acti
 })
 export class OpCapacitiesStepExpressResourceComponent implements OnInit, OnDestroy {
 
-  private subscriptions: Subscription[] = [];
+  private subscriptions = new Subscription();
 
   public expressResourceSaveLoad: boolean;
   public eCapacityStepStatus = ECapacityStepStatus;
   public expressResourceStepStatus: ECapacityStepStatus = ECapacityStepStatus.disabled;
-
 
   public expressResourceDateRange: boolean;
 
@@ -35,11 +40,10 @@ export class OpCapacitiesStepExpressResourceComponent implements OnInit, OnDestr
   public expressPathAccess: string;
 
   constructor(
-      @Optional() @SkipSelf() private _opCapacitiesStepExpressResource: OpCapacitiesStepExpressResourceService,
-      public _opCapacitiesStepExpressResourceForm: OpCapacitiesStepExpressResourceFormService,
-      private _dialogTwoActions: DialogTwoActionsService,
-  ) {
-  }
+    @Optional() @SkipSelf() private _opCapacitiesStepExpressResource: OpCapacitiesStepExpressResourceService,
+    public _opCapacitiesStepExpressResourceForm: OpCapacitiesStepExpressResourceFormService,
+    private _dialogTwoActions: DialogTwoActionsService,
+  ) { }
 
   ngOnInit(): void {
     this.updateExpressResourceFormView();
@@ -51,49 +55,46 @@ export class OpCapacitiesStepExpressResourceComponent implements OnInit, OnDestr
     this.expressPathAccess = this._opCapacitiesStepExpressResource.expressResourceEditionAccessPath;
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
 
-  openExpressResourceStep() {
+  openExpressResourceStep(): void {
     this._opCapacitiesStepExpressResource.expressResourceStepStatus = this.eCapacityStepStatus.open;
   }
 
-  closeExpressResourceStep() {
+  closeExpressResourceStep(): void {
     this._opCapacitiesStepExpressResource.expressResourceStepStatus = this.eCapacityStepStatus.close;
   }
 
-  saveExpressResource() {
+  saveExpressResource(): void {
     const subscription = this._dialogTwoActions.openConfirmChanges()
-        .afterClosed()
-        .subscribe((confirmChanges) => {
-          if (confirmChanges) {
-            if (this._opCapacitiesStepExpressResourceForm.expressResourceForm$.valid) {
-              this.expressResourceSaveLoad = true;
-              this._opCapacitiesStepExpressResource.expressResourceSave = new FromFormToCapacityStepExpressResourceSegments(
-                  this._opCapacitiesStepExpressResourceForm.expressResourceForm$.value as ICapacityStepExpressResourceSegments
-              );
-            }
+      .afterClosed()
+      .subscribe((confirmChanges) => {
+        if (confirmChanges) {
+          if (this._opCapacitiesStepExpressResourceForm.expressResourceForm$.valid) {
+            this.expressResourceSaveLoad = true;
+            this._opCapacitiesStepExpressResource.expressResourceSave = new FromFormToCapacityStepExpressResourceSegments(
+              this._opCapacitiesStepExpressResourceForm.expressResourceForm$.value as ICapacityStepExpressResourceSegments
+            );
           }
-        });
-    this.subscriptions.push(subscription);
+        }
+      });
+    this.subscriptions.add(subscription);
   }
 
-  cancelExpressResource() {
+  cancelExpressResource(): void {
     this._opCapacitiesStepExpressResource.expressResourceCancel = true;
   }
 
-  updateExpressResourceStepStatus() {
+  updateExpressResourceStepStatus(): void {
     const subscription = this._opCapacitiesStepExpressResource.expressResourceStepStatus$
       .subscribe((eCapacityStepStatus: ECapacityStepStatus) => {
         if (this.expressResourceStepStatus !== eCapacityStepStatus) {
           this.expressResourceStepStatus = eCapacityStepStatus;
         }
       });
-    this.subscriptions.push(subscription);
+    this.subscriptions.add(subscription);
   }
 
-  resetExpressResourceStep() {
+  resetExpressResourceStep(): void {
     const subscription = this._opCapacitiesStepExpressResource.expressResourceResetStepStatus$
       .subscribe(() => {
         this.expressResourceDateRange = false;
@@ -101,10 +102,10 @@ export class OpCapacitiesStepExpressResourceComponent implements OnInit, OnDestr
         this.expressResourceSegments = null;
         this._opCapacitiesStepExpressResourceForm.resetForm();
       });
-    this.subscriptions.push(subscription);
+    this.subscriptions.add(subscription);
   }
 
-  updateExpressResourceSegments() {
+  updateExpressResourceSegments(): void {
     const subscription = this._opCapacitiesStepExpressResource.expressResourceSegments$
       .subscribe((expressResourceSegments: ICapacityStepExpressResourceSegments) => {
         this.expressResourceSegments = expressResourceSegments;
@@ -112,19 +113,19 @@ export class OpCapacitiesStepExpressResourceComponent implements OnInit, OnDestr
           this._opCapacitiesStepExpressResourceForm.expressResource.setValue(expressResourceSegments.expressResource);
         }
       });
-    this.subscriptions.push(subscription);
+    this.subscriptions.add(subscription);
   }
 
-  updateExpressResourceRangeLimit() {
+  updateExpressResourceRangeLimit(): void {
     const subscription = this._opCapacitiesStepExpressResource.expressResourceRangeLimit$
       .subscribe((capacityRangeLimit: CapacityRangeLimit) => {
-          this.expressResourceMinDateRange = capacityRangeLimit.startDate;
-          this.expressResourceMaxDateRange = capacityRangeLimit.endDate;
+        this.expressResourceMinDateRange = capacityRangeLimit.startDate;
+        this.expressResourceMaxDateRange = capacityRangeLimit.endDate;
       });
-    this.subscriptions.push(subscription);
+    this.subscriptions.add(subscription);
   }
 
-  updateExpressResourceFormView() {
+  updateExpressResourceFormView(): void {
     const subscription = this._opCapacitiesStepExpressResource.expressResourceFormView$
       .subscribe((eCapacitiesStepExpressResource: ECapacitiesStepExpressResource) => {
         switch (eCapacitiesStepExpressResource) {
@@ -137,7 +138,10 @@ export class OpCapacitiesStepExpressResourceComponent implements OnInit, OnDestr
         }
         this.expressResourceDateRange = this._opCapacitiesStepExpressResourceForm.capacityRange.enabled;
       });
-    this.subscriptions.push(subscription);
+    this.subscriptions.add(subscription);
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

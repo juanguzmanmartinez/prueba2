@@ -1,80 +1,74 @@
 <app-card>
-    <div class="row mb-6">
-        <div class="col-12">
-            <h5 class="text-h5 mb-2">
-                {{storeDetail.name}}
-                <span class="text-gray-5 mx-3">-</span>
-                <span class="text-gray-5 text-nowrap">
-                    COD {{storeDetail.code}}
-                </span>
-            </h5>
-            <app-tag class="d-block"
-                     [appearance]="tagAppearance.default"
-                     [tagColor]="stateTag[storeDetail.state]">
-                Local {{stateName[storeDetail.state]()}}
-            </app-tag>
-        </div>
+  <div class="row mb-6">
+    <div class="col-12">
+      <h5 class="text-h5 mb-2">
+        {{storeDetail.name}}
+        <span class="text-gray-5 mx-3">-</span>
+        <span class="text-gray-5 text-nowrap">COD {{storeDetail.code}}</span>
+      </h5>
+      <app-tag class="d-block" [appearance]="tagAppearance.default" [tagColor]="stateTag[storeDetail.state]">
+        Local {{stateName[storeDetail.state]()}}
+      </app-tag>
     </div>
+  </div>
 
-    <div class="row mb-8">
-        <div class="col-6">
-            <app-card-static-information class="d-block mb-5" iconName="location_on">
-                <ng-container information-title>Ubicación</ng-container>
-                <ng-container information-caption>{{storeDetail.address}}</ng-container>
-            </app-card-static-information>
+  <div class="row mb-8">
+    <div class="col-6">
+      <app-card-static-information class="d-block mb-5" iconName="location_on">
+        <ng-container information-title>Ubicación</ng-container>
+        <ng-container information-caption>{{storeDetail.address}}</ng-container>
+      </app-card-static-information>
 
-            <app-card-static-information class="d-block mb-5" iconName="location_searching">
-                <ng-container information-title>Latitud y longitud</ng-container>
-                <ng-container information-caption>{{storeDetail.latitude}}, {{storeDetail.longitude}}</ng-container>
-            </app-card-static-information>
+      <app-card-static-information class="d-block mb-5" iconName="location_searching">
+        <ng-container information-title>Latitud y longitud</ng-container>
+        <ng-container information-caption>{{storeDetail.latitude}}, {{storeDetail.longitude}}</ng-container>
+      </app-card-static-information>
 
-            <app-card-static-information class="d-block" iconName="group_work">
-                <ng-container information-title>Grupo</ng-container>
-                <ng-container information-caption>
-                    <ng-container *ngIf="storeDetail.groupName">
-                        {{storeDetail.groupName}}
-                    </ng-container>
-                    <ng-container *ngIf="!storeDetail.groupName">
-                        Sin grupo
-                    </ng-container>
-                </ng-container>
-            </app-card-static-information>
-        </div>
-        <div class="col-6">
-            <app-card-static-information class="d-block mb-5" iconName="record_voice_over">
-                <ng-container information-title>Canales de atención</ng-container>
-                <ng-container information-caption>
-                    <ng-container *ngFor="let channel of storeDetail.channelList; let last = last">
-                            <span>
-                                {{channelName[channel]}}
-                                <span class="mx-2" *ngIf="!last">-</span>
-                            </span>
-                    </ng-container>
-                </ng-container>
-            </app-card-static-information>
-
-            <app-card-static-information class="d-block mb-5" iconName="access_time">
-                <ng-container information-title>Horario de atención de tienda</ng-container>
-                <ng-container information-caption>{{startAndEndHour}}</ng-container>
-            </app-card-static-information>
-
-            <app-card-static-information class="d-block" iconName="shopping_bag">
-                <ng-container information-title>Marca</ng-container>
-                <ng-container information-caption>
-                    <ng-container *ngFor="let company of storeDetail.companyList; let last = last">
-                            <span>
-                                {{companyName[company]}}
-                                <span class="mx-2" *ngIf="!last">-</span>
-                            </span>
-                    </ng-container>
-                </ng-container>
-            </app-card-static-information>
-        </div>
+      <app-card-static-information class="d-block" iconName="group_work">
+        <ng-container information-title>Grupo</ng-container>
+        <ng-container information-caption>
+          <ng-container *ngIf="storeDetail.groupName">
+            {{storeDetail.groupName}}
+          </ng-container>
+          <ng-container *ngIf="!storeDetail.groupName">
+            Sin grupo
+          </ng-container>
+        </ng-container>
+      </app-card-static-information>
     </div>
+    <div class="col-6">
+      <app-card-static-information class="d-block mb-5" iconName="record_voice_over">
+        <ng-container information-title>Canales de atención</ng-container>
+        <ng-container information-caption>
+          <ng-container *ngFor="let channel of storeDetail.channelList; let last = last">
+            <span>
+              {{channelName[channel]}}
+              <span class="mx-2" *ngIf="!last">-</span>
+            </span>
+          </ng-container>
+        </ng-container>
+      </app-card-static-information>
 
-    <ng-container *appRouterAccess="storeEditionPath">
-        <div app-card-edit-button
-             [editMessage]="storeDetail.name"
-             (click)="editEvent()"></div>
-    </ng-container>
+      <app-card-static-information class="d-block mb-5" iconName="access_time">
+        <ng-container information-title>Horario de atención de tienda</ng-container>
+        <ng-container information-caption>{{startAndEndHour}}</ng-container>
+      </app-card-static-information>
+
+      <app-card-static-information class="d-block" iconName="shopping_bag">
+        <ng-container information-title>Marca</ng-container>
+        <ng-container information-caption>
+          <ng-container *ngFor="let company of storeDetail.companyList; let last = last">
+            <span>
+              {{companyName[company]}}
+              <span class="mx-2" *ngIf="!last">-</span>
+            </span>
+          </ng-container>
+        </ng-container>
+      </app-card-static-information>
+    </div>
+  </div>
+
+  <ng-container *appRouterAccess="storeEditionPath">
+    <div app-card-edit-button [editMessage]="storeDetail.name" (click)="editEvent()"></div>
+  </ng-container>
 </app-card>

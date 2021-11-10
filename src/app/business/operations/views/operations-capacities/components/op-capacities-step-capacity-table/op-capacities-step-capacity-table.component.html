@@ -10,25 +10,22 @@
           (stepCloseEvent)="closeCapacityTableStep()"
           (saveButtonEvent)="saveCapacityTable()"
           (cancelButtonEvent)="cancelCapacityTable()">
-    <div class="card-step-content">
-        <form [formGroup]="_opCapacitiesStepCapacityTableForm.capacityTableForm$">
-            <div class="row">
+  <div class="card-step-content">
+    <form [formGroup]="_opCapacitiesStepCapacityTableForm.capacityTableForm$">
+      <div class="row">
+        <div *ngIf="capacityTableDateRange" class="col-12 mb-5">
+          <label class="text-body-2-regular text-gray-5 mb-2">Selecciona días</label>
+          <app-input-datepicker-range
+            [maxDate]="capacityTableMaxDateRange"
+            [minDate]="capacityTableMinDateRange"
+            formControlName="capacityRange">
+          </app-input-datepicker-range>
+        </div>
 
-                <div *ngIf="capacityTableDateRange" class="col-12 mb-5">
-                    <label class="text-body-2-regular text-gray-5 mb-2">Selecciona días</label>
-                    <app-input-datepicker-range
-                            [maxDate]="capacityTableMaxDateRange"
-                            [minDate]="capacityTableMinDateRange"
-                            formControlName="capacityRange">
-                    </app-input-datepicker-range>
-                </div>
-
-                <div class="col-12">
-                    <app-op-capacities-step-capacity-table-form>
-                    </app-op-capacities-step-capacity-table-form>
-                </div>
-
-            </div>
+        <div class="col-12">
+          <app-op-capacities-step-capacity-table-form></app-op-capacities-step-capacity-table-form>
+        </div>
+      </div>
     </form>
   </div>
 </app-step>

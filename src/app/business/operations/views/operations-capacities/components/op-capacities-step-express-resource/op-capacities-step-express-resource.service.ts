@@ -5,7 +5,6 @@ import { ECapacityStepStatus } from '../../models/operations-capacity-step-statu
 import { ICapacityStepExpressResourceSegments } from './models/op-capacities-step-express-resource.model';
 import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 
-
 export enum ECapacitiesStepExpressResource {
   daysRange = 'daysRange',
   hourlyCapacity = 'hourlyCapacity'
@@ -25,18 +24,14 @@ export class OpCapacitiesStepExpressResourceService implements OnDestroy {
 
   private expressResourceEditionAccessPathStored: string;
 
-  constructor() {
-  }
-
   get expressResourceStepStatus$(): Observable<ECapacityStepStatus> {
     return this.expressResourceStepStatusSubject.asObservable()
-        .pipe(filter((value) => !!value));
+      .pipe(filter((value) => !!value));
   }
 
   set expressResourceStepStatus(expressResourceDisabled: ECapacityStepStatus) {
     this.expressResourceStepStatusSubject.next(expressResourceDisabled);
   }
-
 
   get expressResourceResetStepStatus$(): Observable<boolean> {
     return this.expressResourceResetStepStatusSubject.asObservable()
@@ -46,7 +41,6 @@ export class OpCapacitiesStepExpressResourceService implements OnDestroy {
   set expressResourceResetStepStatus(expressResourceResetStep: boolean) {
     this.expressResourceResetStepStatusSubject.next(expressResourceResetStep);
   }
-
 
   get expressResourceFormView$(): Observable<ECapacitiesStepExpressResource> {
     return this.expressResourceFormViewSubject.asObservable();
@@ -85,7 +79,7 @@ export class OpCapacitiesStepExpressResourceService implements OnDestroy {
 
   get expressResourceSave$(): Observable<ICapacityStepExpressResourceSegments> {
     return this.expressResourceSaveSubject.asObservable()
-        .pipe(filter((value) => !!value));
+      .pipe(filter((value) => !!value));
   }
 
   set expressResourceSave(expressResourceFormValue: ICapacityStepExpressResourceSegments) {
@@ -100,8 +94,9 @@ export class OpCapacitiesStepExpressResourceService implements OnDestroy {
     this.expressResourceEditionAccessPathStored = expressResourceEditionAccessPath;
   }
 
+  constructor() { }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.expressResourceFormViewSubject.complete();
     this.expressResourceSegmentsSubject.complete();
     this.expressResourceRangeLimitSubject.complete();

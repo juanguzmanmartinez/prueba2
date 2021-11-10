@@ -23,26 +23,25 @@ import { objectHasElements } from '@helpers/objects-equal.helper';
 })
 export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
 
-  private subscriptions: Subscription[] = [];
+  private subscriptions = new Subscription();
 
   constructor(
     private _operationsCapacityAmPm: OperationsCapacityAmPmService,
     private _activatedRoute: ActivatedRoute
-  ) {
-  }
+  ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const subscription = this._activatedRoute.queryParams
       .subscribe((serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
         if (objectHasElements(serviceTypeQueryParams)) {
           this._operationsCapacityAmPm.serviceQueryParams = serviceTypeQueryParams;
         }
       });
-    this.subscriptions.push(subscription);
+    this.subscriptions.add(subscription);
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 

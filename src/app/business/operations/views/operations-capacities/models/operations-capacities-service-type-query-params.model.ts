@@ -2,7 +2,7 @@ import { ECapacityStepGroupOrDrugstore } from '../components/op-capacities-step-
 import { ECapacitiesStepEditionMode } from '../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 
 export interface IOpCapacitiesServiceTypeQueryParams {
-    groupOrDrugstore: ECapacityStepGroupOrDrugstore;
-    drugstoreCode: string;
-    editionMode: ECapacitiesStepEditionMode;
+  groupOrDrugstore: ECapacityStepGroupOrDrugstore;
+  drugstoreCode: string;
+  editionMode: ECapacitiesStepEditionMode;
 }

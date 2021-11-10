@@ -13,98 +13,99 @@ import { RouterHelperService } from '@helpers/router-helper.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-    selector: 'app-operations-drugstores-edition-drugstore',
-    templateUrl: './operations-drugstores-edition-drugstore.component.html',
-    styleUrls: ['./operations-drugstores-edition-drugstore.component.scss']
+  selector: 'app-operations-drugstores-edition-drugstore',
+  templateUrl: './operations-drugstores-edition-drugstore.component.html',
+  styleUrls: ['./operations-drugstores-edition-drugstore.component.scss']
 })
 export class OperationsDrugstoresEditionDrugstoreComponent implements OnInit, OnDestroy {
-    private subscriptions: Subscription[] = [];
-    public drugstoreDetail: DrugstoreDetail;
-    public companyList: ECompany[] = [];
 
-    public errorResponse: HttpErrorResponse;
-    public drugstoreEditionLoader = true;
-    public saveEditionLoader: boolean;
+  private subscriptions = new Subscription();
 
-    constructor(
-        private _router: Router,
-        @SkipSelf() private _operationsDrugstoresEditionStore: OperationsDrugstoresEditionStoreService,
-        private _operationsDrugstoresImplement: OperationsDrugstoresImplementService,
-        private _dialogTwoActions: DialogTwoActionsService,
-        private _alert: AlertService,
-        private _routerHelper: RouterHelperService
-    ) {
-    }
+  public drugstoreDetail: DrugstoreDetail;
+  public companyList: ECompany[] = [];
 
-    ngOnInit(): void {
-        this.getDrugstoreDetail();
-    }
+  public errorResponse: HttpErrorResponse;
+  public drugstoreEditionLoader = true;
+  public saveEditionLoader: boolean;
 
-    getDrugstoreDetail() {
-        const subscription = this._operationsDrugstoresEditionStore.storeDetail$
-            .subscribe((drugstoreDetail: DrugstoreDetail) => {
-                this.drugstoreDetail = drugstoreDetail;
-                this.drugstoreEditionLoader = false;
-                if (drugstoreDetail instanceof DrugstoreDetail) {
-                    this.drugstoreDetail = drugstoreDetail;
-                    this.settingData();
-                } else {
-                    this.drugstoreDetail = null;
-                    this.drugstoreEditionLoader = false;
-                    this.errorResponse = drugstoreDetail;
-                }
+  constructor(
+    private _router: Router,
+    @SkipSelf() private _operationsDrugstoresEditionStore: OperationsDrugstoresEditionStoreService,
+    private _operationsDrugstoresImplement: OperationsDrugstoresImplementService,
+    private _dialogTwoActions: DialogTwoActionsService,
+    private _alert: AlertService,
+    private _routerHelper: RouterHelperService
+  ) { }
 
-            });
-        this.subscriptions.push(subscription);
-    }
+  ngOnInit(): void {
+    this.getDrugstoreDetail();
+  }
 
-    settingData() {
-        this._operationsDrugstoresImplement.companyList
-            .subscribe((companyList: ECompany[]) => {
-                this.companyList = companyList;
-            }, (error) => {
-                this.errorResponse = error;
-            }, () => {
-                this.drugstoreEditionLoader = false;
-            });
-    }
+  getDrugstoreDetail(): void {
+    const subscription = this._operationsDrugstoresEditionStore.storeDetail$
+      .subscribe((drugstoreDetail: DrugstoreDetail) => {
+        this.drugstoreDetail = drugstoreDetail;
+        this.drugstoreEditionLoader = false;
+        if (drugstoreDetail instanceof DrugstoreDetail) {
+          this.drugstoreDetail = drugstoreDetail;
+          this.settingData();
+        } else {
+          this.drugstoreDetail = null;
+          this.drugstoreEditionLoader = false;
+          this.errorResponse = drugstoreDetail;
+        }
 
-    putStoreDetail(iDrugstoreDetailUpdate: IDrugstoreDetailUpdate) {
-        this._operationsDrugstoresImplement.putDrugstoreDetail(
-            this.drugstoreDetail.code, iDrugstoreDetailUpdate)
-            .subscribe(() => {
-                this._operationsDrugstoresEditionStore.updateDrugstoreDetail = true;
-                this._alert.alertSuccess(OperationMessages.successOperationEdition(this.drugstoreDetail.name));
-                this.backRoute();
-            }, () => {
-                this._alert.alertError(OperationMessages.errorOperationEdition(this.drugstoreDetail.name));
-                this.backRoute();
-            });
-    }
+      });
+    this.subscriptions.add(subscription);
+  }
 
-    cancelEdition() {
+  settingData(): void {
+    this._operationsDrugstoresImplement.companyList
+      .subscribe((companyList: ECompany[]) => {
+        this.companyList = companyList;
+      }, (error) => {
+        this.errorResponse = error;
+      }, () => {
+        this.drugstoreEditionLoader = false;
+      });
+  }
+
+  putStoreDetail(iDrugstoreDetailUpdate: IDrugstoreDetailUpdate): void {
+    this._operationsDrugstoresImplement.putDrugstoreDetail(
+      this.drugstoreDetail.code, iDrugstoreDetailUpdate)
+      .subscribe(() => {
+        this._operationsDrugstoresEditionStore.updateDrugstoreDetail = true;
+        this._alert.alertSuccess(OperationMessages.successOperationEdition(this.drugstoreDetail.name));
         this.backRoute();
-    }
+      }, () => {
+        this._alert.alertError(OperationMessages.errorOperationEdition(this.drugstoreDetail.name));
+        this.backRoute();
+      });
+  }
 
-    saveEdition(iDrugstoreDetailUpdate: IDrugstoreDetailUpdate) {
-        this.saveEditionLoader = true;
-        const subscription = this._dialogTwoActions.openConfirmChanges()
-            .afterClosed()
-            .subscribe((confirmChanges) => {
-                if (confirmChanges) {
-                    this.putStoreDetail(iDrugstoreDetailUpdate);
-                } else {
-                    this.saveEditionLoader = false;
-                }
-            });
-        this.subscriptions.push(subscription);
-    }
+  cancelEdition(): void {
+    this.backRoute();
+  }
 
-    backRoute() {
-        this._routerHelper.backRoute();
-    }
+  saveEdition(iDrugstoreDetailUpdate: IDrugstoreDetailUpdate): void {
+    this.saveEditionLoader = true;
+    const subscription = this._dialogTwoActions.openConfirmChanges()
+      .afterClosed()
+      .subscribe((confirmChanges) => {
+        if (confirmChanges) {
+          this.putStoreDetail(iDrugstoreDetailUpdate);
+        } else {
+          this.saveEditionLoader = false;
+        }
+      });
+    this.subscriptions.add(subscription);
+  }
 
-    ngOnDestroy() {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    }
+  backRoute(): void {
+    this._routerHelper.backRoute();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

@@ -4,7 +4,6 @@ import { CapacitiesServiceType } from './operations-capacities-responses.model';
 import { IDatepickerRange } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';
 import { ServiceTypeSegment } from '@interfaces/drugstores/drugstores.interface';
 
-
 export class ToCapacityStepExpressResourceSegments implements ICapacityStepExpressResourceSegments {
   expressResource: number;
 
@@ -27,6 +26,7 @@ export class ToCapacityStepAmPmCapacitySegments implements ICapacityStepCapacity
 }
 
 export class ToCapacityStepScheduledCapacitySegments extends ToCapacityStepAmPmCapacitySegments {
+
   constructor(capacitiesServiceType: CapacitiesServiceType) {
     super(capacitiesServiceType);
   }
@@ -34,6 +34,7 @@ export class ToCapacityStepScheduledCapacitySegments extends ToCapacityStepAmPmC
 
 
 export class ToCapacityStepRetCapacitySegments extends ToCapacityStepAmPmCapacitySegments {
+
   constructor(capacitiesServiceType: CapacitiesServiceType) {
     super(capacitiesServiceType);
   }

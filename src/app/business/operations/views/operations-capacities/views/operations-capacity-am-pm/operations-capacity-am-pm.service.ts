@@ -10,34 +10,8 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Injectable()
 export class OperationsCapacityAmPmService implements OnDestroy {
-  private subscriptions: Subscription[] = [];
 
-  constructor(
-      private _operationsCapacityAmPmStore: OperationsCapacityAmPmStoreService,
-      private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
-      private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
-      private _router: Router,
-  ) {
-    this.updateWhenSaveOrCancelService();
-  }
-
-  updateWhenSaveOrCancelService() {
-    const subscription = combineLatest([
-      this._operationsCapacityAmPmStore.operationsCapacityAmPmCancel$,
-      this._operationsCapacityAmPmStore.operationsCapacityAmPmSave$
-    ])
-      .subscribe(([save, cancel]) => {
-        if (save || cancel) {
-          this._router.navigate([ROUTER_PATH.operationCapacities]);
-        }
-      });
-
-    this.subscriptions.push(subscription);
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
+  private subscriptions = new Subscription();
 
   set serviceQueryParams(serviceQueryParams: IOpCapacitiesServiceTypeQueryParams) {
     if (serviceQueryParams.groupOrDrugstore) {
@@ -52,4 +26,32 @@ export class OperationsCapacityAmPmService implements OnDestroy {
       this._opCapacitiesStepEditionMode.defaultEditionModeSelectionSaved = true;
     }
   }
+
+  constructor(
+    private _operationsCapacityAmPmStore: OperationsCapacityAmPmStoreService,
+    private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
+    private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
+    private _router: Router,
+  ) {
+    this.updateWhenSaveOrCancelService();
+  }
+
+  updateWhenSaveOrCancelService(): void {
+    const subscription = combineLatest([
+      this._operationsCapacityAmPmStore.operationsCapacityAmPmCancel$,
+      this._operationsCapacityAmPmStore.operationsCapacityAmPmSave$
+    ])
+      .subscribe(([save, cancel]) => {
+        if (save || cancel) {
+          this._router.navigate([ROUTER_PATH.operationCapacities]);
+        }
+      });
+
+    this.subscriptions.add(subscription);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
 }

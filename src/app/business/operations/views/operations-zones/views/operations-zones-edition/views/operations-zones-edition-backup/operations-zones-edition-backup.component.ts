@@ -13,114 +13,114 @@ import { EZoneType } from '../../../../parameters/operations-zones-type.paramete
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-    selector: 'app-operations-zones-edition-backup',
-    templateUrl: './operations-zones-edition-backup.component.html',
-    styleUrls: ['./operations-zones-edition-backup.component.sass']
+  selector: 'app-operations-zones-edition-backup',
+  templateUrl: './operations-zones-edition-backup.component.html',
+  styleUrls: ['./operations-zones-edition-backup.component.sass']
 })
 export class OperationsZonesEditionBackupComponent implements OnInit, OnDestroy {
-    private subscriptions: Subscription[] = [];
 
-    public zoneDetail: ZoneDetail;
-    public zoneListStored: Zone[];
-    public zoneList: Zone[];
-    public zoneTypeList: EZoneType[];
+  private subscriptions = new Subscription();
 
-    public errorResponse: HttpErrorResponse;
-    public editionBackupLoader = true;
-    public saveEditionLoader: boolean;
+  public zoneDetail: ZoneDetail;
+  public zoneListStored: Zone[];
+  public zoneList: Zone[];
+  public zoneTypeList: EZoneType[];
 
-    constructor(
-        private _router: Router,
-        @SkipSelf() private _operationsZonesEditionStore: OperationsZonesEditionStoreService,
-        private _operationsZonesImplement: OperationsZonesImplementService,
-        private _dialogTwoActions: DialogTwoActionsService,
-        private _alert: AlertService,
-        private _routerHelper: RouterHelperService,
-    ) {
-    }
+  public errorResponse: HttpErrorResponse;
+  public editionBackupLoader = true;
+  public saveEditionLoader: boolean;
 
-    ngOnInit(): void {
-        this.getZoneDetail();
-    }
+  constructor(
+    private _router: Router,
+    @SkipSelf() private _operationsZonesEditionStore: OperationsZonesEditionStoreService,
+    private _operationsZonesImplement: OperationsZonesImplementService,
+    private _dialogTwoActions: DialogTwoActionsService,
+    private _alert: AlertService,
+    private _routerHelper: RouterHelperService,
+  ) { }
 
-    getZoneDetail() {
-        const subscription = this._operationsZonesEditionStore.zoneDetail$
-            .subscribe((zoneDetail: TZoneDetail) => {
-                if (zoneDetail instanceof ZoneDetail) {
-                    this.zoneDetail = zoneDetail;
-                    this.settingData();
-                } else {
-                    this.zoneDetail = null;
-                    this.errorResponse = zoneDetail;
-                    this.editionBackupLoader = false;
-                }
-            });
-        this.subscriptions.push(subscription);
-    }
+  ngOnInit(): void {
+    this.getZoneDetail();
+  }
 
-    putZoneBackup(zoneBackupUpdate: IZoneBackupUpdate) {
-        this._operationsZonesImplement.putZoneBackup(
-            this.zoneDetail.id, zoneBackupUpdate)
-            .subscribe(() => {
-                this._operationsZonesEditionStore.updateZoneDetail = true;
-                this._alert.alertSuccess(OperationMessages.successOperationEdition(this.zoneDetail.name));
-                this.backRoute();
-            }, () => {
-                this._alert.alertError(OperationMessages.errorOperationEdition(this.zoneDetail.name));
-                this.backRoute();
-            });
-    }
-
-    settingData() {
-        const zoneTypeList$ = this._operationsZonesImplement.zoneTypeList;
-        const zoneList$ = this._operationsZonesImplement.zoneList;
-        const subscription = forkJoin([zoneTypeList$, zoneList$])
-            .subscribe(([zoneTypeList, zoneList]) => {
-                this.zoneTypeList = zoneTypeList;
-                this.zoneListStored = zoneList;
-                this.setZoneList();
-            }, (error) => {
-                this.errorResponse = error;
-                this.zoneTypeList = null;
-                this.zoneListStored = null;
-                this.zoneList = null;
-            }, () => {
-                this.editionBackupLoader = false;
-            });
-
-        this.subscriptions.push(subscription);
-    }
-
-    setZoneList() {
-        if (this.zoneListStored && this.zoneDetail) {
-            this.zoneList = this.zoneListStored
-                .filter((zone: Zone) => zone.code !== this.zoneDetail.code);
+  getZoneDetail(): void {
+    const subscription = this._operationsZonesEditionStore.zoneDetail$
+      .subscribe((zoneDetail: TZoneDetail) => {
+        if (zoneDetail instanceof ZoneDetail) {
+          this.zoneDetail = zoneDetail;
+          this.settingData();
+        } else {
+          this.zoneDetail = null;
+          this.errorResponse = zoneDetail;
+          this.editionBackupLoader = false;
         }
-    }
+      });
+    this.subscriptions.add(subscription);
+  }
 
-    cancelEdition() {
+  putZoneBackup(zoneBackupUpdate: IZoneBackupUpdate): void {
+    this._operationsZonesImplement.putZoneBackup(
+      this.zoneDetail.id, zoneBackupUpdate)
+      .subscribe(() => {
+        this._operationsZonesEditionStore.updateZoneDetail = true;
+        this._alert.alertSuccess(OperationMessages.successOperationEdition(this.zoneDetail.name));
         this.backRoute();
-    }
+      }, () => {
+        this._alert.alertError(OperationMessages.errorOperationEdition(this.zoneDetail.name));
+        this.backRoute();
+      });
+  }
 
-    saveEdition(zoneBackupUpdate: IZoneBackupUpdate) {
-        this.saveEditionLoader = true;
-        const subscription = this._dialogTwoActions.openConfirmChanges()
-            .afterClosed()
-            .subscribe((confirmChanges) => {
-                if (confirmChanges) {
-                    this.putZoneBackup(zoneBackupUpdate);
-                } else {
-                    this.saveEditionLoader = false;
-                }
-            });
-        this.subscriptions.push(subscription);
-    }
+  settingData(): void {
+    const zoneTypeList$ = this._operationsZonesImplement.zoneTypeList;
+    const zoneList$ = this._operationsZonesImplement.zoneList;
+    const subscription = forkJoin([zoneTypeList$, zoneList$])
+      .subscribe(([zoneTypeList, zoneList]) => {
+        this.zoneTypeList = zoneTypeList;
+        this.zoneListStored = zoneList;
+        this.setZoneList();
+      }, (error) => {
+        this.errorResponse = error;
+        this.zoneTypeList = null;
+        this.zoneListStored = null;
+        this.zoneList = null;
+      }, () => {
+        this.editionBackupLoader = false;
+      });
 
-    backRoute() {
-        this._routerHelper.backRoute();
-    }
+    this.subscriptions.add(subscription);
+  }
 
-    ngOnDestroy() {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  setZoneList(): void {
+    if (this.zoneListStored && this.zoneDetail) {
+      this.zoneList = this.zoneListStored
+        .filter((zone: Zone) => zone.code !== this.zoneDetail.code);
     }
+  }
+
+  cancelEdition(): void {
+    this.backRoute();
+  }
+
+  saveEdition(zoneBackupUpdate: IZoneBackupUpdate): void {
+    this.saveEditionLoader = true;
+    const subscription = this._dialogTwoActions.openConfirmChanges()
+      .afterClosed()
+      .subscribe((confirmChanges) => {
+        if (confirmChanges) {
+          this.putZoneBackup(zoneBackupUpdate);
+        } else {
+          this.saveEditionLoader = false;
+        }
+      });
+    this.subscriptions.add(subscription);
+  }
+
+  backRoute(): void {
+    this._routerHelper.backRoute();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

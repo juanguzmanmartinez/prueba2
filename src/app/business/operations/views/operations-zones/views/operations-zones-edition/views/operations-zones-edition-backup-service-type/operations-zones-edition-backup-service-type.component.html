@@ -1,38 +1,35 @@
 <section class="operations-zones-edition-backup pt-12 pb-15">
-    <div class="row mb-7">
-        <div class="col-12">
-            <h3 class="text-h3 mb-5">Configuración Backup</h3>
-            <h5 class="text-h5 text-gray-6 mb-7">Editar {{serviceTypeName[serviceType]}}</h5>
-            <hr class="m-0 bg-gray-3">
-        </div>
+  <div class="row mb-7">
+    <div class="col-12">
+      <h3 class="text-h3 mb-5">Configuración Backup</h3>
+      <h5 class="text-h5 text-gray-6 mb-7">Editar {{serviceTypeName[serviceType]}}</h5>
+      <hr class="m-0 bg-gray-3">
+    </div>
+  </div>
+
+
+  <div class="row" *ngIf="!errorResponse">
+    <div class="col-12 col-xlg-5 mb-6 mb-xlg-0">
+      <app-op-zones-edition-backup-service-type-detail-card
+        *appSkeletonCard="!!zoneDetail && !!zoneBackupServiceType; loading: !editionBackupServiceTypeLoader"
+        [zoneDetail]="zoneDetail"
+        [zoneBackupServiceType]="zoneBackupServiceType">
+      </app-op-zones-edition-backup-service-type-detail-card>
     </div>
 
-
-    <div class="row"
-         *ngIf="!errorResponse">
-        <div class="col-12 col-xlg-5 mb-6 mb-xlg-0">
-            <app-op-zones-edition-backup-service-type-detail-card
-                    *appSkeletonCard="!!zoneDetail && !!zoneBackupServiceType; loading: !editionBackupServiceTypeLoader"
-                    [zoneDetail]="zoneDetail"
-                    [zoneBackupServiceType]="zoneBackupServiceType">
-            </app-op-zones-edition-backup-service-type-detail-card>
-        </div>
-
-        <div class="col-12 col-xlg-7"
-             [class.container-loader]="saveEditionLoader">
-            <app-op-zones-edition-backup-service-type-detail-form-card
-                    *appSkeletonCard="!!zoneDetail && !!zoneBackupServiceType; row: 8; loading: !editionBackupServiceTypeLoader"
-                    [zoneBackup]="zoneDetail?.zoneBackup"
-                    [zoneBackupDetail]="zoneBackupDetail"
-                    [zoneBackupServiceType]="zoneBackupServiceType"
-                    (cancelEdition)="cancelEdition()"
-                    (saveEdition)="saveEdition($event)">
-            </app-op-zones-edition-backup-service-type-detail-form-card>
-        </div>
+    <div class="col-12 col-xlg-7" [class.container-loader]="saveEditionLoader">
+      <app-op-zones-edition-backup-service-type-detail-form-card
+        *appSkeletonCard="!!zoneDetail && !!zoneBackupServiceType; row: 8; loading: !editionBackupServiceTypeLoader"
+        [zoneBackup]="zoneDetail?.zoneBackup"
+        [zoneBackupDetail]="zoneBackupDetail"
+        [zoneBackupServiceType]="zoneBackupServiceType"
+        (cancelEdition)="cancelEdition()"
+        (saveEdition)="saveEdition($event)">
+      </app-op-zones-edition-backup-service-type-detail-form-card>
     </div>
+  </div>
 
-    <div *ngIf="errorResponse"
-         class="pt-6">
-        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
-    </div>
+  <div *ngIf="errorResponse" class="pt-6">
+    <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+  </div>
 </section>

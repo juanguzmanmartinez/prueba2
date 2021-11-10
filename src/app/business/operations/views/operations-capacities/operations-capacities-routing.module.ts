@@ -11,47 +11,47 @@ import { OperationsCapacityReportComponent } from './views/operations-capacity-r
 
 
 const routes: Routes = [
-    {
+  {
+    path: '',
+    component: OperationsCapacitiesComponent,
+    children: [
+      {
         path: '',
-        component: OperationsCapacitiesComponent,
-        children: [
-            {
-                path: '',
-                component: OperationsCapacityHomeComponent,
-                pathMatch: 'full'
-            },
-            {
-                path: OP_CAPACITIES_PATH.capacityAmPm.toString(),
-                component: OperationsCapacityAmPmComponent,
-                pathMatch: 'full'
-            },
-            {
-                path: OP_CAPACITIES_PATH.capacityScheduled.toString(),
-                component: OperationsCapacityScheduledComponent,
-                pathMatch: 'full'
-            },
-            {
-                path: OP_CAPACITIES_PATH.capacityExpress.toString(),
-                component: OperationsCapacityExpressComponent,
-                pathMatch: 'full'
-            },
-            {
-                path: OP_CAPACITIES_PATH.capacityRet.toString(),
-                component: OperationsCapacityRetComponent,
-                pathMatch: 'full'
-            },
-            {
-                path: OP_CAPACITIES_PATH.capacityReport.toString(),
-                component: OperationsCapacityReportComponent,
-                pathMatch: 'full'
-            },
-        ]
-    }
+        component: OperationsCapacityHomeComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: OP_CAPACITIES_PATH.capacityAmPm.toString(),
+        component: OperationsCapacityAmPmComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: OP_CAPACITIES_PATH.capacityScheduled.toString(),
+        component: OperationsCapacityScheduledComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: OP_CAPACITIES_PATH.capacityExpress.toString(),
+        component: OperationsCapacityExpressComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: OP_CAPACITIES_PATH.capacityRet.toString(),
+        component: OperationsCapacityRetComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: OP_CAPACITIES_PATH.capacityReport.toString(),
+        component: OperationsCapacityReportComponent,
+        pathMatch: 'full'
+      },
+    ]
+  }
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class OperationsCapacitiesRoutingModule {
 }

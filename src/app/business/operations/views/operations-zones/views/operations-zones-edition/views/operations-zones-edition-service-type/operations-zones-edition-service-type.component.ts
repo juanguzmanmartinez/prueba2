@@ -4,7 +4,11 @@ import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { Subscription } from 'rxjs';
 import { OperationsZonesEditionStoreService } from '../../stores/operations-zones-edition-store.service';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
-import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import {
+  CDeliveryServiceTypeName,
+  CDeliveryServiceTypeRoute,
+  EDeliveryServiceType
+} from '@models/service-type/delivery-service-type.model';
 import { IZoneServiceTypeUpdate } from '@interfaces/zones/zones.interface';
 import { OperationMessages } from '../../../../../../parameters/operations-messages.parameter';
 import { AlertService } from '@molecules/alert/alert.service';
@@ -17,114 +21,113 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { OP_ZONES_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
 
 @Component({
-    selector: 'app-operations-zones-edition-service-type',
-    templateUrl: './operations-zones-edition-service-type.component.html',
-    styleUrls: ['./operations-zones-edition-service-type.component.sass']
+  selector: 'app-operations-zones-edition-service-type',
+  templateUrl: './operations-zones-edition-service-type.component.html',
+  styleUrls: ['./operations-zones-edition-service-type.component.sass']
 })
 export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDestroy {
-    private subscriptions: Subscription[] = [];
-    public zoneDetail: ZoneDetail;
-    public serviceType: EDeliveryServiceType;
-    public channel: EChannel;
-    public zoneServiceType: ZoneServiceType;
-    public zonesStoreServiceType: ZonesDrugstoreServiceType;
-    public serviceTypeName = CDeliveryServiceTypeName;
-    public channelName = CChannelName;
 
-    public errorResponse: HttpErrorResponse;
-    public editionServiceTypeLoader = true;
-    public saveEditionLoader: boolean;
+  private subscriptions = new Subscription();
 
-    constructor(
-        private _router: Router,
-        private _activatedRoute: ActivatedRoute,
-        @SkipSelf() private _operationsZonesEditionStore: OperationsZonesEditionStoreService,
-        private _operationsZonesImplement: OperationsZonesImplementService,
-        private _dialogTwoActions: DialogTwoActionsService,
-        private _alert: AlertService
-    ) {
-    }
+  public zoneDetail: ZoneDetail;
+  public serviceType: EDeliveryServiceType;
+  public channel: EChannel;
+  public zoneServiceType: ZoneServiceType;
+  public zonesStoreServiceType: ZonesDrugstoreServiceType;
+  public serviceTypeName = CDeliveryServiceTypeName;
+  public channelName = CChannelName;
 
-    ngOnInit(): void {
-        const serviceTypeCode = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeEdition];
-        const serviceTypeChannel = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeChannelEdition];
-        this.serviceType = Object.keys(CDeliveryServiceTypeRoute)
-            .find((key) => CDeliveryServiceTypeRoute[key] === serviceTypeCode) as EDeliveryServiceType;
-        this.channel = Object.keys(CChannelRoute)
-            .find((key) => CChannelRoute[key] === serviceTypeChannel) as EChannel;
+  public errorResponse: HttpErrorResponse;
+  public editionServiceTypeLoader = true;
+  public saveEditionLoader: boolean;
 
-        this.getZoneDetail();
-        this.setZoneServiceType();
-    }
+  constructor(
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
+    @SkipSelf() private _operationsZonesEditionStore: OperationsZonesEditionStoreService,
+    private _operationsZonesImplement: OperationsZonesImplementService,
+    private _dialogTwoActions: DialogTwoActionsService,
+    private _alert: AlertService
+  ) { }
 
+  ngOnInit(): void {
+    const serviceTypeCode = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeEdition];
+    const serviceTypeChannel = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneServiceTypeChannelEdition];
+    this.serviceType = Object.keys(CDeliveryServiceTypeRoute)
+      .find((key) => CDeliveryServiceTypeRoute[key] === serviceTypeCode) as EDeliveryServiceType;
+    this.channel = Object.keys(CChannelRoute)
+      .find((key) => CChannelRoute[key] === serviceTypeChannel) as EChannel;
 
-    getZoneDetail() {
-        const subscription = this._operationsZonesEditionStore.zoneDetail$
-            .subscribe((zoneDetail: ZoneDetail) => {
-                if (zoneDetail instanceof ZoneDetail) {
-                    this.zoneDetail = zoneDetail;
-                    this.setZoneServiceType();
-                } else {
-                    this.zoneDetail = null;
-                    this.editionServiceTypeLoader = false;
-                    this.errorResponse = zoneDetail;
-                }
-            });
-        this.subscriptions.push(subscription);
-    }
+    this.getZoneDetail();
+    this.setZoneServiceType();
+  }
 
-    private setZoneServiceType() {
-        this.zoneServiceType = this.zoneDetail?.serviceTypeList
-            .find((serviceType: ZoneServiceType) => serviceType.code === this.serviceType && serviceType.channel === this.channel);
-        this.zonesStoreServiceType = this.zoneDetail?.assignedStore.serviceTypeList
-            .find((serviceType: ZonesDrugstoreServiceType) => serviceType.code === this.serviceType);
-        this.editionServiceTypeLoader = !this.zoneDetail;
-
-        if (!this.zoneServiceType && !this.editionServiceTypeLoader) {
-            this.errorResponse = new HttpErrorResponse({});
+  getZoneDetail(): void {
+    const subscription = this._operationsZonesEditionStore.zoneDetail$
+      .subscribe((zoneDetail: ZoneDetail) => {
+        if (zoneDetail instanceof ZoneDetail) {
+          this.zoneDetail = zoneDetail;
+          this.setZoneServiceType();
+        } else {
+          this.zoneDetail = null;
+          this.editionServiceTypeLoader = false;
+          this.errorResponse = zoneDetail;
         }
+      });
+    this.subscriptions.add(subscription);
+  }
+
+  private setZoneServiceType(): void {
+    this.zoneServiceType = this.zoneDetail?.serviceTypeList
+      .find((serviceType: ZoneServiceType) => serviceType.code === this.serviceType && serviceType.channel === this.channel);
+    this.zonesStoreServiceType = this.zoneDetail?.assignedStore.serviceTypeList
+      .find((serviceType: ZonesDrugstoreServiceType) => serviceType.code === this.serviceType);
+    this.editionServiceTypeLoader = !this.zoneDetail;
+
+    if (!this.zoneServiceType && !this.editionServiceTypeLoader) {
+      this.errorResponse = new HttpErrorResponse({});
     }
+  }
 
-    putServiceType(zoneServiceTypeUpdate: IZoneServiceTypeUpdate) {
-        this._operationsZonesImplement.putZoneServiceType(
-            `${this.zoneServiceType.id}`, zoneServiceTypeUpdate)
-            .subscribe(() => {
-                this._operationsZonesEditionStore.updateZoneDetail = true;
-                this._alert.alertSuccess(OperationMessages.successServiceTypeEdition(
-                    this.serviceTypeName[this.zoneServiceType.code], this.zoneDetail.name));
-                this.backRoute();
-            }, () => {
-                this._alert.alertError(OperationMessages.errorServiceTypeEdition(
-                    this.serviceTypeName[this.zoneServiceType.code], this.zoneDetail.name));
-                this.backRoute();
-            });
-    }
-
-
-    cancelEdition() {
+  putServiceType(zoneServiceTypeUpdate: IZoneServiceTypeUpdate): void {
+    this._operationsZonesImplement.putZoneServiceType(
+      `${this.zoneServiceType.id}`, zoneServiceTypeUpdate)
+      .subscribe(() => {
+        this._operationsZonesEditionStore.updateZoneDetail = true;
+        this._alert.alertSuccess(OperationMessages.successServiceTypeEdition(
+          this.serviceTypeName[this.zoneServiceType.code], this.zoneDetail.name));
         this.backRoute();
-    }
+      }, () => {
+        this._alert.alertError(OperationMessages.errorServiceTypeEdition(
+          this.serviceTypeName[this.zoneServiceType.code], this.zoneDetail.name));
+        this.backRoute();
+      });
+  }
 
-    saveEdition(zoneServiceTypeUpdate: IZoneServiceTypeUpdate) {
-        this.saveEditionLoader = true;
-        const subscription = this._dialogTwoActions.openConfirmChanges()
-            .afterClosed()
-            .subscribe((confirmChanges) => {
-                if (confirmChanges) {
-                    this.putServiceType(zoneServiceTypeUpdate);
-                } else {
-                    this.saveEditionLoader = false;
-                }
-            });
-        this.subscriptions.push(subscription);
-    }
+  cancelEdition(): void {
+    this.backRoute();
+  }
 
-    backRoute() {
-        const backRoute = ROUTER_PATH.opZones_Zone(this.zoneDetail.id);
-        this._router.navigate([backRoute]);
-    }
+  saveEdition(zoneServiceTypeUpdate: IZoneServiceTypeUpdate): void {
+    this.saveEditionLoader = true;
+    const subscription = this._dialogTwoActions.openConfirmChanges()
+      .afterClosed()
+      .subscribe((confirmChanges) => {
+        if (confirmChanges) {
+          this.putServiceType(zoneServiceTypeUpdate);
+        } else {
+          this.saveEditionLoader = false;
+        }
+      });
+    this.subscriptions.add(subscription);
+  }
 
-    ngOnDestroy() {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    }
+  backRoute(): void {
+    const backRoute = ROUTER_PATH.opZones_Zone(this.zoneDetail.id);
+    this._router.navigate([backRoute]);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

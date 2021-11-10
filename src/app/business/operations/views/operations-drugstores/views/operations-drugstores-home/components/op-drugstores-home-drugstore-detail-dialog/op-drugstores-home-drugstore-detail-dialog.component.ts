@@ -20,101 +20,100 @@ type DeliveryTable = { serviceType: string, paymentMethod: string };
 type ZoneTable = { zoneCode: string, zoneName: string, backupZone: string, backupAssignedDrugstore: string };
 
 @Component({
-    selector: 'app-op-drugstores-home-drugstore-detail-dialog',
-    templateUrl: './op-drugstores-home-drugstore-detail-dialog.component.html',
-    styleUrls: ['./op-drugstores-home-drugstore-detail-dialog.component.sass']
+  selector: 'app-op-drugstores-home-drugstore-detail-dialog',
+  templateUrl: './op-drugstores-home-drugstore-detail-dialog.component.html',
+  styleUrls: ['./op-drugstores-home-drugstore-detail-dialog.component.sass']
 })
 export class OpDrugstoresHomeDrugstoreDetailDialogComponent implements OnInit {
 
-    public tagAppearance = ETagAppearance;
-    public stateTag = CStateTag;
-    public stateName = CStateName;
-    public companyName = CCompanyName;
-    public channelName = CChannelName;
-    private serviceTypeName = CDeliveryServiceTypeName;
-    private paymentMethodName = CPaymentMethodName;
-    public tabIndexActive = 0;
+  public tagAppearance = ETagAppearance;
+  public stateTag = CStateTag;
+  public stateName = CStateName;
+  public companyName = CCompanyName;
+  public channelName = CChannelName;
+  private serviceTypeName = CDeliveryServiceTypeName;
+  private paymentMethodName = CPaymentMethodName;
+  public tabIndexActive = 0;
 
-    public drugstoreDetailLoader = true;
-    public drugstoreDetail: DrugstoreDetail;
-    public paymentMethodList: EPaymentMethod[];
-    public errorResponse: HttpErrorResponse;
+  public drugstoreDetailLoader = true;
+  public drugstoreDetail: DrugstoreDetail;
+  public paymentMethodList: EPaymentMethod[];
+  public errorResponse: HttpErrorResponse;
 
-    public deliveryDisplayedColumns: string[] = ['serviceType', 'paymentMethod'];
-    public deliveryDataSource = new MatTableDataSource<DeliveryTable>([]);
-    @ViewChild('deliverySort') deliverySort: MatSort;
+  public deliveryDisplayedColumns: string[] = ['serviceType', 'paymentMethod'];
+  public deliveryDataSource = new MatTableDataSource<DeliveryTable>([]);
+  @ViewChild('deliverySort') deliverySort: MatSort;
 
-    public zoneDisplayedColumns: string[] = ['zoneCode', 'zoneName', 'backupZone', 'backupAssignedDrugstore', 'actions'];
-    public zoneDataSource = new MatTableDataSource<ZoneTable>([]);
-    @ViewChild('zoneSort') zoneSort: MatSort;
-    @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
+  public zoneDisplayedColumns: string[] = ['zoneCode', 'zoneName', 'backupZone', 'backupAssignedDrugstore', 'actions'];
+  public zoneDataSource = new MatTableDataSource<ZoneTable>([]);
+  @ViewChild('zoneSort') zoneSort: MatSort;
+  @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
 
-    @Input() drugstore: Drugstore;
+  @Input() drugstore: Drugstore;
 
-    constructor(
-        private _operationsStoresImplement: OperationsDrugstoresImplementService,
-        private dialogRef: MatDialogRef<OpDrugstoresHomeDrugstoreDetailDialogComponent>,
-    ) {
-    }
+  get startAndEndHour() {
+    const startHour = DatesHelper.date(this.drugstoreDetail.startHour, DATES_FORMAT.millisecond)
+      .format(DATES_FORMAT.hourMinuteDateTime);
+    const endHour = DatesHelper.date(this.drugstoreDetail.endHour, DATES_FORMAT.millisecond)
+      .format(DATES_FORMAT.hourMinuteDateTime);
+    return `De ${startHour} a ${endHour}`;
+  }
 
-    get startAndEndHour() {
-        const startHour = DatesHelper.date(this.drugstoreDetail.startHour, DATES_FORMAT.millisecond)
-            .format(DATES_FORMAT.hourMinuteDateTime);
-        const endHour = DatesHelper.date(this.drugstoreDetail.endHour, DATES_FORMAT.millisecond)
-            .format(DATES_FORMAT.hourMinuteDateTime);
-        return `De ${startHour} a ${endHour}`;
-    }
+  constructor(
+    private _operationsStoresImplement: OperationsDrugstoresImplementService,
+    private dialogRef: MatDialogRef<OpDrugstoresHomeDrugstoreDetailDialogComponent>,
+  ) { }
 
-    ngOnInit(): void {
-        this.loadData(this.drugstore.code);
-    }
+  ngOnInit(): void {
+    this.loadData(this.drugstore.code);
+  }
 
-    loadData(drugstoreCode: string): void {
-        const paymentMethod$ = this._operationsStoresImplement.paymentMethodList;
-        const drugstoreDetail$ = this._operationsStoresImplement.getDrugstoreDetail(drugstoreCode);
+  loadData(drugstoreCode: string): void {
+    const paymentMethod$ = this._operationsStoresImplement.paymentMethodList;
+    const drugstoreDetail$ = this._operationsStoresImplement.getDrugstoreDetail(drugstoreCode);
 
-        forkJoin([drugstoreDetail$, paymentMethod$])
-            .subscribe(([drugstoreDetail, paymentMethodList]) => {
-                    this.drugstoreDetail = drugstoreDetail;
-                    this.paymentMethodList = paymentMethodList;
-                    this.settingDataSource();
-                    this.drugstoreDetailLoader = false;
-                }, (error) => {
-                    this.drugstoreDetail = null;
-                    this.paymentMethodList = null;
-                    this.drugstoreDetailLoader = false;
-                    this.errorResponse = error;
-                }
-            );
-    }
-
-    settingDataSource() {
-        this.deliveryDataSource.data = this.drugstoreDetail.serviceTypeList.map((serviceType): DeliveryTable => {
-            const paymentMethodName = serviceType.paymentMethodList
-                .map((paymentMethod) => this.paymentMethodName[paymentMethod]).join(' - ');
-            return {serviceType: this.serviceTypeName[serviceType.code], paymentMethod: paymentMethodName};
-        });
-
-        this.zoneDataSource.data = this.drugstoreDetail.zoneList.map((zone): ZoneTable => {
-            return {
-                zoneCode: zone.code,
-                zoneName: zone.name,
-                backupZone: zone.backupZone,
-                backupAssignedDrugstore: zone.backupAssignedStore
-            };
-        });
-        this.deliveryDataSource.sort = this.deliverySort;
-        this.zoneDataSource.sort = this.zoneSort;
-        this.zoneDataSource.paginator = this.paginator.paginator;
-    }
-
-    indexSelected(index) {
-        this.tabIndexActive = index;
-        if (index === 2) {
-            this.dialogRef.updateSize('708px');
-        } else {
-            this.dialogRef.updateSize('526px');
+    forkJoin([drugstoreDetail$, paymentMethod$])
+      .subscribe(([drugstoreDetail, paymentMethodList]) => {
+          this.drugstoreDetail = drugstoreDetail;
+          this.paymentMethodList = paymentMethodList;
+          this.settingDataSource();
+          this.drugstoreDetailLoader = false;
+        }, (error) => {
+          this.drugstoreDetail = null;
+          this.paymentMethodList = null;
+          this.drugstoreDetailLoader = false;
+          this.errorResponse = error;
         }
+      );
+  }
+
+  settingDataSource(): void {
+    this.deliveryDataSource.data = this.drugstoreDetail.serviceTypeList.map((serviceType): DeliveryTable => {
+      const paymentMethodName = serviceType.paymentMethodList
+        .map((paymentMethod) => this.paymentMethodName[paymentMethod]).join(' - ');
+      return {serviceType: this.serviceTypeName[serviceType.code], paymentMethod: paymentMethodName};
+    });
+
+    this.zoneDataSource.data = this.drugstoreDetail.zoneList.map((zone): ZoneTable => {
+      return {
+        zoneCode: zone.code,
+        zoneName: zone.name,
+        backupZone: zone.backupZone,
+        backupAssignedDrugstore: zone.backupAssignedStore
+      };
+    });
+    this.deliveryDataSource.sort = this.deliverySort;
+    this.zoneDataSource.sort = this.zoneSort;
+    this.zoneDataSource.paginator = this.paginator.paginator;
+  }
+
+  indexSelected(index): void {
+    this.tabIndexActive = index;
+    if (index === 2) {
+      this.dialogRef.updateSize('708px');
+    } else {
+      this.dialogRef.updateSize('526px');
     }
+  }
 
 }

@@ -10,13 +10,28 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Injectable()
 export class OperationsCapacityExpressService implements OnDestroy {
-  private subscriptions: Subscription[] = [];
+
+  private subscriptions = new Subscription();
+
+  set serviceQueryParams(serviceQueryParams: IOpCapacitiesServiceTypeQueryParams) {
+    if (serviceQueryParams.groupOrDrugstore) {
+      this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreTabSelection = serviceQueryParams.groupOrDrugstore;
+    }
+    if (serviceQueryParams.groupOrDrugstore && serviceQueryParams.drugstoreCode) {
+      this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelection = {fulfillmentCenterCode: serviceQueryParams.drugstoreCode} as ICustomSelectOption;
+      this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelectionSaved = true;
+    }
+    if (serviceQueryParams.groupOrDrugstore && serviceQueryParams.drugstoreCode && serviceQueryParams.editionMode) {
+      this._opCapacitiesStepEditionMode.defaultEditionModeSelection = serviceQueryParams.editionMode;
+      this._opCapacitiesStepEditionMode.defaultEditionModeSelectionSaved = true;
+    }
+  }
 
   constructor(
-      private _operationsCapacityExpressStore: OperationsCapacityExpressStoreService,
-      private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
-      private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
-      private _router: Router,
+    private _operationsCapacityExpressStore: OperationsCapacityExpressStoreService,
+    private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
+    private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
+    private _router: Router,
   ) {
     this.updateWhenSaveOrCancelService();
   }
@@ -32,24 +47,10 @@ export class OperationsCapacityExpressService implements OnDestroy {
         }
       });
 
-    this.subscriptions.push(subscription);
+    this.subscriptions.add(subscription);
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
-  set serviceQueryParams(serviceQueryParams: IOpCapacitiesServiceTypeQueryParams) {
-    if (serviceQueryParams.groupOrDrugstore) {
-      this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreTabSelection = serviceQueryParams.groupOrDrugstore;
-    }
-    if (serviceQueryParams.groupOrDrugstore && serviceQueryParams.drugstoreCode) {
-      this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelection = {fulfillmentCenterCode: serviceQueryParams.drugstoreCode} as ICustomSelectOption;
-      this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelectionSaved = true;
-    }
-    if (serviceQueryParams.groupOrDrugstore && serviceQueryParams.drugstoreCode && serviceQueryParams.editionMode) {
-      this._opCapacitiesStepEditionMode.defaultEditionModeSelection = serviceQueryParams.editionMode;
-      this._opCapacitiesStepEditionMode.defaultEditionModeSelectionSaved = true;
-    }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

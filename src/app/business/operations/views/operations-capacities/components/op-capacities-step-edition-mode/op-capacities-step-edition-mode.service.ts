@@ -8,7 +8,6 @@ export enum ECapacitiesStepEditionMode {
   default = 'DEFAULT'
 }
 
-
 @Injectable()
 export class OpCapacitiesStepEditionModeService {
 
@@ -20,9 +19,6 @@ export class OpCapacitiesStepEditionModeService {
 
   public defaultEditionModeSelection: ECapacitiesStepEditionMode = ECapacitiesStepEditionMode.calendar;
   public defaultEditionModeSelectionSaved: boolean;
-
-  constructor() {
-  }
 
   get editionModeStepStatus$(): Observable<ECapacityStepStatus> {
     return this.editionModeStepStatusSubject.asObservable()
@@ -42,10 +38,9 @@ export class OpCapacitiesStepEditionModeService {
     this.editionModeResetStepStatusSubject.next(editionModeResetStep);
   }
 
-
   get editionModeCancel$(): Observable<boolean> {
     return this.editionModeCancelSubject.asObservable()
-        .pipe(filter((value) => !!value));
+      .pipe(filter((value) => !!value));
   }
 
   set editionModeCancel(groupOrDrugstoreCancel: boolean) {
@@ -54,11 +49,13 @@ export class OpCapacitiesStepEditionModeService {
 
   get editionModeSave$(): Observable<ECapacitiesStepEditionMode> {
     return this.editionModeSaveSubject.asObservable()
-        .pipe(filter((value) => !!value));
+      .pipe(filter((value) => !!value));
   }
 
   set editionModeSave(editionModeSelection: ECapacitiesStepEditionMode) {
     this.editionModeSaveSubject.next(editionModeSelection);
   }
+
+  constructor() { }
 
 }

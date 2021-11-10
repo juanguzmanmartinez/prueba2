@@ -10,38 +10,37 @@ import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-cap
 import { objectHasElements } from '@helpers/objects-equal.helper';
 
 @Component({
-    selector: 'app-operations-capacity-scheduled',
-    templateUrl: './operations-capacity-scheduled.component.html',
-    styleUrls: ['./operations-capacity-scheduled.component.scss'],
-    providers: [
-        OperationsCapacityScheduledService,
-        OperationsCapacityScheduledStoreService,
-        OpCapacitiesStepGroupOrDrugstoreService,
-        OpCapacitiesStepEditionModeService,
-        OpCapacitiesStepCapacityTableService
-    ]
+  selector: 'app-operations-capacity-scheduled',
+  templateUrl: './operations-capacity-scheduled.component.html',
+  styleUrls: ['./operations-capacity-scheduled.component.scss'],
+  providers: [
+    OperationsCapacityScheduledService,
+    OperationsCapacityScheduledStoreService,
+    OpCapacitiesStepGroupOrDrugstoreService,
+    OpCapacitiesStepEditionModeService,
+    OpCapacitiesStepCapacityTableService
+  ]
 })
 export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
 
-    private subscriptions: Subscription[] = [];
+  private subscriptions = new Subscription();
 
-    constructor(
-        private _operationsCapacityScheduled: OperationsCapacityScheduledService,
-        private _activatedRoute: ActivatedRoute
-    ) {
-    }
+  constructor(
+    private _operationsCapacityScheduled: OperationsCapacityScheduledService,
+    private _activatedRoute: ActivatedRoute
+  ) { }
 
-    ngOnInit() {
-        const subscription = this._activatedRoute.queryParams
-            .subscribe((serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
-                if (objectHasElements(serviceTypeQueryParams)) {
-                    this._operationsCapacityScheduled.serviceQueryParams = serviceTypeQueryParams;
-                }
-            });
-        this.subscriptions.push(subscription);
-    }
+  ngOnInit(): void {
+    const subscription = this._activatedRoute.queryParams
+      .subscribe((serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+        if (objectHasElements(serviceTypeQueryParams)) {
+          this._operationsCapacityScheduled.serviceQueryParams = serviceTypeQueryParams;
+        }
+      });
+    this.subscriptions.add(subscription);
+  }
 
-    ngOnDestroy() {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

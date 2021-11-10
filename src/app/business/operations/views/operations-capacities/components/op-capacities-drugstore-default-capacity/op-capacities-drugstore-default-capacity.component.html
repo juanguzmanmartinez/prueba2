@@ -1,57 +1,58 @@
 <section class="op-capacities-home-drugstore-capacity">
-    <div class="row mb-6">
-        <div class="col-12">
-            <app-select-search (optionSelected)="changeCapacitiesDrugstoreSelection($event)"
-                               [optionList]="capacitiesDrugstoreList"
-                               [value]="capacitiesDrugstoreSelection"
-                               class="drugstore-capacity-select d-block d-md-inline-block"
-                               placeholder="Elije un local">
-                <ng-template #optionSelectedTemplate
-                             let-optionSelected>{{optionSelected?.drugstoreCode}} {{optionSelected?.name}}</ng-template>
-                <ng-template #optionTemplate
-                             let-option>{{option.drugstoreCode}} {{option.name}}</ng-template>
-            </app-select-search>
-        </div>
+  <div class="row mb-6">
+    <div class="col-12">
+      <app-select-search
+        (optionSelected)="changeCapacitiesDrugstoreSelection($event)"
+        [optionList]="capacitiesDrugstoreList"
+        [value]="capacitiesDrugstoreSelection"
+        class="drugstore-capacity-select d-block d-md-inline-block"
+        placeholder="Elije un local">
+        <ng-template #optionSelectedTemplate
+                     let-optionSelected>{{optionSelected?.drugstoreCode}} {{optionSelected?.name}}</ng-template>
+        <ng-template #optionTemplate
+                     let-option>{{option.drugstoreCode}} {{option.name}}</ng-template>
+      </app-select-search>
     </div>
+  </div>
 
-    <div class="row">
-        <div class="col-12 col-md-6 col-xlg-3 mb-6 mb-xlg-0">
-            <app-op-capacities-drugstore-default-capacity-card
-                    (edit)="drugstoreDefaultCapacityEditService(this.capacityDrugstoreServiceAmPm)"
-                    (viewMore)="drugstoreDefaultCapacityViewMore(this.capacityDrugstoreServiceAmPm)"
-                    [capacityQuantity]="capacityDrugstoreServiceAmPm?.capacityQuantity"
-                    [disabled]="!capacityDrugstoreServiceAmPm"
-                    [hasDetail]="true"
-                    serviceName="AM/PM">
-            </app-op-capacities-drugstore-default-capacity-card>
-        </div>
-        <div class="col-12 col-md-6 col-xlg-3 mb-6 mb-xlg-0">
-            <app-op-capacities-drugstore-default-capacity-card
-                    (edit)="drugstoreDefaultCapacityEditService(this.capacityDrugstoreServiceScheduled)"
-                    (viewMore)="drugstoreDefaultCapacityViewMore(this.capacityDrugstoreServiceScheduled)"
-                    [capacityQuantity]="capacityDrugstoreServiceScheduled?.capacityQuantity"
-                    [disabled]="!capacityDrugstoreServiceScheduled"
-                    [hasDetail]="true"
-                    serviceName="Programado">
-            </app-op-capacities-drugstore-default-capacity-card>
-        </div>
-        <div class="col-12 col-md-6 col-xlg-3 mb-6 mb-xlg-0">
-            <app-op-capacities-drugstore-default-capacity-card
-                    (edit)="drugstoreDefaultCapacityEditService(this.capacityDrugstoreServiceExpress)"
-                    [capacityQuantity]="capacityDrugstoreServiceExpress?.capacityQuantity"
-                    [disabled]="!capacityDrugstoreServiceExpress"
-                    serviceName="Express">
-            </app-op-capacities-drugstore-default-capacity-card>
-        </div>
-        <div class="col-12 col-md-6 col-xlg-3 mb-6 mb-xlg-0">
-            <app-op-capacities-drugstore-default-capacity-card
-                    (edit)="drugstoreDefaultCapacityEditService(this.capacityDrugstoreServiceRet)"
-                    (viewMore)="drugstoreDefaultCapacityViewMore(this.capacityDrugstoreServiceRet)"
-                    [capacityQuantity]="capacityDrugstoreServiceRet?.capacityQuantity"
-                    [disabled]="!capacityDrugstoreServiceRet"
-                    [hasDetail]="true"
-                    serviceName="RET">
-            </app-op-capacities-drugstore-default-capacity-card>
-        </div>
+  <div class="row">
+    <div class="col-12 col-md-6 col-xlg-3 mb-6 mb-xlg-0">
+      <app-op-capacities-drugstore-default-capacity-card
+        (edit)="drugstoreDefaultCapacityEditService(this.capacityDrugstoreServiceAmPm)"
+        (viewMore)="drugstoreDefaultCapacityViewMore(this.capacityDrugstoreServiceAmPm)"
+        [capacityQuantity]="capacityDrugstoreServiceAmPm?.capacityQuantity"
+        [disabled]="!capacityDrugstoreServiceAmPm"
+        [hasDetail]="true"
+        serviceName="AM/PM">
+      </app-op-capacities-drugstore-default-capacity-card>
     </div>
+    <div class="col-12 col-md-6 col-xlg-3 mb-6 mb-xlg-0">
+      <app-op-capacities-drugstore-default-capacity-card
+        (edit)="drugstoreDefaultCapacityEditService(this.capacityDrugstoreServiceScheduled)"
+        (viewMore)="drugstoreDefaultCapacityViewMore(this.capacityDrugstoreServiceScheduled)"
+        [capacityQuantity]="capacityDrugstoreServiceScheduled?.capacityQuantity"
+        [disabled]="!capacityDrugstoreServiceScheduled"
+        [hasDetail]="true"
+        serviceName="Programado">
+      </app-op-capacities-drugstore-default-capacity-card>
+    </div>
+    <div class="col-12 col-md-6 col-xlg-3 mb-6 mb-xlg-0">
+      <app-op-capacities-drugstore-default-capacity-card
+        (edit)="drugstoreDefaultCapacityEditService(this.capacityDrugstoreServiceExpress)"
+        [capacityQuantity]="capacityDrugstoreServiceExpress?.capacityQuantity"
+        [disabled]="!capacityDrugstoreServiceExpress"
+        serviceName="Express">
+      </app-op-capacities-drugstore-default-capacity-card>
+    </div>
+    <div class="col-12 col-md-6 col-xlg-3 mb-6 mb-xlg-0">
+      <app-op-capacities-drugstore-default-capacity-card
+        (edit)="drugstoreDefaultCapacityEditService(this.capacityDrugstoreServiceRet)"
+        (viewMore)="drugstoreDefaultCapacityViewMore(this.capacityDrugstoreServiceRet)"
+        [capacityQuantity]="capacityDrugstoreServiceRet?.capacityQuantity"
+        [disabled]="!capacityDrugstoreServiceRet"
+        [hasDetail]="true"
+        serviceName="RET">
+      </app-op-capacities-drugstore-default-capacity-card>
+    </div>
+  </div>
 </section>

@@ -8,38 +8,38 @@ export type TStoreDetail = DrugstoreDetail | HttpErrorResponse;
 
 @Injectable()
 export class OperationsDrugstoresEditionStoreService implements OnDestroy {
-    private storeDetailSubject = new BehaviorSubject<TStoreDetail>(null);
-    private updateStoreDetailSubject = new BehaviorSubject<boolean>(null);
 
-    constructor() {
-    }
+  private storeDetailSubject = new BehaviorSubject<TStoreDetail>(null);
+  private updateStoreDetailSubject = new BehaviorSubject<boolean>(null);
 
-    get storeDetail$(): Observable<TStoreDetail> {
-        return this.storeDetailSubject.asObservable()
-            .pipe(
-                filter(value => value instanceof DrugstoreDetail || value instanceof HttpErrorResponse)
-            );
-    }
+  get storeDetail$(): Observable<TStoreDetail> {
+    return this.storeDetailSubject.asObservable()
+      .pipe(
+        filter(value => value instanceof DrugstoreDetail || value instanceof HttpErrorResponse)
+      );
+  }
 
-    set drugstoreDetail(storeDetail: DrugstoreDetail) {
-        this.storeDetailSubject.next(storeDetail);
-    }
+  set drugstoreDetail(storeDetail: DrugstoreDetail) {
+    this.storeDetailSubject.next(storeDetail);
+  }
 
-    set drugstoreDetailError(error: any) {
-        this.storeDetailSubject.next(error);
-    }
+  set drugstoreDetailError(error: any) {
+    this.storeDetailSubject.next(error);
+  }
 
-    get updateDrugstoreDetail$(): Observable<boolean> {
-        return this.updateStoreDetailSubject.asObservable()
-            .pipe(filter(value => !!value));
-    }
+  get updateDrugstoreDetail$(): Observable<boolean> {
+    return this.updateStoreDetailSubject.asObservable()
+      .pipe(filter(value => !!value));
+  }
 
-    set updateDrugstoreDetail(updateZoneDetail: boolean) {
-        this.updateStoreDetailSubject.next(updateZoneDetail);
-    }
+  set updateDrugstoreDetail(updateZoneDetail: boolean) {
+    this.updateStoreDetailSubject.next(updateZoneDetail);
+  }
 
-    ngOnDestroy() {
-        this.storeDetailSubject.complete();
-        this.updateStoreDetailSubject.complete();
-    }
+  constructor() { }
+
+  ngOnDestroy(): void {
+    this.storeDetailSubject.complete();
+    this.updateStoreDetailSubject.complete();
+  }
 }

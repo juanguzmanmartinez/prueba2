@@ -10,34 +10,8 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Injectable()
 export class OperationsCapacityRetService implements OnDestroy {
-  private subscriptions: Subscription[] = [];
 
-  constructor(
-      private _operationsCapacityRetStore: OperationsCapacityRetStoreService,
-      private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
-      private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
-      private _router: Router,
-  ) {
-    this.updateWhenSaveOrCancelService();
-  }
-
-  updateWhenSaveOrCancelService() {
-    const subscription = combineLatest([
-      this._operationsCapacityRetStore.operationsCapacityRetCancel$,
-      this._operationsCapacityRetStore.operationsCapacityRetSave$
-    ])
-      .subscribe(([save, cancel]) => {
-        if (save || cancel) {
-          this._router.navigate([ROUTER_PATH.operationCapacities]);
-        }
-      });
-
-    this.subscriptions.push(subscription);
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
+  private subscriptions = new Subscription();
 
   set serviceQueryParams(serviceQueryParams: IOpCapacitiesServiceTypeQueryParams) {
     if (serviceQueryParams.groupOrDrugstore) {
@@ -51,5 +25,32 @@ export class OperationsCapacityRetService implements OnDestroy {
       this._opCapacitiesStepEditionMode.defaultEditionModeSelection = serviceQueryParams.editionMode;
       this._opCapacitiesStepEditionMode.defaultEditionModeSelectionSaved = true;
     }
+  }
+
+  constructor(
+    private _operationsCapacityRetStore: OperationsCapacityRetStoreService,
+    private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
+    private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
+    private _router: Router,
+  ) {
+    this.updateWhenSaveOrCancelService();
+  }
+
+  updateWhenSaveOrCancelService(): void {
+    const subscription = combineLatest([
+      this._operationsCapacityRetStore.operationsCapacityRetCancel$,
+      this._operationsCapacityRetStore.operationsCapacityRetSave$
+    ])
+      .subscribe(([save, cancel]) => {
+        if (save || cancel) {
+          this._router.navigate([ROUTER_PATH.operationCapacities]);
+        }
+      });
+
+    this.subscriptions.add(subscription);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

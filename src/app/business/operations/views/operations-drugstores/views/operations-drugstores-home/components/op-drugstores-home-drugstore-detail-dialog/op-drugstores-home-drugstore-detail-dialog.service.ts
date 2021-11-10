@@ -7,15 +7,14 @@ import { DialogService } from '@molecules/dialog/dialog.service';
 @Injectable()
 export class OpDrugstoresHomeDrugstoreDetailDialogService {
 
-    constructor(
-        private _dialog: DialogService,
-    ) {
-    }
+  constructor(
+    private dialog: DialogService,
+  ) { }
 
-    open(drugstore: Drugstore): MatDialogRef<OpDrugstoresHomeDrugstoreDetailDialogComponent> {
-        const dialogRef = this._dialog.open(OpDrugstoresHomeDrugstoreDetailDialogComponent);
-        dialogRef.componentInstance.drugstore = drugstore;
-        return dialogRef;
-    }
+  open(drugstore: Drugstore): MatDialogRef<OpDrugstoresHomeDrugstoreDetailDialogComponent> {
+    const dialogRef = this.dialog.open(OpDrugstoresHomeDrugstoreDetailDialogComponent);
+    dialogRef.componentInstance.drugstore = drugstore;
+    return dialogRef;
+  }
 
 }

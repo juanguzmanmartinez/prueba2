@@ -1,51 +1,50 @@
 <section class="operations-home-container pt-7">
-    <div class="row mb-7">
-        <div class="col text-center">
-            <h1 class="text-h3 text-black mb-4">👋 Hola, {{user?.name}}</h1>
-            <p class="text-body-2-regular text-gray-6 mb-0">¿Qué módulo quieres gestionar?</p>
-        </div>
+  <div class="row mb-7">
+    <div class="col text-center">
+      <h1 class="text-h3 text-black mb-4">👋 Hola, {{user?.name}}</h1>
+      <p class="text-body-2-regular text-gray-6 mb-0">¿Qué módulo quieres gestionar?</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 mb-2">
+      <h2 class="text-h3 mb-0">Operaciones</h2>
     </div>
 
-    <div class="row">
-        <div class="col-12 mb-2">
-            <h2 class="text-h3 mb-0">Operaciones</h2>
-        </div>
-
-        <div class="col-12 col-xlg-6 mb-4"
-             *appRouterAccess="routerPath.operationDrugstores">
-            <app-router [router]="routerPath.operationDrugstores">
-                <app-card-action cardIconSVG="stores">
-                    <span card-title>Locales</span>
-                    <span card-description>Visualiza todos los locales y edita algunos de sus características.</span>
-                </app-card-action>
-            </app-router>
-        </div>
-        <div class="col-12 col-xlg-6 mb-4"
-             *appRouterAccess="routerPath.operationZones">
-            <app-router [router]="routerPath.operationZones">
-                <app-card-action cardIconSVG="navigation">
-                    <span card-title>Zonas</span>
-                    <span card-description>Visualiza todas las zonas, edita los tipos de despacho y exporta csv.</span>
-                </app-card-action>
-            </app-router>
-        </div>
-        <div class="col-12 col-xlg-6 mb-4"
-             *appRouterAccess="routerPath.operationCapacities">
-            <app-router [router]="routerPath.operationCapacities">
-                <app-card-action cardIconSVG="truck">
-                    <span card-title>Capacidades</span>
-                    <span card-description>Visualiza reportes y edita capacidades por tipo de despacho.</span>
-                </app-card-action>
-            </app-router>
-        </div>
-        <div class="col-12 col-xlg-6 mb-4"
-             *appRouterAccess="routerPath.operationSettings">
-            <app-router [router]="routerPath.operationSettings">
-                <app-card-action cardIconSVG="configuration">
-                    <span card-title>Configuraciones</span>
-                    <span card-description>Conoce los parámentros generales acerca de los tipos de despacho.</span>
-                </app-card-action>
-            </app-router>
-        </div>
+    <div class="col-12 col-xlg-6 mb-4" *appRouterAccess="routerPath.operationDrugstores">
+      <app-router [router]="routerPath.operationDrugstores">
+        <app-card-action cardIconSVG="stores">
+          <span card-title>Locales</span>
+          <span card-description>Visualiza todos los locales y edita algunos de sus características.</span>
+        </app-card-action>
+      </app-router>
     </div>
+
+    <div class="col-12 col-xlg-6 mb-4" *appRouterAccess="routerPath.operationZones">
+      <app-router [router]="routerPath.operationZones">
+        <app-card-action cardIconSVG="navigation">
+          <span card-title>Zonas</span>
+          <span card-description>Visualiza todas las zonas, edita los tipos de despacho y exporta csv.</span>
+        </app-card-action>
+      </app-router>
+    </div>
+
+    <div class="col-12 col-xlg-6 mb-4" *appRouterAccess="routerPath.operationCapacities">
+      <app-router [router]="routerPath.operationCapacities">
+        <app-card-action cardIconSVG="truck">
+          <span card-title>Capacidades</span>
+          <span card-description>Visualiza reportes y edita capacidades por tipo de despacho.</span>
+        </app-card-action>
+      </app-router>
+    </div>
+
+    <div class="col-12 col-xlg-6 mb-4" *appRouterAccess="routerPath.operationSettings">
+      <app-router [router]="routerPath.operationSettings">
+        <app-card-action cardIconSVG="configuration">
+          <span card-title>Configuraciones</span>
+          <span card-description>Conoce los parámentros generales acerca de los tipos de despacho.</span>
+        </app-card-action>
+      </app-router>
+    </div>
+  </div>
 </section>

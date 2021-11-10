@@ -3,7 +3,11 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OperationsDrugstoresImplementService } from '../../../../implements/operations-drugstores-implement.service';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
-import { CDeliveryServiceTypeName, CDeliveryServiceTypeRoute, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import {
+  CDeliveryServiceTypeName,
+  CDeliveryServiceTypeRoute,
+  EDeliveryServiceType
+} from '@models/service-type/delivery-service-type.model';
 import { DrugstoreDetail } from '../../../../models/operations-drugstores.model';
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 import { AlertService } from '@molecules/alert/alert.service';
@@ -17,124 +21,125 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { OperationsDrugstoresEditionActionsStoreService } from '../../stores/operations-drugstores-edition-actions-store.service';
 
 @Component({
-    selector: 'app-operations-drugstores-edition-home',
-    templateUrl: './operations-drugstores-edition-home.component.html',
-    styleUrls: ['./operations-drugstores-edition-home.component.scss']
+  selector: 'app-operations-drugstores-edition-home',
+  templateUrl: './operations-drugstores-edition-home.component.html',
+  styleUrls: ['./operations-drugstores-edition-home.component.scss']
 })
 export class OperationsDrugstoresEditionHomeComponent implements OnInit, OnDestroy {
-    private subscriptions: Subscription[] = [];
-    private serviceTypeName = CDeliveryServiceTypeName;
 
-    public drugstoreDetail: DrugstoreDetail;
-    public drugstoreServiceTypeList: DrugstoreServiceTypeList;
+  private subscriptions = new Subscription();
 
-    public errorResponse: HttpErrorResponse;
-    public homeEditionLoader = true;
-    public saveEditionLoader: boolean;
-    public updateEditionLoader: boolean;
+  private serviceTypeName = CDeliveryServiceTypeName;
 
-    constructor(
-        private _router: Router,
-        @SkipSelf() private _operationsDrugstoresEditionStore: OperationsDrugstoresEditionStoreService,
-        @SkipSelf() private _operationsDrugstoresEditionActionsStore: OperationsDrugstoresEditionActionsStoreService,
-        private _dialogTwoActions: DialogTwoActionsService,
-        private _operationsDrugstoresImplement: OperationsDrugstoresImplementService,
-        private _alert: AlertService,
-    ) {
-    }
+  public drugstoreDetail: DrugstoreDetail;
+  public drugstoreServiceTypeList: DrugstoreServiceTypeList;
 
-    get tabSettingsSelectionIndex(): number {
-        return this._operationsDrugstoresEditionActionsStore.tabSettingSelection;
-    }
+  public errorResponse: HttpErrorResponse;
+  public homeEditionLoader = true;
+  public saveEditionLoader: boolean;
+  public updateEditionLoader: boolean;
 
-    ngOnInit(): void {
-        this.updateDrugstoreDetail();
-        this.getDrugstoreDetail();
-    }
+  get tabSettingsSelectionIndex(): number {
+    return this._operationsDrugstoresEditionActionsStore.tabSettingSelection;
+  }
 
-    updateDrugstoreDetail() {
-        const subscription = this._operationsDrugstoresEditionStore.updateDrugstoreDetail$
-            .subscribe(() => {
-                this.updateEditionLoader = true;
-            });
-        this.subscriptions.push(subscription);
-    }
+  constructor(
+    private _router: Router,
+    @SkipSelf() private _operationsDrugstoresEditionStore: OperationsDrugstoresEditionStoreService,
+    @SkipSelf() private _operationsDrugstoresEditionActionsStore: OperationsDrugstoresEditionActionsStoreService,
+    private _dialogTwoActions: DialogTwoActionsService,
+    private _operationsDrugstoresImplement: OperationsDrugstoresImplementService,
+    private _alert: AlertService,
+  ) { }
 
-    getDrugstoreDetail() {
-        const subscription = this._operationsDrugstoresEditionStore.storeDetail$
-            .subscribe((drugstoreDetail: DrugstoreDetail) => {
-                if (drugstoreDetail instanceof DrugstoreDetail) {
-                    this.drugstoreDetail = drugstoreDetail;
-                    this.drugstoreServiceTypeList = new DrugstoreServiceTypeList(drugstoreDetail.serviceTypeList);
-                } else {
-                    this.drugstoreDetail = null;
-                    this.drugstoreServiceTypeList = null;
-                    this.errorResponse = drugstoreDetail;
-                }
-                this.homeEditionLoader = false;
-                this.saveEditionLoader = false;
-                this.updateEditionLoader = false;
-            });
-        this.subscriptions.push(subscription);
-    }
+  ngOnInit(): void {
+    this.updateDrugstoreDetail();
+    this.getDrugstoreDetail();
+  }
 
-    setTabSettingsSelectionIndex(index) {
-        this._operationsDrugstoresEditionActionsStore.tabSettingSelection = index;
-    }
+  updateDrugstoreDetail(): void {
+    const subscription = this._operationsDrugstoresEditionStore.updateDrugstoreDetail$
+      .subscribe(() => {
+        this.updateEditionLoader = true;
+      });
+    this.subscriptions.add(subscription);
+  }
 
-    editDrugstore() {
-        this._router.navigate([ROUTER_PATH.opDrugstores_DrugstoreEdition(this.drugstoreDetail.code)]);
-    }
+  getDrugstoreDetail(): void {
+    const subscription = this._operationsDrugstoresEditionStore.storeDetail$
+      .subscribe((drugstoreDetail: DrugstoreDetail) => {
+        if (drugstoreDetail instanceof DrugstoreDetail) {
+          this.drugstoreDetail = drugstoreDetail;
+          this.drugstoreServiceTypeList = new DrugstoreServiceTypeList(drugstoreDetail.serviceTypeList);
+        } else {
+          this.drugstoreDetail = null;
+          this.drugstoreServiceTypeList = null;
+          this.errorResponse = drugstoreDetail;
+        }
+        this.homeEditionLoader = false;
+        this.saveEditionLoader = false;
+        this.updateEditionLoader = false;
+      });
+    this.subscriptions.add(subscription);
+  }
 
-    editServiceType(serviceType: EDeliveryServiceType) {
-        const serviceTypePath = ROUTER_PATH.opDrugstores_DrugstoreServiceTypeEdition(
-            this.drugstoreDetail.code,
-            CDeliveryServiceTypeRoute[serviceType],
-        );
-        this._router.navigate([serviceTypePath]);
-    }
+  setTabSettingsSelectionIndex(index): void {
+    this._operationsDrugstoresEditionActionsStore.tabSettingSelection = index;
+  }
 
-    addServiceType(serviceType: EDeliveryServiceType) {
-        const subscription = this._dialogTwoActions.openInfo({
-                title: `Añadir servicio ${this.serviceTypeName[serviceType]}`,
-                description: `¿Deseas añadir ${this.serviceTypeName[serviceType]} al local ${this.drugstoreDetail.name}?`,
-                primaryAction: 'Añadir servicio',
-                secondaryAction: 'Cancelar'
-            }
-        )
-            .afterClosed()
-            .subscribe((confirmChanges) => {
-                if (confirmChanges) {
-                    this.registerServiceType(serviceType);
-                }
-            });
-        this.subscriptions.push(subscription);
-    }
+  editDrugstore(): void {
+    this._router.navigate([ROUTER_PATH.opDrugstores_DrugstoreEdition(this.drugstoreDetail.code)]);
+  }
 
-    registerServiceType(serviceType: EDeliveryServiceType) {
-        const drugstoreServiceTypRegister = {
-            localCode: this.drugstoreDetail.code,
-            serviceTypeCode: serviceType,
-            startHour: DatesHelper.Date(this.drugstoreDetail.startHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
-            endHour: DatesHelper.Date(this.drugstoreDetail.endHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
-        } as IDrugstoreServiceTypeRegister;
+  editServiceType(serviceType: EDeliveryServiceType): void {
+    const serviceTypePath = ROUTER_PATH.opDrugstores_DrugstoreServiceTypeEdition(
+      this.drugstoreDetail.code,
+      CDeliveryServiceTypeRoute[serviceType],
+    );
+    this._router.navigate([serviceTypePath]);
+  }
 
-        this._operationsDrugstoresImplement.postDrugstoreServiceType(drugstoreServiceTypRegister)
-            .subscribe(() => {
-                this.saveEditionLoader = true;
-                this._operationsDrugstoresEditionStore.updateDrugstoreDetail = true;
-                this._alert.alertSuccess(OperationMessages.successServiceTypeRegistered(this.serviceTypeName[serviceType], this.drugstoreDetail.name));
-            }, () => {
-                this._alert.alertError(OperationMessages.errorServiceTypeRegistered(this.serviceTypeName[serviceType], this.drugstoreDetail.name));
-            });
-    }
+  addServiceType(serviceType: EDeliveryServiceType): void {
+    const subscription = this._dialogTwoActions.openInfo({
+        title: `Añadir servicio ${this.serviceTypeName[serviceType]}`,
+        description: `¿Deseas añadir ${this.serviceTypeName[serviceType]} al local ${this.drugstoreDetail.name}?`,
+        primaryAction: 'Añadir servicio',
+        secondaryAction: 'Cancelar'
+      }
+    )
+      .afterClosed()
+      .subscribe((confirmChanges) => {
+        if (confirmChanges) {
+          this.registerServiceType(serviceType);
+        }
+      });
+    this.subscriptions.add(subscription);
+  }
 
-    editAffiliatedZone(zoneCode: string) {
-        this._router.navigate([ROUTER_PATH.opZones_Zone(zoneCode)]);
-    }
+  registerServiceType(serviceType: EDeliveryServiceType): void {
+    const drugstoreServiceTypRegister = {
+      localCode: this.drugstoreDetail.code,
+      serviceTypeCode: serviceType,
+      startHour: DatesHelper.Date(this.drugstoreDetail.startHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
+      endHour: DatesHelper.Date(this.drugstoreDetail.endHour, DATES_FORMAT.millisecond).format(DATES_FORMAT.hourMinuteSecond),
+    } as IDrugstoreServiceTypeRegister;
 
-    ngOnDestroy() {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    }
+    this._operationsDrugstoresImplement.postDrugstoreServiceType(drugstoreServiceTypRegister)
+      .subscribe(() => {
+        this.saveEditionLoader = true;
+        this._operationsDrugstoresEditionStore.updateDrugstoreDetail = true;
+        this._alert.alertSuccess(OperationMessages.successServiceTypeRegistered(this.serviceTypeName[serviceType], this.drugstoreDetail.name));
+      }, () => {
+        this._alert.alertError(OperationMessages.errorServiceTypeRegistered(this.serviceTypeName[serviceType], this.drugstoreDetail.name));
+      });
+  }
+
+  editAffiliatedZone(zoneCode: string): void {
+    this._router.navigate([ROUTER_PATH.opZones_Zone(zoneCode)]);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
 }

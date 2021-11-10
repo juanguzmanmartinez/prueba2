@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, SkipSelf } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SkipSelf } from '@angular/core';
 import {
-  ZoneChannelServiceTypeList, ZoneCompanyServiceTypeList,
-  ZoneServiceType,
+  ZoneChannelServiceTypeList,
+  ZoneCompanyServiceTypeList,
   ZoneServiceTypeList
 } from '../../../../models/operations-zones-service-type.model';
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
@@ -13,81 +13,77 @@ import { CCompanyName, ECompany } from '@models/company/company.model';
 
 const ChannelTabListPriority = [EChannel.digital, EChannel.call, EChannel.omnichannel];
 const CompanyTabListPriority = [ECompany.inkafarma, ECompany.mifarma, ECompany.todos];
+
 @Component({
-    selector: 'app-op-zones-edition-home-main-setting-tab',
-    templateUrl: './op-zones-edition-home-main-setting-tab.component.html',
-    styleUrls: ['./op-zones-edition-home-main-setting-tab.component.sass']
+  selector: 'app-op-zones-edition-home-main-setting-tab',
+  templateUrl: './op-zones-edition-home-main-setting-tab.component.html',
+  styleUrls: ['./op-zones-edition-home-main-setting-tab.component.sass']
 })
-export class OpZonesEditionHomeMainSettingTabComponent implements OnInit {
-    public channelName = CChannelName;
-    public companyName= CCompanyName;
-    public channelTabList: EChannel[];
-    public channelSelected: EChannel;
-    public zoneServiceTypeList: ZoneServiceTypeList;
-    public zoneChannelServiceTypeList: ZoneChannelServiceTypeList[];
-    public zoneCompanyServiceTypeList: ZoneCompanyServiceTypeList[];
-    public companyItem: ECompany;
-    public companyTabList: ECompany[];
+export class OpZonesEditionHomeMainSettingTabComponent {
 
+  public channelName = CChannelName;
+  public companyName = CCompanyName;
+  public channelTabList: EChannel[];
+  public channelSelected: EChannel;
+  public zoneServiceTypeList: ZoneServiceTypeList;
+  public zoneChannelServiceTypeList: ZoneChannelServiceTypeList[];
+  public zoneCompanyServiceTypeList: ZoneCompanyServiceTypeList[];
+  public companyItem: ECompany;
+  public companyTabList: ECompany[];
 
-    @Input('zoneChannelServiceTypeList')
-    set _zoneChannelServiceTypeList(zoneChannelServiceTypeList: ZoneChannelServiceTypeList[]) {
-        if (zoneChannelServiceTypeList) {
-            this.zoneChannelServiceTypeList = zoneChannelServiceTypeList;
-            const channelTabList = zoneChannelServiceTypeList
-                .map((zoneChannelServiceType) => zoneChannelServiceType.channel);
-            this.channelTabList = sortByPresetOrder(channelTabList, ChannelTabListPriority);
-            const savedChannel = this._operationsZonesEditionActionsStore.serviceTypeChannelSelection || EChannel.digital;
-            const hasDigitalChannel = this.channelTabList.find(channel => channel === savedChannel);
-           this.channelChange(hasDigitalChannel || this.channelTabList[0]);
+  @Input('zoneChannelServiceTypeList')
+  set _zoneChannelServiceTypeList(zoneChannelServiceTypeList: ZoneChannelServiceTypeList[]) {
+    if (zoneChannelServiceTypeList) {
+      this.zoneChannelServiceTypeList = zoneChannelServiceTypeList;
+      const channelTabList = zoneChannelServiceTypeList
+        .map((zoneChannelServiceType) => zoneChannelServiceType.channel);
+      this.channelTabList = sortByPresetOrder(channelTabList, ChannelTabListPriority);
+      const savedChannel = this._operationsZonesEditionActionsStore.serviceTypeChannelSelection || EChannel.digital;
+      const hasDigitalChannel = this.channelTabList.find(channel => channel === savedChannel);
+      this.channelChange(hasDigitalChannel || this.channelTabList[0]);
 
-         const companyTabList = zoneChannelServiceTypeList
-            .map((zoneChannelServiceType) => zoneChannelServiceType.company);
+      const companyTabList = zoneChannelServiceTypeList
+        .map((zoneChannelServiceType) => zoneChannelServiceType.company);
 
-             this.companyTabList = companyTabList[0];
-               this.companyItem=this.companyTabList[0];
-
-        }
+      this.companyTabList = companyTabList[0];
+      this.companyItem = this.companyTabList[0];
     }
-  @Input('zoneCompanyServiceTypeList')
-  set _zoneCompanyServiceTypeList(zoneCompanyServiceTypeList:ZoneCompanyServiceTypeList[]){
-      if (zoneCompanyServiceTypeList){
-        this.zoneCompanyServiceTypeList=zoneCompanyServiceTypeList;
-        const  companyTabList= zoneCompanyServiceTypeList
-          .map((zoneCompanyServiceTypeList)=>zoneCompanyServiceTypeList.company);
-        this.companyTabList = sortByPresetOrder(companyTabList, CompanyTabListPriority);
-        console.log("las marcas son: "+this.companyTabList);
-      }
   }
 
-    @Input() homeEditionLoader: boolean;
-
-    @Output() edit = new EventEmitter<ZoneServiceTypeBasicRequest>();
-    @Output() add = new EventEmitter<ZoneServiceTypeBasicRequest>();
-
-    constructor(
-        @SkipSelf() private _operationsZonesEditionActionsStore: OperationsZonesEditionActionsStoreService,
-    ) {
+  @Input('zoneCompanyServiceTypeList')
+  set _zoneCompanyServiceTypeList(zoneCompanyServiceTypeList: ZoneCompanyServiceTypeList[]) {
+    if (zoneCompanyServiceTypeList) {
+      this.zoneCompanyServiceTypeList = zoneCompanyServiceTypeList;
+      const companyTabList = zoneCompanyServiceTypeList
+        .map((value) => value.company);
+      this.companyTabList = sortByPresetOrder(companyTabList, CompanyTabListPriority);
+      console.log('las marcas son: ' + this.companyTabList);
     }
+  }
 
-    ngOnInit(): void {
-    }
+  @Input() homeEditionLoader: boolean;
 
-    channelChange(channel: EChannel) {
-        this.channelSelected = channel;
-        const zoneChannelServiceTypeList = this.zoneChannelServiceTypeList
-            .find((channelServiceTypeList) => channelServiceTypeList.channel === channel);
-        this.zoneServiceTypeList = zoneChannelServiceTypeList.serviceTypeList;
-        this._operationsZonesEditionActionsStore.serviceTypeChannelSelection = channel;
-    }
+  @Output() edit = new EventEmitter<ZoneServiceTypeBasicRequest>();
+  @Output() add = new EventEmitter<ZoneServiceTypeBasicRequest>();
 
+  constructor(
+    @SkipSelf() private _operationsZonesEditionActionsStore: OperationsZonesEditionActionsStoreService,
+  ) { }
 
-    editServiceType(serviceType: EDeliveryServiceType) {
-        this.edit.emit({code: serviceType, channel: this.channelSelected,company:this.companyItem});
-    }
+  channelChange(channel: EChannel): void {
+    this.channelSelected = channel;
+    const zoneChannelServiceTypeList = this.zoneChannelServiceTypeList
+      .find((channelServiceTypeList) => channelServiceTypeList.channel === channel);
+    this.zoneServiceTypeList = zoneChannelServiceTypeList.serviceTypeList;
+    this._operationsZonesEditionActionsStore.serviceTypeChannelSelection = channel;
+  }
 
-    addServiceType(serviceType: EDeliveryServiceType) {
-        this.add.emit({code: serviceType, channel: this.channelSelected,company:this.companyItem});
-    }
+  editServiceType(serviceType: EDeliveryServiceType): void {
+    this.edit.emit({code: serviceType, channel: this.channelSelected, company: this.companyItem});
+  }
+
+  addServiceType(serviceType: EDeliveryServiceType): void {
+    this.add.emit({code: serviceType, channel: this.channelSelected, company: this.companyItem});
+  }
 
 }

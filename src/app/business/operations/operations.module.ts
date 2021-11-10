@@ -18,17 +18,17 @@ import { DirectivesModule } from '../../shared/directives/directives.module';
     OperationsComponent,
     OperationsHomeComponent,
   ],
-    imports: [
-        CommonModule,
-        OperationsRoutingModule,
-        ClientsServiceModule,
-        IconsModule,
-        MatExpansionModule,
-        LinksModule,
-        ButtonsModule,
-        CardModule,
-        DirectivesModule,
-    ]
+  imports: [
+    CommonModule,
+    OperationsRoutingModule,
+    ClientsServiceModule,
+    IconsModule,
+    MatExpansionModule,
+    LinksModule,
+    ButtonsModule,
+    CardModule,
+    DirectivesModule,
+  ]
 })
 export class OperationsModule {
 }

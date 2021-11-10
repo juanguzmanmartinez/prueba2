@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
@@ -11,85 +11,85 @@ import { minuteFormat } from '@helpers/date-name.helper';
 import { CCompanyColor, CCompanyIcon, CCompanyName, ECompany } from '@models/company/company.model';
 
 @Component({
-    selector: 'app-op-zones-edition-home-main-service-type-card',
-    templateUrl: './op-zones-edition-home-main-service-type-card.component.html',
-    styleUrls: ['./op-zones-edition-home-main-service-type-card.component.sass']
+  selector: 'app-op-zones-edition-home-main-service-type-card',
+  templateUrl: './op-zones-edition-home-main-service-type-card.component.html',
+  styleUrls: ['./op-zones-edition-home-main-service-type-card.component.sass']
 })
-export class OpZonesEditionHomeMainServiceTypeCardComponent implements OnInit {
-    private serviceTypeName = CDeliveryServiceTypeName;
-    private stateValue = CStateValue;
-    private channelName = CChannelName;
-    private channelColor = CChannelColor;
-    private companyName= CCompanyName;
-    private companyColor = CCompanyColor;
-    public companyIcon = CCompanyIcon;
-    public tagAppearance = ETagAppearance;
+export class OpZonesEditionHomeMainServiceTypeCardComponent {
 
-    @Input() serviceType: ZoneServiceTypeRegistered;
-    @Input() company: ECompany;
-    @Output() edit = new EventEmitter<EDeliveryServiceType>();
-    @Output() add = new EventEmitter<EDeliveryServiceType>();
-    constructor() {
-    }
+  private serviceTypeName = CDeliveryServiceTypeName;
+  private stateValue = CStateValue;
+  private channelName = CChannelName;
+  private channelColor = CChannelColor;
+  private companyName = CCompanyName;
+  private companyColor = CCompanyColor;
 
-    ngOnInit(): void {
-    }
+  public companyIcon = CCompanyIcon;
+  public tagAppearance = ETagAppearance;
 
-    get serviceTypeDisabled() {
-        return !this.serviceType.serviceType || !this.stateValue[this.serviceType.serviceType.state];
-    }
+  @Input() serviceType: ZoneServiceTypeRegistered;
+  @Input() company: ECompany;
+  @Output() edit = new EventEmitter<EDeliveryServiceType>();
+  @Output() add = new EventEmitter<EDeliveryServiceType>();
 
-    get segmentName() {
-        return this.serviceTypeName[this.serviceType.code];
-    }
+  get serviceTypeDisabled(): boolean {
+    return !this.serviceType.serviceType || !this.stateValue[this.serviceType.serviceType.state];
+  }
 
-    get segmentChannelName() {
-        return this.channelName[this.serviceType.channel];
-    }
+  get segmentName(): string {
+    return this.serviceTypeName[this.serviceType.code];
+  }
 
-    get segmentChannelColor() {
-        return this.serviceTypeDisabled ? 'gray-3' : this.channelColor[this.serviceType.channel];
-    }
+  get segmentChannelName(): string {
+    return this.channelName[this.serviceType.channel];
+  }
 
-    get segmentCompanyName() {
+  get segmentChannelColor(): string {
+    return this.serviceTypeDisabled ? 'gray-3' : this.channelColor[this.serviceType.channel];
+  }
 
-      return this.companyName[this.company];
-    }
-    get segmentCompanyIcon() {
-      return this.companyIcon[this.company];
-    }
-    get segmentCompanyColor() {
-      return this.serviceTypeDisabled ? 'gray-3' : this.companyColor[this.company];
-    }
+  get segmentCompanyName(): string {
+    return this.companyName[this.company];
+  }
 
-    get startAndEndHour() {
-        if (this.serviceType.serviceType) {
-            const startHour = DatesHelper.date(this.serviceType.serviceType.startHour, DATES_FORMAT.millisecond)
-                .format(DATES_FORMAT.hourMinuteDateTime);
-            const endHour = DatesHelper.date(this.serviceType.serviceType.endHour, DATES_FORMAT.millisecond)
-                .format(DATES_FORMAT.hourMinuteDateTime);
-            return `${startHour} - ${endHour}`;
-        }
-        return 'No habilitado';
-    }
+  get segmentCompanyIcon(): string {
+    return this.companyIcon[this.company];
+  }
 
-    get segmentGap() {
-        if (this.serviceType.serviceType) {
-            return minuteFormat(this.serviceType.serviceType.segmentGap);
-        }
-        return 'No habilitado';
-    }
+  get segmentCompanyColor(): string {
+    return this.serviceTypeDisabled ? 'gray-3' : this.companyColor[this.company];
+  }
 
-    get serviceTypePath() {
-      this.serviceType.company=this.company;
-        return ROUTER_PATH.opZones_ZoneServiceTypeEdition();
+  get startAndEndHour(): string {
+    if (this.serviceType.serviceType) {
+      const startHour = DatesHelper.date(this.serviceType.serviceType.startHour, DATES_FORMAT.millisecond)
+        .format(DATES_FORMAT.hourMinuteDateTime);
+      const endHour = DatesHelper.date(this.serviceType.serviceType.endHour, DATES_FORMAT.millisecond)
+        .format(DATES_FORMAT.hourMinuteDateTime);
+      return `${startHour} - ${endHour}`;
     }
+    return 'No habilitado';
+  }
 
-    editEvent() {
-        this.edit.emit(this.serviceType.code);
+  get segmentGap(): string {
+    if (this.serviceType.serviceType) {
+      return minuteFormat(this.serviceType.serviceType.segmentGap);
     }
+    return 'No habilitado';
+  }
 
-    addEvent() {
-        this.add.emit(this.serviceType.code);
-    }
+  get serviceTypePath(): string {
+    this.serviceType.company = this.company;
+    return ROUTER_PATH.opZones_ZoneServiceTypeEdition();
+  }
+
+  constructor() { }
+
+  editEvent(): void {
+    this.edit.emit(this.serviceType.code);
+  }
+
+  addEvent(): void {
+    this.add.emit(this.serviceType.code);
+  }
 }
