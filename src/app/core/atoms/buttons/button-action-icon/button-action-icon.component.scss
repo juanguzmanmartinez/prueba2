@@ -2,32 +2,77 @@
 @import "src/sass/mixins/display.mixin";
 
 :host {
-  ::ng-deep .button.button-action-icon {
-    background-color: $light-primary;
-    border-color: $light-primary;
-    padding: 0;
-    border-radius: $border-radius-round;
-    height: 24px;
-    width: 24px;
-    @include d-flex-center;
-    display: inline-flex;
+  ::ng-deep {
+    .whole::ng-deep {
+      &.button.button-action-icon {
+        &:hover {
+          background-color: $primary;
+          border-color: $primary;
 
-    .icon-font {
-      color: $primary !important;
-    }
+          .icon-font {
+            color: $white !important;
+          }
+        }
+      }
 
-    &:hover {
-      background-color: $primary;
-      border-color: $primary;
-
-      .icon-font {
-        color: $white !important;
+      .button-action-icon {
+        background-color: $light-primary;
+        border-color: $light-primary;
       }
     }
 
-    &.button-disabled {
+    .edge::ng-deep {
+      &.button.button-action-icon {
+        &:hover {
+          background-color: $light-primary;
+          border-color: $light-primary;
+
+          .icon-font {
+            color: $primary !important;
+          }
+        }
+      }
+
+      .button-action-icon {
+        background-color: $white;
+        border: 1px solid $primary;
+      }
+    }
+
+    .edge-table::ng-deep {
+      &.button.button-action-icon {
+        &:hover {
+          background-color: $white;
+          border-color: $white;
+
+          .icon-font {
+            color: $primary !important;
+          }
+        }
+      }
+
+      .button-action-icon {
+        background-color: $white;
+        border: 1px solid $primary;
+      }
+    }
+
+    &.button.button-action-icon {
+      padding: 0;
+      border-radius: $border-radius-round;
+      height: 24px;
+      width: 24px;
+      @include d-flex-center;
+      display: inline-flex;
+
       .icon-font {
-        color: $gray-4 !important;
+        color: $primary !important;
+      }
+
+      &.button-disabled {
+        .icon-font {
+          color: $gray-4 !important;
+        }
       }
     }
   }
