@@ -10,8 +10,7 @@
 
       <div class="row home-section">
         <h3 class="text-h3 text-black mb-5">Operaciones</h3>
-        <div class="col-12 col-xlg-6 mb-4"
-             *appRouterAccess="routerPath.operationZones">
+        <div class="col-12 col-xlg-6 mb-4" *appRouterAccess="routerPath.operationZones">
           <app-router [router]="routerPath.operationZones">
             <app-card-action cardIconSVG="navigation">
               <span card-title>Zonas</span>
@@ -49,7 +48,7 @@
       <div class="row home-section">
         <h3 class="text-h3 text-black mb-5">Pedidos</h3>
         <div class="col-6 col-xl-6 mb-4">
-          <app-router [router]="routerPath.order">
+          <app-router>
             <app-card-action cardIconSVG="dump">
               <span card-title>Historial de pedidos</span>
               <span card-description>Consulta el detalle de los pedidos generados en el e-commerce</span>
