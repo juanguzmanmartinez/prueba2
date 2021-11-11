@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '@models/auth/user.model';
 import { UserStoreService } from '@stores/user-store.service';
-import { TRouter } from '@models/auth/router.model';
-import { ROUTER_LIST } from '@parameters/router/router.parameter';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.sass']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit {
 
-    public user: User;
+  user: User;
 
-    public routeList: TRouter[] = ROUTER_LIST;
+  routerPath = ROUTER_PATH;
 
-    constructor(private userStore: UserStoreService) {
-    }
+  constructor(
+    private userStore: UserStoreService
+  ) { }
 
-    ngOnInit(): void {
-        this.user = this.userStore.currentUser;
-    }
+  ngOnInit(): void {
+    this.user = this.userStore.currentUser;
+  }
 
 }

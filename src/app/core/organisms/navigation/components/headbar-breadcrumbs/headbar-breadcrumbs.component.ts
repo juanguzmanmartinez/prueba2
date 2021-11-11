@@ -7,43 +7,44 @@ import { CORE_ROUTER } from '@parameters/router/routing/core/core-router.paramet
 import { TRouter } from '@models/auth/router.model';
 
 @Component({
-    selector: 'app-headbar-breadcrumbs',
-    templateUrl: './headbar-breadcrumbs.component.html',
-    styleUrls: ['./headbar-breadcrumbs.component.sass']
+  selector: 'app-headbar-breadcrumbs',
+  templateUrl: './headbar-breadcrumbs.component.html',
+  styleUrls: ['./headbar-breadcrumbs.component.sass']
 })
 export class HeadbarBreadcrumbsComponent implements OnInit, OnDestroy {
-    public routerList = ROUTER_LIST;
-    public baseRouter = CORE_ROUTER.base;
-    public childRouter: TRouter;
-    private unsubscribe$ = new Subject<void>();
 
-    constructor(
-        private _router: Router
-    ) {
-    }
+  public routerList = ROUTER_LIST;
+  public baseRouter = CORE_ROUTER.base;
+  public childRouter: TRouter;
+  private unsubscribe$ = new Subject<void>();
 
-    ngOnInit(): void {
+  constructor(
+    private _router: Router
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.getChildRouter();
+    this._router.events
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
         this.getChildRouter();
-        this._router.events
-            .pipe(
-                takeUntil(this.unsubscribe$),
-                filter(event => event instanceof NavigationEnd))
-            .subscribe(() => {
-                this.getChildRouter();
-            });
-    }
+      });
+  }
 
-    getChildRouter() {
-        const urlTree = this._router.url.split('/');
-        this.childRouter = this.routerList
-            .find((router) => router.path === urlTree[1]);
+  getChildRouter() {
+    const urlTree = this._router.url.split('/');
+    this.childRouter = this.routerList
+      .find((router) => router.path === urlTree[1]);
 
-    }
+  }
 
 
-    ngOnDestroy() {
-        this.unsubscribe$.next();
-        this.unsubscribe$.complete();
-    }
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
 }
