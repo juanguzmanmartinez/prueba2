@@ -23,9 +23,11 @@
     "@angular/router": "~12.1.1",
     "bootstrap": "^5.0.2",
     "jwt-decode": "^3.1.2",
+    "mat-table-exporter": "^10.2.3",
     "moment": "^2.29.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "webpack": "^5.60.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
