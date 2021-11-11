@@ -29,6 +29,7 @@ export class UserStoreService {
 
     set decodeUser(iDecodeToken: IDecodeToken) {
         this.user = new User(iDecodeToken);
+        console.log(this.user);
         this.userSubject.next(this.user);
     }
 
