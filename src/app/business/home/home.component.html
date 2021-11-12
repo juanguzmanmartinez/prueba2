@@ -8,7 +8,7 @@
         </div>
       </div>
 
-      <div class="row mb-8">
+      <div class="row mb-8" *appRouterAccess="routerPath.operations">
         <h3 class="text-h3 text-black mb-5">Operaciones</h3>
         <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.operationZones">
           <app-router [router]="routerPath.operationZones">
@@ -39,54 +39,6 @@
             <app-card-action cardIconSVG="configuration">
               <span card-title>Configuraciones</span>
               <span card-description>Conoce los parámentros generales acerca de los tipos de despacho</span>
-            </app-card-action>
-          </app-router>
-        </div>
-      </div>
-
-      <div class="row mb-8">
-        <h3 class="text-h3 text-black mb-5">Pedidos</h3>
-        <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.orderRecords">
-          <app-router [router]="routerPath.orderRecords">
-            <app-card-action cardIconSVG="dump">
-              <span card-title>Historial de pedidos</span>
-              <span card-description>Consulta el detalle de los pedidos generados en el e-commerce</span>
-            </app-card-action>
-          </app-router>
-        </div>
-      </div>
-
-      <div class="row mb-8">
-        <h3 class="text-h3 text-black mb-5">Liquidación</h3>
-        <div class="col-6 col-xl-6 mb-4">
-          <app-router>
-            <app-card-action cardIconSVG="credit-card">
-              <span card-title>Liquidación Digital</span>
-              <span card-description>Consulta todas las transacciones pendientes por cobrar, anular o liquidadas</span>
-            </app-card-action>
-          </app-router>
-        </div>
-      </div>
-
-      <div class="row mb-8">
-        <h3 class="text-h3 text-black mb-5">Tracking transportistas</h3>
-        <div class="col-6 col-xl-6 mb-4">
-          <app-router>
-            <app-card-action cardIconSVG="moto">
-              <span card-title>Tracking transportistas</span>
-              <span card-description>Consulta información y realiza el seguimiento a los transportistas</span>
-            </app-card-action>
-          </app-router>
-        </div>
-      </div>
-
-      <div class="row mb-8">
-        <h3 class="text-h3 text-black mb-5">Compras recurrentes</h3>
-        <div class="col-6 col-xl-6 mb-4">
-          <app-router>
-            <app-card-action cardIconSVG="stores">
-              <span card-title>Pedidos en curso</span>
-              <span card-description>Visualiza y gestiona todas listas de compras recurrentes en curso</span>
             </app-card-action>
           </app-router>
         </div>
