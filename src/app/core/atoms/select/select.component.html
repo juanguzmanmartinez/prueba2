@@ -3,16 +3,24 @@
     disableRipple
     disableOptionCentering
     panelClass="select-component"
+    [multiple]="multiple"
     [disabled]="disabled"
     [placeholder]="placeholder"
     [value]="value"
     (valueChange)="selectionChange($event)">
 
-    <div class="option-container">
+    <mat-select-trigger class="trigger" *ngIf="customValue">
+      <div class="trigger-content">
+        <ng-content select="[trigger]"></ng-content>
+      </div>
+    </mat-select-trigger>
+
+    <div class="option-container" [style.max-height]="containerMaxHeight">
       <mat-option class="select-basic-option select-basic-option-clear"
-                  *ngIf="clearValue">{{clearValue}}</mat-option>
+                  *ngIf="clearValue"
+                  [class.select-square-option]="selectOptionSquare">{{clearValue}}</mat-option>
       <mat-option
-        class="select-basic-option"
+        class="select-basic-option" [class.select-square-option]="selectOptionSquare"
         *ngFor="let option of optionList"
         [value]="option">
         <ng-container *ngIf="!templateRef">{{option}}</ng-container>
