@@ -8,9 +8,9 @@
         </div>
       </div>
 
-      <div class="row home-section">
+      <div class="row mb-8">
         <h3 class="text-h3 text-black mb-5">Operaciones</h3>
-        <div class="col-12 col-xlg-6 mb-4" *appRouterAccess="routerPath.operationZones">
+        <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.operationZones">
           <app-router [router]="routerPath.operationZones">
             <app-card-action cardIconSVG="navigation">
               <span card-title>Zonas</span>
@@ -18,7 +18,7 @@
             </app-card-action>
           </app-router>
         </div>
-        <div class="col-12 col-xlg-6 mb-4" *appRouterAccess="routerPath.operationDrugstores">
+        <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.operationDrugstores">
           <app-router [router]="routerPath.operationDrugstores">
             <app-card-action cardIconSVG="stores">
               <span card-title>Locales</span>
@@ -26,7 +26,7 @@
             </app-card-action>
           </app-router>
         </div>
-        <div class="col-12 col-xlg-6 mb-4" *appRouterAccess="routerPath.operationCapacities">
+        <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.operationCapacities">
           <app-router [router]="routerPath.operationCapacities">
             <app-card-action cardIconSVG="truck">
               <span card-title>Capacidades</span>
@@ -34,8 +34,7 @@
             </app-card-action>
           </app-router>
         </div>
-        <div class="col-12 col-xlg-6 mb-4"
-             *appRouterAccess="routerPath.operationSettings">
+        <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.operationSettings">
           <app-router [router]="routerPath.operationSettings">
             <app-card-action cardIconSVG="configuration">
               <span card-title>Configuraciones</span>
@@ -45,10 +44,10 @@
         </div>
       </div>
 
-      <div class="row home-section">
+      <div class="row mb-8">
         <h3 class="text-h3 text-black mb-5">Pedidos</h3>
-        <div class="col-6 col-xl-6 mb-4">
-          <app-router>
+        <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.orderRecords">
+          <app-router [router]="routerPath.orderRecords">
             <app-card-action cardIconSVG="dump">
               <span card-title>Historial de pedidos</span>
               <span card-description>Consulta el detalle de los pedidos generados en el e-commerce</span>
@@ -57,7 +56,7 @@
         </div>
       </div>
 
-      <div class="row home-section">
+      <div class="row mb-8">
         <h3 class="text-h3 text-black mb-5">Liquidación</h3>
         <div class="col-6 col-xl-6 mb-4">
           <app-router>
@@ -68,29 +67,29 @@
           </app-router>
         </div>
       </div>
-    </div>
 
-    <div class="row home-section">
-      <h3 class="text-h3 text-black mb-5">Tracking transportistas</h3>
-      <div class="col-6 col-xl-6 mb-4">
-        <app-router>
-          <app-card-action cardIconSVG="moto">
-            <span card-title>Tracking transportistas</span>
-            <span card-description>Consulta información y realiza el seguimiento a los transportistas</span>
-          </app-card-action>
-        </app-router>
+      <div class="row mb-8">
+        <h3 class="text-h3 text-black mb-5">Tracking transportistas</h3>
+        <div class="col-6 col-xl-6 mb-4">
+          <app-router>
+            <app-card-action cardIconSVG="moto">
+              <span card-title>Tracking transportistas</span>
+              <span card-description>Consulta información y realiza el seguimiento a los transportistas</span>
+            </app-card-action>
+          </app-router>
+        </div>
       </div>
-    </div>
 
-    <div class="row home-section">
-      <h3 class="text-h3 text-black mb-5">Compras recurrentes</h3>
-      <div class="col-6 col-xl-6 mb-4">
-        <app-router>
-          <app-card-action cardIconSVG="stores">
-            <span card-title>Pedidos en curso</span>
-            <span card-description>Visualiza y gestiona todas listas de compras recurrentes en curso</span>
-          </app-card-action>
-        </app-router>
+      <div class="row mb-8">
+        <h3 class="text-h3 text-black mb-5">Compras recurrentes</h3>
+        <div class="col-6 col-xl-6 mb-4">
+          <app-router>
+            <app-card-action cardIconSVG="stores">
+              <span card-title>Pedidos en curso</span>
+              <span card-description>Visualiza y gestiona todas listas de compras recurrentes en curso</span>
+            </app-card-action>
+          </app-router>
+        </div>
       </div>
     </div>
   </div>
