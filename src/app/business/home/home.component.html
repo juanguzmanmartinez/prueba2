@@ -43,6 +43,18 @@
           </app-router>
         </div>
       </div>
+
+      <div class="row mb-8" *appRouterAccess="routerPath.order">
+        <h3 class="text-h3 text-black mb-5">Pedidos</h3>
+        <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.orderRecords">
+          <app-router [router]="routerPath.orderRecords">
+            <app-card-action cardIconSVG="dump">
+              <span card-title>Historial de pedidos</span>
+              <span card-description>Consulta el detalle de los pedidos generados en el e-commerce</span>
+            </app-card-action>
+          </app-router>
+        </div>
+      </div>
     </div>
   </div>
 </main>

@@ -1,0 +1,16 @@
+app-input-datepicker-range::ng-deep {
+  .input-datepicker-range-container {
+    .datepicker-label {
+      width: 100%
+    }
+  }
+
+  .mat-date-range-input {
+    .mat-date-range-input-container {
+      .mat-date-range-input-end-wrapper {
+        min-width: auto;
+        margin-left: 3px;
+      }
+    }
+  }
+}

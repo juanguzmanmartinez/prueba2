@@ -7,13 +7,13 @@ import { NavigationModule } from '@organisms/navigation/navigation.module';
 
 
 @NgModule({
-    declarations: [BusinessComponent],
-    imports: [
-        CommonModule,
-        BusinessRoutingModule,
-        GuardServiceModule,
-        NavigationModule
-    ]
+  declarations: [BusinessComponent],
+  imports: [
+    CommonModule,
+    BusinessRoutingModule,
+    GuardServiceModule,
+    NavigationModule
+  ]
 })
 export class BusinessModule {
 }

@@ -10,49 +10,58 @@ import { ACCOUNT_ROUTER } from '@parameters/router/routing/account/account-route
 import { ADMINISTRATOR_ROUTER } from '@parameters/router/routing/administrator/administrator-router.parameter';
 import { OPERATIONS_ROUTER } from '@parameters/router/routing/operations/operations-router.parameter';
 import { CORE_ROUTER } from '@parameters/router/routing/core/core-router.parameter';
+import { ORDER_ROUTER } from '@parameters/router/routing/order/order-router.parameter';
 
 const ACCOUNT: Route = {
-    path: ACCOUNT_ROUTER.path.valueOf(),
-    canActivate: [AccountGuard],
-    loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+  path: ACCOUNT_ROUTER.path.valueOf(),
+  canActivate: [AccountGuard],
+  loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
 };
 
 const HOME: Route = {
-    path: CORE_ROUTER.base.path.valueOf(),
-    loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+  path: CORE_ROUTER.base.path.valueOf(),
+  loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
 };
 
 const ADMINISTRATOR: Route = {
-    path: ADMINISTRATOR_ROUTER.path.valueOf(),
-    canLoad: [PermissionsGuard],
-    data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.administrator.valueOf()]},
-    loadChildren: () => import('./administrator/administrator.module').then(m => m.AdministratorModule)
+  path: ADMINISTRATOR_ROUTER.path.valueOf(),
+  canLoad: [PermissionsGuard],
+  data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.administrator.valueOf()]},
+  loadChildren: () => import('./administrator/administrator.module').then(m => m.AdministratorModule)
 };
 
 const OPERATIONS: Route = {
-    path: OPERATIONS_ROUTER.path.valueOf(),
-    canLoad: [PermissionsGuard],
-    data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.operations.valueOf()]},
-    loadChildren: () => import('./operations/operations.module').then(m => m.OperationsModule),
+  path: OPERATIONS_ROUTER.path.valueOf(),
+  canLoad: [PermissionsGuard],
+  data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.operations.valueOf()]},
+  loadChildren: () => import('./operations/operations.module').then(m => m.OperationsModule),
+};
+
+const ORDER: Route = {
+  path: ORDER_ROUTER.path.valueOf(),
+  // canLoad: [PermissionsGuard],
+  // data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.order.valueOf()]},
+  loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
 };
 
 const routes: Routes = [
-    {
-        path: '',
-        canActivate: [AuthGuard],
-        component: BusinessComponent,
-        children: [
-            HOME,
-            OPERATIONS,
-            ADMINISTRATOR
-        ]
-    },
-    ACCOUNT,
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    component: BusinessComponent,
+    children: [
+      HOME,
+      OPERATIONS,
+      ADMINISTRATOR,
+      ORDER
+    ]
+  },
+  ACCOUNT,
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class BusinessRoutingModule {
 }

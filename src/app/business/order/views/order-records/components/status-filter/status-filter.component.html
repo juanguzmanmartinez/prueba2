@@ -1,0 +1,7 @@
+<app-select
+  placeholder="Estado del pedido"
+  [multiple]="true" [customValue]="true" [optionList]="status" [selectOptionSquare]="true"
+  (optionChange)="selectionChange($event)">
+  <ng-container trigger>{{ valueSelect }}</ng-container>
+  <!--  <ng-template let-localCode>{{ getLocalName(localCode) }}</ng-template>-->
+</app-select>
