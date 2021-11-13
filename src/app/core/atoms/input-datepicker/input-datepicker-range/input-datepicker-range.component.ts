@@ -1,4 +1,14 @@
-import { Component, Input, OnDestroy, OnInit, Optional, Self, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Output,
+  Self,
+  ViewEncapsulation
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DatepickerHeaderComponent } from '../components/datepicker-header/datepicker-header.component';
@@ -55,6 +65,8 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor, OnIn
         this.endDateControl
             .setValue(value);
     }
+
+    @Output() cancel = new EventEmitter<boolean>(false);
 
 
     onChange = (_: any) => {};

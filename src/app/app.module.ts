@@ -13,6 +13,7 @@ import { StoreFactoryModule } from '@stores/store-factory.module';
 import { GuardServiceModule } from '@guards/guard-service.module';
 import { ListenerFactoryModule } from './shared/listeners/listener-factory.module';
 import { NotSupportedModule } from '@pages/not-supported/not-supported.module';
+import 'moment/locale/es';
 
 @NgModule({
     bootstrap: [
