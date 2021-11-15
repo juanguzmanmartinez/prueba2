@@ -39,8 +39,8 @@ const OPERATIONS: Route = {
 
 const ORDER: Route = {
   path: ORDER_ROUTER.path.valueOf(),
-  // canLoad: [PermissionsGuard],
-  // data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.order.valueOf()]},
+  canLoad: [PermissionsGuard],
+  data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.order.valueOf()]},
   loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
 };
 
