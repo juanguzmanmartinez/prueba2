@@ -1,32 +1,56 @@
 <ng-container *ngIf="appearance === tagAppearance.uppercase">
-    <span class="text-tag text-{{tagColor}}">
-        <ng-container *ngTemplateOutlet="ngContent"></ng-container>
-    </span>
+  <span class="text-tag text-{{tagColor}}">
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
 </ng-container>
 
 <ng-container *ngIf="appearance === tagAppearance.transparentPill">
-    <span class="text-tag tag-pill text-uppercase text-{{tagColor}}">
-              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
-    </span>
+  <span class="text-tag tag-pill text-uppercase text-{{tagColor}}">
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
 </ng-container>
+
 <ng-container *ngIf="appearance === tagAppearance.coloredWhitePill">
-    <span class="text-tag tag-pill text-uppercase text-white bg-{{tagColor}}">
-              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
-    </span>
+  <span class="text-tag tag-pill text-uppercase text-white bg-{{tagColor}}">
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
 </ng-container>
+
 <ng-container *ngIf="appearance === tagAppearance.coloredDarkPill">
-    <span class="text-tag tag-pill text-uppercase text-dark-{{tagColor}} bg-light-{{tagColor}}">
-              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
-    </span>
+  <span class="text-tag tag-pill text-uppercase text-dark-{{tagColor}} bg-light-{{tagColor}}">
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
 </ng-container>
 
 <ng-container *ngIf="appearance === tagAppearance.default">
-    <span class="text-h5 tag-default  text-{{tagColor}}">
-              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
-    </span>
+  <span class="text-h5 tag-default  text-{{tagColor}}">
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
 </ng-container>
 
+<ng-container *ngIf="appearance === tagAppearance.semantic">
+  <span class="text-tag tag-pill-semantic text-uppercase text-dark-{{ type }} bg-light-{{ type }}">
+    <app-icon
+      [fontName]="type ==='success' ? 'check_circle' : type === 'danger' ? 'cancel' : 'warning'"
+      innerClass="text-dark-{{type}}">
+    </app-icon>
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.informativeWhite">
+  <span class="text-tag tag-pill-informative text-dark-{{ typeInformative }} bg-white">
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.brandWhite">
+  <span class="text-tag tag-pill-brand text-uppercase text-{{ typeBrand }} bg-white">
+    <app-icon [svgName]="typeBrand" svgWidth="16px" svgHeight="16px"></app-icon>
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
 
 <ng-template #ngContent>
-    <ng-content></ng-content>
+  <ng-content></ng-content>
 </ng-template>

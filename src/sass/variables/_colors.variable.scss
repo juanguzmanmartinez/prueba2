@@ -26,6 +26,8 @@ $dark-yellow: #CE9440;
 $light-red: #FEEEE2;
 $red: #FE604C;
 $dark-red: #D93B36;
+
+
 // Neutrals
 $white: #FFFFFF;
 $gray-0: #F9FAFB;
@@ -45,16 +47,20 @@ $dark-primary: $dark-blue;
 $light-secondary: $light-purple;
 $secondary: $purple;
 $dark-secondary: $dark-purple;
+
+
 // Complementary Colors
-$light-complementary-one: $light-orange;
-$complementary-one: $orange;
-$dark-complementary-one: $dark-orange;
-$light-complementary-two: $light-turquoise;
-$complementary-two: $turquoise;
-$dark-complementary-two: $dark-turquoise;
-$light-complementary-three: $light-sky-blue;
-$complementary-three: $sky-blue;
-$dark-complementary-three: $dark-sky-blue;
+$light-complementary-one: $light-orange;  // Light Quintary
+$complementary-one: $orange;  // Quintary
+$dark-complementary-one: $dark-orange;  // Dark Quintary
+$light-complementary-two: $light-turquoise;  // Light Quaternary
+$complementary-two: $turquoise;  // Quaternary
+$dark-complementary-two: $dark-turquoise;  // Dark Quaternary
+$light-complementary-three: $light-sky-blue;  // Light Tertiary
+$complementary-three: $sky-blue; // Tertiary
+$dark-complementary-three: $dark-sky-blue; // Dark Tertiary
+
+
 // Semantics
 $light-success: $light-green;
 $success: $green;
@@ -65,3 +71,8 @@ $dark-warning: $dark-yellow;
 $light-danger: $light-red;
 $danger: $red;
 $dark-danger: $dark-red;
+
+
+// Brand
+$inkafarma: #00A651;
+$mifarma: #FF7929;

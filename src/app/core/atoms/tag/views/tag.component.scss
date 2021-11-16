@@ -1,8 +1,38 @@
 @import "~sass/variables";
+
 .tag-pill {
   padding: 0 12px;
   height: 18px;
   border-radius: $border-radius-md;
   display: inline-flex;
   align-items: center;
+}
+
+.tag-pill-semantic {
+  padding: 0 12px;
+  height: 24px;
+  border-radius: $border-radius-xl;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag-pill-informative {
+  padding: 0 12px;
+  height: 24px;
+  border: 1px solid $gray-0;
+  border-radius: $border-radius-xl;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag-pill-brand {
+  padding: 0 12px 0 4px;
+  height: 24px;
+  border: 1px solid $gray-1;
+  border-radius: $border-radius-xl;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
