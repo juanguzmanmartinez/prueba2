@@ -23,9 +23,11 @@ export const ICONS_SVG: IconsSvgModel[] = [
   {name: 'credit-card', path: `${pathIcons}credit-card.svg`},
   {name: 'loader', path: `${pathIcons}loader.svg`},
   {name: 'dump', path: `${pathIcons}dump.svg`},
+  {name: 'visa', path: `${pathIcons}visa.svg`},
   {name: 'logo-brand', path: `${pathIcons}logo.svg`},
   {name: 'done-flow', path: `${pathIcons}done-flow.svg`},
   {name: 'pending-flow', path: `${pathIcons}pending-flow.svg`},
+  {name: 'cart', path: `${pathIcons}cart.svg`},
 
   {name: 'logo', path: `${pathIllustrations}logo.svg`},
   {name: 'assigned-orders', path: `${pathIllustrations}assigned-orders.svg`},
