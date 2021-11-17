@@ -24,6 +24,8 @@ export const ICONS_SVG: IconsSvgModel[] = [
   {name: 'loader', path: `${pathIcons}loader.svg`},
   {name: 'dump', path: `${pathIcons}dump.svg`},
   {name: 'logo-brand', path: `${pathIcons}logo.svg`},
+  {name: 'done-flow', path: `${pathIcons}done-flow.svg`},
+  {name: 'pending-flow', path: `${pathIcons}pending-flow.svg`},
 
   {name: 'logo', path: `${pathIllustrations}logo.svg`},
   {name: 'assigned-orders', path: `${pathIllustrations}assigned-orders.svg`},
