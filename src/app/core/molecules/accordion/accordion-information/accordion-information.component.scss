@@ -2,10 +2,11 @@
 @import "src/sass/variables/utilities.variable";
 
 mat-accordion::ng-deep {
-  border-radius: $border-radius;
+  border-radius: $border-radius-md;
 
   .mat-expansion-panel {
     border: none;
+    border-radius: $border-radius-md!important;
     box-shadow: none;
 
     &:not(.mat-expanded) {
@@ -18,7 +19,7 @@ mat-accordion::ng-deep {
     mat-expansion-panel-header {
       background: $white;
       box-sizing: border-box;
-      border-radius: $border-radius;
+      border-radius: $border-radius-md!important;
       padding: 24px;
       height: 72px;
 
