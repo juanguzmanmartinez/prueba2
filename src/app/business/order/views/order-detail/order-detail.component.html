@@ -1,0 +1,41 @@
+<section class="pt-8 pb-15">
+  <div class="d-flex flex-column">
+    <app-back-router-simple backRoute="/pedidos/registros" class="back"></app-back-router-simple>
+    <div class="mt-1 d-inline-flex align-items-center">
+      <div class="d-inline-flex align-items-center gap-1">
+        <p class="text-h4 text-black mb-0">Pedido Nº 8000268563 /</p>
+        <p class="text-gray-4 text-h4 mb-0">Call: 0460645557</p>
+      </div>
+      <div class="tags d-flex align-items-center gap-2">
+        <app-tag typeBrand="mifarma" appearance="brand-white">Mifarma</app-tag>
+        <app-tag typeInformative="secondary" appearance="informative-white">CALL CENTER</app-tag>
+        <app-tag typeInformative="complementary-three" appearance="informative-white">PEDIDO PARCIAL</app-tag>
+        <app-tag typeInformative="complementary-two" appearance="informative-white">EXPRESS</app-tag>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-inline-flex justify-content-between align-items-center w-100 mt-7 mb-8">
+    <p class="m-0 text-h5">Estado del pedido:</p>
+    <div class="d-inline-flex align-items-center gap-1 tag-promise bg-white">
+      <app-icon fontName="today" innerClass="text-primary"></app-icon>
+      <p class="m-0 text-gray-5">Fecha promesa:</p>
+      <p class="m-0 text-gray-6 range">30/09 a las 10:00 a.m. a 1:00 p.m.</p>
+    </div>
+  </div>
+
+  <app-flow class="mt-1 mb-8" [data]="flowData"></app-flow>
+
+  <div class="row">
+    <div class="col-8">
+      <app-client-information></app-client-information>
+      <app-order-information></app-order-information>
+      <app-payment-information></app-payment-information>
+      <app-carrier-information></app-carrier-information>
+    </div>
+    <div class="col-4">
+      <app-product-information></app-product-information>
+    </div>
+  </div>
+
+</section>

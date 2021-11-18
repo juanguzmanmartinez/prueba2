@@ -1,0 +1,22 @@
+@import "src/sass/variables/fonts.variable";
+
+.product {
+  letter-spacing: $letter-spacing-regular;
+
+  .prescription {
+    .mat-tooltip-trigger {
+      top: 100px;
+    }
+  }
+
+  .title {
+    font-size: 10px!important;
+  }
+
+  .name {
+    margin-top: 2px!important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
