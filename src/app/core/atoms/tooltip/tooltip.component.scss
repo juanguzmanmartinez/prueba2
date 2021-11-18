@@ -10,6 +10,13 @@
   white-space: pre-line;
 }
 
+::ng-deep .mat-tooltip-panel {
+  .bottom-43-right-21 {
+    bottom: 43px!important;
+    right: 21px!important;
+  }
+}
+
 ::ng-deep .mat-tooltip.tooltip {
   display: inline-flex;
   position: relative;
