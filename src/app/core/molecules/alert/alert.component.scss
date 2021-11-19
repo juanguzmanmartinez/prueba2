@@ -21,3 +21,15 @@
     @include text-body-1-regular;
   }
 }
+
+.background-danger {
+  background-color: $light-danger;
+}
+
+.background-warning {
+  background-color: $light-warning;
+}
+
+.background-success {
+  background-color: $light-success;
+}
