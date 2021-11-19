@@ -3,5 +3,5 @@
   [multiple]="true" [customValue]="true" [optionList]="services" [selectOptionSquare]="true"
   (optionChange)="selectionChange($event)">
   <ng-container trigger>{{ valueSelect }}</ng-container>
-    <ng-template let-service>{{ getServiceName(service) }}</ng-template>
+  <ng-template let-service>{{ getServiceName(service) }}</ng-template>
 </app-select>

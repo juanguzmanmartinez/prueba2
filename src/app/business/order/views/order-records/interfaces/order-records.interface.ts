@@ -1,22 +1,76 @@
+import { OrderModel } from '../models/order-records.model';
+
 export interface DatepickerFilter {
   startDate: number;
   endDate: number;
 }
 
 export interface DatepickerFilterEvent {
-  dateInitFilter: string;
-  dateEndFilter: string;
+  dateRange: [dateInitFilter: string, dateEndFilter: string];
+  notFound: string;
+}
+
+export interface LocalFilterEvent {
+  locals: string[];
+  notFound: string;
+}
+
+export interface CompanyFilterEvent {
+  companies: string[];
+  notFound: string;
+}
+
+export interface ServicesFilterEvent {
+  services: string[];
+  notFound: string;
+}
+
+export interface StatusFilterEvent {
+  status: string[];
+  notFound: string;
+}
+
+export interface ChannelFilterEvent {
+  channels: string[];
   notFound: string;
 }
 
 export interface OrderRecordsResponse {
-  documentoId: string;
-  ecommerceId: number;
-  fechaPromesa: string;
-  localId: string;
-  orderId: number;
+  orders: OrderResponse[];
+  page: number;
+  currentRecords: number;
+  totalRecords: number;
+}
+
+export interface OrderRecords {
+  orders: OrderModel[];
+  page: number;
+  currentRecords: number;
+  totalRecords: number;
+}
+
+export interface OrderResponse {
   orderStatus: string;
-  razonSocial: string;
+  localId: string;
+  companyCode: string;
   serviceChannel: string;
+  orderId: number;
+  ecommerceId: number;
   serviceTypeId: string;
+  documentoId: string;
+  client: string;
+  promiseDate: string;
+}
+
+export interface OrderStatusResponse {
+  code: string;
+  type: string;
+  description: string;
+}
+
+export interface OrderStatus {
+  code: string;
+  type: string;
+  description: string;
+  name: string;
 }

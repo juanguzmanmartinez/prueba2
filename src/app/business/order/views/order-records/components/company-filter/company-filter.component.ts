@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { CompanyFilterEvent } from '../../interfaces/order-records.interface';
 
 @Component({
   selector: 'app-company-filter',
@@ -7,7 +8,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class CompanyFilterComponent {
 
-  @Output() filter = new EventEmitter<string[]>();
+  @Output() filter = new EventEmitter<CompanyFilterEvent>();
 
   list = [
     { code: 'IKF', name: 'Inkafarma' },
@@ -23,15 +24,19 @@ export class CompanyFilterComponent {
       this.valueSelect = this.getCompanyName(companies[0]);
     } else if (companies.length === 2) {
       this.valueSelect = `${this.getCompanyName(companies[0])}, ${this.getCompanyName(companies[1])}`;
-    } else if (companies.length > 2) {
-      this.valueSelect = `${this.getCompanyName(companies[0])}, ${this.getCompanyName(companies[1])} (+${companies.length - 2} otros`;
     }
-    console.log(companies);
-    this.filter.emit(companies);
+    this.filter.emit({ companies, notFound: this.getCompaniesName(companies) });
   }
 
   getCompanyName(option: string): string {
     return this.list.find(company => company.code === option).name;
+  }
+
+  private getCompaniesName(companies: string[]): string {
+    const companiesWithName = companies.map(value => {
+      return this.getCompanyName(value);
+    });
+    return companiesWithName.toString();
   }
 
 }

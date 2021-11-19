@@ -10,8 +10,18 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { normalizeValue } from '@helpers/string.helper';
 import { SortAlphanumeric } from '@helpers/sort.helper';
 import { OrderRecordsImplementService } from './implements/order-records-implement.service';
-import { finalize, tap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { OrderModel } from './models/order-records.model';
+import {
+  ChannelFilterEvent,
+  CompanyFilterEvent,
+  DatepickerFilterEvent,
+  LocalFilterEvent,
+  OrderRecords,
+  ServicesFilterEvent,
+  StatusFilterEvent
+} from './interfaces/order-records.interface';
+import { AlertService } from '@molecules/alert/alert.service';
 
 const ColumnNameList = {
   select: 'select',
@@ -39,8 +49,16 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   totalOrder = 0;
 
-  pageIndex = 0;
+  page = 1;
   pageSize = 10;
+
+  private searchValue: string;
+  private selectedLocals: string[];
+  private selectedCompany: string[];
+  private selectedService: string[];
+  private datePromise: string[];
+  private selectedStatus: string[];
+  private selectedChannel: string[];
 
   notFound = '';
 
@@ -57,9 +75,9 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     ColumnNameList.actions
   ];
 
-  dataSource = new MatTableDataSource<any>();
+  dataSource = new MatTableDataSource<OrderModel>();
   selection = new SelectionModel(true, []);
-  fixedSelectedRows: any[] = [];
+  fixedSelectedRows: OrderModel[] = [];
 
   get selected(): number {
     return this.selection.selected.length;
@@ -68,25 +86,28 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  @ViewChild('exporter') exporter;
+
   private subscriptions = new Subscription();
 
   constructor(
     private router: Router,
-    private orderRecordsImplement: OrderRecordsImplementService
-  ) {
-  }
+    private orderRecordsImplement: OrderRecordsImplementService,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit(): void {
     const subscription = this.selection.changed.subscribe(x => this.fixedSelectedRows = x.source.selected);
     this.subscriptions.add(subscription);
 
-    this.orderRecordsImplement.orderList(this.pageIndex, this.pageSize)
+    this.orderRecordsImplement.orderList(this.page, this.pageSize)
       .pipe(
-        finalize(() => this.tableLoader = false),
-        tap(console.log)
+        finalize(() => {
+          this.tableLoader = false;
+        }),
       )
       .subscribe({
-        next: (res: OrderModel[]) => this.setOrderPageData(res),
+        next: (res: OrderRecords) => this.setOrderPageData(res),
         error: err => this.errorResponse = err
       });
   }
@@ -156,13 +177,15 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tableLoader = true;
     this.orderRecordsImplement
       .orderList(
-        pe.pageIndex,
+        pe.pageIndex + 1,
         pe.pageSize,
-        // this.searchContent,
-        // this.startDate,
-        // this.endDate,
-        // this.selectedState,
-        // this.selectedLocals
+        this.searchValue,
+        this.selectedLocals,
+        this.selectedCompany,
+        this.selectedService,
+        this.datePromise,
+        this.selectedStatus,
+        this.selectedChannel
       )
       .pipe(
         finalize(() => {
@@ -170,12 +193,79 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
         })
       )
       .subscribe({
-        next: (res: OrderModel[]) => {
-          this.pageIndex = pe.pageIndex;
+        next: (res: OrderRecords) => {
+          this.page = res.page;
           this.setOrderPageData(res, false);
         },
         error: err => this.errorResponse = err
       });
+  }
+
+  filterAll(): void {
+    this.tableLoader = true;
+    this.orderRecordsImplement
+      .orderList(
+        this.page,
+        this.pageSize,
+        this.searchValue,
+        this.selectedLocals,
+        this.selectedCompany,
+        this.selectedService,
+        this.datePromise,
+        this.selectedStatus,
+        this.selectedChannel
+      )
+      .pipe(
+        finalize(() => {
+          this.tableLoader = false;
+        })
+      )
+      .subscribe({
+        next: (res: any) => this.setOrderPageData(res, false),
+        error: err => this.errorResponse = err
+      });
+  }
+
+  filterBySearch(value: string): void {
+    this.searchValue = value;
+    this.notFound = value;
+    this.filterAll();
+  }
+
+  filterByLocal(event: LocalFilterEvent): void {
+    this.selectedLocals = event.locals;
+    this.notFound = event.notFound;
+    this.filterAll();
+  }
+
+  filterByCompany(event: CompanyFilterEvent): void {
+    this.selectedCompany = event.companies;
+    this.notFound = event.notFound;
+    this.filterAll();
+  }
+
+  filterByService(event: ServicesFilterEvent): void {
+    this.selectedService = event.services;
+    this.notFound = event.notFound;
+    this.filterAll();
+  }
+
+  filterByDatePromise(event: DatepickerFilterEvent): void {
+    this.datePromise = event.dateRange;
+    this.notFound = event.notFound;
+    this.filterAll();
+  }
+
+  filterByStatus(event: StatusFilterEvent): void {
+    this.selectedStatus = event.status;
+    this.notFound = event.notFound;
+    this.filterAll();
+  }
+
+  filterByChannel(event: ChannelFilterEvent): void {
+    this.selectedChannel = event.channels;
+    this.notFound = event.notFound;
+    this.filterAll();
   }
 
   isAllSelected(): boolean {
@@ -190,18 +280,26 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  private setOrderPageData(response: OrderModel[], initialCharge = true): void {
+  private setOrderPageData(response: OrderRecords, initialCharge = true): void {
     const selectedRecord = this.fixedSelectedRows.map(value => value.ecommerceId);
-    const data = response.filter(item => !selectedRecord.includes(item.ecommerceId));
+    const data = response.orders.filter(item => !selectedRecord.includes(item.ecommerceId));
     this.dataSource.data = [
       ...this.fixedSelectedRows,
       ...data
     ];
-    this.totalOrder = response.length;
+    this.totalOrder = response.totalRecords;
     this.dataSource._updatePaginator(this.totalOrder);
 
     if (initialCharge) {
       this.setDataSourceService();
+    }
+  }
+
+  exportData(): void {
+    try {
+      this.exporter.exportTable('xlsx', { fileName: 'Pedidos' });
+    } catch (e) {
+      this.alertService.alertError('Hubo un error al descargar la información, por favor vuelve a intentarlo.');
     }
   }
 

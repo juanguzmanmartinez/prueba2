@@ -60,9 +60,7 @@ export class DateFilterComponent {
       if (this.existDate) { this.datepickerPreview = { ...this.datepicker }; }
       return;
     }
-
-    console.table({ dateInitFilter, dateEndFilter, notFound });
-    this.filter.emit({ dateInitFilter, dateEndFilter, notFound });
+    this.filter.emit({ dateRange: [dateInitFilter, dateEndFilter], notFound });
   }
 
   cancelDateRange(): void {
@@ -89,8 +87,7 @@ export class DateFilterComponent {
       notFound = 'Otro periodo';
 
       this.isRange = false;
-      console.table({ dateInitFilter, dateEndFilter, notFound });
-      this.filter.emit({ dateInitFilter, dateEndFilter, notFound });
+      this.filter.emit({ dateRange: [dateInitFilter, dateEndFilter], notFound });
 
       this.existDate = true;
     }

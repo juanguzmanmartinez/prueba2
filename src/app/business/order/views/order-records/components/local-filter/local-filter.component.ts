@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OrderRecordsImplementService } from '../../implements/order-records-implement.service';
 import { map, tap } from 'rxjs/operators';
 import { IDrugstore } from '@interfaces/drugstores/drugstores.interface';
+import { LocalFilterEvent } from '../../interfaces/order-records.interface';
 
 @Component({
   selector: 'app-local-filter',
@@ -10,7 +11,7 @@ import { IDrugstore } from '@interfaces/drugstores/drugstores.interface';
 })
 export class LocalFilterComponent implements OnInit {
 
-  @Output() filter = new EventEmitter<string[]>();
+  @Output() filter = new EventEmitter<LocalFilterEvent>();
 
   list: IDrugstore[];
   locals: string[];
@@ -41,6 +42,13 @@ export class LocalFilterComponent implements OnInit {
     return this.list.find(local => local.localCode === option).name;
   }
 
+  private getLocalsName(locals: string[]): string {
+    const localsWithName = locals.map(value => {
+      return this.getLocalName(value);
+    });
+    return localsWithName.toString();
+  }
+
   selectionChange(locals: string[]): void {
     if (locals.length === 1) {
       this.valueSelect = this.getLocalName(locals[0]);
@@ -49,8 +57,7 @@ export class LocalFilterComponent implements OnInit {
     } else if (locals.length > 2) {
       this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(locals[1])} (+${locals.length - 2} otros`;
     }
-    console.log(locals);
-    this.filter.emit(locals);
+    this.filter.emit({ locals, notFound: this.getLocalsName(locals) });
   }
 
 }
