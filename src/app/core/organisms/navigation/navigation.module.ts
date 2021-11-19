@@ -26,6 +26,7 @@ import { HeadbarBreadcrumbsComponent } from './components/headbar-breadcrumbs/he
 import { SidenavOperationsComponent } from './views/sidenav/components/sidenav-operations/sidenav-operations.component';
 import { SidenavAdministratorComponent } from './views/sidenav/components/sidenav-administrator/sidenav-administrator.component';
 import { SidenavHomeComponent } from './views/sidenav/components/sidenav-home/sidenav-home.component';
+import { SidenavOrderComponent } from './views/sidenav/components/sidenav-order/sidenav-order.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { SidenavHomeComponent } from './views/sidenav/components/sidenav-home/si
         SidenavRouteMenuItemComponent,
         SidenavOperationsComponent,
         SidenavAdministratorComponent,
-        SidenavHomeComponent
+        SidenavHomeComponent,
+        SidenavOrderComponent
     ],
     exports: [
         NavigationComponent
