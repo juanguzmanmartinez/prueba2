@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Flow } from '@molecules/flow/flow.component';
+import { OrderDetailImplementService } from './implements/order-detail-implement.service';
+import { ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { OrderDetailModel } from './models/order-detail.model';
+import { OR_CHILDREN_PATH } from '@parameters/router/routing/order/order-router.parameter';
 
 @Component({
   selector: 'app-order-detail',
@@ -59,9 +64,23 @@ export class OrderDetailComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  errorResponse: HttpErrorResponse;
+  orderId: number;
+  orderDetail: OrderDetailModel;
+
+  constructor(
+    private implementsService: OrderDetailImplementService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.orderId = this.activatedRoute.snapshot.params[OR_CHILDREN_PATH.orderCode];
+  }
 
   ngOnInit(): void {
+    this.implementsService.orderDetail(this.orderId)
+      .subscribe({
+        next: response => this.orderDetail = response,
+        error: error => this.errorResponse = error
+      });
   }
 
 }

@@ -11,6 +11,8 @@ import { OrderInformationModule } from './components/order-information/order-inf
 import { PaymentInformationModule } from './components/payment-information/payment-information.module';
 import { CarrierInformationModule } from './components/carrier-information/carrier-information.module';
 import { ProductInformationModule } from './components/product-information/product-information.module';
+import { OrderClientService } from '@clients/order/order-client.service';
+import { OrderDetailImplementService } from './implements/order-detail-implement.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,9 @@ import { ProductInformationModule } from './components/product-information/produ
     CarrierInformationModule,
     ProductInformationModule
   ],
-  providers: []
+  providers: [
+    OrderDetailImplementService,
+    OrderClientService
+  ]
 })
 export class OrderDetailModule { }

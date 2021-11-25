@@ -12,14 +12,14 @@ export class ClientInformationModel {
   reference: string;
 
   constructor(data: ClientInformation) {
-    this.fullName = data.clientName;
-    this.documentNumber = data.documentNumber;
-    this.ruc = '';
-    this.businessName = '';
-    this.phone = data.phone;
-    this.email = data.email;
+    this.fullName = data.clientName ? data.clientName : '-';
+    this.documentNumber = data.documentNumber ? data.documentNumber.toString() : '-';
+    this.ruc = '-';
+    this.businessName = '-';
+    this.phone = data.phone ? data.phone : '-';
+    this.email = data.email ? data.email : '-';
     this.address = '';
-    this.coordinates = data.coordinates;
+    this.coordinates = data.coordinates ? data.coordinates : '-';
     this.reference = '';
   }
 }

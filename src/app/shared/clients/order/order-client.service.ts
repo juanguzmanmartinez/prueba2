@@ -13,11 +13,14 @@ import {
 import { OrderModel } from '../../../business/order/views/order-records/models/order-records.model';
 import { isArray } from '@helpers/objects-equal.helper';
 import { CStateOrderName } from '@models/state-order/state-order.model';
+import { OrderDetailModel } from '../../../business/order/views/order-detail/models/order-detail.model';
+import { OrderDetailResponse } from '../../../business/order/views/order-detail/interfaces/order-detail.interface';
 
 @Injectable()
 export class OrderClientService {
 
   private readonly ORDER_LIST = EndpointsParameter.ORDER_LIST;
+  private readonly ORDER_DETAIL = EndpointsParameter.ORDER_DETAIL;
   private readonly ORDER_STATUS = EndpointsParameter.ORDER_STATUS;
 
   constructor(
@@ -59,6 +62,17 @@ export class OrderClientService {
             });
           }
           return [];
+        })
+      );
+  }
+
+  getOrderDetail(id: number): Observable<OrderDetailModel> {
+    const endpoint = `${this.ORDER_DETAIL}/${id}`;
+    return this.generic.genericGet<OrderDetailResponse>(endpoint)
+      .pipe(
+        take(1),
+        map((response: OrderDetailResponse) => {
+          return new OrderDetailModel(response);
         })
       );
   }

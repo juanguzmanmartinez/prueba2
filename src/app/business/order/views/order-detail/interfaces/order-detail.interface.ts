@@ -1,7 +1,67 @@
 export interface ClientInformation {
   clientName: string;
-  documentNumber: string;
+  documentNumber: number;
   phone: string;
   email: string;
   coordinates: string;
+}
+
+export interface OrderMainData {
+  orderId: number;
+  ecommerceId: number;
+  companyCode: string;
+  serviceChannel: string;
+  orderType: string;
+  serviceTypeShortCode: string;
+  scheduledTime: string;
+  statusName: string;
+  localCode: string;
+}
+
+export interface OrderInformation {
+  ecommerceId: number;
+  purchaseId: string;
+  operator: string;
+  observation: string;
+  cancellationReason: string;
+  zoneDescription: string;
+  localDescription: string;
+  serviceType: string;
+  stockType: string;
+}
+
+export interface PaymentInformation {
+  paymentType: string;
+  paymentGateway: string;
+  changeAmount: number;
+  paymentDate: string;
+  serviceTypeCode: string;
+}
+
+export interface ProductInformation {
+  totalImport: number;
+  totalDiscount: number;
+  deliveryAmount: number;
+  products: Product[];
+}
+
+export interface Product {
+  sku: string;
+  quantity: string;
+  unitPrice: string;
+  totalPrice: string;
+  name: string;
+  shortDescription: string;
+}
+
+export interface OrderInformationConsolidatedResponse {
+  orderInfo: OrderMainData;
+  orderInfoClient: ClientInformation;
+  orderInfoAdditional: OrderInformation;
+  paymentMethodDto: PaymentInformation;
+  productDetail: ProductInformation;
+}
+
+export interface OrderDetailResponse {
+  orderInfoConsolidated: OrderInformationConsolidatedResponse;
 }
