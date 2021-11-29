@@ -6,6 +6,20 @@ export interface ClientInformation {
   coordinates: string;
 }
 
+export interface OrderTimeline {
+  code: string;
+  selected: string;
+  order: string;
+  updatedBy: string;
+  updatedAt: string;
+}
+
+export interface OrderStatusDetail {
+  localCode: string;
+  endScheduleDate: string;
+  statusTimeLine: OrderTimeline[];
+}
+
 export interface OrderMainData {
   orderId: number;
   ecommerceId: number;
@@ -16,6 +30,7 @@ export interface OrderMainData {
   scheduledTime: string;
   statusName: string;
   localCode: string;
+  serviceType: string;
 }
 
 export interface OrderInformation {
@@ -55,6 +70,7 @@ export interface Product {
 }
 
 export interface OrderInformationConsolidatedResponse {
+  orderStatusDetail: OrderStatusDetail;
   orderInfo: OrderMainData;
   orderInfoClient: ClientInformation;
   orderInfoAdditional: OrderInformation;

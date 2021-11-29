@@ -4,23 +4,23 @@
       <table>
         <tr>
           <td>Nº de pedido:</td>
-          <td>1561589012 - Call: 0460645557</td>
+          <td>{{ dataOrder.orderId }}</td>
         </tr>
         <tr>
           <td>Purchase ID:</td>
-          <td>1234567890</td>
+          <td>{{ dataOrder.purchaseId }}</td>
         </tr>
         <tr>
           <td>Operadora/o:</td>
-          <td>Luisa Perez Díaz</td>
+          <td>{{ dataOrder.operator }}</td>
         </tr>
         <tr>
           <td>Observación:</td>
-          <td>Por favor, entregar el pedido en una bolsa grande (la más grande que tengan)</td>
+          <td>{{ dataOrder.observation }}</td>
         </tr>
         <tr>
           <td>Motivo cancelación:</td>
-          <td>-</td>
+          <td>{{ dataOrder.reasonForCancellation }}</td>
         </tr>
       </table>
     </div>
@@ -28,19 +28,19 @@
       <table>
         <tr>
           <td>Zona:</td>
-          <td>38 - Surquillo 02</td>
+          <td>{{ dataOrder.zone }}</td>
         </tr>
         <tr>
           <td>Local de atención:</td>
-          <td>IKF - 233 DC Surquillo</td>
+          <td>{{ dataOrder.localService }}</td>
         </tr>
         <tr>
           <td>Tipo de local:</td>
-          <td>Inkatracker Lite</td>
+          <td>{{ dataOrder.localType }}</td>
         </tr>
         <tr>
           <td>Tipo de despacho:</td>
-          <td>Backup</td>
+          <td>{{ dataOrder.typeOfOffice }}</td>
         </tr>
       </table>
     </div>

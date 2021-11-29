@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PaymentInformationModel } from '../../models/payment-information.model';
 
 @Component({
   selector: 'app-payment-information',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./payment-information.component.scss']
 })
 export class PaymentInformationComponent implements OnInit {
+
+  @Input() dataPayment: PaymentInformationModel;
 
   constructor() { }
 

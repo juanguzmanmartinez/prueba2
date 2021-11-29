@@ -3,6 +3,7 @@ import { ProductInformationComponent } from './product-information.component';
 import { AccordionModule } from '@molecules/accordion/accordion.module';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { ProductDetailModule } from './components/product-detail/product-detail.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { ProductDetailModule } from './components/product-detail/product-detail.
   imports: [
     AccordionModule,
     IconsModule,
-    ProductDetailModule
+    ProductDetailModule,
+    CommonModule
   ],
   exports: [
     ProductInformationComponent

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ProductModel } from '../../../../models/product-information.model';
 
 @Component({
   selector: 'app-product-detail',
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProductDetailComponent implements OnInit {
 
-  @Input() prescription: boolean;
+  @Input() product: ProductModel;
   @Input() removed: boolean;
 
   constructor() { }

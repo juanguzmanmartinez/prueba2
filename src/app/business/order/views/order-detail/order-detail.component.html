@@ -3,14 +3,18 @@
     <app-back-router-simple backRoute="/pedidos/registros" class="back"></app-back-router-simple>
     <div class="mt-1 d-inline-flex align-items-center">
       <div class="d-inline-flex align-items-center gap-1">
-        <p class="text-h4 text-black mb-0">Pedido Nº 8000268563 /</p>
-        <p class="text-gray-4 text-h4 mb-0">Call: 0460645557</p>
+        <p class="text-h4 text-black mb-0">
+          Pedido Nº {{ orderDetail.orderNumber }} {{ orderDetail.callNumber ? '/' : '' }}
+        </p>
+        <p class="text-gray-4 text-h4 mb-0" *ngIf="orderDetail.callNumber">
+          Call: {{ orderDetail.callNumber }}
+        </p>
       </div>
       <div class="tags d-flex align-items-center gap-2">
-        <app-tag typeBrand="mifarma" appearance="brand-white">Mifarma</app-tag>
-        <app-tag typeInformative="secondary" appearance="informative-white">CALL CENTER</app-tag>
-        <app-tag typeInformative="complementary-three" appearance="informative-white">PEDIDO PARCIAL</app-tag>
-        <app-tag typeInformative="complementary-two" appearance="informative-white">EXPRESS</app-tag>
+        <app-tag [typeBrand]="orderDetail.iconTagCompany" appearance="brand-white">{{ orderDetail.tagCompany }}</app-tag>
+        <app-tag typeInformative="secondary" appearance="informative-white">{{ orderDetail.tagChannel }}</app-tag>
+        <app-tag typeInformative="complementary-three" appearance="informative-white">{{ orderDetail.tagOrderType }}</app-tag>
+        <app-tag typeInformative="complementary-two" appearance="informative-white">{{ orderDetail.tagServiceType }}</app-tag>
       </div>
     </div>
   </div>
@@ -20,7 +24,7 @@
     <div class="d-inline-flex align-items-center gap-1 tag-promise bg-white">
       <app-icon fontName="today" innerClass="text-primary"></app-icon>
       <p class="m-0 text-gray-5">Fecha promesa:</p>
-      <p class="m-0 text-gray-6 range">30/09 a las 10:00 a.m. a 1:00 p.m.</p>
+      <p class="m-0 text-gray-6 range">{{ orderDetail.promiseDate }}</p>
     </div>
   </div>
 
@@ -28,13 +32,13 @@
 
   <div class="row">
     <div class="col-8">
-      <app-client-information></app-client-information>
-      <app-order-information></app-order-information>
-      <app-payment-information></app-payment-information>
-      <app-carrier-information></app-carrier-information>
+      <app-client-information [dataClient]="orderDetail?.clientInformation"></app-client-information>
+      <app-order-information [dataOrder]="orderDetail?.orderInformation"></app-order-information>
+      <app-payment-information [dataPayment]="orderDetail?.paymentInformation"></app-payment-information>
+      <app-carrier-information [dataCarrier]="orderDetail?.carrierInformation"></app-carrier-information>
     </div>
     <div class="col-4">
-      <app-product-information></app-product-information>
+      <app-product-information [dataProduct]="orderDetail?.productInformation"></app-product-information>
     </div>
   </div>
 

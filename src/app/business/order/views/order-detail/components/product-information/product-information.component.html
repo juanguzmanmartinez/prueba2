@@ -1,11 +1,11 @@
 <app-accordion-information svgName="cart"  title="Información de los productos" [expanded]="true">
   <div class="products mt-5">
-    <app-product-detail></app-product-detail>
-    <app-product-detail [prescription]="true"></app-product-detail>
-    <app-product-detail></app-product-detail>
-    <app-product-detail></app-product-detail>
+    <app-product-detail
+      *ngFor="let product of dataProduct.products"
+      [product]="product">
+    </app-product-detail>
   </div>
-  <div class="removed mt-1">
+  <div class="removed mt-1" *ngIf="dataProduct.productsRemoved.length">
     <p class="d-flex-vertical-center gap-2">
       <app-icon fontName="warning" fontSize="16px" innerClass="text-danger"></app-icon>
       Unidades removidas
@@ -21,39 +21,42 @@
     </div>
     <hr class="mt-4 text-gray-1">
     <div class="hide-removed-products" [hidden]="!showRemovedProducts">
-      <app-product-detail></app-product-detail>
-      <app-product-detail [prescription]="true"></app-product-detail>
+      <app-product-detail
+        *ngFor="let product of dataProduct.products"
+        [product]="product"
+        [removed]="true">
+      </app-product-detail>
       <app-product-detail></app-product-detail>
     </div>
   </div>
   <div class="detail">
     <div class="d-flex justify-content-between">
       <p>Imp. pedido original:</p>
-      <p>No aplica</p>
+      <p>{{ dataProduct.originalAmount }}</p>
     </div>
     <div class="d-flex justify-content-between">
       <p>Imp. pedido editado:</p>
-      <p>No aplica</p>
+      <p>{{ dataProduct.editedAmount }}</p>
     </div>
     <div class="d-flex justify-content-between">
       <p>Imp. total sin dsct:</p>
-      <p>S/ 76.13</p>
+      <p>{{ dataProduct.withoutDiscountAmount }}</p>
     </div>
     <div class="d-flex justify-content-between">
       <p>IGV:</p>
-      <p>S/ 2.00</p>
+      <p>{{ dataProduct.igv }}</p>
     </div>
     <div class="d-flex justify-content-between">
       <p>Imp. delivery:</p>
-      <p>S/ 4.00</p>
+      <p>{{ dataProduct.deliveryAmount }}</p>
     </div>
     <div class="d-flex justify-content-between">
       <p class="text-danger">Descuento total:</p>
-      <p class="text-danger">S/ -11.96</p>
+      <p class="text-danger">{{ dataProduct.totalDiscount }}</p>
     </div>
     <div class="d-flex justify-content-between">
       <p>Imp. total cobrado:</p>
-      <p>S/ 233.00</p>
+      <p>{{ dataProduct.totalAmountCharged }}</p>
     </div>
   </div>
 </app-accordion-information>

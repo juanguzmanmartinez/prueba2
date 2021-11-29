@@ -4,23 +4,23 @@
       <table>
         <tr>
           <td>Nombre y apellido:</td>
-          <td>Esther Rojas Castro</td>
+          <td>{{ dataClient.fullName }}</td>
         </tr>
         <tr>
           <td>Documento:</td>
-          <td>DNI 15627322</td>
+          <td>{{ dataClient.documentNumber }}</td>
         </tr>
         <tr>
           <td>RUC:</td>
-          <td>-</td>
+          <td>{{ dataClient.ruc }}</td>
         </tr>
         <tr>
           <td>Razón social:</td>
-          <td>-</td>
+          <td>{{ dataClient.businessName }}</td>
         </tr>
         <tr>
           <td>Teléfono:</td>
-          <td>970890778</td>
+          <td>{{ dataClient.phone }}</td>
         </tr>
       </table>
     </div>
@@ -28,24 +28,24 @@
       <table>
         <tr>
           <td>Correo:</td>
-          <td>ecastro@gmail.com</td>
+          <td>{{ dataClient.email }}</td>
         </tr>
         <tr>
           <td>Dirección:</td>
-          <td>Av. Ejercito, 670 - Miraflores</td>
+          <td>{{ dataClient.address }}</td>
         </tr>
         <tr>
           <td>Coordenadas:</td>
           <td>
-            <a href="https://maps.google.com/?q=-12.0607882, -77.1417395" target="_blank"
+            <a [href]="'https://maps.google.com/?q=' + dataClient.coordinates" target="_blank"
                class="text-secondary text-body-2-bold">
-              -12.0607882, -77.1417395
+              {{ dataClient.coordinates }}
             </a>
           </td>
         </tr>
         <tr>
           <td>Referencia:</td>
-          <td>-</td>
+          <td>{{ dataClient.reference }}</td>
         </tr>
       </table>
     </div>

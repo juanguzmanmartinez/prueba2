@@ -12,7 +12,7 @@ import {
 } from '../../../business/order/views/order-records/interfaces/order-records.interface';
 import { OrderModel } from '../../../business/order/views/order-records/models/order-records.model';
 import { isArray } from '@helpers/objects-equal.helper';
-import { CStateOrderName } from '@models/state-order/state-order.model';
+import { CStatusOrderName } from '@models/status-order/status-order.model';
 import { OrderDetailModel } from '../../../business/order/views/order-detail/models/order-detail.model';
 import { OrderDetailResponse } from '../../../business/order/views/order-detail/interfaces/order-detail.interface';
 
@@ -57,7 +57,7 @@ export class OrderClientService {
                 code: value.code,
                 type: value.type,
                 description: value.description,
-                name: CStateOrderName[value.type]
+                name: CStatusOrderName[value.type]
               };
             });
           }

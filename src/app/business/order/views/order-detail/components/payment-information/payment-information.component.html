@@ -4,23 +4,23 @@
       <table>
         <tr>
           <td>Tipo de pago:</td>
-          <td>Pago online</td>
+          <td>{{ dataPayment.paymentType }}</td>
         </tr>
         <tr>
           <td>ID Transacción:</td>
-          <td>991210606840539</td>
+          <td>{{ dataPayment.transactionId }}</td>
         </tr>
         <tr>
           <td>Vuelto:</td>
-          <td>-</td>
+          <td>{{ dataPayment.changeAmount }}</td>
         </tr>
         <tr>
           <td>Estado:</td>
-          <td>Liquidado</td>
+          <td>{{ dataPayment.status }}</td>
         </tr>
         <tr>
           <td>Fecha:</td>
-          <td>26/09 - 10:00 a.m.</td>
+          <td>{{ dataPayment.date }}</td>
         </tr>
       </table>
     </div>
@@ -28,25 +28,25 @@
       <table>
         <tr>
           <td>PAN Nº tarjeta:</td>
-          <td>**** **** **** 7846</td>
+          <td>{{ dataPayment.cardNumber }}</td>
         </tr>
         <tr>
           <td>Cod. Autorización:</td>
-          <td>716922</td>
+          <td>{{ dataPayment.authorizationCode }}</td>
         </tr>
         <tr>
           <td class="card-brand">Marca de tarjeta:</td>
           <td>
-            <app-icon svgName="visa" svgWidth="40px" svgHeight="32px" innerClass="mt-2"></app-icon>
+            <app-icon [svgName]="dataPayment.cardBrand" svgWidth="40px" svgHeight="32px" innerClass="mt-2"></app-icon>
           </td>
         </tr>
         <tr>
           <td>Financiera:</td>
-          <td>Interbank</td>
+          <td>{{ dataPayment.financial }}</td>
         </tr>
         <tr>
           <td>Usuario liquidador:</td>
-          <td>Luisa Saldivar</td>
+          <td>{{ dataPayment.liquidationUser }}</td>
         </tr>
       </table>
     </div>
