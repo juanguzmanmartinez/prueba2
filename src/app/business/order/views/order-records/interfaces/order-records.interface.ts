@@ -62,15 +62,7 @@ export interface OrderResponse {
   promiseDate: string;
 }
 
-export interface OrderStatusResponse {
-  code: string;
-  type: string;
-  description: string;
-}
-
 export interface OrderStatus {
   code: string;
-  type: string;
-  description: string;
   name: string;
 }

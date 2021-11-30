@@ -28,7 +28,7 @@ export class StatusFilterComponent implements OnInit {
         }),
         map((res: OrderStatus[]) => {
           return res.map(val => {
-            return val.type;
+            return val.code;
           });
         })
       )

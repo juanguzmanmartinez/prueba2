@@ -16,16 +16,12 @@ export enum EStatusOrder {
   onHold = 'ON_HOLD',
 }
 
-export enum EStatusOrderAlternative {
-
-}
-
 export const CStatusOrderName = {
   [EStatusOrder.confirmed]: 'Confirmado',
   [EStatusOrder.cancelled]: 'Cancelado',
   [EStatusOrder.delivered]: 'Entregado',
-  [EStatusOrder.readyForPickup]: 'Listo para entregar',
-  [EStatusOrder.onStore]: 'En la tienda',
+  [EStatusOrder.readyForPickup]: 'Listo para recoger',
+  [EStatusOrder.onStore]: 'En tienda',
   [EStatusOrder.assigned]: 'Asignado',
   [EStatusOrder.picking]: 'Picking',
   [EStatusOrder.prepared]: 'Preparado',
@@ -35,8 +31,6 @@ export const CStatusOrderName = {
   [EStatusOrder.checkout]: 'Checkout',
   [EStatusOrder.onHold]: 'En espera',
 };
-
-export const CStatusOrderNameAlternative = {};
 
 export const CStatusOrderColor = {
   [EStatusOrder.confirmed]: ETextColor.success,
@@ -52,8 +46,4 @@ export const CStatusOrderColor = {
   [EStatusOrder.rejected]: ETextColor.error,
   [EStatusOrder.checkout]: ETextColor.warning,
   [EStatusOrder.onHold]: ETextColor.warning,
-};
-
-export const CStatusOrderColorAlternative = {
-
 };
