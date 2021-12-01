@@ -19,8 +19,14 @@ export class OrderInformationModel {
     this.reasonForCancellation = data.cancellationReason ? data.cancellationReason : '-';
     this.zone = data.zoneDescription ? data.zoneDescription : '-';
     this.localService = data.localDescription ? data.localDescription : '-';
-    this.localType = '-'; // TODO: Verificar posibles de response para serviceType;
-    this.typeOfOffice = '-'; // TODO: Verficar si el response es stockType
+    this.localType = data.serviceType ? data.serviceType : '-';
+    this.typeOfOffice = data.stockType ? this.formatTypeOfOffice(data.stockType) : '-';
+  }
+
+  private formatTypeOfOffice = (stockType: string): string => {
+    const firstLetter = stockType.slice(0, 1).toUpperCase();
+    const restOfTheWord = stockType.slice(1).toLowerCase();
+    return `${firstLetter}${restOfTheWord}`;
   }
 
 }

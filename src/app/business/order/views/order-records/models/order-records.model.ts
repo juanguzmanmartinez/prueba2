@@ -25,7 +25,7 @@ export class OrderModel {
     this.promiseDate = data.promiseDate;
     this.client = data.client;
     this.documentId = data.documentoId;
-    this.state = CStatusOrderName[data.orderStatus]; // TODO: Reemplazar constante de estados alternativos
+    this.state = CStatusOrderName[data.orderStatus];
     this.stateColor = CStatusOrderColor[data.orderStatus];
   }
 }

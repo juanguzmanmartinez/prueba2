@@ -19,7 +19,7 @@ export class PaymentInformationModel {
     this.changeAmount = data.changeAmount ? `S/ ${data.changeAmount}` : '-';
     this.status = '-';
     this.date = data.paymentDate ? this.formatDate(data.paymentDate) : '-';
-    this.cardNumber = '-';
+    this.cardNumber = '-'; // TODO: No se guarda en base de datos
     this.authorizationCode = '-';
     this.cardBrand = data.paymentGateway ? CCardNameIllustration[data.paymentGateway] : '-';
     this.financial = '-';

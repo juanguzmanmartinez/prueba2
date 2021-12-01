@@ -16,7 +16,7 @@ export class OrderDetailModel {
   tagOrderType: string;
   tagServiceType: string;
   promiseDate: string;
-  timeline: TimelineModel;
+  timeline: TimelineModel[];
   clientInformation: ClientInformationModel;
   orderInformation: OrderInformationModel;
   paymentInformation: PaymentInformationModel;
@@ -43,8 +43,9 @@ export class OrderDetailModel {
     this.promiseDate = data.orderInfoConsolidated?.orderInfo?.scheduledTime ?
       this.formatPromiseDate(data.orderInfoConsolidated.orderInfo.scheduledTime) : '-';
 
-    this.timeline = data.orderInfoConsolidated?.orderStatusDetail?.statusTimeLine ?
-      new TimelineModel(data.orderInfoConsolidated.orderStatusDetail.statusTimeLine) : null;
+    this.timeline = data.orderInfoConsolidated?.orderStatusDetail?.statusTimeLine
+      ? data.orderInfoConsolidated?.orderStatusDetail?.statusTimeLine.map(timeline => new TimelineModel(timeline))
+      : null;
 
     this.clientInformation = data.orderInfoConsolidated?.orderInfoClient ?
       new ClientInformationModel(data.orderInfoConsolidated.orderInfoClient) : null;

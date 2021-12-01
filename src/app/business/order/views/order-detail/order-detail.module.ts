@@ -13,6 +13,7 @@ import { CarrierInformationModule } from './components/carrier-information/carri
 import { ProductInformationModule } from './components/product-information/product-information.module';
 import { OrderClientService } from '@clients/order/order-client.service';
 import { OrderDetailImplementService } from './implements/order-detail-implement.service';
+import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { OrderDetailImplementService } from './implements/order-detail-implement
     OrderInformationModule,
     PaymentInformationModule,
     CarrierInformationModule,
-    ProductInformationModule
+    ProductInformationModule,
+    HttpErrorViewerModule
   ],
   providers: [
     OrderDetailImplementService,

@@ -4,11 +4,12 @@ export interface ClientInformation {
   phone: string;
   email: string;
   coordinates: string;
+  reference: string;
 }
 
 export interface OrderTimeline {
   code: string;
-  selected: string;
+  selected: boolean;
   order: string;
   updatedBy: string;
   updatedAt: string;

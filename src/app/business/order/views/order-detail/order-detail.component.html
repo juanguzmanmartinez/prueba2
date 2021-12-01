@@ -1,4 +1,4 @@
-<section class="pt-8 pb-15">
+<section class="pt-8 pb-15" *ngIf="orderDetail">
   <div class="d-flex flex-column">
     <app-back-router-simple backRoute="/pedidos/registros" class="back"></app-back-router-simple>
     <div class="mt-1 d-inline-flex align-items-center">
@@ -28,18 +28,36 @@
     </div>
   </div>
 
-  <app-flow class="mt-1 mb-8" [data]="flowData"></app-flow>
+  <app-flow class="mt-1 mb-8" [data]="orderDetail.timeline"></app-flow>
 
   <div class="row">
     <div class="col-8">
-      <app-client-information [dataClient]="orderDetail?.clientInformation"></app-client-information>
-      <app-order-information [dataOrder]="orderDetail?.orderInformation"></app-order-information>
-      <app-payment-information [dataPayment]="orderDetail?.paymentInformation"></app-payment-information>
-      <app-carrier-information [dataCarrier]="orderDetail?.carrierInformation"></app-carrier-information>
+      <app-client-information
+        [dataClient]="orderDetail.clientInformation">
+      </app-client-information>
+
+      <app-order-information
+        [dataOrder]="orderDetail.orderInformation">
+      </app-order-information>
+
+      <app-payment-information
+        [dataPayment]="orderDetail.paymentInformation">
+      </app-payment-information>
+
+      <app-carrier-information
+        *ngIf="orderDetail.carrierInformation"
+        [dataCarrier]="orderDetail.carrierInformation">
+      </app-carrier-information>
     </div>
     <div class="col-4">
-      <app-product-information [dataProduct]="orderDetail?.productInformation"></app-product-information>
+      <app-product-information
+        [dataProduct]="orderDetail.productInformation">
+      </app-product-information>
     </div>
   </div>
 
+</section>
+
+<section class="pt-15 pb-15" *ngIf="errorResponse">
+  <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
 </section>

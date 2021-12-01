@@ -20,6 +20,6 @@ export class ClientInformationModel {
     this.email = data.email ? data.email : '-';
     this.address = '';
     this.coordinates = data.coordinates ? data.coordinates : '-';
-    this.reference = '';
+    this.reference = data.reference ? data.reference : '-';
   }
 }
