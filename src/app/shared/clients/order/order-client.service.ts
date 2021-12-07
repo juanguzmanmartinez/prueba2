@@ -28,7 +28,7 @@ export class OrderClientService {
 
   getOrderList(body): Observable<OrderRecords> {
     const endpoint = `${this.ORDER_LIST}`;
-    return this.generic.genericGet<OrderRecordsResponse>(endpoint, null, null, body)
+    return this.generic.genericPost<OrderRecordsResponse>(endpoint, body)
       .pipe(
         take(1),
         map((response: OrderRecordsResponse) => {

@@ -31,7 +31,7 @@ export class EndpointsParameter {
     public static DRUGSTORE_LIST_REPORT = `${DATA_STUDIO}/page/fClLC`;
     public static DRUGSTORE_DETAIL_REPORT = `${DATA_STUDIO}/page/XElLC`;
 
-    public static ORDER_LIST = `${API_GATEWAY}/order`;
-    public static ORDER_DETAIL = `${API_GATEWAY}/order/detail`;
-    public static ORDER_STATUS = `${API_GATEWAY}/order/status`;
+    public static ORDER_LIST = `http://operationsci02.backend.cindibyinkafarma.com/order/info`;
+    public static ORDER_DETAIL = `http://operationsci02.backend.cindibyinkafarma.com/order/detail/`;
+    public static ORDER_STATUS = `http://operationsci02.backend.cindibyinkafarma.com/order/status`;
 }
