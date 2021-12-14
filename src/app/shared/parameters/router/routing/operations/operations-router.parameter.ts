@@ -6,7 +6,7 @@ export const OPERATIONS_ROUTER: TRouter = {
   name: 'Operaciones',
   description: 'Visualiza todos los locales y edita algunas de sus características.',
   iconCard: 'configuration',
-  iconMenu: 'settings',
+  iconMenu: 'storefront',
 };
 
 export const OP_CHILDREN_PATH = {

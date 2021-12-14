@@ -1,11 +1,5 @@
-<div (click)="toggleSidenav()"
-     class="nav-headbar-menu-container cursor-pointer">
-    <div class="nav-headbar-menu">
-        <div [@sidenavMenu]="!sidenavOpened ? 'opened' : 'topX'"
-             class="nav-headbar-menu-bar"></div>
-        <div [@sidenavMenu]="!sidenavOpened ? 'opened' : 'hide'"
-             class="nav-headbar-menu-bar"></div>
-        <div [@sidenavMenu]="!sidenavOpened ? 'opened' : 'bottomX'"
-             class="nav-headbar-menu-bar"></div>
-    </div>
+<div (click)="toggleSidenav()" class="nav-headbar-menu-container cursor-pointer user-select-none">
+  <app-icon *ngIf="!sidenavOpened" fontName="menu" fontColor="white"></app-icon>
+  <app-icon *ngIf="sidenavOpened" fontName="close" fontColor="white"></app-icon>
 </div>
+

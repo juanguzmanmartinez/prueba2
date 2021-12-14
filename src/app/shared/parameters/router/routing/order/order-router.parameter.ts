@@ -2,9 +2,9 @@ import { TRouter } from '@models/auth/router.model';
 
 export const ORDER_ROUTER: TRouter = {
   path: 'pedidos',
-  name: 'Order',
+  name: 'Pedidos',
   iconCard: 'dump',
-  iconMenu: 'store',
+  iconMenu: 'local_mall',
   description: 'Consulta de pedidos'
 };
 
