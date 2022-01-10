@@ -142,7 +142,8 @@
           <p class="page-size-label text-gray-6 mb-0">Items por página</p>
           <app-select
             class="select-size"
-            [(ngModel)]="pageSize" [value]="10"
+            [(ngModel)]="pageSize"
+            (ngModelChange)="onChangePageSize($event)"
             containerMaxHeight="80px"
             [optionList]="[10, 20, 30]">
           </app-select>

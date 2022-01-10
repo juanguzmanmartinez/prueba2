@@ -4,14 +4,16 @@ export enum EDeliveryServiceType {
     amPm = 'AM_PM',
     scheduled = 'PROG',
     express = 'EXP',
-    ret = 'RET'
+    ret = 'RET',
+    rad = 'RAD'
 }
 
 export const CDeliveryServiceTypeName = {
     [EDeliveryServiceType.amPm]: 'AM/PM',
     [EDeliveryServiceType.scheduled]: 'Programado',
     [EDeliveryServiceType.express]: 'Express',
-    [EDeliveryServiceType.ret]: 'RET'
+    [EDeliveryServiceType.ret]: 'RET',
+    [EDeliveryServiceType.rad]: 'RAD'
 };
 
 export const CDeliveryServiceTypeRoute = {

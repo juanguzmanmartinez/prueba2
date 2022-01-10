@@ -1,6 +1,7 @@
 import { environment } from '@environments/environment';
 
 export const API_GATEWAY = `${environment.api_gateway}`;
+export const API_GATEWAY_ORDER = `${environment.api_gateway_order}`;
 export const API_GATEWAY_AUTH = `${environment.api_gateway_auth}`;
 export const DATA_STUDIO = `${environment.dataStudio}`;
 
@@ -31,7 +32,7 @@ export class EndpointsParameter {
     public static DRUGSTORE_LIST_REPORT = `${DATA_STUDIO}/page/fClLC`;
     public static DRUGSTORE_DETAIL_REPORT = `${DATA_STUDIO}/page/XElLC`;
 
-    public static ORDER_LIST = `http://operationsci02.backend.cindibyinkafarma.com/order/info`;
-    public static ORDER_DETAIL = `http://operationsci02.backend.cindibyinkafarma.com/order/detail/`;
-    public static ORDER_STATUS = `http://operationsci02.backend.cindibyinkafarma.com/order/status`;
+    public static ORDER_LIST = `${API_GATEWAY_ORDER}/order/info`;
+    public static ORDER_DETAIL = `${API_GATEWAY_ORDER}/order/detail/`;
+    public static ORDER_STATUS = `${API_GATEWAY_ORDER}/order/status`;
 }

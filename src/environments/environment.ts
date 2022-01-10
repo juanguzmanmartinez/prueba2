@@ -8,6 +8,7 @@ export const environment = {
     envName: 'dev',
 
     api_gateway: 'https://4kz2r4t838.execute-api.us-east-1.amazonaws.com/CI02',
+    api_gateway_order: 'https://4kz2r4t838.execute-api.us-east-1.amazonaws.com/CI02',
     api_gateway_auth: 'https://28c9y4dvs8.execute-api.us-east-1.amazonaws.com/CI02',
     authUsername: 'adm-operations',
     authPassword: '12345',
