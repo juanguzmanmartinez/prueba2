@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ContentChild,
   EventEmitter,
@@ -9,6 +10,7 @@ import {
   Output,
   Self,
   TemplateRef,
+  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
@@ -22,10 +24,11 @@ import { normalizeValue } from '@helpers/string.helper';
   styleUrls: ['./select.component.sass'],
   encapsulation: ViewEncapsulation.None
 })
-export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestroy {
+export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestroy, AfterViewInit {
 
   private subscriptions = new Subscription();
 
+  public optionContainerWidth = '300px';
   public value: T;
 
   @Input() name: string | number;
@@ -46,8 +49,11 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   @Output() optionChange = new EventEmitter();
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
+  @ViewChild('select') select;
+
   onChange = (_: any) => {};
   onTouched = (_: any) => {};
+
 
   constructor(@Optional() @Self() public ngControl: NgControl) {
     if (ngControl) {
@@ -67,7 +73,13 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
     }
   }
 
-  validValue(value: T): void {
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.optionContainerWidth = `${this.select.nativeElement.offsetWidth}px`;
+    });
+  }
+
+  validValue(value: T) {
     let savedValue = !!this.value ? this.value.toString() : '';
     let newValue = !!value ? value.toString() : '';
     if (isObject(this.value)) {
@@ -82,12 +94,14 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
     } else if (!value) {
       this.value = null;
     }
+
   }
 
-  selectionChange(option: T): void {
+  selectionChange(option: T) {
     this.optionChange.emit(option);
     this.onChange(option);
   }
+
 
   writeValue(obj: T): void {
     this.validValue(obj);

@@ -124,10 +124,10 @@
     </div>
   </div>
 
-  <div class="row" [hidden]="errorResponse || !dataSource.filteredData.length">
+  <div class="row" [hidden]="errorResponse">
     <div class="col-lg-4"></div>
 
-    <div class="col-lg-4 d-flex-center">
+    <div class="col-lg-4 d-flex-center" *ngIf="showPaginator">
       <app-paginator
         [length]="totalOrder"
         [pageIndex]="page - 1"
@@ -136,16 +136,15 @@
       </app-paginator>
     </div>
 
-    <div class="col-lg-4">
+    <div class="col-lg-4" *ngIf="showPaginator">
       <div class="page-size">
         <div class="d-flex align-items-center justify-content-end">
           <p class="page-size-label text-gray-6 mb-0">Items por página</p>
           <app-select
             class="select-size"
-            [(ngModel)]="pageSize"
-            (ngModelChange)="onChangePageSize($event)"
+            [(ngModel)]="pageSize" [value]="10"
             containerMaxHeight="80px"
-            [optionList]="[10, 20, 30]">
+            [optionList]="[10, 20, 30]" (ngModelChange)="filterAll()">
           </app-select>
         </div>
       </div>

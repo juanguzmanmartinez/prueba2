@@ -17,7 +17,15 @@
   font-size: 12px !important;
 }
 
-.select-size {
-  width: 80px;
-  margin-left: 12px;
+.page-size {
+  &-label {
+    font-size: 12px;
+    margin-right: 12px;
+  }
+
+  .select-size {
+    &::ng-deep > .select {
+      width: 80px;
+    }
+  }
 }

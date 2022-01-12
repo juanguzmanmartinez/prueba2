@@ -1,4 +1,4 @@
-<div class="select">
+<div class="select" #select>
   <mat-select
     disableRipple
     disableOptionCentering
@@ -15,7 +15,9 @@
       </div>
     </mat-select-trigger>
 
-    <div class="option-container" [style.max-height]="containerMaxHeight">
+    <div class="option-container"
+         [style.max-height]="containerMaxHeight"
+         [style.width]="optionContainerWidth" [style.transform]="multiple ? 'translate(23px)' : ''">
       <mat-option class="select-basic-option select-basic-option-clear"
                   *ngIf="clearValue"
                   [class.select-square-option]="selectOptionSquare">{{clearValue}}</mat-option>

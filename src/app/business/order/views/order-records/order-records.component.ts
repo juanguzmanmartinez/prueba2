@@ -51,6 +51,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   page = 1;
   pageSize = 10;
+  showPaginator = true;
 
   private searchValue: string;
   private selectedLocals: string[];
@@ -201,36 +202,9 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  onChangePageSize(size: number): void {
-    this.tableLoader = true;
-    this.orderRecordsImplement
-      .orderList(
-        this.page,
-        size,
-        this.searchValue,
-        this.selectedLocals,
-        this.selectedCompany,
-        this.selectedService,
-        this.datePromise,
-        this.selectedStatus,
-        this.selectedChannel
-      )
-      .pipe(
-        finalize(() => {
-          this.tableLoader = false;
-        })
-      )
-      .subscribe({
-        next: (res: OrderRecords) => {
-          this.page = res.page;
-          this.setOrderPageData(res, false);
-        },
-        error: err => this.errorResponse = err
-      });
-  }
-
   filterAll(): void {
     this.tableLoader = true;
+    this.showPaginator = false;
     this.orderRecordsImplement
       .orderList(
         this.page,
@@ -245,7 +219,9 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       )
       .pipe(
         finalize(() => {
+          this.page = 1;
           this.tableLoader = false;
+          this.showPaginator = true;
         })
       )
       .subscribe({
