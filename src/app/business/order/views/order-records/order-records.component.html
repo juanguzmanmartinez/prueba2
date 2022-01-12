@@ -40,8 +40,7 @@
 
   <div class="row">
     <div class="col-12 mb-8">
-      <table mat-table large-table [dataSource]="dataSource" matSort class="order-table"
-             matTableExporter #exporter="matTableExporter" [hiddenColumns]="[0,7]" [hidden]="tableLoader">
+      <table mat-table large-table [dataSource]="dataSource" matSort class="order-table" [hidden]="tableLoader">
 
         <ng-container matColumnDef="select">
           <th mat-header-cell *matHeaderCellDef column-width="5%">

@@ -22,6 +22,7 @@ import {
   StatusFilterEvent
 } from './interfaces/order-records.interface';
 import { AlertService } from '@molecules/alert/alert.service';
+import { ExportTableSelection } from '../../../../shared/utils/export-table-selection.util';
 
 const ColumnNameList = {
   select: 'select',
@@ -301,7 +302,19 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   exportData(): void {
     try {
-      this.exporter.exportTable('xlsx', { fileName: 'Pedidos' });
+      const data = this.selection.selected.map(value => {
+        return {
+          ['N° Pedido']: value.orderId,
+          ['Local']: value.local,
+          ['Canal']: value.channel,
+          ['Servicio']: value.service,
+          ['F.Promesa']: value.promiseDate,
+          ['Cliente']: value.client,
+          ['Documento']: value.documentId,
+          ['Estado']: value.state
+        };
+      });
+      ExportTableSelection.exportArrayToExcel(data, 'Pedidos');
     } catch (e) {
       this.alertService.alertError('Hubo un error al descargar la información, por favor vuelve a intentarlo.');
     }
