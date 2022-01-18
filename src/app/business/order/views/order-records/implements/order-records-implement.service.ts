@@ -21,13 +21,13 @@ export class OrderRecordsImplementService {
 
     const filter = {};
 
-    if (multipleField) { Object.assign(filter, {multipleField}); }
-    if (localId) { Object.assign(filter, {localId}); }
-    if (serviceChannel) { Object.assign(filter, {serviceChannel}); }
-    if (serviceTypeId) { Object.assign(filter, {serviceTypeId}); }
-    if (promiseDate) { Object.assign(filter, {promiseDate}); }
-    if (orderStatus) { Object.assign(filter, {orderStatus}); }
-    if (companyCode) { Object.assign(filter, {companyCode}); }
+    if (multipleField?.length) { Object.assign(filter, {multipleField}); }
+    if (localId?.length) { Object.assign(filter, {localId}); }
+    if (serviceChannel?.length) { Object.assign(filter, {serviceChannel}); }
+    if (serviceTypeId?.length) { Object.assign(filter, {serviceTypeId}); }
+    if (promiseDate?.length) { Object.assign(filter, {promiseDate}); }
+    if (orderStatus?.length) { Object.assign(filter, {orderStatus}); }
+    if (companyCode?.length) { Object.assign(filter, {companyCode}); }
 
     return filter;
   }

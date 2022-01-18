@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ServicesFilterEvent } from '../../interfaces/order-records.interface';
+import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
 
 @Component({
   selector: 'app-service-filter',
@@ -10,13 +11,13 @@ export class ServiceFilterComponent {
 
   @Output() filter = new EventEmitter<ServicesFilterEvent>();
 
-  list = [
-    { code: 'AM_PM', name: 'AM/PM' },
-    { code: 'PROG', name: 'Programado' },
-    { code: 'EXP', name: 'Express' },
-    { code: 'RET', name: 'RET' },
-  ];
-  services = ['AM_PM', 'PROG', 'EXP', 'RET'];
+  services = [];
+
+  list = Object.keys(CDeliveryServiceTypeName).map(value => {
+    this.services.push(value);
+    return { code: value, name: CDeliveryServiceTypeName[value] };
+  });
+
   valueSelect: string;
 
   constructor() { }
