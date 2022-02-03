@@ -16,12 +16,12 @@ export class OrderRecordsImplementService {
     return this.orderClient.getStatusList();
   }
 
-  private filters = (multipleField: string, localId: string[], serviceChannel: string[], serviceTypeId: string[],
+  private filters = (searchCode: string, searchValue: string, localId: string[], serviceChannel: string[], serviceTypeId: string[],
                      promiseDate: string[], orderStatus: string[], companyCode: string[]): {} => {
 
     const filter = {};
 
-    if (multipleField?.length) { Object.assign(filter, {multipleField}); }
+    if (searchValue?.length) { Object.assign(filter, {filterType: searchCode, valueFilterType: searchValue}); }
     if (localId?.length) { Object.assign(filter, {localId}); }
     if (serviceChannel?.length) { Object.assign(filter, {serviceChannel}); }
     if (serviceTypeId?.length) { Object.assign(filter, {serviceTypeId}); }
@@ -38,12 +38,15 @@ export class OrderRecordsImplementService {
   ) {
   }
 
-  orderList(page: number, pages: number = 10, multipleField: string = '', localId: string[] = null,
-            serviceChannel: string[] = null, serviceTypeId: string[] = null, promiseDate: string[] = null,
-            orderStatus: string[] = null, companyCode: string[] = null): Observable<OrderRecords> {
+  orderList(page: number, pages: number = 10, searchCode: string = '', searchValue: string = '',
+            localId: string[] = null, serviceChannel: string[] = null, serviceTypeId: string[] = null,
+            promiseDate: string[] = null, orderStatus: string[] = null,
+            companyCode: string[] = null): Observable<OrderRecords> {
     return this.orderClient.getOrderList({
       filter: {
-        ...this.filters(multipleField, localId, serviceChannel, serviceTypeId, promiseDate, orderStatus, companyCode)
+        ...this.filters(
+          searchCode, searchValue, localId, serviceChannel, serviceTypeId, promiseDate, orderStatus, companyCode
+        )
       },
       page,
       records: pages

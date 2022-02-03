@@ -54,6 +54,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   pageSize = 10;
   showPaginator = true;
 
+  private searchCode: string;
   private searchValue: string;
   private selectedLocals: string[];
   private selectedCompany: string[];
@@ -181,6 +182,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       .orderList(
         pe.pageIndex + 1,
         pe.pageSize,
+        this.searchCode,
         this.searchValue,
         this.selectedLocals,
         this.selectedCompany,
@@ -210,6 +212,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       .orderList(
         this.page,
         this.pageSize,
+        this.searchCode,
         this.searchValue,
         this.selectedLocals,
         this.selectedCompany,
@@ -231,9 +234,10 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  filterBySearch(value: string): void {
-    this.searchValue = value;
-    this.notFound = value;
+  filterBySearch(value: { code: string, search: string }): void {
+    this.searchCode = value.code;
+    this.searchValue = value.search;
+    this.notFound = value.search;
     this.filterAll();
   }
 
