@@ -33,6 +33,6 @@ export class EndpointsParameter {
     public static DRUGSTORE_DETAIL_REPORT = `${DATA_STUDIO}/page/XElLC`;
 
     public static ORDER_LIST = `${API_GATEWAY_ORDER}/order/info`;
-    public static ORDER_DETAIL = `${API_GATEWAY_ORDER}/order/detail/`;
+    public static ORDER_DETAIL = `${API_GATEWAY_ORDER}/order/detail`;
     public static ORDER_STATUS = `${API_GATEWAY_ORDER}/order/status`;
 }
