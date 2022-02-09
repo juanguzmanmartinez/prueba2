@@ -53,7 +53,8 @@ export class OrderDetailModel {
       new OrderInformationModel(data.orderInfoConsolidated.orderInfoAdditional) : null;
     this.paymentInformation = data.orderInfoConsolidated?.paymentMethodDto ?
       new PaymentInformationModel(data.orderInfoConsolidated.paymentMethodDto) : null;
-    this.carrierInformation = null;
+    this.carrierInformation = data.orderInfoMotorized ?
+      new CarrierInformationModel(data.orderInfoMotorized) : null;
     this.productInformation = data.orderInfoConsolidated?.productDetail ?
       new ProductInformationModel(data.orderInfoConsolidated.productDetail) : null;
   }

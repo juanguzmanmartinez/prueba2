@@ -71,6 +71,13 @@ export interface Product {
   shortDescription: string;
 }
 
+export interface CarrierInformation {
+  document: string;
+  name: string;
+  phone: string;
+  travelGroup: string;
+}
+
 export interface OrderInformationConsolidatedResponse {
   orderInfo: OrderMainData;
   orderInfoClient: ClientInformation;
@@ -81,5 +88,6 @@ export interface OrderInformationConsolidatedResponse {
 
 export interface OrderDetailResponse {
   orderInfoConsolidated: OrderInformationConsolidatedResponse;
+  orderInfoMotorized: CarrierInformation;
   orderStatusDetail: OrderStatusDetail;
 }
