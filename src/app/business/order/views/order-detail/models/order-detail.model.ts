@@ -43,8 +43,8 @@ export class OrderDetailModel {
     this.promiseDate = data.orderInfoConsolidated?.orderInfo?.scheduledTime ?
       this.formatPromiseDate(data.orderInfoConsolidated.orderInfo.scheduledTime) : '-';
 
-    this.timeline = data.orderInfoConsolidated?.orderStatusDetail?.statusTimeLine
-      ? data.orderInfoConsolidated?.orderStatusDetail?.statusTimeLine.map(timeline => new TimelineModel(timeline))
+    this.timeline = data.orderStatusDetail?.statusTimeLine
+      ? data.orderStatusDetail?.statusTimeLine.map(timeline => new TimelineModel(timeline))
       : null;
 
     this.clientInformation = data.orderInfoConsolidated?.orderInfoClient ?
@@ -59,10 +59,12 @@ export class OrderDetailModel {
   }
 
   private formatPromiseDate = (scheduledTime: string): string => {
-    const date = new Date(scheduledTime.charAt(7));
-    const day = date.getUTCDate();
-    const month = date.getUTCMonth();
-    const hours = scheduledTime.slice(9).replace('-', 'a');
+    const day = scheduledTime.slice(0, 2);
+    const month = scheduledTime.slice(3, 5);
+    const hours = scheduledTime.slice(9)
+      .replace('-  -', 'a')
+      .replace('AM', 'a.m.')
+      .replace('PM', 'p.m.');
     return `${day}/${month} a las ${hours}`;
   }
 

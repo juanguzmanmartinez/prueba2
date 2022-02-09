@@ -58,6 +58,7 @@ export interface ProductInformation {
   totalImport: number;
   totalDiscount: number;
   deliveryAmount: number;
+  totalImportWithOutDiscount: number;
   products: Product[];
 }
 
@@ -71,7 +72,6 @@ export interface Product {
 }
 
 export interface OrderInformationConsolidatedResponse {
-  orderStatusDetail: OrderStatusDetail;
   orderInfo: OrderMainData;
   orderInfoClient: ClientInformation;
   orderInfoAdditional: OrderInformation;
@@ -81,4 +81,5 @@ export interface OrderInformationConsolidatedResponse {
 
 export interface OrderDetailResponse {
   orderInfoConsolidated: OrderInformationConsolidatedResponse;
+  orderStatusDetail: OrderStatusDetail;
 }

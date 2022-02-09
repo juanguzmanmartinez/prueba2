@@ -15,7 +15,8 @@ export class TimelineModel {
     this.info = '';
     this.infoDetail = '';
     this.date = data.updatedAt ? this.formatDate(data.updatedAt) : '-';
-    this.name = data.updatedBy ? this.formatDaySlot(data.updatedBy) : '-';
+    // this.name = data.updatedBy ? data.updatedBy : '-';
+    this.name = '';
   }
 
   private getFlow = (code: string, selected: boolean): 'done' | 'pending' | 'cancel' => {

@@ -22,11 +22,10 @@
     <hr class="mt-4 text-gray-1">
     <div class="hide-removed-products" [hidden]="!showRemovedProducts">
       <app-product-detail
-        *ngFor="let product of dataProduct.products"
+        *ngFor="let product of dataProduct.productsRemoved"
         [product]="product"
         [removed]="true">
       </app-product-detail>
-      <app-product-detail></app-product-detail>
     </div>
   </div>
   <div class="detail">

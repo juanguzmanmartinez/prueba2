@@ -19,17 +19,31 @@ export class OrderRecordsImplementService {
   private filters = (searchCode: string, searchValue: string, localId: string[], serviceChannel: string[], serviceTypeId: string[],
                      promiseDate: string[], orderStatus: string[], companyCode: string[]): {} => {
 
-    const filter = {};
+    const filters = {};
 
-    if (searchValue?.length) { Object.assign(filter, {filterType: searchCode, valueFilterType: searchValue}); }
-    if (localId?.length) { Object.assign(filter, {localId}); }
-    if (serviceChannel?.length) { Object.assign(filter, {serviceChannel}); }
-    if (serviceTypeId?.length) { Object.assign(filter, {serviceTypeId}); }
-    if (promiseDate?.length) { Object.assign(filter, {promiseDate}); }
-    if (orderStatus?.length) { Object.assign(filter, {orderStatus}); }
-    if (companyCode?.length) { Object.assign(filter, {companyCode}); }
+    if (searchValue?.length) {
+      Object.assign(filters, {filterType: searchCode, valueFilterType: searchValue});
+    }
+    if (localId?.length) {
+      Object.assign(filters, {localId});
+    }
+    if (serviceChannel?.length) {
+      Object.assign(filters, {serviceChannel});
+    }
+    if (serviceTypeId?.length) {
+      Object.assign(filters, {serviceTypeId});
+    }
+    if (promiseDate?.length) {
+      Object.assign(filters, {promiseDate});
+    }
+    if (orderStatus?.length) {
+      Object.assign(filters, {orderStatus});
+    }
+    if (companyCode?.length) {
+      Object.assign(filters, {companyCode});
+    }
 
-    return filter;
+    return filters;
   }
 
   constructor(
@@ -42,14 +56,26 @@ export class OrderRecordsImplementService {
             localId: string[] = null, serviceChannel: string[] = null, serviceTypeId: string[] = null,
             promiseDate: string[] = null, orderStatus: string[] = null,
             companyCode: string[] = null): Observable<OrderRecords> {
-    return this.orderClient.getOrderList({
-      filter: {
-        ...this.filters(
-          searchCode, searchValue, localId, serviceChannel, serviceTypeId, promiseDate, orderStatus, companyCode
-        )
-      },
+
+    const body = {
       page,
       records: pages
-    });
+    };
+
+    const filters = this.filters(
+      searchCode, searchValue,
+      localId,
+      serviceChannel,
+      serviceTypeId,
+      promiseDate,
+      orderStatus,
+      companyCode
+    );
+
+    if (Object.keys(filters).length) {
+      Object.assign(body, {filter: filters});
+    }
+
+    return this.orderClient.getOrderList(body);
   }
 }

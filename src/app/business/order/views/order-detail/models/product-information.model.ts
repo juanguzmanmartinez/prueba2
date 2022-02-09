@@ -16,7 +16,7 @@ export class ProductInformationModel {
     this.productsRemoved = [];
     this.originalAmount = '-';
     this.editedAmount = '-';
-    this.withoutDiscountAmount = '-';
+    this.withoutDiscountAmount = data.totalImportWithOutDiscount ? `S/ ${data.totalImportWithOutDiscount.toFixed(2)}` : 'S/ 0.00';
     this.igv = '-';
     this.deliveryAmount = data.deliveryAmount ? `S/ ${data.deliveryAmount.toFixed(2)}` : 'S/ 0.00';
     this.totalDiscount = data.totalDiscount ? `S/ -${data.totalDiscount.toFixed(2)}` : 'S/ -0.00';
@@ -34,7 +34,7 @@ export class ProductModel {
 
   constructor(data: Product) {
     this.prescription = false;
-    this.shortDescription = data.shortDescription ? data.shortDescription : '-';
+    this.shortDescription = data.shortDescription ? data.shortDescription : '';
     this.name = data.name ? data.name : '-';
     this.sku = data.sku ? data.sku : '-';
     this.quantity = data.quantity ? data.quantity : '-';

@@ -24,12 +24,13 @@ export class StatusFilterComponent implements OnInit {
     this.orderRecordImplement.statusList
       .pipe(
         tap((res: OrderStatus[]) => {
-          this.list = res;
+          this.list = [...new Set(res)];
         }),
         map((res: OrderStatus[]) => {
-          return res.map(val => {
+          const codes = res.map(val => {
             return val.code;
           });
+          return [...new Set(codes)];
         })
       )
       .subscribe((response: string[]) => {
