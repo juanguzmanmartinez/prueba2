@@ -6,6 +6,7 @@ import { PaymentInformationModel } from './payment-information.model';
 import { CarrierInformationModel } from './carrier-information.model';
 import { TimelineModel } from './timeline.model';
 import { ETypeTagBrand } from '@models/tag/tag.model';
+import { reorderTimeline } from '../../../../../shared/utils/timeline.util';
 
 export class OrderDetailModel {
   orderNumber: string;
@@ -44,7 +45,7 @@ export class OrderDetailModel {
       this.formatPromiseDate(data.orderInfoConsolidated.orderInfo.scheduledTime) : '-';
 
     this.timeline = data.orderStatusDetail?.statusTimeLine
-      ? data.orderStatusDetail?.statusTimeLine.map(timeline => new TimelineModel(timeline))
+      ? reorderTimeline(data.orderStatusDetail?.statusTimeLine).map(timeline => new TimelineModel(timeline))
       : null;
 
     this.clientInformation = data.orderInfoConsolidated?.orderInfoClient ?

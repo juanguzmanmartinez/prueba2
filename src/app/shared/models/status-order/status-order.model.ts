@@ -26,7 +26,7 @@ export const CStatusOrderName = {
   [EStatusOrder.picking]: 'Picking',
   [EStatusOrder.prepared]: 'Preparado',
   [EStatusOrder.onRouted]: 'En ruta',
-  [EStatusOrder.arrived]: 'Entregado',
+  [EStatusOrder.arrived]: 'Llegó',
   [EStatusOrder.rejected]: 'Rechazado',
   [EStatusOrder.checkout]: 'Checkout',
   [EStatusOrder.onHold]: 'En espera',

@@ -12,7 +12,7 @@ export interface OrderTimeline {
   selected: boolean;
   order: string;
   updatedBy: string;
-  updatedAt: string;
+  time: string;
 }
 
 export interface OrderStatusDetail {

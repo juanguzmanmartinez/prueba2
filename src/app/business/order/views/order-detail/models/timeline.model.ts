@@ -14,7 +14,7 @@ export class TimelineModel {
     this.status = data.code ? this.getStatus(data.code) : '-';
     this.info = '';
     this.infoDetail = '';
-    this.date = data.updatedAt ? this.formatDate(data.updatedAt) : '-';
+    this.date = data.time ? this.formatDate(data.time) : '-';
     // this.name = data.updatedBy ? data.updatedBy : '-';
     this.name = '';
   }
@@ -37,11 +37,15 @@ export class TimelineModel {
     return CStatusOrderName[code];
   }
 
-  private formatDate = (updateAt: string): string => {
-    const day = updateAt.slice(0, 2);
-    const month = updateAt.slice(3, 5);
-    const hour = updateAt.slice(9, 14);
-    const daySlot = this.formatDaySlot(updateAt.slice(15).toLowerCase());
+  private formatDate = (time: string): string => {
+    if (time === 'Automatic') {
+      return 'Automatico';
+    }
+
+    const day = time.slice(0, 2);
+    const month = time.slice(3, 5);
+    const hour = time.slice(9, 14);
+    const daySlot = this.formatDaySlot(time.slice(15).toLowerCase());
     return `${day}/${month} a las ${hour} ${daySlot}`;
   }
 
