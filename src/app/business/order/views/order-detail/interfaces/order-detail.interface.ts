@@ -68,7 +68,7 @@ export interface Product {
   unitPrice: string;
   totalPrice: string;
   name: string;
-  shortDescription: string;
+  presentationDescription: string;
 }
 
 export interface CarrierInformation {

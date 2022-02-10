@@ -22,11 +22,27 @@ export class ProductInformationModel {
     this.totalDiscount = data.totalDiscount ? `S/ -${data.totalDiscount.toFixed(2)}` : 'S/ -0.00';
     this.totalAmountCharged = data.totalImport ? `S/ ${data.totalImport.toFixed(2)}` : 'S/ 0.00';
   }
+
+  existProductRemoved(): boolean {
+    return !!this.productsRemoved.length;
+  }
+
+  hasMoreThanOneProductRemoved(): boolean {
+    return this.productsRemoved.length !== 1;
+  }
+
+  firstProductRemoved(): ProductModel {
+    return this.productsRemoved[0];
+  }
+
+  hiddenProductsRemoved(): ProductModel[] {
+    return this.productsRemoved.slice(1);
+  }
 }
 
 export class ProductModel {
   prescription: boolean;
-  shortDescription: string;
+  presentationDescription: string;
   name: string;
   sku: string;
   quantity: string;
@@ -34,7 +50,7 @@ export class ProductModel {
 
   constructor(data: Product) {
     this.prescription = false;
-    this.shortDescription = data.shortDescription ? data.shortDescription : '';
+    this.presentationDescription = data.presentationDescription ? data.presentationDescription : '';
     this.name = data.name ? data.name : '-';
     this.sku = data.sku ? data.sku : '-';
     this.quantity = data.quantity ? data.quantity : '-';
