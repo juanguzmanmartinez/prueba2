@@ -16,9 +16,8 @@
   <div class="col-6">
     <app-input-search
       labelClass="w-100"
-      [(ngModel)]="searchContent"
       [placeholder]="'Buscar por ' + valueSelect.name"
-      (ngModelChange)="changeSearch($event)">
+      [formControl]="search">
     </app-input-search>
   </div>
 </div>

@@ -37,7 +37,10 @@
         <tr>
           <td class="card-brand">Marca de tarjeta:</td>
           <td>
-            <app-icon [svgName]="dataPayment.cardBrand" svgWidth="40px" svgHeight="32px" innerClass="mt-2"></app-icon>
+            <ng-container *ngIf="dataPayment.cardBrand else noIcon">
+              <app-icon [svgName]="dataPayment.cardBrand" svgWidth="40px" svgHeight="32px" innerClass="mt-2"></app-icon>
+            </ng-container>
+            <ng-template #noIcon>-</ng-template>
           </td>
         </tr>
         <tr>

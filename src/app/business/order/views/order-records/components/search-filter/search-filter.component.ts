@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 interface TypeSearch {
   code: string;
@@ -11,7 +14,9 @@ interface TypeSearch {
   templateUrl: './search-filter.component.html',
   styleUrls: ['./search-filter.component.scss']
 })
-export class SearchFilterComponent {
+export class SearchFilterComponent implements OnDestroy {
+
+  search = new FormControl('');
 
   typesSearch: TypeSearch[] = [
     {code: '1', icon: 'call', name: 'Nº de pedido'},
@@ -19,31 +24,44 @@ export class SearchFilterComponent {
     {code: '3', icon: 'assignment_ind', name: 'Doc. Identidad'}
   ];
 
-  typesCodes = ['1', '2', '3'];
-
   valueSelect: TypeSearch = this.typesSearch[0];
+
+  private subscription = new Subscription();
 
   @Output() filter = new EventEmitter<{ code: string, search: string }>();
 
-  searchContent = '';
-
   constructor() {
+    this.listenSearch();
   }
 
   selectionChange(event: TypeSearch): void {
     this.valueSelect = event;
-    this.searchContent = '';
+    if (this.search.value) {
+      this.search.setValue('');
+    }
+  }
+
+  private changeSearch(value: string): void {
     this.filter.emit({
       code: this.valueSelect.code,
-      search: ''
+      search: value
     });
   }
 
-  changeSearch(event): void {
-    this.filter.emit({
-      code: this.valueSelect.code,
-      search: event
-    });
+  private listenSearch(): void {
+    const subscription = this.search.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged()
+      )
+      .subscribe({
+        next: value => this.changeSearch(value)
+      });
+    this.subscription.add(subscription);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }
