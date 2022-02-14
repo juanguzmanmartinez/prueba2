@@ -14,6 +14,7 @@ import { ProductInformationModule } from './components/product-information/produ
 import { OrderClientService } from '@clients/order/order-client.service';
 import { OrderDetailImplementService } from './implements/order-detail-implement.service';
 import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
+import { ButtonsModule } from '@atoms/buttons/buttons.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewe
     PaymentInformationModule,
     CarrierInformationModule,
     ProductInformationModule,
-    HttpErrorViewerModule
+    HttpErrorViewerModule,
+    ButtonsModule
   ],
   providers: [
     OrderDetailImplementService,

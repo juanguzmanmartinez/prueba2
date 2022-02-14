@@ -1,21 +1,24 @@
 <section class="pt-8 pb-15" *ngIf="orderDetail">
   <div class="d-flex flex-column">
     <app-back-router-simple backRoute="/pedidos/registros" class="back"></app-back-router-simple>
-    <div class="mt-1 d-inline-flex align-items-center">
-      <div class="d-inline-flex align-items-center gap-1">
-        <p class="text-h4 text-black mb-0">
-          Pedido Nº {{ orderDetail.orderNumber }} {{ orderDetail.callNumber ? '/' : '' }}
-        </p>
-        <p class="text-gray-4 text-h4 mb-0" *ngIf="orderDetail.callNumber">
-          Call: {{ orderDetail.callNumber }}
-        </p>
+    <div class="mt-1 d-inline-flex justify-content-between">
+      <div class="d-inline-flex align-items-center">
+        <div class="d-inline-flex align-items-center gap-1">
+          <p class="text-h4 text-black mb-0">
+            Pedido Nº {{ orderDetail.orderNumber }} {{ orderDetail.callNumber ? '/' : '' }}
+          </p>
+          <p class="text-gray-4 text-h4 mb-0" *ngIf="orderDetail.callNumber">
+            Call: {{ orderDetail.callNumber }}
+          </p>
+        </div>
+        <div class="tags d-flex align-items-center gap-2">
+          <app-tag [typeBrand]="orderDetail.iconTagCompany" appearance="brand-white">{{ orderDetail.tagCompany }}</app-tag>
+          <app-tag typeInformative="secondary" appearance="informative-white">{{ orderDetail.tagChannel }}</app-tag>
+          <app-tag typeInformative="complementary-three" appearance="informative-white">{{ orderDetail.tagOrderType }}</app-tag>
+          <app-tag typeInformative="complementary-two" appearance="informative-white">{{ orderDetail.tagServiceType }}</app-tag>
+        </div>
       </div>
-      <div class="tags d-flex align-items-center gap-2">
-        <app-tag [typeBrand]="orderDetail.iconTagCompany" appearance="brand-white">{{ orderDetail.tagCompany }}</app-tag>
-        <app-tag typeInformative="secondary" appearance="informative-white">{{ orderDetail.tagChannel }}</app-tag>
-        <app-tag typeInformative="complementary-three" appearance="informative-white">{{ orderDetail.tagOrderType }}</app-tag>
-        <app-tag typeInformative="complementary-two" appearance="informative-white">{{ orderDetail.tagServiceType }}</app-tag>
-      </div>
+      <app-button-icon iconName="refresh" (click)="refreshData()">Actualizar</app-button-icon>
     </div>
   </div>
 

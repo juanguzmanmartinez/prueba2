@@ -31,4 +31,11 @@ export class OrderDetailComponent implements OnInit {
       });
   }
 
+  refreshData(): void {
+    this.implementsService.orderDetail(this.orderId)
+      .subscribe({
+        next: response => this.orderDetail = response
+      });
+  }
+
 }
