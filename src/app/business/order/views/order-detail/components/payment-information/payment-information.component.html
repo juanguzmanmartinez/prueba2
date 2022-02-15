@@ -1,0 +1,58 @@
+<app-accordion-information svgName="credit-card"  title="Información del pago">
+  <div class="row">
+    <div class="col-6">
+      <table>
+        <tr>
+          <td>Tipo de pago:</td>
+          <td>{{ dataPayment.paymentType }}</td>
+        </tr>
+        <tr>
+          <td>ID Transacción:</td>
+          <td>{{ dataPayment.transactionId }}</td>
+        </tr>
+        <tr>
+          <td>Vuelto:</td>
+          <td>{{ dataPayment.changeAmount }}</td>
+        </tr>
+        <tr>
+          <td>Estado:</td>
+          <td>{{ dataPayment.status }}</td>
+        </tr>
+        <tr>
+          <td>Fecha:</td>
+          <td>{{ dataPayment.date }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-6">
+      <table>
+        <tr>
+          <td>PAN Nº tarjeta:</td>
+          <td>{{ dataPayment.cardNumber }}</td>
+        </tr>
+        <tr>
+          <td>Cod. Autorización:</td>
+          <td>{{ dataPayment.authorizationCode }}</td>
+        </tr>
+        <tr>
+          <td class="card-brand">Marca de tarjeta:</td>
+          <td>
+            <ng-container *ngIf="dataPayment.cardBrand else noIcon">
+              <app-icon [svgName]="dataPayment.cardBrand" svgWidth="40px" svgHeight="32px" innerClass="mt-2"></app-icon>
+            </ng-container>
+            <ng-template #noIcon>-</ng-template>
+          </td>
+        </tr>
+        <tr>
+          <td>Financiera:</td>
+          <td>{{ dataPayment.financial }}</td>
+        </tr>
+        <tr>
+          <td>Usuario liquidador:</td>
+          <td>{{ dataPayment.liquidationUser }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</app-accordion-information>
+

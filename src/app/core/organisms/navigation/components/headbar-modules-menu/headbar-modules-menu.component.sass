@@ -1,0 +1,22 @@
+@import "src/sass/variables"
+@import "src/sass/mixins/display.mixin"
+
+.nav-headbar-menu-container
+  height: 16px
+  width: 16px
+  @include d-flex-center
+
+  .nav-headbar-menu
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: center
+    width: 12px
+    height: 8px
+
+  .nav-headbar-menu-bar
+    width: 12px
+    height: 1.5px
+    background: $white
+    border-radius: 4px
+    transition: 0.5s

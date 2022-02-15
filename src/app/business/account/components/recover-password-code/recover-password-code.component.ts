@@ -47,7 +47,7 @@ export class RecoverPasswordCodeComponent implements OnInit {
     validCode() {
         this.recoveryPasswordStore.code = this.recoverPasswordCodeForm.codeControl.value;
         this._router.navigate(
-            [ROUTER_PATH.recoverPasswordReset],
+            [ROUTER_PATH.acctRecoverPasswordReset],
             {skipLocationChange: true});
     }
 
@@ -60,12 +60,12 @@ export class RecoverPasswordCodeComponent implements OnInit {
     invalidUsername() {
         this.recoveryPasswordStore.resetStore();
         this.alertService.alertError(RecoveryPasswordAlertMessages.invalidUserName);
-        this._router.navigate([ROUTER_PATH.recoverPasswordUser]);
+        this._router.navigate([ROUTER_PATH.acctRecoverPasswordUser]);
     }
 
     formCancel() {
         this.recoveryPasswordStore.resetStore();
-        this._router.navigate([ROUTER_PATH.login]);
+        this._router.navigate([ROUTER_PATH.accountLogin]);
     }
 
     resetFormValidators() {

@@ -1,0 +1,26 @@
+<div class="product row mt-1">
+  <div class="col-3 d-flex-vertical-center">
+    <app-tooltip value="Requiere receta médica" position="below" innerClass="bottom-43-right-21" *ngIf="product.prescription">
+      <app-icon svgName="prescription-product" svgHeight="64px" svgWidth="64px"></app-icon>
+    </app-tooltip>
+    <app-icon *ngIf="!product.prescription" svgName="product" svgHeight="64px" svgWidth="64px"></app-icon>
+  </div>
+  <div class="col-6">
+    <p class="text-body-2-bold text-gray-5 m-0 title">{{ product.presentationDescription }}</p>
+    <p class="text-body-2-regular text-gray-6 m-0 name">{{ product.name }}</p>
+    <div class="d-inline-flex gap-1 mt-1 w-100">
+      <p class="text-body-2-regular text-gray-5 m-0">SKU</p>
+      <p class="text-body-2-bold text-gray-5 m-0">{{ product.sku }}</p>
+    </div>
+    <div class="d-inline-flex gap-1 mt-1 w-100">
+      <p class="text-body-2-regular text-gray-5 m-0">Cantidad: </p>
+      <p class="text-body-2-bold text-gray-6 m-0">{{ product.quantity }}</p>
+    </div>
+  </div>
+  <div class="col-3">
+    <p class="text-body-2-bold text-gray-6 m-0 d-flex-horizontal-end" [class.text-decoration-line-through]="removed">
+      {{ product.totalPrice }}
+    </p>
+  </div>
+  <hr class="mt-5 text-gray-1">
+</div>

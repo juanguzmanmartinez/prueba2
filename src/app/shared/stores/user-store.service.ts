@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Role } from '@parameters/auth/role.parameter';
 import { User } from '@models/auth/user.model';
 import { TokenStoreService } from '@stores/token-store.service';
-import { IUser } from '@interfaces/auth/user.interface';
+import { IDecodeToken } from '@interfaces/auth/token.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { Router } from '@angular/router';
+import { Access } from '@parameters/auth/access.parameter';
 
 @Injectable()
 export class UserStoreService {
@@ -17,7 +18,7 @@ export class UserStoreService {
         private _tokenStore: TokenStoreService,
         private _router: Router,
     ) {
-        this._tokenStore.decodeToken$.subscribe((iDecodeToken) => {
+        this._tokenStore.decodeToken$.subscribe((iDecodeToken: IDecodeToken) => {
             if (iDecodeToken) {
                 this.decodeUser = this._tokenStore.decodeToken;
             } else {
@@ -26,8 +27,8 @@ export class UserStoreService {
         });
     }
 
-    set decodeUser(iUser: IUser) {
-        this.user = new User(iUser);
+    set decodeUser(iDecodeToken: IDecodeToken) {
+        this.user = new User(iDecodeToken);
         this.userSubject.next(this.user);
     }
 
@@ -36,7 +37,20 @@ export class UserStoreService {
     }
 
     hasRole(role: Role): boolean {
-        return this.authenticated() && this.user.role === role;
+        return this.authenticated() && !!this.currentUser.permissionList
+            .find((permissions) => permissions.role === role);
+    }
+
+    hasAccess(access: Access): boolean {
+        return this.authenticated() && !!this.currentUser.permissionList
+            .find((permissions) => permissions.access
+                .find(userAccess => userAccess === access));
+    }
+
+    hasAccessByRole(role: Role, access: Access): boolean {
+        return this.authenticated() && !!this.currentUser.permissionList
+            .find((permissions) => permissions.role === role)?.access
+            .find(((userAccess) => userAccess === access));
     }
 
     get currentUser(): User {
@@ -51,6 +65,6 @@ export class UserStoreService {
         this.user = null;
         this.userSubject.next(null);
         this._tokenStore.removeAccessToken();
-        this._router.navigate([ROUTER_PATH.login]);
+        this._router.navigate([ROUTER_PATH.accountLogin]);
     }
 }

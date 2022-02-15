@@ -1,4 +1,4 @@
-@import "src/sass/variables/colors.variable"
+@import "src/sass/variables"
 @import "src/sass/mixins/text.mixin"
 @import "src/sass/mixins/display.mixin"
 
@@ -29,9 +29,9 @@
       width: 25px
       height: 25px
       margin: 0 2.5px
-      border-radius: 50%
+      border-radius: $border-radius-round
       color: $gray-5
-      @include text-caption
+      @include text-body-2-regular
       @include d-flex-center
       display: inline-flex
       cursor: pointer

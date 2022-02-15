@@ -12,9 +12,13 @@ export class GenericService {
   public genericGet<T>(
     endpoint: string,
     params: HttpParams = null,
-    headers: HttpHeaders = new HttpHeaders()
+    headers: HttpHeaders = new HttpHeaders(),
+    // tslint:disable-next-line:ban-types
+    body: Object = null
   ) {
     const options = {headers};
+    // tslint:disable-next-line:no-string-literal
+    if (body) { options['body'] = body; }
     // tslint:disable-next-line:no-string-literal
     if (params) { options['params'] = params; }
     return this.http.get<T>(endpoint, options)

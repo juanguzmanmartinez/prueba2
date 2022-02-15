@@ -1,41 +1,41 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 export class ZoneBackupServiceTypeDetailControlName {
-    static state = 'state';
+  static state = 'state';
 }
 
 @Injectable()
 export class OpZonesEditionBackupServiceTypeDetailFormCardFormService implements OnDestroy {
 
-    private readonly formGroup: FormGroup;
+  private readonly formGroup: FormGroup;
 
-    private _stateControl: FormControl = new FormControl(null);
+  private _stateControl: FormControl = new FormControl(null);
 
-    private _controlNameList = ZoneBackupServiceTypeDetailControlName;
+  private _controlNameList = ZoneBackupServiceTypeDetailControlName;
 
-    constructor(
-        private _formBuilder: FormBuilder
-    ) {
-        this.formGroup = this._formBuilder.group({
-            [this._controlNameList.state]: this._stateControl,
-        });
-    }
+  get form$(): FormGroup {
+    return this.formGroup;
+  }
 
-    get form$() {
-        return this.formGroup;
-    }
+  get stateControl(): AbstractControl {
+    return this.form$.get(this._controlNameList.state);
+  }
 
-    get stateControl() {
-        return this.form$.get(this._controlNameList.state);
-    }
+  constructor(
+    private _formBuilder: FormBuilder
+  ) {
+    this.formGroup = this._formBuilder.group({
+      [this._controlNameList.state]: this._stateControl,
+    });
+  }
 
-    resetForm() {
-        this.stateControl.patchValue(null);
-    }
+  resetForm(): void {
+    this.stateControl.patchValue(null);
+  }
 
-    ngOnDestroy() {
-        this.resetForm();
-    }
+  ngOnDestroy(): void {
+    this.resetForm();
+  }
 }
 

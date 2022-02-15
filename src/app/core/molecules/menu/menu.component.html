@@ -1,0 +1,16 @@
+<div #menuTrigger="matMenuTrigger"
+     (menuClosed)="menuClosedEvent()"
+     (menuOpened)="menuOpenedEvent()"
+     (mouseenter)="mouseEnterEvent()"
+     [matMenuTriggerFor]="menu">
+    <ng-content select="[triggerFor]"></ng-content>
+</div>
+
+<mat-menu #menu="matMenu"
+          [backdropClass]="backdropClass"
+          [classList]="'menu-container ' + panelClass + ' menu-container-'+ actions"
+          [hasBackdrop]="hasBackdrop">
+    <div #menuContainer>
+        <ng-content select="[content]"></ng-content>
+    </div>
+</mat-menu>

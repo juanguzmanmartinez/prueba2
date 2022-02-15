@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
 import { ICapacityStepCapacityTableSegments } from './models/op-capacities-step-capacity-table.model';
 import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
-
 
 export enum ECapacitiesStepCapacityTable {
   daysRange = 'daysRange',
@@ -12,7 +11,7 @@ export enum ECapacitiesStepCapacityTable {
 }
 
 @Injectable()
-export class OpCapacitiesStepCapacityTableService {
+export class OpCapacitiesStepCapacityTableService implements OnDestroy {
 
   private capacityTableFormViewSubject = new BehaviorSubject<ECapacitiesStepCapacityTable>(ECapacitiesStepCapacityTable.daysRange);
   private capacityTableSegmentsSubject = new BehaviorSubject<ICapacityStepCapacityTableSegments>(null);
@@ -23,8 +22,7 @@ export class OpCapacitiesStepCapacityTableService {
   private capacityTableSaveSubject = new BehaviorSubject<ICapacityStepCapacityTableSegments>(null);
   private capacityTableCancelSubject = new BehaviorSubject<boolean>(false);
 
-  constructor() {
-  }
+  private capacityTableEditionAccessPathStored: string;
 
   get capacityTableStepStatus$(): Observable<ECapacityStepStatus> {
     return this.capacityTableStepStatusSubject.asObservable()
@@ -88,6 +86,26 @@ export class OpCapacitiesStepCapacityTableService {
 
   set capacityTableSave(capacityTableFormValue: ICapacityStepCapacityTableSegments) {
     this.capacityTableSaveSubject.next(capacityTableFormValue);
+  }
+
+  get capacityTableEditionAccessPath(): string {
+    return this.capacityTableEditionAccessPathStored;
+  }
+
+  set capacityTableEditionAccessPath(capacityTableEditionAccessPath: string) {
+    this.capacityTableEditionAccessPathStored = capacityTableEditionAccessPath;
+  }
+
+  constructor() { }
+
+  ngOnDestroy(): void {
+    this.capacityTableFormViewSubject.complete();
+    this.capacityTableSegmentsSubject.complete();
+    this.capacityTableRangeLimitSubject.complete();
+    this.capacityTableStepStatusSubject.complete();
+    this.capacityTableResetStepStatusSubject.complete();
+    this.capacityTableSaveSubject.complete();
+    this.capacityTableCancelSubject.complete();
   }
 
 }

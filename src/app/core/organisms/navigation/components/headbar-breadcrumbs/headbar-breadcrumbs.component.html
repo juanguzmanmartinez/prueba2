@@ -1,0 +1,14 @@
+<div class="nav-headbar-breadcrumbs">
+  <app-router [router]="baseRouter.path">
+    <app-icon svgName="logo-brand" svgWidth="32px" svgHeight="32px"></app-icon>
+  </app-router>
+
+  <ng-container *ngIf="childRouter">
+    <span class="nav-headbar-breadcrumbs-separator"></span>
+    <app-router [router]="childRouter.path">
+      <span class="text-white nav-headbar-breadcrumbs-text-logo">
+        {{ childRouter.name }}
+      </span>
+    </app-router>
+  </ng-container>
+</div>

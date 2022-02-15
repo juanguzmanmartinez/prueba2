@@ -12,11 +12,11 @@ import { EZoneType, ZoneTypeList } from '../../../business/operations/views/oper
 @Injectable()
 export class ZonesClientService {
 
-    private readonly ZONE_LIST = EndpointsParameter.GET_ZONES;
-    private readonly ZONE_LIST_DETAIL = EndpointsParameter.GET_ZONE_DETAIL;
+    private readonly ZONE_LIST = EndpointsParameter.ZONE_LIST;
+    private readonly ZONE_DETAIL = EndpointsParameter.ZONE_DETAIL;
     private readonly ZONE_BACKUP = EndpointsParameter.ZONE_BACKUP;
-    private readonly ZONE_CHANNEL = EndpointsParameter.GET_ZONES_CHANNEL;
-    private readonly ZONE_SERVICE_TYPE = EndpointsParameter.ZONES_SERVICE_TYPE;
+    private readonly ZONE_CHANNEL = EndpointsParameter.ZONE_CHANNEL_LIST;
+    private readonly ZONE_SERVICE_TYPE = EndpointsParameter.ZONE_SERVICE_TYPE;
 
     constructor(
         private generic: GenericService
@@ -34,7 +34,7 @@ export class ZonesClientService {
     }
 
     getZoneDetail(zoneCode: string): Observable<IZoneDetail> {
-        const endpoint = `${this.ZONE_LIST_DETAIL}/${zoneCode}`;
+        const endpoint = `${this.ZONE_DETAIL}/${zoneCode}`;
         return this.generic.genericGet<IZoneDetail>(endpoint)
             .pipe(
                 take(1),
@@ -44,7 +44,7 @@ export class ZonesClientService {
     }
 
     putZoneDetail(zoneCode: string, body: IZoneDetailUpdate): Observable<any> {
-        const endpoint = `${this.ZONE_LIST_DETAIL}/${zoneCode}`;
+        const endpoint = `${this.ZONE_DETAIL}/${zoneCode}`;
         return this.generic.genericPut<any>(endpoint, body)
             .pipe(take(1));
     }

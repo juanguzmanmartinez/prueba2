@@ -1,29 +1,24 @@
 <section class="zone-service-type-detail-dialog pb-7" app-dialog-container>
-    <div app-dialog-close mat-dialog-close></div>
+  <div app-dialog-close mat-dialog-close></div>
 
-    <div class="content border-bottom border-gray-2 pb-6">
-        <app-dialog-header svgName="book">
-            <ng-container dialog-header-title>
-                Ventanas horarias
-            </ng-container>
-            <ng-container dialog-header-description>
-                Detalle de segmentos
-            </ng-container>
-        </app-dialog-header>
-    </div>
+  <div class="content border-bottom border-gray-2 pb-6">
+    <app-dialog-header svgName="book">
+      <ng-container dialog-header-title>Ventanas horarias</ng-container>
+      <ng-container dialog-header-description>Detalle de segmentos</ng-container>
+    </app-dialog-header>
+  </div>
 
-    <div class="dialog-content content pt-6 pe-15">
-        <table mat-table
-               [dataSource]="dataSource">
+  <div class="dialog-content content pt-6 pe-15">
+    <table mat-table [dataSource]="dataSource">
 
-            <ng-container matColumnDef="scheduled-time">
-                <th mat-header-cell *matHeaderCellDef>Bloque horario</th>
-                <td mat-cell *matCellDef="let element">{{element}}</td>
-            </ng-container>
+      <ng-container matColumnDef="scheduled-time">
+        <th mat-header-cell *matHeaderCellDef>Bloque horario</th>
+        <td mat-cell *matCellDef="let element">{{element}}</td>
+      </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-            </tr>
-        </table>
-    </div>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </div>
 </section>

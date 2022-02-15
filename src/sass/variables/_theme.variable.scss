@@ -1,50 +1,53 @@
 @import "src/sass/functions";
 
-$primary-colors-map: (
-        "light-primary": $light-primary,
-        "primary": $primary,
-        "dark-primary": $dark-primary
+$main-colors-map: (
+  "light-primary": $light-primary,
+  "primary": $primary,
+  "dark-primary": $dark-primary,
+  "light-secondary": $light-secondary,
+  "secondary": $secondary,
+  "dark-secondary": $dark-secondary
 );
-$secondary-colors-map: (
-        "light-secondary-one": $light-secondary-one,
-        "secondary-one": $secondary-one,
-        "dark-secondary-one": $dark-secondary-one,
-        "light-secondary-two": $light-secondary-two,
-        "secondary-two": $secondary-two,
-        "dark-secondary-two": $dark-secondary-two,
-        "light-secondary-three": $light-secondary-three,
-        "secondary-three": $secondary-three,
-        "dark-secondary-three": $dark-secondary-three,
-        "light-secondary-four": $light-secondary-four,
-        "secondary-four": $secondary-four,
-        "dark-secondary-four": $dark-secondary-four,
-        "light-secondary-five": $light-secondary-five,
-        "secondary-five": $secondary-five,
-        "dark-secondary-five": $dark-secondary-five,
+$complementary-colors-map: (
+  "light-complementary-one": $light-complementary-one,
+  "complementary-one": $complementary-one,
+  "dark-complementary-one": $dark-complementary-one,
+  "light-complementary-two": $light-complementary-two,
+  "complementary-two": $complementary-two,
+  "dark-complementary-two": $dark-complementary-two,
+  "light-complementary-three": $light-complementary-three,
+  "complementary-three": $complementary-three,
+  "dark-complementary-three": $dark-complementary-three
 );
 
 $neutral-colors-map: (
-        "white": $white,
-        "gray-1": $gray-1,
-        "gray-2": $gray-2,
-        "gray-3": $gray-3,
-        "gray-4": $gray-4,
-        "gray-5": $gray-5,
-        "gray-6": $gray-6,
-        "black": $black
+  "white": $white,
+  "gray-0": $gray-0,
+  "gray-1": $gray-1,
+  "gray-2": $gray-2,
+  "gray-3": $gray-3,
+  "gray-4": $gray-4,
+  "gray-5": $gray-5,
+  "gray-6": $gray-6,
+  "black": $black
 );
 
 $semantic-colors-map: (
-        "light-success": $light-success,
-        "success": $success,
-        "dark-success": $dark-success,
-        "light-warning": $light-warning,
-        "warning": $warning,
-        "dark-warning": $dark-warning,
-        "light-danger": $light-danger,
-        "danger": $danger,
-        "dark-danger": $dark-danger
+  "light-success": $light-success,
+  "success": $success,
+  "dark-success": $dark-success,
+  "light-warning": $light-warning,
+  "warning": $warning,
+  "dark-warning": $dark-warning,
+  "light-danger": $light-danger,
+  "danger": $danger,
+  "dark-danger": $dark-danger
 );
 
-$colors: map-collect($primary-colors-map, $secondary-colors-map, $semantic-colors-map, $neutral-colors-map);
-$theme-colors: map-collect($primary-colors-map, $secondary-colors-map, $semantic-colors-map, $neutral-colors-map);
+$brand-colors-map: (
+  "inkafarma": $inkafarma,
+  "mifarma": $mifarma
+);
+
+$colors: map-collect($main-colors-map, $complementary-colors-map, $semantic-colors-map, $neutral-colors-map, $brand-colors-map);
+$theme-colors: map-collect($main-colors-map, $complementary-colors-map, $semantic-colors-map, $neutral-colors-map, $brand-colors-map);

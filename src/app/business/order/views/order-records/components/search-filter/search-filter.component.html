@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-6">
+    <app-select
+      placeholder="Tipo" [customValue]="true" [optionList]="typesSearch" [value]="typesSearch[0]"
+      (optionChange)="selectionChange($event)">
+      <ng-container trigger>
+        <app-icon [fontName]="valueSelect.icon"></app-icon>
+        {{ valueSelect.name }}
+      </ng-container>
+      <ng-template let-type>
+        <app-icon [fontName]="type.icon" fontSize="16px"></app-icon>
+        {{ type.name }}
+      </ng-template>
+    </app-select>
+  </div>
+  <div class="col-6">
+    <app-input-search
+      labelClass="w-100"
+      [placeholder]="'Buscar por ' + valueSelect.name"
+      [formControl]="search">
+    </app-input-search>
+  </div>
+</div>
+
+
+

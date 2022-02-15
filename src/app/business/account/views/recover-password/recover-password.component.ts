@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LOGIN_PATH } from '@parameters/router/routing-module-path.parameter';
+import { AC_CHILDREN_PATH } from '@parameters/router/routing/account/account-router.parameter';
 import { RecoveryPasswordStoreService } from '../../stores/recovery-password-store.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class RecoverPasswordComponent {
         private activatedRoute: ActivatedRoute
     ) {
         this._router.navigate(
-            [LOGIN_PATH.recoverPasswordUser],
+            [AC_CHILDREN_PATH.recoverPasswordUser],
             {skipLocationChange: true, relativeTo: activatedRoute});
     }
 }

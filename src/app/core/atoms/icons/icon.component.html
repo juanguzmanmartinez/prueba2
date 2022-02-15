@@ -1,6 +1,6 @@
 <ng-container *ngIf="fontName">
   <mat-icon aria-hidden="false"
-            class="icon-font"
+            class="icon-font {{fontStyleClass}}"
             [ngClass]="innerClass"
             [style.color]="fontColor"
             [style.font-size]="fontSize">{{fontName}}</mat-icon>

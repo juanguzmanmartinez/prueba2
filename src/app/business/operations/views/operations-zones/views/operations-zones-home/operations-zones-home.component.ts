@@ -17,146 +17,146 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CCompanyIcon, CCompanyName } from '@models/company/company.model';
 
 const ColumnNameList = {
-    zoneCode: 'zoneCode',
-    zoneName: 'zoneName',
-    assignedStore: 'assignedStore',
-    zoneCompany: 'zoneCompany',
-    zoneChannel: 'zoneChannel',
-    zoneState: 'zoneState',
-    actions: 'actions',
+  zoneCode: 'zoneCode',
+  zoneName: 'zoneName',
+  assignedStore: 'assignedStore',
+  zoneCompany: 'zoneCompany',
+  zoneChannel: 'zoneChannel',
+  zoneState: 'zoneState',
+  actions: 'actions',
 };
 
 @Component({
-    selector: 'app-operations-zones-home',
-    templateUrl: './operations-zones-home.component.html',
-    styleUrls: ['./operations-zones-home.component.sass'],
-    providers: [OpZonesHomeZoneDetailDialogService]
+  selector: 'app-operations-zones-home',
+  templateUrl: './operations-zones-home.component.html',
+  styleUrls: ['./operations-zones-home.component.sass'],
+  providers: [OpZonesHomeZoneDetailDialogService]
 })
 export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
-    private subscriptions: Subscription[] = [];
-    public serviceTypeName = CDeliveryServiceTypeName;
-    public companyName = CCompanyName;
-    public companyIcon = CCompanyIcon;
-    public channelName = CChannelName;
-    public stateTag = CStateTag;
-    public stateName = CStateName;
 
-    public searchInput = '';
-    public tableLoader = true;
-    public errorResponse: HttpErrorResponse;
+  private subscriptions = new Subscription();
 
-    public displayedColumns: string[] = [
-        ColumnNameList.zoneCode, ColumnNameList.zoneName,
-        ColumnNameList.assignedStore, ColumnNameList.zoneCompany,
-        ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
-    public dataSource = new MatTableDataSource([]);
+  public serviceTypeName = CDeliveryServiceTypeName;
+  public companyName = CCompanyName;
+  public companyIcon = CCompanyIcon;
+  public channelName = CChannelName;
+  public stateTag = CStateTag;
+  public stateName = CStateName;
 
-    @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
-    @ViewChild(MatSort) sort: MatSort;
+  public searchInput = '';
+  public tableLoader = true;
+  public errorResponse: HttpErrorResponse;
 
-    constructor(
-        private _router: Router,
-        private _zoneDetailDialog: OpZonesHomeZoneDetailDialogService,
-        private _operationsZonesImplement: OperationsZonesImplementService,
-    ) {
-    }
+  public displayedColumns: string[] = [
+    ColumnNameList.zoneCode, ColumnNameList.zoneName,
+    ColumnNameList.assignedStore, ColumnNameList.zoneCompany,
+    ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
+  public dataSource = new MatTableDataSource([]);
 
-    ngOnInit() {
-        this._operationsZonesImplement.zoneList
-            .subscribe((zoneList: Zone[]) => {
-                    this.tableLoader = false;
-                    this.dataSource.data = zoneList;
-                    this.setDataSourceService();
-                },
-                (error) => {
-                    this.tableLoader = false;
-                    this.errorResponse = error;
-                });
-    }
+  @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
+  @ViewChild(MatSort) sort: MatSort;
 
-    setDataSourceService() {
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator.paginator;
-        this.dataSource.filterPredicate = (data: Zone, filter: string) => {
-            const filterNormalize = normalizeValue(filter);
-            const idNormalize = normalizeValue(data.code);
-            const nameNormalize = normalizeValue(data.name);
-            const assignedStoreNameNormalize = normalizeValue(data.assignedStore ? data.assignedStore.name : '');
-            const assignedStoreCodeNormalize = normalizeValue(data.assignedStoreCode);
-            const companyNormalize = normalizeValue(data.companyList.map(company => this.companyName[company]).join(''));
+  constructor(
+    private _router: Router,
+    private _zoneDetailDialog: OpZonesHomeZoneDetailDialogService,
+    private _operationsZonesImplement: OperationsZonesImplementService,
+  ) { }
 
-            const channelNormalize = normalizeValue(data.channelList.map(channel => this.channelName[channel]).join(''));
-            const stateNormalize = normalizeValue(this.stateName[data.state]());
-            const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize, companyNormalize, channelNormalize, stateNormalize];
+  ngOnInit(): void {
+    this._operationsZonesImplement.zoneList
+      .subscribe((zoneList: Zone[]) => {
+          this.tableLoader = false;
+          this.dataSource.data = zoneList;
+          this.setDataSourceService();
+        },
+        (error) => {
+          this.tableLoader = false;
+          this.errorResponse = error;
+        });
+  }
 
-            const concatValue = normalizeValue(valueArray.join(''));
-            const everyValue = valueArray.some(value => value.includes(filterNormalize));
+  setDataSourceService(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator.paginator;
+    this.dataSource.filterPredicate = (data: Zone, filter: string) => {
+      const filterNormalize = normalizeValue(filter);
+      const idNormalize = normalizeValue(data.code);
+      const nameNormalize = normalizeValue(data.name);
+      const assignedStoreNameNormalize = normalizeValue(data.assignedStore ? data.assignedStore.name : '');
+      const assignedStoreCodeNormalize = normalizeValue(data.assignedStoreCode);
+      const companyNormalize = normalizeValue(data.companyList.map(company => this.companyName[company]).join(''));
 
-            return concatValue.includes(filterNormalize) && everyValue;
-        };
+      const channelNormalize = normalizeValue(data.channelList.map(channel => this.channelName[channel]).join(''));
+      const stateNormalize = normalizeValue(this.stateName[data.state]());
+      const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize, companyNormalize, channelNormalize, stateNormalize];
 
-        this.dataSource.sortData = (data: Zone[], sort: MatSort) => {
-            return data.sort((a: Zone, b: Zone) => {
-                switch (sort.active) {
-                    case ColumnNameList.zoneCode:
-                        return SortAlphanumeric(a.code, b.code, sort.direction);
-                    case ColumnNameList.zoneName:
-                        return SortAlphanumeric(a.name, b.name, sort.direction);
-                    case ColumnNameList.assignedStore:
-                        const assignedStoreNameA = a.assignedStore ? a.assignedStore.name : '';
-                        const assignedStoreNameB = b.assignedStore ? b.assignedStore.name : '';
-                        return SortAlphanumeric(assignedStoreNameA, assignedStoreNameB, sort.direction);
-                  case ColumnNameList.zoneCompany:
-                    const companyListNameA = a.companyList
-                      .map(company => this.companyName[company]).join('');
-                    const companyListNameB = b.companyList
-                      .map(company => this.companyName[company]).join('');
-                    return SortString(companyListNameA, companyListNameB, sort.direction);
-                    case ColumnNameList.zoneChannel:
-                        const channelListNameA = a.channelList
-                            .map(channel => this.channelName[channel]).join('');
-                        const channelListNameB = b.channelList
-                            .map(channel => this.channelName[channel]).join('');
-                        return SortString(channelListNameA, channelListNameB, sort.direction);
-                    case ColumnNameList.zoneState:
-                        const stateNameA = this.stateName[a.state]();
-                        const stateNameB = this.stateName[b.state]();
-                        return SortString(stateNameA, stateNameB, sort.direction);
-                    default:
-                        const defaultA = a[sort.active];
-                        const defaultB = b[sort.active];
-                        return SortAlphanumeric(defaultA, defaultB, sort.direction);
-                }
-            });
-        };
-    }
+      const concatValue = normalizeValue(valueArray.join(''));
+      const everyValue = valueArray.some(value => value.includes(filterNormalize));
 
+      return concatValue.includes(filterNormalize) && everyValue;
+    };
 
-    filterBySearchInput() {
-        this.dataSource.filter = this.searchInput.trim().toLowerCase();
-        if (this.dataSource.paginator) {
-            this.dataSource.paginator.firstPage();
+    this.dataSource.sortData = (data: Zone[], sort: MatSort) => {
+      return data.sort((a: Zone, b: Zone) => {
+        switch (sort.active) {
+          case ColumnNameList.zoneCode:
+            return SortAlphanumeric(a.code, b.code, sort.direction);
+          case ColumnNameList.zoneName:
+            return SortAlphanumeric(a.name, b.name, sort.direction);
+          case ColumnNameList.assignedStore:
+            const assignedStoreNameA = a.assignedStore ? a.assignedStore.name : '';
+            const assignedStoreNameB = b.assignedStore ? b.assignedStore.name : '';
+            return SortAlphanumeric(assignedStoreNameA, assignedStoreNameB, sort.direction);
+          case ColumnNameList.zoneCompany:
+            const companyListNameA = a.companyList
+              .map(company => this.companyName[company]).join('');
+            const companyListNameB = b.companyList
+              .map(company => this.companyName[company]).join('');
+            return SortString(companyListNameA, companyListNameB, sort.direction);
+          case ColumnNameList.zoneChannel:
+            const channelListNameA = a.channelList
+              .map(channel => this.channelName[channel]).join('');
+            const channelListNameB = b.channelList
+              .map(channel => this.channelName[channel]).join('');
+            return SortString(channelListNameA, channelListNameB, sort.direction);
+          case ColumnNameList.zoneState:
+            const stateNameA = this.stateName[a.state]();
+            const stateNameB = this.stateName[b.state]();
+            return SortString(stateNameA, stateNameB, sort.direction);
+          default:
+            const defaultA = a[sort.active];
+            const defaultB = b[sort.active];
+            return SortAlphanumeric(defaultA, defaultB, sort.direction);
         }
-    }
+      });
+    };
+  }
 
 
-    editRow(zoneCode: string) {
-         this._router.navigate([ROUTER_PATH.opZones_Zone(zoneCode)]);
+  filterBySearchInput(): void {
+    this.dataSource.filter = this.searchInput.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
+  }
 
-    rowDetailDialog(zone: Zone) {
-        const subscription = this._zoneDetailDialog.open(zone)
-            .afterClosed()
-            .subscribe((edition) => {
-                if (edition) {
-                  this.editRow(zone.id);
-                }
-            });
-        this.subscriptions.push(subscription);
-    }
+  editRow(zoneId: string): void {
+    this._router.navigate([ROUTER_PATH.opZones_Zone(zoneId)]);
+  }
 
-    ngOnDestroy() {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    }
+  rowDetailDialog(zone: Zone): void {
+    const subscription = this._zoneDetailDialog.open(zone)
+      .afterClosed()
+      .subscribe((edition) => {
+        if (edition) {
+          this.editRow(zone.id);
+        }
+      });
+    this.subscriptions.add(subscription);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
 }

@@ -1,0 +1,35 @@
+.order-table {
+  table-layout: fixed;
+
+}
+
+.state {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 10px!important;
+  font-weight: 600!important;
+  letter-spacing: 0.2px!important;
+  text-transform: uppercase;
+}
+
+.order-table th, td {
+  font-size: 12px !important;
+}
+
+.page-size {
+  &-label {
+    font-size: 12px;
+    margin-right: 12px;
+  }
+
+  .select-size {
+    &::ng-deep > .select {
+      width: 80px;
+    }
+  }
+}
+
+.error {
+  margin-top: 78px;
+}

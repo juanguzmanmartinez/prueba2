@@ -1,0 +1,15 @@
+<app-select
+  *ngIf="!isRange"
+  placeholder="Fecha promesa"
+  [(ngModel)]="selectDate"
+  [optionList]="typeDates"
+  (optionChange)="selectionChange($event)">
+</app-select>
+
+<app-input-datepicker-range
+  *ngIf="isRange"
+  minDate="0"
+  (cancel)="cancelDateRange()"
+  [(ngModel)]="datepicker"
+  (ngModelChange)="rangeChange()">
+</app-input-datepicker-range>

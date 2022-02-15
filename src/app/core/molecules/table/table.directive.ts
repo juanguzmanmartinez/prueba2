@@ -17,6 +17,7 @@ export class TableDirective implements AfterViewInit {
 
     ngAfterViewInit() {
         this.renderer.addClass(this.elementRef.nativeElement, 'w-100');
+        this.renderer.addClass(this.elementRef.nativeElement, 'table');
         const hasLargeTable = this.elementRef.nativeElement.hasAttribute('large-table');
         if (hasLargeTable) {
             this.renderer.setStyle(this.elementRef.nativeElement, 'minWidth', '950px');

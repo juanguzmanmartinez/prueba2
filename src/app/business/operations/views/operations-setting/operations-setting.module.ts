@@ -6,7 +6,6 @@ import { OperationsSettingComponent } from './operations-setting.component';
 import { BackRouterModule } from '@molecules/back-router/back-router.module';
 import { UnderConstructionModule } from '@pages/under-construction/under-construction.module';
 
-
 @NgModule({
   declarations: [
     OperationsSettingComponent

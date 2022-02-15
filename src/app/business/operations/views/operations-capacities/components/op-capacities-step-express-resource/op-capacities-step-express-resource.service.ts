@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
 import { ICapacityStepExpressResourceSegments } from './models/op-capacities-step-express-resource.model';
 import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
-
 
 export enum ECapacitiesStepExpressResource {
   daysRange = 'daysRange',
@@ -12,7 +11,7 @@ export enum ECapacitiesStepExpressResource {
 }
 
 @Injectable()
-export class OpCapacitiesStepExpressResourceService {
+export class OpCapacitiesStepExpressResourceService implements OnDestroy {
 
   private expressResourceFormViewSubject = new BehaviorSubject<ECapacitiesStepExpressResource>(ECapacitiesStepExpressResource.daysRange);
   private expressResourceSegmentsSubject = new BehaviorSubject<ICapacityStepExpressResourceSegments>(null);
@@ -23,8 +22,7 @@ export class OpCapacitiesStepExpressResourceService {
   private expressResourceSaveSubject = new BehaviorSubject<ICapacityStepExpressResourceSegments>(null);
   private expressResourceCancelSubject = new BehaviorSubject<boolean>(false);
 
-  constructor() {
-  }
+  private expressResourceEditionAccessPathStored: string;
 
   get expressResourceStepStatus$(): Observable<ECapacityStepStatus> {
     return this.expressResourceStepStatusSubject.asObservable()
@@ -35,7 +33,6 @@ export class OpCapacitiesStepExpressResourceService {
     this.expressResourceStepStatusSubject.next(expressResourceDisabled);
   }
 
-
   get expressResourceResetStepStatus$(): Observable<boolean> {
     return this.expressResourceResetStepStatusSubject.asObservable()
       .pipe(filter((value) => !!value));
@@ -44,7 +41,6 @@ export class OpCapacitiesStepExpressResourceService {
   set expressResourceResetStepStatus(expressResourceResetStep: boolean) {
     this.expressResourceResetStepStatusSubject.next(expressResourceResetStep);
   }
-
 
   get expressResourceFormView$(): Observable<ECapacitiesStepExpressResource> {
     return this.expressResourceFormViewSubject.asObservable();
@@ -90,4 +86,23 @@ export class OpCapacitiesStepExpressResourceService {
     this.expressResourceSaveSubject.next(expressResourceFormValue);
   }
 
+  get expressResourceEditionAccessPath(): string {
+    return this.expressResourceEditionAccessPathStored;
+  }
+
+  set expressResourceEditionAccessPath(expressResourceEditionAccessPath: string) {
+    this.expressResourceEditionAccessPathStored = expressResourceEditionAccessPath;
+  }
+
+  constructor() { }
+
+  ngOnDestroy(): void {
+    this.expressResourceFormViewSubject.complete();
+    this.expressResourceSegmentsSubject.complete();
+    this.expressResourceRangeLimitSubject.complete();
+    this.expressResourceStepStatusSubject.complete();
+    this.expressResourceResetStepStatusSubject.complete();
+    this.expressResourceSaveSubject.complete();
+    this.expressResourceCancelSubject.complete();
+  }
 }

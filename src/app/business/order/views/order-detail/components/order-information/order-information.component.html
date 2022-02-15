@@ -1,0 +1,48 @@
+<app-accordion-information svgName="dump"  title="Información del pedido">
+  <div class="row">
+    <div class="col-6">
+      <table>
+        <tr>
+          <td>Nº de pedido:</td>
+          <td>{{ dataOrder.orderId }}</td>
+        </tr>
+        <tr>
+          <td>Purchase ID:</td>
+          <td>{{ dataOrder.purchaseId }}</td>
+        </tr>
+        <tr>
+          <td>Operadora/o:</td>
+          <td>{{ dataOrder.operator }}</td>
+        </tr>
+        <tr>
+          <td>Observación:</td>
+          <td>{{ dataOrder.observation }}</td>
+        </tr>
+        <tr>
+          <td>Motivo cancelación:</td>
+          <td>{{ dataOrder.reasonForCancellation }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-6">
+      <table>
+        <tr>
+          <td>Zona:</td>
+          <td>{{ dataOrder.zone }}</td>
+        </tr>
+        <tr>
+          <td>Local de atención:</td>
+          <td>{{ dataOrder.localService }}</td>
+        </tr>
+        <tr>
+          <td>Tipo de local:</td>
+          <td>{{ dataOrder.localType }}</td>
+        </tr>
+        <tr>
+          <td>Tipo de despacho:</td>
+          <td>{{ dataOrder.typeOfOffice }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</app-accordion-information>

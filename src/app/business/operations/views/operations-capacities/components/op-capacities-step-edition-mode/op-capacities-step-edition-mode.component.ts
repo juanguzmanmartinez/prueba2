@@ -1,5 +1,8 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
-import { ECapacitiesStepEditionMode, OpCapacitiesStepEditionModeService } from './op-capacities-step-edition-mode.service';
+import {
+  ECapacitiesStepEditionMode,
+  OpCapacitiesStepEditionModeService
+} from './op-capacities-step-edition-mode.service';
 import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
 import { Subscription } from 'rxjs';
 
@@ -16,7 +19,7 @@ const CCapacitiesStepEditionModeName = {
 })
 export class OpCapacitiesStepEditionModeComponent implements OnInit, OnDestroy {
 
-  private subscriptions: Subscription[] = [];
+  private subscriptions = new Subscription();
 
   eCapacityStepStatus = ECapacityStepStatus;
   editionModeStepStatus: ECapacityStepStatus = ECapacityStepStatus.disabled;
@@ -29,19 +32,14 @@ export class OpCapacitiesStepEditionModeComponent implements OnInit, OnDestroy {
   constructor(
     @Optional() @SkipSelf() private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
     private _changeDetectorRef: ChangeDetectorRef
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     this.updateEditionModeStepStatus();
     this.resetEditionModeStep();
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
-  updateEditionModeStepStatus() {
+  updateEditionModeStepStatus(): void {
     const subscription = this._opCapacitiesStepEditionMode.editionModeStepStatus$
       .subscribe((eCapacityStepStatus: ECapacityStepStatus) => {
         if (this.editionModeStepStatus !== eCapacityStepStatus) {
@@ -56,37 +54,40 @@ export class OpCapacitiesStepEditionModeComponent implements OnInit, OnDestroy {
           this._changeDetectorRef.detectChanges();
         }
       });
-    this.subscriptions.push(subscription);
+    this.subscriptions.add(subscription);
   }
 
-  resetEditionModeStep() {
+  resetEditionModeStep(): void {
     const subscription = this._opCapacitiesStepEditionMode.editionModeResetStepStatus$
       .subscribe(() => {
         this.editionModeSaveLoad = false;
         this.editionModeSaveSelected = null;
         this.editionModeSelection = this._opCapacitiesStepEditionMode.defaultEditionModeSelection;
       });
-    this.subscriptions.push(subscription);
+    this.subscriptions.add(subscription);
   }
 
-  openEditionModeStep() {
+  openEditionModeStep(): void {
     this._opCapacitiesStepEditionMode.editionModeStepStatus = this.eCapacityStepStatus.open;
   }
 
-  closeEditionModeStep() {
+  closeEditionModeStep(): void {
     this.editionModeSaveLoad = false;
     this.editionModeSelection = this.editionModeSaveSelected || ECapacitiesStepEditionMode.calendar;
     this._opCapacitiesStepEditionMode.editionModeStepStatus = this.eCapacityStepStatus.close;
   }
 
-  saveEditionMode() {
+  saveEditionMode(): void {
     this.editionModeSaveLoad = true;
     this.editionModeSaveSelected = this.editionModeSelection;
     this._opCapacitiesStepEditionMode.editionModeSave = this.editionModeSelection;
   }
 
-  cancelEditionMode() {
+  cancelEditionMode(): void {
     this._opCapacitiesStepEditionMode.editionModeCancel = true;
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

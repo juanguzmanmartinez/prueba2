@@ -4,7 +4,8 @@
           [stepExpandedToggle]="capacityTableStepStatus === eCapacityStepStatus.open"
           [stepDisabled]="capacityTableStepStatus === eCapacityStepStatus.disabled  || capacityTableSaveLoad"
           [saveButtonDisabled]="!_opCapacitiesStepCapacityTableForm.capacityTableForm$.valid || capacityTableSaveLoad"
-          [validateAccess]="true"
+          [enableAccess]="true"
+          [pathAccess]="capacityPathAccess"
           (stepOpenEvent)="openCapacityTableStep()"
           (stepCloseEvent)="closeCapacityTableStep()"
           (saveButtonEvent)="saveCapacityTable()"
@@ -12,21 +13,18 @@
   <div class="card-step-content">
     <form [formGroup]="_opCapacitiesStepCapacityTableForm.capacityTableForm$">
       <div class="row">
-
-        <div class="col-12 mb-5" *ngIf="capacityTableDateRange">
-          <label class="text-caption text-gray-5 mb-2">Selecciona días</label>
+        <div *ngIf="capacityTableDateRange" class="col-12 mb-5">
+          <label class="text-body-2-regular text-gray-5 mb-2">Selecciona días</label>
           <app-input-datepicker-range
-            formControlName="capacityRange"
+            [maxDate]="capacityTableMaxDateRange"
             [minDate]="capacityTableMinDateRange"
-            [maxDate]="capacityTableMaxDateRange">
+            formControlName="capacityRange">
           </app-input-datepicker-range>
         </div>
 
         <div class="col-12">
-          <app-op-capacities-step-capacity-table-form>
-          </app-op-capacities-step-capacity-table-form>
+          <app-op-capacities-step-capacity-table-form></app-op-capacities-step-capacity-table-form>
         </div>
-
       </div>
     </form>
   </div>
