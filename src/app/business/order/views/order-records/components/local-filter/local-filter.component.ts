@@ -19,7 +19,8 @@ export class LocalFilterComponent implements OnInit {
 
   constructor(
     private orderRecordImplement: OrderRecordsImplementService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.orderRecordImplement.storeList
@@ -28,7 +29,8 @@ export class LocalFilterComponent implements OnInit {
           this.list = res;
         }),
         map(res => {
-          return res.map(val => {
+          const newLocals = res.sort(this.sortLocals);
+          return newLocals.map(val => {
             return val.localCode;
           });
         })
@@ -57,7 +59,17 @@ export class LocalFilterComponent implements OnInit {
     } else if (locals.length > 2) {
       this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(locals[1])} (+${locals.length - 2} otros`;
     }
-    this.filter.emit({ locals, notFound: this.getLocalsName(locals) });
+    this.filter.emit({locals, notFound: this.getLocalsName(locals)});
+  }
+
+  private sortLocals = (x, y) => {
+    if (x.name < y.name) {
+      return -1;
+    }
+    if (x.name > y.name) {
+      return 1;
+    }
+    return 0;
   }
 
 }

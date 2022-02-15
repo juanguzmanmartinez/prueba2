@@ -80,7 +80,7 @@
 
           <ng-container matColumnDef="promiseDate">
             <th mat-header-cell column-width="13%" *matHeaderCellDef mat-sort-header>F. Promesa</th>
-            <td mat-cell *matCellDef="let element">{{ element.promiseDate }}</td>
+            <td mat-cell *matCellDef="let element" [innerHTML]="element.promiseDate"></td>
           </ng-container>
 
           <ng-container matColumnDef="client">
