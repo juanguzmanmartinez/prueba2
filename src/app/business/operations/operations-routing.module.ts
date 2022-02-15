@@ -7,13 +7,6 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OP_CHILDREN_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
 import { ROUTER_PERMISSIONS } from '@parameters/router/router-permissions.parameter';
 
-const STORES: Route = {
-  path: OP_CHILDREN_PATH.drugstores.valueOf(),
-  canLoad: [PermissionsGuard],
-  data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.operationDrugstores.valueOf()]},
-  loadChildren: () => import('./views/operations-drugstores/operations-drugstores.module').then(m => m.OperationsDrugstoresModule),
-};
-
 const ZONES: Route = {
   path: OP_CHILDREN_PATH.zones.valueOf(),
   canLoad: [PermissionsGuard],
@@ -39,7 +32,6 @@ const routes: Routes = [
   {
     path: '', component: OperationsComponent, children: [
       {path: '', component: OperationsHomeComponent, pathMatch: 'full'},
-      STORES,
       ZONES,
       CAPACITIES,
       SETTING,
