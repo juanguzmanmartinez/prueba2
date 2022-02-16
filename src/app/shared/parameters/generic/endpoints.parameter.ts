@@ -34,5 +34,5 @@ export class EndpointsParameter {
 
     public static ORDER_LIST = `${API_GATEWAY_ORDER}/order/info`;
     public static ORDER_DETAIL = `${API_GATEWAY_ORDER}/order/detail`;
-    public static ORDER_STATUS = `${API_GATEWAY_ORDER}/order/status`;
+    public static ORDER_STATUS = `${API_GATEWAY_ORDER}/order/status/groupByName`;
 }

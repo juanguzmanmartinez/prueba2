@@ -308,14 +308,40 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     try {
       const data = this.selection.selected.map(value => {
         return {
-          ['N° Pedido']: value.orderId,
+          ['N° Pedido (Digital)']: value.orderId,
+          ['N° Pedido (Call)']: '',
+          ['Estado']: value.state,
           ['Local']: value.local,
+          ['Marca']: '',
           ['Canal']: value.channel,
           ['Servicio']: value.service,
-          ['F.Promesa']: value.promiseDate,
+          ['Fecha Creación']: '',
+          ['Fecha Promesa']: value.promiseDate.slice(0, 9),
+          ['Hora Promesa']: value.promiseDate.slice(9).replace('<br>', '').trim(),
           ['Cliente']: value.client,
           ['Documento']: value.documentId,
-          ['Estado']: value.state
+          ['Dirección']: '',
+          ['Correo']: '',
+          ['Teléfono']: '',
+          ['RUC']: '',
+          ['Razón Social']: '',
+          ['Coordenadas']: '',
+          ['Zona']: '',
+          ['Purchase ID']: '',
+          ['Tipo Despacho']: '',
+          ['Observación']: '',
+          ['Motivo de Cancelación']: '',
+          ['Tipo de Pago']: '',
+          ['Estado Liquidacion']: '',
+          ['Fecha Estado Liquidacion']: '',
+          ['Transportista']: '',
+          ['Documento Transportista']: '',
+          ['Telefono Transportista']: '',
+          ['Grupo de Viaje']: '',
+          ['Total sin Descuentos']: '',
+          ['Delivery']: '',
+          ['Descuento']: '',
+          ['Importe Total']: '',
         };
       });
       ExportTableSelection.exportArrayToExcel(data, 'Pedidos');
