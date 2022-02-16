@@ -1,23 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { parseUrl } from '@helpers/parse-url.helper';
+import { CORE_ROUTER } from '@parameters/router/routing/core/core-router.parameter';
 
 @Component({
-    selector: 'app-back-router',
-    templateUrl: './back-router.component.html',
-    styleUrls: ['./back-router.component.scss']
+  selector: 'app-back-router',
+  templateUrl: './back-router.component.html',
+  styleUrls: ['./back-router.component.scss'],
 })
 export class BackRouterComponent implements OnInit {
+  public backRoute: string;
 
-    public backRoute: string;
+  constructor(private _router: Router) {}
 
-    constructor(
-        private _router: Router
-    ) {
-    }
-
-    ngOnInit(): void {
-        this.backRoute = parseUrl(this._router.url, '..');
-    }
-
+  ngOnInit(): void {
+    this.backRoute = CORE_ROUTER.base.path.valueOf();
+  }
 }
