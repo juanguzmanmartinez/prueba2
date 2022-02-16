@@ -14,9 +14,9 @@ export function sortByPresetOrder(array: string[], presetOrderArray: string[]) {
 export function SortNumeric(a, b, direction: string) {
     switch (direction) {
         case 'asc':
-            return a - b;
+            return Number(a) - Number(b);
         case 'desc':
-            return b - a;
+            return Number(b) - Number(a);
         default:
             return 0;
     }
