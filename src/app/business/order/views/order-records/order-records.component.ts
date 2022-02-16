@@ -185,11 +185,11 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.searchCode,
         this.searchValue,
         this.selectedLocals,
-        this.selectedCompany,
+        this.selectedChannel,
         this.selectedService,
         this.datePromise,
         this.selectedStatus,
-        this.selectedChannel
+        this.selectedCompany
       )
       .pipe(
         finalize(() => {
@@ -215,11 +215,11 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.searchCode,
         this.searchValue,
         this.selectedLocals,
-        this.selectedCompany,
+        this.selectedChannel,
         this.selectedService,
         this.datePromise,
         this.selectedStatus,
-        this.selectedChannel
+        this.selectedCompany
       )
       .pipe(
         finalize(() => {
