@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { normalizeValue } from '@helpers/string.helper';
-import { SortAlphanumeric } from '@helpers/sort.helper';
+import { SortAlphanumeric, SortNumeric, SortString } from '@helpers/sort.helper';
 import { OrderRecordsImplementService } from './implements/order-records-implement.service';
 import { finalize } from 'rxjs/operators';
 import { OrderModel } from './models/order-records.model';
@@ -144,21 +144,21 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       return data.sort((a: OrderModel, b: OrderModel) => {
         switch (sort.active) {
           case ColumnNameList.orderId:
-            return SortAlphanumeric(a.orderId, b.orderId, sort.direction);
+            return SortNumeric(a.orderId, b.orderId, sort.direction);
           case ColumnNameList.local:
             return SortAlphanumeric(a.local, b.local, sort.direction);
           case ColumnNameList.channel:
-            return SortAlphanumeric(a.channel, b.channel, sort.direction);
+            return SortString(a.channel, b.channel, sort.direction);
           case ColumnNameList.service:
-            return SortAlphanumeric(a.service, b.service, sort.direction);
+            return SortString(a.service, b.service, sort.direction);
           case ColumnNameList.promiseDate:
             return SortAlphanumeric(a.promiseDate, b.promiseDate, sort.direction);
           case ColumnNameList.client:
-            return SortAlphanumeric(a.client, b.client, sort.direction);
+            return SortString(a.client, b.client, sort.direction);
           case ColumnNameList.documentId:
-            return SortAlphanumeric(a.documentId, b.documentId, sort.direction);
+            return SortNumeric(a.documentId, b.documentId, sort.direction);
           case ColumnNameList.state:
-            return SortAlphanumeric(a.state, b.state, sort.direction);
+            return SortString(a.state, b.state, sort.direction);
 
           default:
             const defaultA = a[sort.active];
