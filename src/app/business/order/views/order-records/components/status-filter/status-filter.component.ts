@@ -28,7 +28,7 @@ export class StatusFilterComponent implements OnInit {
         }),
         map((res: OrderStatus[]) => {
           const codes = res.map(val => {
-            return val.code;
+            return val.id;
           });
           return [...new Set(codes)];
         })
@@ -39,7 +39,7 @@ export class StatusFilterComponent implements OnInit {
   }
 
   getStatusName(option: string): string {
-    return this.list.find(status => status.code === option).name;
+    return this.list.find(status => status.id === option).name;
   }
 
   private getListStatusName(status: string[]): string {

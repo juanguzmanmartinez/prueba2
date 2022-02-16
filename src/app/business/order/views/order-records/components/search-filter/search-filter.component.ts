@@ -9,6 +9,12 @@ interface TypeSearch {
   name: string;
 }
 
+enum CodeTypeSearch {
+  pedido = '1',
+  telefono = '2',
+  documento = '3'
+}
+
 @Component({
   selector: 'app-search-filter',
   templateUrl: './search-filter.component.html',
@@ -19,9 +25,9 @@ export class SearchFilterComponent implements OnDestroy {
   search = new FormControl('');
 
   typesSearch: TypeSearch[] = [
-    {code: '1', icon: 'call', name: 'Nº de pedido'},
-    {code: '2', icon: 'local_mall', name: 'Nº de teléfono'},
-    {code: '3', icon: 'assignment_ind', name: 'Doc. Identidad'}
+    {code: CodeTypeSearch.pedido, icon: 'call', name: 'Nº de pedido'},
+    {code: CodeTypeSearch.telefono, icon: 'local_mall', name: 'Nº de teléfono'},
+    {code: CodeTypeSearch.documento, icon: 'assignment_ind', name: 'Doc. Identidad'}
   ];
 
   valueSelect: TypeSearch = this.typesSearch[0];
@@ -42,6 +48,24 @@ export class SearchFilterComponent implements OnDestroy {
   }
 
   private changeSearch(value: string): void {
+    if (this.valueSelect.code === CodeTypeSearch.pedido) {
+      if (value.length < 7) {
+        return;
+      }
+    }
+
+    if (this.valueSelect.code === CodeTypeSearch.telefono) {
+      if (value.length < 8) {
+        return;
+      }
+    }
+
+    if (this.valueSelect.code === CodeTypeSearch.documento) {
+      if (value.length < 8) {
+        return;
+      }
+    }
+
     this.filter.emit({
       code: this.valueSelect.code,
       search: value

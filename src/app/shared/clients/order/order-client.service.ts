@@ -7,7 +7,8 @@ import {
   OrderRecords,
   OrderRecordsResponse,
   OrderResponse,
-  OrderStatus
+  OrderStatus,
+  OrderStatusResponse
 } from '../../../business/order/views/order-records/interfaces/order-records.interface';
 import { OrderModel } from '../../../business/order/views/order-records/models/order-records.model';
 import { isArray } from '@helpers/objects-equal.helper';
@@ -46,15 +47,16 @@ export class OrderClientService {
   }
 
   getStatusList(): Observable<OrderStatus[]> {
-    return this.generic.genericGet<string[]>(this.ORDER_STATUS)
+    return this.generic.genericGet<OrderStatusResponse[]>(this.ORDER_STATUS)
       .pipe(
         take(1),
-        map((response: string[]) => {
+        map((response: OrderStatusResponse[]) => {
           if (isArray(response)) {
             return response.map(value => {
               return {
-                code: value,
-                name: CStatusOrderName[value]
+                id: value.code,
+                code: value.name,
+                name: CStatusOrderName[value.name]
               };
             });
           }
