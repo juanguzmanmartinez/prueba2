@@ -62,7 +62,13 @@ export interface OrderResponse {
   promiseDate: string;
 }
 
+export interface OrderStatusResponse {
+  code: string;
+  name: string;
+}
+
 export interface OrderStatus {
+  id: string;
   code: string;
   name: string;
 }
