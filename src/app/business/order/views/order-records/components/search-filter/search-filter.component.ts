@@ -49,19 +49,19 @@ export class SearchFilterComponent implements OnDestroy {
 
   private changeSearch(value: string): void {
     if (this.valueSelect.code === CodeTypeSearch.pedido) {
-      if (value.length < 7) {
+      if (value.length < 6 && value.length !== 0) {
         return;
       }
     }
 
     if (this.valueSelect.code === CodeTypeSearch.telefono) {
-      if (value.length < 8) {
+      if (value.length < 8 && value.length !== 0) {
         return;
       }
     }
 
     if (this.valueSelect.code === CodeTypeSearch.documento) {
-      if (value.length < 8) {
+      if (value.length < 8 && value.length !== 0) {
         return;
       }
     }
