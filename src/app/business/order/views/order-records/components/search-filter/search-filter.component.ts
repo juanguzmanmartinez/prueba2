@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { Subscription } from 'rxjs';
@@ -31,7 +25,11 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
   search = new FormControl('');
 
   typesSearch: TypeSearch[] = [
-    { code: CodeTypeSearch.pedido, icon: 'call', name: 'Nº de pedido' },
+    {
+      code: CodeTypeSearch.pedido,
+      icon: 'call',
+      name: 'Nº de pedido'
+    },
     {
       code: CodeTypeSearch.telefono,
       icon: 'local_mall',
@@ -98,7 +96,10 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
 
   private listenSearch(): void {
     const subscription = this.search.valueChanges
-      .pipe(debounceTime(500), distinctUntilChanged())
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged()
+      )
       .subscribe({
         next: (value) => this.changeSearch(value),
       });
