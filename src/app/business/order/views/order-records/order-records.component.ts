@@ -1,17 +1,30 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatSort } from '@angular/material/sort';
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Subscription } from 'rxjs';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import {
+  SortAlphanumeric,
+  SortNumeric,
+  SortString,
+} from '@helpers/sort.helper';
 import { normalizeValue } from '@helpers/string.helper';
-import { SortAlphanumeric, SortNumeric, SortString } from '@helpers/sort.helper';
-import { OrderRecordsImplementService } from './implements/order-records-implement.service';
+import { AlertService } from '@molecules/alert/alert.service';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { OrderFilterStore } from '@stores/order-filter-store.service';
+import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { OrderModel } from './models/order-records.model';
+import { ExportTableSelection } from '../../../../shared/utils/export-table-selection.util';
+import { OrderRecordsImplementService } from './implements/order-records-implement.service';
 import {
   ChannelFilterEvent,
   CompanyFilterEvent,
@@ -19,10 +32,9 @@ import {
   LocalFilterEvent,
   OrderRecords,
   ServicesFilterEvent,
-  StatusFilterEvent
+  StatusFilterEvent,
 } from './interfaces/order-records.interface';
-import { AlertService } from '@molecules/alert/alert.service';
-import { ExportTableSelection } from '../../../../shared/utils/export-table-selection.util';
+import { OrderModel } from './models/order-records.model';
 
 const ColumnNameList = {
   select: 'select',
@@ -35,16 +47,15 @@ const ColumnNameList = {
   client: 'client',
   documentId: 'documentId',
   state: 'state',
-  actions: 'actions'
+  actions: 'actions',
 };
 
 @Component({
   selector: 'app-order-records',
   templateUrl: './order-records.component.html',
-  styleUrls: ['./order-records.component.scss']
+  styleUrls: ['./order-records.component.scss'],
 })
 export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
-
   tableLoader = true;
   errorResponse: HttpErrorResponse;
 
@@ -53,15 +64,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   page = 1;
   pageSize = 10;
   showPaginator = true;
-
-  private searchCode: string;
-  private searchValue: string;
-  private selectedLocals: string[];
-  private selectedCompany: string[];
-  private selectedService: string[];
-  private datePromise: string[];
-  private selectedStatus: string[];
-  private selectedChannel: string[];
 
   notFound = '';
 
@@ -75,12 +77,13 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     ColumnNameList.client,
     ColumnNameList.documentId,
     ColumnNameList.state,
-    ColumnNameList.actions
+    ColumnNameList.actions,
   ];
 
   dataSource = new MatTableDataSource<OrderModel>();
   selection = new SelectionModel(true, []);
   fixedSelectedRows: OrderModel[] = [];
+  formOrderRecords: FormGroup = null;
 
   get selected(): number {
     return this.selection.selected.length;
@@ -96,23 +99,17 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private router: Router,
     private orderRecordsImplement: OrderRecordsImplementService,
-    private alertService: AlertService
-  ) { }
+    private alertService: AlertService,
+    private orderFilterStore: OrderFilterStore
+  ) {}
 
   ngOnInit(): void {
-    const subscription = this.selection.changed.subscribe(x => this.fixedSelectedRows = x.source.selected);
+    const subscription = this.selection.changed.subscribe(
+      (x) => (this.fixedSelectedRows = x.source.selected)
+    );
     this.subscriptions.add(subscription);
 
-    this.orderRecordsImplement.orderList(this.page, this.pageSize)
-      .pipe(
-        finalize(() => {
-          this.tableLoader = false;
-        }),
-      )
-      .subscribe({
-        next: (res: OrderRecords) => this.setOrderPageData(res),
-        error: err => this.errorResponse = err
-      });
+    this.filterAll();
   }
 
   ngAfterViewInit(): void {
@@ -132,10 +129,19 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       const documentId = normalizeValue(data.documentId);
       const state = normalizeValue(data.state);
       const valueArray = [
-        orderId, local, channel, service, promiseDate, client, documentId, state
+        orderId,
+        local,
+        channel,
+        service,
+        promiseDate,
+        client,
+        documentId,
+        state,
       ];
       const concatValue = normalizeValue(valueArray.join(''));
-      const everyValue = valueArray.some(value => value.includes(filterNormalize));
+      const everyValue = valueArray.some((value) =>
+        value.includes(filterNormalize)
+      );
 
       return concatValue.includes(filterNormalize) && everyValue;
     };
@@ -152,7 +158,11 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
           case ColumnNameList.service:
             return SortString(a.service, b.service, sort.direction);
           case ColumnNameList.promiseDate:
-            return SortAlphanumeric(a.promiseDate, b.promiseDate, sort.direction);
+            return SortAlphanumeric(
+              a.promiseDate,
+              b.promiseDate,
+              sort.direction
+            );
           case ColumnNameList.client:
             return SortString(a.client, b.client, sort.direction);
           case ColumnNameList.documentId:
@@ -177,19 +187,21 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onChangePage(pe: PageEvent): void {
+    const orderFilter = this.orderFilterStore.getOrderFilter();
+
     this.tableLoader = true;
     this.orderRecordsImplement
       .orderList(
         pe.pageIndex + 1,
         pe.pageSize,
-        this.searchCode,
-        this.searchValue,
-        this.selectedLocals,
-        this.selectedChannel,
-        this.selectedService,
-        this.datePromise,
-        this.selectedStatus,
-        this.selectedCompany
+        orderFilter.searchCode,
+        orderFilter.searchValue,
+        orderFilter.locals,
+        orderFilter.channelOfBuy,
+        orderFilter.typeServices,
+        orderFilter.datePromise,
+        orderFilter.statusOrder,
+        orderFilter.companies
       )
       .pipe(
         finalize(() => {
@@ -201,25 +213,27 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.page = res.page;
           this.setOrderPageData(res, false);
         },
-        error: err => this.errorResponse = err
+        error: (err) => (this.errorResponse = err),
       });
   }
 
   filterAll(): void {
+    const orderFilter = this.orderFilterStore.getOrderFilter();
+
     this.tableLoader = true;
     this.showPaginator = false;
     this.orderRecordsImplement
       .orderList(
         this.page,
         this.pageSize,
-        this.searchCode,
-        this.searchValue,
-        this.selectedLocals,
-        this.selectedChannel,
-        this.selectedService,
-        this.datePromise,
-        this.selectedStatus,
-        this.selectedCompany
+        orderFilter.searchCode,
+        orderFilter.searchValue,
+        orderFilter.locals,
+        orderFilter.channelOfBuy,
+        orderFilter.typeServices,
+        orderFilter.datePromise,
+        orderFilter.statusOrder,
+        orderFilter.companies
       )
       .pipe(
         finalize(() => {
@@ -230,49 +244,56 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       )
       .subscribe({
         next: (res: any) => this.setOrderPageData(res, false),
-        error: err => this.errorResponse = err
+        error: (err) => (this.errorResponse = err),
       });
   }
 
-  filterBySearch(value: { code: string, search: string }): void {
-    this.searchCode = value.code;
-    this.searchValue = value.search;
+  filterBySearch(value: { code: string; search: string }): void {
+    this.orderFilterStore.setSearchCode = value.code;
+    this.orderFilterStore.setSearchValue = value.search;
+
     this.notFound = value.search;
     this.filterAll();
   }
 
   filterByLocal(event: LocalFilterEvent): void {
-    this.selectedLocals = event.locals;
+    this.orderFilterStore.setLocals = event.locals;
+
     this.notFound = event.notFound;
     this.filterAll();
   }
 
   filterByCompany(event: CompanyFilterEvent): void {
-    this.selectedCompany = event.companies;
+    this.orderFilterStore.setCompanies = event.companies;
+
     this.notFound = event.notFound;
     this.filterAll();
   }
 
   filterByService(event: ServicesFilterEvent): void {
-    this.selectedService = event.services;
+    this.orderFilterStore.setTypeServices = event.services;
+
     this.notFound = event.notFound;
     this.filterAll();
   }
 
   filterByDatePromise(event: DatepickerFilterEvent): void {
-    this.datePromise = event.dateRange;
+    this.orderFilterStore.setDatePromise = event.dateRange;
+
     this.notFound = event.notFound;
     this.filterAll();
   }
 
   filterByStatus(event: StatusFilterEvent): void {
-    this.selectedStatus = event.status;
+    this.orderFilterStore.setStatusOrder = event.status;
+
     this.notFound = event.notFound;
     this.filterAll();
   }
 
   filterByChannel(event: ChannelFilterEvent): void {
-    this.selectedChannel = event.channels;
+    this.orderFilterStore.setChannelOfBuy = event.channels;
+
     this.notFound = event.notFound;
     this.filterAll();
   }
@@ -284,18 +305,19 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   masterToggle(): void {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach((row) => this.selection.select(row));
   }
 
   private setOrderPageData(response: OrderRecords, initialCharge = true): void {
-    const selectedRecord = this.fixedSelectedRows.map(value => value.ecommerceId);
-    const data = response.orders.filter(item => !selectedRecord.includes(item.ecommerceId));
-    this.dataSource.data = [
-      ...this.fixedSelectedRows,
-      ...data
-    ];
+    const selectedRecord = this.fixedSelectedRows.map(
+      (value) => value.ecommerceId
+    );
+    const data = response.orders.filter(
+      (item) => !selectedRecord.includes(item.ecommerceId)
+    );
+    this.dataSource.data = [...this.fixedSelectedRows, ...data];
     this.totalOrder = response.totalRecords;
     this.dataSource._updatePaginator(this.totalOrder);
 
@@ -306,7 +328,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   exportData(): void {
     try {
-      const data = this.selection.selected.map(value => {
+      const data = this.selection.selected.map((value) => {
         return {
           ['N° Pedido (Digital)']: value.ecommerceId,
           ['N° Pedido (Call)']: '',
@@ -317,7 +339,10 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
           ['Servicio']: value.service,
           ['Fecha Creación']: '',
           ['Fecha Promesa']: value.promiseDate.slice(0, 9),
-          ['Hora Promesa']: value.promiseDate.slice(9).replace('<br>', '').trim(),
+          ['Hora Promesa']: value.promiseDate
+            .slice(9)
+            .replace('<br>', '')
+            .trim(),
           ['Cliente']: value.client,
           ['Documento']: value.documentId,
           ['Dirección']: '',
@@ -346,12 +371,13 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       ExportTableSelection.exportArrayToExcel(data, 'Pedidos');
     } catch (e) {
-      this.alertService.alertError('Hubo un error al descargar la información, por favor vuelve a intentarlo.');
+      this.alertService.alertError(
+        'Hubo un error al descargar la información, por favor vuelve a intentarlo.'
+      );
     }
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
 }

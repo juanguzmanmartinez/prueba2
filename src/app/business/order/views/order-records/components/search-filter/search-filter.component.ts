@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 interface TypeSearch {
   code: string;
@@ -12,31 +13,52 @@ interface TypeSearch {
 enum CodeTypeSearch {
   pedido = '1',
   telefono = '2',
-  documento = '3'
+  documento = '3',
 }
 
 @Component({
   selector: 'app-search-filter',
   templateUrl: './search-filter.component.html',
-  styleUrls: ['./search-filter.component.scss']
+  styleUrls: ['./search-filter.component.scss'],
 })
-export class SearchFilterComponent implements OnDestroy {
-
+export class SearchFilterComponent implements OnInit, OnDestroy {
   search = new FormControl('');
 
   typesSearch: TypeSearch[] = [
-    {code: CodeTypeSearch.pedido, icon: 'call', name: 'Nº de pedido'},
-    {code: CodeTypeSearch.telefono, icon: 'local_mall', name: 'Nº de teléfono'},
-    {code: CodeTypeSearch.documento, icon: 'assignment_ind', name: 'Doc. Identidad'}
+    {
+      code: CodeTypeSearch.pedido,
+      icon: 'call',
+      name: 'Nº de pedido'
+    },
+    {
+      code: CodeTypeSearch.telefono,
+      icon: 'local_mall',
+      name: 'Nº de teléfono',
+    },
+    {
+      code: CodeTypeSearch.documento,
+      icon: 'assignment_ind',
+      name: 'Doc. Identidad',
+    },
   ];
 
-  valueSelect: TypeSearch = this.typesSearch[0];
+  valueSelect: TypeSearch;
 
   private subscription = new Subscription();
 
-  @Output() filter = new EventEmitter<{ code: string, search: string }>();
+  @Output() filter = new EventEmitter<{ code: string; search: string }>();
 
-  constructor() {
+  constructor(private orderFilterStore: OrderFilterStore) {}
+
+  ngOnInit(): void {
+    const { searchCode, searchValue } = this.orderFilterStore.getOrderFilter();
+
+    const valueSelect = this.typesSearch.find(
+      (type) => type.code === searchCode
+    );
+    this.valueSelect = valueSelect ?? this.typesSearch[0];
+    this.search.setValue(searchValue ?? '');
+
     this.listenSearch();
   }
 
@@ -68,7 +90,7 @@ export class SearchFilterComponent implements OnDestroy {
 
     this.filter.emit({
       code: this.valueSelect.code,
-      search: value
+      search: value,
     });
   }
 
@@ -79,7 +101,7 @@ export class SearchFilterComponent implements OnDestroy {
         distinctUntilChanged()
       )
       .subscribe({
-        next: value => this.changeSearch(value)
+        next: (value) => this.changeSearch(value),
       });
     this.subscription.add(subscription);
   }
@@ -87,5 +109,4 @@ export class SearchFilterComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
 }

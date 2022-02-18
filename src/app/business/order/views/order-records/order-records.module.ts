@@ -1,32 +1,31 @@
-import { NgModule } from '@angular/core';
-import { OrderRecordsComponent } from './order-records.component';
-import { OrderRecordsRoutingModule } from './order-records-routing.module';
-import { ButtonsModule } from '@atoms/buttons/buttons.module';
-import { SearchFilterModule } from './components/search-filter/search-filter.module';
-import { LocalFilterModule } from './components/local-filter/local-filter.module';
-import { CompanyFilterModule } from './components/company-filter/company-filter.module';
-import { ServiceFilterModule } from './components/service-filter/service-filter.module';
-import { DateFilterModule } from './components/date-filter/date-filter.module';
-import { StatusFilterModule } from './components/status-filter/status-filter.module';
-import { ChannelFilterModule } from './components/channel-filter/channel-filter.module';
-import { TableModule } from '@molecules/table/table.module';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableExporterModule } from 'mat-table-exporter';
-import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
-import { TooltipModule } from '@atoms/tooltip/tooltip.module';
 import { CommonModule } from '@angular/common';
-import { OrderRecordsImplementService } from './implements/order-records-implement.service';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { ButtonsModule } from '@atoms/buttons/buttons.module';
+import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
 import { PaginatorModule } from '@atoms/paginator/paginator.module';
 import { SelectModule } from '@atoms/select/select.module';
-import { FormsModule } from '@angular/forms';
-import { NotSearchResultModule } from '@pages/not-search-result/not-search-result.module';
+import { TooltipModule } from '@atoms/tooltip/tooltip.module';
+import { TableModule } from '@molecules/table/table.module';
 import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
+import { NotSearchResultModule } from '@pages/not-search-result/not-search-result.module';
+import { OrderFilterStore } from '@stores/order-filter-store.service';
+import { MatTableExporterModule } from 'mat-table-exporter';
+import { ChannelFilterModule } from './components/channel-filter/channel-filter.module';
+import { CompanyFilterModule } from './components/company-filter/company-filter.module';
+import { DateFilterModule } from './components/date-filter/date-filter.module';
+import { LocalFilterModule } from './components/local-filter/local-filter.module';
+import { SearchFilterModule } from './components/search-filter/search-filter.module';
+import { ServiceFilterModule } from './components/service-filter/service-filter.module';
+import { StatusFilterModule } from './components/status-filter/status-filter.module';
+import { OrderRecordsImplementService } from './implements/order-records-implement.service';
+import { OrderRecordsRoutingModule } from './order-records-routing.module';
+import { OrderRecordsComponent } from './order-records.component';
 
 @NgModule({
-  declarations: [
-    OrderRecordsComponent
-  ],
+  declarations: [OrderRecordsComponent],
   imports: [
     OrderRecordsRoutingModule,
     ButtonsModule,
@@ -48,10 +47,8 @@ import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewe
     SelectModule,
     FormsModule,
     NotSearchResultModule,
-    HttpErrorViewerModule
+    HttpErrorViewerModule,
   ],
-  providers: [
-    OrderRecordsImplementService
-  ]
+  providers: [OrderRecordsImplementService, OrderFilterStore],
 })
-export class OrderRecordsModule { }
+export class OrderRecordsModule {}
