@@ -1,15 +1,24 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { DatepickerFilter, DatepickerFilterEvent } from '../../interfaces/order-records.interface';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { OrderFilterStore } from '@stores/order-filter-store.service';
 import * as moment from 'moment/moment';
+import {
+  DatepickerFilter,
+  DatepickerFilterEvent,
+} from '../../interfaces/order-records.interface';
 
 @Component({
   selector: 'app-date-filter',
   templateUrl: './date-filter.component.html',
-  styleUrls: ['./date-filter.component.scss']
+  styleUrls: ['./date-filter.component.scss'],
 })
-export class DateFilterComponent {
-
-  readonly typeDates = ['Hoy', 'Ayer', 'Última semana', 'Último mes', 'Otro periodo'];
+export class DateFilterComponent implements OnInit {
+  readonly typeDates = [
+    'Hoy',
+    'Ayer',
+    'Última semana',
+    'Último mes',
+    'Otro periodo',
+  ];
 
   selectDate: string;
   selectDatePreview: string;
@@ -17,12 +26,19 @@ export class DateFilterComponent {
   datepicker: DatepickerFilter;
   datepickerPreview: DatepickerFilter = { startDate: null, endDate: null };
   existDate = false;
+  selectedRange: string;
 
   isRange = false;
 
   @Output() filter = new EventEmitter<DatepickerFilterEvent>();
 
-  constructor() {}
+  constructor(private orderFilterStore: OrderFilterStore) {}
+
+  ngOnInit(): void {
+    const { datePromise } = this.orderFilterStore.getOrderFilter();
+    //TODO: Se debe hacer la mejora para poder persistir el valor
+    // this.selectedRange = 'Ayer';
+  }
 
   selectionChange(type: string): void {
     let dateInitFilter;
@@ -42,22 +58,36 @@ export class DateFilterComponent {
       dateEndFilter = yesterday;
       notFound = 'Ayer';
     } else if (type === 'Última semana') {
-      const startWeek = moment().subtract(1, 'weeks').startOf('week').format('YYYY-MM-DD');
-      const endWeek = moment().subtract(1, 'weeks').endOf('week').format('YYYY-MM-DD');
+      const startWeek = moment()
+        .subtract(1, 'weeks')
+        .startOf('week')
+        .format('YYYY-MM-DD');
+      const endWeek = moment()
+        .subtract(1, 'weeks')
+        .endOf('week')
+        .format('YYYY-MM-DD');
       dateInitFilter = startWeek;
       dateEndFilter = endWeek;
       notFound = 'Última semana';
     } else if (type === 'Último mes') {
-      const startMonth = moment().subtract(1, 'months').startOf('month').format('YYYY-MM-DD');
-      const endMonth = moment().subtract(1, 'months').endOf('month').format('YYYY-MM-DD');
+      const startMonth = moment()
+        .subtract(1, 'months')
+        .startOf('month')
+        .format('YYYY-MM-DD');
+      const endMonth = moment()
+        .subtract(1, 'months')
+        .endOf('month')
+        .format('YYYY-MM-DD');
       dateInitFilter = startMonth;
       dateEndFilter = endMonth;
       notFound = 'Último mes';
     } else if (type === 'Otro periodo') {
       this.isRange = true;
       this.selectDatePreview = this.selectDate;
-      this.existDate = !!(this.datepicker);
-      if (this.existDate) { this.datepickerPreview = { ...this.datepicker }; }
+      this.existDate = !!this.datepicker;
+      if (this.existDate) {
+        this.datepickerPreview = { ...this.datepicker };
+      }
       return;
     }
     this.filter.emit({ dateRange: [dateInitFilter, dateEndFilter], notFound });
@@ -69,15 +99,22 @@ export class DateFilterComponent {
   }
 
   rangeChange(): void {
-    if (!!(this.datepicker) && !!(this.datepickerPreview)) {
+    if (!!this.datepicker && !!this.datepickerPreview) {
       this.isRange = true;
-      if ((this.datepickerPreview.startDate !== this.datepicker.startDate) ||
-        ((this.datepickerPreview.endDate !== this.datepicker.endDate) && this.datepicker.endDate)) {
+      if (
+        this.datepickerPreview.startDate !== this.datepicker.startDate ||
+        (this.datepickerPreview.endDate !== this.datepicker.endDate &&
+          this.datepicker.endDate)
+      ) {
         this.existDate = false;
       }
     }
 
-    if (!!(this.datepicker) && this.datepicker.startDate < this.datepicker.endDate && !this.existDate) {
+    if (
+      !!this.datepicker &&
+      this.datepicker.startDate < this.datepicker.endDate &&
+      !this.existDate
+    ) {
       let dateInitFilter;
       let dateEndFilter;
       let notFound;
@@ -87,7 +124,10 @@ export class DateFilterComponent {
       notFound = 'Otro periodo';
 
       this.isRange = false;
-      this.filter.emit({ dateRange: [dateInitFilter, dateEndFilter], notFound });
+      this.filter.emit({
+        dateRange: [dateInitFilter, dateEndFilter],
+        notFound,
+      });
 
       this.existDate = true;
     }

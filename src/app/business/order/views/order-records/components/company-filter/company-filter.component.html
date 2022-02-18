@@ -1,7 +1,11 @@
 <app-select
   placeholder="Marca"
-  [multiple]="true" [customValue]="true" [optionList]="companies" [selectOptionSquare]="true"
-  (optionChange)="selectionChange($event)">
+  [multiple]="true"
+  [value]="selectedCompanies"
+  [optionList]="companies"
+  [selectOptionSquare]="true"
+  (optionChange)="selectionChange($event)"
+>
   <ng-container trigger>{{ valueSelect }}</ng-container>
-    <ng-template let-company>{{ getCompanyName(company) }}</ng-template>
+  <ng-template let-company>{{ getCompanyName(company) }}</ng-template>
 </app-select>
