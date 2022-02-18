@@ -31,25 +31,25 @@ export class DateFilterComponent {
 
     if (type === 'Hoy') {
       const today = new Date();
-      const todayDate = moment(today).format('YYYY-MM-DD');
+      const todayDate = moment(today).format('DD-MM-YYYY');
       dateInitFilter = todayDate;
       dateEndFilter = todayDate;
       notFound = 'Hoy';
     } else if (type === 'Ayer') {
       const today = new Date();
-      const yesterday = moment(today).subtract(1, 'day').format('YYYY-MM-DD');
+      const yesterday = moment(today).subtract(1, 'day').format('DD-MM-YYYY');
       dateInitFilter = yesterday;
       dateEndFilter = yesterday;
       notFound = 'Ayer';
     } else if (type === 'Última semana') {
-      const startWeek = moment().subtract(1, 'weeks').startOf('week').format('YYYY-MM-DD');
-      const endWeek = moment().subtract(1, 'weeks').endOf('week').format('YYYY-MM-DD');
+      const startWeek = moment().subtract(1, 'weeks').startOf('week').format('DD-MM-YYYY');
+      const endWeek = moment().subtract(1, 'weeks').endOf('week').format('DD-MM-YYYY');
       dateInitFilter = startWeek;
       dateEndFilter = endWeek;
       notFound = 'Última semana';
     } else if (type === 'Último mes') {
-      const startMonth = moment().subtract(1, 'months').startOf('month').format('YYYY-MM-DD');
-      const endMonth = moment().subtract(1, 'months').endOf('month').format('YYYY-MM-DD');
+      const startMonth = moment().subtract(1, 'months').startOf('month').format('DD-MM-YYYY');
+      const endMonth = moment().subtract(1, 'months').endOf('month').format('DD-MM-YYYY');
       dateInitFilter = startMonth;
       dateEndFilter = endMonth;
       notFound = 'Último mes';
@@ -82,8 +82,8 @@ export class DateFilterComponent {
       let dateEndFilter;
       let notFound;
 
-      dateInitFilter = moment(this.datepicker.startDate).format('YYYY-MM-DD');
-      dateEndFilter = moment(this.datepicker.endDate).format('YYYY-MM-DD');
+      dateInitFilter = moment(this.datepicker.startDate).format('DD-MM-YYYY');
+      dateEndFilter = moment(this.datepicker.endDate).format('DD-MM-YYYY');
       notFound = 'Otro periodo';
 
       this.isRange = false;

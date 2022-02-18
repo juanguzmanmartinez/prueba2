@@ -123,7 +123,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   private setDataSourceService(): void {
     this.dataSource.filterPredicate = (data: OrderModel, fltr: string) => {
       const filterNormalize = normalizeValue(fltr);
-      const orderId = normalizeValue(JSON.stringify(data.orderId));
+      const orderId = normalizeValue(JSON.stringify(data.ecommerceId));
       const local = normalizeValue(data.local);
       const channel = normalizeValue(data.channel);
       const service = normalizeValue(data.service);
@@ -144,7 +144,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       return data.sort((a: OrderModel, b: OrderModel) => {
         switch (sort.active) {
           case ColumnNameList.orderId:
-            return SortNumeric(a.orderId, b.orderId, sort.direction);
+            return SortNumeric(a.ecommerceId, b.ecommerceId, sort.direction);
           case ColumnNameList.local:
             return SortAlphanumeric(a.local, b.local, sort.direction);
           case ColumnNameList.channel:
@@ -308,7 +308,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     try {
       const data = this.selection.selected.map(value => {
         return {
-          ['N° Pedido (Digital)']: value.orderId,
+          ['N° Pedido (Digital)']: value.ecommerceId,
           ['N° Pedido (Call)']: '',
           ['Estado']: value.state,
           ['Local']: value.local,
