@@ -51,6 +51,11 @@ export class OrderFilterStore {
     this.orderFilterSubject.next(this.orderFilter);
   }
 
+  set setTypeDatePromise(typeDatePromise: string) {
+    this.orderFilter.typeDatePromise = typeDatePromise;
+    this.orderFilterSubject.next(this.orderFilter);
+  }
+
   set setDatePromise(datePromise: string[]) {
     this.orderFilter.datePromise = datePromise;
     this.orderFilterSubject.next(this.orderFilter);

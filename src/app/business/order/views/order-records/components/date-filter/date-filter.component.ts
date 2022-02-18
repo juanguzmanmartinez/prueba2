@@ -35,9 +35,8 @@ export class DateFilterComponent implements OnInit {
   constructor(private orderFilterStore: OrderFilterStore) {}
 
   ngOnInit(): void {
-    const { datePromise } = this.orderFilterStore.getOrderFilter();
-    //TODO: Se debe hacer la mejora para poder persistir el valor
-    // this.selectedRange = 'Ayer';
+    const { typeDatePromise } = this.orderFilterStore.getOrderFilter();
+    this.selectDate = typeDatePromise ?? '';
   }
 
   selectionChange(type: string): void {
@@ -82,6 +81,8 @@ export class DateFilterComponent implements OnInit {
       dateEndFilter = endMonth;
       notFound = 'Último mes';
     } else if (type === 'Otro periodo') {
+      this.orderFilterStore.setTypeDatePromise = type;
+
       this.isRange = true;
       this.selectDatePreview = this.selectDate;
       this.existDate = !!this.datepicker;
@@ -90,6 +91,8 @@ export class DateFilterComponent implements OnInit {
       }
       return;
     }
+
+    this.orderFilterStore.setTypeDatePromise = type;
     this.filter.emit({ dateRange: [dateInitFilter, dateEndFilter], notFound });
   }
 

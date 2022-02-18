@@ -5,6 +5,7 @@ export interface IOrderFilter {
   companies?: string[];
   typeServices?: string[];
   datePromise?: string[];
+  typeDatePromise?: string;
   statusOrder?: string[];
   channelOfBuy?: string[];
 }
