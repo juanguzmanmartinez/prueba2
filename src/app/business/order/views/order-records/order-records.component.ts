@@ -65,15 +65,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   pageSize = 10;
   showPaginator = true;
 
-  // private searchCode: string;
-  // private searchValue: string;
-  // private selectedLocals: string[];
-  // private selectedCompany: string[];
-  // private selectedService: string[];
-  // private datePromise: string[];
-  // private selectedStatus: string[];
-  // private selectedChannel: string[];
-
   notFound = '';
 
   displayedColumns: string[] = [
@@ -118,17 +109,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     );
     this.subscriptions.add(subscription);
 
-    // this.orderRecordsImplement
-    //   .orderList(this.page, this.pageSize)
-    //   .pipe(
-    //     finalize(() => {
-    //       this.tableLoader = false;
-    //     })
-    //   )
-    //   .subscribe({
-    //     next: (res: OrderRecords) => this.setOrderPageData(res),
-    //     error: (err) => (this.errorResponse = err),
-    //   });
     this.filterAll();
   }
 
@@ -269,9 +249,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   filterBySearch(value: { code: string; search: string }): void {
-    // this.searchCode = value.code;
-    // this.searchValue = value.search;
-
     this.orderFilterStore.setSearchCode = value.code;
     this.orderFilterStore.setSearchValue = value.search;
 
@@ -282,7 +259,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   filterByLocal(event: LocalFilterEvent): void {
     this.orderFilterStore.setLocals = event.locals;
 
-    // this.selectedLocals = event.locals;
     this.notFound = event.notFound;
     this.filterAll();
   }
@@ -290,7 +266,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   filterByCompany(event: CompanyFilterEvent): void {
     this.orderFilterStore.setCompanies = event.companies;
 
-    // this.selectedCompany = event.companies;
     this.notFound = event.notFound;
     this.filterAll();
   }
@@ -298,10 +273,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   filterByService(event: ServicesFilterEvent): void {
     this.orderFilterStore.setTypeServices = event.services;
 
-    // this.formOrderRecords.get('services').setValue(event.services);
-    // this.formOrderRecords.updateValueAndValidity();
-
-    // this.selectedService = event.services;
     this.notFound = event.notFound;
     this.filterAll();
   }
@@ -309,7 +280,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   filterByDatePromise(event: DatepickerFilterEvent): void {
     this.orderFilterStore.setDatePromise = event.dateRange;
 
-    // this.datePromise = event.dateRange;
     this.notFound = event.notFound;
     this.filterAll();
   }
@@ -317,7 +287,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   filterByStatus(event: StatusFilterEvent): void {
     this.orderFilterStore.setStatusOrder = event.status;
 
-    // this.selectedStatus = event.status;
     this.notFound = event.notFound;
     this.filterAll();
   }
@@ -325,7 +294,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   filterByChannel(event: ChannelFilterEvent): void {
     this.orderFilterStore.setChannelOfBuy = event.channels;
 
-    // this.selectedChannel = event.channels;
     this.notFound = event.notFound;
     this.filterAll();
   }

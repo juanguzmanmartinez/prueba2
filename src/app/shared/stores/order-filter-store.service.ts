@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { IOrderFilter } from 'app/business/order/views/order-records/interfaces/order-filter.interface';
 import { BehaviorSubject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class OrderFilterStore {
   private orderFilter: IOrderFilter = {};
   private orderFilterSubject = new BehaviorSubject<IOrderFilter>({});

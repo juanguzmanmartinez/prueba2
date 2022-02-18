@@ -11,6 +11,7 @@ import { TooltipModule } from '@atoms/tooltip/tooltip.module';
 import { TableModule } from '@molecules/table/table.module';
 import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
 import { NotSearchResultModule } from '@pages/not-search-result/not-search-result.module';
+import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { ChannelFilterModule } from './components/channel-filter/channel-filter.module';
 import { CompanyFilterModule } from './components/company-filter/company-filter.module';
@@ -48,6 +49,6 @@ import { OrderRecordsComponent } from './order-records.component';
     NotSearchResultModule,
     HttpErrorViewerModule,
   ],
-  providers: [OrderRecordsImplementService],
+  providers: [OrderRecordsImplementService, OrderFilterStore],
 })
 export class OrderRecordsModule {}
