@@ -1,16 +1,10 @@
-import {
-  AfterViewInit,
-  Directive,
-  ElementRef,
-  HostListener,
-  Input,
-} from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener, Input, } from '@angular/core';
 
 @Directive({
   selector: '[appDigitsOnly]',
 })
 export class DigitsOnlyDirective implements AfterViewInit {
-  @Input() decimal? = false;
+  @Input() decimal ? = false;
 
   private decimalCounter = 0;
   private navigationKeys = [
@@ -68,7 +62,7 @@ export class DigitsOnlyDirective implements AfterViewInit {
   }
 
   @HostListener('keyup', ['$event'])
-  onKeyUp(e: KeyboardEvent) {
+  onKeyUp() {
     if (!this.decimal) {
       return;
     }
