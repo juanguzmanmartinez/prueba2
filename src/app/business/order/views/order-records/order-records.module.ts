@@ -8,6 +8,7 @@ import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
 import { PaginatorModule } from '@atoms/paginator/paginator.module';
 import { SelectModule } from '@atoms/select/select.module';
 import { TooltipModule } from '@atoms/tooltip/tooltip.module';
+import { BackRouterModule } from '@molecules/back-router/back-router.module';
 import { TableModule } from '@molecules/table/table.module';
 import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
 import { NotSearchResultModule } from '@pages/not-search-result/not-search-result.module';
@@ -48,6 +49,7 @@ import { OrderRecordsComponent } from './order-records.component';
     FormsModule,
     NotSearchResultModule,
     HttpErrorViewerModule,
+    BackRouterModule,
   ],
   providers: [OrderRecordsImplementService, OrderFilterStore],
 })
