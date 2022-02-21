@@ -32,3 +32,9 @@ td {
 .error {
   margin-top: 78px;
 }
+
+:host {
+  .mat-column-promiseDate {
+    padding: 0 16px !important;
+  }
+}
