@@ -4,6 +4,7 @@
 @import "src/sass/mixins/position.mixin"
 
 $select-height: 40px
+$select-option-height: 48px
 
 .select
   position: relative
@@ -57,6 +58,8 @@ $select-height: 40px
     &.mat-select-disabled .mat-select-trigger
       background-color: $gray-2
       border-color: $gray-3
+    &[aria-expanded=true] .mat-select-trigger
+      border: 1px solid $primary
 
 .mat-select-panel.select-component
   background-color: transparent
@@ -81,7 +84,7 @@ $select-height: 40px
   mat-option.select-basic-option.mat-option.mat-active
     color: $black
     background-color: transparent
-    height: $select-height
+    height: $select-option-height
     @include text-body-1-regular
 
     &:hover
