@@ -11,6 +11,7 @@ import { LocalFilterEvent } from '../../interfaces/order-records.interface';
   styleUrls: ['./local-filter.component.scss'],
 })
 export class LocalFilterComponent implements OnInit {
+
   @Output() filter = new EventEmitter<LocalFilterEvent>();
 
   list: IDrugstore[];
@@ -78,5 +79,5 @@ export class LocalFilterComponent implements OnInit {
       return 1;
     }
     return 0;
-  };
+  }
 }

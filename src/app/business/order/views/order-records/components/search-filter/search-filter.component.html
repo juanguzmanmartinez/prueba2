@@ -5,8 +5,7 @@
       [customValue]="true"
       [optionList]="typesSearch"
       [value]="valueSelect"
-      (optionChange)="selectionChange($event)"
-    >
+      (optionChange)="selectionChange($event)">
       <ng-container trigger>
         <app-icon [fontName]="valueSelect.icon"></app-icon>
         {{ valueSelect.name }}
@@ -22,8 +21,7 @@
       appDigitsOnly
       labelClass="w-100"
       [placeholder]="'Buscar por ' + valueSelect.name"
-      [formControl]="search"
-    >
+      [formControl]="search">
     </app-input-search>
   </div>
 </div>

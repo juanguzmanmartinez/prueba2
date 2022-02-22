@@ -8,6 +8,7 @@ import { CompanyFilterEvent } from '../../interfaces/order-records.interface';
   styleUrls: ['./company-filter.component.scss'],
 })
 export class CompanyFilterComponent implements OnInit {
+
   @Output() filter = new EventEmitter<CompanyFilterEvent>();
 
   list = [

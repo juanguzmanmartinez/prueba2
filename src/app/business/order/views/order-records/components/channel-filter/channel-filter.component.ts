@@ -8,6 +8,7 @@ import { ChannelFilterEvent } from '../../interfaces/order-records.interface';
   styleUrls: ['./channel-filter.component.scss'],
 })
 export class ChannelFilterComponent implements OnInit {
+
   @Output() filter = new EventEmitter<ChannelFilterEvent>();
 
   list = [

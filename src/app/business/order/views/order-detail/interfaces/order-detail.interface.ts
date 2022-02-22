@@ -1,4 +1,5 @@
 export interface ClientInformation {
+  addressClient: string;
   clientName: string;
   documentNumber: number;
   phone: string;

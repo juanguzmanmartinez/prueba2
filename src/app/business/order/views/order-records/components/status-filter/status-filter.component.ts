@@ -2,10 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { map, tap } from 'rxjs/operators';
 import { OrderRecordsImplementService } from '../../implements/order-records-implement.service';
-import {
-  OrderStatus,
-  StatusFilterEvent,
-} from '../../interfaces/order-records.interface';
+import { OrderStatus, StatusFilterEvent, } from '../../interfaces/order-records.interface';
 
 @Component({
   selector: 'app-status-filter',
@@ -13,6 +10,7 @@ import {
   styleUrls: ['./status-filter.component.scss'],
 })
 export class StatusFilterComponent implements OnInit {
+
   @Output() filter = new EventEmitter<StatusFilterEvent>();
 
   list: OrderStatus[];
@@ -35,7 +33,8 @@ export class StatusFilterComponent implements OnInit {
           this.list = [...new Set(res)];
         }),
         map((res: OrderStatus[]) => {
-          const codes = res.map((val) => {
+          const newStatus = res.sort(this.sortStatus);
+          const codes = newStatus.map((val) => {
             return val.id;
           });
           return [...new Set(codes)];
@@ -70,5 +69,15 @@ export class StatusFilterComponent implements OnInit {
       )}, ${this.getStatusName(status[1])} (+${status.length - 2} otros`;
     }
     this.filter.emit({ status, notFound: this.getListStatusName(status) });
+  }
+
+  private sortStatus = (x, y) => {
+    if (x.name < y.name) {
+      return -1;
+    }
+    if (x.name > y.name) {
+      return 1;
+    }
+    return 0;
   }
 }
