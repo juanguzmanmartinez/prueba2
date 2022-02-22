@@ -104,9 +104,9 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor, OnIn
 
   writeValue(value: IDatepickerRange): void {
     this.startDateControl
-      .setValue(value && value.startDate ? value.startDate : null);
+      .setValue(value && value.startDate ? new Date(value.startDate) : null);
     this.endDateControl
-      .setValue(value && value.endDate ? value.endDate : null);
+      .setValue(value && value.endDate ? new Date(value.endDate) : null);
   }
 
   get startDateControl() {

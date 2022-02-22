@@ -20,7 +20,6 @@ export class OrderFilterStore {
   }
 
   set setSearchCode(searchCode: string) {
-    console.log(searchCode);
     const orderFilter = {
       ...this.orderFilter,
       searchCode,

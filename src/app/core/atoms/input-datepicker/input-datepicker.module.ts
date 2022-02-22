@@ -13,15 +13,15 @@ import { ButtonsModule } from '@atoms/buttons/buttons.module';
 
 
 @NgModule({
-    declarations: [
-        DatepickerHeaderComponent,
-        InputDatepickerComponent,
-        InputDatepickerRangeComponent,
-    ],
-    exports: [
-        InputDatepickerComponent,
-        InputDatepickerRangeComponent,
-    ],
+  declarations: [
+    DatepickerHeaderComponent,
+    InputDatepickerComponent,
+    InputDatepickerRangeComponent,
+  ],
+  exports: [
+    InputDatepickerComponent,
+    InputDatepickerRangeComponent,
+  ],
   imports: [
     PlatformModule,
     CommonModule,
@@ -29,12 +29,12 @@ import { ButtonsModule } from '@atoms/buttons/buttons.module';
     IconsModule,
     FormsModule,
     ReactiveFormsModule,
-    ButtonsModule
+    ButtonsModule,
   ],
-    providers: [
-        {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE, Platform]},
-        {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},
-    ]
+  providers: [
+    {provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE, Platform]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},
+  ]
 })
 export class InputDatepickerModule {
 }

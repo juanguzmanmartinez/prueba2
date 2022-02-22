@@ -4,8 +4,7 @@
   [value]="selectedStatus"
   [selectOptionSquare]="true"
   [optionList]="status"
-  (optionChange)="selectionChange($event)"
->
+  (optionChange)="selectionChange($event)">
   <ng-container trigger>{{ valueSelect }}</ng-container>
   <ng-template let-service>{{ getStatusName(service) }}</ng-template>
 </app-select>
