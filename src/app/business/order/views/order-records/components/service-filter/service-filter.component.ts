@@ -9,6 +9,7 @@ import { ServicesFilterEvent } from '../../interfaces/order-records.interface';
   styleUrls: ['./service-filter.component.scss'],
 })
 export class ServiceFilterComponent implements OnInit {
+
   @Output() filter = new EventEmitter<ServicesFilterEvent>();
 
   services = [];

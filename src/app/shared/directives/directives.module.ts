@@ -7,23 +7,23 @@ import { EditionAccessDirective } from './roles/edition-access.directive';
 import { DialogModule } from '@molecules/dialog/dialog.module';
 
 const DIRECTIVES = [
-    DigitsOnlyDirective,
-    CapsLockDirective,
-    RouterAccessDirective,
-    EditionAccessDirective
+  DigitsOnlyDirective,
+  CapsLockDirective,
+  RouterAccessDirective,
+  EditionAccessDirective
 ];
 
 @NgModule({
-    declarations: [
-        ...DIRECTIVES,
-    ],
-    exports: [
-        ...DIRECTIVES,
-    ],
-    imports: [
-        CommonModule,
-        DialogModule
-    ]
+  declarations: [
+    ...DIRECTIVES,
+  ],
+  exports: [
+    ...DIRECTIVES,
+  ],
+  imports: [
+    CommonModule,
+    DialogModule
+  ]
 })
 export class DirectivesModule {
 }

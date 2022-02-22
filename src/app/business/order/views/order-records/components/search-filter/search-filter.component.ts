@@ -22,17 +22,18 @@ enum CodeTypeSearch {
   styleUrls: ['./search-filter.component.scss'],
 })
 export class SearchFilterComponent implements OnInit, OnDestroy {
+
   search = new FormControl('');
 
   typesSearch: TypeSearch[] = [
     {
       code: CodeTypeSearch.pedido,
-      icon: 'call',
+      icon: 'local_mall',
       name: 'Nº de pedido'
     },
     {
       code: CodeTypeSearch.telefono,
-      icon: 'local_mall',
+      icon: 'call',
       name: 'Nº de teléfono',
     },
     {

@@ -18,7 +18,7 @@ export class ClientInformationModel {
     this.businessName = '-';
     this.phone = data.phone ? data.phone : '-';
     this.email = data.email ? data.email : '-';
-    this.address = '';
+    this.address = data.addressClient ? data.addressClient :  '-';
     this.coordinates = data.coordinates ? data.coordinates : '-';
     this.reference = data.reference ? data.reference : '-';
   }
