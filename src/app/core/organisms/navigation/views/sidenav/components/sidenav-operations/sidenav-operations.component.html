@@ -5,7 +5,7 @@
     [routePath]="routerPath.operations"
     [routeText]="sidenavRouting.name"
     [routeIcon]="sidenavRouting.iconMenu"
-    (sidenavOpen)="onSidenavOpen()"
+    (sidenavOpen)="onSidenavOpen($event)"
   >
     <app-sidenav-route
       *appRouterAccess="routerPath.operationZones"

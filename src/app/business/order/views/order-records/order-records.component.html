@@ -1,11 +1,14 @@
-<section class="pt-8 pb-15">
-  <div class="row mb-4">
-    <div class="col">
-      <app-back-router>Inicio</app-back-router>
+<section class="pb-15">
+  <div class="pt-8 order-header">
+    <div class="row mb-4">
+      <div class="col">
+        <app-back-router>Inicio</app-back-router>
+      </div>
     </div>
-  </div>
-  <ng-container *ngIf="!errorResponse; else hasError">
-    <div class="d-flex justify-content-between align-items-center mb-7">
+    <div
+      class="d-flex justify-content-between align-items-center pb-7"
+      *ngIf="!errorResponse"
+    >
       <div class="d-flex flex-column">
         <h1 class="text-h4 text-black mb-0">Historial de pedidos</h1>
       </div>
@@ -18,7 +21,9 @@
         {{ selected ? ": " + (selected | number: "2.0-0") : "" }}
       </app-button-icon>
     </div>
+  </div>
 
+  <ng-container *ngIf="!errorResponse; else hasError">
     <div class="row mb-2">
       <div class="col-6 col-lg-6 p-2">
         <app-search-filter

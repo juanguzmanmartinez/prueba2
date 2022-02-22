@@ -116,7 +116,8 @@ export class SidenavRouteExpansionComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  onSidenavOpen() {
-    this.sidenavOpen?.emit();
+  onSidenavOpen($event) {
+    this.matExpansionPanel?.toggle();
+    this.sidenavOpen?.emit($event);
   }
 }
