@@ -11,7 +11,6 @@ import { LocalFilterEvent } from '../../interfaces/order-records.interface';
   styleUrls: ['./local-filter.component.scss'],
 })
 export class LocalFilterComponent implements OnInit {
-
   @Output() filter = new EventEmitter<LocalFilterEvent>();
 
   list: IDrugstore[];
@@ -42,6 +41,7 @@ export class LocalFilterComponent implements OnInit {
       )
       .subscribe((response: string[]) => {
         this.locals = response;
+        this.selectionChange(locals ?? [], true);
       });
   }
 
@@ -56,7 +56,7 @@ export class LocalFilterComponent implements OnInit {
     return localsWithName.toString();
   }
 
-  selectionChange(locals: string[]): void {
+  selectionChange(locals: string[], isCallOnInit = false): void {
     if (locals.length === 1) {
       this.valueSelect = this.getLocalName(locals[0]);
     } else if (locals.length === 2) {
@@ -67,6 +67,12 @@ export class LocalFilterComponent implements OnInit {
       this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
         locals[1]
       )} (+${locals.length - 2} otros`;
+    }
+
+    console.log('locals', locals);
+    console.log('isCallOnInit', isCallOnInit, this.valueSelect);
+    if (isCallOnInit) {
+      return;
     }
     this.filter.emit({ locals, notFound: this.getLocalsName(locals) });
   }
@@ -79,5 +85,5 @@ export class LocalFilterComponent implements OnInit {
       return 1;
     }
     return 0;
-  }
+  };
 }

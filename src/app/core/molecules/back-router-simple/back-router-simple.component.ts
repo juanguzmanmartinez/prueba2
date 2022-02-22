@@ -5,15 +5,13 @@ import { parseUrl } from '@helpers/parse-url.helper';
 @Component({
   selector: 'app-back-router-simple',
   templateUrl: './back-router-simple.component.html',
-  styleUrls: ['./back-router-simple.component.scss']
+  styleUrls: ['./back-router-simple.component.scss'],
 })
 export class BackRouterSimpleComponent implements OnInit {
-
   @Input() backRoute: string;
+  @Input() textBackRoute: string;
 
-  constructor(
-    private _router: Router
-  ) { }
+  constructor(private _router: Router) {}
 
   ngOnInit(): void {
     if (!this.backRoute) {
