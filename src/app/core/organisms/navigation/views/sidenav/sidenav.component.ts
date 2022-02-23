@@ -49,6 +49,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   sidenavClosed() {
     this.navigationService.sidenavClosed = true;
+    this.sidenav.close();
   }
 
   ngOnDestroy() {

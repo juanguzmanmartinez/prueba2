@@ -11,25 +11,26 @@ import {
   Self,
   TemplateRef,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { isObject } from '@helpers/objects-equal.helper';
 import { normalizeValue } from '@helpers/string.helper';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.sass'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestroy, AfterViewInit {
-
+export class SelectComponent<T>
+  implements ControlValueAccessor, OnInit, OnDestroy, AfterViewInit
+{
   private subscriptions = new Subscription();
 
   public optionContainerWidth = '300px';
-  public value: T;
+  public value: T | T[];
 
   @Input() name: string | number;
   @Input() placeholder = 'placeholder';
@@ -42,7 +43,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   @Input() optionList: T[] = [];
 
   @Input('value')
-  set _value(option: T) {
+  set _value(option: T | T[]) {
     this.validValue(option);
   }
 
@@ -53,7 +54,6 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
 
   onChange = (_: any) => {};
   onTouched = (_: any) => {};
-
 
   constructor(@Optional() @Self() public ngControl: NgControl) {
     if (ngControl) {
@@ -79,14 +79,18 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
     });
   }
 
-  validValue(value: T) {
+  validValue(value: T | T[]) {
     let savedValue = !!this.value ? this.value.toString() : '';
     let newValue = !!value ? value.toString() : '';
     if (isObject(this.value)) {
-      savedValue = Object.keys(this.value).map(key => normalizeValue(this.value[key])).join('');
+      savedValue = Object.keys(this.value)
+        .map((key) => normalizeValue(this.value[key]))
+        .join('');
     }
     if (isObject(value)) {
-      newValue = Object.keys(value).map(key => normalizeValue(value[key])).join('');
+      newValue = Object.keys(value)
+        .map((key) => normalizeValue(value[key]))
+        .join('');
     }
 
     if (newValue !== savedValue && !!value) {
@@ -94,14 +98,12 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
     } else if (!value) {
       this.value = null;
     }
-
   }
 
   selectionChange(option: T) {
     this.optionChange.emit(option);
     this.onChange(option);
   }
-
 
   writeValue(obj: T): void {
     this.validValue(obj);

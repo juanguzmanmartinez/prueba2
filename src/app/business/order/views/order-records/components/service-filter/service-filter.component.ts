@@ -9,7 +9,6 @@ import { ServicesFilterEvent } from '../../interfaces/order-records.interface';
   styleUrls: ['./service-filter.component.scss'],
 })
 export class ServiceFilterComponent implements OnInit {
-
   @Output() filter = new EventEmitter<ServicesFilterEvent>();
 
   services = [];
@@ -27,9 +26,11 @@ export class ServiceFilterComponent implements OnInit {
   ngOnInit(): void {
     const { typeServices } = this.orderFilterStore.getOrderFilter();
     this.selectedService = typeServices ?? [];
+
+    this.selectionChange(typeServices ?? [], true);
   }
 
-  selectionChange(services: string[]): void {
+  selectionChange(services: string[], isOnInit = false): void {
     this.selectedService = services;
     if (services.length === 1) {
       this.valueSelect = this.getServiceName(services[0]);
@@ -42,6 +43,8 @@ export class ServiceFilterComponent implements OnInit {
         services[0]
       )}, ${this.getServiceName(services[1])} (+${services.length - 2} otros`;
     }
+
+    if (isOnInit) return;
     this.filter.emit({ services, notFound: this.getServicesName(services) });
   }
 

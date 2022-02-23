@@ -13,12 +13,13 @@ export class SidenavOperationsComponent implements OnInit {
   public sidenavRouting = OPERATIONS_ROUTER;
   @Input() sidenav: MatSidenav;
   @Output() sidenavOpen = new EventEmitter();
+  @Output() sidenavClosed = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  onSidenavOpen() {
+  onSidenavOpen($event: Event): void {
     this.sidenavOpen?.emit();
   }
 }

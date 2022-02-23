@@ -2,7 +2,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { map, tap } from 'rxjs/operators';
 import { OrderRecordsImplementService } from '../../implements/order-records-implement.service';
-import { OrderStatus, StatusFilterEvent, } from '../../interfaces/order-records.interface';
+import {
+  OrderStatus,
+  StatusFilterEvent,
+} from '../../interfaces/order-records.interface';
 
 @Component({
   selector: 'app-status-filter',
@@ -10,7 +13,6 @@ import { OrderStatus, StatusFilterEvent, } from '../../interfaces/order-records.
   styleUrls: ['./status-filter.component.scss'],
 })
 export class StatusFilterComponent implements OnInit {
-
   @Output() filter = new EventEmitter<StatusFilterEvent>();
 
   list: OrderStatus[];
@@ -42,6 +44,7 @@ export class StatusFilterComponent implements OnInit {
       )
       .subscribe((response: string[]) => {
         this.status = response;
+        this.selectionChange(statusOrder ?? [], true);
       });
   }
 
@@ -56,7 +59,7 @@ export class StatusFilterComponent implements OnInit {
     return statusWithName.toString();
   }
 
-  selectionChange(status: string[]): void {
+  selectionChange(status: string[], isOnInit = false): void {
     if (status.length === 1) {
       this.valueSelect = this.getStatusName(status[0]);
     } else if (status.length === 2) {
@@ -68,6 +71,8 @@ export class StatusFilterComponent implements OnInit {
         status[0]
       )}, ${this.getStatusName(status[1])} (+${status.length - 2} otros`;
     }
+
+    if (isOnInit) return;
     this.filter.emit({ status, notFound: this.getListStatusName(status) });
   }
 
@@ -79,5 +84,5 @@ export class StatusFilterComponent implements OnInit {
       return 1;
     }
     return 0;
-  }
+  };
 }

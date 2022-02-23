@@ -1,10 +1,12 @@
 <app-select
   placeholder="Local"
   [multiple]="true"
+  [customValue]="true"
   [value]="selectedLocals"
   [optionList]="locals"
   [selectOptionSquare]="true"
-  (optionChange)="selectionChange($event)">
+  (optionChange)="selectionChange($event)"
+>
   <ng-container trigger>{{ valueSelect }}</ng-container>
   <ng-template let-localCode>{{ getLocalName(localCode) }}</ng-template>
 </app-select>

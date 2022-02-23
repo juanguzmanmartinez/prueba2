@@ -13,14 +13,12 @@
       class="sidenav-route-expansion-header"
       collapsedHeight="40px"
       expandedHeight="40px"
-      (click)="sidenavRouteExpansion.toggle()"
     >
       <app-router
         [routerActiveOptions]="routePathOptions"
         class="sidenav-route-expansion-header-router-container"
-        (click)="onSidenavOpen()"
+        (click)="onSidenavOpen($event)"
       >
-        <!-- [router]="routePath" -->
         <div class="sidenav-route-expansion-header-router">
           <app-icon
             [fontName]="routeIcon"
@@ -34,9 +32,9 @@
         </div>
       </app-router>
       <div
-        (click)="sidenavRouteExpansion.toggle()"
         [hidden]="disableChildren"
         class="sidenav-route-expansion-header-toggle"
+        (click)="sidenavRouteExpansion.toggle()"
       >
         <app-icon
           [@openClose]="sidenavRouteExpansionState ? 'open' : 'closed'"
