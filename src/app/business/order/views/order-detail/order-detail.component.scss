@@ -1,5 +1,14 @@
 @import "src/sass/variables/utilities.variable";
 @import "src/sass/variables/fonts.variable";
+@import "src/sass/variables/colors.variable";
+
+.order-detail-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background-color: $gray-0;
+}
 
 :host {
   letter-spacing: $letter-spacing-regular;
@@ -22,4 +31,3 @@
     }
   }
 }
-
