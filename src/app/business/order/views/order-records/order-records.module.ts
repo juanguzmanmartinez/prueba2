@@ -24,33 +24,37 @@ import { StatusFilterModule } from './components/status-filter/status-filter.mod
 import { OrderRecordsImplementService } from './implements/order-records-implement.service';
 import { OrderRecordsRoutingModule } from './order-records-routing.module';
 import { OrderRecordsComponent } from './order-records.component';
+import { CardModule } from '@molecules/cards/card.module';
+import { DirectivesModule } from '../../../../shared/directives/directives.module';
 
 @NgModule({
   declarations: [OrderRecordsComponent],
-  imports: [
-    OrderRecordsRoutingModule,
-    ButtonsModule,
-    SearchFilterModule,
-    LocalFilterModule,
-    CompanyFilterModule,
-    ServiceFilterModule,
-    DateFilterModule,
-    StatusFilterModule,
-    ChannelFilterModule,
-    TableModule,
-    MatTableModule,
-    MatSortModule,
-    MatTableExporterModule,
-    CheckboxModule,
-    TooltipModule,
-    CommonModule,
-    PaginatorModule,
-    SelectModule,
-    FormsModule,
-    NotSearchResultModule,
-    HttpErrorViewerModule,
-    BackRouterSimpleModule,
-  ],
+    imports: [
+        OrderRecordsRoutingModule,
+        ButtonsModule,
+        SearchFilterModule,
+        LocalFilterModule,
+        CompanyFilterModule,
+        ServiceFilterModule,
+        DateFilterModule,
+        StatusFilterModule,
+        ChannelFilterModule,
+        TableModule,
+        MatTableModule,
+        MatSortModule,
+        MatTableExporterModule,
+        CheckboxModule,
+        TooltipModule,
+        CommonModule,
+        PaginatorModule,
+        SelectModule,
+        FormsModule,
+        NotSearchResultModule,
+        HttpErrorViewerModule,
+        BackRouterSimpleModule,
+        CardModule,
+        DirectivesModule,
+    ],
   providers: [OrderRecordsImplementService, OrderFilterStore],
 })
 export class OrderRecordsModule {}

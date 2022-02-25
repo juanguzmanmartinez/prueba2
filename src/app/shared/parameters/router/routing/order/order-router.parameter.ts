@@ -5,7 +5,8 @@ export const ORDER_ROUTER: TRouter = {
   name: 'Pedidos',
   iconCard: 'dump',
   iconMenu: 'local_mall',
-  description: 'Consulta de pedidos'
+  description: 'Consulta de pedidos',
+  clickable: false
 };
 
 export const OR_CHILDREN_PATH = {

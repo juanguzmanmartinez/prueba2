@@ -12,17 +12,20 @@ export class ChannelFilterComponent implements OnInit {
   @Output() filter = new EventEmitter<ChannelFilterEvent>();
 
   list = [
-    { code: 'CALL', name: 'Call Center' },
-    { code: 'DIGITAL', name: 'Digital' },
+    {code: 'CALL', name: 'Call Center'},
+    {code: 'DIGITAL', name: 'Digital'},
   ];
   channels = ['CALL', 'DIGITAL'];
   valueSelect: string;
   selectedChannels: string[];
 
-  constructor(private orderFilterStore: OrderFilterStore) {}
+  constructor(
+    private orderFilterStore: OrderFilterStore
+  ) {
+  }
 
   ngOnInit(): void {
-    const { channelOfBuy } = this.orderFilterStore.getOrderFilter();
+    const {channelOfBuy} = this.orderFilterStore.getOrderFilter();
     this.selectedChannels = channelOfBuy ?? [];
   }
 
@@ -34,7 +37,7 @@ export class ChannelFilterComponent implements OnInit {
         channels[0]
       )}, ${this.getChannelName(channels[1])}`;
     }
-    this.filter.emit({ channels, notFound: this.getChannelsName(channels) });
+    this.filter.emit({channels, notFound: this.getChannelsName(channels)});
   }
 
   getChannelName(option: string): string {

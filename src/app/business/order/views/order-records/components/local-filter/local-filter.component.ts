@@ -11,20 +11,22 @@ import { LocalFilterEvent } from '../../interfaces/order-records.interface';
   styleUrls: ['./local-filter.component.scss'],
 })
 export class LocalFilterComponent implements OnInit {
-  @Output() filter = new EventEmitter<LocalFilterEvent>();
 
   list: IDrugstore[];
   locals: string[];
   valueSelect: string;
   selectedLocals: string[];
 
+  @Output() filter = new EventEmitter<LocalFilterEvent>();
+
   constructor(
     private orderRecordImplement: OrderRecordsImplementService,
     private orderFilterStore: OrderFilterStore
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    const { locals } = this.orderFilterStore.getOrderFilter();
+    const {locals} = this.orderFilterStore.getOrderFilter();
     this.selectedLocals = locals ?? [];
 
     this.orderRecordImplement.storeList
@@ -46,7 +48,8 @@ export class LocalFilterComponent implements OnInit {
   }
 
   getLocalName(option: string): string {
-    return this.list.find((local) => local.localCode === option).name;
+    const localSelected = this.list.find((local) => local.localCode === option);
+    return `${localSelected.name} - ${localSelected.localCode}`;
   }
 
   private getLocalsName(locals: string[]): string {
@@ -69,12 +72,10 @@ export class LocalFilterComponent implements OnInit {
       )} (+${locals.length - 2} otros`;
     }
 
-    console.log('locals', locals);
-    console.log('isCallOnInit', isCallOnInit, this.valueSelect);
     if (isCallOnInit) {
       return;
     }
-    this.filter.emit({ locals, notFound: this.getLocalsName(locals) });
+    this.filter.emit({locals, notFound: this.getLocalsName(locals)});
   }
 
   private sortLocals = (x, y) => {
@@ -85,5 +86,5 @@ export class LocalFilterComponent implements OnInit {
       return 1;
     }
     return 0;
-  };
+  }
 }

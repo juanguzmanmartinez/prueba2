@@ -1,22 +1,9 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import {
-  SortAlphanumeric,
-  SortNumeric,
-  SortString,
-} from '@helpers/sort.helper';
 import { normalizeValue } from '@helpers/string.helper';
 import { AlertService } from '@molecules/alert/alert.service';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
@@ -56,6 +43,7 @@ const ColumnNameList = {
   styleUrls: ['./order-records.component.scss'],
 })
 export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
+
   tableLoader = true;
   errorResponse: HttpErrorResponse;
 
@@ -82,17 +70,50 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   dataSource = new MatTableDataSource<OrderModel>();
   selection = new SelectionModel(true, []);
-  fixedSelectedRows: OrderModel[] = [];
-  formOrderRecords: FormGroup = null;
+  private fixedSelectedRows: OrderModel[] = [];
 
   get selected(): number {
     return this.selection.selected.length;
   }
 
-  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @ViewChild('exporter') exporter;
+
+  sortColumns = {
+    orderId: {
+      column: '1',
+      reload: false
+    },
+    local: {
+      column: '2',
+      reload: false
+    },
+    channel: {
+      column: '3',
+      reload: false
+    },
+    service: {
+      column: '4',
+      reload: false
+    },
+    promiseDate: {
+      column: '5',
+      reload: false
+    },
+    client: {
+      column: '6',
+      reload: false
+    },
+    documentId: {
+      column: '7',
+      reload: false
+    },
+    state: {
+      column: '8',
+      reload: false
+    }
+  };
 
   private subscriptions = new Subscription();
 
@@ -101,7 +122,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     private orderRecordsImplement: OrderRecordsImplementService,
     private alertService: AlertService,
     private orderFilterStore: OrderFilterStore
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     const subscription = this.selection.changed.subscribe(
@@ -113,7 +135,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 
@@ -146,38 +167,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       return concatValue.includes(filterNormalize) && everyValue;
     };
 
-    this.dataSource.sortData = (data: OrderModel[], sort: MatSort) => {
-      return data.sort((a: OrderModel, b: OrderModel) => {
-        switch (sort.active) {
-          case ColumnNameList.orderId:
-            return SortNumeric(a.ecommerceId, b.ecommerceId, sort.direction);
-          case ColumnNameList.local:
-            return SortAlphanumeric(a.local, b.local, sort.direction);
-          case ColumnNameList.channel:
-            return SortString(a.channel, b.channel, sort.direction);
-          case ColumnNameList.service:
-            return SortString(a.service, b.service, sort.direction);
-          case ColumnNameList.promiseDate:
-            return SortAlphanumeric(
-              a.promiseDate,
-              b.promiseDate,
-              sort.direction
-            );
-          case ColumnNameList.client:
-            return SortString(a.client, b.client, sort.direction);
-          case ColumnNameList.documentId:
-            return SortNumeric(a.documentId, b.documentId, sort.direction);
-          case ColumnNameList.state:
-            return SortString(a.state, b.state, sort.direction);
-
-          default:
-            const defaultA = a[sort.active];
-            const defaultB = b[sort.active];
-            return SortAlphanumeric(defaultA, defaultB, sort.direction);
-        }
-      });
-    };
-
     this.dataSource._updatePaginator(this.totalOrder);
     this.tableLoader = false;
   }
@@ -201,7 +190,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
         orderFilter.typeServices,
         orderFilter.datePromise,
         orderFilter.statusOrder,
-        orderFilter.companies
+        orderFilter.companies,
+        orderFilter.orderCriteria
       )
       .pipe(
         finalize(() => {
@@ -233,7 +223,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
         orderFilter.typeServices,
         orderFilter.datePromise,
         orderFilter.statusOrder,
-        orderFilter.companies
+        orderFilter.companies,
+        orderFilter.orderCriteria
       )
       .pipe(
         finalize(() => {
@@ -326,6 +317,24 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  sortData(event: { column: string, order: 'A' | 'D' | 'N' }): void {
+    for (const sortColumnsKey in this.sortColumns) {
+      if (this.sortColumns[sortColumnsKey].column !== event.column) {
+        this.sortColumns[sortColumnsKey].reload = true;
+      }
+    }
+
+    setTimeout(() => {
+      for (const sortColumnsKey of Object.keys(this.sortColumns)) {
+        this.sortColumns[sortColumnsKey].reload = false;
+      }
+    }, 200);
+
+    console.log(event);
+    this.orderFilterStore.setOrderCriteria = event;
+    this.filterAll();
+  }
+
   exportData(): void {
     try {
       const data = this.selection.selected.map((value) => {
@@ -339,10 +348,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
           ['Servicio']: value.service,
           ['Fecha Creación']: '',
           ['Fecha Promesa']: value.promiseDate.slice(0, 9),
-          ['Hora Promesa']: value.promiseDate
-            .slice(9)
-            .replace('<br>', '')
-            .trim(),
+          ['Hora Promesa']: value.promiseDate.slice(9).replace('<br>', '').trim(),
           ['Cliente']: value.client,
           ['Documento']: value.documentId,
           ['Dirección']: '',

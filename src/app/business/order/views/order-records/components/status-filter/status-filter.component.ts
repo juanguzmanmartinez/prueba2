@@ -2,10 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { map, tap } from 'rxjs/operators';
 import { OrderRecordsImplementService } from '../../implements/order-records-implement.service';
-import {
-  OrderStatus,
-  StatusFilterEvent,
-} from '../../interfaces/order-records.interface';
+import { OrderStatus, StatusFilterEvent, } from '../../interfaces/order-records.interface';
 
 @Component({
   selector: 'app-status-filter',
@@ -23,10 +20,11 @@ export class StatusFilterComponent implements OnInit {
   constructor(
     private orderRecordImplement: OrderRecordsImplementService,
     private orderFilterStore: OrderFilterStore
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    const { statusOrder } = this.orderFilterStore.getOrderFilter();
+    const {statusOrder} = this.orderFilterStore.getOrderFilter();
     this.selectedStatus = statusOrder ?? [];
 
     this.orderRecordImplement.statusList
@@ -72,8 +70,10 @@ export class StatusFilterComponent implements OnInit {
       )}, ${this.getStatusName(status[1])} (+${status.length - 2} otros`;
     }
 
-    if (isOnInit) return;
-    this.filter.emit({ status, notFound: this.getListStatusName(status) });
+    if (isOnInit) {
+      return;
+    }
+    this.filter.emit({status, notFound: this.getListStatusName(status)});
   }
 
   private sortStatus = (x, y) => {
@@ -84,5 +84,5 @@ export class StatusFilterComponent implements OnInit {
       return 1;
     }
     return 0;
-  };
+  }
 }
