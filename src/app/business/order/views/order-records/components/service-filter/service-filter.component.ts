@@ -15,16 +15,17 @@ export class ServiceFilterComponent implements OnInit {
 
   list = Object.keys(CDeliveryServiceTypeName).map((value) => {
     this.services.push(value);
-    return { code: value, name: CDeliveryServiceTypeName[value] };
+    return {code: value, name: CDeliveryServiceTypeName[value]};
   });
 
   valueSelect: string;
   selectedService: string[];
 
-  constructor(private orderFilterStore: OrderFilterStore) {}
+  constructor(private orderFilterStore: OrderFilterStore) {
+  }
 
   ngOnInit(): void {
-    const { typeServices } = this.orderFilterStore.getOrderFilter();
+    const {typeServices} = this.orderFilterStore.getOrderFilter();
     this.selectedService = typeServices ?? [];
 
     this.selectionChange(typeServices ?? [], true);
@@ -44,8 +45,10 @@ export class ServiceFilterComponent implements OnInit {
       )}, ${this.getServiceName(services[1])} (+${services.length - 2} otros`;
     }
 
-    if (isOnInit) return;
-    this.filter.emit({ services, notFound: this.getServicesName(services) });
+    if (isOnInit) {
+      return;
+    }
+    this.filter.emit({services, notFound: this.getServicesName(services)});
   }
 
   getServiceName(option: string): string {

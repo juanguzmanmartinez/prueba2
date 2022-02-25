@@ -7,6 +7,7 @@ export const OPERATIONS_ROUTER: TRouter = {
   description: 'Visualiza todos los locales y edita algunas de sus características.',
   iconCard: 'configuration',
   iconMenu: 'storefront',
+  clickable: true
 };
 
 export const OP_CHILDREN_PATH = {

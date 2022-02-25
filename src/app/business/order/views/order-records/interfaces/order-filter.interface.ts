@@ -8,4 +8,5 @@ export interface IOrderFilter {
   typeDatePromise?: string;
   statusOrder?: string[];
   channelOfBuy?: string[];
+  orderCriteria?: { column: string, order: 'A' | 'D' | 'N' };
 }

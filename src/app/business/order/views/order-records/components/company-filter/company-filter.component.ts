@@ -9,20 +9,23 @@ import { CompanyFilterEvent } from '../../interfaces/order-records.interface';
 })
 export class CompanyFilterComponent implements OnInit {
 
-  @Output() filter = new EventEmitter<CompanyFilterEvent>();
-
   list = [
-    { code: 'IKF', name: 'Inkafarma' },
-    { code: 'MF', name: 'Mifarma' },
+    {code: 'IKF', name: 'Inkafarma'},
+    {code: 'MF', name: 'Mifarma'},
   ];
   companies = ['IKF', 'MF'];
   valueSelect: string;
   selectedCompanies: string[];
 
-  constructor(private orderFilterStore: OrderFilterStore) {}
+  @Output() filter = new EventEmitter<CompanyFilterEvent>();
+
+  constructor(
+    private orderFilterStore: OrderFilterStore
+  ) {
+  }
 
   ngOnInit(): void {
-    const { companies } = this.orderFilterStore.getOrderFilter();
+    const {companies} = this.orderFilterStore.getOrderFilter();
     this.selectedCompanies = companies ?? [];
   }
 
@@ -34,7 +37,7 @@ export class CompanyFilterComponent implements OnInit {
         companies[0]
       )}, ${this.getCompanyName(companies[1])}`;
     }
-    this.filter.emit({ companies, notFound: this.getCompaniesName(companies) });
+    this.filter.emit({companies, notFound: this.getCompaniesName(companies)});
   }
 
   getCompanyName(option: string): string {

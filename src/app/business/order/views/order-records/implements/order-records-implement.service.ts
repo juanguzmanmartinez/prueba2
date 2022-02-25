@@ -46,6 +46,16 @@ export class OrderRecordsImplementService {
     return filters;
   }
 
+  private orderCriteria = (data: { column: string, order: 'A' | 'D' | 'N' }): {} => {
+    const detailCriteria = {};
+
+    if (data?.order !== 'N' && data?.column.length) {
+      Object.assign(detailCriteria, {column: data?.column, order: data?.order});
+    }
+
+    return detailCriteria;
+  }
+
   constructor(
     private orderClient: OrderClientService,
     private storesClient: DrugstoresClientService,
@@ -55,7 +65,8 @@ export class OrderRecordsImplementService {
   orderList(page: number, pages: number = 10, searchCode: string = '', searchValue: string = '',
             localId: string[] = null, serviceChannel: string[] = null, serviceTypeId: string[] = null,
             promiseDate: string[] = null, orderStatus: string[] = null,
-            companyCode: string[] = null): Observable<OrderRecords> {
+            companyCode: string[] = null,
+            dataCriteria: { column: string, order: 'A' | 'D' | 'N' } | null = null): Observable<OrderRecords> {
 
     const body = {
       page,
@@ -72,8 +83,14 @@ export class OrderRecordsImplementService {
       companyCode
     );
 
+    const orderCriteria = this.orderCriteria(dataCriteria);
+
     if (Object.keys(filters).length) {
       Object.assign(body, {filter: filters});
+    }
+
+    if (Object.keys(orderCriteria).length) {
+      Object.assign(body, {orderCriteria});
     }
 
     return this.orderClient.getOrderList(body);

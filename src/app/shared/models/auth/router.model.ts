@@ -4,4 +4,5 @@ export type TRouter = {
     description?: string;
     iconCard?: string;
     iconMenu?: string;
+    clickable?: boolean;
 };

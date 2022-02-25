@@ -67,4 +67,9 @@ export class OrderFilterStore {
     this.orderFilter.channelOfBuy = channelOfBuy;
     this.orderFilterSubject.next(this.orderFilter);
   }
+
+  set setOrderCriteria(data: { column: string, order: 'A' | 'D' | 'N'}) {
+    this.orderFilter.orderCriteria = data;
+    this.orderFilterSubject.next(this.orderFilter);
+  }
 }

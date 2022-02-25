@@ -49,10 +49,11 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
 
   @Output() filter = new EventEmitter<{ code: string; search: string }>();
 
-  constructor(private orderFilterStore: OrderFilterStore) {}
+  constructor(private orderFilterStore: OrderFilterStore) {
+  }
 
   ngOnInit(): void {
-    const { searchCode, searchValue } = this.orderFilterStore.getOrderFilter();
+    const {searchCode, searchValue} = this.orderFilterStore.getOrderFilter();
 
     const valueSelect = this.typesSearch.find(
       (type) => type.code === searchCode
