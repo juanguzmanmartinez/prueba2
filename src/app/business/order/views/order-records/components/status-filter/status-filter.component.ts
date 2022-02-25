@@ -58,6 +58,7 @@ export class StatusFilterComponent implements OnInit {
   }
 
   selectionChange(status: string[], isOnInit = false): void {
+    this.selectedStatus = status;
     if (status.length === 1) {
       this.valueSelect = this.getStatusName(status[0]);
     } else if (status.length === 2) {
@@ -74,6 +75,10 @@ export class StatusFilterComponent implements OnInit {
       return;
     }
     this.filter.emit({status, notFound: this.getListStatusName(status)});
+  }
+
+  clearValues(): void {
+    this.selectionChange([]);
   }
 
   private sortStatus = (x, y) => {

@@ -3,6 +3,7 @@
   placeholder="Fecha promesa"
   [(ngModel)]="selectDate"
   [optionList]="typeDates"
+  (clearValueForButton)="clearValues()"
   (optionChange)="selectionChange($event)">
 </app-select>
 

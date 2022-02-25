@@ -4,7 +4,7 @@
    [routerLinkActive]="routerActive"
    [routerLinkActiveOptions]="routerActiveOptions"
    [target]="routerTarget"
-   [style.cursor]="clickable ? 'pointer' : 'default'"
+   [style.cursor]="'default'"
    #routerActiveVariable="routerLinkActive">
   <ng-container *ngIf="!routerActiveTemplate">
     <ng-content></ng-content>

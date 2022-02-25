@@ -33,7 +33,7 @@ export class OrderRecordsImplementService {
     if (serviceTypeId?.length) {
       Object.assign(filters, {serviceTypeId});
     }
-    if (promiseDate?.length) {
+    if (promiseDate) {
       Object.assign(filters, {promiseDate});
     }
     if (orderStatus?.length) {

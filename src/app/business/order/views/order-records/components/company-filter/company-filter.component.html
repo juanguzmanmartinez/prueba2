@@ -4,7 +4,8 @@
   [value]="selectedCompanies"
   [optionList]="companies"
   [selectOptionSquare]="true"
-  (optionChange)="selectionChange($event)">
+  (optionChange)="selectionChange($event)"
+  (clearValueForButton)="clearValues()">
   <ng-container trigger>{{ valueSelect }}</ng-container>
   <ng-template let-company>{{ getCompanyName(company) }}</ng-template>
 </app-select>
