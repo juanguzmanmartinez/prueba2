@@ -30,6 +30,7 @@ export class CompanyFilterComponent implements OnInit {
   }
 
   selectionChange(companies: string[]): void {
+    this.selectedCompanies = companies;
     if (companies.length === 1) {
       this.valueSelect = this.getCompanyName(companies[0]);
     } else if (companies.length === 2) {
@@ -38,6 +39,10 @@ export class CompanyFilterComponent implements OnInit {
       )}, ${this.getCompanyName(companies[1])}`;
     }
     this.filter.emit({companies, notFound: this.getCompaniesName(companies)});
+  }
+
+  clearValues(): void {
+    this.selectionChange([]);
   }
 
   getCompanyName(option: string): string {

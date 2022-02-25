@@ -60,6 +60,7 @@ export class LocalFilterComponent implements OnInit {
   }
 
   selectionChange(locals: string[], isCallOnInit = false): void {
+    this.selectedLocals = locals;
     if (locals.length === 1) {
       this.valueSelect = this.getLocalName(locals[0]);
     } else if (locals.length === 2) {
@@ -76,6 +77,10 @@ export class LocalFilterComponent implements OnInit {
       return;
     }
     this.filter.emit({locals, notFound: this.getLocalsName(locals)});
+  }
+
+  clearValues(): void {
+    this.selectionChange([]);
   }
 
   private sortLocals = (x, y) => {

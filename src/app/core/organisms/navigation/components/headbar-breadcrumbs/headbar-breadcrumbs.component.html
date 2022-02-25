@@ -5,7 +5,7 @@
 
   <ng-container *ngIf="childRouter">
     <span class="nav-headbar-breadcrumbs-separator"></span>
-    <app-router [router]="childRouter.path" [clickable]="childRouter?.clickable">
+    <app-router>
       <span class="text-white nav-headbar-breadcrumbs-text-logo">
         {{ childRouter.name }}
       </span>

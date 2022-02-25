@@ -12,7 +12,6 @@ export class RouterComponent {
   @Input() routerActive: string[] | string = '';
   @Input() routerActiveOptions: { exact: boolean } = {exact: false};
   @Input() routerTarget: '_blank' | '_self' | '_parent' | '_top' | 'framename' = '_self';
-  @Input() clickable = true;
 
   @ContentChild('routerActiveTemplate', {static: false}) routerActiveTemplate: TemplateRef<any>;
 

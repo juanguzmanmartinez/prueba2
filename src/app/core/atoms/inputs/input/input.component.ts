@@ -18,6 +18,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
     @Input() name: string | number = 'input';
     @Input() behavior: 'number' | 'text' | 'search' | 'password' = 'text';
     @Input() placeholder = 'placeholder';
+    @Input() maxLength = '80';
     @Input() innerClass = '';
     @Input() labelClass = '';
     @Input() error: boolean;
