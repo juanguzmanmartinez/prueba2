@@ -36,7 +36,8 @@ export class DateFilterComponent implements OnInit {
 
   private sixMonths = 184 * 24 * 60 * 60 * 1000;
   today = new Date().getTime();
-  sixMonthsAgo = this.today - this.sixMonths;
+  minDateSearch = this.today - this.sixMonths;
+  maxDateSearch = this.addDays(new Date(), 7);
 
   @Output() filter = new EventEmitter<DatepickerFilterEvent>();
 
@@ -158,5 +159,10 @@ export class DateFilterComponent implements OnInit {
     const month = date.slice(3, 5);
     const year = date.slice(6, 8);
     return `${month}-${day}-${year}`;
+  }
+
+  addDays(date: Date, days: number): number {
+    date.setDate(date.getDate() + days + 1);
+    return date.getTime();
   }
 }

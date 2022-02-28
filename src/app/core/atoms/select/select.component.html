@@ -41,7 +41,7 @@
   </mat-select>
 
   <app-icon
-    *ngIf="value && !hideClearValueForButton"
+    *ngIf="(value && value?.length) && showClearValueForButton"
     (click)="clearValues()"
     class="close-icon"
     fontName="close"

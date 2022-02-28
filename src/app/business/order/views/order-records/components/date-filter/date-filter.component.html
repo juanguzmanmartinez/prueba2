@@ -3,14 +3,15 @@
   placeholder="Fecha promesa"
   [(ngModel)]="selectDate"
   [optionList]="typeDates"
+  [showClearValueForButton]="true"
   (clearValueForButton)="clearValues()"
   (optionChange)="selectionChange($event)">
 </app-select>
 
 <app-input-datepicker-range
   *ngIf="isRange"
-  [minDate]="sixMonthsAgo"
-  [maxDate]="today"
+  [minDate]="minDateSearch"
+  [maxDate]="maxDateSearch"
   (cancel)="cancelDateRange()"
   [(ngModel)]="datepicker"
   (ngModelChange)="rangeChange()">
