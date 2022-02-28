@@ -1,5 +1,6 @@
-import { PaymentInformation } from '../interfaces/order-detail.interface';
 import { CCardNameIllustration } from '@models/card/card.model';
+import { LIQUITDATION_STATUS } from '@parameters/order/liquidation-status.parameters';
+import { PaymentInformation } from '../interfaces/order-detail.interface';
 
 export class PaymentInformationModel {
   paymentType: string;
@@ -15,13 +16,18 @@ export class PaymentInformationModel {
 
   constructor(data: PaymentInformation) {
     this.paymentType = data.paymentType ? data.paymentType : '-';
-    this.transactionId = '-';
+    this.transactionId = data.transactionId ?? '-';
     this.changeAmount = data.changeAmount ? `S/ ${data.changeAmount}` : '-';
-    this.status = '-';
+    this.status =
+      LIQUITDATION_STATUS[data?.liquidationStatus] ??
+      data.liquidationStatus ??
+      '-';
     this.date = data.paymentDate ? this.formatDate(data.paymentDate) : '-';
     this.cardNumber = '-'; // TODO: No se guarda en base de datos
     this.authorizationCode = '-';
-    this.cardBrand = data.paymentGateway ? CCardNameIllustration[data.paymentGateway] : '';
+    this.cardBrand = data.paymentGateway
+      ? CCardNameIllustration[data.paymentGateway]
+      : '';
     this.financial = '-';
     this.liquidationUser = '-';
   }
@@ -78,10 +84,9 @@ export class PaymentInformationModel {
     } else {
       return hour;
     }
-  }
+  };
 
   private getDateAmOrPM = (hour: string): string => {
     return Number(hour) >= 12 ? 'p.m.' : 'a.m.';
-  }
-
+  };
 }
