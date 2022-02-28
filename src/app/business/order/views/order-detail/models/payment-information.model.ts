@@ -1,5 +1,5 @@
 import { CCardNameIllustration } from '@models/card/card.model';
-import { LIQUITDATION_STATUS } from '@parameters/order/liquidation-status.parameters';
+import { CLiquidationStatusTranslation } from '@models/liquidation-status/liquidation-status.model';
 import { PaymentInformation } from '../interfaces/order-detail.interface';
 
 export class PaymentInformationModel {
@@ -19,7 +19,7 @@ export class PaymentInformationModel {
     this.transactionId = data.transactionId ?? '-';
     this.changeAmount = data.changeAmount ? `S/ ${data.changeAmount}` : '-';
     this.status =
-      LIQUITDATION_STATUS[data?.liquidationStatus] ??
+      CLiquidationStatusTranslation[data?.liquidationStatus] ??
       data.liquidationStatus ??
       '-';
     this.date = data.paymentDate ? this.formatDate(data.paymentDate) : '-';
