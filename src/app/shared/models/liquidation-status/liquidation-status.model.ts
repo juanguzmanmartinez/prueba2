@@ -8,7 +8,6 @@ export enum ELiquidationStatus {
   chargeError = 'CHARGE_ERROR',
   chargeNotEnabled = 'CHARGE_NOT_ENABLED',
   error = 'ERROR',
-  errorBilled = 'ERROR_BILLED', //
   inProcess = 'IN_PROCESS',
   liquidated = 'LIQUIDATED',
   liquidatedCn = 'LIQUIDATED_CN',
@@ -21,18 +20,20 @@ export enum ELiquidationStatus {
   refunded = 'REFUNDED',
   refundError = 'REFUND_ERROR',
   refundNotEnabled = 'REFUND_NOT_ENABLED',
-  requiresRecharge = 'REQUIRES_RECHARGE', //
-  requiresReturn = 'REQUIRES_RETURN', //
 
+  //TODO: Estados no mapeados en BD
+  errorBilled = 'ERROR_BILLED',
+  requiresRecharge = 'REQUIRES_RECHARGE',
+  requiresReturn = 'REQUIRES_RETURN',
   automaticCancellation = 'AUTOMATIC_CANCELATION',
-  pendingLiquidate = 'PENDING_LIQUIDATE', //
-  errorPendingLiquidate = 'ERROR_PENDING_LIQUIDATE', //
-  errorCancelled = 'ERROR_CANCELLED', //
-  errorAutomaticCancelled = 'ERROR_AUTOMATIC_CANCELLED', //
-  automaticCancelled = 'AUTOMATIC_CANCELLED', //
-  errorInProcess = 'ERROR_IN_PROCESS', //
-  errorError = 'ERROR_ERROR', //
-  errorPending = 'ERROR_PENDING', //
+  pendingLiquidate = 'PENDING_LIQUIDATE',
+  errorPendingLiquidate = 'ERROR_PENDING_LIQUIDATE',
+  errorCancelled = 'ERROR_CANCELLED',
+  errorAutomaticCancelled = 'ERROR_AUTOMATIC_CANCELLED',
+  automaticCancelled = 'AUTOMATIC_CANCELLED',
+  errorInProcess = 'ERROR_IN_PROCESS',
+  errorError = 'ERROR_ERROR',
+  errorPending = 'ERROR_PENDING',
 }
 
 export const CLiquidationStatusTranslation = {
@@ -58,16 +59,18 @@ export const CLiquidationStatusTranslation = {
 
   [ELiquidationStatus.errorBilled]: 'Error en la facturación',
   [ELiquidationStatus.pendingLiquidate]: 'Pendiente para liquidar',
+
+  //TODO: Descripción de estados no validados
   [ELiquidationStatus.errorPendingLiquidate]:
-    'Error antes de pendiente a liquidar', //
-  [ELiquidationStatus.errorCancelled]: 'Error antes de Cancelar', //
+    'Error antes de pendiente a liquidar',
+  [ELiquidationStatus.errorCancelled]: 'Error antes de Cancelar',
   [ELiquidationStatus.errorAutomaticCancelled]:
-    'Error automatico antes de Cancelar', //
+    'Error automatico antes de Cancelar',
   [ELiquidationStatus.automaticCancelled]:
     'Orden cancelada antes de insertar el pedido en el local',
-  [ELiquidationStatus.errorInProcess]: 'Error antes de proceso de atención', //
-  [ELiquidationStatus.errorError]: 'Error', //
-  [ELiquidationStatus.errorPending]: 'Error en pendiente de facturación', //
+  [ELiquidationStatus.errorInProcess]: 'Error antes de proceso de atención',
+  [ELiquidationStatus.errorError]: 'Error',
+  [ELiquidationStatus.errorPending]: 'Error en pendiente de facturación',
 };
 
 export const CLiquidationStatusTypeSemanticTag = {

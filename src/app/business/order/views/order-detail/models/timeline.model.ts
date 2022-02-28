@@ -47,11 +47,11 @@ export class TimelineModel {
     if (!selected) {
       return 'pending';
     }
-  };
+  }
 
   private getStatus = (code: string): string => {
     return CStatusOrderName[code];
-  };
+  }
 
   private formatDate = (time: string): string => {
     if (time === 'Automatic') {
@@ -63,9 +63,9 @@ export class TimelineModel {
     const hour = time.slice(9, 14);
     const daySlot = this.formatDaySlot(time.slice(15).toLowerCase());
     return `${day}/${month} a las ${hour} ${daySlot}`;
-  };
+  }
 
   private formatDaySlot = (daySlot: string): string => {
     return `${daySlot.charAt(0)}.${daySlot.charAt(1)}.`;
-  };
+  }
 }

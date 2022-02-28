@@ -24,8 +24,6 @@ export class OrderDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('Hola', this.orderId);
-
     this.implementsService.orderDetail(this.orderId).subscribe({
       next: (response) => (this.orderDetail = response),
       error: (error) => (this.errorResponse = error),

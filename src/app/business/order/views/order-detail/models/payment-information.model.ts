@@ -84,9 +84,9 @@ export class PaymentInformationModel {
     } else {
       return hour;
     }
-  };
+  }
 
   private getDateAmOrPM = (hour: string): string => {
     return Number(hour) >= 12 ? 'p.m.' : 'a.m.';
-  };
+  }
 }
