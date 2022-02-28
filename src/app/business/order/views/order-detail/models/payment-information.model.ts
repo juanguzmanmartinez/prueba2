@@ -18,16 +18,11 @@ export class PaymentInformationModel {
     this.paymentType = data.paymentType ? data.paymentType : '-';
     this.transactionId = data.transactionId ?? '-';
     this.changeAmount = data.changeAmount ? `S/ ${data.changeAmount}` : '-';
-    this.status =
-      CLiquidationStatusTranslation[data?.liquidationStatus] ??
-      data.liquidationStatus ??
-      '-';
+    this.status = CLiquidationStatusTranslation[data?.liquidationStatus] ?? data.liquidationStatus ?? '-';
     this.date = data.paymentDate ? this.formatDate(data.paymentDate) : '-';
     this.cardNumber = '-'; // TODO: No se guarda en base de datos
     this.authorizationCode = '-';
-    this.cardBrand = data.paymentGateway
-      ? CCardNameIllustration[data.paymentGateway]
-      : '';
+    this.cardBrand = data.paymentGateway ? CCardNameIllustration[data.paymentGateway] : '';
     this.financial = '-';
     this.liquidationUser = '-';
   }

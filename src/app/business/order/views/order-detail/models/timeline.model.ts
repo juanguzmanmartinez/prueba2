@@ -1,8 +1,5 @@
-import {
-  CStatusOrderName,
-  EStatusOrder,
-} from '@models/status-order/status-order.model';
 import { OrderTimeline } from '../interfaces/order-detail.interface';
+import { CStatusOrderName, EStatusOrder } from '@models/status-order/status-order.model';
 
 export class TimelineModel {
   flow: 'done' | 'pending' | 'cancel';
@@ -13,34 +10,21 @@ export class TimelineModel {
   name: string;
 
   constructor(data: OrderTimeline) {
-    this.flow =
-      data?.code && data.selected
-        ? this.getFlow(data.code, data.selected)
-        : 'pending';
-    this.status = data?.code ? this.getStatus(data.code) : '-';
+    this.flow = data.code && data.selected ? this.getFlow(data.code, data.selected) : 'pending';
+    this.status = data.code ? this.getStatus(data.code) : '-';
     this.info = '';
     this.infoDetail = '';
-    this.date = data?.time ? this.formatDate(data.time) : '-';
+    this.date = data.time ? this.formatDate(data.time) : '-';
     // this.name = data.updatedBy ? data.updatedBy : '-';
     this.name = '';
   }
 
-  private getFlow = (
-    code: string,
-    selected: boolean
-  ): 'done' | 'pending' | 'cancel' => {
-    if (
-      (code === EStatusOrder.cancelled || code === EStatusOrder.rejected) &&
-      selected
-    ) {
+  private getFlow = (code: string, selected: boolean): 'done' | 'pending' | 'cancel' => {
+    if ((code === EStatusOrder.cancelled || code === EStatusOrder.rejected) && selected) {
       return 'cancel';
     }
 
-    if (
-      code !== EStatusOrder.cancelled &&
-      code !== EStatusOrder.rejected &&
-      selected
-    ) {
+    if (code !== EStatusOrder.cancelled && code !== EStatusOrder.rejected && selected) {
       return 'done';
     }
 

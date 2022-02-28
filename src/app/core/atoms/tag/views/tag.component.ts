@@ -5,7 +5,7 @@ import {
   ETypeTagBrand,
   ETypeTagInformative,
   ETypeTagSemantic,
-  TTagAppearance,
+  TTagAppearance
 } from '@models/tag/tag.model';
 
 @Component({

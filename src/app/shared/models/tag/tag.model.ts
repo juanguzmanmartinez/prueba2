@@ -1,25 +1,25 @@
 export enum ETag {
   error = 'danger',
   warning = 'warning',
-  success = 'success',
+  success = 'success'
 }
 
 export enum ETypeTagSemantic {
   error = 'danger',
   warning = 'warning',
-  success = 'success',
+  success = 'success'
 }
 
 export enum ETypeTagInformative {
   secondary = 'secondary',
   complementaryThree = 'complementary-three', // Tertiary
   complementaryTwo = 'complementary-two', // Quaternary
-  complementaryOne = 'complementary-one', // Quintary
+  complementaryOne = 'complementary-one' // Quintary
 }
 
 export enum ETypeTagBrand {
   inkafarma = 'inkafarma',
-  mifarma = 'mifarma',
+  mifarma = 'mifarma'
 }
 
 export enum ETagAppearance {
@@ -30,15 +30,15 @@ export enum ETagAppearance {
   coloredDarkPill = 'pill-colored-dark',
   semantic = 'semantic',
   informativeWhite = 'informative-white',
-  brandWhite = 'brand-white',
+  brandWhite = 'brand-white'
 }
 
 export type TTagAppearance =
-  | ETagAppearance.default
-  | ETagAppearance.uppercase
-  | ETagAppearance.transparentPill
-  | ETagAppearance.coloredWhitePill
-  | ETagAppearance.coloredDarkPill
-  | ETagAppearance.semantic
-  | ETagAppearance.informativeWhite
-  | ETagAppearance.brandWhite;
+  ETagAppearance.default |
+  ETagAppearance.uppercase |
+  ETagAppearance.transparentPill |
+  ETagAppearance.coloredWhitePill |
+  ETagAppearance.coloredDarkPill |
+  ETagAppearance.semantic |
+  ETagAppearance.informativeWhite |
+  ETagAppearance.brandWhite;
