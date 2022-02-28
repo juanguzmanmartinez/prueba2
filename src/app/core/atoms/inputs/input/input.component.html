@@ -11,6 +11,7 @@
     [disabled]="disabled"
     [(ngModel)]="inputValue"
     [readonly]="readOnly"
+    [maxlength]="maxLength"
     (ngModelChange)="changeInputValue()"
 
     (blur)="onBlur($event)"

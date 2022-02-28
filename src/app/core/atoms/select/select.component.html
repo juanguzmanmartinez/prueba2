@@ -15,27 +15,44 @@
       </div>
     </mat-select-trigger>
 
-    <div class="option-container"
-         [style.max-height]="containerMaxHeight"
-         [style.width]="optionContainerWidth" [style.transform]="multiple ? 'translate(23px)' : ''">
-      <mat-option class="select-basic-option select-basic-option-clear"
-                  *ngIf="clearValue"
-                  [class.select-square-option]="selectOptionSquare">{{clearValue}}</mat-option>
+    <div
+      class="option-container"
+      [style.max-height]="containerMaxHeight"
+      [style.width]="optionContainerWidth" [style.transform]="multiple ? 'translate(23px)' : ''">
+
+      <mat-option
+        class="select-basic-option select-basic-option-clear"
+        *ngIf="clearValue"
+        [class.select-square-option]="selectOptionSquare">
+        {{clearValue}}
+      </mat-option>
+
       <mat-option
         class="select-basic-option" [class.select-square-option]="selectOptionSquare"
         *ngFor="let option of optionList"
         [value]="option">
         <ng-container *ngIf="!templateRef">{{option}}</ng-container>
-        <ng-template [ngTemplateOutlet]="templateRef"
-                     [ngTemplateOutletContext]="{$implicit: option}">
+        <ng-template
+          [ngTemplateOutlet]="templateRef"
+          [ngTemplateOutletContext]="{$implicit: option}">
         </ng-template>
       </mat-option>
     </div>
-
   </mat-select>
 
-  <app-icon class="select-icon"
-            fontName="keyboard_arrow_down"
-            innerClass="text-gray-5"
-            fontSize="14px"></app-icon>
+  <app-icon
+    *ngIf="value && !hideClearValueForButton"
+    (click)="clearValues()"
+    class="close-icon"
+    fontName="close"
+    innerClass="text-gray-5"
+    fontSize="14px">
+  </app-icon>
+
+  <app-icon
+    class="select-icon"
+    fontName="keyboard_arrow_down"
+    innerClass="text-gray-5"
+    fontSize="14px">
+  </app-icon>
 </div>

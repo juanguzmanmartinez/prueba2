@@ -30,6 +30,7 @@ export class ChannelFilterComponent implements OnInit {
   }
 
   selectionChange(channels: string[]): void {
+    this.selectedChannels = channels;
     if (channels.length === 1) {
       this.valueSelect = this.getChannelName(channels[0]);
     } else if (channels.length === 2) {
@@ -38,6 +39,10 @@ export class ChannelFilterComponent implements OnInit {
       )}, ${this.getChannelName(channels[1])}`;
     }
     this.filter.emit({channels, notFound: this.getChannelsName(channels)});
+  }
+
+  clearValues(): void {
+    this.selectionChange([]);
   }
 
   getChannelName(option: string): string {

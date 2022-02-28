@@ -41,6 +41,7 @@ export class SelectComponent<T>
   @Input() selectOptionSquare = false;
   @Input() containerMaxHeight = '300px';
   @Input() optionList: T[] = [];
+  @Input() hideClearValueForButton = false;
 
   @Input('value')
   set _value(option: T | T[]) {
@@ -48,6 +49,7 @@ export class SelectComponent<T>
   }
 
   @Output() optionChange = new EventEmitter();
+  @Output() clearValueForButton = new EventEmitter();
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
   @ViewChild('select') select;
@@ -98,6 +100,10 @@ export class SelectComponent<T>
     } else if (!value) {
       this.value = null;
     }
+  }
+
+  clearValues(): void {
+    this.clearValueForButton.emit(true);
   }
 
   selectionChange(option: T) {

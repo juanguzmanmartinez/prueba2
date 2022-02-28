@@ -51,6 +51,10 @@ export class ServiceFilterComponent implements OnInit {
     this.filter.emit({services, notFound: this.getServicesName(services)});
   }
 
+  clearValues(): void {
+    this.selectionChange([]);
+  }
+
   getServiceName(option: string): string {
     return this.list.find((service) => service.code === option).name;
   }

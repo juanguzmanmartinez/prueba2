@@ -1,10 +1,12 @@
 <app-select
   placeholder="Canal de venta"
   [multiple]="true"
+  [customValue]="true"
   [value]="selectedChannels"
   [optionList]="channels"
   [selectOptionSquare]="true"
-  (optionChange)="selectionChange($event)">
+  (optionChange)="selectionChange($event)"
+  (clearValueForButton)="clearValues()">
   <ng-container trigger>{{ valueSelect }}</ng-container>
   <ng-template let-channel>{{ getChannelName(channel) }}</ng-template>
 </app-select>

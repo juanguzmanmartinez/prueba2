@@ -94,7 +94,9 @@ export class DateFilterComponent implements OnInit {
 
     } else if (type === 'Otro periodo') {
       this.isRange = true;
-      this.selectDatePreview = this.selectDate;
+      this.selectDate = '';
+      this.selectionChange(null);
+      this.orderFilterStore.setTypeDatePromise = null;
       this.existDate = !!this.datepicker;
 
       if (this.existDate) {
@@ -104,12 +106,22 @@ export class DateFilterComponent implements OnInit {
     }
 
     this.orderFilterStore.setTypeDatePromise = type;
-    this.filter.emit({dateRange: [dateInitFilter, dateEndFilter], notFound});
+
+    this.filter.emit({
+      dateRange: type ? [dateInitFilter, dateEndFilter] : null,
+      notFound: type ? notFound : null
+    });
+  }
+
+  clearValues(): void {
+    this.selectDate = '';
+    this.selectionChange(null);
   }
 
   cancelDateRange(): void {
-    this.selectDate = this.selectDatePreview;
-    this.orderFilterStore.setTypeDatePromise = this.selectDatePreview;
+    this.selectDate = '';
+    this.selectionChange(null);
+    this.orderFilterStore.setTypeDatePromise = null;
 
     this.isRange = false;
   }
