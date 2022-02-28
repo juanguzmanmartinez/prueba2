@@ -1,13 +1,13 @@
 export enum ETag {
   error = 'danger',
   warning = 'warning',
-  success = 'success',
+  success = 'success'
 }
 
-export enum ETypeTag {
+export enum ETypeTagSemantic {
   error = 'danger',
   warning = 'warning',
-  success = 'success',
+  success = 'success'
 }
 
 export enum ETypeTagInformative {

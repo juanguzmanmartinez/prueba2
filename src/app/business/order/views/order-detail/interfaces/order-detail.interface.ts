@@ -51,6 +51,8 @@ export interface PaymentInformation {
   paymentType: string;
   paymentGateway: string;
   changeAmount: number;
+  liquidationStatus: string;
+  transactionId: string;
   paymentDate: string;
   serviceTypeCode: string;
 }

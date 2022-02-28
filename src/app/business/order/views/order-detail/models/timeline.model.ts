@@ -24,7 +24,7 @@ export class TimelineModel {
       return 'cancel';
     }
 
-    if ((code !== EStatusOrder.cancelled && code !== EStatusOrder.rejected) && selected) {
+    if (code !== EStatusOrder.cancelled && code !== EStatusOrder.rejected && selected) {
       return 'done';
     }
 
