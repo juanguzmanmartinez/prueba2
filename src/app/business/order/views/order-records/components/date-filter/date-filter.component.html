@@ -4,14 +4,16 @@
   [(ngModel)]="selectDate"
   [optionList]="typeDates"
   (clearValueForButton)="clearValues()"
-  (optionChange)="selectionChange($event)">
+  (optionChange)="selectionChange($event)"
+>
 </app-select>
 
 <app-input-datepicker-range
   *ngIf="isRange"
   [minDate]="sixMonthsAgo"
-  [maxDate]="today"
+  [maxDate]="maxDateSearch"
   (cancel)="cancelDateRange()"
   [(ngModel)]="datepicker"
-  (ngModelChange)="rangeChange()">
+  (ngModelChange)="rangeChange()"
+>
 </app-input-datepicker-range>
