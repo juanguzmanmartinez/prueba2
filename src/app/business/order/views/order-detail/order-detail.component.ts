@@ -27,15 +27,8 @@ export class OrderDetailComponent implements OnInit {
     console.log('Hola', this.orderId);
 
     this.implementsService.orderDetail(this.orderId).subscribe({
-      next: (response) => {
-        this.orderDetail = response;
-        console.log('jPrueba', response);
-      },
-      error: (error) => {
-        console.log('error', error);
-
-        this.errorResponse = error;
-      },
+      next: (response) => (this.orderDetail = response),
+      error: (error) => (this.errorResponse = error),
     });
   }
 
