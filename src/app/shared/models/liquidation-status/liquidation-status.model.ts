@@ -56,18 +56,14 @@ export const CLiquidationStatusTranslation = {
   [ELiquidationStatus.refundError]: 'Error en pasarela al extornar',
   [ELiquidationStatus.refundNotEnabled]: 'Local no activado para liquidacion',
   [ELiquidationStatus.automaticCancellation]: 'Cancelado antes de facturación',
-
   [ELiquidationStatus.errorBilled]: 'Error en la facturación',
   [ELiquidationStatus.pendingLiquidate]: 'Pendiente para liquidar',
 
   // TODO: Descripción de estados no validados
-  [ELiquidationStatus.errorPendingLiquidate]:
-    'Error antes de pendiente a liquidar',
+  [ELiquidationStatus.errorPendingLiquidate]: 'Error antes de pendiente a liquidar',
   [ELiquidationStatus.errorCancelled]: 'Error antes de Cancelar',
-  [ELiquidationStatus.errorAutomaticCancelled]:
-    'Error automatico antes de Cancelar',
-  [ELiquidationStatus.automaticCancelled]:
-    'Orden cancelada antes de insertar el pedido en el local',
+  [ELiquidationStatus.errorAutomaticCancelled]: 'Error automatico antes de Cancelar',
+  [ELiquidationStatus.automaticCancelled]: 'Orden cancelada antes de insertar el pedido en el local',
   [ELiquidationStatus.errorInProcess]: 'Error antes de proceso de atención',
   [ELiquidationStatus.errorError]: 'Error',
   [ELiquidationStatus.errorPending]: 'Error en pendiente de facturación'

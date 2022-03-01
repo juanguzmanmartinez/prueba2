@@ -161,7 +161,7 @@ export class DateFilterComponent implements OnInit {
     return `${month}-${day}-${year}`;
   }
 
-  addDays(date: Date, days: number): number {
+  addDays(date:Date, days: number):number{
     date.setDate(date.getDate() + days + 1);
     return date.getTime();
   }
