@@ -5,6 +5,7 @@
   [value]="selectedStatus"
   [selectOptionSquare]="true"
   [optionList]="status"
+  [showClearValueForButton]="true"
   (optionChange)="selectionChange($event)"
   (clearValueForButton)="clearValues()">
   <ng-container trigger>{{ valueSelect }}</ng-container>

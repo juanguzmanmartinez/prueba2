@@ -214,7 +214,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showPaginator = false;
     this.orderRecordsImplement
       .orderList(
-        this.page,
+        1,
         this.pageSize,
         orderFilter.searchCode,
         orderFilter.searchValue,

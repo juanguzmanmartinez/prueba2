@@ -22,11 +22,10 @@ import { Subscription } from 'rxjs';
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.sass'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
-export class SelectComponent<T>
-  implements ControlValueAccessor, OnInit, OnDestroy, AfterViewInit
-{
+export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestroy, AfterViewInit {
+
   private subscriptions = new Subscription();
 
   public optionContainerWidth = '300px';
@@ -41,7 +40,7 @@ export class SelectComponent<T>
   @Input() selectOptionSquare = false;
   @Input() containerMaxHeight = '300px';
   @Input() optionList: T[] = [];
-  @Input() hideClearValueForButton = false;
+  @Input() showClearValueForButton = false;
 
   @Input('value')
   set _value(option: T | T[]) {
