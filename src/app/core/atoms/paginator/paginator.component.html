@@ -19,15 +19,37 @@
     </div>
 
     <div class="paginator-index-list">
-        <div class="index-list-container" #indexListContainer>
-            <ng-container *ngFor="let _index of _indexList; let index = index">
-            <span class="paginator-index index-{{_index}}"
-                  [class.active-index]="index === _pageIndex"
-                  (click)="goToPageEvent(index)">
-                {{_index}}
-            </span>
-            </ng-container>
+      <ng-container *ngIf="(_pageIndex > 2 && _indexList.length > 4) || (this.paginator.getNumberOfPages() === 5 && _pageIndex === 2)">
+        <span class="paginator-index index-{{_indexList[0]}}"
+        (click)="goToPageEvent(0)">
+
+          {{_indexList[0]}}
+        </span>
+        <span class="paginator-index">
+          ...
+        </span>
+      </ng-container>
+        <div class="paginator-index-container" >
+            <div class="index-list-container" #indexListContainer>
+              <ng-container *ngFor="let _index of _indexList; let index = index">
+                <span class="paginator-index index-{{_index}}"
+                [class.active-index]="index === _pageIndex"
+                (click)="goToPageEvent(index)">
+                  {{_index}}
+                </span>
+              </ng-container>
+            </div>
         </div>
+        <ng-container *ngIf="((_pageIndex < (_indexList.length - 1) - 2) || _pageIndex === 2) && _indexList.length > 4">
+          <span class="paginator-index">
+            ...
+          </span>
+          <span class="paginator-index index-{{_indexList[_indexList.length - 1]}}"
+          (click)="goToPageEvent(_indexList.length - 1)">
+            {{_indexList[_indexList.length - 1]}}
+          </span>
+        </ng-container>
+
     </div>
 
     <div class="next-button ms-5"

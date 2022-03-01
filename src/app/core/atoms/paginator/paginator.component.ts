@@ -61,7 +61,7 @@ export class PaginatorComponent {
 
     setTranslateContainerByIndex() {
         let translateValue;
-        if (this.paginator.getNumberOfPages() > 5) {
+        if (this.paginator.getNumberOfPages() > 4) {
             const elementsJump = 2;
             const elementWidth = 30;
             const elementValue = this._pageIndex + 1;
@@ -71,15 +71,43 @@ export class PaginatorComponent {
                 translateValue = `-${elementWidth * indexTranslate}`;
             }
             if (indexLeft <= elementsJump) {
-                const indexTranslate = this.paginator.getNumberOfPages() - 5;
+                const indexTranslate = this.paginator.getNumberOfPages() - 4;
                 translateValue = `-${elementWidth * indexTranslate}`;
             }
             if (elementValue <= elementsJump) {
                 translateValue = '0';
             }
+
+            if(this.paginator.getNumberOfPages() === 5 && elementValue === 3){
+              this.indexListContainer.nativeElement.style.maxWidth = '90px'
+              translateValue = `-${elementWidth * 1}`;
+            }
+            if(this.paginator.getNumberOfPages() === 5 && (elementValue < 3 || elementValue > 3)){
+              this.indexListContainer.nativeElement.style.maxWidth = '120px'
+            }
+
+            if(this.paginator.getNumberOfPages() > 5 && (elementValue > 3 && elementValue <= this.paginator.getNumberOfPages() - 3)){
+              this.indexListContainer.nativeElement.style.maxWidth = '90px'
+
+              const indexTranslate = this._pageIndex - elementsJump;
+              translateValue = `-${elementWidth * indexTranslate + 30}`;
+            }
+            if(this.paginator.getNumberOfPages() > 5 && (elementValue <= 3 || elementValue > this.paginator.getNumberOfPages() - 3)){
+              this.indexListContainer.nativeElement.style.maxWidth = '120px'
+
+              if(elementValue == 3 ){
+                translateValue = '0';
+              }
+
+              if(elementValue >= this.paginator.getNumberOfPages() - 2){
+                const indexTranslate = this.paginator.getNumberOfPages() - 2 - elementsJump;
+                translateValue = `-${elementWidth * indexTranslate}`;
+              }
+            }
         } else {
             translateValue = '0';
         }
+
         this.renderer.setStyle(
             this.indexListContainer.nativeElement,
             'transform', `translateX(${translateValue}px)`

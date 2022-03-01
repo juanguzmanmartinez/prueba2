@@ -1,12 +1,12 @@
-import { OrderDetailResponse } from '../interfaces/order-detail.interface';
-import { OrderInformationModel } from './order-information.model';
-import { ClientInformationModel } from './client-information.model';
-import { ProductInformationModel } from './product-information.model';
-import { PaymentInformationModel } from './payment-information.model';
-import { CarrierInformationModel } from './carrier-information.model';
-import { TimelineModel } from './timeline.model';
 import { ETypeTagBrand } from '@models/tag/tag.model';
 import { reorderTimeline } from '../../../../../shared/utils/timeline.util';
+import { OrderDetailResponse } from '../interfaces/order-detail.interface';
+import { CarrierInformationModel } from './carrier-information.model';
+import { ClientInformationModel } from './client-information.model';
+import { OrderInformationModel } from './order-information.model';
+import { PaymentInformationModel } from './payment-information.model';
+import { ProductInformationModel } from './product-information.model';
+import { TimelineModel } from './timeline.model';
 
 export class OrderDetailModel {
   orderNumber: string;

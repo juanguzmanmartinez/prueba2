@@ -162,7 +162,7 @@ export class DateFilterComponent implements OnInit {
   }
 
   addDays(date:Date, days: number):number{
-    date.setDate(date.getDate() + days+1);
+    date.setDate(date.getDate() + days + 1);
     return date.getTime();
   }
 }
