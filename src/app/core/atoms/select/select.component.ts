@@ -14,7 +14,6 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { MatSelect } from '@angular/material/select';
 import { isObject } from '@helpers/objects-equal.helper';
 import { normalizeValue } from '@helpers/string.helper';
 import { Subscription } from 'rxjs';
@@ -53,7 +52,6 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
   @ViewChild('select') select;
-  @ViewChild('matSelect') matSelect: MatSelect;
 
   onChange = (_: any) => {};
   onTouched = (_: any) => {};
