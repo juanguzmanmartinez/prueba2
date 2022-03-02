@@ -90,14 +90,11 @@ $select-option-height: 48px
     overflow: auto
 
   .option-search
-    margin: 10px 0
+    margin: 6px 0 10px 0
+    height: 60px
 
     mat-pseudo-checkbox
       display: none
-
-    hr
-      position: relative
-      top: -5px
 
   mat-option.select-basic-option,
   mat-option.select-basic-option.mat-option.mat-active
@@ -135,16 +132,19 @@ $select-option-height: 48px
 .search
   position: absolute
   top: 14px
-  left: 20px
+  left: 18px
   z-index: 2
   background: transparent
-  border: none
+  border: 1px $gray-2 solid
+  border-radius: 8px
+  padding-left: 30px
+  width: calc(100% - 33px)
 
 .icon-search
   display: flex
-  justify-content: end
-  margin-top: 56px
-  //margin-top: 27px
+  justify-content: start
+  margin-top: 8px
+  margin-left: 15px
 
   mat-icon
     margin-right: 0!important
