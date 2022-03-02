@@ -54,6 +54,6 @@ export class ProductModel {
     this.name = data.name ? data.name : '-';
     this.sku = data.sku ? data.sku : '-';
     this.quantity = data.quantity ? data.quantity : '-';
-    this.totalPrice = data.totalPrice ? data.totalPrice : '-';
+    this.totalPrice = data.totalPrice ? Number(data.totalPrice).toFixed(2) : '-';
   }
 }
