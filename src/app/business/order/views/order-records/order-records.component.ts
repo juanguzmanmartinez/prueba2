@@ -5,6 +5,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { normalizeValue } from '@helpers/string.helper';
+import { CStatusOrderName, EStatusOrder } from '@models/status-order/status-order.model';
 import { AlertService } from '@molecules/alert/alert.service';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
@@ -22,7 +23,6 @@ import {
   StatusFilterEvent
 } from './interfaces/order-records.interface';
 import { OrderModel } from './models/order-records.model';
-import { CStatusOrderName, EStatusOrder } from '@models/status-order/status-order.model';
 
 const ColumnNameList = {
   select: 'select',
@@ -293,8 +293,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   isAllSelected(): boolean {
-    console.log('==> ',this.selection.selected);
-
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
