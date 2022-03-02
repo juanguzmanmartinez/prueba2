@@ -22,6 +22,7 @@ import {
   StatusFilterEvent,
 } from './interfaces/order-records.interface';
 import { OrderModel } from './models/order-records.model';
+import { CStatusOrderName, EStatusOrder } from '@models/status-order/status-order.model';
 
 const ColumnNameList = {
   select: 'select',
@@ -114,6 +115,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       reload: false
     }
   };
+
+  statusError = CStatusOrderName[EStatusOrder.error];
 
   private subscriptions = new Subscription();
 
