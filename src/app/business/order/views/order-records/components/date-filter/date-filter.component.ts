@@ -96,13 +96,9 @@ export class DateFilterComponent implements OnInit {
     } else if (type === 'Otro periodo') {
       this.isRange = true;
       this.selectDate = '';
-      this.selectionChange(null);
       this.orderFilterStore.setTypeDatePromise = null;
-      this.existDate = !!this.datepicker;
 
-      if (this.existDate) {
-        this.datepickerPreview = {...this.datepicker};
-      }
+      this.datepicker = null
       return;
     }
 
@@ -112,6 +108,7 @@ export class DateFilterComponent implements OnInit {
       dateRange: type ? [dateInitFilter, dateEndFilter] : null,
       notFound: type ? notFound : null
     });
+
   }
 
   clearValues(): void {
@@ -162,7 +159,7 @@ export class DateFilterComponent implements OnInit {
   }
 
   addDays(date:Date, days: number):number{
-    date.setDate(date.getDate() + days + 1);
+    date.setDate(date.getDate() + days);
     return date.getTime();
   }
 }

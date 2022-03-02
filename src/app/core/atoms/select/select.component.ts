@@ -11,7 +11,7 @@ import {
   Self,
   TemplateRef,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { isObject } from '@helpers/objects-equal.helper';

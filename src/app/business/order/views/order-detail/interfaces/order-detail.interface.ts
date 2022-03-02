@@ -1,11 +1,13 @@
 export interface ClientInformation {
   addressClient: string;
   clientName: string;
+  companyName: string;
   documentNumber: number;
   phone: string;
   email: string;
   coordinates: string;
   reference: string;
+  ruc: string;
 }
 
 export interface OrderTimeline {

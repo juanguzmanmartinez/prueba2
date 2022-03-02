@@ -14,8 +14,8 @@ export class ClientInformationModel {
   constructor(data: ClientInformation) {
     this.fullName = data.clientName ? data.clientName : '-';
     this.documentNumber = data.documentNumber ? data.documentNumber.toString() : '-';
-    this.ruc = '-';
-    this.businessName = '-';
+    this.ruc = data.ruc ?? '-';
+    this.businessName = data.companyName ?? '-';
     this.phone = data.phone ? data.phone : '-';
     this.email = data.email ? data.email : '-';
     this.address = data.addressClient ? data.addressClient :  '-';

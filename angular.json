@@ -151,6 +151,9 @@
           "configurations": {
             "production": {
               "browserTarget": "WEB-admin-operaciones:build:production"
+            },
+            "qa2": {
+              "browserTarget": "WEB-admin-operaciones:build:qa2"
             }
           }
         },
