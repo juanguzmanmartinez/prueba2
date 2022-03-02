@@ -11,9 +11,10 @@ import {
   Self,
   TemplateRef,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
 import { isObject } from '@helpers/objects-equal.helper';
 import { normalizeValue } from '@helpers/string.helper';
 import { Subscription } from 'rxjs';
@@ -41,6 +42,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   @Input() containerMaxHeight = '300px';
   @Input() optionList: T[] = [];
   @Input() showClearValueForButton = false;
+  @Input() hiddenOptionsWhenSelected = false;
 
   @Input('value')
   set _value(option: T | T[]) {
@@ -52,6 +54,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
   @ViewChild('select') select;
+  @ViewChild('matSelect') matSelect: MatSelect;
 
   onChange = (_: any) => {};
   onTouched = (_: any) => {};
@@ -108,6 +111,10 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   selectionChange(option: T) {
     this.optionChange.emit(option);
     this.onChange(option);
+
+    if(this.multiple && this.hiddenOptionsWhenSelected){
+      this.matSelect?.close()
+    }
   }
 
   writeValue(obj: T): void {

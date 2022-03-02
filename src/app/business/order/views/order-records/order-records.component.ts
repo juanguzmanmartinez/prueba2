@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ import {
   LocalFilterEvent,
   OrderRecords,
   ServicesFilterEvent,
-  StatusFilterEvent,
+  StatusFilterEvent
 } from './interfaces/order-records.interface';
 import { OrderModel } from './models/order-records.model';
 
@@ -290,6 +290,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   isAllSelected(): boolean {
+    console.log('==> ',this.selection.selected);
+
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
