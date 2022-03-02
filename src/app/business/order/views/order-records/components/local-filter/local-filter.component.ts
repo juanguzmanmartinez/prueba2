@@ -64,19 +64,25 @@ export class LocalFilterComponent implements OnInit {
     if (locals.length === 1) {
       this.valueSelect = this.getLocalName(locals[0]);
     } else if (locals.length === 2) {
-      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
-        locals[1]
-      )}`;
+      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(locals[1])}`;
     } else if (locals.length > 2) {
-      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
-        locals[1]
-      )} (+${locals.length - 2} otros)`;
+      this.valueSelect = `${this.getLocalName(locals[0])},
+                          ${this.getLocalName(locals[1])} (+${locals.length - 2} otros)`;
     }
 
     if (isCallOnInit) {
       return;
     }
     this.filter.emit({locals, notFound: this.getLocalsName(locals)});
+  }
+
+  filterOptionList(value: string): void {
+    this.locals = this.list
+      .filter(option => (
+        option.name.toLowerCase().includes(value.toLowerCase()) ||
+        option.localCode.toLowerCase().includes(value.toLowerCase())
+      ))
+      .map(option => option.localCode);
   }
 
   clearValues(): void {

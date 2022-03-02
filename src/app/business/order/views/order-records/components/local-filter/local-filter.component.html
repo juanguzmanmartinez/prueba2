@@ -6,7 +6,9 @@
   [optionList]="locals"
   [selectOptionSquare]="true"
   [showClearValueForButton]="true"
+  [enableSearch]="true"
   (optionChange)="selectionChange($event)"
+  (filterList)="filterOptionList($event)"
   (clearValueForButton)="clearValues()">
   <ng-container trigger>{{ valueSelect }}</ng-container>
   <ng-template let-localCode>{{ getLocalName(localCode) }}</ng-template>

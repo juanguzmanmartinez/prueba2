@@ -62,13 +62,10 @@ export class StatusFilterComponent implements OnInit {
     if (status.length === 1) {
       this.valueSelect = this.getStatusName(status[0]);
     } else if (status.length === 2) {
-      this.valueSelect = `${this.getStatusName(
-        status[0]
-      )}, ${this.getStatusName(status[1])}`;
+      this.valueSelect = `${this.getStatusName(status[0])}, ${this.getStatusName(status[1])}`;
     } else if (status.length > 2) {
-      this.valueSelect = `${this.getStatusName(
-        status[0]
-      )}, ${this.getStatusName(status[1])} (+${status.length - 2} otros)`;
+      this.valueSelect = `${this.getStatusName(status[0])},
+                          ${this.getStatusName(status[1])} (+${status.length - 2} otros)`;
     }
 
     if (isOnInit) {

@@ -7,7 +7,8 @@
     [disabled]="disabled"
     [placeholder]="placeholder"
     [value]="value"
-    (valueChange)="selectionChange($event)">
+    (valueChange)="selectionChange($event)"
+    (openedChange)="listenToggleSelect($event)">
 
     <mat-select-trigger class="trigger" *ngIf="customValue">
       <div class="trigger-content">
@@ -25,6 +26,16 @@
         *ngIf="clearValue"
         [class.select-square-option]="selectOptionSquare">
         {{clearValue}}
+      </mat-option>
+
+      <mat-option class="option-search" disabled="true" *ngIf="enableSearch">
+        <input
+          class="search"
+          maxlength="20"
+          (keyup)="onKey($event.target.value)"
+          #input>
+        <app-icon class="icon-search" fontName="search" fontSize="16px"></app-icon>
+        <hr>
       </mat-option>
 
       <mat-option

@@ -17,12 +17,13 @@
     </app-select>
   </div>
   <div class="col-6">
-    <app-input-search
+    <app-input
       appDigitsOnly
       maxLength="18"
       labelClass="w-100"
+      [buttonClear]="true"
       [placeholder]="'Buscar por ' + valueSelect.name"
       [formControl]="search">
-    </app-input-search>
+    </app-input>
   </div>
 </div>

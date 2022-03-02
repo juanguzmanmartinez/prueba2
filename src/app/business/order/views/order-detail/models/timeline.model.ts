@@ -1,5 +1,6 @@
-import { CStatusOrderName, EStatusOrder } from '@models/status-order/status-order.model';
+import { CStatusOrderName, CStatusOrderNameCall, EStatusOrder } from '@models/status-order/status-order.model';
 import { OrderTimeline } from '../interfaces/order-detail.interface';
+import { EChannel } from '@models/channel/channel.model';
 
 export class TimelineModel {
   flow: 'done' | 'pending' | 'cancel';
@@ -8,14 +9,15 @@ export class TimelineModel {
   infoDetail: string;
   date: string;
   name: string;
+  isCall: boolean;
 
-  constructor(data: OrderTimeline) {
+  constructor(data: OrderTimeline, channel: string) {
     this.flow = data?.code && data.selected ? this.getFlow(data?.code, data.selected) : 'pending';
     this.status = data?.code ? this.getStatus(data?.code) : '-';
-    this.info = '';
+    this.isCall = channel === EChannel.call;
+    this.info = data?.code ? this.getStatusForCall(data?.code) : '';
     this.infoDetail = '';
     this.date = data?.time ? this.formatDate(data?.time) : '-';
-    // this.name = data.updatedBy ? data.updatedBy : '-';
     this.name = '';
   }
 
@@ -35,6 +37,10 @@ export class TimelineModel {
 
   private getStatus = (code: string): string => {
     return CStatusOrderName[code];
+  }
+
+  private getStatusForCall = (code: string): string => {
+    return CStatusOrderNameCall[code];
   }
 
   private formatDate = (time: string): string => {

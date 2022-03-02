@@ -15,7 +15,7 @@ export class ChannelFilterComponent implements OnInit {
     {code: 'CALL', name: 'Call Center'},
     {code: 'DIGITAL', name: 'Digital'},
   ];
-  channels = ['CALL', 'DIGITAL'];
+  channels = this.list.map(value => value.code);
   valueSelect: string;
   selectedChannels: string[];
 
@@ -34,9 +34,7 @@ export class ChannelFilterComponent implements OnInit {
     if (channels.length === 1) {
       this.valueSelect = this.getChannelName(channels[0]);
     } else if (channels.length === 2) {
-      this.valueSelect = `${this.getChannelName(
-        channels[0]
-      )}, ${this.getChannelName(channels[1])}`;
+      this.valueSelect = `${this.getChannelName(channels[0])}, ${this.getChannelName(channels[1])}`;
     }
     this.filter.emit({channels, notFound: this.getChannelsName(channels)});
   }

@@ -36,13 +36,10 @@ export class ServiceFilterComponent implements OnInit {
     if (services.length === 1) {
       this.valueSelect = this.getServiceName(services[0]);
     } else if (services.length === 2) {
-      this.valueSelect = `${this.getServiceName(
-        services[0]
-      )}, ${this.getServiceName(services[1])}`;
+      this.valueSelect = `${this.getServiceName(services[0])}, ${this.getServiceName(services[1])}`;
     } else if (services.length > 2) {
-      this.valueSelect = `${this.getServiceName(
-        services[0]
-      )}, ${this.getServiceName(services[1])} (+${services.length - 2} otros)`;
+      this.valueSelect = `${this.getServiceName(services[0])},
+                          ${this.getServiceName(services[1])} (+${services.length - 2} otros)`;
     }
 
     if (isOnInit) {

@@ -13,7 +13,7 @@ export class CompanyFilterComponent implements OnInit {
     {code: 'IKF', name: 'Inkafarma'},
     {code: 'MF', name: 'Mifarma'},
   ];
-  companies = ['IKF', 'MF'];
+  companies = this.list.map(value => value.code);
   valueSelect: string;
   selectedCompanies: string[];
 
@@ -34,9 +34,7 @@ export class CompanyFilterComponent implements OnInit {
     if (companies.length === 1) {
       this.valueSelect = this.getCompanyName(companies[0]);
     } else if (companies.length === 2) {
-      this.valueSelect = `${this.getCompanyName(
-        companies[0]
-      )}, ${this.getCompanyName(companies[1])}`;
+      this.valueSelect = `${this.getCompanyName(companies[0])}, ${this.getCompanyName(companies[1])}`;
     }
     this.filter.emit({companies, notFound: this.getCompaniesName(companies)});
   }

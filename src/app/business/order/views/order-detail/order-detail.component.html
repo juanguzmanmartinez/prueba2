@@ -1,50 +1,47 @@
 <section class="pb-15" *ngIf="orderDetail">
   <div class="pt-5 pb-5 d-flex flex-column order-detail-header">
-    <app-back-router-simple
-      backRoute="/pedidos/registros"
-      class="back"
-    ></app-back-router-simple>
+    <app-back-router-simple backRoute="/pedidos/registros" class="back"></app-back-router-simple>
+
     <div class="mt-1 d-inline-flex justify-content-between">
       <div class="d-inline-flex align-items-center">
         <div class="d-inline-flex align-items-center gap-1">
           <p class="text-h4 text-black mb-0">
-            Pedido Nº {{ orderDetail.orderNumber }}
-            {{ orderDetail.callNumber ? "/" : "" }}
+            Pedido Nº {{ orderDetail.orderNumber }} {{ orderDetail.callNumber ? "/" : "" }}
           </p>
           <p class="text-gray-4 text-h4 mb-0" *ngIf="orderDetail.callNumber">
             Call: {{ orderDetail.callNumber }}
           </p>
         </div>
+
         <div class="tags d-flex align-items-center gap-2">
           <app-tag
             [typeBrand]="orderDetail.iconTagCompany"
-            appearance="brand-white"
-            >{{ orderDetail.tagCompany }}</app-tag
-          >
-          <app-tag typeInformative="secondary" appearance="informative-white">{{
-            orderDetail.tagChannel
-          }}</app-tag>
+            appearance="brand-white">
+            {{ orderDetail.tagCompany }}
+          </app-tag>
+          <app-tag
+            typeInformative="secondary"
+            appearance="informative-white">
+            {{ orderDetail.tagChannel }}
+          </app-tag>
           <app-tag
             typeInformative="complementary-three"
-            appearance="informative-white"
-            >{{ orderDetail.tagOrderType }}</app-tag
-          >
+            appearance="informative-white">
+            {{ orderDetail.tagOrderType }}
+          </app-tag>
           <app-tag
             typeInformative="complementary-two"
-            appearance="informative-white"
-            >{{ orderDetail.tagServiceType }}</app-tag
-          >
+            appearance="informative-white">
+            {{ orderDetail.tagServiceType }}
+          </app-tag>
         </div>
       </div>
-      <app-button-icon iconName="refresh" (click)="refreshData()"
-        >Actualizar</app-button-icon
-      >
+
+      <app-button-icon iconName="refresh" (click)="refreshData()">Actualizar</app-button-icon>
     </div>
   </div>
 
-  <div
-    class="d-inline-flex justify-content-between align-items-center w-100 mb-8"
-  >
+  <div class="d-inline-flex justify-content-between align-items-center w-100 mb-8">
     <p class="m-0 text-h5 text-gray-5">Estado del pedido:</p>
     <div class="d-inline-flex align-items-center gap-1 tag-promise bg-white">
       <app-icon fontName="today" innerClass="text-primary"></app-icon>
@@ -57,23 +54,26 @@
 
   <div class="row">
     <div class="col-8">
-      <app-client-information [dataClient]="orderDetail.clientInformation">
+      <app-client-information
+        [dataClient]="orderDetail.clientInformation">
       </app-client-information>
 
-      <app-order-information [dataOrder]="orderDetail.orderInformation">
+      <app-order-information
+        [dataOrder]="orderDetail.orderInformation">
       </app-order-information>
 
-      <app-payment-information [dataPayment]="orderDetail.paymentInformation">
+      <app-payment-information
+        [dataPayment]="orderDetail.paymentInformation">
       </app-payment-information>
 
       <app-carrier-information
         *ngIf="orderDetail.carrierInformation"
-        [dataCarrier]="orderDetail.carrierInformation"
-      >
+        [dataCarrier]="orderDetail.carrierInformation">
       </app-carrier-information>
     </div>
     <div class="col-4">
-      <app-product-information [dataProduct]="orderDetail.productInformation">
+      <app-product-information
+        [dataProduct]="orderDetail.productInformation">
       </app-product-information>
     </div>
   </div>

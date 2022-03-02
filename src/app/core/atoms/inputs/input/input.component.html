@@ -1,7 +1,7 @@
-<label class="input-label"
-       [ngClass]="labelClass">
+<label class="input-label" [ngClass]="labelClass">
   <input
     class="input-basic"
+    [style.padding-right]="buttonClear ? '35px' : ''"
     [class.input-error]="error"
     [ngClass]="innerClass"
     [id]="id"
@@ -13,7 +13,13 @@
     [readonly]="readOnly"
     [maxlength]="maxLength"
     (ngModelChange)="changeInputValue()"
-
     (blur)="onBlur($event)"
     (focus)="onFocus($event)"/>
+  <app-icon
+    *ngIf="buttonClear && inputValue"
+    (click)="clearValue()"
+    class="close"
+    fontName="close" fontSize="16px">
+  </app-icon>
 </label>
+
