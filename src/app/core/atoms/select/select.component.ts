@@ -42,7 +42,6 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   @Input() containerMaxHeight = '300px';
   @Input() optionList: T[] = [];
   @Input() showClearValueForButton = false;
-  @Input() hiddenOptionsWhenSelected = false;
 
   @Input('value')
   set _value(option: T | T[]) {
@@ -111,10 +110,6 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   selectionChange(option: T) {
     this.optionChange.emit(option);
     this.onChange(option);
-
-    if(this.multiple && this.hiddenOptionsWhenSelected){
-      this.matSelect?.close()
-    }
   }
 
   writeValue(obj: T): void {
