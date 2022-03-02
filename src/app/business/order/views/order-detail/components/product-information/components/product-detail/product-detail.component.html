@@ -1,23 +1,22 @@
 <div class="product row mt-1">
   <div class="col-3 d-flex-vertical-center">
     <app-tooltip
+      *ngIf="product.prescription"
       value="Requiere receta médica"
       position="below"
-      innerClass="bottom-43-right-21"
-      *ngIf="product.prescription"
-    >
+      innerClass="bottom-43-right-21">
       <app-icon
         svgName="prescription-product"
         svgHeight="64px"
-        svgWidth="64px"
-      ></app-icon>
+        svgWidth="64px">
+      </app-icon>
     </app-tooltip>
     <app-icon
       *ngIf="!product.prescription"
       svgName="product"
       svgHeight="64px"
-      svgWidth="64px"
-    ></app-icon>
+      svgWidth="64px">
+    </app-icon>
   </div>
   <div class="col-6">
     <p class="text-body-2-bold text-gray-5 m-0 title">
@@ -34,10 +33,7 @@
     </div>
   </div>
   <div class="col-3">
-    <p
-      class="text-body-2-bold text-gray-6 m-0 d-flex-horizontal-end"
-      [class.text-decoration-line-through]="removed"
-    >
+    <p class="text-body-2-bold text-gray-6 m-0 d-flex-horizontal-end" [class.text-decoration-line-through]="removed">
       S/ {{ product.totalPrice }}
     </p>
   </div>

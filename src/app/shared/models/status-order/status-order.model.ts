@@ -15,6 +15,7 @@ export enum EStatusOrder {
   checkout = 'CHECKOUT',
   onHold = 'ON_HOLD',
   readyToAssign = 'READY_TO_ASSIGN',
+  error = 'ERROR'
 }
 
 export const CStatusOrderName = {
@@ -32,6 +33,7 @@ export const CStatusOrderName = {
   [EStatusOrder.checkout]: 'Checkout',
   [EStatusOrder.onHold]: 'En espera',
   [EStatusOrder.readyToAssign]: 'Listo para asignar',
+  [EStatusOrder.error]: 'Error de inserción'
 };
 
 export const CStatusOrderColor = {
@@ -49,4 +51,5 @@ export const CStatusOrderColor = {
   [EStatusOrder.checkout]: ETextColor.warning,
   [EStatusOrder.onHold]: ETextColor.warning,
   [EStatusOrder.readyToAssign]: ETextColor.warning,
+  [EStatusOrder.error]: ETextColor.error
 };
