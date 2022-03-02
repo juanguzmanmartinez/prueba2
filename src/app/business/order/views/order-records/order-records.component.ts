@@ -116,7 +116,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   };
 
-  statusError = CStatusOrderName[EStatusOrder.error];
+  readonly statusError = CStatusOrderName[EStatusOrder.error];
 
   private subscriptions = new Subscription();
 
