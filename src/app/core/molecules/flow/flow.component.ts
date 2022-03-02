@@ -3,6 +3,7 @@ import { AfterContentInit, Component, ElementRef, HostListener, Input, ViewChild
 export interface Flow {
   flow: 'done' | 'pending' | 'cancel';
   status: string;
+  isCall: boolean;
   info: string;
   infoDetail: string;
   date: string;

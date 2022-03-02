@@ -98,7 +98,7 @@ export class DateFilterComponent implements OnInit {
       this.selectDate = '';
       this.orderFilterStore.setTypeDatePromise = null;
 
-      this.datepicker = null
+      this.datepicker = null;
       return;
     }
 
@@ -158,7 +158,7 @@ export class DateFilterComponent implements OnInit {
     return `${month}-${day}-${year}`;
   }
 
-  addDays(date:Date, days: number):number{
+  addDays(date: Date, days: number): number {
     date.setDate(date.getDate() + days);
     return date.getTime();
   }

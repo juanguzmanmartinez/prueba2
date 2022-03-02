@@ -41,6 +41,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   @Input() containerMaxHeight = '300px';
   @Input() optionList: T[] = [];
   @Input() showClearValueForButton = false;
+  @Input() enableSearch = false;
 
   @Input('value')
   set _value(option: T | T[]) {
@@ -49,9 +50,12 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
 
   @Output() optionChange = new EventEmitter();
   @Output() clearValueForButton = new EventEmitter();
+  @Output() filterList = new EventEmitter<string>();
+
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
   @ViewChild('select') select;
+  @ViewChild('input') input;
 
   onChange = (_: any) => {};
   onTouched = (_: any) => {};
@@ -98,6 +102,23 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
       this.value = value;
     } else if (!value) {
       this.value = null;
+    }
+  }
+
+  onKey(value: string): void {
+    this.filterList.emit(value);
+  }
+
+  listenToggleSelect(opened: boolean): void {
+    if (this.enableSearch) {
+      if (opened) {
+        setTimeout(() => {
+          this.input.nativeElement.focus();
+        });
+      } else {
+        this.input.nativeElement.value = '';
+        this.filterList.emit('');
+      }
     }
   }
 

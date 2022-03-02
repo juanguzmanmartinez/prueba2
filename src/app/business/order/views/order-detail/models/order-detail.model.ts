@@ -27,7 +27,8 @@ export class OrderDetailModel {
   constructor(data: OrderDetailResponse) {
     this.orderNumber = data.orderInfoConsolidated?.orderInfo?.ecommerceId ?
       data.orderInfoConsolidated.orderInfo.ecommerceId.toString() : '-';
-    this.callNumber = null;
+    this.callNumber = data.orderInfoConsolidated.orderInfo.ecommerceIdCall ?
+      data.orderInfoConsolidated.orderInfo.ecommerceIdCall.toString() : '';
 
     this.tagCompany = data.orderInfoConsolidated?.orderInfo?.companyCode ?
       data.orderInfoConsolidated.orderInfo.companyCode : null;
@@ -45,7 +46,9 @@ export class OrderDetailModel {
       this.formatPromiseDate(data.orderInfoConsolidated.orderInfo.scheduledTime) : '-';
 
     this.timeline = data.orderStatusDetail?.statusTimeLine
-      ? reorderTimeline(data.orderStatusDetail?.statusTimeLine).map(timeline => new TimelineModel(timeline))
+      ? reorderTimeline(data.orderStatusDetail?.statusTimeLine).map(timeline => {
+          return new TimelineModel(timeline, data.orderInfoConsolidated?.orderInfo?.serviceChannel);
+        })
       : null;
 
     this.clientInformation = data.orderInfoConsolidated?.orderInfoClient ?

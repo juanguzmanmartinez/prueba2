@@ -33,6 +33,7 @@
         <div class="d-inline-flex align-items-center gap-1 mt-3">
           <p class="m-0 text-gray-7">{{ step.status }}</p>
           <app-tooltip
+            *ngIf="step.isCall && (step.info || step.infoDetail)"
             class="info" innerClass="multiline" position="below"
             value="{{ step.info }} &#13; {{ step.infoDetail }}">
             <app-icon fontName="info" innerClass="text-gray-4" fontSize="16px"></app-icon>

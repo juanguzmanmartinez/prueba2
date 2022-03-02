@@ -27,6 +27,7 @@ export interface OrderStatusDetail {
 export interface OrderMainData {
   orderId: number;
   ecommerceId: number;
+  ecommerceIdCall: number;
   companyCode: string;
   serviceChannel: string;
   orderType: string;

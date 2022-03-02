@@ -37,10 +37,13 @@
         <tr>
           <td>Coordenadas:</td>
           <td>
-            <a [href]="'https://maps.google.com/?q=' + dataClient.coordinates" target="_blank"
-               class="text-secondary text-body-2-bold">
-              {{ dataClient.coordinates }}
-            </a>
+            <ng-container *ngIf="dataClient.coordinates else noCoordinates">
+              <a [href]="'https://maps.google.com/?q=' + dataClient.coordinates" target="_blank"
+                 class="text-secondary text-body-2-bold">
+                {{ dataClient.coordinates }}
+              </a>
+            </ng-container>
+            <ng-template #noCoordinates>-</ng-template>
           </td>
         </tr>
         <tr>

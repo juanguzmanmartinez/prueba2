@@ -89,6 +89,16 @@ $select-option-height: 48px
     box-sizing: border-box
     overflow: auto
 
+  .option-search
+    margin: 10px 0
+
+    mat-pseudo-checkbox
+      display: none
+
+    hr
+      position: relative
+      top: -5px
+
   mat-option.select-basic-option,
   mat-option.select-basic-option.mat-option.mat-active
     color: $black
@@ -121,3 +131,21 @@ $select-option-height: 48px
   mat-option.select-basic-option.select-basic-option-clear,
   mat-option.select-basic-option.select-basic-option-clear.mat-active
     color: $gray-4
+
+.search
+  position: absolute
+  top: 14px
+  left: 20px
+  z-index: 2
+  background: transparent
+  border: none
+
+.icon-search
+  display: flex
+  justify-content: end
+  margin-top: 56px
+  //margin-top: 27px
+
+  mat-icon
+    margin-right: 0!important
+    margin-top: 7px

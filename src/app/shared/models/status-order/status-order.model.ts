@@ -53,3 +53,18 @@ export const CStatusOrderColor = {
   [EStatusOrder.readyToAssign]: ETextColor.warning,
   [EStatusOrder.error]: ETextColor.error
 };
+
+export const CStatusOrderNameCall = {
+  [EStatusOrder.onStore]: 'Avisado',
+  [EStatusOrder.picking]: 'Avisado',
+  [EStatusOrder.readyToAssign]: 'Avisado',
+  [EStatusOrder.checkout]: 'Proforma',
+  [EStatusOrder.prepared]: 'Proforma',
+  [EStatusOrder.readyForPickup]: 'Proforma',
+  [EStatusOrder.assigned]: 'Proforma',
+  [EStatusOrder.onRouted]: 'Llegando',
+  [EStatusOrder.arrived]: 'Llegada',
+  [EStatusOrder.delivered]: 'Entregado',
+  [EStatusOrder.rejected]: 'Anulado',
+  [EStatusOrder.cancelled]: 'Anulado'
+};
