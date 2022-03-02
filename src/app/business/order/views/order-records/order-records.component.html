@@ -4,22 +4,18 @@
       <div class="col">
         <app-back-router-simple
           backRoute="/"
-          textBackRoute="Ir a inicio"
-        ></app-back-router-simple>
+          textBackRoute="Ir a inicio">
+        </app-back-router-simple>
       </div>
     </div>
-    <div
-      class="d-flex justify-content-between align-items-center pb-5"
-      *ngIf="!errorResponse"
-    >
+    <div class="d-flex justify-content-between align-items-center pb-5" *ngIf="!errorResponse">
       <div class="d-flex flex-column">
         <h1 class="text-h4 text-black mb-0">Historial de pedidos</h1>
       </div>
       <app-button-icon
         [disabled]="!selected"
         (clicked)="exportData()"
-        iconName="download"
-      >
+        iconName="download">
         Descargar selección
         {{ selected ? ": " + (selected | number: "2.0-0") : "" }}
       </app-button-icon>
@@ -163,7 +159,7 @@
             <th mat-header-cell column-actions column-width="6%" *matHeaderCellDef></th>
             <td mat-cell column-actions *matCellDef="let element">
               <div class="d-inline-flex">
-                <app-tooltip value="Ver Detalle">
+                <app-tooltip *ngIf="element.state !== statusError" value="Ver Detalle" position="left">
                   <app-button-action-icon
                     iconName="launch"
                     iconStyle="edge-table"
