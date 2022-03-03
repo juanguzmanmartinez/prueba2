@@ -1,8 +1,10 @@
 <div class="select" #select>
   <mat-select
+    appNoSpace
     disableRipple
     disableOptionCentering
     panelClass="select-component"
+    [enableNoSpace]="enableNoSpace"
     [multiple]="multiple"
     [disabled]="disabled"
     [placeholder]="placeholder"
@@ -35,6 +37,7 @@
             maxlength="20"
             placeholder="Buscar"
             (keyup)="onKey($event.target.value)"
+            (keyup.space)="addSpace()"
             #input>
           <app-icon class="icon-search" fontName="search" fontSize="16px"></app-icon>
         </div>
