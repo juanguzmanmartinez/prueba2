@@ -72,4 +72,9 @@ export class OrderFilterStore {
     this.orderFilter.orderCriteria = data;
     this.orderFilterSubject.next(this.orderFilter);
   }
+
+  clear(): void {
+    this.orderFilter = {};
+    this.orderFilterSubject.next({});
+  }
 }

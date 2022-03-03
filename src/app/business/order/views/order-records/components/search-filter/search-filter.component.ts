@@ -8,6 +8,8 @@ interface TypeSearch {
   code: string;
   icon: string;
   name: string;
+  maxLength: string;
+  alphanumeric: boolean;
 }
 
 enum CodeTypeSearch {
@@ -29,17 +31,23 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
     {
       code: CodeTypeSearch.pedido,
       icon: 'local_mall',
-      name: 'Nº de pedido'
+      name: 'Nº de pedido',
+      maxLength: '11',
+      alphanumeric: false
     },
     {
       code: CodeTypeSearch.telefono,
       icon: 'call',
       name: 'Nº de teléfono',
+      maxLength: '9',
+      alphanumeric: false
     },
     {
       code: CodeTypeSearch.documento,
       icon: 'assignment_ind',
       name: 'Doc. Identidad',
+      maxLength: '12',
+      alphanumeric: true
     },
   ];
 

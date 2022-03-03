@@ -57,7 +57,6 @@ export class OpZonesEditionHomeMainSettingTabComponent {
       const companyTabList = zoneCompanyServiceTypeList
         .map((value) => value.company);
       this.companyTabList = sortByPresetOrder(companyTabList, CompanyTabListPriority);
-      console.log('las marcas son: ' + this.companyTabList);
     }
   }
 

@@ -54,7 +54,8 @@ export class OrderDetailModel {
     this.clientInformation = data.orderInfoConsolidated?.orderInfoClient ?
       new ClientInformationModel(data.orderInfoConsolidated.orderInfoClient) : null;
     this.orderInformation = data.orderInfoConsolidated?.orderInfoAdditional ?
-      new OrderInformationModel(data.orderInfoConsolidated.orderInfoAdditional) : null;
+      new OrderInformationModel(data.orderInfoConsolidated.orderInfoAdditional,
+                                data?.orderInfoConsolidated?.orderInfo?.source) : null;
     this.paymentInformation = data.orderInfoConsolidated?.paymentMethodDto ?
       new PaymentInformationModel(data.orderInfoConsolidated.paymentMethodDto) : null;
     this.carrierInformation = data.orderInfoMotorized ?
