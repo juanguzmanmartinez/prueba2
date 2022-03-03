@@ -4,6 +4,7 @@ import { SelectComponent } from './select.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IconsModule } from '../icons/icons.module';
+import { DirectivesModule } from '../../../shared/directives/directives.module';
 
 
 const COMPONENTS = [
@@ -23,6 +24,7 @@ const COMPONENTS = [
         MatSelectModule,
         ReactiveFormsModule,
         IconsModule,
+        DirectivesModule,
     ]
 })
 export class SelectModule {

@@ -7,6 +7,7 @@ import { EditionAccessDirective } from './roles/edition-access.directive';
 import { DialogModule } from '@molecules/dialog/dialog.module';
 import { SortCustomDirective } from './sort-custom/sort-custom.directive';
 import { SearchCharactersDirective } from './search-characters/search-characters.directive';
+import { NoSpaceDirective } from './no-space/no-space.directive';
 
 const DIRECTIVES = [
   DigitsOnlyDirective,
@@ -14,12 +15,14 @@ const DIRECTIVES = [
   RouterAccessDirective,
   EditionAccessDirective,
   SortCustomDirective,
-  SearchCharactersDirective
+  SearchCharactersDirective,
+  NoSpaceDirective
 ];
 
 @NgModule({
   declarations: [
     ...DIRECTIVES,
+    NoSpaceDirective,
   ],
   exports: [
     ...DIRECTIVES,

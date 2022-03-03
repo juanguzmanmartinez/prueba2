@@ -42,6 +42,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   @Input() optionList: T[] = [];
   @Input() showClearValueForButton = false;
   @Input() enableSearch = false;
+  @Input() enableNoSpace = false;
 
   @Input('value')
   set _value(option: T | T[]) {
@@ -107,6 +108,11 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
 
   onKey(value: string): void {
     this.filterList.emit(value);
+  }
+
+  addSpace(): void {
+    const currentText = this.input.nativeElement.value;
+    this.input.nativeElement.value = currentText + ' ';
   }
 
   listenToggleSelect(opened: boolean): void {
