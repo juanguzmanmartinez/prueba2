@@ -237,7 +237,10 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
         })
       )
       .subscribe({
-        next: (res: any) => this.setOrderPageData(res, false),
+        next: (res: any) => {
+          this.selection.clear()
+          this.setOrderPageData(res, false)
+        },
         error: (err) => (this.errorResponse = err),
       });
   }

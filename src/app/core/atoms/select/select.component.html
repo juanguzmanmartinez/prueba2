@@ -29,13 +29,15 @@
       </mat-option>
 
       <mat-option class="option-search" disabled="true" *ngIf="enableSearch">
-        <input
-          class="search"
-          maxlength="20"
-          (keyup)="onKey($event.target.value)"
-          #input>
-        <app-icon class="icon-search" fontName="search" fontSize="16px"></app-icon>
-        <hr>
+        <div style="display:block;">
+          <input
+            class="search"
+            maxlength="20"
+            placeholder="Buscar"
+            (keyup)="onKey($event.target.value)"
+            #input>
+          <app-icon class="icon-search" fontName="search" fontSize="16px"></app-icon>
+        </div>
       </mat-option>
 
       <mat-option
