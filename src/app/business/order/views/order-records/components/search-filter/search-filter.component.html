@@ -18,8 +18,9 @@
   </div>
   <div class="col-6">
     <app-input
-      appDigitsOnly
-      maxLength="18"
+      appSearchCharacters
+      [alphanumeric]="valueSelect.alphanumeric"
+      [maxLength]="valueSelect.maxLength"
       labelClass="w-100"
       [buttonClear]="true"
       [placeholder]="'Buscar por ' + valueSelect.name"

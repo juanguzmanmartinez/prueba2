@@ -10,8 +10,9 @@ export class OrderInformationModel {
   localService: string;
   localType: string;
   typeOfOffice: string;
+  source: string;
 
-  constructor(data: OrderInformation) {
+  constructor(data: OrderInformation, source: string) {
     this.orderId = data.ecommerceId ? data.ecommerceId.toString() : '-';
     this.purchaseId = data.purchaseId ? data.purchaseId : '-';
     this.operator = data.operator ? data.operator : '-';
@@ -21,6 +22,7 @@ export class OrderInformationModel {
     this.localService = data.localDescription ? data.localDescription : '-';
     this.localType = data.serviceType ? data.serviceType : '-';
     this.typeOfOffice = data.stockType ? this.formatTypeOfOffice(data.stockType) : '-';
+    this.source = source ? this.formatTypeOfOffice(source) : '-';
   }
 
   private formatTypeOfOffice = (stockType: string): string => {

@@ -36,6 +36,7 @@ export interface OrderMainData {
   statusName: string;
   localCode: string;
   serviceType: string;
+  source: string;
 }
 
 export interface OrderInformation {

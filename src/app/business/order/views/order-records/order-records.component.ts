@@ -336,7 +336,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }, 200);
 
-    console.log(event);
     this.orderFilterStore.setOrderCriteria = event;
     this.filterAll();
   }

@@ -7,6 +7,5 @@
   [showClearValueForButton]="true"
   (optionChange)="selectionChange($event)"
   (clearValueForButton)="clearValues()">
-  <ng-container trigger>{{ valueSelect }}</ng-container>
   <ng-template let-company>{{ getCompanyName(company) }}</ng-template>
 </app-select>

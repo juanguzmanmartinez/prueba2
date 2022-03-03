@@ -12,7 +12,6 @@ import { BackRouterSimpleModule } from '@molecules/back-router-simple/back-route
 import { TableModule } from '@molecules/table/table.module';
 import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
 import { NotSearchResultModule } from '@pages/not-search-result/not-search-result.module';
-import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { ChannelFilterModule } from './components/channel-filter/channel-filter.module';
 import { CompanyFilterModule } from './components/company-filter/company-filter.module';
@@ -29,32 +28,33 @@ import { DirectivesModule } from '../../../../shared/directives/directives.modul
 
 @NgModule({
   declarations: [OrderRecordsComponent],
-    imports: [
-        OrderRecordsRoutingModule,
-        ButtonsModule,
-        SearchFilterModule,
-        LocalFilterModule,
-        CompanyFilterModule,
-        ServiceFilterModule,
-        DateFilterModule,
-        StatusFilterModule,
-        ChannelFilterModule,
-        TableModule,
-        MatTableModule,
-        MatSortModule,
-        MatTableExporterModule,
-        CheckboxModule,
-        TooltipModule,
-        CommonModule,
-        PaginatorModule,
-        SelectModule,
-        FormsModule,
-        NotSearchResultModule,
-        HttpErrorViewerModule,
-        BackRouterSimpleModule,
-        CardModule,
-        DirectivesModule,
-    ],
-  providers: [OrderRecordsImplementService, OrderFilterStore],
+  imports: [
+    OrderRecordsRoutingModule,
+    ButtonsModule,
+    SearchFilterModule,
+    LocalFilterModule,
+    CompanyFilterModule,
+    ServiceFilterModule,
+    DateFilterModule,
+    StatusFilterModule,
+    ChannelFilterModule,
+    TableModule,
+    MatTableModule,
+    MatSortModule,
+    MatTableExporterModule,
+    CheckboxModule,
+    TooltipModule,
+    CommonModule,
+    PaginatorModule,
+    SelectModule,
+    FormsModule,
+    NotSearchResultModule,
+    HttpErrorViewerModule,
+    BackRouterSimpleModule,
+    CardModule,
+    DirectivesModule,
+  ],
+  providers: [OrderRecordsImplementService],
 })
-export class OrderRecordsModule {}
+export class OrderRecordsModule {
+}
