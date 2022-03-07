@@ -16,6 +16,7 @@ export interface OrderTimeline {
   order: string;
   updatedBy: string;
   time: string;
+  status: string;
 }
 
 export interface OrderStatusDetail {

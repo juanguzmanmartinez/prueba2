@@ -12,11 +12,11 @@ export const reorderTimeline = (timeline: OrderTimeline[]): OrderTimeline[] => {
   const indexRejected = indexStatus(timeline, EStatusOrder.rejected, false);
   const indexIsRejected = indexStatus(timeline, EStatusOrder.rejected, true);
 
-  if (indexCancelled !== -1) {
+  if (indexCancelled !== -1 && indexIsCancelled >= 1) {
     timeline.splice(Number(indexCancelled));
   }
 
-  if (indexRejected !== -1) {
+  if (indexRejected !== -1 && indexIsCancelled >= 1) {
     timeline.splice(Number(indexRejected));
   }
 
