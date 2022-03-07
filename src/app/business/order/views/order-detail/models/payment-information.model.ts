@@ -17,7 +17,7 @@ export class PaymentInformationModel {
   constructor(data: PaymentInformation) {
     this.paymentType = data.paymentType ? data.paymentType : '-';
     this.transactionId = data.transactionId ?? '-';
-    this.changeAmount = data.changeAmount ? `${data.changeAmount}` : '-';
+    this.changeAmount = data.changeAmount ? `S/ ${data.changeAmount.toFixed(2)}` : '-';
     this.status = CLiquidationStatusTranslation[data?.liquidationStatus] ?? data.liquidationStatus ?? '-';
     this.date = data.paymentDate ? this.formatDate(data.paymentDate) : '-';
     this.cardNumber = '-'; // TODO: No se guarda en base de datos
