@@ -12,7 +12,7 @@
         </tr>
         <tr>
           <td>Vuelto:</td>
-          <td>{{ dataPayment.changeAmount }}</td>
+          <td>{{ dataPayment.changeAmount ? 'S/ ' + (dataPayment.changeAmount | number:'1.2-2') : '-' }}</td>
         </tr>
         <tr>
           <td>Estado:</td>
