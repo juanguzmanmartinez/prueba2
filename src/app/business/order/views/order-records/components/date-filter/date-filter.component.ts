@@ -37,7 +37,6 @@ export class DateFilterComponent implements OnInit {
   private sixMonths = 184 * 24 * 60 * 60 * 1000;
   today = new Date().getTime();
   minDateSearch = this.today - this.sixMonths;
-  maxDateSearch = this.addDays(new Date(), 7);
 
   @Output() filter = new EventEmitter<DatepickerFilterEvent>();
 
