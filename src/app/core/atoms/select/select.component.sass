@@ -131,7 +131,7 @@ $select-option-height: 48px
 
 .search
   position: absolute
-  top: 14px
+  top: 12px
   left: 18px
   z-index: 2
   background: transparent
@@ -140,11 +140,15 @@ $select-option-height: 48px
   padding-left: 30px
   width: calc(100% - 33px)
 
+  &:focus
+    border: none
+    outline: solid $primary 1px
+
 .icon-search
   display: flex
   justify-content: start
-  margin-top: 8px
-  margin-left: 15px
+  margin-top: 7px
+  margin-left: 14px
 
   mat-icon
     margin-right: 0!important
