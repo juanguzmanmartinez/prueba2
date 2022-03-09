@@ -33,26 +33,42 @@
       <mat-option class="option-search" disabled="true" *ngIf="enableSearch">
         <div style="display:block;">
           <input
+            id="input"
             class="search"
             maxlength="20"
             placeholder="Buscar"
-            (keyup)="onKey($event.target.value)"
+            (keyup)="onKey($event)"
             (keyup.space)="addSpace()"
             #input>
           <app-icon class="icon-search" fontName="search" fontSize="16px"></app-icon>
         </div>
       </mat-option>
 
-      <mat-option
-        class="select-basic-option" [class.select-square-option]="selectOptionSquare"
-        *ngFor="let option of optionList"
-        [value]="option">
-        <ng-container *ngIf="!templateRef">{{option}}</ng-container>
-        <ng-template
-          [ngTemplateOutlet]="templateRef"
-          [ngTemplateOutletContext]="{$implicit: option}">
-        </ng-template>
-      </mat-option>
+      <ng-container *ngIf="enableSearch else notSearch">
+        <mat-option
+          *ngFor="let option of optionList"
+          class="select-basic-option" [class.select-square-option]="selectOptionSquare"
+          [value]="option.code" [hidden]="option.hidden">
+          <ng-container *ngIf="!templateRef">{{option.code}}</ng-container>
+          <ng-template
+            [ngTemplateOutlet]="templateRef"
+            [ngTemplateOutletContext]="{$implicit: option.code}">
+          </ng-template>
+        </mat-option>
+      </ng-container>
+
+      <ng-template #notSearch>
+        <mat-option
+          *ngFor="let option of optionList"
+          class="select-basic-option" [class.select-square-option]="selectOptionSquare"
+          [value]="option">
+          <ng-container *ngIf="!templateRef">{{option}}</ng-container>
+          <ng-template
+            [ngTemplateOutlet]="templateRef"
+            [ngTemplateOutletContext]="{$implicit: option}">
+          </ng-template>
+        </mat-option>
+      </ng-template>
     </div>
   </mat-select>
 

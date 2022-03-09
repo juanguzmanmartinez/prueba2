@@ -4,6 +4,7 @@ import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { map, tap } from 'rxjs/operators';
 import { OrderRecordsImplementService } from '../../implements/order-records-implement.service';
 import { LocalFilterEvent } from '../../interfaces/order-records.interface';
+import { SearchOptionsI } from '@atoms/select/select.component';
 
 @Component({
   selector: 'app-local-filter',
@@ -13,7 +14,7 @@ import { LocalFilterEvent } from '../../interfaces/order-records.interface';
 export class LocalFilterComponent implements OnInit {
 
   list: IDrugstore[];
-  locals: string[];
+  locals: SearchOptionsI[];
   valueSelect: string;
   selectedLocals: string[];
 
@@ -37,11 +38,14 @@ export class LocalFilterComponent implements OnInit {
         map((res) => {
           const newLocals = res.sort(this.sortLocals);
           return newLocals.map((val) => {
-            return val.localCode;
+            return {
+              code: val.localCode,
+              hidden: false
+            };
           });
         })
       )
-      .subscribe((response: string[]) => {
+      .subscribe((response: SearchOptionsI[]) => {
         this.locals = response;
         this.selectionChange(locals ?? [], true);
       });
@@ -66,8 +70,7 @@ export class LocalFilterComponent implements OnInit {
     } else if (locals.length === 2) {
       this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(locals[1])}`;
     } else if (locals.length > 2) {
-      this.valueSelect = `${this.getLocalName(locals[0])},
-                          ${this.getLocalName(locals[1])} (+${locals.length - 2} otros)`;
+      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(locals[1])} (+${locals.length - 2} otros)`;
     }
 
     if (isCallOnInit) {
@@ -77,12 +80,16 @@ export class LocalFilterComponent implements OnInit {
   }
 
   filterOptionList(value: string): void {
-    this.locals = this.list
-      .filter(option => (
-        option.name.toLowerCase().includes(value.toLowerCase()) ||
-        option.localCode.toLowerCase().includes(value.toLowerCase())
-      ))
-      .map(option => option.localCode);
+    this.locals = this.list.map((v) => {
+      let isHide = true;
+      if (v.name.toLowerCase().includes(value.toLowerCase()) || v.localCode.toLowerCase().includes(value.toLowerCase())) {
+        isHide = false;
+      }
+      return {
+        code: v.localCode,
+        hidden: isHide
+      };
+    });
   }
 
   clearValues(): void {
