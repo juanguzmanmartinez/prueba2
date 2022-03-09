@@ -15,7 +15,16 @@ export enum EStatusOrder {
   checkout = 'CHECKOUT',
   onHold = 'ON_HOLD',
   readyToAssign = 'READY_TO_ASSIGN',
-  error = 'ERROR'
+  error = 'ERROR',
+  errorArrived = 'ERROR_ARRIVED',
+  errorAssigned = 'ERROR_ASSIGNED',
+  errorCancelled = 'ERROR_CANCELLED',
+  errorDelivered = 'ERROR_DELIVERED',
+  errorOnHold = 'ERROR_ON_HOLD',
+  errorOnRouted = 'ERROR_ON_ROUTED',
+  errorPicked = 'ERROR_PICKED',
+  errorReadyForPickup = 'ERROR_READY_FOR_PICKUP',
+  errorReadyToAssign = 'ERROR_READY_TO_ASSIGN'
 }
 
 export const CStatusOrderName = {
@@ -33,7 +42,16 @@ export const CStatusOrderName = {
   [EStatusOrder.checkout]: 'Checkout',
   [EStatusOrder.onHold]: 'En espera',
   [EStatusOrder.readyToAssign]: 'Listo para asignar',
-  [EStatusOrder.error]: 'Error de inserción'
+  [EStatusOrder.error]: 'Error de inserción',
+  [EStatusOrder.errorArrived]: 'Error llegó',
+  [EStatusOrder.errorAssigned]: 'Error asignado',
+  [EStatusOrder.errorCancelled]: 'Error cancelado',
+  [EStatusOrder.errorDelivered]: 'Error entregado',
+  [EStatusOrder.errorOnHold]: 'Error en espera',
+  [EStatusOrder.errorOnRouted]: 'Error en ruta',
+  [EStatusOrder.errorPicked]: 'Error en picking',
+  [EStatusOrder.errorReadyForPickup]: 'Error listo para recoger',
+  [EStatusOrder.errorReadyToAssign]: 'Error listo para asignar'
 };
 
 export const CStatusOrderColor = {
@@ -51,7 +69,16 @@ export const CStatusOrderColor = {
   [EStatusOrder.checkout]: ETextColor.warning,
   [EStatusOrder.onHold]: ETextColor.warning,
   [EStatusOrder.readyToAssign]: ETextColor.warning,
-  [EStatusOrder.error]: ETextColor.error
+  [EStatusOrder.error]: ETextColor.error,
+  [EStatusOrder.errorArrived]: ETextColor.error,
+  [EStatusOrder.errorAssigned]: ETextColor.error,
+  [EStatusOrder.errorCancelled]: ETextColor.error,
+  [EStatusOrder.errorDelivered]: ETextColor.error,
+  [EStatusOrder.errorOnHold]: ETextColor.error,
+  [EStatusOrder.errorOnRouted]: ETextColor.error,
+  [EStatusOrder.errorPicked]: ETextColor.error,
+  [EStatusOrder.errorReadyForPickup]: ETextColor.error,
+  [EStatusOrder.errorReadyToAssign]: ETextColor.error
 };
 
 export const CStatusOrderNameCall = {
