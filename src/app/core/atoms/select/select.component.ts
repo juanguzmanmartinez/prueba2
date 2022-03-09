@@ -18,6 +18,11 @@ import { isObject } from '@helpers/objects-equal.helper';
 import { normalizeValue } from '@helpers/string.helper';
 import { Subscription } from 'rxjs';
 
+export interface SearchOptionsI {
+  code: string;
+  hidden: boolean;
+}
+
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
@@ -39,7 +44,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   @Input() multiple: boolean;
   @Input() selectOptionSquare = false;
   @Input() containerMaxHeight = '300px';
-  @Input() optionList: T[] = [];
+  @Input() optionList: T[] | SearchOptionsI[] = [];
   @Input() showClearValueForButton = false;
   @Input() enableSearch = false;
   @Input() enableNoSpace = false;
@@ -51,7 +56,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
 
   @Output() optionChange = new EventEmitter();
   @Output() clearValueForButton = new EventEmitter();
-  @Output() filterList = new EventEmitter<string>();
+  @Output() filterList = new EventEmitter<string>(true);
 
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
@@ -106,8 +111,8 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
     }
   }
 
-  onKey(value: string): void {
-    this.filterList.emit(value);
+  onKey(event): void {
+    this.filterList.emit(event.target.value);
   }
 
   addSpace(): void {
