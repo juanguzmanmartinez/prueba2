@@ -47,6 +47,7 @@ export interface OrderInformation {
   observation: string;
   cancellationReason: string;
   zoneDescription: string;
+  localCode: string;
   localDescription: string;
   serviceType: string;
   stockType: string;
