@@ -9,6 +9,14 @@
   user-select: none;
 }
 
+.show-products {
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .rotate {
   transform: rotate(180deg) !important
 }

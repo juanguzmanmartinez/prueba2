@@ -3,6 +3,7 @@ import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-
 import { CChannelName } from '@models/channel/channel.model';
 import { ETextColor } from '@models/text/text.model';
 import { CStatusOrderColor, CStatusOrderName } from '@models/status-order/status-order.model';
+import { reformatCamelCase } from '../../../../../shared/utils/reformat-camelcase.util';
 
 export class OrderModel {
   orderId: number;
@@ -23,7 +24,7 @@ export class OrderModel {
     this.channel = data.serviceChannel ? CChannelName[data.serviceChannel] : '-';
     this.service = data.serviceTypeId ? CDeliveryServiceTypeName[data.serviceTypeId] : '-';
     this.promiseDate = data.promiseDate ? this.formatPromiseDate(data.promiseDate) : '-';
-    this.client = data.client ? data.client : '-';
+    this.client = data.client ? reformatCamelCase(data.client) : '-';
     this.documentId = data.documentoId ? data.documentoId : '-';
     this.state = data.orderStatus ? CStatusOrderName[data.orderStatus] : '-';
     this.stateColor = data.orderStatus ? CStatusOrderColor[data.orderStatus] : '-';

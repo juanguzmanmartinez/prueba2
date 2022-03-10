@@ -1,4 +1,5 @@
 import { ClientInformation } from '../interfaces/order-detail.interface';
+import { reformatCamelCase } from '../../../../../shared/utils/reformat-camelcase.util';
 
 export class ClientInformationModel {
   fullName: string;
@@ -12,7 +13,7 @@ export class ClientInformationModel {
   reference: string;
 
   constructor(data: ClientInformation) {
-    this.fullName = data.clientName ? data.clientName : '-';
+    this.fullName = data.clientName ? reformatCamelCase(data.clientName) : '-';
     this.documentNumber = data.documentNumber ? data.documentNumber.toString() : '-';
     this.ruc = data.ruc ?? '-';
     this.businessName = data.companyName ?? '-';

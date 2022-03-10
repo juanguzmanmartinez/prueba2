@@ -1,21 +1,32 @@
-<app-accordion-information
-  svgName="cart"
-  title="Información de los productos"
-  [expanded]="true"
->
+<app-accordion-information svgName="cart" title="Información de los productos" [expanded]="true">
   <div class="products mt-5">
     <app-product-detail
-      *ngFor="let product of dataProduct.products"
+      *ngFor="let product of dataProduct.visibleProducts()"
       [product]="product">
     </app-product-detail>
+
+    <div *ngIf="dataProduct.hasMoreThanFourProducts()">
+      <div
+        class="d-inline-flex align-items-center justify-content-center w-100 gap-2 show-products"
+        (click)="toggleShowProducts()">
+        <div class="d-flex-vertical-center" [class.rotate]="showProducts">
+          <app-icon fontName="expand_more" innerClass="text-primary"></app-icon>
+        </div>
+        <p class="m-0 text-primary">Ver {{ showProducts ? "menos" : "todos los" }} productos</p>
+      </div>
+      <hr class="mt-4 text-gray-3" />
+      <div class="hide-removed-products" [hidden]="!showProducts">
+        <app-product-detail
+          *ngFor="let product of dataProduct.hiddenProducts()"
+          [product]="product">
+        </app-product-detail>
+      </div>
+    </div>
   </div>
+
   <div class="removed mt-1" *ngIf="dataProduct.existProductRemoved()">
     <p class="d-flex-vertical-center gap-2">
-      <app-icon
-        fontName="warning"
-        fontSize="16px"
-        innerClass="text-danger">
-      </app-icon>
+      <app-icon fontName="warning" fontSize="16px" innerClass="text-danger"></app-icon>
       Unidades removidas
     </p>
     <hr class="mt-5 text-gray-1 mb-5" />
@@ -23,28 +34,27 @@
       [product]="dataProduct.firstProductRemoved()"
       [removed]="true">
     </app-product-detail>
+
     <div *ngIf="dataProduct.hasMoreThanOneProductRemoved()">
       <div
         class="d-inline-flex align-items-center justify-content-center w-100 gap-2 show-removed-products"
         (click)="toggleShowRemovedProducts()">
-        <div
-          class="d-flex-vertical-center"
-          [class.rotate]="showRemovedProducts">
+        <div class="d-flex-vertical-center" [class.rotate]="showRemovedProducts">
           <app-icon fontName="expand_more" innerClass="text-primary"></app-icon>
         </div>
-        <p class="m-0 text-primary">
-          Ver {{ showRemovedProducts ? "menos" : "todos los" }} productos
-        </p>
+        <p class="m-0 text-primary">Ver {{ showRemovedProducts ? "menos" : "todos los" }} productos</p>
       </div>
-      <hr class="mt-4 text-gray-1" />
-      <div class="hide-removed-products" [hidden]="!showRemovedProducts"></div>
-      <app-product-detail
-        *ngFor="let product of dataProduct.hiddenProductsRemoved()"
-        [product]="product"
-        [removed]="true">
-      </app-product-detail>
+      <hr class="mt-4 text-gray-3" />
+      <div class="hide-removed-products" [hidden]="!showRemovedProducts">
+        <app-product-detail
+          *ngFor="let product of dataProduct.hiddenProductsRemoved()"
+          [product]="product"
+          [removed]="true">
+        </app-product-detail>
+      </div>
     </div>
   </div>
+
   <div class="detail">
     <div class="d-flex justify-content-between">
       <p>Imp. pedido original:</p>

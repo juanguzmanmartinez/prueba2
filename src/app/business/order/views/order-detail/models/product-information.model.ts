@@ -31,6 +31,18 @@ export class ProductInformationModel {
     return this.productsRemoved.length !== 1;
   }
 
+  hasMoreThanFourProducts(): boolean {
+    return this.products.length > 4;
+  }
+
+  visibleProducts(): ProductModel[] {
+    return this.hasMoreThanFourProducts() ? this.products.slice(0, 4) : this.products;
+  }
+
+  hiddenProducts(): ProductModel[] {
+    return this.hasMoreThanFourProducts() ? this.products.slice(4) : [];
+  }
+
   firstProductRemoved(): ProductModel {
     return this.productsRemoved[0];
   }
