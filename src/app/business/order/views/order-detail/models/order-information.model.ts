@@ -19,10 +19,15 @@ export class OrderInformationModel {
     this.observation = data.observation ? data.observation : '-';
     this.reasonForCancellation = data.cancellationReason ? data.cancellationReason : '-';
     this.zone = data.zoneDescription ? data.zoneDescription : '-';
-    this.localService = data.localDescription && data.localCode ? `${data.localDescription} - ${data.localCode}` : '-';
+    this.localService = data.localDescription && data.localCode ?
+      `${this.reformatLocalDescription(data.localDescription)} - ${data.localCode}` : '-';
     this.localType = data.serviceType ? data.serviceType : '-';
     this.typeOfOffice = data.stockType ? this.formatTypeOfOffice(data.stockType) : '-';
     this.source = source ? this.formatTypeOfOffice(source) : '-';
+  }
+
+  private reformatLocalDescription = (value: string): string => {
+    return value.split('-')[1].trim();
   }
 
   private formatTypeOfOffice = (stockType: string): string => {
