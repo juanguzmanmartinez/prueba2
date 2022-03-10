@@ -90,6 +90,10 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
     });
   }
 
+  resized(event: void): void {
+    this.optionContainerWidth = `${this.select.nativeElement.offsetWidth}px`;
+  }
+
   validValue(value: T | T[]) {
     let savedValue = !!this.value ? this.value.toString() : '';
     let newValue = !!value ? value.toString() : '';

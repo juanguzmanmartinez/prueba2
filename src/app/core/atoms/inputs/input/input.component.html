@@ -15,11 +15,14 @@
     (ngModelChange)="changeInputValue()"
     (blur)="onBlur($event)"
     (focus)="onFocus($event)"/>
-  <app-icon
-    *ngIf="buttonClear && inputValue"
-    (click)="clearValue()"
-    class="close"
-    fontName="close" fontSize="16px">
-  </app-icon>
+
+  <div class="container--icon--close">
+    <app-icon
+      *ngIf="buttonClear && inputValue"
+      (click)="clearValue()"
+      class="close"
+      fontName="close" fontSize="16px">
+    </app-icon>
+  </div>
 </label>
 
