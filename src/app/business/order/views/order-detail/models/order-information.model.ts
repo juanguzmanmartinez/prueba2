@@ -18,7 +18,7 @@ export class OrderInformationModel {
     this.operator = data.operator ? data.operator : '-';
     this.observation = data.observation ? data.observation : '-';
     this.reasonForCancellation = data.cancellationReason ? data.cancellationReason : '-';
-    this.zone = data.zoneDescription ? data.zoneDescription : '-';
+    this.zone = data.zoneDescription ? data.zoneDescription.replace('-', '+') : '-';
     this.localService = data.localDescription && data.localCode ?
       `${this.reformatLocalDescription(data.localDescription)} - ${data.localCode}` : '-';
     this.localType = data.serviceType ? data.serviceType : '-';
