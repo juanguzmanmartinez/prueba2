@@ -18,12 +18,23 @@ export class OrderInformationModel {
     this.operator = data.operator ? data.operator : '-';
     this.observation = data.observation ? data.observation : '-';
     this.reasonForCancellation = data.cancellationReason ? data.cancellationReason : '-';
-    this.zone = data.zoneDescription ? data.zoneDescription.replace('-', '+') : '-';
+    this.zone = data.zoneDescription ? this.formatZone(data.zoneDescription) : '-';
     this.localService = data.localDescription && data.localCode ?
       `${this.reformatLocalDescription(data.localDescription)} - ${data.localCode}` : '-';
     this.localType = data.serviceType ? data.serviceType : '-';
     this.typeOfOffice = data.stockType ? this.formatTypeOfOffice(data.stockType) : '-';
     this.source = source ? this.formatTypeOfOffice(source) : '-';
+  }
+
+  private formatZone = (value: string):string => {
+    if(value.includes('-')){
+      const replaceLetter = value.replace(' - ', '&')
+      const formatValue = replaceLetter.split('&').reverse().join(' - ')
+
+      return formatValue
+    }
+
+    return value
   }
 
   private reformatLocalDescription = (value: string): string => {
