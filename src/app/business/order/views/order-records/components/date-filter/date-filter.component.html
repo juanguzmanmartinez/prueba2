@@ -1,17 +1,34 @@
-<app-select
-  *ngIf="!isRange"
-  placeholder="Fecha promesa"
-  [(ngModel)]="selectDate"
-  [optionList]="typeDates"
-  [showClearValueForButton]="true"
-  (clearValueForButton)="clearValues()"
-  (optionChange)="selectionChange($event)">
-</app-select>
+<div
+  [ngClass]="{
+    'd-block': !isRange,
+    'd-none': isRange
+  }"
+>
+  <app-select
+    #appSelect
+    placeholder="Fecha promesa"
+    customFontName="calendar_today"
+    [(ngModel)]="selectDate"
+    [optionList]="typeDates"
+    [showClearValueForButton]="true"
+    (clearValueForButton)="clearValues()"
+    (optionChange)="selectionChange($event)"
+  >
+  </app-select>
+</div>
 
-<app-input-datepicker-range
-  *ngIf="isRange"
-  [minDate]="minDateSearch"
-  (cancel)="cancelDateRange()"
-  [(ngModel)]="datepicker"
-  (ngModelChange)="rangeChange()">
-</app-input-datepicker-range>
+<div
+  [ngClass]="{
+    'd-block': isRange,
+    'd-none': !isRange
+  }"
+>
+  <app-input-datepicker-range
+    #inputDatepickerRange
+    [minDate]="minDateSearch"
+    (cancel)="cancelDateRange()"
+    [(ngModel)]="datepicker"
+    (ngModelChange)="rangeChange()"
+  >
+  </app-input-datepicker-range>
+</div>
