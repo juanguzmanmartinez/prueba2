@@ -1,5 +1,6 @@
-<div class="select" #select (resized)="resized($event)">
+<div class="select" #selectContainer (resized)="resized($event)">
   <mat-select
+    #select
     appNoSpace
     disableRipple
     disableOptionCentering
@@ -10,8 +11,8 @@
     [placeholder]="placeholder"
     [value]="value"
     (valueChange)="selectionChange($event)"
-    (openedChange)="listenToggleSelect($event)">
-
+    (openedChange)="listenToggleSelect($event)"
+  >
     <mat-select-trigger class="trigger" *ngIf="customValue">
       <div class="trigger-content">
         <ng-content select="[trigger]"></ng-content>
@@ -21,17 +22,19 @@
     <div
       class="option-container"
       [style.max-height]="containerMaxHeight"
-      [style.width]="optionContainerWidth" [style.transform]="multiple ? 'translate(23px)' : ''">
-
+      [style.width]="optionContainerWidth"
+      [style.transform]="multiple ? 'translate(23px)' : ''"
+    >
       <mat-option
         class="select-basic-option select-basic-option-clear"
         *ngIf="clearValue"
-        [class.select-square-option]="selectOptionSquare">
-        {{clearValue}}
+        [class.select-square-option]="selectOptionSquare"
+      >
+        {{ clearValue }}
       </mat-option>
 
       <mat-option class="option-search" disabled="true" *ngIf="enableSearch">
-        <div style="display:block;">
+        <div style="display: block">
           <input
             id="input"
             class="search"
@@ -39,20 +42,29 @@
             placeholder="Buscar"
             (keyup)="onKey($event)"
             (keyup.space)="addSpace()"
-            #input>
-          <app-icon class="icon-search" fontName="search" fontSize="16px"></app-icon>
+            #input
+          />
+          <app-icon
+            class="icon-search"
+            fontName="search"
+            fontSize="16px"
+          ></app-icon>
         </div>
       </mat-option>
 
-      <ng-container *ngIf="enableSearch else notSearch">
+      <ng-container *ngIf="enableSearch; else notSearch">
         <mat-option
           *ngFor="let option of optionList"
-          class="select-basic-option" [class.select-square-option]="selectOptionSquare"
-          [value]="option.code" [hidden]="option.hidden">
-          <ng-container *ngIf="!templateRef">{{option.code}}</ng-container>
+          class="select-basic-option"
+          [class.select-square-option]="selectOptionSquare"
+          [value]="option.code"
+          [hidden]="option.hidden"
+        >
+          <ng-container *ngIf="!templateRef">{{ option.code }}</ng-container>
           <ng-template
             [ngTemplateOutlet]="templateRef"
-            [ngTemplateOutletContext]="{$implicit: option.code}">
+            [ngTemplateOutletContext]="{ $implicit: option.code }"
+          >
           </ng-template>
         </mat-option>
       </ng-container>
@@ -60,12 +72,15 @@
       <ng-template #notSearch>
         <mat-option
           *ngFor="let option of optionList"
-          class="select-basic-option" [class.select-square-option]="selectOptionSquare"
-          [value]="option">
-          <ng-container *ngIf="!templateRef">{{option}}</ng-container>
+          class="select-basic-option"
+          [class.select-square-option]="selectOptionSquare"
+          [value]="option"
+        >
+          <ng-container *ngIf="!templateRef">{{ option }}</ng-container>
           <ng-template
             [ngTemplateOutlet]="templateRef"
-            [ngTemplateOutletContext]="{$implicit: option}">
+            [ngTemplateOutletContext]="{ $implicit: option }"
+          >
           </ng-template>
         </mat-option>
       </ng-template>
@@ -73,18 +88,20 @@
   </mat-select>
 
   <app-icon
-    *ngIf="(value && value?.length) && showClearValueForButton"
+    *ngIf="value && value?.length && showClearValueForButton"
     (click)="clearValues()"
     class="close-icon"
     fontName="close"
     innerClass="text-gray-5"
-    fontSize="14px">
+    fontSize="14px"
+  >
   </app-icon>
 
   <app-icon
     class="select-icon"
-    fontName="keyboard_arrow_down"
+    [fontName]="customFontName ?? 'keyboard_arrow_down'"
     innerClass="text-gray-5"
-    fontSize="14px">
+    fontSize="14px"
+  >
   </app-icon>
 </div>

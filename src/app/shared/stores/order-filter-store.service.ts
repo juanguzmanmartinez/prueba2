@@ -58,6 +58,10 @@ export class OrderFilterStore {
     this.orderFilterSubject.next(this.orderFilter);
   }
 
+  get getDatePromise(): string[] {
+    return this.orderFilter.datePromise;
+  }
+
   set setStatusOrder(statusOrder: string[]) {
     this.orderFilter.statusOrder = statusOrder;
     this.orderFilterSubject.next(this.orderFilter);

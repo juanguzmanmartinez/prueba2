@@ -7,12 +7,14 @@ import {
   Optional,
   Output,
   Self,
+  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';
+import { MatDateRangePicker } from '@angular/material/datepicker';
+import { DatesHelper } from '@helpers/dates.helper';
 import { Subscription } from 'rxjs';
 import { DatepickerHeaderComponent } from '../components/datepicker-header/datepicker-header.component';
-import { DatesHelper } from '@helpers/dates.helper';
 
 export interface IDatepickerRange {
   startDate: number;
@@ -68,6 +70,7 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor, OnIn
 
   @Output() cancel = new EventEmitter<boolean>(false);
 
+  @ViewChild('pickerRange', {static: true}) dateRangePicker: MatDateRangePicker<any>;
 
   onChange = (_: any) => {};
   onTouched = (_: any) => {};
@@ -118,6 +121,9 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor, OnIn
     return this.formGroup.get('endDate') as FormControl;
   }
 
+  open(){
+    this.dateRangePicker.open()
+  }
 
   changeValue() {
     const datepickerRangeSubscribe = this.formGroup.valueChanges

@@ -1,4 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { InputDatepickerRangeComponent } from '@atoms/input-datepicker/input-datepicker-range/input-datepicker-range.component';
+import { SelectComponent } from '@atoms/select/select.component';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import * as moment from 'moment/moment';
 import { DatepickerFilter, DatepickerFilterEvent } from '../../interfaces/order-records.interface';
@@ -39,6 +41,8 @@ export class DateFilterComponent implements OnInit {
   minDateSearch = this.today - this.sixMonths;
 
   @Output() filter = new EventEmitter<DatepickerFilterEvent>();
+  @ViewChild('inputDatepickerRange') inputDatepickerRange: InputDatepickerRangeComponent;
+  @ViewChild('appSelect') appSelect: SelectComponent<any>;
 
   constructor(
     private orderFilterStore: OrderFilterStore
@@ -49,6 +53,8 @@ export class DateFilterComponent implements OnInit {
     const {typeDatePromise, datePromise} = this.orderFilterStore.getOrderFilter();
 
     if (typeDatePromise === dates.otroPeriodo) {
+      console.log('que paso?');
+
       this.isRange = true;
       this.datepicker = {
         startDate: new Date(this.reformatDateRange(datePromise[0])).getTime(),
@@ -97,6 +103,8 @@ export class DateFilterComponent implements OnInit {
       this.selectDate = '';
       this.orderFilterStore.setTypeDatePromise = null;
 
+      this.inputDatepickerRange.open()
+
       this.datepicker = null;
       return;
     }
@@ -112,18 +120,23 @@ export class DateFilterComponent implements OnInit {
 
   clearValues(): void {
     this.selectDate = '';
-    this.selectionChange(null);
   }
 
   cancelDateRange(): void {
     this.selectDate = '';
-    this.selectionChange(null);
     this.orderFilterStore.setTypeDatePromise = null;
+    this.selectionChange(null);
 
     this.isRange = false;
+    this.datepicker = null;
+    this.appSelect.open()
   }
 
   rangeChange(): void {
+    if(!this.isRange){
+      return
+    }
+
     if (!!this.datepicker && !!this.datepickerPreview) {
       this.isRange = true;
 

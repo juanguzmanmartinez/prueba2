@@ -275,10 +275,17 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   filterByDatePromise(event: DatepickerFilterEvent): void {
-    this.orderFilterStore.setDatePromise = event.dateRange;
+    const previousValue = this.orderFilterStore.getDatePromise
 
+    this.orderFilterStore.setDatePromise = event.dateRange;
     this.notFound = event.notFound;
-    this.filterAll();
+
+    const [prevDateInit, prevDateEnd] = previousValue ?? ['','']
+    const [dateInit, dateEnd] = event.dateRange ?? ['','']
+
+    if((prevDateInit !== dateInit) && (prevDateEnd !== dateEnd)){
+      this.filterAll();
+    }
   }
 
   filterByStatus(event: StatusFilterEvent): void {

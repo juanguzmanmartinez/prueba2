@@ -14,6 +14,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
 import { isObject } from '@helpers/objects-equal.helper';
 import { normalizeValue } from '@helpers/string.helper';
 import { Subscription } from 'rxjs';
@@ -48,6 +49,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   @Input() showClearValueForButton = false;
   @Input() enableSearch = false;
   @Input() enableNoSpace = false;
+  @Input() customFontName = null;
 
   @Input('value')
   set _value(option: T | T[]) {
@@ -60,7 +62,8 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
 
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
-  @ViewChild('select') select;
+  @ViewChild('selectContainer') selectContainer;
+  @ViewChild('select') select: MatSelect;
   @ViewChild('input') input;
 
   onChange = (_: any) => {};
@@ -86,12 +89,12 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.optionContainerWidth = `${this.select.nativeElement.offsetWidth}px`;
+      this.optionContainerWidth = `${this.selectContainer.nativeElement.offsetWidth}px`;
     });
   }
 
   resized(event: void): void {
-    this.optionContainerWidth = `${this.select.nativeElement.offsetWidth}px`;
+    this.optionContainerWidth = `${this.selectContainer.nativeElement.offsetWidth}px`;
   }
 
   validValue(value: T | T[]) {
@@ -135,6 +138,10 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
         this.filterList.emit('');
       }
     }
+  }
+
+  open(){
+    this.select.open()
   }
 
   clearValues(): void {
