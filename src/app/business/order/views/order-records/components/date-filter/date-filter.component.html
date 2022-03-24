@@ -1,9 +1,4 @@
-<div
-  [ngClass]="{
-    'd-block': !isRange,
-    'd-none': isRange
-  }"
->
+<div [ngClass]="{'d-block': !isRange, 'd-none': isRange}">
   <app-select
     #appSelect
     placeholder="Fecha promesa"
@@ -12,23 +7,16 @@
     [optionList]="typeDates"
     [showClearValueForButton]="true"
     (clearValueForButton)="clearValues()"
-    (optionChange)="selectionChange($event)"
-  >
+    (optionChange)="selectionChange($event)">
   </app-select>
 </div>
 
-<div
-  [ngClass]="{
-    'd-block': isRange,
-    'd-none': !isRange
-  }"
->
+<div [ngClass]="{'d-block': isRange, 'd-none': !isRange}">
   <app-input-datepicker-range
     #inputDatepickerRange
     [minDate]="minDateSearch"
     (cancel)="cancelDateRange()"
     [(ngModel)]="datepicker"
-    (ngModelChange)="rangeChange()"
-  >
+    (ngModelChange)="rangeChange()">
   </app-input-datepicker-range>
 </div>

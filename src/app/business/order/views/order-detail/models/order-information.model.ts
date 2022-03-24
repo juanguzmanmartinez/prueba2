@@ -23,18 +23,16 @@ export class OrderInformationModel {
       `${this.reformatLocalDescription(data.localDescription)} - ${data.localCode}` : '-';
     this.localType = data.serviceType ? data.serviceType : '-';
     this.typeOfOffice = data.stockType ? this.formatTypeOfOffice(data.stockType) : '-';
-    this.source = source ? this.formatTypeOfOffice(source) : '-';
+    this.source = source ? this.formatSource(source) : '-';
   }
 
-  private formatZone = (value: string):string => {
-    if(value.includes('-')){
-      const replaceLetter = value.replace(' - ', '&')
-      const formatValue = replaceLetter.split('&').reverse().join(' - ')
-
-      return formatValue
+  private formatZone = (value: string): string => {
+    if (value.includes('-')) {
+      const replaceLetter = value.replace(' - ', '&');
+      return replaceLetter.split('&').reverse().join(' - ');
     }
 
-    return value
+    return value;
   }
 
   private reformatLocalDescription = (value: string): string => {
@@ -44,6 +42,15 @@ export class OrderInformationModel {
   private formatTypeOfOffice = (stockType: string): string => {
     const firstLetter = stockType.slice(0, 1).toUpperCase();
     const restOfTheWord = stockType.slice(1).toLowerCase();
+    return `${firstLetter}${restOfTheWord}`;
+  }
+
+  private formatSource = (source: string): string => {
+    if (source.toLowerCase() === 'sc') {
+      return source.toUpperCase();
+    }
+    const firstLetter = source.slice(0, 1).toUpperCase();
+    const restOfTheWord = source.slice(1).toLowerCase();
     return `${firstLetter}${restOfTheWord}`;
   }
 

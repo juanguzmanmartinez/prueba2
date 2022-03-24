@@ -72,7 +72,7 @@
 
           <ng-container matColumnDef="orderId">
             <th
-              mat-header-cell column-width="11%" *matHeaderCellDef
+              mat-header-cell column-width="10%" *matHeaderCellDef
               app-sort-custom [column]="sortColumns.orderId.column" [reload]="sortColumns.orderId.reload"
               (currentOrder)="sortData($event)">
               N° Pedido
@@ -82,7 +82,7 @@
 
           <ng-container matColumnDef="local">
             <th
-              mat-header-cell column-width="10%" *matHeaderCellDef
+              mat-header-cell column-width="7%" *matHeaderCellDef
               app-sort-custom [column]="sortColumns.local.column" [reload]="sortColumns.local.reload"
               (currentOrder)="sortData($event)">
               Local
@@ -124,7 +124,7 @@
 
           <ng-container matColumnDef="client">
             <th
-              mat-header-cell column-width="13%" *matHeaderCellDef
+              mat-header-cell column-width="15%" *matHeaderCellDef
               app-sort-custom [column]="sortColumns.client.column" [reload]="sortColumns.client.reload"
               (currentOrder)="sortData($event)"
               class="th-center">
@@ -156,7 +156,7 @@
           </ng-container>
 
           <ng-container matColumnDef="actions">
-            <th mat-header-cell column-actions column-width="6%" *matHeaderCellDef></th>
+            <th mat-header-cell column-actions column-width="5%" *matHeaderCellDef></th>
             <td mat-cell column-actions *matCellDef="let element">
               <div class="d-inline-flex">
                 <app-tooltip *ngIf="element.state !== statusError" value="Ver Detalle" position="left">
