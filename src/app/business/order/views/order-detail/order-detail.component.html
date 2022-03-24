@@ -37,7 +37,18 @@
         </div>
       </div>
 
-      <app-button-icon iconName="refresh" (click)="refreshData()">Actualizar</app-button-icon>
+      <app-button-icon
+        [iconName]="!orderLoading ? 'refresh' : ''" (click)="refreshData()"
+        [inlineStyle]="{
+         'height': '40px',
+         'width': '129px',
+         'justify-content': 'center',
+         'background-color': orderLoading ? '#305787FF' : '',
+         'border-color': orderLoading ? '#305787FF': ''
+        }">
+        {{ !orderLoading ? 'Actualizar' : '' }}
+        <app-icon *ngIf="orderLoading" class="refresh-icon" svgName="loader" svgWidth="16px" svgHeight="16px"></app-icon>
+      </app-button-icon>
     </div>
   </div>
 

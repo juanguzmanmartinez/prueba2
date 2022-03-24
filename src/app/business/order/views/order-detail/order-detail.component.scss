@@ -1,6 +1,7 @@
 @import "src/sass/variables/utilities.variable";
 @import "src/sass/variables/fonts.variable";
 @import "src/sass/variables/colors.variable";
+@import "src/sass/animations/rotating.animation";
 
 .order-detail-header {
   position: sticky;
@@ -8,6 +9,12 @@
   left: 0;
   z-index: 3;
   background-color: $gray-0;
+
+}
+
+.refresh-icon {
+  display: inline-flex;
+  animation: rotating 1s linear infinite;
 }
 
 :host {
