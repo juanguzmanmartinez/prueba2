@@ -1,4 +1,11 @@
-import { CStatusOrderName, CStatusOrderNameCall, EStatusOrder } from '@models/status-order/status-order.model';
+import {
+  CStatusOrderName,
+  CStatusOrderNameCall,
+  EStatusOrder,
+  LStatusOrderRADDC,
+  LStatusOrderRADLITE,
+  LStatusOrderRETLITE
+} from '@models/status-order/status-order.model';
 import { OrderTimeline } from '../interfaces/order-detail.interface';
 import { EChannel } from '@models/channel/channel.model';
 
@@ -10,11 +17,13 @@ export class TimelineModel {
   date: string;
   name: string;
   isCall: boolean;
+  showInfo: boolean;
 
-  constructor(data: OrderTimeline, channel: string) {
+  constructor(data: OrderTimeline, channel: string, serviceType: string) {
     this.flow = data?.code && data.selected ? this.getFlow(data?.code, data.selected) : 'pending';
     this.status = data?.code ? this.getStatus(data?.code) : '-';
     this.isCall = channel === EChannel.call;
+    this.showInfo = this.validateStatusForCall(serviceType);
     this.info = data?.code ? this.getStatusForCall(data?.code) : '';
     this.infoDetail = '';
     this.date = data?.time ? this.formatDate(data?.time) : '-';
@@ -41,6 +50,24 @@ export class TimelineModel {
 
   private getStatusForCall = (code: string): string => {
     return CStatusOrderNameCall[code];
+  }
+
+  private validateStatusForCall = (serviceType: string) => {
+    if (this.isCall) {
+      if (serviceType === 'RAD_LITE' && LStatusOrderRADLITE.includes(this.status)) {
+        return true;
+      }
+
+      if (serviceType === 'RET_LITE' && LStatusOrderRETLITE.includes(this.status)) {
+        return true;
+      }
+
+      if (serviceType === 'RAD_DC' && LStatusOrderRADDC.includes(this.status)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   private formatDate = (time: string): string => {

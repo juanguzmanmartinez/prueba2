@@ -4,6 +4,7 @@ export interface Flow {
   flow: 'done' | 'pending' | 'cancel';
   status: string;
   isCall: boolean;
+  showInfo: boolean;
   info: string;
   infoDetail: string;
   date: string;

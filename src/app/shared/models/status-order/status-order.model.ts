@@ -89,9 +89,41 @@ export const CStatusOrderNameCall = {
   [EStatusOrder.prepared]: 'Proforma',
   [EStatusOrder.readyForPickup]: 'Proforma',
   [EStatusOrder.assigned]: 'Proforma',
-  [EStatusOrder.onRouted]: 'Llegando',
+  [EStatusOrder.onRouted]: 'Llevando',
   [EStatusOrder.arrived]: 'Llegada',
   [EStatusOrder.delivered]: 'Entregado',
   [EStatusOrder.rejected]: 'Anulado',
   [EStatusOrder.cancelled]: 'Anulado'
 };
+
+export const LStatusOrderRADDC = [
+  CStatusOrderName[EStatusOrder.onStore],
+  CStatusOrderName[EStatusOrder.checkout],
+  CStatusOrderName[EStatusOrder.prepared],
+  CStatusOrderName[EStatusOrder.assigned],
+  CStatusOrderName[EStatusOrder.onRouted],
+  CStatusOrderName[EStatusOrder.arrived],
+  CStatusOrderName[EStatusOrder.delivered],
+  CStatusOrderName[EStatusOrder.rejected],
+  CStatusOrderName[EStatusOrder.cancelled]
+];
+
+export const LStatusOrderRADLITE = [
+  CStatusOrderName[EStatusOrder.onStore],
+  CStatusOrderName[EStatusOrder.picking],
+  CStatusOrderName[EStatusOrder.readyToAssign],
+  CStatusOrderName[EStatusOrder.prepared],
+  CStatusOrderName[EStatusOrder.onRouted],
+  CStatusOrderName[EStatusOrder.arrived],
+  CStatusOrderName[EStatusOrder.delivered],
+  CStatusOrderName[EStatusOrder.rejected],
+  CStatusOrderName[EStatusOrder.cancelled]
+];
+
+export const LStatusOrderRETLITE = [
+  CStatusOrderName[EStatusOrder.onStore],
+  CStatusOrderName[EStatusOrder.readyForPickup],
+  CStatusOrderName[EStatusOrder.delivered],
+  CStatusOrderName[EStatusOrder.delivered],
+  CStatusOrderName[EStatusOrder.cancelled]
+];
