@@ -47,7 +47,11 @@ export class OrderDetailModel {
 
     this.timeline = data.orderStatusDetail?.statusTimeLine
       ? reorderTimeline(data.orderStatusDetail?.statusTimeLine).map(timeline => {
-          return new TimelineModel(timeline, data.orderInfoConsolidated?.orderInfo?.serviceChannel);
+          return new TimelineModel(
+            timeline,
+            data.orderInfoConsolidated?.orderInfo?.serviceChannel,
+            data.orderInfoConsolidated?.orderInfo?.serviceType
+          );
         })
       : null;
 
