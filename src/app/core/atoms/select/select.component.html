@@ -59,6 +59,7 @@
           [class.select-square-option]="selectOptionSquare"
           [value]="option.code"
           [hidden]="option.hidden"
+          [disabled]="disableOptionsMultiple && !value.includes(option.code)"
         >
           <ng-container *ngIf="!templateRef">{{ option.code }}</ng-container>
           <ng-template
@@ -75,6 +76,7 @@
           class="select-basic-option"
           [class.select-square-option]="selectOptionSquare"
           [value]="option"
+          [disabled]="disableOptionsMultiple && !value.includes(option)"
         >
           <ng-container *ngIf="!templateRef">{{ option }}</ng-container>
           <ng-template

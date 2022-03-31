@@ -36,6 +36,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
 
   public optionContainerWidth = '300px';
   public value: T | T[];
+  public disableOptionsMultiple = false;
 
   @Input() name: string | number;
   @Input() placeholder = 'placeholder';
@@ -141,7 +142,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   }
 
   open(){
-    this.select.open()
+    this.select.open();
   }
 
   clearValues(): void {
@@ -149,6 +150,8 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
   }
 
   selectionChange(option: T) {
+    // @ts-ignore
+    this.disableOptionsMultiple = this.multiple && option.length > 6;
     this.optionChange.emit(option);
     this.onChange(option);
   }
