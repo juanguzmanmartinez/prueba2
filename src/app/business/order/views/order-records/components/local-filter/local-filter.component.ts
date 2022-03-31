@@ -17,6 +17,7 @@ export class LocalFilterComponent implements OnInit {
   locals: SearchOptionsI[];
   valueSelect: string;
   selectedLocals: string[];
+  othersSelects = '';
 
   @Output() filter = new EventEmitter<LocalFilterEvent>();
 
@@ -65,6 +66,8 @@ export class LocalFilterComponent implements OnInit {
 
   selectionChange(locals: string[], isCallOnInit = false): void {
     this.selectedLocals = locals;
+    this.othersSelects = '';
+
     if (locals.length === 1) {
       this.valueSelect = this.getLocalName(locals[0]);
     } else if (locals.length === 2) {
@@ -73,9 +76,16 @@ export class LocalFilterComponent implements OnInit {
       this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(locals[1])} (+${locals.length - 2})`;
     }
 
+    if (locals.length > 2) {
+      locals.slice(2).forEach(v => {
+        this.othersSelects = `${this.othersSelects} ${this.getLocalName(v)}\n`;
+      });
+    }
+
     if (isCallOnInit) {
       return;
     }
+
     this.filter.emit({locals, notFound: this.getLocalsName(locals)});
   }
 

@@ -20,6 +20,7 @@ export class ServiceFilterComponent implements OnInit {
 
   valueSelect: string;
   selectedService: string[];
+  othersSelects = '';
 
   constructor(private orderFilterStore: OrderFilterStore) {
   }
@@ -33,6 +34,8 @@ export class ServiceFilterComponent implements OnInit {
 
   selectionChange(services: string[], isOnInit = false): void {
     this.selectedService = services;
+    this.othersSelects = '';
+
     if (services.length === 1) {
       this.valueSelect = this.getServiceName(services[0]);
     } else if (services.length === 2) {
@@ -40,6 +43,12 @@ export class ServiceFilterComponent implements OnInit {
     } else if (services.length > 2) {
       this.valueSelect = `${this.getServiceName(services[0])},
                           ${this.getServiceName(services[1])} (+${services.length - 2})`;
+    }
+
+    if (services.length > 2) {
+      services.slice(2).forEach(v => {
+        this.othersSelects = `${this.othersSelects} ${this.getServiceName(v)}\n`;
+      });
     }
 
     if (isOnInit) {

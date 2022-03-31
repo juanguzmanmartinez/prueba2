@@ -16,6 +16,7 @@ export class StatusFilterComponent implements OnInit {
   status: string[];
   valueSelect: string;
   selectedStatus: string[];
+  othersSelects = '';
 
   constructor(
     private orderRecordImplement: OrderRecordsImplementService,
@@ -59,12 +60,19 @@ export class StatusFilterComponent implements OnInit {
 
   selectionChange(status: string[], isOnInit = false): void {
     this.selectedStatus = status;
+    this.othersSelects = '';
     if (status.length === 1) {
       this.valueSelect = this.getStatusName(status[0]);
     } else if (status.length === 2) {
       this.valueSelect = `${this.getStatusName(status[0])}, ${this.getStatusName(status[1])}`;
     } else if (status.length > 2) {
       this.valueSelect = `${this.getStatusName(status[0])}, ${this.getStatusName(status[1])} (+${status.length - 2})`;
+    }
+
+    if (status.length > 2) {
+      status.slice(2).forEach(v => {
+        this.othersSelects = `${this.othersSelects} ${this.getStatusName(v)}\n`;
+      });
     }
 
     if (isOnInit) {
