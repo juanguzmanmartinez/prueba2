@@ -54,6 +54,7 @@ export interface OrderInformation {
 }
 
 export interface PaymentInformation {
+  cardBrand: string;
   paymentType: string;
   paymentGateway: string;
   changeAmount: number;
