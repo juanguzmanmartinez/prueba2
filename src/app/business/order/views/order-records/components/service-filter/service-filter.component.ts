@@ -41,8 +41,7 @@ export class ServiceFilterComponent implements OnInit {
     } else if (services.length === 2) {
       this.valueSelect = `${this.getServiceName(services[0])}, ${this.getServiceName(services[1])}`;
     } else if (services.length > 2) {
-      this.valueSelect = `${this.getServiceName(services[0])},
-                          ${this.getServiceName(services[1])} (+${services.length - 2})`;
+      this.valueSelect = `${this.getServiceName(services[0])}, ${this.getServiceName(services[1])}...`;
     }
 
     if (services.length > 2) {
