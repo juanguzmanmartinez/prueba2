@@ -73,7 +73,7 @@ export class LocalFilterComponent implements OnInit {
     } else if (locals.length === 2) {
       this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(locals[1])}`;
     } else if (locals.length > 2) {
-      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(locals[1])} (+${locals.length - 2})`;
+      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(locals[1])}...`;
     }
 
     if (locals.length > 2) {

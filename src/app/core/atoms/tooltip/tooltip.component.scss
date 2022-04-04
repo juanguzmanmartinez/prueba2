@@ -10,6 +10,11 @@
   white-space: pre-line;
 }
 
+::ng-deep .mat-tooltip.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 ::ng-deep .mat-tooltip-panel {
   .bottom-43-right-21 {
     bottom: 43px!important;
