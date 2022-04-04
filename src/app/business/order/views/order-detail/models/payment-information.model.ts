@@ -22,7 +22,7 @@ export class PaymentInformationModel {
     this.date = data.paymentDate ? this.formatDate(data.paymentDate) : '-';
     this.cardNumber = '-'; // TODO: No se guarda en base de datos
     this.authorizationCode = '-';
-    this.cardBrand = data.paymentGateway ? CCardNameIllustration[data.paymentGateway] : '';
+    this.cardBrand = data.cardBrand ? CCardNameIllustration[data.cardBrand.trim()] : '';
     this.financial = '-';
     this.liquidationUser = '-';
   }
