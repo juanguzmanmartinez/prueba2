@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { ClientInformationComponent } from './client-information.component';
 import { AccordionModule } from '@molecules/accordion/accordion.module';
 import { CommonModule } from '@angular/common';
+import { PipesModule } from '@pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { CommonModule } from '@angular/common';
   ],
     imports: [
         AccordionModule,
-        CommonModule
+        CommonModule,
+        PipesModule
     ],
   exports: [
     ClientInformationComponent
