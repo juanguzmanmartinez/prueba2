@@ -7,7 +7,7 @@ export class NombrePipe implements PipeTransform {
 
   transform(value: string): string {
     if(value ){
-      if(value.trim() == '' ){
+      if(value.trim() == '' ||  value == 'null'){
         return '-';
       }
     return value;
