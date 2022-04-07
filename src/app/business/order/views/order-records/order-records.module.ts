@@ -25,6 +25,7 @@ import { OrderRecordsRoutingModule } from './order-records-routing.module';
 import { OrderRecordsComponent } from './order-records.component';
 import { CardModule } from '@molecules/cards/card.module';
 import { DirectivesModule } from '../../../../shared/directives/directives.module';
+import { PipesModule } from '@pipes/pipes.module';
 
 @NgModule({
   declarations: [OrderRecordsComponent],
@@ -53,6 +54,7 @@ import { DirectivesModule } from '../../../../shared/directives/directives.modul
     BackRouterSimpleModule,
     CardModule,
     DirectivesModule,
+    PipesModule
   ],
   providers: [OrderRecordsImplementService],
 })

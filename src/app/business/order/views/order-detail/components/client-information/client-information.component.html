@@ -4,11 +4,11 @@
       <table>
         <tr>
           <td>Nombre y apellido:</td>
-          <td>{{ dataClient.fullName }}</td>
+          <td>{{ dataClient.fullName | nombre }}</td>
         </tr>
         <tr>
           <td>Doc. Identidad:</td>
-          <td>{{ dataClient.documentNumber  }}</td>
+          <td>{{ dataClient.documentNumber | nombre }}</td>
         </tr>
         <tr>
           <td>RUC:</td>
@@ -20,7 +20,7 @@
         </tr>
         <tr>
           <td>Teléfono:</td>
-          <td>{{ dataClient.phone }}</td>
+          <td>{{ dataClient.phone | nombre }}</td>
         </tr>
       </table>
     </div>
@@ -28,11 +28,11 @@
       <table>
         <tr>
           <td>Correo:</td>
-          <td>{{ dataClient.email }}</td>
+          <td>{{ dataClient.email | nombre }}</td>
         </tr>
         <tr>
           <td>Dirección:</td>
-          <td>{{ dataClient.address }}</td>
+          <td>{{ dataClient.address | nombre }}</td>
         </tr>
         <tr>
           <td>Coordenadas:</td>
