@@ -14,6 +14,10 @@
           <td>Vuelto:</td>
           <td>{{ dataPayment.changeAmount }}</td>
         </tr>
+      </table>
+    </div>
+    <div class="col-6">
+      <table>
         <tr>
           <td>Estado:</td>
           <td>{{ dataPayment.status }}</td>
@@ -21,18 +25,6 @@
         <tr>
           <td>Fecha:</td>
           <td>{{ dataPayment.date }}</td>
-        </tr>
-      </table>
-    </div>
-    <div class="col-6">
-      <table>
-        <tr>
-          <td>PAN Nº tarjeta:</td>
-          <td>{{ dataPayment.cardNumber }}</td>
-        </tr>
-        <tr>
-          <td>Cod. Autorización:</td>
-          <td>{{ dataPayment.authorizationCode }}</td>
         </tr>
         <tr>
           <td class="card-brand">Marca de tarjeta:</td>
@@ -42,14 +34,6 @@
             </ng-container>
             <ng-template #noIcon>-</ng-template>
           </td>
-        </tr>
-        <tr>
-          <td>Financiera:</td>
-          <td>{{ dataPayment.financial }}</td>
-        </tr>
-        <tr>
-          <td>Usuario liquidador:</td>
-          <td>{{ dataPayment.liquidationUser }}</td>
         </tr>
       </table>
     </div>
