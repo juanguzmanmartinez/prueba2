@@ -10,6 +10,8 @@ export class ProductInformationModel {
   deliveryAmount: string;
   totalDiscount: string;
   totalAmountCharged: string;
+  totalImport: string;
+  totalImportTOH: string;
 
   constructor(data: ProductInformation) {
     this.products = data.products.length ? data.products.map(product => new ProductModel(product)) : [];
