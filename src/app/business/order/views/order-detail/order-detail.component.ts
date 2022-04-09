@@ -16,6 +16,7 @@ export class OrderDetailComponent implements OnInit {
   orderDetail: OrderDetailModel;
   orderLoading = false;
   errorResponse: HttpErrorResponse;
+  timelineData:any;
 
   constructor(
     private implementsService: OrderDetailImplementService,
@@ -26,7 +27,11 @@ export class OrderDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.implementsService.orderDetail(this.orderId).subscribe({
-      next: (response) => this.orderDetail = response,
+      next: (response) => {
+        this.orderDetail = response;
+        this.timelineData = response.timeline.filter(item => item.status != 'En espera');
+            console.log(JSON.stringify(response));
+        },
       error: (error) => this.errorResponse = error,
     });
   }

@@ -42,7 +42,8 @@ export class StatusFilterComponent implements OnInit {
         })
       )
       .subscribe((response: string[]) => {
-        this.status = response;
+        console.log(JSON.stringify(response));
+        this.status = response.filter(item => item !== '70');
         this.selectionChange(statusOrder ?? [], true);
       });
   }
