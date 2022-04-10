@@ -321,7 +321,22 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     const data = response.orders.filter(
       (item) => !selectedRecord.includes(item.ecommerceId)
     );
-    this.dataSource.data = [...this.fixedSelectedRows, ...data];
+    const data2 = response.orders.filter(
+      (item) => selectedRecord.includes(item.ecommerceId)
+    );
+    const selectedRecordData2 = data2.map(
+      (value) => value.ecommerceId
+    );
+    const data1 =this.fixedSelectedRows.filter(
+      (item) => selectedRecordData2.includes(item.ecommerceId)
+    );
+
+    let builds = [ ...data, ...data1];
+    builds.sort((n1, n2) => {
+      return this.naturalCompare(n1.ecommerceId, n2.ecommerceId)
+    })   
+    this.dataSource.data = builds; 
+
     this.totalOrder = response.totalRecords;
     this.dataSource._updatePaginator(this.totalOrder);
 
@@ -329,6 +344,10 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.setDataSourceService();
     }
   }
+
+  naturalCompare(a, b) {
+    return a - b;
+ }
 
   sortData(event: { column: string, order: 'A' | 'D' | 'N' }): void {
     for (const sortColumnsKey in this.sortColumns) {
