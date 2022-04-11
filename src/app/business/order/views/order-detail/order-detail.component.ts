@@ -31,6 +31,7 @@ export class OrderDetailComponent implements OnInit {
         this.orderDetail = response;
         this.timelineData = response.timeline.filter(item => item.status != 'En espera');
             console.log(JSON.stringify(response));
+        this.orderDetail = this.timelineData;
         },
       error: (error) => this.errorResponse = error,
     });
