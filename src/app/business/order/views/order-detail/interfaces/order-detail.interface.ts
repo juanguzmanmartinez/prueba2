@@ -65,6 +65,7 @@ export interface PaymentInformation {
 }
 
 export interface ProductInformation {
+  totalImportTOH: number;
   totalImport: number;
   totalDiscount: number;
   deliveryAmount: number;
