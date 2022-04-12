@@ -28,10 +28,7 @@ export class OrderDetailComponent implements OnInit {
   ngOnInit(): void {
     this.implementsService.orderDetail(this.orderId).subscribe({
       next: (response) => {
-        this.orderDetail = response;
-        this.timelineData = response.timeline.filter(item => item.status != 'En espera');
-            console.log(JSON.stringify(response));
-        this.orderDetail = this.timelineData;
+        this.orderDetail = this.updateResponse(response);
         },
       error: (error) => this.errorResponse = error,
     });
@@ -44,7 +41,15 @@ export class OrderDetailComponent implements OnInit {
         finalize(() => this.orderLoading = false)
       )
       .subscribe({
-        next: (response) => (this.orderDetail = response),
+        next: (response) => (this.orderDetail = this.updateResponse(response)),
       });
+  }
+
+  updateResponse(response):OrderDetailModel{
+    let timeLine:OrderDetailModel = response.timeline.filter(item => item.status != 'En espera');
+            console.log(JSON.stringify(response));
+            response.timeline = timeLine;
+
+        return response;
   }
 }

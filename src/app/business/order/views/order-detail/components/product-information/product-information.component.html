@@ -77,24 +77,24 @@
       <p class="text-danger">{{ dataProduct.totalDiscount }}</p>
     </div>
 
-    <div class="d-flex justify-content-between" *ngIf="dataProduct.totalImportTOH &&  dataProduct.totalImportTOH !== '0'">
+    <div class="d-flex justify-content-between" *ngIf="dataProduct.totalImport &&  dataProduct.totalImport !== '0'">
       <p>Total:</p>
       <p>{{ dataProduct.totalImport }}</p>
     </div>
+    <div class="d-flex justify-content-between" *ngIf="dataProduct.totalImportTOH &&  dataProduct.totalImportTOH !== '0'">
+      <p>Total:</p>
+      <app-icon
+        svgName="oh"      svgHeight="34px"
+        svgWidth="34px">
+      </app-icon>
+      <p>{{ dataProduct.totalImportTOH }}</p>
+    </div>
   </div>
 
-  <div class="d-flex justify-content-between productText" *ngIf="!dataProduct.totalImportTOH ||  dataProduct.totalImportTOH == '0'" >
+  <div class="d-flex justify-content-between productText">
     <p>Imp. total cobrado:</p>
-    <p>{{ dataProduct.totalImport }}</p>
-    {{dataProduct.totalImport | JSON}}
-  </div>
-  <div class="d-flex justify-content-between productText" *ngIf="dataProduct.totalImportTOH &&  dataProduct.totalImportTOH !== '0'">
-    <p>Imp. total cobrado Tarjeta Oh:</p>
-    <app-icon
-    svgName="oh"      svgHeight="34px"
-    svgWidth="34px">
-    </app-icon>
-    <p>{{ dataProduct.totalImportTOH }}</p>
+    <p>{{ dataProduct.totalAmountCharged }}</p>
+    
   </div>
   
 </app-accordion-information>
