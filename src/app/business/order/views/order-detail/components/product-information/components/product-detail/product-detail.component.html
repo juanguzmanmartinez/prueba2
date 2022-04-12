@@ -54,10 +54,23 @@
         </p>
       </div>
     </ng-template>
-    <p class="text-body-2-regular text-gray-6 m-0">
+    <p
+      class="text-body-2-regular text-gray-6 m-0"
+      *ngIf="
+        product.totalPriceAllPaymentMethod &&
+        product.totalPriceAllPaymentMethod !== 0
+      "
+    >
       {{ product.totalPriceAllPaymentMethod | currency: "S/ " }}
     </p>
-    <p class="text-body-2-bold text-gray-4 text-decoration-line m-0">
+    <p
+      class="text-body-2-bold text-gray-4 text-decoration-line m-0"
+      [ngClass]="{
+        'text-decoration-line':
+          product.totalPriceAllPaymentMethod || product.totalPriceTOH,
+          'text-total-price': !product.totalPriceAllPaymentMethod && !product.totalPriceTOH
+      }"
+    >
       {{ product.totalPrice | currency: "S/ " }}
     </p>
   </div>
