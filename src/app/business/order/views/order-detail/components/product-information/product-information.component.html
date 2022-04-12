@@ -1,24 +1,33 @@
-<app-accordion-information svgName="cart" title="Información de los productos" [expanded]="true">
+<app-accordion-information
+  svgName="cart"
+  title="Información de los productos"
+  [expanded]="true"
+>
   <div class="products mt-5">
     <app-product-detail
       *ngFor="let product of dataProduct.visibleProducts()"
-      [product]="product">
+      [product]="product"
+    >
     </app-product-detail>
 
     <div *ngIf="dataProduct.hasMoreThanFourProducts()">
       <div
         class="d-inline-flex align-items-center justify-content-center w-100 gap-2 show-products"
-        (click)="toggleShowProducts()">
+        (click)="toggleShowProducts()"
+      >
         <div class="d-flex-vertical-center" [class.rotate]="showProducts">
           <app-icon fontName="expand_more" innerClass="text-primary"></app-icon>
         </div>
-        <p class="m-0 text-primary">Ver {{ showProducts ? "menos" : "todos los" }} productos</p>
+        <p class="m-0 text-primary">
+          Ver {{ showProducts ? "menos" : "todos los" }} productos
+        </p>
       </div>
       <hr class="mt-4 text-gray-3" />
       <div class="hide-removed-products" [hidden]="!showProducts">
         <app-product-detail
           *ngFor="let product of dataProduct.hiddenProducts()"
-          [product]="product">
+          [product]="product"
+        >
         </app-product-detail>
       </div>
     </div>
@@ -26,30 +35,42 @@
 
   <div class="removed mt-1" *ngIf="dataProduct.existProductRemoved()">
     <p class="d-flex-vertical-center gap-2">
-      <app-icon fontName="warning" fontSize="16px" innerClass="text-danger"></app-icon>
+      <app-icon
+        fontName="warning"
+        fontSize="16px"
+        innerClass="text-danger"
+      ></app-icon>
       Unidades removidas
     </p>
     <hr class="mt-5 text-gray-1 mb-5" />
     <app-product-detail
       [product]="dataProduct.firstProductRemoved()"
-      [removed]="true">
+      [removed]="true"
+    >
     </app-product-detail>
 
     <div *ngIf="dataProduct.hasMoreThanOneProductRemoved()">
       <div
         class="d-inline-flex align-items-center justify-content-center w-100 gap-2 show-removed-products"
-        (click)="toggleShowRemovedProducts()">
-        <div class="d-flex-vertical-center" [class.rotate]="showRemovedProducts">
+        (click)="toggleShowRemovedProducts()"
+      >
+        <div
+          class="d-flex-vertical-center"
+          [class.rotate]="showRemovedProducts"
+        >
           <app-icon fontName="expand_more" innerClass="text-primary"></app-icon>
         </div>
-        <p class="m-0 text-primary">Ver {{ showRemovedProducts ? "menos" : "todos los" }} productos</p>
+        <p class="m-0 text-primary">
+          Ver {{ showRemovedProducts ? "menos" : "todos los" }} productos
+        </p>
       </div>
       <hr class="mt-4 text-gray-3" />
       <div class="hide-removed-products" [hidden]="!showRemovedProducts">
         <app-product-detail
           *ngFor="let product of dataProduct.hiddenProductsRemoved()"
           [product]="product"
-          [removed]="true">
+          [removed]="true"
+        >
         </app-product-detail>
       </div>
     </div>
@@ -77,24 +98,26 @@
       <p class="text-danger">{{ dataProduct.totalDiscount }}</p>
     </div>
 
-    <div class="d-flex justify-content-between" *ngIf="dataProduct.totalImportTOH &&  dataProduct.totalImportTOH !== '0'">
+    <div
+      class="d-flex justify-content-between"
+      *ngIf="dataProduct.totalImportTOH && dataProduct.totalImportTOH !== 0"
+    >
       <p>Total:</p>
-      <p>{{ dataProduct.totalImport }}</p>
+      <p>{{ dataProduct.totalImport | currency: "S/ " }}</p>
+      <hr class="mt-4 text-gray-3" />
     </div>
   </div>
 
-  <div class="d-flex justify-content-between productText" *ngIf="!dataProduct.totalImportTOH ||  dataProduct.totalImportTOH == '0'" >
+  <div class="d-flex justify-content-between productText">
     <p>Imp. total cobrado:</p>
-    <p>{{ dataProduct.totalImport }}</p>
-    {{dataProduct.totalImport | JSON}}
+    <p>{{ dataProduct.totalAmountCharged | currency: "S/ " }}</p>
   </div>
-  <div class="d-flex justify-content-between productText" *ngIf="dataProduct.totalImportTOH &&  dataProduct.totalImportTOH !== '0'">
+  <!-- <div
+    class="d-flex justify-content-between productText"
+    *ngIf="dataProduct.totalImportTOH && dataProduct.totalImportTOH !== '0'"
+  >
     <p>Imp. total cobrado Tarjeta Oh:</p>
-    <app-icon
-    svgName="oh"      svgHeight="34px"
-    svgWidth="34px">
-    </app-icon>
+    <app-icon svgName="oh" svgHeight="34px" svgWidth="34px"> </app-icon>
     <p>{{ dataProduct.totalImportTOH }}</p>
-  </div>
-  
+  </div> -->
 </app-accordion-information>

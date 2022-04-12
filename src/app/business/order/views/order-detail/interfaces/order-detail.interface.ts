@@ -77,9 +77,11 @@ export interface Product {
   sku: string;
   quantity: string;
   unitPrice: string;
-  totalPrice: string;
+  totalPrice: number;
   name: string;
   presentationDescription: string;
+  totalPriceAllPaymentMethod: number;
+  totalPriceTOH: number;
 }
 
 export interface CarrierInformation {

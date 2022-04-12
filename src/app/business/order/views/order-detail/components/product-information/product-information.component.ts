@@ -4,16 +4,15 @@ import { ProductInformationModel } from '../../models/product-information.model'
 @Component({
   selector: 'app-product-information',
   templateUrl: './product-information.component.html',
-  styleUrls: ['./product-information.component.scss']
+  styleUrls: ['./product-information.component.scss'],
 })
 export class ProductInformationComponent {
-
   @Input() dataProduct: ProductInformationModel;
 
   showProducts: boolean;
   showRemovedProducts: boolean;
 
-  constructor() { }
+  constructor() {}
 
   toggleShowRemovedProducts(): void {
     this.showRemovedProducts = !this.showRemovedProducts;
@@ -22,5 +21,4 @@ export class ProductInformationComponent {
   toggleShowProducts(): void {
     this.showProducts = !this.showProducts;
   }
-
 }

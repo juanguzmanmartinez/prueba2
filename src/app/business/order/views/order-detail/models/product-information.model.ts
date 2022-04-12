@@ -1,4 +1,7 @@
-import { Product, ProductInformation } from '../interfaces/order-detail.interface';
+import {
+  Product,
+  ProductInformation,
+} from '../interfaces/order-detail.interface';
 
 export class ProductInformationModel {
   products: ProductModel[];
@@ -9,20 +12,31 @@ export class ProductInformationModel {
   igv: string;
   deliveryAmount: string;
   totalDiscount: string;
-  totalAmountCharged: string;
-  totalImport: string;
-  totalImportTOH: string;
+  totalAmountCharged: number;
+  totalImport: number;
+  totalImportTOH: number;
 
   constructor(data: ProductInformation) {
-    this.products = data.products.length ? data.products.map(product => new ProductModel(product)) : [];
+    this.products = data.products.length
+      ? data.products.map((product) => new ProductModel(product))
+      : [];
     this.productsRemoved = [];
     this.originalAmount = '-';
     this.editedAmount = '-';
-    this.withoutDiscountAmount = data.totalImportWithOutDiscount ? `S/ ${data.totalImportWithOutDiscount.toFixed(2)}` : 'S/ 0.00';
+    this.withoutDiscountAmount = data.totalImportWithOutDiscount
+      ? `S/ ${data.totalImportWithOutDiscount.toFixed(2)}`
+      : 'S/ 0.00';
     this.igv = '-';
-    this.deliveryAmount = data.deliveryAmount ? `S/ ${data.deliveryAmount.toFixed(2)}` : 'S/ 0.00';
-    this.totalDiscount = data.totalDiscount ? `S/ -${data.totalDiscount.toFixed(2)}` : 'S/ -0.00';
-    this.totalAmountCharged = data.totalImport ? `S/ ${data.totalImport.toFixed(2)}` : 'S/ 0.00';
+    this.deliveryAmount = data.deliveryAmount
+      ? `S/ ${data.deliveryAmount.toFixed(2)}`
+      : 'S/ 0.00';
+    this.totalDiscount = data.totalDiscount
+      ? `S/ -${data.totalDiscount.toFixed(2)}`
+      : 'S/ -0.00';
+    // this.totalAmountCharged = data.totalImport ? `S/ ${data.totalImport.toFixed(2)}` : 'S/ 0.00';
+    this.totalImport = data.totalImport ? data.totalImport : 0;
+    this.totalImportTOH = data.totalImportTOH ? data.totalImportTOH : 0;
+    this.totalAmountCharged = this.getTotalCharged(data);
   }
 
   existProductRemoved(): boolean {
@@ -38,7 +52,9 @@ export class ProductInformationModel {
   }
 
   visibleProducts(): ProductModel[] {
-    return this.hasMoreThanFourProducts() ? this.products.slice(0, 4) : this.products;
+    return this.hasMoreThanFourProducts()
+      ? this.products.slice(0, 4)
+      : this.products;
   }
 
   hiddenProducts(): ProductModel[] {
@@ -52,6 +68,12 @@ export class ProductInformationModel {
   hiddenProductsRemoved(): ProductModel[] {
     return this.productsRemoved.slice(1);
   }
+
+  getTotalCharged(data: ProductInformation): number {
+    return !data.totalImportTOH || data.totalImportTOH === 0
+      ? data.totalImport || 0
+      : data.totalImportTOH || 0;
+  }
 }
 
 export class ProductModel {
@@ -60,14 +82,25 @@ export class ProductModel {
   name: string;
   sku: string;
   quantity: string;
-  totalPrice: string;
+  totalPrice: number;
+  totalPriceAllPaymentMethod: number;
+  totalPriceTOH: number;
 
   constructor(data: Product) {
     this.prescription = false;
-    this.presentationDescription = data.presentationDescription ? data.presentationDescription : '';
+    this.presentationDescription = data.presentationDescription
+      ? data.presentationDescription
+      : '';
+    this.totalPriceAllPaymentMethod = data.totalPriceAllPaymentMethod
+      ? data.totalPriceAllPaymentMethod
+      : 0;
     this.name = data.name ? data.name : '-';
     this.sku = data.sku ? data.sku : '-';
     this.quantity = data.quantity ? data.quantity : '-';
-    this.totalPrice = data.totalPrice ? Number(data.totalPrice).toFixed(2) : '-';
+    this.totalPrice = data.totalPrice ? data.totalPrice : 0;
+    this.totalPriceTOH = data.totalPriceTOH ? data.totalPriceTOH : 0;
+    // this.totalPrice = data.totalPrice
+    //   ? Number(data.totalPrice).toFixed(2)
+    //   : '-';
   }
 }

@@ -4,18 +4,17 @@
       *ngIf="product.prescription"
       value="Requiere receta médica"
       position="below"
-      innerClass="bottom-43-right-21">
-      <app-icon
-        svgName="prescription-product"
-        svgHeight="64px"
-        svgWidth="64px">
+      innerClass="bottom-43-right-21"
+    >
+      <app-icon svgName="prescription-product" svgHeight="64px" svgWidth="64px">
       </app-icon>
     </app-tooltip>
     <app-icon
       *ngIf="!product.prescription"
       svgName="product"
       svgHeight="64px"
-      svgWidth="64px">
+      svgWidth="64px"
+    >
     </app-icon>
   </div>
   <div class="col-6">
@@ -32,9 +31,34 @@
       <p class="text-body-2-bold text-gray-6 m-0">{{ product.quantity }}</p>
     </div>
   </div>
-  <div class="col-3">
-    <p class="text-body-2-bold text-gray-6 m-0 d-flex-horizontal-end" [class.text-decoration-line-through]="removed">
-      S/ {{ product.totalPrice }}
+  <div class="col-3 text-end">
+    <ng-container
+      *ngIf="product.totalPriceTOH || product.totalPriceTOH !== 0; else empty"
+    >
+      <div class="d-flex justify-content-between align-items-center">
+        <app-icon
+          [svgName]="'oh'"
+          svgWidth="24px"
+          svgHeight="17px"
+          innerClass="mt-1"
+        ></app-icon>
+        <p class="text-body-2-bold m-0">
+          {{ product.totalPriceTOH | currency: "S/ " }}
+        </p>
+      </div>
+    </ng-container>
+    <ng-template #empty>
+      <div>
+        <p class="text-body-2-bold m-0 text-hidden">
+          {{ product.totalPriceTOH | currency: "S/ " }}
+        </p>
+      </div>
+    </ng-template>
+    <p class="text-body-2-regular text-gray-6 m-0">
+      {{ product.totalPriceAllPaymentMethod | currency: "S/ " }}
+    </p>
+    <p class="text-body-2-bold text-gray-4 text-decoration-line m-0">
+      {{ product.totalPrice | currency: "S/ " }}
     </p>
   </div>
   <hr class="mt-5 text-gray-3" />
