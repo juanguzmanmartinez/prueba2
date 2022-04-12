@@ -35,12 +35,12 @@
     <ng-container
       *ngIf="product.totalPriceTOH || product.totalPriceTOH !== 0; else empty"
     >
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex justify-content-end align-items-center">
         <app-icon
           [svgName]="'oh'"
           svgWidth="24px"
           svgHeight="17px"
-          innerClass="mt-1"
+          innerClass="mt-1 me-2"
         ></app-icon>
         <p class="text-body-2-bold m-0">
           {{ product.totalPriceTOH | currency: "S/ " }}
