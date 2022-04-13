@@ -4,6 +4,8 @@ import { CChannelName } from '@models/channel/channel.model';
 import { ETextColor } from '@models/text/text.model';
 import { CStatusOrderColor, CStatusOrderName } from '@models/status-order/status-order.model';
 import { reformatCamelCase } from '../../../../../shared/utils/reformat-camelcase.util';
+import { OrderDetailResponse } from '../../order-detail/interfaces/order-detail.interface';
+import { OrderDetailModel } from '../../order-detail/models/order-detail.model';
 
 export class OrderModel {
   orderId: number;
@@ -17,6 +19,8 @@ export class OrderModel {
   state: string;
   stateColor: ETextColor;
 
+  orderDetail: OrderDetailModel;
+
   constructor(data: OrderResponse) {
     this.orderId = data.orderId ? data.orderId : 0;
     this.ecommerceId = data.ecommerceId ? data.ecommerceId : 0;
@@ -28,6 +32,8 @@ export class OrderModel {
     this.documentId = data.documentoId ? data.documentoId : '-';
     this.state = data.orderStatus ? CStatusOrderName[data.orderStatus] : '-';
     this.stateColor = data.orderStatus ? CStatusOrderColor[data.orderStatus] : '-';
+
+    this.orderDetail = new OrderDetailModel(data.oderDetailOut);
   }
 
   private formatPromiseDate = (promiseDate: string): string => {

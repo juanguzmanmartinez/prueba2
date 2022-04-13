@@ -1,3 +1,4 @@
+import { OrderDetailResponse } from '../../order-detail/interfaces/order-detail.interface';
 import { OrderModel } from '../models/order-records.model';
 
 export interface DatepickerFilter {
@@ -60,6 +61,8 @@ export interface OrderResponse {
   documentoId: string;
   client: string;
   promiseDate: string;
+
+  oderDetailOut: OrderDetailResponse;
 }
 
 export interface OrderStatusResponse {

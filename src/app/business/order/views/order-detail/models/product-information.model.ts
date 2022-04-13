@@ -33,7 +33,6 @@ export class ProductInformationModel {
     this.totalDiscount = data.totalDiscount
       ? `S/ -${data.totalDiscount.toFixed(2)}`
       : 'S/ -0.00';
-    // this.totalAmountCharged = data.totalImport ? `S/ ${data.totalImport.toFixed(2)}` : 'S/ 0.00';
     this.totalImport = data.totalImport ? data.totalImport : 0;
     this.totalImportTOH = data.totalImportTOH ? data.totalImportTOH : 0;
     this.totalAmountCharged = this.getTotalCharged(data);

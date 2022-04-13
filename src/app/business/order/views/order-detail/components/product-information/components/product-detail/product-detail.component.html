@@ -21,7 +21,9 @@
     <p class="text-body-2-bold text-gray-5 m-0 title">
       {{ product.presentationDescription }}
     </p>
-    <p class="text-body-2-regular text-gray-6 m-0 name">{{ product.name }}</p>
+    <div class="name">
+      <p class="text-body-2-regular text-gray-6 m-0">{{ product.name }}</p>
+    </div>
     <div class="d-inline-flex gap-1 mt-1 w-100">
       <p class="text-body-2-regular text-gray-5 m-0">SKU</p>
       <p class="text-body-2-bold text-gray-5 m-0">{{ product.sku }}</p>
@@ -68,7 +70,8 @@
       [ngClass]="{
         'text-decoration-line':
           product.totalPriceAllPaymentMethod || product.totalPriceTOH,
-          'text-total-price': !product.totalPriceAllPaymentMethod && !product.totalPriceTOH
+        'text-total-price':
+          !product.totalPriceAllPaymentMethod && !product.totalPriceTOH
       }"
     >
       {{ product.totalPrice | currency: "S/ " }}

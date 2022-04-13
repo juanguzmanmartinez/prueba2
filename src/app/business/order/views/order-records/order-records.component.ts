@@ -1,11 +1,21 @@
 import { SelectionModel } from '@angular/cdk/collections';
+import { CurrencyPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { normalizeValue } from '@helpers/string.helper';
-import { CStatusOrderName, EStatusOrder } from '@models/status-order/status-order.model';
+import {
+  CStatusOrderName,
+  EStatusOrder,
+} from '@models/status-order/status-order.model';
 import { AlertService } from '@molecules/alert/alert.service';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
@@ -20,7 +30,7 @@ import {
   LocalFilterEvent,
   OrderRecords,
   ServicesFilterEvent,
-  StatusFilterEvent
+  StatusFilterEvent,
 } from './interfaces/order-records.interface';
 import { OrderModel } from './models/order-records.model';
 
@@ -42,9 +52,9 @@ const ColumnNameList = {
   selector: 'app-order-records',
   templateUrl: './order-records.component.html',
   styleUrls: ['./order-records.component.scss'],
+  providers: [CurrencyPipe],
 })
 export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
-
   tableLoader = true;
   errorResponse: HttpErrorResponse;
 
@@ -84,36 +94,36 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   sortColumns = {
     orderId: {
       column: '1',
-      reload: false
+      reload: false,
     },
     local: {
       column: '2',
-      reload: false
+      reload: false,
     },
     channel: {
       column: '3',
-      reload: false
+      reload: false,
     },
     service: {
       column: '4',
-      reload: false
+      reload: false,
     },
     promiseDate: {
       column: '5',
-      reload: false
+      reload: false,
     },
     client: {
       column: '6',
-      reload: false
+      reload: false,
     },
     documentId: {
       column: '7',
-      reload: false
+      reload: false,
     },
     state: {
       column: '8',
-      reload: false
-    }
+      reload: false,
+    },
   };
 
   readonly statusError = CStatusOrderName[EStatusOrder.error];
@@ -124,9 +134,9 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private orderRecordsImplement: OrderRecordsImplementService,
     private alertService: AlertService,
-    private orderFilterStore: OrderFilterStore
-  ) {
-  }
+    private orderFilterStore: OrderFilterStore,
+    private currencyPipe: CurrencyPipe
+  ) {}
 
   ngOnInit(): void {
     const subscription = this.selection.changed.subscribe(
@@ -238,8 +248,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       )
       .subscribe({
         next: (res: any) => {
-          this.selection.clear()
-          this.setOrderPageData(res, false)
+          this.selection.clear();
+          this.setOrderPageData(res, false);
         },
         error: (err) => (this.errorResponse = err),
       });
@@ -275,15 +285,15 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   filterByDatePromise(event: DatepickerFilterEvent): void {
-    const previousValue = this.orderFilterStore.getDatePromise
+    const previousValue = this.orderFilterStore.getDatePromise;
 
     this.orderFilterStore.setDatePromise = event.dateRange;
     this.notFound = event.notFound;
 
-    const [prevDateInit, prevDateEnd] = previousValue ?? ['','']
-    const [dateInit, dateEnd] = event.dateRange ?? ['','']
+    const [prevDateInit, prevDateEnd] = previousValue ?? ['', ''];
+    const [dateInit, dateEnd] = event.dateRange ?? ['', ''];
 
-    if((prevDateInit !== dateInit) && (prevDateEnd !== dateEnd)){
+    if (prevDateInit !== dateInit && prevDateEnd !== dateEnd) {
       this.filterAll();
     }
   }
@@ -321,21 +331,19 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     const data = response.orders.filter(
       (item) => !selectedRecord.includes(item.ecommerceId)
     );
-    const data2 = response.orders.filter(
-      (item) => selectedRecord.includes(item.ecommerceId)
+    const data2 = response.orders.filter((item) =>
+      selectedRecord.includes(item.ecommerceId)
     );
-    const selectedRecordData2 = data2.map(
-      (value) => value.ecommerceId
-    );
-    const data1 =this.fixedSelectedRows.filter(
-      (item) => selectedRecordData2.includes(item.ecommerceId)
+    const selectedRecordData2 = data2.map((value) => value.ecommerceId);
+    const data1 = this.fixedSelectedRows.filter((item) =>
+      selectedRecordData2.includes(item.ecommerceId)
     );
 
-    let builds = [ ...data, ...data1];
+    let builds = [...data, ...data1];
     builds.sort((n1, n2) => {
-      return this.naturalCompare(n1.ecommerceId, n2.ecommerceId)
-    })   
-    this.dataSource.data = builds; 
+      return this.naturalCompare(n1.ecommerceId, n2.ecommerceId);
+    });
+    this.dataSource.data = builds;
 
     this.totalOrder = response.totalRecords;
     this.dataSource._updatePaginator(this.totalOrder);
@@ -347,9 +355,9 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   naturalCompare(a, b) {
     return a - b;
- }
+  }
 
-  sortData(event: { column: string, order: 'A' | 'D' | 'N' }): void {
+  sortData(event: { column: string; order: 'A' | 'D' | 'N' }): void {
     for (const sortColumnsKey in this.sortColumns) {
       if (this.sortColumns[sortColumnsKey].column !== event.column) {
         this.sortColumns[sortColumnsKey].reload = true;
@@ -368,7 +376,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   exportData(): void {
     try {
-      const data = this.selection.selected.map((value) => {
+      const data = this.selection.selected.map((value: OrderModel) => {
+        console.log(value);
         return {
           ['N° Pedido (Digital)']: value.ecommerceId,
           ['N° Pedido (Call)']: '',
@@ -379,31 +388,53 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
           ['Servicio']: value.service,
           ['Fecha Creación']: '',
           ['Fecha Promesa']: value.promiseDate.slice(0, 9),
-          ['Hora Promesa']: value.promiseDate.slice(9).replace('<br>', '').trim(),
+          ['Hora Promesa']: value.promiseDate
+            .slice(9)
+            .replace('<br>', '')
+            .trim(),
           ['Cliente']: value.client,
           ['Documento']: value.documentId,
-          ['Dirección']: '',
-          ['Correo']: '',
-          ['Teléfono']: '',
-          ['RUC']: '',
-          ['Razón Social']: '',
-          ['Coordenadas']: '',
-          ['Zona']: '',
-          ['Purchase ID']: '',
-          ['Tipo Despacho']: '',
-          ['Observación']: '',
-          ['Motivo de Cancelación']: '',
-          ['Tipo de Pago']: '',
-          ['Estado Liquidacion']: '',
-          ['Fecha Estado Liquidacion']: '',
-          ['Transportista']: '',
-          ['Documento Transportista']: '',
-          ['Telefono Transportista']: '',
-          ['Grupo de Viaje']: '',
-          ['Total sin Descuentos']: '',
-          ['Delivery']: '',
-          ['Descuento']: '',
-          ['Importe Total']: '',
+          ['Dirección']: value.orderDetail.clientInformation.address,
+          ['Correo']: value.orderDetail.clientInformation.email,
+          ['Teléfono']: value.orderDetail.clientInformation.phone,
+          ['RUC']: value.orderDetail.clientInformation.ruc,
+          ['Razón Social']: value.orderDetail.clientInformation.businessName,
+          ['Coordenadas']: value.orderDetail.clientInformation.coordinates,
+          ['Zona']: value.orderDetail.orderInformation.zone,
+          ['Purchase ID']: value.orderDetail.orderInformation.purchaseId,
+          ['Tipo Despacho']: value.orderDetail.orderInformation.typeOfOffice,
+          ['Observación']: value.orderDetail.orderInformation.observation,
+          ['Motivo de Cancelación']:
+            value.orderDetail.orderInformation.reasonForCancellation,
+          ['Tipo de Pago']: value.orderDetail.paymentInformation.paymentType,
+          ['Estado Liquidacion']: value.orderDetail.paymentInformation.status,
+          ['Fecha Estado Liquidacion']:
+            value.orderDetail.paymentInformation.date,
+          ['Transportista']: value.orderDetail.carrierInformation
+            ? value.orderDetail.carrierInformation.transporters
+            : '-',
+          ['Documento Transportista']: value.orderDetail.carrierInformation
+            ? value.orderDetail.carrierInformation.document
+            : '-',
+          ['Telefono Transportista']: value.orderDetail.carrierInformation
+            ? value.orderDetail.carrierInformation.mobile
+            : '-',
+          ['Grupo de Viaje']: value.orderDetail.carrierInformation
+            ? value.orderDetail.carrierInformation.tripGroup
+            : '-',
+          ['Total sin Descuentos']:
+            value.orderDetail.productInformation.withoutDiscountAmount,
+          ['Delivery']: value.orderDetail.productInformation.deliveryAmount,
+          ['Descuento']: value.orderDetail.productInformation.totalDiscount,
+          ['Importe Total']:
+            value.orderDetail.productInformation.totalImportTOH &&
+            value.orderDetail.productInformation.totalImportTOH !== 0
+              ? this.currencyPipe.transform(
+                  value.orderDetail.productInformation.totalImportTOH,'S/ '
+                )
+              : this.currencyPipe.transform(
+                  value.orderDetail.productInformation.totalImport,'S/ '
+                ),
         };
       });
       ExportTableSelection.exportArrayToExcel(data, 'Pedidos');
