@@ -77,14 +77,16 @@
   </div>
 
   <div class="detail">
-    <div class="d-flex justify-content-between">
-      <p>Imp. pedido original:</p>
-      <p>{{ dataProduct.originalAmount }}</p>
-    </div>
-    <div class="d-flex justify-content-between">
-      <p>Imp. pedido editado:</p>
-      <p>{{ dataProduct.editedAmount }}</p>
-    </div>
+    <ng-template>
+      <div class="d-flex justify-content-between">
+        <p>Imp. pedido original:</p>
+        <p>{{ dataProduct.originalAmount }}</p>
+      </div>
+      <div class="d-flex justify-content-between">
+        <p>Imp. pedido editado:</p>
+        <p>{{ dataProduct.editedAmount }}</p>
+      </div>
+    </ng-template>
     <div class="d-flex justify-content-between">
       <p>SubTotal:</p>
       <p>{{ dataProduct.withoutDiscountAmount }}</p>

@@ -313,9 +313,18 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   isAllSelected(): boolean {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    let allSelected = true;
+    const orderIdsSelected = this.fixedSelectedRows.map(
+      (orderSelected) => orderSelected.orderId
+    );
+    this.dataSource.data.forEach((orderTable) => {
+      if (!orderIdsSelected.includes(orderTable.orderId)) {
+        allSelected = false;
+        return;
+      }
+    });
+
+    return allSelected;
   }
 
   masterToggle(): void {
