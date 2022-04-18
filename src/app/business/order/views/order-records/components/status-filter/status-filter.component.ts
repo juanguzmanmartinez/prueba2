@@ -2,7 +2,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { map, tap } from 'rxjs/operators';
 import { OrderRecordsImplementService } from '../../implements/order-records-implement.service';
-import { OrderStatus, StatusFilterEvent, } from '../../interfaces/order-records.interface';
+import {
+  OrderStatus,
+  StatusFilterEvent,
+} from '../../interfaces/order-records.interface';
 
 @Component({
   selector: 'app-status-filter',
@@ -21,11 +24,10 @@ export class StatusFilterComponent implements OnInit {
   constructor(
     private orderRecordImplement: OrderRecordsImplementService,
     private orderFilterStore: OrderFilterStore
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
-    const {statusOrder} = this.orderFilterStore.getOrderFilter();
+    const { statusOrder } = this.orderFilterStore.getOrderFilter();
     this.selectedStatus = statusOrder ?? [];
 
     this.orderRecordImplement.statusList
@@ -42,8 +44,7 @@ export class StatusFilterComponent implements OnInit {
         })
       )
       .subscribe((response: string[]) => {
-        console.log(JSON.stringify(response));
-        this.status = response.filter(item => item !== '70');
+        this.status = response.filter((item) => item !== '70');
         this.selectionChange(statusOrder ?? [], true);
       });
   }
@@ -65,13 +66,17 @@ export class StatusFilterComponent implements OnInit {
     if (status.length === 1) {
       this.valueSelect = this.getStatusName(status[0]);
     } else if (status.length === 2) {
-      this.valueSelect = `${this.getStatusName(status[0])}, ${this.getStatusName(status[1])}`;
+      this.valueSelect = `${this.getStatusName(
+        status[0]
+      )}, ${this.getStatusName(status[1])}`;
     } else if (status.length > 2) {
-      this.valueSelect = `${this.getStatusName(status[0])}, ${this.getStatusName(status[1])}...`;
+      this.valueSelect = `${this.getStatusName(
+        status[0]
+      )}, ${this.getStatusName(status[1])}...`;
     }
 
     if (status.length > 2) {
-      status.slice(2).forEach(v => {
+      status.slice(2).forEach((v) => {
         this.othersSelects = `${this.othersSelects} ${this.getStatusName(v)}\n`;
       });
     }
@@ -79,7 +84,7 @@ export class StatusFilterComponent implements OnInit {
     if (isOnInit) {
       return;
     }
-    this.filter.emit({status, notFound: this.getListStatusName(status)});
+    this.filter.emit({ status, notFound: this.getListStatusName(status) });
   }
 
   clearValues(): void {
@@ -94,5 +99,5 @@ export class StatusFilterComponent implements OnInit {
       return 1;
     }
     return 0;
-  }
+  };
 }

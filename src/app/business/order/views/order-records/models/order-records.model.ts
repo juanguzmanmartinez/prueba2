@@ -21,6 +21,7 @@ export class OrderModel {
   documentId: string;
   state: string;
   stateColor: ETextColor;
+  companyCode: string;
 
   orderDetail: OrderDetailModel;
 
@@ -43,7 +44,7 @@ export class OrderModel {
     this.stateColor = data.orderStatus
       ? CStatusOrderColor[data.orderStatus]
       : '-';
-
+    this.companyCode = data.companyCode ? data.companyCode : '-';
     this.orderDetail = data.oderDetailOut
       ? new OrderDetailModel(data.oderDetailOut)
       : null;

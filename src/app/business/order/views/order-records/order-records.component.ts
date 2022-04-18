@@ -378,16 +378,26 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   exportData(): void {
     try {
       const data = this.selection.selected.map((value: OrderModel) => {
-        console.log(value);
         return {
           ['N° Pedido (Digital)']: value.ecommerceId,
-          ['N° Pedido (Call)']: '',
+          ['N° Pedido (Call)']: value.orderDetail
+            ? value.orderDetail.callNumber
+            : '-',
           ['Estado']: value.state,
           ['Local']: value.local,
-          ['Marca']: '',
+          ['Marca']: value.companyCode,
           ['Canal']: value.channel,
           ['Servicio']: value.service,
-          ['Fecha Creación']: '',
+          ['Fecha Creación']:
+            value.orderDetail && value.orderDetail.timeline
+              ? value.orderDetail.timeline.find(
+                  (step) => step.status === 'En tienda'
+                )
+                ? value.orderDetail.timeline.find(
+                    (step) => step.status === 'En tienda'
+                  ).date
+                : '-'
+              : '-',
           ['Fecha Promesa']: value.promiseDate.slice(0, 9),
           ['Hora Promesa']: value.promiseDate
             .slice(9)

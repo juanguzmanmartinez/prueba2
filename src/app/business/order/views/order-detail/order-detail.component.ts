@@ -16,40 +16,42 @@ export class OrderDetailComponent implements OnInit {
   orderDetail: OrderDetailModel;
   orderLoading = false;
   errorResponse: HttpErrorResponse;
-  timelineData:any;
+  timelineData: any;
 
   constructor(
     private implementsService: OrderDetailImplementService,
     private activatedRoute: ActivatedRoute
   ) {
-    this.orderId = this.activatedRoute.snapshot.params[OR_CHILDREN_PATH.orderCode];
+    this.orderId =
+      this.activatedRoute.snapshot.params[OR_CHILDREN_PATH.orderCode];
   }
 
   ngOnInit(): void {
     this.implementsService.orderDetail(this.orderId).subscribe({
       next: (response) => {
         this.orderDetail = this.updateResponse(response);
-        },
-      error: (error) => this.errorResponse = error,
+      },
+      error: (error) => (this.errorResponse = error),
     });
   }
 
   refreshData(): void {
     this.orderLoading = true;
-    this.implementsService.orderDetail(this.orderId)
-      .pipe(
-        finalize(() => this.orderLoading = false)
-      )
+    this.implementsService
+      .orderDetail(this.orderId)
+      .pipe(finalize(() => (this.orderLoading = false)))
       .subscribe({
         next: (response) => (this.orderDetail = this.updateResponse(response)),
       });
   }
 
-  updateResponse(response):OrderDetailModel{
-    let timeLine:OrderDetailModel = response.timeline.filter(item => item.status != 'En espera');
-            console.log(JSON.stringify(response));
-            response.timeline = timeLine;
+  updateResponse(response): OrderDetailModel {
+    let timeLine: OrderDetailModel = response.timeline.filter(
+      (item) => item.status != 'En espera'
+    );
 
-        return response;
+    response.timeline = timeLine;
+
+    return response;
   }
 }
