@@ -4,6 +4,7 @@ import { SelectComponent } from '@atoms/select/select.component';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import * as moment from 'moment/moment';
 import { DatepickerFilter, DatepickerFilterEvent } from '../../interfaces/order-records.interface';
+import { OrderFormPresenter } from '../../order-form.presenter';
 
 enum dates {
   hoy = 'Hoy',
@@ -45,7 +46,8 @@ export class DateFilterComponent implements OnInit {
   @ViewChild('appSelect') appSelect: SelectComponent<any>;
 
   constructor(
-    private orderFilterStore: OrderFilterStore
+    private orderFilterStore: OrderFilterStore,
+    public presenter: OrderFormPresenter
   ) {
   }
 

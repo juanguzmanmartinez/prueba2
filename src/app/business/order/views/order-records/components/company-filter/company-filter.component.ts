@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { CompanyFilterEvent } from '../../interfaces/order-records.interface';
+import { OrderFormPresenter } from '../../order-form.presenter';
 
 @Component({
   selector: 'app-company-filter',
@@ -19,7 +20,8 @@ export class CompanyFilterComponent implements OnInit {
   @Output() filter = new EventEmitter<CompanyFilterEvent>();
 
   constructor(
-    private orderFilterStore: OrderFilterStore
+    private orderFilterStore: OrderFilterStore,
+    public presenter: OrderFormPresenter
   ) {
   }
 

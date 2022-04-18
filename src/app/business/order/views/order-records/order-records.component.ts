@@ -33,6 +33,7 @@ import {
   StatusFilterEvent,
 } from './interfaces/order-records.interface';
 import { OrderModel } from './models/order-records.model';
+import { OrderFormPresenter } from './order-form.presenter';
 
 const ColumnNameList = {
   select: 'select',
@@ -135,7 +136,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     private orderRecordsImplement: OrderRecordsImplementService,
     private alertService: AlertService,
     private orderFilterStore: OrderFilterStore,
-    private currencyPipe: CurrencyPipe
+    private currencyPipe: CurrencyPipe,
+    public presenter: OrderFormPresenter
   ) {}
 
   ngOnInit(): void {

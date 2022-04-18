@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { LocalFilterComponent } from './local-filter.component';
 import { SelectModule } from '@atoms/select/select.module';
 import { TooltipModule } from '@atoms/tooltip/tooltip.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { TooltipModule } from '@atoms/tooltip/tooltip.module';
   ],
     imports: [
         SelectModule,
-        TooltipModule
+        TooltipModule,
+        ReactiveFormsModule
     ],
   exports: [
     LocalFilterComponent

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { ChannelFilterEvent } from '../../interfaces/order-records.interface';
+import { OrderFormPresenter } from '../../order-form.presenter';
 
 @Component({
   selector: 'app-channel-filter',
@@ -19,7 +20,8 @@ export class ChannelFilterComponent implements OnInit {
   selectedChannels: string[];
 
   constructor(
-    private orderFilterStore: OrderFilterStore
+    private orderFilterStore: OrderFilterStore,
+    public presenter: OrderFormPresenter
   ) {
   }
 
@@ -30,7 +32,7 @@ export class ChannelFilterComponent implements OnInit {
 
   selectionChange(channels: string[]): void {
     this.selectedChannels = channels;
-    this.filter.emit({channels, notFound: this.getChannelsName(channels)});
+    // this.filter.emit({channels, notFound: this.getChannelsName(channels)});
   }
 
   clearValues(): void {

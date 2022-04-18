@@ -50,6 +50,8 @@
       </div>
     </div>
 
+    <pre>{{ presenter.filterForm.value | json }}</pre>
+
     <div class="row">
       <div class="col-12 mb-8">
         <table mat-table large-table [dataSource]="dataSource" class="order-table" [hidden]="tableLoader">

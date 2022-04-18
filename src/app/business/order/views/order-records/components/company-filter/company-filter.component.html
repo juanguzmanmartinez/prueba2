@@ -1,11 +1,15 @@
-<app-select
-  placeholder="Marca"
-  [multiple]="true"
-  [value]="selectedCompanies"
-  [optionList]="companies"
-  [selectOptionSquare]="true"
-  [showClearValueForButton]="true"
-  (optionChange)="selectionChange($event)"
-  (clearValueForButton)="clearValues()">
-  <ng-template let-company>{{ getCompanyName(company) }}</ng-template>
-</app-select>
+<div [formGroup]="presenter.filterForm">
+  <app-select
+    formControlName="company"
+    placeholder="Marca"
+    [multiple]="true"
+    [value]="selectedCompanies"
+    [optionList]="companies"
+    [selectOptionSquare]="true"
+    [showClearValueForButton]="true"
+    (optionChange)="selectionChange($event)"
+    (clearValueForButton)="clearValues()"
+  >
+    <ng-template let-company>{{ getCompanyName(company) }}</ng-template>
+  </app-select>
+</div>

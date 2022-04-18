@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { ServicesFilterEvent } from '../../interfaces/order-records.interface';
+import { OrderFormPresenter } from '../../order-form.presenter';
 
 @Component({
   selector: 'app-service-filter',
@@ -15,18 +16,20 @@ export class ServiceFilterComponent implements OnInit {
 
   list = Object.keys(CDeliveryServiceTypeName).map((value) => {
     this.services.push(value);
-    return {code: value, name: CDeliveryServiceTypeName[value]};
+    return { code: value, name: CDeliveryServiceTypeName[value] };
   });
 
   valueSelect: string;
   selectedService: string[];
   othersSelects = '';
 
-  constructor(private orderFilterStore: OrderFilterStore) {
-  }
+  constructor(
+    private orderFilterStore: OrderFilterStore,
+    public presenter: OrderFormPresenter
+  ) {}
 
   ngOnInit(): void {
-    const {typeServices} = this.orderFilterStore.getOrderFilter();
+    const { typeServices } = this.orderFilterStore.getOrderFilter();
     this.selectedService = typeServices ?? [];
 
     this.selectionChange(typeServices ?? [], true);
@@ -39,21 +42,27 @@ export class ServiceFilterComponent implements OnInit {
     if (services.length === 1) {
       this.valueSelect = this.getServiceName(services[0]);
     } else if (services.length === 2) {
-      this.valueSelect = `${this.getServiceName(services[0])}, ${this.getServiceName(services[1])}`;
+      this.valueSelect = `${this.getServiceName(
+        services[0]
+      )}, ${this.getServiceName(services[1])}`;
     } else if (services.length > 2) {
-      this.valueSelect = `${this.getServiceName(services[0])}, ${this.getServiceName(services[1])}...`;
+      this.valueSelect = `${this.getServiceName(
+        services[0]
+      )}, ${this.getServiceName(services[1])}...`;
     }
 
     if (services.length > 2) {
-      services.slice(2).forEach(v => {
-        this.othersSelects = `${this.othersSelects} ${this.getServiceName(v)}\n`;
+      services.slice(2).forEach((v) => {
+        this.othersSelects = `${this.othersSelects} ${this.getServiceName(
+          v
+        )}\n`;
       });
     }
 
     if (isOnInit) {
       return;
     }
-    this.filter.emit({services, notFound: this.getServicesName(services)});
+    this.filter.emit({ services, notFound: this.getServicesName(services) });
   }
 
   clearValues(): void {

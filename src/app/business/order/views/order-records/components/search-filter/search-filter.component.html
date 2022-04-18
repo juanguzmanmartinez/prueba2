@@ -1,11 +1,13 @@
-<div class="row">
+<div class="row" [formGroup]="presenter.filterForm">
   <div class="col-6">
     <app-select
+      formControlName="searchCode"
       placeholder="Tipo"
       [customValue]="true"
       [optionList]="typesSearch"
       [value]="valueSelect"
-      (optionChange)="selectionChange($event)">
+      (optionChange)="selectionChange($event)"
+    >
       <ng-container trigger>
         <app-icon [fontName]="valueSelect.icon"></app-icon>
         {{ valueSelect.name }}
@@ -18,13 +20,15 @@
   </div>
   <div class="col-6">
     <app-input
+      formControlName="searchValue"
       appSearchCharacters
       [alphanumeric]="valueSelect.alphanumeric"
       [maxLength]="valueSelect.maxLength"
       labelClass="w-100"
       [buttonClear]="true"
       [placeholder]="'Buscar por ' + valueSelect.name"
-      [formControl]="search">
+      
+    >
     </app-input>
   </div>
 </div>

@@ -1,8 +1,15 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { OrderFormPresenter } from '../../order-form.presenter';
 
 interface TypeSearch {
   code: string;
@@ -24,7 +31,6 @@ enum CodeTypeSearch {
   styleUrls: ['./search-filter.component.scss'],
 })
 export class SearchFilterComponent implements OnInit, OnDestroy {
-
   search = new FormControl('');
 
   typesSearch: TypeSearch[] = [
@@ -33,21 +39,21 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
       icon: 'local_mall',
       name: 'Nº de pedido',
       maxLength: '11',
-      alphanumeric: false
+      alphanumeric: false,
     },
     {
       code: CodeTypeSearch.telefono,
       icon: 'call',
       name: 'Nº de teléfono',
       maxLength: '9',
-      alphanumeric: false
+      alphanumeric: false,
     },
     {
       code: CodeTypeSearch.documento,
       icon: 'assignment_ind',
       name: 'Doc. Identidad',
       maxLength: '12',
-      alphanumeric: true
+      alphanumeric: true,
     },
   ];
 
@@ -57,11 +63,13 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
 
   @Output() filter = new EventEmitter<{ code: string; search: string }>();
 
-  constructor(private orderFilterStore: OrderFilterStore) {
-  }
+  constructor(
+    private orderFilterStore: OrderFilterStore,
+    public presenter: OrderFormPresenter
+  ) {}
 
   ngOnInit(): void {
-    const {searchCode, searchValue} = this.orderFilterStore.getOrderFilter();
+    const { searchCode, searchValue } = this.orderFilterStore.getOrderFilter();
 
     const valueSelect = this.typesSearch.find(
       (type) => type.code === searchCode
@@ -106,10 +114,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
 
   private listenSearch(): void {
     const subscription = this.search.valueChanges
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged()
-      )
+      .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe({
         next: (value) => this.changeSearch(value),
       });

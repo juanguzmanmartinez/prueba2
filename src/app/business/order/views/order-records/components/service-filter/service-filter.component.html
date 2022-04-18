@@ -1,17 +1,25 @@
-<app-select
-  placeholder="Tipo de servicio"
-  [multiple]="true"
-  [customValue]="true"
-  [value]="selectedService"
-  [optionList]="services"
-  [selectOptionSquare]="true"
-  [showClearValueForButton]="true"
-  (optionChange)="selectionChange($event)"
-  (clearValueForButton)="clearValues()">
-  <ng-container trigger>
-    <app-tooltip [value]="othersSelects" innerClass="multiline" class="content-text">
-      {{ valueSelect }}
-    </app-tooltip>
-  </ng-container>
-  <ng-template let-service>{{ getServiceName(service) }}</ng-template>
-</app-select>
+<div [formGroup]="presenter.filterForm">
+  <app-select
+    formControlName="serviceType"
+    placeholder="Tipo de servicio"
+    [multiple]="true"
+    [customValue]="true"
+    [value]="selectedService"
+    [optionList]="services"
+    [selectOptionSquare]="true"
+    [showClearValueForButton]="true"
+    (optionChange)="selectionChange($event)"
+    (clearValueForButton)="clearValues()"
+  >
+    <ng-container trigger>
+      <app-tooltip
+        [value]="othersSelects"
+        innerClass="multiline"
+        class="content-text"
+      >
+        {{ valueSelect }}
+      </app-tooltip>
+    </ng-container>
+    <ng-template let-service>{{ getServiceName(service) }}</ng-template>
+  </app-select>
+</div>

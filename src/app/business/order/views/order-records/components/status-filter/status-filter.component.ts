@@ -3,6 +3,7 @@ import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { map, tap } from 'rxjs/operators';
 import { OrderRecordsImplementService } from '../../implements/order-records-implement.service';
 import { OrderStatus, StatusFilterEvent, } from '../../interfaces/order-records.interface';
+import { OrderFormPresenter } from '../../order-form.presenter';
 
 @Component({
   selector: 'app-status-filter',
@@ -20,7 +21,8 @@ export class StatusFilterComponent implements OnInit {
 
   constructor(
     private orderRecordImplement: OrderRecordsImplementService,
-    private orderFilterStore: OrderFilterStore
+    private orderFilterStore: OrderFilterStore,
+    public presenter: OrderFormPresenter
   ) {
   }
 

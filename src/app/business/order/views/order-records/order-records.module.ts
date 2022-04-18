@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
@@ -26,11 +26,13 @@ import { OrderRecordsComponent } from './order-records.component';
 import { CardModule } from '@molecules/cards/card.module';
 import { DirectivesModule } from '../../../../shared/directives/directives.module';
 import { PipesModule } from '@pipes/pipes.module';
+import { OrderFormPresenter } from './order-form.presenter';
 
 @NgModule({
   declarations: [OrderRecordsComponent],
   imports: [
     OrderRecordsRoutingModule,
+    ReactiveFormsModule,
     ButtonsModule,
     SearchFilterModule,
     LocalFilterModule,
@@ -54,9 +56,8 @@ import { PipesModule } from '@pipes/pipes.module';
     BackRouterSimpleModule,
     CardModule,
     DirectivesModule,
-    PipesModule
+    PipesModule,
   ],
-  providers: [OrderRecordsImplementService],
+  providers: [OrderRecordsImplementService, OrderFormPresenter],
 })
-export class OrderRecordsModule {
-}
+export class OrderRecordsModule {}

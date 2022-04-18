@@ -5,6 +5,7 @@ import { map, tap } from 'rxjs/operators';
 import { OrderRecordsImplementService } from '../../implements/order-records-implement.service';
 import { LocalFilterEvent } from '../../interfaces/order-records.interface';
 import { SearchOptionsI } from '@atoms/select/select.component';
+import { OrderFormPresenter } from '../../order-form.presenter';
 
 @Component({
   selector: 'app-local-filter',
@@ -23,7 +24,8 @@ export class LocalFilterComponent implements OnInit {
 
   constructor(
     private orderRecordImplement: OrderRecordsImplementService,
-    private orderFilterStore: OrderFilterStore
+    private orderFilterStore: OrderFilterStore,
+    public presenter: OrderFormPresenter
   ) {
   }
 
