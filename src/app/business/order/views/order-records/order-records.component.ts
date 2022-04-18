@@ -325,24 +325,25 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private setOrderPageData(response: OrderRecords, initialCharge = true): void {
-    const selectedRecord = this.fixedSelectedRows.map(
-      (value) => value.ecommerceId
-    );
-    const data = response.orders.filter(
-      (item) => !selectedRecord.includes(item.ecommerceId)
-    );
-    const data2 = response.orders.filter((item) =>
-      selectedRecord.includes(item.ecommerceId)
-    );
-    const selectedRecordData2 = data2.map((value) => value.ecommerceId);
-    const data1 = this.fixedSelectedRows.filter((item) =>
-      selectedRecordData2.includes(item.ecommerceId)
+    const orderIdSelected = this.fixedSelectedRows.map(
+      (order) => order.orderId
     );
 
-    let builds = [...data, ...data1];
-    builds.sort((n1, n2) => {
-      return this.naturalCompare(n1.ecommerceId, n2.ecommerceId);
+    const builds = response.orders.map((order) => {
+      if (orderIdSelected.includes(order.orderId)) {
+        const orderSelected = this.fixedSelectedRows.find(
+          (orderFixed) => orderFixed.orderId === order.orderId
+        );
+        this.selection.deselect(orderSelected);
+        this.selection.select(order);
+        return this.fixedSelectedRows.find(
+          (newOrder) => newOrder.orderId === order.orderId
+        );
+      } else {
+        return order;
+      }
     });
+
     this.dataSource.data = builds;
 
     this.totalOrder = response.totalRecords;
