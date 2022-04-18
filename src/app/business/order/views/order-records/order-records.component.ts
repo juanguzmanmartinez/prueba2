@@ -394,47 +394,103 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
             .trim(),
           ['Cliente']: value.client,
           ['Documento']: value.documentId,
-          ['Dirección']: value.orderDetail.clientInformation.address,
-          ['Correo']: value.orderDetail.clientInformation.email,
-          ['Teléfono']: value.orderDetail.clientInformation.phone,
-          ['RUC']: value.orderDetail.clientInformation.ruc,
-          ['Razón Social']: value.orderDetail.clientInformation.businessName,
-          ['Coordenadas']: value.orderDetail.clientInformation.coordinates,
-          ['Zona']: value.orderDetail.orderInformation.zone,
-          ['Purchase ID']: value.orderDetail.orderInformation.purchaseId,
-          ['Tipo Despacho']: value.orderDetail.orderInformation.typeOfOffice,
-          ['Observación']: value.orderDetail.orderInformation.observation,
+          ['Dirección']:
+            value.orderDetail && value.orderDetail.clientInformation
+              ? value.orderDetail.clientInformation.address
+              : '-',
+          ['Correo']:
+            value.orderDetail && value.orderDetail.clientInformation
+              ? value.orderDetail.clientInformation.email
+              : '-',
+          ['Teléfono']:
+            value.orderDetail && value.orderDetail.clientInformation
+              ? value.orderDetail.clientInformation.phone
+              : '-',
+          ['RUC']:
+            value.orderDetail && value.orderDetail.clientInformation
+              ? value.orderDetail.clientInformation.ruc
+              : '-',
+          ['Razón Social']:
+            value.orderDetail && value.orderDetail.clientInformation
+              ? value.orderDetail.clientInformation.businessName
+              : '-',
+          ['Coordenadas']:
+            value.orderDetail && value.orderDetail.clientInformation
+              ? value.orderDetail.clientInformation.coordinates
+              : '-',
+          ['Zona']:
+            value.orderDetail && value.orderDetail.orderInformation
+              ? value.orderDetail.orderInformation.zone
+              : '-',
+          ['Purchase ID']:
+            value.orderDetail && value.orderDetail.orderInformation
+              ? value.orderDetail.orderInformation.purchaseId
+              : '-',
+          ['Tipo Despacho']:
+            value.orderDetail && value.orderDetail.orderInformation
+              ? value.orderDetail.orderInformation.typeOfOffice
+              : '-',
+          ['Observación']:
+            value.orderDetail && value.orderDetail.orderInformation
+              ? value.orderDetail.orderInformation.observation
+              : '-',
           ['Motivo de Cancelación']:
-            value.orderDetail.orderInformation.reasonForCancellation,
-          ['Tipo de Pago']: value.orderDetail.paymentInformation.paymentType,
-          ['Estado Liquidacion']: value.orderDetail.paymentInformation.status,
+            value.orderDetail && value.orderDetail.orderInformation
+              ? value.orderDetail.orderInformation.reasonForCancellation
+              : '-',
+          ['Tipo de Pago']:
+            value.orderDetail && value.orderDetail.paymentInformation
+              ? value.orderDetail.paymentInformation.paymentType
+              : '-',
+          ['Estado Liquidacion']:
+            value.orderDetail && value.orderDetail.paymentInformation
+              ? value.orderDetail.paymentInformation.status
+              : '-',
           ['Fecha Estado Liquidacion']:
-            value.orderDetail.paymentInformation.date,
-          ['Transportista']: value.orderDetail.carrierInformation
-            ? value.orderDetail.carrierInformation.transporters
-            : '-',
-          ['Documento Transportista']: value.orderDetail.carrierInformation
-            ? value.orderDetail.carrierInformation.document
-            : '-',
-          ['Telefono Transportista']: value.orderDetail.carrierInformation
-            ? value.orderDetail.carrierInformation.mobile
-            : '-',
-          ['Grupo de Viaje']: value.orderDetail.carrierInformation
-            ? value.orderDetail.carrierInformation.tripGroup
-            : '-',
+            value.orderDetail && value.orderDetail.paymentInformation
+              ? value.orderDetail.paymentInformation.date
+              : '-',
+          ['Transportista']:
+            value.orderDetail && value.orderDetail.carrierInformation
+              ? value.orderDetail.carrierInformation.transporters
+              : '-',
+          ['Documento Transportista']:
+            value.orderDetail && value.orderDetail.carrierInformation
+              ? value.orderDetail.carrierInformation.document
+              : '-',
+          ['Telefono Transportista']:
+            value.orderDetail && value.orderDetail.carrierInformation
+              ? value.orderDetail.carrierInformation.mobile
+              : '-',
+          ['Grupo de Viaje']:
+            value.orderDetail && value.orderDetail.carrierInformation
+              ? value.orderDetail.carrierInformation.tripGroup
+              : '-',
           ['Total sin Descuentos']:
-            value.orderDetail.productInformation.withoutDiscountAmount,
-          ['Delivery']: value.orderDetail.productInformation.deliveryAmount,
-          ['Descuento']: value.orderDetail.productInformation.totalDiscount,
+            value.orderDetail && value.orderDetail.productInformation
+              ? value.orderDetail.productInformation.withoutDiscountAmount
+              : '-',
+          ['Delivery']:
+            value.orderDetail && value.orderDetail.productInformation
+              ? value.orderDetail.productInformation.deliveryAmount
+              : '-',
+          ['Descuento']:
+            value.orderDetail && value.orderDetail.productInformation
+              ? value.orderDetail.productInformation.totalDiscount
+              : '-',
           ['Importe Total']:
-            value.orderDetail.productInformation.totalImportTOH &&
-            value.orderDetail.productInformation.totalImportTOH !== 0
-              ? this.currencyPipe.transform(
-                  value.orderDetail.productInformation.totalImportTOH,'S/ '
-                )
-              : this.currencyPipe.transform(
-                  value.orderDetail.productInformation.totalImport,'S/ '
-                ),
+            value.orderDetail && value.orderDetail.productInformation
+              ? value.orderDetail.productInformation.totalImportTOH &&
+                value.orderDetail.productInformation.totalImportTOH !== 0
+                ? this.currencyPipe.transform(
+                    value.orderDetail.productInformation.totalImportTOH,
+                    'S/ '
+                  )
+                : this.currencyPipe.transform(
+                    value.orderDetail.productInformation.totalImport,
+                    'S/ '
+                  )
+              : '-',
         };
       });
       ExportTableSelection.exportArrayToExcel(data, 'Pedidos');
