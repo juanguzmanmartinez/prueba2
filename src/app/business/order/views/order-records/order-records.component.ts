@@ -369,6 +369,12 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterAll();
   }
 
+  resetOrderFilters() {
+    this.presenter.reset();
+    this.orderFilterStore.setIsResetFilters(true);
+    this.filterAll();
+  }
+
   exportData(): void {
     try {
       const data = this.selection.selected.map((value: OrderModel) => {

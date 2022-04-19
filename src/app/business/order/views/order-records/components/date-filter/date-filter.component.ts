@@ -129,6 +129,9 @@ export class DateFilterComponent implements OnInit {
 
   clearValues(): void {
     this.selectDate = '';
+    this.presenter.filterForm.get('promiseDateSelect').reset();
+    this.presenter.filterForm.get('promiseDate').reset();
+    this.presenter.filterForm.get('promiseRangeDate').reset();
   }
 
   clearPromiseDateRange(): void {

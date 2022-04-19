@@ -13,7 +13,6 @@ import { OrderFormPresenter } from '../../order-form.presenter';
   styleUrls: ['./local-filter.component.scss'],
 })
 export class LocalFilterComponent implements OnInit {
-
   list: IDrugstore[];
   locals: SearchOptionsI[];
   valueSelect: string;
@@ -26,11 +25,10 @@ export class LocalFilterComponent implements OnInit {
     private orderRecordImplement: OrderRecordsImplementService,
     private orderFilterStore: OrderFilterStore,
     public presenter: OrderFormPresenter
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
-    const {locals} = this.orderFilterStore.getOrderFilter();
+    const { locals } = this.orderFilterStore.getOrderFilter();
     this.selectedLocals = locals ?? [];
 
     this.orderRecordImplement.storeList
@@ -43,7 +41,7 @@ export class LocalFilterComponent implements OnInit {
           return newLocals.map((val) => {
             return {
               code: val.localCode,
-              hidden: false
+              hidden: false,
             };
           });
         })
@@ -74,13 +72,17 @@ export class LocalFilterComponent implements OnInit {
     if (locals.length === 1) {
       this.valueSelect = this.getLocalName(locals[0]);
     } else if (locals.length === 2) {
-      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(locals[1])}`;
+      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
+        locals[1]
+      )}`;
     } else if (locals.length > 2) {
-      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(locals[1])}...`;
+      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
+        locals[1]
+      )}...`;
     }
 
     if (locals.length > 2) {
-      locals.slice(2).forEach(v => {
+      locals.slice(2).forEach((v) => {
         this.othersSelects = `${this.othersSelects} ${this.getLocalName(v)}\n`;
       });
     }
@@ -89,24 +91,28 @@ export class LocalFilterComponent implements OnInit {
       return;
     }
 
-    this.filter.emit({locals, notFound: this.getLocalsName(locals)});
+    this.filter.emit({ locals, notFound: this.getLocalsName(locals) });
   }
 
   filterOptionList(value: string): void {
     this.locals = this.list.map((v) => {
       let isHide = true;
-      if (v.name.toLowerCase().includes(value.toLowerCase()) || v.localCode.toLowerCase().includes(value.toLowerCase())) {
+      if (
+        v.name.toLowerCase().includes(value.toLowerCase()) ||
+        v.localCode.toLowerCase().includes(value.toLowerCase())
+      ) {
         isHide = false;
       }
       return {
         code: v.localCode,
-        hidden: isHide
+        hidden: isHide,
       };
     });
   }
 
   clearValues(): void {
     this.selectionChange([]);
+    this.presenter.filterForm.get('localId').reset();
   }
 
   private sortLocals = (x, y) => {
@@ -117,5 +123,5 @@ export class LocalFilterComponent implements OnInit {
       return 1;
     }
     return 0;
-  }
+  };
 }

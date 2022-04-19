@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
+import { CTypesSearch } from './constants/order-filters.constant';
 import { IOrderFilters } from './interfaces/order-filter.interface';
 
 @Injectable()
@@ -56,6 +57,8 @@ export class OrderFormPresenter {
   reset() {
     this.filterForm.reset();
     this.filterForm.get('searchValue').setValue('');
-    this.filterForm.get('searchCode').setValue('');
+    this.filterForm.get('searchCode').setValue(CTypesSearch[0]);
+    console.log('reseteó');
+    console.log(this.filterForm.value);
   }
 }

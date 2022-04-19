@@ -68,6 +68,7 @@ export class ServiceFilterComponent implements OnInit {
 
   clearValues(): void {
     this.selectionChange([]);
+    this.presenter.filterForm.get('serviceTypeId').reset();
   }
 
   getServiceName(option: string): string {

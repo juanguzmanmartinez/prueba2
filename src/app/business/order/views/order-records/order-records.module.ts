@@ -58,6 +58,6 @@ import { OrderFormPresenter } from './order-form.presenter';
     DirectivesModule,
     PipesModule,
   ],
-  providers: [OrderRecordsImplementService, OrderFormPresenter],
+  providers: [OrderRecordsImplementService],
 })
 export class OrderRecordsModule {}

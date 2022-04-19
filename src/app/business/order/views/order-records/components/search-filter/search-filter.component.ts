@@ -39,8 +39,19 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
     const valueSelect = this.typesSearch.find(
       (type) => type.code === searchCode
     );
+
     this.valueSelect = valueSelect ?? this.typesSearch[0];
     this.presenter.filterForm.get('searchCode').setValue(this.valueSelect);
+    this.resetReactive();
+  }
+
+  resetReactive() {
+    this.orderFilterStore.getIsResetFilters().subscribe((isReset) => {
+      if (isReset) {
+        this.selectionChange(this.typesSearch[0]);
+        this.orderFilterStore.setIsResetFilters(false);
+      }
+    });
   }
 
   selectionChange(event: ITypeSearch): void {

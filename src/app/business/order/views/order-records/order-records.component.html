@@ -60,6 +60,7 @@
               innerClass="w-100"
               appearance="primary"
               (clicked)="filterAll()"
+              [disabled]="tableLoader"
               >BUSCAR</app-button
             >
           </div>
@@ -67,14 +68,15 @@
             <app-button
               innerClass="w-100"
               appearance="primary"
-              (clicked)="presenter.reset()"
+              (clicked)="resetOrderFilters()"
+              [disabled]="tableLoader"
               >LIMPIAR</app-button
             >
           </div>
         </div>
       </div>
     </div>
-
+    
     <div class="row">
       <div class="col-12 mb-8">
         <table

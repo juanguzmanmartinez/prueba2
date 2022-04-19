@@ -2,7 +2,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { map, tap } from 'rxjs/operators';
 import { OrderRecordsImplementService } from '../../implements/order-records-implement.service';
-import { OrderStatus, StatusFilterEvent, } from '../../interfaces/order-records.interface';
+import {
+  OrderStatus,
+  StatusFilterEvent,
+} from '../../interfaces/order-records.interface';
 import { OrderFormPresenter } from '../../order-form.presenter';
 
 @Component({
@@ -23,8 +26,7 @@ export class StatusFilterComponent implements OnInit {
     private orderRecordImplement: OrderRecordsImplementService,
     private orderFilterStore: OrderFilterStore,
     public presenter: OrderFormPresenter
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     const { statusOrder } = this.orderFilterStore.getOrderFilter();
@@ -90,6 +92,7 @@ export class StatusFilterComponent implements OnInit {
 
   clearValues(): void {
     this.selectionChange([]);
+    this.presenter.filterForm.get('orderStatus').reset();
   }
 
   private sortStatus = (x, y) => {

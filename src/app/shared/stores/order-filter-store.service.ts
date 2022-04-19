@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 export class OrderFilterStore {
   private orderFilter: IOrderFilter = {};
   private orderFilterSubject = new BehaviorSubject<IOrderFilter>({});
+  private isResetFilters = new BehaviorSubject<boolean>(false);
 
   public orderFilter$ = this.orderFilterSubject.asObservable();
 
@@ -17,6 +18,14 @@ export class OrderFilterStore {
 
   getOrderFilter(): IOrderFilter {
     return this.orderFilter;
+  }
+
+  getIsResetFilters() {
+    return this.isResetFilters.asObservable();
+  }
+
+  setIsResetFilters(isReset: boolean) {
+    this.isResetFilters.next(isReset);
   }
 
   set setSearchCode(searchCode: string) {
@@ -72,7 +81,7 @@ export class OrderFilterStore {
     this.orderFilterSubject.next(this.orderFilter);
   }
 
-  set setOrderCriteria(data: { column: string, order: 'A' | 'D' | 'N'}) {
+  set setOrderCriteria(data: { column: string; order: 'A' | 'D' | 'N' }) {
     this.orderFilter.orderCriteria = data;
     this.orderFilterSubject.next(this.orderFilter);
   }

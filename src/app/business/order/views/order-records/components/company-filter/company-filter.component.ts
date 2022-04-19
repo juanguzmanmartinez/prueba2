@@ -9,12 +9,11 @@ import { OrderFormPresenter } from '../../order-form.presenter';
   styleUrls: ['./company-filter.component.scss'],
 })
 export class CompanyFilterComponent implements OnInit {
-
   list = [
-    {code: 'IKF', name: 'Inkafarma'},
-    {code: 'MF', name: 'Mifarma'},
+    { code: 'IKF', name: 'Inkafarma' },
+    { code: 'MF', name: 'Mifarma' },
   ];
-  companies = this.list.map(value => value.code);
+  companies = this.list.map((value) => value.code);
   selectedCompanies: string[];
 
   @Output() filter = new EventEmitter<CompanyFilterEvent>();
@@ -22,22 +21,22 @@ export class CompanyFilterComponent implements OnInit {
   constructor(
     private orderFilterStore: OrderFilterStore,
     public presenter: OrderFormPresenter
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
-    const {companies} = this.orderFilterStore.getOrderFilter();
+    const { companies } = this.orderFilterStore.getOrderFilter();
     this.selectedCompanies = companies ?? [];
   }
 
   selectionChange(companies: string[]): void {
     this.orderFilterStore.setCompanies = companies;
     this.selectedCompanies = companies;
-    this.filter.emit({companies, notFound: this.getCompaniesName(companies)});
+    this.filter.emit({ companies, notFound: this.getCompaniesName(companies) });
   }
 
   clearValues(): void {
     this.selectionChange([]);
+    this.presenter.filterForm.get('companyCode').reset();
   }
 
   getCompanyName(option: string): string {

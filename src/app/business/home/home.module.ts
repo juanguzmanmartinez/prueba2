@@ -6,18 +6,14 @@ import { DirectivesModule } from '../../shared/directives/directives.module';
 import { LinksModule } from '@atoms/links/links.module';
 import { CardModule } from '@molecules/cards/card.module';
 
-
 @NgModule({
-    declarations: [
-        HomeComponent
-    ],
-    imports: [
-        CommonModule,
-        HomeRoutingModule,
-        DirectivesModule,
-        LinksModule,
-        CardModule
-    ]
+  declarations: [HomeComponent],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    DirectivesModule,
+    LinksModule,
+    CardModule,
+  ],
 })
-export class HomeModule {
-}
+export class HomeModule {}

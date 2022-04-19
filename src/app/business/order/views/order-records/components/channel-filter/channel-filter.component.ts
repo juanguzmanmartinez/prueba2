@@ -9,24 +9,22 @@ import { OrderFormPresenter } from '../../order-form.presenter';
   styleUrls: ['./channel-filter.component.scss'],
 })
 export class ChannelFilterComponent implements OnInit {
-
   @Output() filter = new EventEmitter<ChannelFilterEvent>();
 
   list = [
-    {code: 'CALL', name: 'Call Center'},
-    {code: 'DIGITAL', name: 'Digital'},
+    { code: 'CALL', name: 'Call Center' },
+    { code: 'DIGITAL', name: 'Digital' },
   ];
-  channels = this.list.map(value => value.code);
+  channels = this.list.map((value) => value.code);
   selectedChannels: string[];
 
   constructor(
     private orderFilterStore: OrderFilterStore,
     public presenter: OrderFormPresenter
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
-    const {channelOfBuy} = this.orderFilterStore.getOrderFilter();
+    const { channelOfBuy } = this.orderFilterStore.getOrderFilter();
     this.selectedChannels = channelOfBuy ?? [];
   }
 
@@ -37,6 +35,7 @@ export class ChannelFilterComponent implements OnInit {
 
   clearValues(): void {
     this.selectionChange([]);
+    this.presenter.filterForm.get('serviceChannel').reset();
   }
 
   getChannelName(option: string): string {
