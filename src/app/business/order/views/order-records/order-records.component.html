@@ -52,24 +52,28 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-6">
       <div class="col-3 offset-9">
         <div class="row">
           <div class="col-6">
-            <app-button appearance="primary" (clicked)="filterAll()"
+            <app-button
+              innerClass="w-100"
+              appearance="primary"
+              (clicked)="filterAll()"
               >BUSCAR</app-button
             >
           </div>
           <div class="col-6">
-            <app-button appearance="primary" (clicked)="presenter.reset()"
+            <app-button
+              innerClass="w-100"
+              appearance="primary"
+              (clicked)="presenter.reset()"
               >LIMPIAR</app-button
             >
           </div>
         </div>
       </div>
     </div>
-
-    <pre>{{ presenter.filterForm.value | json }}</pre>
 
     <div class="row">
       <div class="col-12 mb-8">
