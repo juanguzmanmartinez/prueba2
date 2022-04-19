@@ -31,6 +31,7 @@ export class CompanyFilterComponent implements OnInit {
   }
 
   selectionChange(companies: string[]): void {
+    this.orderFilterStore.setCompanies = companies;
     this.selectedCompanies = companies;
     this.filter.emit({companies, notFound: this.getCompaniesName(companies)});
   }

@@ -2,7 +2,10 @@ import { OrderResponse } from '../interfaces/order-records.interface';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
 import { CChannelName } from '@models/channel/channel.model';
 import { ETextColor } from '@models/text/text.model';
-import { CStatusOrderColor, CStatusOrderName } from '@models/status-order/status-order.model';
+import {
+  CStatusOrderColor,
+  CStatusOrderName,
+} from '@models/status-order/status-order.model';
 import { reformatCamelCase } from '../../../../../shared/utils/reformat-camelcase.util';
 import { OrderDetailResponse } from '../../order-detail/interfaces/order-detail.interface';
 import { OrderDetailModel } from '../../order-detail/models/order-detail.model';
@@ -18,22 +21,33 @@ export class OrderModel {
   documentId: string;
   state: string;
   stateColor: ETextColor;
+  companyCode: string;
 
   orderDetail: OrderDetailModel;
 
   constructor(data: OrderResponse) {
     this.orderId = data.orderId ? data.orderId : 0;
     this.ecommerceId = data.ecommerceId ? data.ecommerceId : 0;
-    this.local = data.localId ? data.localId : '-' ;
-    this.channel = data.serviceChannel ? CChannelName[data.serviceChannel] : '-';
-    this.service = data.serviceTypeId ? CDeliveryServiceTypeName[data.serviceTypeId] : '-';
-    this.promiseDate = data.promiseDate ? this.formatPromiseDate(data.promiseDate) : '-';
+    this.local = data.localId ? data.localId : '-';
+    this.channel = data.serviceChannel
+      ? CChannelName[data.serviceChannel]
+      : '-';
+    this.service = data.serviceTypeId
+      ? CDeliveryServiceTypeName[data.serviceTypeId]
+      : '-';
+    this.promiseDate = data.promiseDate
+      ? this.formatPromiseDate(data.promiseDate)
+      : '-';
     this.client = data.client ? reformatCamelCase(data.client) : '-';
     this.documentId = data.documentoId ? data.documentoId : '-';
     this.state = data.orderStatus ? CStatusOrderName[data.orderStatus] : '-';
-    this.stateColor = data.orderStatus ? CStatusOrderColor[data.orderStatus] : '-';
-
-    this.orderDetail = new OrderDetailModel(data.oderDetailOut);
+    this.stateColor = data.orderStatus
+      ? CStatusOrderColor[data.orderStatus]
+      : '-';
+    this.companyCode = data.companyCode ? data.companyCode : '-';
+    this.orderDetail = data.oderDetailOut
+      ? new OrderDetailModel(data.oderDetailOut)
+      : null;
   }
 
   private formatPromiseDate = (promiseDate: string): string => {
@@ -52,7 +66,7 @@ export class OrderModel {
       const SecondSlotTime = this.transformAmOrPm(promiseDate.slice(35, 37));
       return `${day}/${month}/${year} <br> ${firstHour}:${firstMinutes} ${firstSlotTime} - ${SecondHour}:${SecondMinutes} ${SecondSlotTime}`;
     }
-  }
+  };
 
   private transformAmOrPm = (values: string): string => {
     if (values === 'AM') {
@@ -62,5 +76,5 @@ export class OrderModel {
     if (values === 'PM') {
       return 'p.m.';
     }
-  }
+  };
 }

@@ -32,7 +32,7 @@ export class ChannelFilterComponent implements OnInit {
 
   selectionChange(channels: string[]): void {
     this.selectedChannels = channels;
-    // this.filter.emit({channels, notFound: this.getChannelsName(channels)});
+    this.orderFilterStore.setChannelOfBuy = channels;
   }
 
   clearValues(): void {

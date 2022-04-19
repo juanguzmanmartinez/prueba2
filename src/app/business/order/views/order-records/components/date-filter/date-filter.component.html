@@ -1,11 +1,10 @@
 <div [formGroup]="presenter.filterForm">
   <div [ngClass]="{ 'd-block': !isRange, 'd-none': isRange }">
     <app-select
-      formControlName="promiseDate"
       #appSelect
+      formControlName="promiseDateSelect"
       placeholder="Fecha promesa"
       customFontName="calendar_today"
-      [(ngModel)]="selectDate"
       [optionList]="typeDates"
       [showClearValueForButton]="true"
       (clearValueForButton)="clearValues()"
@@ -16,12 +15,10 @@
 
   <div [ngClass]="{ 'd-block': isRange, 'd-none': !isRange }">
     <app-input-datepicker-range
-      formControlName="promiseDate"
+      formControlName="promiseRangeDate"
       #inputDatepickerRange
       [minDate]="minDateSearch"
       (cancel)="cancelDateRange()"
-      [(ngModel)]="datepicker"
-      (ngModelChange)="rangeChange()"
     >
     </app-input-datepicker-range>
   </div>

@@ -67,6 +67,7 @@ export class LocalFilterComponent implements OnInit {
   }
 
   selectionChange(locals: string[], isCallOnInit = false): void {
+    this.orderFilterStore.setLocals = locals;
     this.selectedLocals = locals;
     this.othersSelects = '';
 

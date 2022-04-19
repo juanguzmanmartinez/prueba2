@@ -36,6 +36,7 @@ export class ServiceFilterComponent implements OnInit {
   }
 
   selectionChange(services: string[], isOnInit = false): void {
+    this.orderFilterStore.setTypeServices = services;
     this.selectedService = services;
     this.othersSelects = '';
 

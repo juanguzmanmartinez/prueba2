@@ -2,20 +2,22 @@
   <div class="pt-5 order-header">
     <div class="row mb-4">
       <div class="col">
-        <app-back-router-simple
-          backRoute="/"
-          textBackRoute="Ir a inicio">
+        <app-back-router-simple backRoute="/" textBackRoute="Ir a inicio">
         </app-back-router-simple>
       </div>
     </div>
-    <div class="d-flex justify-content-between align-items-center pb-5" *ngIf="!errorResponse">
+    <div
+      class="d-flex justify-content-between align-items-center pb-5"
+      *ngIf="!errorResponse"
+    >
       <div class="d-flex flex-column">
         <h1 class="text-h4 text-black mb-0">Historial de pedidos</h1>
       </div>
       <app-button-icon
         [disabled]="!selected"
         (clicked)="exportData()"
-        iconName="download">
+        iconName="download"
+      >
         Descargar selección
         {{ selected ? ": " + (selected | number: "2.0-0") : "" }}
       </app-button-icon>
@@ -25,28 +27,45 @@
   <ng-container *ngIf="!errorResponse; else hasError">
     <div class="row mb-2">
       <div class="col-6 col-lg-6 p-2">
-        <app-search-filter (filter)="filterBySearch($event)"></app-search-filter>
+        <app-search-filter></app-search-filter>
       </div>
       <div class="col-6 col-lg-3 p-2">
-        <app-local-filter (filter)="filterByLocal($event)"></app-local-filter>
+        <app-local-filter></app-local-filter>
       </div>
       <div class="col-6 col-lg-3 p-2">
-        <app-company-filter (filter)="filterByCompany($event)"></app-company-filter>
+        <app-company-filter></app-company-filter>
       </div>
     </div>
 
     <div class="row mb-6">
       <div class="col-6 col-lg-3 p-2">
-        <app-service-filter (filter)="filterByService($event)"></app-service-filter>
+        <app-service-filter></app-service-filter>
       </div>
       <div class="col-6 col-lg-3 p-2">
-        <app-date-filter (filter)="filterByDatePromise($event)"></app-date-filter>
+        <app-date-filter></app-date-filter>
       </div>
       <div class="col-6 col-lg-3 p-2">
-        <app-status-filter (filter)="filterByStatus($event)"></app-status-filter>
+        <app-status-filter></app-status-filter>
       </div>
       <div class="col-6 col-lg-3 p-2">
-        <app-channel-filter (filter)="filterByChannel($event)"></app-channel-filter>
+        <app-channel-filter></app-channel-filter>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3 offset-9">
+        <div class="row">
+          <div class="col-6">
+            <app-button appearance="primary" (clicked)="filterAll()"
+              >BUSCAR</app-button
+            >
+          </div>
+          <div class="col-6">
+            <app-button appearance="primary" (clicked)="presenter.reset()"
+              >LIMPIAR</app-button
+            >
+          </div>
+        </div>
       </div>
     </div>
 
@@ -54,39 +73,59 @@
 
     <div class="row">
       <div class="col-12 mb-8">
-        <table mat-table large-table [dataSource]="dataSource" class="order-table" [hidden]="tableLoader">
+        <table
+          mat-table
+          large-table
+          [dataSource]="dataSource"
+          class="order-table"
+          [hidden]="tableLoader"
+        >
           <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef column-width="5%">
               <app-checkbox
                 (change)="$event ? masterToggle() : null"
                 [checked]="selection.hasValue() && isAllSelected()"
-                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                [indeterminate]="selection.hasValue() && !isAllSelected()"
+              >
               </app-checkbox>
             </th>
             <td mat-cell *matCellDef="let row">
               <app-checkbox
                 (click)="$event.stopPropagation()"
                 (change)="$event ? selection.toggle(row) : null"
-                [checked]="selection.isSelected(row)">
+                [checked]="selection.isSelected(row)"
+              >
               </app-checkbox>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="orderId">
             <th
-              mat-header-cell column-width="10%" *matHeaderCellDef
-              app-sort-custom [column]="sortColumns.orderId.column" [reload]="sortColumns.orderId.reload"
-              (currentOrder)="sortData($event)">
+              mat-header-cell
+              column-width="10%"
+              *matHeaderCellDef
+              app-sort-custom
+              [column]="sortColumns.orderId.column"
+              [reload]="sortColumns.orderId.reload"
+              (currentOrder)="sortData($event)"
+            >
               N° Pedido
             </th>
-            <td mat-cell cell-bold *matCellDef="let element">{{ element.ecommerceId }}</td>
+            <td mat-cell cell-bold *matCellDef="let element">
+              {{ element.ecommerceId }}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="local">
             <th
-              mat-header-cell column-width="7%" *matHeaderCellDef
-              app-sort-custom [column]="sortColumns.local.column" [reload]="sortColumns.local.reload"
-              (currentOrder)="sortData($event)">
+              mat-header-cell
+              column-width="7%"
+              *matHeaderCellDef
+              app-sort-custom
+              [column]="sortColumns.local.column"
+              [reload]="sortColumns.local.reload"
+              (currentOrder)="sortData($event)"
+            >
               Local
             </th>
             <td mat-cell *matCellDef="let element">{{ element.local }}</td>
@@ -94,10 +133,15 @@
 
           <ng-container matColumnDef="channel">
             <th
-              mat-header-cell column-width="10%" *matHeaderCellDef
-              app-sort-custom [column]="sortColumns.channel.column" [reload]="sortColumns.channel.reload"
+              mat-header-cell
+              column-width="10%"
+              *matHeaderCellDef
+              app-sort-custom
+              [column]="sortColumns.channel.column"
+              [reload]="sortColumns.channel.reload"
               (currentOrder)="sortData($event)"
-              class="th-center">
+              class="th-center"
+            >
               Canal
             </th>
             <td mat-cell *matCellDef="let element">{{ element.channel }}</td>
@@ -105,10 +149,15 @@
 
           <ng-container matColumnDef="service">
             <th
-              mat-header-cell column-width="10%" *matHeaderCellDef
-              app-sort-custom [column]="sortColumns.service.column" [reload]="sortColumns.service.reload"
+              mat-header-cell
+              column-width="10%"
+              *matHeaderCellDef
+              app-sort-custom
+              [column]="sortColumns.service.column"
+              [reload]="sortColumns.service.reload"
               (currentOrder)="sortData($event)"
-              class="th-center">
+              class="th-center"
+            >
               Servicio
             </th>
             <td mat-cell *matCellDef="let element">{{ element.service }}</td>
@@ -116,20 +165,34 @@
 
           <ng-container matColumnDef="promiseDate">
             <th
-              mat-header-cell column-width="15%" *matHeaderCellDef
-              app-sort-custom [column]="sortColumns.promiseDate.column" [reload]="sortColumns.promiseDate.reload"
-              (currentOrder)="sortData($event)">
+              mat-header-cell
+              column-width="15%"
+              *matHeaderCellDef
+              app-sort-custom
+              [column]="sortColumns.promiseDate.column"
+              [reload]="sortColumns.promiseDate.reload"
+              (currentOrder)="sortData($event)"
+            >
               F. Promesa
             </th>
-            <td mat-cell *matCellDef="let element" [innerHTML]="element.promiseDate"></td>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [innerHTML]="element.promiseDate"
+            ></td>
           </ng-container>
 
           <ng-container matColumnDef="client">
             <th
-              mat-header-cell column-width="15%" *matHeaderCellDef
-              app-sort-custom [column]="sortColumns.client.column" [reload]="sortColumns.client.reload"
+              mat-header-cell
+              column-width="15%"
+              *matHeaderCellDef
+              app-sort-custom
+              [column]="sortColumns.client.column"
+              [reload]="sortColumns.client.reload"
               (currentOrder)="sortData($event)"
-              class="th-center">
+              class="th-center"
+            >
               Cliente
             </th>
             <td mat-cell *matCellDef="let element">{{ element.client }}</td>
@@ -137,35 +200,64 @@
 
           <ng-container matColumnDef="documentId">
             <th
-              mat-header-cell column-width="12%" *matHeaderCellDef
-              app-sort-custom [column]="sortColumns.documentId.column" [reload]="sortColumns.documentId.reload"
+              mat-header-cell
+              column-width="12%"
+              *matHeaderCellDef
+              app-sort-custom
+              [column]="sortColumns.documentId.column"
+              [reload]="sortColumns.documentId.reload"
               (currentOrder)="sortData($event)"
-              class="th-center">
+              class="th-center"
+            >
               Doc. Identidad
             </th>
-            <td mat-cell *matCellDef="let element">{{ element.documentId | nombre }}</td>
+            <td mat-cell *matCellDef="let element">
+              {{ element.documentId | nombre }}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="state">
             <th
-              mat-header-cell column-width="11%" *matHeaderCellDef
-              app-sort-custom [column]="sortColumns.state.column" [reload]="sortColumns.state.reload"
+              mat-header-cell
+              column-width="11%"
+              *matHeaderCellDef
+              app-sort-custom
+              [column]="sortColumns.state.column"
+              [reload]="sortColumns.state.reload"
               (currentOrder)="sortData($event)"
-              class="th-center">
+              class="th-center"
+            >
               Estado
             </th>
-            <td mat-cell *matCellDef="let element" class="state" [class]="element.stateColor">{{ element.state }}</td>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              class="state"
+              [class]="element.stateColor"
+            >
+              {{ element.state }}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="actions">
-            <th mat-header-cell column-actions column-width="5%" *matHeaderCellDef></th>
+            <th
+              mat-header-cell
+              column-actions
+              column-width="5%"
+              *matHeaderCellDef
+            ></th>
             <td mat-cell column-actions *matCellDef="let element">
               <div class="d-inline-flex">
-                <app-tooltip *ngIf="element.state !== statusError" value="Ver Detalle" position="left">
+                <app-tooltip
+                  *ngIf="element.state !== statusError"
+                  value="Ver Detalle"
+                  position="left"
+                >
                   <app-button-action-icon
                     iconName="launch"
                     iconStyle="edge-table"
-                    (clicked)="viewOrderDetails(element.ecommerceId)">
+                    (clicked)="viewOrderDetails(element.ecommerceId)"
+                  >
                   </app-button-action-icon>
                 </app-tooltip>
               </div>
@@ -173,13 +265,20 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row row-hover *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr
+            mat-row
+            row-hover
+            *matRowDef="let row; columns: displayedColumns"
+          ></tr>
         </table>
 
         <app-table-loader *ngIf="tableLoader" [cells]="8"></app-table-loader>
         <app-not-search-result
-          *ngIf="!tableLoader && !dataSource.filteredData.length && !errorResponse"
-          [keyword]="notFound">
+          *ngIf="
+            !tableLoader && !dataSource.filteredData.length && !errorResponse
+          "
+          [keyword]="notFound"
+        >
         </app-not-search-result>
       </div>
     </div>
@@ -192,7 +291,8 @@
           [length]="totalOrder"
           [pageIndex]="page - 1"
           [pageSize]="pageSize"
-          (page)="onChangePage($event)">
+          (page)="onChangePage($event)"
+        >
         </app-paginator>
       </div>
 
@@ -206,7 +306,8 @@
               [value]="10"
               containerMaxHeight="80px"
               [optionList]="[10, 20, 30]"
-              (ngModelChange)="filterAll()">
+              (ngModelChange)="filterAll()"
+            >
             </app-select>
           </div>
         </div>
@@ -216,7 +317,9 @@
 
   <ng-template #hasError>
     <div class="error">
-      <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+      <app-http-error-viewer
+        [errorResponse]="errorResponse"
+      ></app-http-error-viewer>
     </div>
   </ng-template>
 </section>

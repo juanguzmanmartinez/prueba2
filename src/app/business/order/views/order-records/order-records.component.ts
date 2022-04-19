@@ -192,20 +192,14 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onChangePage(pe: PageEvent): void {
     const orderFilter = this.orderFilterStore.getOrderFilter();
-
+    const orderFilters = this.presenter.getFilters();
+    this.orderFilterStore.setDatePromise = orderFilters.promiseDate;
     this.tableLoader = true;
     this.orderRecordsImplement
       .orderList(
         pe.pageIndex + 1,
         pe.pageSize,
-        orderFilter.searchCode,
-        orderFilter.searchValue,
-        orderFilter.locals,
-        orderFilter.channelOfBuy,
-        orderFilter.typeServices,
-        orderFilter.datePromise,
-        orderFilter.statusOrder,
-        orderFilter.companies,
+        orderFilters,
         orderFilter.orderCriteria
       )
       .pipe(
@@ -224,23 +218,12 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   filterAll(): void {
     const orderFilter = this.orderFilterStore.getOrderFilter();
-
+    const orderFilters = this.presenter.getFilters();
+    this.orderFilterStore.setDatePromise = orderFilters.promiseDate;
     this.tableLoader = true;
     this.showPaginator = false;
     this.orderRecordsImplement
-      .orderList(
-        1,
-        this.pageSize,
-        orderFilter.searchCode,
-        orderFilter.searchValue,
-        orderFilter.locals,
-        orderFilter.channelOfBuy,
-        orderFilter.typeServices,
-        orderFilter.datePromise,
-        orderFilter.statusOrder,
-        orderFilter.companies,
-        orderFilter.orderCriteria
-      )
+      .orderList(1, this.pageSize, orderFilters, orderFilter.orderCriteria)
       .pipe(
         finalize(() => {
           this.page = 1;
@@ -315,9 +298,18 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   isAllSelected(): boolean {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    let allSelected = true;
+    const orderIdsSelected = this.fixedSelectedRows.map(
+      (orderSelected) => orderSelected.orderId
+    );
+    this.dataSource.data.forEach((orderTable) => {
+      if (!orderIdsSelected.includes(orderTable.orderId)) {
+        allSelected = false;
+        return;
+      }
+    });
+
+    return allSelected;
   }
 
   masterToggle(): void {
@@ -327,24 +319,25 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private setOrderPageData(response: OrderRecords, initialCharge = true): void {
-    const selectedRecord = this.fixedSelectedRows.map(
-      (value) => value.ecommerceId
-    );
-    const data = response.orders.filter(
-      (item) => !selectedRecord.includes(item.ecommerceId)
-    );
-    const data2 = response.orders.filter((item) =>
-      selectedRecord.includes(item.ecommerceId)
-    );
-    const selectedRecordData2 = data2.map((value) => value.ecommerceId);
-    const data1 = this.fixedSelectedRows.filter((item) =>
-      selectedRecordData2.includes(item.ecommerceId)
+    const orderIdSelected = this.fixedSelectedRows.map(
+      (order) => order.orderId
     );
 
-    let builds = [...data, ...data1];
-    builds.sort((n1, n2) => {
-      return this.naturalCompare(n1.ecommerceId, n2.ecommerceId);
+    const builds = response.orders.map((order) => {
+      if (orderIdSelected.includes(order.orderId)) {
+        const orderSelected = this.fixedSelectedRows.find(
+          (orderFixed) => orderFixed.orderId === order.orderId
+        );
+        this.selection.deselect(orderSelected);
+        this.selection.select(order);
+        return this.fixedSelectedRows.find(
+          (newOrder) => newOrder.orderId === order.orderId
+        );
+      } else {
+        return order;
+      }
     });
+
     this.dataSource.data = builds;
 
     this.totalOrder = response.totalRecords;
@@ -379,16 +372,26 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   exportData(): void {
     try {
       const data = this.selection.selected.map((value: OrderModel) => {
-        console.log(value);
         return {
           ['N° Pedido (Digital)']: value.ecommerceId,
-          ['N° Pedido (Call)']: '',
+          ['N° Pedido (Call)']: value.orderDetail
+            ? value.orderDetail.callNumber
+            : '-',
           ['Estado']: value.state,
           ['Local']: value.local,
-          ['Marca']: '',
+          ['Marca']: value.companyCode,
           ['Canal']: value.channel,
           ['Servicio']: value.service,
-          ['Fecha Creación']: '',
+          ['Fecha Creación']:
+            value.orderDetail && value.orderDetail.timeline
+              ? value.orderDetail.timeline.find(
+                  (step) => step.status === 'En tienda'
+                )
+                ? value.orderDetail.timeline.find(
+                    (step) => step.status === 'En tienda'
+                  ).date
+                : '-'
+              : '-',
           ['Fecha Promesa']: value.promiseDate.slice(0, 9),
           ['Hora Promesa']: value.promiseDate
             .slice(9)
@@ -396,47 +399,103 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
             .trim(),
           ['Cliente']: value.client,
           ['Documento']: value.documentId,
-          ['Dirección']: value.orderDetail.clientInformation.address,
-          ['Correo']: value.orderDetail.clientInformation.email,
-          ['Teléfono']: value.orderDetail.clientInformation.phone,
-          ['RUC']: value.orderDetail.clientInformation.ruc,
-          ['Razón Social']: value.orderDetail.clientInformation.businessName,
-          ['Coordenadas']: value.orderDetail.clientInformation.coordinates,
-          ['Zona']: value.orderDetail.orderInformation.zone,
-          ['Purchase ID']: value.orderDetail.orderInformation.purchaseId,
-          ['Tipo Despacho']: value.orderDetail.orderInformation.typeOfOffice,
-          ['Observación']: value.orderDetail.orderInformation.observation,
+          ['Dirección']:
+            value.orderDetail && value.orderDetail.clientInformation
+              ? value.orderDetail.clientInformation.address
+              : '-',
+          ['Correo']:
+            value.orderDetail && value.orderDetail.clientInformation
+              ? value.orderDetail.clientInformation.email
+              : '-',
+          ['Teléfono']:
+            value.orderDetail && value.orderDetail.clientInformation
+              ? value.orderDetail.clientInformation.phone
+              : '-',
+          ['RUC']:
+            value.orderDetail && value.orderDetail.clientInformation
+              ? value.orderDetail.clientInformation.ruc
+              : '-',
+          ['Razón Social']:
+            value.orderDetail && value.orderDetail.clientInformation
+              ? value.orderDetail.clientInformation.businessName
+              : '-',
+          ['Coordenadas']:
+            value.orderDetail && value.orderDetail.clientInformation
+              ? value.orderDetail.clientInformation.coordinates
+              : '-',
+          ['Zona']:
+            value.orderDetail && value.orderDetail.orderInformation
+              ? value.orderDetail.orderInformation.zone
+              : '-',
+          ['Purchase ID']:
+            value.orderDetail && value.orderDetail.orderInformation
+              ? value.orderDetail.orderInformation.purchaseId
+              : '-',
+          ['Tipo Despacho']:
+            value.orderDetail && value.orderDetail.orderInformation
+              ? value.orderDetail.orderInformation.typeOfOffice
+              : '-',
+          ['Observación']:
+            value.orderDetail && value.orderDetail.orderInformation
+              ? value.orderDetail.orderInformation.observation
+              : '-',
           ['Motivo de Cancelación']:
-            value.orderDetail.orderInformation.reasonForCancellation,
-          ['Tipo de Pago']: value.orderDetail.paymentInformation.paymentType,
-          ['Estado Liquidacion']: value.orderDetail.paymentInformation.status,
+            value.orderDetail && value.orderDetail.orderInformation
+              ? value.orderDetail.orderInformation.reasonForCancellation
+              : '-',
+          ['Tipo de Pago']:
+            value.orderDetail && value.orderDetail.paymentInformation
+              ? value.orderDetail.paymentInformation.paymentType
+              : '-',
+          ['Estado Liquidacion']:
+            value.orderDetail && value.orderDetail.paymentInformation
+              ? value.orderDetail.paymentInformation.status
+              : '-',
           ['Fecha Estado Liquidacion']:
-            value.orderDetail.paymentInformation.date,
-          ['Transportista']: value.orderDetail.carrierInformation
-            ? value.orderDetail.carrierInformation.transporters
-            : '-',
-          ['Documento Transportista']: value.orderDetail.carrierInformation
-            ? value.orderDetail.carrierInformation.document
-            : '-',
-          ['Telefono Transportista']: value.orderDetail.carrierInformation
-            ? value.orderDetail.carrierInformation.mobile
-            : '-',
-          ['Grupo de Viaje']: value.orderDetail.carrierInformation
-            ? value.orderDetail.carrierInformation.tripGroup
-            : '-',
+            value.orderDetail && value.orderDetail.paymentInformation
+              ? value.orderDetail.paymentInformation.date
+              : '-',
+          ['Transportista']:
+            value.orderDetail && value.orderDetail.carrierInformation
+              ? value.orderDetail.carrierInformation.transporters
+              : '-',
+          ['Documento Transportista']:
+            value.orderDetail && value.orderDetail.carrierInformation
+              ? value.orderDetail.carrierInformation.document
+              : '-',
+          ['Telefono Transportista']:
+            value.orderDetail && value.orderDetail.carrierInformation
+              ? value.orderDetail.carrierInformation.mobile
+              : '-',
+          ['Grupo de Viaje']:
+            value.orderDetail && value.orderDetail.carrierInformation
+              ? value.orderDetail.carrierInformation.tripGroup
+              : '-',
           ['Total sin Descuentos']:
-            value.orderDetail.productInformation.withoutDiscountAmount,
-          ['Delivery']: value.orderDetail.productInformation.deliveryAmount,
-          ['Descuento']: value.orderDetail.productInformation.totalDiscount,
+            value.orderDetail && value.orderDetail.productInformation
+              ? value.orderDetail.productInformation.withoutDiscountAmount
+              : '-',
+          ['Delivery']:
+            value.orderDetail && value.orderDetail.productInformation
+              ? value.orderDetail.productInformation.deliveryAmount
+              : '-',
+          ['Descuento']:
+            value.orderDetail && value.orderDetail.productInformation
+              ? value.orderDetail.productInformation.totalDiscount
+              : '-',
           ['Importe Total']:
-            value.orderDetail.productInformation.totalImportTOH &&
-            value.orderDetail.productInformation.totalImportTOH !== 0
-              ? this.currencyPipe.transform(
-                  value.orderDetail.productInformation.totalImportTOH,'S/ '
-                )
-              : this.currencyPipe.transform(
-                  value.orderDetail.productInformation.totalImport,'S/ '
-                ),
+            value.orderDetail && value.orderDetail.productInformation
+              ? value.orderDetail.productInformation.totalImportTOH &&
+                value.orderDetail.productInformation.totalImportTOH !== 0
+                ? this.currencyPipe.transform(
+                    value.orderDetail.productInformation.totalImportTOH,
+                    'S/ '
+                  )
+                : this.currencyPipe.transform(
+                    value.orderDetail.productInformation.totalImport,
+                    'S/ '
+                  )
+              : '-',
         };
       });
       ExportTableSelection.exportArrayToExcel(data, 'Pedidos');

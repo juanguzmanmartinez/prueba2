@@ -100,7 +100,7 @@ export interface OrderInformationConsolidatedResponse {
 }
 
 export interface OrderDetailResponse {
-  orderInfoConsolidated: OrderInformationConsolidatedResponse;
-  orderInfoMotorized: CarrierInformation;
-  orderStatusDetail: OrderStatusDetail;
+  orderInfoConsolidated?: OrderInformationConsolidatedResponse;
+  orderInfoMotorized?: CarrierInformation;
+  orderStatusDetail?: OrderStatusDetail;
 }

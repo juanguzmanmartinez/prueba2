@@ -3,11 +3,14 @@ import { Observable } from 'rxjs';
 import { OrderClientService } from '@clients/order/order-client.service';
 import { IDrugstore } from '@interfaces/drugstores/drugstores.interface';
 import { DrugstoresClientService } from '@clients/drugstores/drugstores-client.service';
-import { OrderRecords, OrderStatus } from '../interfaces/order-records.interface';
+import {
+  OrderRecords,
+  OrderStatus,
+} from '../interfaces/order-records.interface';
+import { IOrderFilters } from '../interfaces/order-filter.interface';
 
 @Injectable()
 export class OrderRecordsImplementService {
-
   get storeList(): Observable<IDrugstore[]> {
     return this.storesClient.getDrugstoreList();
   }
@@ -16,81 +19,88 @@ export class OrderRecordsImplementService {
     return this.orderClient.getStatusList();
   }
 
-  private filters = (searchCode: string, searchValue: string, localId: string[], serviceChannel: string[], serviceTypeId: string[],
-                     promiseDate: string[], orderStatus: string[], companyCode: string[]): {} => {
-
+  private filters = ({
+    searchCode,
+    searchValue,
+    localId,
+    serviceChannel,
+    serviceTypeId,
+    promiseDate,
+    orderStatus,
+    companyCode,
+  }: IOrderFilters): {} => {
     const filters = {};
 
     if (searchValue?.length) {
-      Object.assign(filters, {filterType: searchCode, valueFilterType: searchValue});
+      Object.assign(filters, {
+        filterType: searchCode,
+        valueFilterType: searchValue,
+      });
     }
     if (localId?.length) {
-      Object.assign(filters, {localId});
+      Object.assign(filters, { localId });
     }
     if (serviceChannel?.length) {
-      Object.assign(filters, {serviceChannel});
+      Object.assign(filters, { serviceChannel });
     }
     if (serviceTypeId?.length) {
-      Object.assign(filters, {serviceTypeId});
+      Object.assign(filters, { serviceTypeId });
     }
     if (promiseDate) {
-      Object.assign(filters, {promiseDate});
+      Object.assign(filters, { promiseDate });
     }
     if (orderStatus?.length) {
-      Object.assign(filters, {orderStatus});
+      Object.assign(filters, { orderStatus });
     }
     if (companyCode?.length) {
-      Object.assign(filters, {companyCode});
+      Object.assign(filters, { companyCode });
     }
 
     return filters;
-  }
+  };
 
-  private orderCriteria = (data: { column: string, order: 'A' | 'D' | 'N' }): {} => {
+  private orderCriteria = (data: {
+    column: string;
+    order: 'A' | 'D' | 'N';
+  }): {} => {
     const detailCriteria = {};
 
     if (data?.order !== 'N' && data?.column.length) {
-      Object.assign(detailCriteria, {column: data?.column, order: data?.order});
+      Object.assign(detailCriteria, {
+        column: data?.column,
+        order: data?.order,
+      });
     }
 
     return detailCriteria;
-  }
+  };
 
   constructor(
     private orderClient: OrderClientService,
-    private storesClient: DrugstoresClientService,
-  ) {
-  }
+    private storesClient: DrugstoresClientService
+  ) {}
 
-  orderList(page: number, pages: number = 10, searchCode: string = '', searchValue: string = '',
-            localId: string[] = null, serviceChannel: string[] = null, serviceTypeId: string[] = null,
-            promiseDate: string[] = null, orderStatus: string[] = null,
-            companyCode: string[] = null,
-            dataCriteria: { column: string, order: 'A' | 'D' | 'N' } | null = null): Observable<OrderRecords> {
-
+  orderList(
+    page: number,
+    pages: number = 10,
+    orderFilters: IOrderFilters,
+    dataCriteria: { column: string; order: 'A' | 'D' | 'N' } | null = null
+  ): Observable<OrderRecords> {
     const body = {
       page,
-      records: pages
+      records: pages,
     };
 
-    const filters = this.filters(
-      searchCode, searchValue,
-      localId,
-      serviceChannel,
-      serviceTypeId,
-      promiseDate,
-      orderStatus,
-      companyCode
-    );
+    const filters = this.filters(orderFilters);
 
     const orderCriteria = this.orderCriteria(dataCriteria);
 
     if (Object.keys(filters).length) {
-      Object.assign(body, {filter: filters});
+      Object.assign(body, { filter: filters });
     }
 
     if (Object.keys(orderCriteria).length) {
-      Object.assign(body, {orderCriteria});
+      Object.assign(body, { orderCriteria });
     }
 
     return this.orderClient.getOrderList(body);

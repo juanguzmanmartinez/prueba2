@@ -62,7 +62,7 @@ export interface OrderResponse {
   client: string;
   promiseDate: string;
 
-  oderDetailOut: OrderDetailResponse;
+  oderDetailOut?: OrderDetailResponse;
 }
 
 export interface OrderStatusResponse {
