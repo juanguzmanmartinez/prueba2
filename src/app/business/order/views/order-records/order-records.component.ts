@@ -398,7 +398,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
             .replace('<br>', '')
             .trim(),
           ['Cliente']: value.client,
-          ['Documento']: value.documentId,
+          ['Doc. Identidad']: value.documentId,
           ['Dirección']:
             value.orderDetail && value.orderDetail.clientInformation
               ? value.orderDetail.clientInformation.address
@@ -412,11 +412,15 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
               ? value.orderDetail.clientInformation.phone
               : '-',
           ['RUC']:
-            value.orderDetail && value.orderDetail.clientInformation
+            value.orderDetail &&
+            value.orderDetail.clientInformation &&
+            value.orderDetail.clientInformation.ruc
               ? value.orderDetail.clientInformation.ruc
               : '-',
           ['Razón Social']:
-            value.orderDetail && value.orderDetail.clientInformation
+            value.orderDetail &&
+            value.orderDetail.clientInformation &&
+            value.orderDetail.clientInformation.businessName
               ? value.orderDetail.clientInformation.businessName
               : '-',
           ['Coordenadas']:

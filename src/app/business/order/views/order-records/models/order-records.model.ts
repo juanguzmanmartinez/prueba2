@@ -39,7 +39,7 @@ export class OrderModel {
       ? this.formatPromiseDate(data.promiseDate)
       : '-';
     this.client = data.client ? reformatCamelCase(data.client) : '-';
-    this.documentId = data.documentoId ? data.documentoId : '-';
+    this.documentId = data.documentoId && data.documentoId !== 'null' ? data.documentoId : '-';
     this.state = data.orderStatus ? CStatusOrderName[data.orderStatus] : '-';
     this.stateColor = data.orderStatus
       ? CStatusOrderColor[data.orderStatus]
