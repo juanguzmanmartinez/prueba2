@@ -25,7 +25,6 @@ export class OrderFormPresenter {
   getFilters(): IOrderFilters {
     const { promiseDate, promiseRangeDate, searchCode, ...restForm } =
       this.filterForm.value;
-    console.log(!!promiseRangeDate);
     return {
       ...restForm,
       searchCode: searchCode ? searchCode.code : null,
@@ -58,7 +57,5 @@ export class OrderFormPresenter {
     this.filterForm.reset();
     this.filterForm.get('searchValue').setValue('');
     this.filterForm.get('searchCode').setValue(CTypesSearch[0]);
-    console.log('reseteó');
-    console.log(this.filterForm.value);
   }
 }
