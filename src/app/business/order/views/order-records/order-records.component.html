@@ -14,7 +14,7 @@
         <h1 class="text-h4 text-black mb-0">Historial de pedidos</h1>
       </div>
       <app-button-icon
-        [disabled]="!selected"
+        [disabled]="!selected || loadingExport"
         (clicked)="exportData()"
         iconName="download"
       >
@@ -58,7 +58,7 @@
               appearance="primary"
               (clicked)="filterAll()"
               [disabled]="tableLoader"
-              >BUSCAR</app-button
+              >Buscar</app-button
             >
           </div>
           <div class="col-6">
@@ -67,7 +67,7 @@
               appearance="outline"
               (clicked)="resetOrderFilters()"
               [disabled]="tableLoader"
-              >LIMPIAR</app-button
+              >Limpiar</app-button
             >
           </div>
         </div>

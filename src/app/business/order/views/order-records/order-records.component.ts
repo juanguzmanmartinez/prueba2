@@ -57,6 +57,7 @@ const ColumnNameList = {
 })
 export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   tableLoader = true;
+  loadingExport = false;
   errorResponse: HttpErrorResponse;
 
   totalOrder = 0;
@@ -376,12 +377,12 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   exportData(): void {
+    this.loadingExport = true;
     const orderListId = this.selection.selected.map((order: OrderModel) =>
       order.orderId.toString()
     );
-    this.orderRecordsImplement
-      .orderReport(orderListId)
-      .subscribe((orderList) => {
+    this.orderRecordsImplement.orderReport(orderListId).subscribe(
+      (orderList) => {
         try {
           const data = orderList.orders.map((value: OrderModel) => {
             return {
@@ -413,15 +414,21 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
               ['Cliente']: value.client,
               ['Doc. Identidad']: value.documentId,
               ['Dirección']:
-                value.orderDetail && value.orderDetail.clientInformation
+                value.orderDetail &&
+                value.orderDetail.clientInformation &&
+                value.orderDetail.clientInformation.address
                   ? value.orderDetail.clientInformation.address
                   : '-',
               ['Correo']:
-                value.orderDetail && value.orderDetail.clientInformation
+                value.orderDetail &&
+                value.orderDetail.clientInformation &&
+                value.orderDetail.clientInformation.email
                   ? value.orderDetail.clientInformation.email
                   : '-',
               ['Teléfono']:
-                value.orderDetail && value.orderDetail.clientInformation
+                value.orderDetail &&
+                value.orderDetail.clientInformation &&
+                value.orderDetail.clientInformation.phone
                   ? value.orderDetail.clientInformation.phone
                   : '-',
               ['RUC']:
@@ -437,67 +444,99 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
                   ? value.orderDetail.clientInformation.businessName
                   : '-',
               ['Coordenadas']:
-                value.orderDetail && value.orderDetail.clientInformation
+                value.orderDetail &&
+                value.orderDetail.clientInformation &&
+                value.orderDetail.clientInformation.coordinates
                   ? value.orderDetail.clientInformation.coordinates
                   : '-',
               ['Zona']:
-                value.orderDetail && value.orderDetail.orderInformation
+                value.orderDetail &&
+                value.orderDetail.orderInformation &&
+                value.orderDetail.orderInformation.zone
                   ? value.orderDetail.orderInformation.zone
                   : '-',
               ['Purchase ID']:
-                value.orderDetail && value.orderDetail.orderInformation
+                value.orderDetail &&
+                value.orderDetail.orderInformation &&
+                value.orderDetail.orderInformation.purchaseId
                   ? value.orderDetail.orderInformation.purchaseId
                   : '-',
               ['Tipo Despacho']:
-                value.orderDetail && value.orderDetail.orderInformation
+                value.orderDetail &&
+                value.orderDetail.orderInformation &&
+                value.orderDetail.orderInformation.typeOfOffice
                   ? value.orderDetail.orderInformation.typeOfOffice
                   : '-',
               ['Observación']:
-                value.orderDetail && value.orderDetail.orderInformation
+                value.orderDetail &&
+                value.orderDetail.orderInformation &&
+                value.orderDetail.orderInformation.observation
                   ? value.orderDetail.orderInformation.observation
                   : '-',
               ['Motivo de Cancelación']:
-                value.orderDetail && value.orderDetail.orderInformation
+                value.orderDetail &&
+                value.orderDetail.orderInformation &&
+                value.orderDetail.orderInformation.reasonForCancellation
                   ? value.orderDetail.orderInformation.reasonForCancellation
                   : '-',
               ['Tipo de Pago']:
-                value.orderDetail && value.orderDetail.paymentInformation
+                value.orderDetail &&
+                value.orderDetail.paymentInformation &&
+                value.orderDetail.paymentInformation.paymentType
                   ? value.orderDetail.paymentInformation.paymentType
                   : '-',
               ['Estado Liquidacion']:
-                value.orderDetail && value.orderDetail.paymentInformation
+                value.orderDetail &&
+                value.orderDetail.paymentInformation &&
+                value.orderDetail.paymentInformation.status
                   ? value.orderDetail.paymentInformation.status
                   : '-',
               ['Fecha Estado Liquidacion']:
-                value.orderDetail && value.orderDetail.paymentInformation
+                value.orderDetail &&
+                value.orderDetail.paymentInformation &&
+                value.orderDetail.paymentInformation.date
                   ? value.orderDetail.paymentInformation.date
                   : '-',
               ['Transportista']:
-                value.orderDetail && value.orderDetail.carrierInformation
+                value.orderDetail &&
+                value.orderDetail.carrierInformation &&
+                value.orderDetail.carrierInformation.transporters
                   ? value.orderDetail.carrierInformation.transporters
                   : '-',
               ['Documento Transportista']:
-                value.orderDetail && value.orderDetail.carrierInformation
+                value.orderDetail &&
+                value.orderDetail.carrierInformation &&
+                value.orderDetail.carrierInformation.document
                   ? value.orderDetail.carrierInformation.document
                   : '-',
               ['Telefono Transportista']:
-                value.orderDetail && value.orderDetail.carrierInformation
+                value.orderDetail &&
+                value.orderDetail.carrierInformation &&
+                value.orderDetail.carrierInformation.mobile
                   ? value.orderDetail.carrierInformation.mobile
                   : '-',
               ['Grupo de Viaje']:
-                value.orderDetail && value.orderDetail.carrierInformation
+                value.orderDetail &&
+                value.orderDetail.carrierInformation &&
+                value.orderDetail.carrierInformation.tripGroup
                   ? value.orderDetail.carrierInformation.tripGroup
                   : '-',
               ['Total sin Descuentos']:
-                value.orderDetail && value.orderDetail.productInformation
+                value.orderDetail &&
+                value.orderDetail.productInformation &&
+                value.orderDetail.productInformation.withoutDiscountAmount
                   ? value.orderDetail.productInformation.withoutDiscountAmount
                   : '-',
               ['Delivery']:
-                value.orderDetail && value.orderDetail.productInformation
+                value.orderDetail &&
+                value.orderDetail.productInformation &&
+                value.orderDetail.productInformation.deliveryAmount
                   ? value.orderDetail.productInformation.deliveryAmount
                   : '-',
               ['Descuento']:
-                value.orderDetail && value.orderDetail.productInformation
+                value.orderDetail &&
+                value.orderDetail.productInformation &&
+                value.orderDetail.productInformation.totalDiscount
                   ? value.orderDetail.productInformation.totalDiscount
                   : '-',
               ['Importe Total']:
@@ -516,12 +555,21 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
             };
           });
           ExportTableSelection.exportArrayToExcel(data, 'Pedidos');
+          this.loadingExport = false;
         } catch (e) {
+          this.loadingExport = false;
           this.alertService.alertError(
             'Hubo un error al descargar la información, por favor vuelve a intentarlo.'
           );
         }
-      });
+      },
+      () => {
+        this.loadingExport = false;
+        this.alertService.alertError(
+          'Hubo un error al descargar la información, por favor vuelve a intentarlo.'
+        );
+      }
+    );
   }
 
   ngOnDestroy(): void {
