@@ -105,4 +105,12 @@ export class OrderRecordsImplementService {
 
     return this.orderClient.getOrderList(body);
   }
+
+  orderReport(orderListId: string[]) {
+    const body = {
+      listOrderIds: orderListId,
+    };
+
+    return this.orderClient.getOrderReport(body);
+  }
 }

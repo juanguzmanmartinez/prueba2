@@ -22,6 +22,7 @@ export class OrderClientService {
   private readonly ORDER_LIST = EndpointsParameter.ORDER_LIST;
   private readonly ORDER_DETAIL = EndpointsParameter.ORDER_DETAIL;
   private readonly ORDER_STATUS = EndpointsParameter.ORDER_STATUS;
+  private readonly ORDER_REPORT = EndpointsParameter.ORDER_REPORT;
 
   constructor(
     private generic: GenericService
@@ -29,6 +30,25 @@ export class OrderClientService {
 
   getOrderList(body): Observable<OrderRecords> {
     const endpoint = `${this.ORDER_LIST}`;
+    return this.generic.genericPost<OrderRecordsResponse>(endpoint, body)
+      .pipe(
+        take(1),
+        map((response: OrderRecordsResponse) => {
+          const orders = response.orders.map((value: OrderResponse) => {
+            return new OrderModel(value);
+          });
+          return {
+            orders,
+            page: response.page,
+            currentRecords: response.currentRecords,
+            totalRecords: response.totalRecords
+          };
+        })
+      );
+  }
+
+  getOrderReport(body): Observable<OrderRecords>{
+    const endpoint = `${this.ORDER_REPORT}`;
     return this.generic.genericPost<OrderRecordsResponse>(endpoint, body)
       .pipe(
         take(1),

@@ -376,144 +376,152 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   exportData(): void {
-    try {
-      const data = this.selection.selected.map((value: OrderModel) => {
-        return {
-          ['N° Pedido (Digital)']: value.ecommerceId,
-          ['N° Pedido (Call)']: value.orderDetail
-            ? value.orderDetail.callNumber
-            : '-',
-          ['Estado']: value.state,
-          ['Local']: value.local,
-          ['Marca']: value.companyCode,
-          ['Canal']: value.channel,
-          ['Servicio']: value.service,
-          ['Fecha Creación']:
-            value.orderDetail && value.orderDetail.timeline
-              ? value.orderDetail.timeline.find(
-                  (step) => step.status === 'En tienda'
-                )
-                ? value.orderDetail.timeline.find(
-                    (step) => step.status === 'En tienda'
-                  ).date
-                : '-'
-              : '-',
-          ['Fecha Promesa']: value.promiseDate.slice(0, 9),
-          ['Hora Promesa']: value.promiseDate
-            .slice(9)
-            .replace('<br>', '')
-            .trim(),
-          ['Cliente']: value.client,
-          ['Doc. Identidad']: value.documentId,
-          ['Dirección']:
-            value.orderDetail && value.orderDetail.clientInformation
-              ? value.orderDetail.clientInformation.address
-              : '-',
-          ['Correo']:
-            value.orderDetail && value.orderDetail.clientInformation
-              ? value.orderDetail.clientInformation.email
-              : '-',
-          ['Teléfono']:
-            value.orderDetail && value.orderDetail.clientInformation
-              ? value.orderDetail.clientInformation.phone
-              : '-',
-          ['RUC']:
-            value.orderDetail &&
-            value.orderDetail.clientInformation &&
-            value.orderDetail.clientInformation.ruc
-              ? value.orderDetail.clientInformation.ruc
-              : '-',
-          ['Razón Social']:
-            value.orderDetail &&
-            value.orderDetail.clientInformation &&
-            value.orderDetail.clientInformation.businessName
-              ? value.orderDetail.clientInformation.businessName
-              : '-',
-          ['Coordenadas']:
-            value.orderDetail && value.orderDetail.clientInformation
-              ? value.orderDetail.clientInformation.coordinates
-              : '-',
-          ['Zona']:
-            value.orderDetail && value.orderDetail.orderInformation
-              ? value.orderDetail.orderInformation.zone
-              : '-',
-          ['Purchase ID']:
-            value.orderDetail && value.orderDetail.orderInformation
-              ? value.orderDetail.orderInformation.purchaseId
-              : '-',
-          ['Tipo Despacho']:
-            value.orderDetail && value.orderDetail.orderInformation
-              ? value.orderDetail.orderInformation.typeOfOffice
-              : '-',
-          ['Observación']:
-            value.orderDetail && value.orderDetail.orderInformation
-              ? value.orderDetail.orderInformation.observation
-              : '-',
-          ['Motivo de Cancelación']:
-            value.orderDetail && value.orderDetail.orderInformation
-              ? value.orderDetail.orderInformation.reasonForCancellation
-              : '-',
-          ['Tipo de Pago']:
-            value.orderDetail && value.orderDetail.paymentInformation
-              ? value.orderDetail.paymentInformation.paymentType
-              : '-',
-          ['Estado Liquidacion']:
-            value.orderDetail && value.orderDetail.paymentInformation
-              ? value.orderDetail.paymentInformation.status
-              : '-',
-          ['Fecha Estado Liquidacion']:
-            value.orderDetail && value.orderDetail.paymentInformation
-              ? value.orderDetail.paymentInformation.date
-              : '-',
-          ['Transportista']:
-            value.orderDetail && value.orderDetail.carrierInformation
-              ? value.orderDetail.carrierInformation.transporters
-              : '-',
-          ['Documento Transportista']:
-            value.orderDetail && value.orderDetail.carrierInformation
-              ? value.orderDetail.carrierInformation.document
-              : '-',
-          ['Telefono Transportista']:
-            value.orderDetail && value.orderDetail.carrierInformation
-              ? value.orderDetail.carrierInformation.mobile
-              : '-',
-          ['Grupo de Viaje']:
-            value.orderDetail && value.orderDetail.carrierInformation
-              ? value.orderDetail.carrierInformation.tripGroup
-              : '-',
-          ['Total sin Descuentos']:
-            value.orderDetail && value.orderDetail.productInformation
-              ? value.orderDetail.productInformation.withoutDiscountAmount
-              : '-',
-          ['Delivery']:
-            value.orderDetail && value.orderDetail.productInformation
-              ? value.orderDetail.productInformation.deliveryAmount
-              : '-',
-          ['Descuento']:
-            value.orderDetail && value.orderDetail.productInformation
-              ? value.orderDetail.productInformation.totalDiscount
-              : '-',
-          ['Importe Total']:
-            value.orderDetail && value.orderDetail.productInformation
-              ? value.orderDetail.productInformation.totalImportTOH &&
-                value.orderDetail.productInformation.totalImportTOH !== 0
-                ? this.currencyPipe.transform(
-                    value.orderDetail.productInformation.totalImportTOH,
-                    'S/ '
-                  )
-                : this.currencyPipe.transform(
-                    value.orderDetail.productInformation.totalImport,
-                    'S/ '
-                  )
-              : '-',
-        };
+    const orderListId = this.selection.selected.map((order: OrderModel) =>
+      order.orderId.toString()
+    );
+    this.orderRecordsImplement
+      .orderReport(orderListId)
+      .subscribe((orderList) => {
+        try {
+          const data = orderList.orders.map((value: OrderModel) => {
+            return {
+              ['N° Pedido (Digital)']: value.ecommerceId,
+              ['N° Pedido (Call)']:
+                value.orderDetail && value.orderDetail.callNumber
+                  ? value.orderDetail.callNumber
+                  : '-',
+              ['Estado']: value.state ? value.state : '-',
+              ['Local']: value.local,
+              ['Marca']: value.companyCode,
+              ['Canal']: value.channel,
+              ['Servicio']: value.service,
+              ['Fecha Creación']:
+                value.orderDetail && value.orderDetail.timeline
+                  ? value.orderDetail.timeline.find(
+                      (step) => step.status === 'En tienda'
+                    )
+                    ? value.orderDetail.timeline.find(
+                        (step) => step.status === 'En tienda'
+                      ).date
+                    : '-'
+                  : '-',
+              ['Fecha Promesa']: value.promiseDate.slice(0, 9),
+              ['Hora Promesa']: value.promiseDate
+                .slice(9)
+                .replace('<br>', '')
+                .trim(),
+              ['Cliente']: value.client,
+              ['Doc. Identidad']: value.documentId,
+              ['Dirección']:
+                value.orderDetail && value.orderDetail.clientInformation
+                  ? value.orderDetail.clientInformation.address
+                  : '-',
+              ['Correo']:
+                value.orderDetail && value.orderDetail.clientInformation
+                  ? value.orderDetail.clientInformation.email
+                  : '-',
+              ['Teléfono']:
+                value.orderDetail && value.orderDetail.clientInformation
+                  ? value.orderDetail.clientInformation.phone
+                  : '-',
+              ['RUC']:
+                value.orderDetail &&
+                value.orderDetail.clientInformation &&
+                value.orderDetail.clientInformation.ruc
+                  ? value.orderDetail.clientInformation.ruc
+                  : '-',
+              ['Razón Social']:
+                value.orderDetail &&
+                value.orderDetail.clientInformation &&
+                value.orderDetail.clientInformation.businessName
+                  ? value.orderDetail.clientInformation.businessName
+                  : '-',
+              ['Coordenadas']:
+                value.orderDetail && value.orderDetail.clientInformation
+                  ? value.orderDetail.clientInformation.coordinates
+                  : '-',
+              ['Zona']:
+                value.orderDetail && value.orderDetail.orderInformation
+                  ? value.orderDetail.orderInformation.zone
+                  : '-',
+              ['Purchase ID']:
+                value.orderDetail && value.orderDetail.orderInformation
+                  ? value.orderDetail.orderInformation.purchaseId
+                  : '-',
+              ['Tipo Despacho']:
+                value.orderDetail && value.orderDetail.orderInformation
+                  ? value.orderDetail.orderInformation.typeOfOffice
+                  : '-',
+              ['Observación']:
+                value.orderDetail && value.orderDetail.orderInformation
+                  ? value.orderDetail.orderInformation.observation
+                  : '-',
+              ['Motivo de Cancelación']:
+                value.orderDetail && value.orderDetail.orderInformation
+                  ? value.orderDetail.orderInformation.reasonForCancellation
+                  : '-',
+              ['Tipo de Pago']:
+                value.orderDetail && value.orderDetail.paymentInformation
+                  ? value.orderDetail.paymentInformation.paymentType
+                  : '-',
+              ['Estado Liquidacion']:
+                value.orderDetail && value.orderDetail.paymentInformation
+                  ? value.orderDetail.paymentInformation.status
+                  : '-',
+              ['Fecha Estado Liquidacion']:
+                value.orderDetail && value.orderDetail.paymentInformation
+                  ? value.orderDetail.paymentInformation.date
+                  : '-',
+              ['Transportista']:
+                value.orderDetail && value.orderDetail.carrierInformation
+                  ? value.orderDetail.carrierInformation.transporters
+                  : '-',
+              ['Documento Transportista']:
+                value.orderDetail && value.orderDetail.carrierInformation
+                  ? value.orderDetail.carrierInformation.document
+                  : '-',
+              ['Telefono Transportista']:
+                value.orderDetail && value.orderDetail.carrierInformation
+                  ? value.orderDetail.carrierInformation.mobile
+                  : '-',
+              ['Grupo de Viaje']:
+                value.orderDetail && value.orderDetail.carrierInformation
+                  ? value.orderDetail.carrierInformation.tripGroup
+                  : '-',
+              ['Total sin Descuentos']:
+                value.orderDetail && value.orderDetail.productInformation
+                  ? value.orderDetail.productInformation.withoutDiscountAmount
+                  : '-',
+              ['Delivery']:
+                value.orderDetail && value.orderDetail.productInformation
+                  ? value.orderDetail.productInformation.deliveryAmount
+                  : '-',
+              ['Descuento']:
+                value.orderDetail && value.orderDetail.productInformation
+                  ? value.orderDetail.productInformation.totalDiscount
+                  : '-',
+              ['Importe Total']:
+                value.orderDetail && value.orderDetail.productInformation
+                  ? value.orderDetail.productInformation.totalImportTOH &&
+                    value.orderDetail.productInformation.totalImportTOH !== 0
+                    ? this.currencyPipe.transform(
+                        value.orderDetail.productInformation.totalImportTOH,
+                        'S/ '
+                      )
+                    : this.currencyPipe.transform(
+                        value.orderDetail.productInformation.totalImport,
+                        'S/ '
+                      )
+                  : '-',
+            };
+          });
+          ExportTableSelection.exportArrayToExcel(data, 'Pedidos');
+        } catch (e) {
+          this.alertService.alertError(
+            'Hubo un error al descargar la información, por favor vuelve a intentarlo.'
+          );
+        }
       });
-      ExportTableSelection.exportArrayToExcel(data, 'Pedidos');
-    } catch (e) {
-      this.alertService.alertError(
-        'Hubo un error al descargar la información, por favor vuelve a intentarlo.'
-      );
-    }
   }
 
   ngOnDestroy(): void {
