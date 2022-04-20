@@ -1,5 +1,5 @@
-<div class="row" [formGroup]="presenter.filterForm">
-  <div class="col-6">
+<div class="row row-cols-3" [formGroup]="presenter.filterForm">
+  <div class="col">
     <app-select
       formControlName="searchCode"
       placeholder="Tipo"
@@ -18,7 +18,7 @@
       </ng-template>
     </app-select>
   </div>
-  <div class="col-6">
+  <div class="col flex-grow-1">
     <app-input
       formControlName="searchValue"
       appSearchCharacters
