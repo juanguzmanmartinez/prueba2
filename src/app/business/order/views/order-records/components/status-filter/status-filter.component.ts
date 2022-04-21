@@ -95,7 +95,7 @@ export class StatusFilterComponent implements OnInit {
     this.presenter.filterForm.get('orderStatus').reset();
   }
 
-  private sortStatus = (x, y) => {
+  private sortStatus(x, y) {
     if (x.name < y.name) {
       return -1;
     }
@@ -103,5 +103,5 @@ export class StatusFilterComponent implements OnInit {
       return 1;
     }
     return 0;
-  };
+  }
 }

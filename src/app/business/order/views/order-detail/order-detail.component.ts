@@ -46,8 +46,8 @@ export class OrderDetailComponent implements OnInit {
   }
 
   updateResponse(response): OrderDetailModel {
-    let timeLine: OrderDetailModel = response.timeline.filter(
-      (item) => item.status != 'En espera'
+    const timeLine: OrderDetailModel = response.timeline.filter(
+      (item) => item.status !== 'En espera'
     );
 
     response.timeline = timeLine;

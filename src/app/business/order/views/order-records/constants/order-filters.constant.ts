@@ -1,11 +1,10 @@
-import { ITypeSearch } from "../interfaces/order-filter.interface";
+import { ITypeSearch } from '../interfaces/order-filter.interface';
 
 export enum ECodeTypeSearch {
   pedido = '1',
   telefono = '2',
   documento = '3',
 }
-
 
 export enum EDates {
   hoy = 'Hoy',

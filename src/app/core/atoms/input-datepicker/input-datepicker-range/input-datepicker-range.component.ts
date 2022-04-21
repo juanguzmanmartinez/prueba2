@@ -8,9 +8,14 @@ import {
   Output,
   Self,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormControl,
+  FormGroup,
+  NgControl,
+} from '@angular/forms';
 import { MatDateRangePicker } from '@angular/material/datepicker';
 import { DatesHelper } from '@helpers/dates.helper';
 import { Subscription } from 'rxjs';
@@ -24,11 +29,15 @@ export interface IDatepickerRange {
 @Component({
   selector: 'app-input-datepicker-range',
   templateUrl: './input-datepicker-range.component.html',
-  styleUrls: ['../styles/datepicker.component.sass', './input-datepicker-range.component.sass'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: [
+    '../styles/datepicker.component.sass',
+    './input-datepicker-range.component.sass',
+  ],
+  encapsulation: ViewEncapsulation.None,
 })
-export class InputDatepickerRangeComponent implements ControlValueAccessor, OnInit, OnDestroy {
-
+export class InputDatepickerRangeComponent
+  implements ControlValueAccessor, OnInit, OnDestroy
+{
   private subscriptions = new Subscription();
   public pickerHeaderComponent = DatepickerHeaderComponent;
 
@@ -38,9 +47,8 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor, OnIn
 
   public formGroup: FormGroup = new FormGroup({
     startDate: new FormControl(),
-    endDate: new FormControl()
+    endDate: new FormControl(),
   });
-
 
   @Input() name: string | number = 'input-datepicker-range';
   @Input() placeholder = 'dd/mm/aaaa';
@@ -58,19 +66,18 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor, OnIn
 
   @Input('startValue')
   set _startValue(value: number) {
-    this.startDateControl
-      .setValue(value);
+    this.startDateControl.setValue(value);
   }
 
   @Input('endValue')
   set _endValue(value: number) {
-    this.endDateControl
-      .setValue(value);
+    this.endDateControl.setValue(value);
   }
 
   @Output() cancel = new EventEmitter<boolean>(false);
 
-  @ViewChild('pickerRange', {static: true}) dateRangePicker: MatDateRangePicker<any>;
+  @ViewChild('pickerRange', { static: true })
+  dateRangePicker: MatDateRangePicker<any>;
 
   onChange = (_: any) => {};
   onTouched = (_: any) => {};
@@ -106,33 +113,40 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor, OnIn
   }
 
   writeValue(value: IDatepickerRange): void {
-    this.startDateControl
-      .setValue(value && value.startDate ? new Date(value.startDate) : null);
-    this.endDateControl
-      .setValue(value && value.endDate ? new Date(value.endDate) : null);
+    this.startDateControl.setValue(
+      value && value.startDate ? new Date(value.startDate) : null
+    );
+    this.endDateControl.setValue(
+      value && value.endDate ? new Date(value.endDate) : null
+    );
   }
 
   get startDateControl() {
     return this.formGroup.get('startDate') as FormControl;
   }
 
-
   get endDateControl() {
     return this.formGroup.get('endDate') as FormControl;
   }
 
-  open(){
-    this.dateRangePicker.open()
+  open() {
+    this.dateRangePicker.open();
   }
 
   changeValue() {
-    const datepickerRangeSubscribe = this.formGroup.valueChanges
-      .subscribe((value) => {
-        this.value.startDate = value && value.startDate ? DatesHelper.Date(value.startDate).valueOf() : null;
-        this.value.endDate = value && value.endDate ? DatesHelper.Date(value.endDate).valueOf() : null;
+    const datepickerRangeSubscribe = this.formGroup.valueChanges.subscribe(
+      (value) => {
+        this.value.startDate =
+          value && value.startDate
+            ? DatesHelper.Date(value.startDate).valueOf()
+            : null;
+        this.value.endDate =
+          value && value.endDate
+            ? DatesHelper.Date(value.endDate).valueOf()
+            : null;
         this.onChange(this.value);
-      });
+      }
+    );
     this.subscriptions.add(datepickerRangeSubscribe);
   }
-
 }

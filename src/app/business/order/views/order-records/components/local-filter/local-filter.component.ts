@@ -116,7 +116,7 @@ export class LocalFilterComponent implements OnInit {
     this.presenter.filterForm.get('localId').reset();
   }
 
-  private sortLocals = (x, y) => {
+  private sortLocals(x, y) {
     if (x.name < y.name) {
       return -1;
     }
@@ -124,5 +124,5 @@ export class LocalFilterComponent implements OnInit {
       return 1;
     }
     return 0;
-  };
+  }
 }

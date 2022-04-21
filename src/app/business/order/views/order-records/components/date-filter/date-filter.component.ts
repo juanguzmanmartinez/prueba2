@@ -58,6 +58,7 @@ export class DateFilterComponent implements OnInit {
 
     if (typeDatePromise === EDates.otroPeriodo) {
       this.isRange = true;
+
       this.datepicker = {
         startDate: new Date(this.reformatDateRange(datePromise[0])).getTime(),
         endDate: new Date(this.reformatDateRange(datePromise[1])).getTime(),
@@ -65,6 +66,20 @@ export class DateFilterComponent implements OnInit {
     } else {
       this.selectDate = typeDatePromise ?? '';
     }
+    this.resetReactive();
+  }
+
+  resetReactive() {
+    this.orderFilterStore.getIsResetFilters().subscribe((isReset) => {
+      if (isReset) {
+        this.selectDate = '';
+        this.orderFilterStore.setTypeDatePromise = null;
+        this.selectionChange(null);
+        this.clearValues();
+        this.isRange = false;
+        this.orderFilterStore.setIsResetFilters(false);
+      }
+    });
   }
 
   selectionChange(type: string): void {
@@ -112,7 +127,7 @@ export class DateFilterComponent implements OnInit {
     } else if (type === 'Otro periodo') {
       this.isRange = true;
       this.selectDate = '';
-      this.orderFilterStore.setTypeDatePromise = null;
+      this.orderFilterStore.setTypeDatePromise = type;
 
       this.inputDatepickerRange.open();
 
@@ -142,7 +157,7 @@ export class DateFilterComponent implements OnInit {
     this.selectDate = '';
     this.orderFilterStore.setTypeDatePromise = null;
     this.selectionChange(null);
-
+    this.clearValues();
     this.isRange = false;
     this.datepicker = null;
     this.appSelect.open();
@@ -185,12 +200,12 @@ export class DateFilterComponent implements OnInit {
     }
   }
 
-  private reformatDateRange = (date: string): string => {
+  private reformatDateRange(date: string): string {
     const day = date.slice(0, 2);
     const month = date.slice(3, 5);
     const year = date.slice(6, 8);
     return `${month}-${day}-${year}`;
-  };
+  }
 
   addDays(date: Date, days: number): number {
     date.setDate(date.getDate() + days);

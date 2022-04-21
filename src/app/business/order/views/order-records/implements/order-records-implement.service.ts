@@ -19,7 +19,7 @@ export class OrderRecordsImplementService {
     return this.orderClient.getStatusList();
   }
 
-  private filters = ({
+  private filters({
     searchCode,
     searchValue,
     localId,
@@ -28,7 +28,7 @@ export class OrderRecordsImplementService {
     promiseDate,
     orderStatus,
     companyCode,
-  }: IOrderFilters): {} => {
+  }: IOrderFilters): {} {
     const filters = {};
 
     if (searchValue?.length) {
@@ -57,12 +57,9 @@ export class OrderRecordsImplementService {
     }
 
     return filters;
-  };
+  }
 
-  private orderCriteria = (data: {
-    column: string;
-    order: 'A' | 'D' | 'N';
-  }): {} => {
+  private orderCriteria(data: { column: string; order: 'A' | 'D' | 'N' }): {} {
     const detailCriteria = {};
 
     if (data?.order !== 'N' && data?.column.length) {
@@ -73,7 +70,7 @@ export class OrderRecordsImplementService {
     }
 
     return detailCriteria;
-  };
+  }
 
   constructor(
     private orderClient: OrderClientService,

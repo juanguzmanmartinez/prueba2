@@ -1,19 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'nombre'
+  name: 'nombre',
 })
 export class NombrePipe implements PipeTransform {
-
   transform(value: string): string {
-    if(value ){
-      if(value.trim() == '' ||  value == 'null'){
+    if (value) {
+      if (value.trim() === '' || value === 'null') {
         return '-';
       }
-    return value;
+      return value;
     }
 
-  return '-';
- }
-
+    return '-';
+  }
 }

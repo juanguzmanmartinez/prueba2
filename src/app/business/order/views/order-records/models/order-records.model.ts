@@ -39,7 +39,8 @@ export class OrderModel {
       ? this.formatPromiseDate(data.promiseDate)
       : '-';
     this.client = data.client ? reformatCamelCase(data.client) : '-';
-    this.documentId = data.documentoId && data.documentoId !== 'null' ? data.documentoId : '-';
+    this.documentId =
+      data.documentoId && data.documentoId !== 'null' ? data.documentoId : '-';
     this.state = data.orderStatus ? CStatusOrderName[data.orderStatus] : '-';
     this.stateColor = data.orderStatus
       ? CStatusOrderColor[data.orderStatus]
@@ -50,7 +51,7 @@ export class OrderModel {
       : null;
   }
 
-  private formatPromiseDate = (promiseDate: string): string => {
+  private formatPromiseDate(promiseDate: string): string {
     const day = promiseDate.slice(0, 2);
     const month = promiseDate.slice(3, 5);
     const year = promiseDate.slice(6, 8);
@@ -66,9 +67,9 @@ export class OrderModel {
       const SecondSlotTime = this.transformAmOrPm(promiseDate.slice(35, 37));
       return `${day}/${month}/${year} <br> ${firstHour}:${firstMinutes} ${firstSlotTime} - ${SecondHour}:${SecondMinutes} ${SecondSlotTime}`;
     }
-  };
+  }
 
-  private transformAmOrPm = (values: string): string => {
+  private transformAmOrPm(values: string): string {
     if (values === 'AM') {
       return 'a.m.';
     }
@@ -76,5 +77,5 @@ export class OrderModel {
     if (values === 'PM') {
       return 'p.m.';
     }
-  };
+  }
 }
