@@ -36,11 +36,13 @@ export class LocalFilterComponent implements OnInit {
         tap((res: IDrugstore[]) => {
           this.list = res;
         }),
-        map((res) => {
+        map((res: IDrugstore[]) => {
           const newLocals = res.sort(this.sortLocals);
+
           return newLocals.map((val) => {
             return {
               code: val.localCode,
+              desc: `${val.name} - ${val.localCode}`,
               hidden: false,
             };
           });
@@ -90,8 +92,6 @@ export class LocalFilterComponent implements OnInit {
     if (isCallOnInit) {
       return;
     }
-
-    this.filter.emit({ locals, notFound: this.getLocalsName(locals) });
   }
 
   filterOptionList(value: string): void {
@@ -106,6 +106,7 @@ export class LocalFilterComponent implements OnInit {
       return {
         code: v.localCode,
         hidden: isHide,
+        desc: `${v.name} - ${v.localCode}`,
       };
     });
   }

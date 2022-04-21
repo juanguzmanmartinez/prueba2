@@ -61,12 +61,7 @@
           [hidden]="option.hidden"
           [disabled]="disableOptionsMultiple && !value.includes(option.code)"
         >
-          <ng-container *ngIf="!templateRef">{{ option.code }}</ng-container>
-          <ng-template
-            [ngTemplateOutlet]="templateRef"
-            [ngTemplateOutletContext]="{ $implicit: option.code }"
-          >
-          </ng-template>
+        {{option.desc}}    
         </mat-option>
       </ng-container>
 

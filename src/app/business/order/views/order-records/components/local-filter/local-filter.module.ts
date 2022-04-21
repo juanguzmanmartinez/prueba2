@@ -5,16 +5,8 @@ import { TooltipModule } from '@atoms/tooltip/tooltip.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    LocalFilterComponent
-  ],
-    imports: [
-        SelectModule,
-        TooltipModule,
-        ReactiveFormsModule
-    ],
-  exports: [
-    LocalFilterComponent
-  ]
+  declarations: [LocalFilterComponent],
+  imports: [SelectModule, TooltipModule, ReactiveFormsModule],
+  exports: [LocalFilterComponent],
 })
-export class LocalFilterModule { }
+export class LocalFilterModule {}

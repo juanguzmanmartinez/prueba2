@@ -1,5 +1,6 @@
 @import "src/sass/variables"
 @import "src/sass/mixins"
+@import "src/sass/mixins/position.mixin"
 
 \:host
   display: contents
@@ -9,6 +10,9 @@
 .input-label
   margin-bottom: 0
   width: 100%
+
+.container-input
+  position: relative
 
 .input-basic
   background-color: $white
@@ -52,4 +56,8 @@
 .close
   color: gray
   cursor: pointer
+  z-index: 3
+  right: 16px
+  display: inline-flex
+  @include position-vertical-center
 

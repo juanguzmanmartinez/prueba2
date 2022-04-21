@@ -21,6 +21,7 @@ import { Subscription } from 'rxjs';
 
 export interface SearchOptionsI {
   code: string;
+  desc: string;
   hidden: boolean;
 }
 
