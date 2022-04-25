@@ -8,7 +8,7 @@ import {
   OrderRecordsResponse,
   OrderResponse,
   OrderStatus,
-  OrderStatusResponse
+  OrderStatusResponse,
 } from '../../../business/order/views/order-records/interfaces/order-records.interface';
 import { OrderModel } from '../../../business/order/views/order-records/models/order-records.model';
 import { isArray } from '@helpers/objects-equal.helper';
@@ -18,65 +18,58 @@ import { OrderDetailResponse } from '../../../business/order/views/order-detail/
 
 @Injectable()
 export class OrderClientService {
-
   private readonly ORDER_LIST = EndpointsParameter.ORDER_LIST;
   private readonly ORDER_DETAIL = EndpointsParameter.ORDER_DETAIL;
   private readonly ORDER_STATUS = EndpointsParameter.ORDER_STATUS;
   private readonly ORDER_REPORT = EndpointsParameter.ORDER_REPORT;
 
-  constructor(
-    private generic: GenericService
-  ) { }
+  constructor(private generic: GenericService) {}
 
   getOrderList(body): Observable<OrderRecords> {
     const endpoint = `${this.ORDER_LIST}`;
-    return this.generic.genericPost<OrderRecordsResponse>(endpoint, body)
-      .pipe(
-        take(1),
-        map((response: OrderRecordsResponse) => {
-          const orders = response.orders.map((value: OrderResponse) => {
-            return new OrderModel(value);
-          });
-          return {
-            orders,
-            page: response.page,
-            currentRecords: response.currentRecords,
-            totalRecords: response.totalRecords
-          };
-        })
-      );
+    return this.generic.genericPost<OrderRecordsResponse>(endpoint, body).pipe(
+      take(1),
+      map((response: OrderRecordsResponse) => {
+        const orders = response.orders.map((value: OrderResponse) => {
+          return new OrderModel(value);
+        });
+        return {
+          orders,
+          page: response.page,
+          currentRecords: response.currentRecords,
+          totalRecords: response.totalRecords,
+        };
+      })
+    );
   }
 
-  getOrderReport(body): Observable<OrderRecords>{
+  getOrderReport(body): Observable<OrderRecords> {
     const endpoint = `${this.ORDER_REPORT}`;
-    return this.generic.genericPost<OrderRecordsResponse>(endpoint, body)
-      .pipe(
-        take(1),
-        map((response: OrderRecordsResponse) => {
-          const orders = response.orders.map((value: OrderResponse) => {
-            return new OrderModel(value);
-          });
-          return {
-            orders,
-            page: response.page,
-            currentRecords: response.currentRecords,
-            totalRecords: response.totalRecords
-          };
-        })
-      );
+    return this.generic.genericPost<OrderRecordsResponse>(endpoint, body).pipe(
+      take(1),
+      map((response: OrderRecordsResponse) => {
+        const orders = response.orders.map((value: OrderResponse) => {
+          return new OrderModel(value);
+        });
+        return {
+          orders,
+        };
+      })
+    );
   }
 
   getStatusList(): Observable<OrderStatus[]> {
-    return this.generic.genericGet<OrderStatusResponse[]>(this.ORDER_STATUS)
+    return this.generic
+      .genericGet<OrderStatusResponse[]>(this.ORDER_STATUS)
       .pipe(
         take(1),
         map((response: OrderStatusResponse[]) => {
           if (isArray(response)) {
-            return response.map(value => {
+            return response.map((value) => {
               return {
                 id: value.code,
                 code: value.name,
-                name: CStatusOrderName[value.name]
+                name: CStatusOrderName[value.name],
               };
             });
           }
@@ -87,12 +80,11 @@ export class OrderClientService {
 
   getOrderDetail(id: number): Observable<OrderDetailModel> {
     const endpoint = `${this.ORDER_DETAIL}/${id}`;
-    return this.generic.genericGet<OrderDetailResponse>(endpoint)
-      .pipe(
-        take(1),
-        map((response: OrderDetailResponse) => {
-          return new OrderDetailModel(response);
-        })
-      );
+    return this.generic.genericGet<OrderDetailResponse>(endpoint).pipe(
+      take(1),
+      map((response: OrderDetailResponse) => {
+        return new OrderDetailModel(response);
+      })
+    );
   }
 }

@@ -61,11 +61,11 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   errorResponse: HttpErrorResponse;
 
   totalOrder = 0;
-
+  activeButtonFilter: boolean;
   page = 1;
   pageSize = 10;
   showPaginator = true;
-
+  fontColorDownloadItem: string;
   notFound = '';
 
   displayedColumns: string[] = [
@@ -139,7 +139,10 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     private orderFilterStore: OrderFilterStore,
     private currencyPipe: CurrencyPipe,
     public presenter: OrderFormPresenter
-  ) {}
+  ) {
+    this.activeButtonFilter = false;
+    this.fontColorDownloadItem = '#2697FF';
+  }
 
   ngOnInit(): void {
     const subscription = this.selection.changed.subscribe(
@@ -570,6 +573,13 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
         );
       }
     );
+  }
+
+  appearanceDownloadButton(): string {
+    if (!this.selected || this.loadingExport) {
+      return 'primary';
+    }
+    return 'outline';
   }
 
   ngOnDestroy(): void {

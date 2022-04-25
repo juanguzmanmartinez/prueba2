@@ -38,16 +38,16 @@ export interface ChannelFilterEvent {
 
 export interface OrderRecordsResponse {
   orders: OrderResponse[];
-  page: number;
-  currentRecords: number;
-  totalRecords: number;
+  page?: number;
+  currentRecords?: number;
+  totalRecords?: number;
 }
 
 export interface OrderRecords {
   orders: OrderModel[];
-  page: number;
-  currentRecords: number;
-  totalRecords: number;
+  page?: number;
+  currentRecords?: number;
+  totalRecords?: number;
 }
 
 export interface OrderResponse {

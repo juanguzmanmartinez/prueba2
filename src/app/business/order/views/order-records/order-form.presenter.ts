@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import * as moment from 'moment';
-import { CTypesSearch } from './constants/order-filters.constant';
+import {
+  CTypesSearch,
+  ECodeTypeSearch,
+} from './constants/order-filters.constant';
 import { IOrderFilters } from './interfaces/order-filter.interface';
 
 @Injectable()
@@ -42,6 +50,32 @@ export class OrderFormPresenter {
     return !promiseRangeDate.startDate && !promiseRangeDate.endDate;
   }
 
+  isEmptyArrayControl(valueControl: any) {
+    if (Array.isArray(valueControl)) {
+      if (valueControl.length === 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  isNullFilterForm() {
+    const {
+      searchCode,
+      
+      promiseRangeDate,
+      promiseDateSelect,
+      ...restFilterForm
+    } = this.filterForm.value;
+
+    const valueNotNull = Object.values(restFilterForm).find(
+      (value) =>
+        value !== null && value !== '' && this.isEmptyArrayControl(value)
+    );
+
+    return this.isNullPromiseRangeDate() && !Boolean(valueNotNull);
+  }
+
   formatPromiseDate() {
     if (this.filterForm.get('promiseRangeDate').value !== null) {
       const { startDate, endDate } =
@@ -51,6 +85,34 @@ export class OrderFormPresenter {
       return [dateInitFilter, dateEndFilter];
     }
     return null;
+  }
+
+  searchValidator(): ValidatorFn {
+    return (group: FormGroup): ValidationErrors | null => {
+      const searchCode = group.get('searchCode').value;
+      const searchValue = group.get('searchValue').value;
+      console.log('searchCode', searchCode);
+      console.log('searchValue', searchValue);
+
+      if (searchCode.code && searchCode.code === ECodeTypeSearch.pedido) {
+        if (searchValue.length < 6 && searchValue.length !== 0) {
+          return { searchError: true };
+        }
+      }
+
+      if (searchCode.code && searchCode.code === ECodeTypeSearch.telefono) {
+        if (searchValue.length < 8 && searchValue.length !== 0) {
+          return { searchError: true };
+        }
+      }
+
+      if (searchCode.code && searchCode.code === ECodeTypeSearch.documento) {
+        if (searchValue.length < 8 && searchValue.length !== 0) {
+          return { searchError: true };
+        }
+      }
+      return null;
+    };
   }
 
   reset() {

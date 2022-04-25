@@ -17,13 +17,15 @@
         [disabled]="!selected || loadingExport"
         (clicked)="exportData()"
         iconName="download"
+        [appearance]="appearanceDownloadButton()"
+        [fontColor]="fontColorDownloadItem"
       >
         Descargar selección
         {{ selected ? ": " + (selected | number: "2.0-0") : "" }}
       </app-button-icon>
     </div>
   </div>
-  
+
   <ng-container *ngIf="!errorResponse; else hasError">
     <div class="row row-cols-5 mb-2">
       <div class="col p-2 flex-grow-1">
@@ -57,16 +59,16 @@
               innerClass="w-100"
               appearance="primary"
               (clicked)="filterAll()"
-              [disabled]="tableLoader"
+              [disabled]="tableLoader || presenter.isNullFilterForm()"
               >Buscar
             </app-button>
           </div>
           <div class="col-6">
             <app-button
               innerClass="w-100"
-              appearance="outline"
+              appearance="secondary"
               (clicked)="resetOrderFilters()"
-              [disabled]="tableLoader"
+              [disabled]="tableLoader || presenter.isNullFilterForm()"
               >Limpiar</app-button
             >
           </div>

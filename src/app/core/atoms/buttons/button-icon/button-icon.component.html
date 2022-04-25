@@ -1,6 +1,6 @@
 <app-button
   [innerClass]="'button-icon ' + innerClass"
-  appearance="primary"
+  [appearance]="appearance"
   [behavior]="behavior"
   [inlineStyle]="inlineStyle"
   [disabled]="disabled"
@@ -11,7 +11,7 @@
               [fontName]="iconName"
               [fontStyle]="iconStyle"
               fontSize="16px"
-              fontColor="white"></app-icon>
+              [fontColor]="fontColor"></app-icon>
     <ng-content></ng-content>
   </span>
 </app-button>
