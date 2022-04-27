@@ -57,6 +57,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
   selectionChange(event: ITypeSearch): void {
     this.valueSelect = event;
     this.presenter.filterForm.get('searchValue').setValue('');
+    this.orderFilterStore.setSearchCode = event.code;
   }
 
   ngOnDestroy(): void {
