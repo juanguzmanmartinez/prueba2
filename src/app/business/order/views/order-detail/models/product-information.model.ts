@@ -11,7 +11,7 @@ export class ProductInformationModel {
   withoutDiscountAmount: string;
   igv: string;
   deliveryAmount: string;
-  totalDiscount: string;
+  totalDiscount: number;
   totalAmountCharged: number;
   totalImport: number;
   totalImportTOH: number;
@@ -30,9 +30,8 @@ export class ProductInformationModel {
     this.deliveryAmount = data.deliveryAmount
       ? `S/ ${data.deliveryAmount.toFixed(2)}`
       : 'S/ 0.00';
-    this.totalDiscount = data.totalDiscount
-      ? `S/ -${data.totalDiscount.toFixed(2)}`
-      : 'S/ -0.00';
+
+    this.totalDiscount = data.totalDiscount ? data.totalDiscount : 0;
     this.totalImport = data.totalImport ? data.totalImport : 0;
     this.totalImportTOH = data.totalImportTOH ? data.totalImportTOH : 0;
     this.totalAmountCharged = this.getTotalCharged(data);

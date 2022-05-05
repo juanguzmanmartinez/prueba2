@@ -540,7 +540,10 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
                 value.orderDetail &&
                 value.orderDetail.productInformation &&
                 value.orderDetail.productInformation.totalDiscount
-                  ? value.orderDetail.productInformation.totalDiscount
+                  ? this.currencyPipe.transform(
+                      value.orderDetail.productInformation.totalDiscount,
+                      '- S/ '
+                    )
                   : '-',
               ['Importe Total']:
                 value.orderDetail && value.orderDetail.productInformation
