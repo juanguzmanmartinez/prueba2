@@ -11,6 +11,14 @@
     </app-product-detail>
 
     <div *ngIf="dataProduct.hasMoreThanFourProducts()">
+      <div class="hide-removed-products" [hidden]="!showProducts">
+        <app-product-detail
+          *ngFor="let product of dataProduct.hiddenProducts()"
+          [product]="product"
+        >
+        </app-product-detail>
+      </div>
+
       <div
         class="d-inline-flex align-items-center justify-content-center w-100 gap-2 show-products"
         (click)="toggleShowProducts()"
@@ -22,14 +30,8 @@
           Ver {{ showProducts ? "menos" : "todos los" }} productos
         </p>
       </div>
+
       <hr class="mt-4 text-gray-3" />
-      <div class="hide-removed-products" [hidden]="!showProducts">
-        <app-product-detail
-          *ngFor="let product of dataProduct.hiddenProducts()"
-          [product]="product"
-        >
-        </app-product-detail>
-      </div>
     </div>
   </div>
 
