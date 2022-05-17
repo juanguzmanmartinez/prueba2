@@ -1,11 +1,16 @@
 @import "src/sass/variables/colors.variable";
 
-:host .button-icon-icon {
-  margin-top: -1px;
+:host {
+  app-button::ng-deep button {
+    display: flex;
+    align-items: center;
+  }
 
-  &.button-icon-disabled {
-    ::ng-deep .icon-font {
-      color: $gray-4 !important;
+  .button-icon-icon {
+    &.button-icon-disabled {
+      ::ng-deep .icon-font {
+        color: $gray-4 !important;
+      }
     }
   }
 }

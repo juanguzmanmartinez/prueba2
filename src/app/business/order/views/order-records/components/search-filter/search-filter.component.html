@@ -1,0 +1,34 @@
+<div class="row row-cols-3" [formGroup]="presenter.filterForm">
+  <div class="col">
+    <app-select
+      formControlName="searchCode"
+      placeholder="Tipo"
+      [customValue]="true"
+      [optionList]="typesSearch"
+      
+      (optionChange)="selectionChange($event)"
+    >
+      <ng-container trigger>
+        <app-icon [fontName]="valueSelect.icon"></app-icon>
+        {{ valueSelect.name }}
+      </ng-container>
+      <ng-template let-type>
+        <app-icon [fontName]="type.icon" fontSize="16px"></app-icon>
+        {{ type.name }}
+      </ng-template>
+    </app-select>
+  </div>
+  <div class="col flex-grow-1">
+    <app-input
+      formControlName="searchValue"
+      appSearchCharacters
+      [alphanumeric]="valueSelect.alphanumeric"
+      labelClass="w-100"
+      [maxLength]="valueSelect.maxLength"
+      [buttonClear]="true"
+      [placeholder]="'Buscar por ' + valueSelect.name"
+      
+    >
+    </app-input>
+  </div>
+</div>

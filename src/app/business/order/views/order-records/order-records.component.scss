@@ -1,0 +1,59 @@
+@import "src/sass/variables/colors.variable";
+
+.order-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background-color: $gray-0;
+}
+
+.order-table {
+  table-layout: fixed;
+  border-collapse: initial;
+}
+
+.state {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2px !important;
+  text-transform: uppercase;
+}
+
+.order-table th,
+td {
+  font-size: 12px !important;
+}
+
+.page-size {
+  &-label {
+    font-size: 12px;
+    margin-right: 12px;
+  }
+
+  .select-size {
+    &::ng-deep > .select {
+      width: 90px;
+    }
+  }
+}
+
+.error {
+  margin-top: 78px;
+}
+
+:host {
+  .mat-column-promiseDate {
+    padding: 0 16px !important;
+  }
+
+  .mat-column-actions {
+    width: 72px !important;
+  }
+}
+
+.button-large{
+  width: 100%;
+}

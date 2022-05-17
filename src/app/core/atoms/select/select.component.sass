@@ -1,0 +1,155 @@
+@import "src/sass/variables/colors.variable"
+@import "src/sass/variables/utilities.variable"
+@import "src/sass/mixins/text.mixin"
+@import "src/sass/mixins/position.mixin"
+
+$select-height: 40px
+$select-option-height: 48px
+
+.select
+  position: relative
+  height: $select-height
+
+  .trigger
+    &-content
+      display: flex
+      align-items: center
+      gap: 8px
+
+  .close-icon
+    cursor: pointer
+    z-index: 3
+    right: 36px
+    display: inline-flex
+    @include position-vertical-center
+
+  .select-icon
+    pointer-events: none
+    right: 16px
+    display: inline-flex
+    @include position-vertical-center
+
+.select
+  mat-select
+    .mat-select-trigger
+      background-color: $white
+      padding: 0 16px
+      border: 1px solid $gray-2
+      border-radius: $border-radius
+      height: $select-height
+      display: block
+
+      .mat-select-value > .mat-select-value-text > .trigger > .trigger-content
+        padding-top: 7px
+
+    .mat-select-value
+      @include text-body-1-regular
+      .mat-select-min-line
+        height: $select-height
+        display: flex
+        align-items: center
+
+    .mat-select-arrow-wrapper
+      visibility: hidden
+      .mat-select-arrow
+        width: 31px
+
+    .mat-select-placeholder
+      color: $gray-4
+      @include text-body-1-regular
+
+    &.select-active .mat-select-placeholder
+      color: $black
+
+    &.select-focus:focus .mat-select-placeholder
+      color: $black
+
+    &.mat-select-disabled .mat-select-trigger
+      background-color: $gray-2
+      border-color: $gray-3
+    &[aria-expanded=true] .mat-select-trigger
+      border: 1px solid $primary
+
+.mat-select-panel.select-component
+  background-color: transparent
+  border: 0
+  box-shadow: none
+  position: absolute
+  top: 40px
+  padding-right: 16px
+  padding-left: 16px
+  overflow: initial
+  margin-top: 4px
+  min-width: 100%!important
+
+  .option-container
+    border-radius: $border-radius
+    background-color: $white
+    box-shadow: $box-shadow
+    box-sizing: border-box
+    overflow: auto
+
+  .option-search
+    margin: 6px 0 10px 0
+    height: 60px
+
+    mat-pseudo-checkbox
+      display: none
+
+  mat-option.select-basic-option,
+  mat-option.select-basic-option.mat-option.mat-active
+    color: $black
+    background-color: transparent
+    height: $select-option-height
+    @include text-body-1-regular
+
+    &:hover
+      background-color: $gray-1
+
+    &.mat-selected
+      background-color: $light-primary
+
+  .select-square-option
+    .mat-pseudo-checkbox,
+    .mat-pseudo-checkbox-checked
+      background-color: $white
+      border: 1px solid $gray-3
+
+      &::after
+        transform: none
+        width: 6px
+        height: 6px
+        border: 2px solid $primary
+        background: $primary
+        top: 2px
+        left: 2px
+        border-radius: 2px
+
+  mat-option.select-basic-option.select-basic-option-clear,
+  mat-option.select-basic-option.select-basic-option-clear.mat-active
+    color: $gray-4
+
+.search
+  position: absolute
+  top: 12px
+  left: 18px
+  z-index: 2
+  background: transparent
+  border: 1px $gray-2 solid
+  border-radius: 8px
+  padding-left: 38px
+  width: calc(100% - 33px)
+
+  &:focus
+    border: none
+    outline: solid $primary 1px
+
+.icon-search
+  display: flex
+  justify-content: start
+  margin-top: 7px
+  margin-left: 14px
+
+  mat-icon
+    margin-right: 0!important
+    margin-top: 7px

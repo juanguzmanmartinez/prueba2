@@ -1,0 +1,28 @@
+<app-accordion-information svgName="moto"  title="Información del transportista">
+  <div class="row">
+    <div class="col-6">
+      <table>
+        <tr>
+          <td>Transportista:</td>
+          <td>{{ dataCarrier.transporters }}</td>
+        </tr>
+        <tr>
+          <td>Doc. Identidad:</td>
+          <td>{{ dataCarrier.document }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-6">
+      <table>
+        <tr>
+          <td>Celular:</td>
+          <td>{{ dataCarrier.mobile }}</td>
+        </tr>
+        <tr>
+          <td>Viaje / Grupo: </td>
+          <td>{{ dataCarrier.tripGroup }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</app-accordion-information>

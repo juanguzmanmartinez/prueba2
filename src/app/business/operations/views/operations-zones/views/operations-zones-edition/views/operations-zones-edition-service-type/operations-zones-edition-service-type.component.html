@@ -1,37 +1,34 @@
-<section class="operations-stores-edition-service-type pt-12 pb-15">
-    <div class="row mb-7">
-        <div class="col-12">
-            <h3 class="text-h3 mb-5">Configuración principal</h3>
-            <h5 class="text-h5 text-gray-6 mb-7">Editar {{serviceTypeName[serviceType]}}</h5>
-            <hr class="m-0 bg-gray-3">
-        </div>
+<section class="operations-drugstores-edition-service-type pt-12 pb-15">
+  <div class="row mb-7">
+    <div class="col-12">
+      <h3 class="text-h3 mb-5">Configuración principal</h3>
+      <h5 class="text-h5 text-gray-6 mb-7">Editar {{serviceTypeName[serviceType]}}</h5>
+      <hr class="m-0 bg-gray-3">
     </div>
+  </div>
 
 
-    <div class="row"
-         [class.container-loader]="saveEditionLoader"
-         *ngIf="!errorResponse">
-        <div class="col-12 col-xl-5 mb-6 mb-xl-0">
-            <app-op-zones-edition-service-type-detail-card
-                    *appSkeletonCard="!!zoneDetail && !!zonesStoreServiceType; loading: !editionServiceTypeLoader"
-                    [zoneDetail]="zoneDetail"
-                    [zonesStoreServiceType]="zonesStoreServiceType">
-            </app-op-zones-edition-service-type-detail-card>
-        </div>
-        <div class="col-12 col-xl-7">
-            <app-op-zones-edition-service-type-detail-form-card
-                    *appSkeletonCard="!!zoneDetail && !!zonesStoreServiceType; row: 7; loading: !editionServiceTypeLoader"
-                    [zoneDetail]="zoneDetail"
-                    [zoneServiceType]="zoneServiceType"
-                    [zonesStoreServiceType]="zonesStoreServiceType"
-                    (cancelEdition)="cancelEdition()"
-                    (saveEdition)="saveEdition($event)">
-            </app-op-zones-edition-service-type-detail-form-card>
-        </div>
+  <div class="row" [class.container-loader]="saveEditionLoader" *ngIf="!errorResponse">
+    <div class="col-12 col-xlg-5 mb-6 mb-xlg-0">
+      <app-op-zones-edition-service-type-detail-card
+        *appSkeletonCard="!!zoneDetail && !!zonesStoreServiceType; loading: !editionServiceTypeLoader"
+        [zoneDetail]="zoneDetail"
+        [zonesStoreServiceType]="zonesStoreServiceType">
+      </app-op-zones-edition-service-type-detail-card>
     </div>
+    <div class="col-12 col-xlg-7">
+      <app-op-zones-edition-service-type-detail-form-card
+        *appSkeletonCard="!!zoneDetail && !!zonesStoreServiceType; row: 7; loading: !editionServiceTypeLoader"
+        [zoneDetail]="zoneDetail"
+        [zoneServiceType]="zoneServiceType"
+        [zonesStoreServiceType]="zonesStoreServiceType"
+        (cancelEdition)="cancelEdition()"
+        (saveEdition)="saveEdition($event)">
+      </app-op-zones-edition-service-type-detail-form-card>
+    </div>
+  </div>
 
-    <div *ngIf="errorResponse"
-         class="pt-6">
-        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
-    </div>
+  <div *ngIf="errorResponse" class="pt-6">
+    <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+  </div>
 </section>

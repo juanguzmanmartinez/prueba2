@@ -16,7 +16,7 @@ export class AccountGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         if (this._userStore.authenticated()) {
-            this._router.navigate([ROUTER_PATH.operations]);
+            this._router.navigate([ROUTER_PATH.base]);
             return false;
         }
         return true;

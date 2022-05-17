@@ -1,0 +1,40 @@
+<div [class.capacity-card-disabled]="disabled" class="drugstore-default-capacity-card">
+  <div class="row">
+    <div class="col-12 mb-5">
+      <h5 class="text-h4 capacity-card-name mb-0">{{serviceName}}</h5>
+    </div>
+
+    <div class="col-12 mb-4">
+      <ng-container *ngIf="!disabled">
+        <h4 class="text-h2 capacity-card-quantity mb-0">{{capacityQuantity}}</h4>
+      </ng-container>
+      <ng-container *ngIf="disabled">
+        <h4 class="text-h2 capacity-card-quantity mb-0">--</h4>
+      </ng-container>
+    </div>
+
+    <div class="col-12 mb-6">
+      <p class="text-body-2-regular capacity-card-text mb-0">pedidos por día</p>
+    </div>
+
+    <div class="col-12">
+      <ng-container *ngIf="hasDetail">
+        <app-tooltip class="d-inline-block me-4" value="Más detalles">
+          <app-button-action-icon
+            (clicked)="viewMoreEvent()"
+            [disabled]="disabled"
+            iconName="launch">
+          </app-button-action-icon>
+        </app-tooltip>
+      </ng-container>
+
+      <app-tooltip value="Editar">
+        <app-button-action-icon
+          (clicked)="editEvent()"
+          [disabled]="disabled"
+          iconName="edit">
+        </app-button-action-icon>
+      </app-tooltip>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: './operations.component.html',
-  styleUrls: ['./operations.component.scss']
+  templateUrl: './operations.component.html'
 })
 export class OperationsComponent {
 

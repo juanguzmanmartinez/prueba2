@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Optional, Self } from '@angular/core';
+import { Component, OnDestroy, OnInit, Optional, Self, ViewEncapsulation } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { InputComponent } from '../input/input.component';
 
@@ -6,7 +6,8 @@ import { InputComponent } from '../input/input.component';
 @Component({
     selector: 'app-input-number',
     templateUrl: './input-number.component.html',
-    styleUrls: ['./input-number.component.sass']
+    styleUrls: ['./input-number.component.sass'],
+    encapsulation: ViewEncapsulation.None
 })
 
 export class InputNumberComponent extends InputComponent implements OnInit, OnDestroy {

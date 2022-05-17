@@ -1,0 +1,20 @@
+<app-menu backdropClass="nav-headbar-user-menu">
+
+    <ng-container triggerFor>
+        <app-headbar-profile-preview [user]="user"
+                                     class="cursor-pointer"></app-headbar-profile-preview>
+    </ng-container>
+
+    <ng-container content>
+        <app-menu-item (click)="openProfile()">
+            <app-icon fontName="manage_accounts"></app-icon>
+            <span class="ms-3">Perfil</span>
+        </app-menu-item>
+
+        <app-menu-item (click)="logOut()">
+            <app-icon fontName="logout"></app-icon>
+            <span class="ms-3">Cerrar sesión</span>
+        </app-menu-item>
+
+    </ng-container>
+</app-menu>

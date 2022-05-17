@@ -1,0 +1,58 @@
+<div *appRouterAccess="routerPath.operations">
+  <app-sidenav-route-expansion
+    [disableChildren]="!sidenav?.opened"
+    [routePathOptions]="{ exact: sidenav?.opened }"
+    [routePath]="routerPath.operations"
+    [routeText]="sidenavRouting.name"
+    [routeIcon]="sidenavRouting.iconMenu"
+    (sidenavOpen)="onSidenavOpen($event)"
+  >
+    <app-sidenav-route
+      *appRouterAccess="routerPath.operationZones"
+      [routePathOptions]="{ exact: false }"
+      [routePath]="[routerPath.operationZones]"
+      routeText="Zonas"
+    >
+    </app-sidenav-route>
+
+    <app-sidenav-route-menu
+      *appRouterAccess="routerPath.operationCapacities"
+      [routePathOptions]="{ exact: false }"
+      [routePath]="[routerPath.operationCapacities]"
+      routeText="Capacidades"
+    >
+      <app-sidenav-route-menu-item
+        [routePath]="routerPath.opCapacitiesAmPm"
+        routeText="Editar AM/PM"
+      >
+      </app-sidenav-route-menu-item>
+      <app-sidenav-route-menu-item
+        [routePath]="routerPath.opCapacitiesScheduled"
+        routeText="Editar Programado"
+      >
+      </app-sidenav-route-menu-item>
+      <app-sidenav-route-menu-item
+        [routePath]="routerPath.opCapacitiesExpress"
+        routeText="Editar Express"
+      >
+      </app-sidenav-route-menu-item>
+      <app-sidenav-route-menu-item
+        [routePath]="routerPath.opCapacitiesRet"
+        routeText="Editar RET"
+      >
+      </app-sidenav-route-menu-item>
+      <app-sidenav-route-menu-item
+        [routePath]="routerPath.opCapacitiesReport"
+        routeText="Reporte Capacidades"
+      >
+      </app-sidenav-route-menu-item>
+    </app-sidenav-route-menu>
+
+    <app-sidenav-route
+      *appRouterAccess="routerPath.operationSettings"
+      [routePath]="[routerPath.operationSettings]"
+      routeText="Configuraciones"
+    >
+    </app-sidenav-route>
+  </app-sidenav-route-expansion>
+</div>

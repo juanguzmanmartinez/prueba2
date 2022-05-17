@@ -1,48 +1,42 @@
 <app-card innerClass="px-6 pt-6 pb-15">
-    <div class="row mb-6">
-        <div class="col-12">
-            <h5 class="text-h5 mb-2">
-                {{zoneDetail.name}}
-                <span class="text-gray-5 mx-3">-</span>
-                <span class="text-gray-5 text-nowrap">
-                    COD {{zoneDetail.code}}
-                </span>
-            </h5>
-        </div>
+  <div class="row mb-6">
+    <div class="col-12">
+      <h5 class="text-h5 mb-2">
+        {{zoneDetail.name}}
+        <span class="text-gray-5 mx-3">-</span>
+        <span class="text-gray-5 text-nowrap">COD {{zoneDetail.code}}</span>
+      </h5>
     </div>
+  </div>
 
-    <div class="row">
-        <div class="col-12">
-
-            <app-card-static-information class="d-block mb-5"
-                                         iconName="store">
-                <ng-container information-title>Local de atención</ng-container>
-                <ng-container information-caption>
-                    <ng-container *ngIf="zoneDetail.assignedStore">
-                        {{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}
-                    </ng-container>
-                    <ng-container *ngIf="!zoneDetail.assignedStore">
-                        Sin local de atención
-                    </ng-container>
-                </ng-container>
-            </app-card-static-information>
+  <div class="row">
+    <div class="col-12">
+      <app-card-static-information class="d-block mb-5" iconName="store">
+        <ng-container information-title>Local de atención</ng-container>
+        <ng-container information-caption>
+          <ng-container *ngIf="zoneDetail.assignedStore">
+            {{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}
+          </ng-container>
+          <ng-container *ngIf="!zoneDetail.assignedStore">
+            Sin local de atención
+          </ng-container>
+        </ng-container>
+      </app-card-static-information>
 
 
-            <app-card-static-information class="d-block mb-5"
-                                         iconName="store">
-                <ng-container information-title>Local backup</ng-container>
-                <ng-container information-caption>
-                    <span class="text-capitalize">{{zoneEditionDrugstoreBackup}}</span>
-                </ng-container>
-            </app-card-static-information>
+      <app-card-static-information class="d-block mb-5" iconName="store">
+        <ng-container information-title>Local backup</ng-container>
+        <ng-container information-caption>
+          <span class="text-capitalize">{{zoneEditionDrugstoreBackup}}</span>
+        </ng-container>
+      </app-card-static-information>
 
-            <app-card-static-information iconName="location_searching">
-                <ng-container information-title>Zona backup</ng-container>
-                <ng-container information-caption>
-                    <span class="text-capitalize">{{zoneEditionZoneBackup}}</span>
-                </ng-container>
-            </app-card-static-information>
-
-        </div>
+      <app-card-static-information iconName="location_searching">
+        <ng-container information-title>Zona backup</ng-container>
+        <ng-container information-caption>
+          <span class="text-capitalize">{{zoneEditionZoneBackup}}</span>
+        </ng-container>
+      </app-card-static-information>
     </div>
+  </div>
 </app-card>

@@ -1,0 +1,28 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #sidenav
+    (closed)="sidenavClosed()"
+    (opened)="sidenavOpened()"
+    [class.sidenav-close]="!sidenav.opened"
+    mode="over"
+  >
+    <div class="sidenav">
+      <app-sidenav-home></app-sidenav-home>
+      <app-sidenav-administrator
+        [sidenav]="sidenav"
+      ></app-sidenav-administrator>
+      <app-sidenav-operations
+        [sidenav]="sidenav"
+        (sidenavOpen)="sidenavOpened()"
+      ></app-sidenav-operations>
+      <app-sidenav-order
+        [sidenav]="sidenav"
+        (sidenavOpen)="sidenavOpened()"
+      ></app-sidenav-order>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content [class.sidenav-content-close]="!sidenav.opened">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

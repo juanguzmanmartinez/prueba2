@@ -1,0 +1,37 @@
+<div class="row justify-content-between mt-6">
+  <div class="col-12 col-lg-6 col-xlg-5 mb-6">
+    <app-op-drugstores-edition-home-main-service-type-card
+      (add)="addServiceType($event)"
+      (edit)="editServiceType($event)"
+      *appSkeletonCard="!!drugstoreServiceTypeList; row: 5; loading: !homeEditionLoader"
+      [serviceType]="drugstoreServiceTypeList.amPm">
+    </app-op-drugstores-edition-home-main-service-type-card>
+  </div>
+
+  <div class="col-12 col-lg-6 col-xlg-5 mb-6">
+    <app-op-drugstores-edition-home-main-service-type-card
+      (add)="addServiceType($event)"
+      (edit)="editServiceType($event)"
+      *appSkeletonCard="!!drugstoreServiceTypeList; row: 5; loading: !homeEditionLoader"
+      [serviceType]="drugstoreServiceTypeList.scheduled">
+    </app-op-drugstores-edition-home-main-service-type-card>
+  </div>
+
+  <div class="col-12 col-lg-6 col-xlg-5 mb-6">
+    <app-op-drugstores-edition-home-main-service-type-card
+      (add)="addServiceType($event)"
+      (edit)="editServiceType($event)"
+      *appSkeletonCard="!!drugstoreServiceTypeList; row: 5; loading: !homeEditionLoader"
+      [serviceType]="drugstoreServiceTypeList.express">
+    </app-op-drugstores-edition-home-main-service-type-card>
+  </div>
+
+  <div class="col-12 col-lg-6 col-xlg-5 mb-6">
+    <app-op-drugstores-edition-home-main-service-type-card
+      (add)="addServiceType($event)"
+      (edit)="editServiceType($event)"
+      *appSkeletonCard="!!drugstoreServiceTypeList; row: 5; loading: !homeEditionLoader"
+      [serviceType]="drugstoreServiceTypeList.ret">
+    </app-op-drugstores-edition-home-main-service-type-card>
+  </div>
+</div>

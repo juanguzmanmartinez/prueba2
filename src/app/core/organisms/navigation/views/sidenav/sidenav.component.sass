@@ -1,0 +1,43 @@
+@import "src/sass/variables/colors.variable"
+@import "src/sass/variables/utilities.variable"
+@import "src/sass/variables/spacing.variable"
+@import "../../navigation.component"
+
+app-sidenav
+  .mat-drawer-backdrop
+    background-color: transparent !important
+
+  .mat-sidenav
+    border: 0
+    box-shadow: $box-shadow !important
+    background-color: $white
+    height: $sidenav-height
+    transform: none !important
+    visibility: visible !important
+
+  .sidenav-container
+    position: absolute
+    top: $headbar-height
+    bottom: 0
+    left: 0
+    right: 0
+    height: $sidenav-height
+
+
+  .sidenav
+    width: $sidenav-width-open
+    height: 100%
+    box-sizing: border-box
+    transition: width .5s
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1)
+    padding-top: $spacer-2
+
+  .mat-sidenav-content
+    background-color: $gray-0
+    transition: margin-left .5s, margin-right .5s
+    margin-left: $sidenav-width-close !important
+
+  .sidenav-close
+    .sidenav
+      width: $sidenav-width-close
+

@@ -61,7 +61,7 @@ export class RecoverPasswordResetComponent implements OnInit {
         this._alertService.alertSuccess(CUpdatePasswordMessages.success);
         this.recoveryPasswordStore.resetStore();
         this.updatePasswordForm.resetPasswordForm();
-        this._router.navigate([ROUTER_PATH.operations]);
+        this._router.navigate([ROUTER_PATH.base]);
     }
 
     invalidSignIn() {
@@ -72,7 +72,7 @@ export class RecoverPasswordResetComponent implements OnInit {
     formCancelled(): void {
         this.recoveryPasswordStore.resetStore();
         this.updatePasswordForm.resetPasswordForm();
-        this._router.navigate([ROUTER_PATH.login]);
+        this._router.navigate([ROUTER_PATH.accountLogin]);
     }
 
 }

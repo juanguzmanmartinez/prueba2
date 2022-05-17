@@ -10,59 +10,59 @@ export type TZoneBackup = ZoneDetail | HttpErrorResponse | boolean;
 
 @Injectable()
 export class OperationsZonesEditionStoreService implements OnDestroy {
-    private zoneDetailSubject = new BehaviorSubject<TZoneDetail>(null);
-    private zoneBackupSubject = new BehaviorSubject<TZoneBackup>(null);
-    private updateZoneDetailSubject = new BehaviorSubject<boolean>(null);
 
-    constructor() {
-    }
+  private zoneDetailSubject = new BehaviorSubject<TZoneDetail>(null);
+  private zoneBackupSubject = new BehaviorSubject<TZoneBackup>(null);
+  private updateZoneDetailSubject = new BehaviorSubject<boolean>(null);
 
-    get zoneDetail$(): Observable<TZoneDetail> {
-        return this.zoneDetailSubject.asObservable()
-            .pipe(
-                filter(value => value instanceof ZoneDetail || value instanceof HttpErrorResponse)
-            );
-    }
+  get zoneDetail$(): Observable<TZoneDetail> {
+    return this.zoneDetailSubject.asObservable()
+      .pipe(
+        filter(value => value instanceof ZoneDetail || value instanceof HttpErrorResponse)
+      );
+  }
 
-    set zoneDetail(zoneDetail: ZoneDetail) {
-        this.zoneDetailSubject.next(zoneDetail);
-    }
+  set zoneDetail(zoneDetail: ZoneDetail) {
+    this.zoneDetailSubject.next(zoneDetail);
+  }
 
-    zoneDetailError(error: any) {
-        this.zoneDetailSubject.next(error);
-    }
+  get updateZoneDetail$(): Observable<boolean> {
+    return this.updateZoneDetailSubject.asObservable()
+      .pipe(filter(value => !!value));
+  }
 
-    get updateZoneDetail$(): Observable<boolean> {
-        return this.updateZoneDetailSubject.asObservable()
-            .pipe(filter(value => !!value));
-    }
+  set updateZoneDetail(updateZoneDetail: boolean) {
+    this.updateZoneDetailSubject.next(updateZoneDetail);
+  }
 
-    set updateZoneDetail(updateZoneDetail: boolean) {
-        this.updateZoneDetailSubject.next(updateZoneDetail);
-    }
+  get zoneBackup$(): Observable<TZoneBackup> {
+    return this.zoneBackupSubject.asObservable()
+      .pipe(
+        filter(value => value instanceof ZoneDetail || value instanceof HttpErrorResponse || value === CZoneBackupNotRegistered)
+      );
+  }
 
-    get zoneBackup$(): Observable<TZoneBackup> {
-        return this.zoneBackupSubject.asObservable()
-            .pipe(
-                filter(value => value instanceof ZoneDetail || value instanceof HttpErrorResponse || value === CZoneBackupNotRegistered)
-            );
-    }
+  set zoneBackup(zoneDetail: ZoneDetail) {
+    this.zoneBackupSubject.next(zoneDetail);
+  }
 
-    set zoneBackup(zoneDetail: ZoneDetail) {
-        this.zoneBackupSubject.next(zoneDetail);
-    }
+  constructor() { }
 
-    zoneBackupNotRegistered() {
-        this.zoneBackupSubject.next(CZoneBackupNotRegistered);
-    }
+  zoneDetailError(error): void {
+    this.zoneDetailSubject.next(error);
+  }
 
-    zoneBackupError(error) {
-        this.zoneBackupSubject.next(error);
-    }
+  zoneBackupNotRegistered(): void {
+    this.zoneBackupSubject.next(CZoneBackupNotRegistered);
+  }
 
-    ngOnDestroy() {
-        this.zoneDetailSubject.complete();
-        this.updateZoneDetailSubject.complete();
-        this.zoneBackupSubject.complete();
-    }
+  zoneBackupError(error): void {
+    this.zoneBackupSubject.next(error);
+  }
+
+  ngOnDestroy(): void {
+    this.zoneDetailSubject.complete();
+    this.updateZoneDetailSubject.complete();
+    this.zoneBackupSubject.complete();
+  }
 }

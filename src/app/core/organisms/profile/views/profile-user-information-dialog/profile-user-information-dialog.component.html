@@ -4,7 +4,7 @@
     <div class="content border-bottom border-gray-2 pb-6">
         <app-dialog-header svgName="avatar">
             <ng-container dialog-header-title>{{user.name}} {{user.firstLastName}} {{user.secondLastName}}</ng-container>
-            <ng-container dialog-header-description>{{rolesNames[user.role]}}</ng-container>
+            <ng-container dialog-header-description>{{user.position?.name}}</ng-container>
         </app-dialog-header>
     </div>
 
@@ -19,22 +19,16 @@
 
             <app-card-static-information iconName="visibility">
                 <ng-container information-title>Permisos</ng-container>
-                <ng-container information-caption>{{rolesNames[user.role]}}</ng-container>
+                <ng-container information-caption>{{user.position?.name}}</ng-container>
             </app-card-static-information>
 
         </div>
 
-        <div class="profile-dialog-actions d-flex-horizontal-end flex-column flex-md-row">
-            <app-button appearance="secondary"
+        <div class="profile-dialog-actions d-flex-horizontal-end flex-md-row">
+            <app-button [mat-dialog-close]="true"
                         innerClass="w-100 w-md-auto"
-                        class="me-md-4 mb-4 mb-md-0"
-                        [mat-dialog-close]="profileDialogType.updatePassword">
+                        appearance="primary">
                 Cambiar de contraseña
-            </app-button>
-            <app-button appearance="primary"
-                        innerClass="w-100 w-md-auto"
-                        [mat-dialog-close]="profileDialogType.logout">
-                Cerrar sesión
             </app-button>
         </div>
     </div>

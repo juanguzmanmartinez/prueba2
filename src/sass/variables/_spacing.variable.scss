@@ -1,20 +1,49 @@
-$spacer: 0.875rem;
-$spacers: () !default;
-$spacers: map-merge((
-        0: 0,
-        1: ($spacer * .25),
-        2: ($spacer * .5),
-        3: ($spacer * .75),
-        4: $spacer,
-        5: ($spacer * 1.5),
-        6: ($spacer * 2),
-        7: ($spacer * 2.5),
-        8: ($spacer * 3),
-        9: ($spacer * 3.5),
-        10: ($spacer * 4),
-        11: ($spacer * 4.5),
-        12: ($spacer * 5),
-        13: ($spacer * 5.5),
-        14: ($spacer * 6),
-        15: ($spacer * 6.5)),
-        $spacers);
+$spacer-base: 1rem; // 16px
+$spacer-0: 0;
+$spacer-1: ($spacer-base * .25); // 4px
+$spacer-2: ($spacer-base * .5); // 8px
+$spacer-3: ($spacer-base * .75); // 12px
+$spacer-4: $spacer-base; // 16px
+$spacer-5: ($spacer-base * 1.5); // 24px
+$spacer-6: ($spacer-base * 2); // 32px
+$spacer-7: ($spacer-base * 2.5); // 40px
+$spacer-8: ($spacer-base * 3); // 48px
+$spacer-9: ($spacer-base * 3.5); // 56px
+$spacer-10: ($spacer-base * 4); // 64px
+$spacer-11: ($spacer-base * 4.5); // 72px
+$spacer-12: ($spacer-base * 5); // 80px
+$spacer-13: ($spacer-base * 5.5); // 88px
+$spacer-14: ($spacer-base * 6); // 96px
+$spacer-15: ($spacer-base * 6.5); // 104px
+$spacer-16: ($spacer-base * 7); // 112px
+$spacer-17: ($spacer-base * 7.5); // 120px
+$spacer-18: ($spacer-base * 8); // 128px
+$spacer-19: ($spacer-base * 8.5); // 136px
+$spacer-20: ($spacer-base * 9); // 144px
+$spacer-21: ($spacer-base * 9.5); // 152px
+$spacer-22: ($spacer-base * 10); // 160px
+
+$spacers: (
+        0: $spacer-0,
+        1: $spacer-1,
+        2: $spacer-2,
+        3: $spacer-3,
+        4: $spacer-4,
+        5: $spacer-5,
+        6: $spacer-6,
+        7: $spacer-7,
+        8: $spacer-8,
+        9: $spacer-9,
+        10: $spacer-10,
+        11: $spacer-11,
+        12: $spacer-12,
+        13: $spacer-13,
+        14: $spacer-14,
+        15: $spacer-15,
+        16: $spacer-16,
+        17: $spacer-17,
+        18: $spacer-18,
+        19: $spacer-19,
+        20: $spacer-20,
+        21: $spacer-21,
+        22: $spacer-22);

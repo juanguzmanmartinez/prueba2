@@ -7,7 +7,7 @@ pipeline {
             stage ('Build application') {
                 steps {
                     sh 'npm install'
-                    sh 'source ~/.bashrc && nvm use 10.16.0 && npm rebuild node-sass && node_modules/.bin/ng build --prod --optimization --build-optimizer --aot --extract-licenses=true --extract-css=true --source-map=false --vendor-chunk=false -c ci'
+                    sh 'source ~/.bashrc && nvm use 14.16.1 && npm rebuild node-sass && node_modules/.bin/ng build --prod --optimization --build-optimizer --aot --extract-licenses=true --extract-css=true --source-map=false --vendor-chunk=false -c ci'
 
                 }
             }

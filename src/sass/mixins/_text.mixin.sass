@@ -1,86 +1,91 @@
 @import "src/sass/variables/fonts.variable"
-
+@import "src/sass/variables/colors.variable"
 
 @mixin text-h1()
   font-size: $font-size-h1 !important
   font-style: $font-style-normal !important
-  font-weight: $font-weight-regular !important
-  line-height: $line-height-regular !important
-  letter-spacing: $letter-spacing-extra-small !important
+  font-weight: $font-weight-semi-bold !important
+  line-height: $line-height-h1 !important
+  letter-spacing: $letter-spacing-regular !important
 
 @mixin text-h2()
   font-size: $font-size-h2 !important
   font-style: $font-style-normal !important
-  font-weight: $font-weight-regular !important
-  line-height: $line-height-regular !important
+  font-weight: $font-weight-semi-bold !important
+  line-height: $line-height-h2 !important
+  letter-spacing: $letter-spacing-regular !important
 
 @mixin text-h3()
   font-size: $font-size-h3 !important
   font-style: $font-style-normal !important
   font-weight: $font-weight-semi-bold !important
-  line-height: $line-height-regular !important
-  letter-spacing: $letter-spacing-medium !important
+  line-height: $line-height-h3 !important
+  letter-spacing: $letter-spacing-regular !important
 
 @mixin text-h4()
   font-size: $font-size-h4 !important
   font-style: $font-style-normal !important
   font-weight: $font-weight-semi-bold !important
-  line-height: $line-height-regular !important
+  line-height: $line-height-h4 !important
+  letter-spacing: $letter-spacing-regular !important
 
 @mixin text-h5()
   font-size: $font-size-h5 !important
   font-style: $font-style-normal !important
   font-weight: $font-weight-semi-bold !important
-  line-height: $line-height-regular !important
+  line-height: $line-height-medium !important
   letter-spacing: $letter-spacing-regular !important
 
-@mixin text-subtitle-1()
-  font-size: $font-size-subtitle-1 !important
-  font-style: $font-style-normal !important
-  font-weight: $font-weight-regular !important
-  line-height: $line-height-regular !important
-  letter-spacing: $letter-spacing-regular !important
-
-@mixin text-subtitle-2()
-  font-size: $font-size-subtitle-2 !important
-  font-style: $font-style-normal !important
-  font-weight: $font-weight-semi-bold !important
-  line-height: $line-height-regular !important
-  letter-spacing: $letter-spacing-small !important
-
-@mixin text-body()
-  font-size: $font-size-body !important
-  font-style: $font-style-normal !important
-  font-weight: $font-weight-regular !important
-  line-height: $line-height-regular !important
-  letter-spacing: $letter-spacing-extra-large !important
-
-@mixin text-label()
-  font-size: $font-size-label !important
-  font-style: $font-style-normal !important
-  font-weight: $font-weight-regular !important
-  line-height: $line-height-regular !important
-  letter-spacing: $letter-spacing-regular !important
-
-@mixin text-button()
-  font-size: $font-size-button !important
-  font-style: $font-style-normal !important
-  font-weight: $font-weight-semi-bold !important
-  line-height: $line-height-regular !important
-  letter-spacing: $letter-spacing-regular !important
-
-@mixin text-caption()
-  font-size: $font-size-caption !important
+@mixin text-body-1-regular()
+  font-size: $font-size-body-1 !important
   font-style: $font-style-normal !important
   font-weight: $font-weight-regular !important
   line-height: $line-height-medium !important
-  letter-spacing: $letter-spacing-small !important
+  letter-spacing: $letter-spacing-regular !important
+
+@mixin text-body-1-bold()
+  font-size: $font-size-body-1 !important
+  font-style: $font-style-normal !important
+  font-weight: $font-weight-medium !important
+  line-height: $line-height-medium !important
+  letter-spacing: $letter-spacing-regular !important
+
+@mixin text-body-2-regular()
+  font-size: $font-size-body-2 !important
+  font-style: $font-style-normal !important
+  font-weight: $font-weight-regular !important
+  line-height: $line-height-regular !important
+  letter-spacing: $letter-spacing-regular !important
+
+@mixin text-body-2-bold()
+  font-size: $font-size-body-2 !important
+  font-style: $font-style-normal !important
+  font-weight: $font-weight-medium !important
+  line-height: $line-height-regular !important
+  letter-spacing: $letter-spacing-regular !important
+
+@mixin text-link-1()
+  font-size: $font-size-link-1 !important
+  font-style: $font-style-normal !important
+  font-weight: $font-weight-semi-bold !important
+  line-height: $line-height-regular !important
+  letter-spacing: $letter-spacing-regular !important
+  text-decoration-line: underline !important
+  color: $secondary
+
+@mixin text-link-2()
+  font-size: $font-size-link-2 !important
+  font-style: $font-style-normal !important
+  font-weight: $font-weight-semi-bold !important
+  line-height: $line-height-regular !important
+  letter-spacing: $letter-spacing-regular !important
+  text-decoration-line: underline !important
+  color: $secondary
 
 @mixin text-tag()
   font-size: $font-size-tag !important
   font-style: $font-style-normal !important
   font-weight: $font-weight-semi-bold !important
   line-height: $line-height-regular !important
-  letter-spacing: $letter-spacing-large !important
+  letter-spacing: $letter-spacing-regular !important
   text-transform: uppercase !important
-

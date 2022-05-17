@@ -1,52 +1,49 @@
 <section class="operations-zones-edition-home pt-8 pb-15">
-    <div class="row mb-8">
-        <div class="col-12 mb-4">
-            <app-back-router>Zonas</app-back-router>
-        </div>
-
-        <div class="col-12">
-            <h3 class="text-h3 mb-0">Edición de zonas</h3>
-        </div>
+  <div class="row mb-8">
+    <div class="col-12 mb-4">
+      <app-back-router backRoute="/operaciones/zonas">Zonas</app-back-router>
     </div>
 
-    <div [class.container-loader]="updateEditionLoader || saveEditionLoader"
-         *ngIf="!errorResponse">
-        <div class="row mb-6">
-            <div class="col-12">
-                <app-op-zones-edition-home-zone-detail-card
-                        *appSkeletonCard="!!zoneDetail; row: 5; loading: !homeEditionLoader"
-                        [zoneDetail]="zoneDetail"
-                        (edit)="editZone()">
-                </app-op-zones-edition-home-zone-detail-card>
-            </div>
-        </div>
+    <div class="col-12">
+      <h3 class="text-h3 mb-0">Edición de zonas</h3>
+    </div>
+  </div>
 
-        <app-tab-group (selectIndexChange)="setTabSettingsSelectionIndex($event)"
-                       [selectedIndex]="tabSettingsSelectionIndex">
-            <app-tab label="Configuración principal">
-                <app-op-zones-edition-home-main-setting-tab
-                        [zoneChannelServiceTypeList]="zoneServiceTypeList"
-                        [homeEditionLoader]="homeEditionLoader"
-                        (add)="addServiceType($event)"
-                        (edit)="editServiceType($event)">
-                </app-op-zones-edition-home-main-setting-tab>
-            </app-tab>
-
-            <app-tab label="Configuración backup">
-                <app-op-zones-edition-home-backup-setting-tab
-                        [zoneBackup]="zoneDetail?.zoneBackup"
-                        [zoneBackupDetail]="zoneBackupDetail"
-                        [zoneBackupServiceTypeList]="zoneBackupServiceTypeList"
-                        (editBackupZone)="editBackupZone()"
-                        (editServiceType)="editBackupServiceType($event)">
-                </app-op-zones-edition-home-backup-setting-tab>
-            </app-tab>
-        </app-tab-group>
+  <div [class.container-loader]="updateEditionLoader || saveEditionLoader" *ngIf="!errorResponse">
+    <div class="row mb-6">
+      <div class="col-12">
+        <app-op-zones-edition-home-zone-detail-card
+          *appSkeletonCard="!!zoneDetail; row: 5; loading: !homeEditionLoader"
+          [zoneDetail]="zoneDetail"
+          (edit)="editZone()">
+        </app-op-zones-edition-home-zone-detail-card>
+      </div>
     </div>
 
-    <div *ngIf="errorResponse"
-         class="pt-6">
-        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
-    </div>
+    <app-tab-group (selectIndexChange)="setTabSettingsSelectionIndex($event)"
+                   [selectedIndex]="tabSettingsSelectionIndex">
+      <app-tab label="Configuración principal">
+        <app-op-zones-edition-home-main-setting-tab
+          [zoneChannelServiceTypeList]="zoneServiceTypeList"
+          [homeEditionLoader]="homeEditionLoader"
+          (add)="addServiceType($event)"
+          (edit)="editServiceType($event)">
+        </app-op-zones-edition-home-main-setting-tab>
+      </app-tab>
 
+      <app-tab label="Configuración backup">
+        <app-op-zones-edition-home-backup-setting-tab
+          [zoneBackup]="zoneDetail?.zoneBackup"
+          [zoneBackupDetail]="zoneBackupDetail"
+          [zoneBackupServiceTypeList]="zoneBackupServiceTypeList"
+          (editBackupZone)="editBackupZone()"
+          (editServiceType)="editBackupServiceType($event)">
+        </app-op-zones-edition-home-backup-setting-tab>
+      </app-tab>
+    </app-tab-group>
+  </div>
+
+  <div *ngIf="errorResponse" class="pt-6">
+    <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+  </div>
 </section>

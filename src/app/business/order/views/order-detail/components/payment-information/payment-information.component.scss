@@ -1,0 +1,29 @@
+@import "src/sass/variables/colors.variable";
+@import "src/sass/variables/fonts.variable";
+
+table {
+  border-spacing: 0 20px;
+  border-collapse: separate;
+  letter-spacing: $letter-spacing-regular;
+
+  tr {
+    font-size: 12px;
+  }
+
+  td {
+    &:nth-child(odd) {
+      min-width: 150px;
+      color: $gray-5;
+      vertical-align: top;
+    }
+
+    &:nth-child(even) {
+      vertical-align: top;
+      color: $gray-6;
+    }
+  }
+
+  .card-brand {
+    vertical-align: middle!important;
+  }
+}
