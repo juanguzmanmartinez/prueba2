@@ -126,7 +126,8 @@ import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewe
     TabModule,
     NotSearchResultModule,
     HelpersModule,
-    HttpErrorViewerModule
+    HttpErrorViewerModule,
+    RadioModule
   ],
   providers: [
     OperationsZonesImplementService,

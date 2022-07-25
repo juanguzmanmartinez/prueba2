@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ZoneServiceTypeSegmentGapControl } from '../controls/zone-service-type-segment-gap.control';
 
 export class ZoneServiceTypeControlName {
@@ -10,6 +10,7 @@ export class ZoneServiceTypeControlName {
   static intervalTime = 'intervalTime';
   static splitSegment = 'splitSegment';
   static company = 'companyCode';
+  static customAmount = 'customAmount';
 }
 
 @Injectable()
@@ -24,6 +25,7 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
   private _intervalTimeControl: FormControl = new FormControl('');
   private _splitSegmentControl: FormControl = new FormControl('');
   private _splitCompanyControl: FormControl = new FormControl('');
+  private _customAmountControl: FormControl = new FormControl('');
 
   private _controlNameList = ZoneServiceTypeControlName;
 
@@ -59,6 +61,10 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
     return this.form$.get(this._controlNameList.company) as FormControl;
   }
 
+  get customAmountControl(): FormControl {
+    return this.form$.get(this._controlNameList.customAmount) as FormControl;
+  }
+
   constructor(
     private _formBuilder: FormBuilder
   ) {
@@ -70,6 +76,7 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
       [this._controlNameList.intervalTime]: this._intervalTimeControl,
       [this._controlNameList.splitSegment]: this._splitSegmentControl,
       [this._controlNameList.company]: this._splitCompanyControl,
+      [this._controlNameList.customAmount]: this._customAmountControl
     });
   }
 
@@ -81,6 +88,7 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
     this.intervalTimeControl.patchValue(null);
     this.splitSegmentControl.patchValue(null);
     this.companySegmentControl.patchValue(null);
+    this.customAmountControl.patchValue(null);
   }
 
   ngOnDestroy(): void {

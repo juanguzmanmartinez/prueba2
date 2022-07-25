@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { DialogModule } from '@molecules/dialog/dialog.module';
+import { AmountReverseDirective } from './amount-reverse/amount-reverse.directive';
 import { CapsLockDirective } from './caps-lock/caps-lock.directive';
 import { DigitsOnlyDirective } from './digits-only/digits-only.directive';
 import { NoSpaceDirective } from './no-space/no-space.directive';
@@ -18,7 +19,8 @@ const DIRECTIVES = [
   SortCustomDirective,
   SearchCharactersDirective,
   NoSpaceDirective,
-  ResizedDirective
+  ResizedDirective,
+  AmountReverseDirective
 ];
 
 @NgModule({

@@ -1,13 +1,24 @@
-<app-card>
+<app-card innerClass="px-6 pt-6 pb-15">
   <form [formGroup]="form$">
-    <div class="row mb-6">
-      <div class="col-12 d-flex-vertical-center justify-content-between">
-        <app-switch [formControlName]="controlNameList.state">
-          <span class="text-h5">{{
-            serviceTypeName[zoneServiceType?.code]
-          }}</span>
-        </app-switch>
-        <app-tag
+    <div class="row mb-5">
+      <div class="col-12 d-flex justify-content-between">
+        <div class="d-flex align-items-center">
+          <app-icon
+            class="me-5"
+            [svgName]="
+              zoneServiceType?.state ? 'ellipse-success' : 'ellipse-disabled'
+            "
+          ></app-icon>
+          <h5 class="text-h5 mb-0 ms-3">
+            {{ serviceTypeName[zoneServiceType?.code] }}
+          </h5>
+        </div>
+        <div>
+          <span class="text-h5">Desactivar servicio</span>
+          <app-switch [formControlName]="controlNameList.state">
+          </app-switch>
+        </div>
+        <!-- <app-tag
           [appearance]="tagAppearance.coloredWhitePill"
           [tagColor]="segmentChannelColor"
         >
@@ -21,12 +32,22 @@
             <app-icon [svgName]="segmentCompanyIcon" svgWidth="17px"></app-icon>
           </span>
           {{ segmentCompanyName }}
-        </app-tag>
+        </app-tag> -->
       </div>
     </div>
-
+    <hr class="m-0 bg-gray-3" />
+    <div class="row mt-5 mb-5">
+      <div class="col-12">
+        <h5 class="text-h5 mb-0">
+          <span class="text-black"
+            >Selecciona el horario de inicio y fin para el servicio
+            {{ serviceTypeName[zoneServiceType?.code] }}:</span
+          >
+        </h5>
+      </div>
+    </div>
     <div class="row mb-6">
-      <div class="col-5">
+      <div class="col-6">
         <app-form-field>
           <app-form-field-label>Inicio</app-form-field-label>
           <app-input-time
@@ -40,7 +61,7 @@
           </app-input-time>
         </app-form-field>
       </div>
-      <div class="col-5">
+      <div class="col-6">
         <app-form-field>
           <app-form-field-label>Fin</app-form-field-label>
           <app-input-time
@@ -58,20 +79,27 @@
     </div>
 
     <ng-container *ngIf="zoneServiceType.code !== serviceTypeCode.express">
-      <div class="row mb-4">
+      <div class="row mt-5 mb-5">
         <div class="col-12">
+          <h5 class="text-h5 mb-0">
+            <span class="text-black">
+              Ingresa la duraci&oacute;n de las ventanas:
+            </span>
+          </h5>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-6">
           <app-form-field>
-            <app-form-field-label
-              >Duración de ventanas horarias</app-form-field-label
-            >
-            <div class="d-flex-vertical-center">
-              <div class="interval-time-input">
-                <app-input
-                  [formControlName]="controlNameList.intervalTime"
-                  placeholder="horas"
-                >
-                </app-input>
-              </div>
+            <app-form-field-label> Duraci&oacute;n </app-form-field-label>
+            <div class="row mx-0">
+              <app-input
+                [formControlName]="controlNameList.intervalTime"
+                placeholder="horas"
+              >
+              </app-input>
+            </div>
+            <div class="row mx-0">
               <p
                 class="d-inline-flex align-items-center ms-3 mb-0"
                 *appRouterAccess="configurationPath"
@@ -94,25 +122,22 @@
             </div>
           </app-form-field>
         </div>
-      </div>
-
-      <div class="row mb-5">
-        <div class="col-12">
+        <div class="col-6">
           <app-form-field>
-            <app-form-field-label
-              >Resultado de número de ventanas horarias</app-form-field-label
-            >
-            <div class="d-flex">
-              <div class="service-segment-input me-4">
+            <app-form-field-label> N° de ventanas </app-form-field-label>
+            <div class="row mx-0">
+              <div class="col-7 ps-0">
                 <app-input [formControlName]="controlNameList.splitSegment">
                 </app-input>
               </div>
-              <div>
+              <div class="col-5 pe-0">
                 <app-button
                   (clicked)="openServiceTypeDetailDialog()"
                   appearance="outline"
-                  >Ver detalle</app-button
+                  innerClass="w-100"
                 >
+                  Ver detalle
+                </app-button>
               </div>
             </div>
           </app-form-field>
@@ -120,23 +145,55 @@
       </div>
     </ng-container>
 
-    <div class="row mb-9">
+    <div class="row mt-5 mb-5">
       <div class="col-12">
-        <app-form-field>
-          <app-form-field-label
-            >Lapso de cierre de ventana horaria para toma de pedidos -
-            GAP</app-form-field-label
-          >
-          <app-input-number
-            [formControlName]="controlNameList.segmentGap"
-            placeholder="GAP"
-            class="d-inline-block segment-gap-input"
-          >
-          </app-input-number>
-          <span class="text-body-1-regular ms-3">minutos</span>
-        </app-form-field>
+        <h5 class="text-h5 mb-0">
+          <span class="text-black">
+            Lapso de cierre de ventana horaria para toma de pedidos - GAP:
+          </span>
+        </h5>
       </div>
     </div>
+
+    <div class="row align-items-center">
+      <div class="col-6">
+        <app-input
+          [formControlName]="controlNameList.segmentGap"
+          placeholder="GAP"
+        >
+        </app-input>
+      </div>
+      <div class="col-6">
+        <span class="text-body-1-regular ms-3">minutos</span>
+      </div>
+    </div>
+
+    <div class="row mt-5 mb-5">
+      <div class="col-12">
+        <h5 class="text-h5 mb-0">
+          <span class="text-black">
+            Selecciona el valor de flete del servicio:
+          </span>
+        </h5>
+      </div>
+    </div>
+
+    <div class="row mb-5">
+      <div class="col-6">
+        <app-radio (change)="hideInput()" labelClass="default-radio">Monto por defecto: S/ 6.00 soles</app-radio>
+      </div>
+      <div class="col-6">
+        <app-radio (change)="showInput()">Monto personalizado:</app-radio>
+      </div>
+    </div>
+
+    <ng-container *ngIf="showCustomAmount">
+      <div class="row mb-5">
+        <div class="col-6 offset-6">
+          <app-input [formControlName]="controlNameList.customAmount" placeholder="S/ 0.00" appAmountReverse></app-input>
+        </div>
+      </div>
+    </ng-container>
 
     <div
       class="card-actions d-flex-horizontal-end pt-5 border-top border-gray-1"
