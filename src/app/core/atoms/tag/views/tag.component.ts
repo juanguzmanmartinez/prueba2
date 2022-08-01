@@ -5,7 +5,7 @@ import {
   ETypeTagBrand,
   ETypeTagInformative,
   ETypeTagSemantic,
-  TTagAppearance
+  TTagAppearance,
 } from '@models/tag/tag.model';
 
 @Component({
@@ -21,6 +21,7 @@ export class TagComponent {
   @Input() typeInformative: ETypeTagInformative;
   @Input() typeBrand: ETypeTagBrand;
   @Input() appearance: TTagAppearance = ETagAppearance.transparentPill;
+  @Input() innerClass: string = '';
 
   constructor() {}
 }

@@ -15,6 +15,13 @@ export interface IZoneServiceType {
   intervalTime: number;
   channel: EChannel;
   company: ECompany;
+  //nuevos campos
+  timeMeasureUnit: string;
+  serviceCost: number;
+  serviceNew: boolean;
+  flagServiceType: string;
+  ompanyCode: string;
+  orderView: number;
 }
 
 export interface IZoneServiceTypeUpdate {

@@ -62,7 +62,7 @@ export class OrderFormPresenter {
   isNullFilterForm() {
     const {
       searchCode,
-      
+
       promiseRangeDate,
       promiseDateSelect,
       ...restFilterForm
@@ -91,8 +91,6 @@ export class OrderFormPresenter {
     return (group: FormGroup): ValidationErrors | null => {
       const searchCode = group.get('searchCode').value;
       const searchValue = group.get('searchValue').value;
-      console.log('searchCode', searchCode);
-      console.log('searchValue', searchValue);
 
       if (searchCode.code && searchCode.code === ECodeTypeSearch.pedido) {
         if (searchValue.length < 6 && searchValue.length !== 0) {

@@ -11,11 +11,10 @@ import { OP_ZONES_PATH } from '@parameters/router/routing/operations/operations-
   template: '<router-outlet></router-outlet>',
   providers: [
     OperationsZonesEditionStoreService,
-    OperationsZonesEditionActionsStoreService
-  ]
+    OperationsZonesEditionActionsStoreService,
+  ],
 })
 export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
-
   private subscriptions = new Subscription();
 
   private zoneCode: string;
@@ -24,13 +23,13 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _operationsZonesImplement: OperationsZonesImplementService,
     private _operationsZonesEditionStore: OperationsZonesEditionStoreService,
-    private _operationsZonesEditionActionsStore: OperationsZonesEditionActionsStoreService,
-  ) {
-  }
+    private _operationsZonesEditionActionsStore: OperationsZonesEditionActionsStoreService
+  ) {}
 
   ngOnInit(): void {
     const subscription = this._activatedRoute.paramMap.subscribe(() => {
-      this.zoneCode = this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneCode];
+      this.zoneCode =
+        this._activatedRoute.snapshot.params[OP_ZONES_PATH.zoneCode];
       this._operationsZonesEditionStore.updateZoneDetail = true;
       this._operationsZonesEditionActionsStore.resetStore();
     });
@@ -39,39 +38,42 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
   }
 
   getZoneDetail(zoneCode: string): void {
-    this._operationsZonesImplement.getZoneDetail(zoneCode)
-      .subscribe((zoneDetail: ZoneDetail) => {
+    this._operationsZonesImplement.getZoneDetail(zoneCode).subscribe(
+      (zoneDetail: ZoneDetail) => {
         this._operationsZonesEditionStore.zoneDetail = zoneDetail;
         if (zoneDetail.zoneBackup) {
           this.getZoneBackup(zoneDetail.zoneBackup.id);
         } else {
           this._operationsZonesEditionStore.zoneBackupNotRegistered();
         }
-      }, (error) => {
+      },
+      (error) => {
         this._operationsZonesEditionStore.zoneDetailError(error);
         this._operationsZonesEditionStore.zoneBackupError(error);
-      });
+      }
+    );
   }
 
   updateZoneDetail(): void {
-    const subscription = this._operationsZonesEditionStore.updateZoneDetail$
-      .subscribe(() => {
+    const subscription =
+      this._operationsZonesEditionStore.updateZoneDetail$.subscribe(() => {
         this.getZoneDetail(this.zoneCode);
       });
     this.subscriptions.add(subscription);
   }
 
   getZoneBackup(zoneCode: string): void {
-    this._operationsZonesImplement.getZoneDetail(zoneCode)
-      .subscribe((zoneDetail: ZoneDetail) => {
+    this._operationsZonesImplement.getZoneDetail(zoneCode).subscribe(
+      (zoneDetail: ZoneDetail) => {
         this._operationsZonesEditionStore.zoneBackup = zoneDetail;
-      }, (error) => {
+      },
+      (error) => {
         this._operationsZonesEditionStore.zoneBackupError(error);
-      });
+      }
+    );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
 }

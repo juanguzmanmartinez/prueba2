@@ -16,30 +16,23 @@ import { NotSupportedModule } from '@pages/not-supported/not-supported.module';
 import 'moment/locale/es';
 
 @NgModule({
-    bootstrap: [
-        AppComponent,
-        MainLoaderComponent
-    ],
-    declarations: [
-        AppComponent,
-        MainLoaderComponent,
-    ],
-    imports: [
-        HttpClientModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        StoreFactoryModule.forRoot(),
-        ListenerFactoryModule.forRoot(),
-        GuardServiceModule,
-        AppRoutingModule,
-        InterceptorsServiceModule,
-        IconsRegistryModule,
-        NotSupportedModule,
-    ],
-    providers: [
-        {provide: MAT_DATE_LOCALE, useValue: 'es'},
-        httpInterceptorProviders
-    ],
+  bootstrap: [AppComponent, MainLoaderComponent],
+  declarations: [AppComponent, MainLoaderComponent],
+  imports: [
+    HttpClientModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    StoreFactoryModule.forRoot(),
+    ListenerFactoryModule.forRoot(),
+    GuardServiceModule,
+    AppRoutingModule,
+    InterceptorsServiceModule,
+    IconsRegistryModule,
+    NotSupportedModule,
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'es' },
+    httpInterceptorProviders,
+  ],
 })
-export class AppModule {
-}
+export class AppModule {}
