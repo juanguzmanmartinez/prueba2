@@ -62,7 +62,7 @@ import { OperationsZoneServiceTypeEditionGuard } from './guards/operations-zone-
 import { NotSearchResultModule } from '@pages/not-search-result/not-search-result.module';
 import { HelpersModule } from '@helpers/helpers.module';
 import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
-
+import { DividerModule } from '@atoms/divider/divider.module';
 
 @NgModule({
   declarations: [
@@ -89,7 +89,7 @@ import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewe
     OpZonesEditionBackupDetailCardComponent,
     OpZonesEditionBackupDetailFormCardComponent,
     OpZonesEditionBackupServiceTypeDetailFormCardComponent,
-    OpZonesEditionBackupServiceTypeDetailCardComponent
+    OpZonesEditionBackupServiceTypeDetailCardComponent,
   ],
   imports: [
     CommonModule,
@@ -127,12 +127,12 @@ import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewe
     NotSearchResultModule,
     HelpersModule,
     HttpErrorViewerModule,
-    RadioModule
+    RadioModule,
+    DividerModule,
   ],
   providers: [
     OperationsZonesImplementService,
-    OperationsZoneServiceTypeEditionGuard
-  ]
+    OperationsZoneServiceTypeEditionGuard,
+  ],
 })
-export class OperationsZonesModule {
-}
+export class OperationsZonesModule {}
