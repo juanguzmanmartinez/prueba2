@@ -12,6 +12,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { normalizeValue } from '@helpers/string.helper';
+import { IDrugstore } from '@interfaces/drugstores/drugstores.interface';
 import {
   CStatusOrderName,
   EStatusOrder,
@@ -60,6 +61,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   loadingExport = false;
   errorResponse: HttpErrorResponse;
 
+  localList: IDrugstore[];
   totalOrder = 0;
   activeButtonFilter: boolean;
   page = 1;
@@ -149,8 +151,16 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       (x) => (this.fixedSelectedRows = x.source.selected)
     );
     this.subscriptions.add(subscription);
-
+    this.getListStore();
     this.filterAll();
+  }
+
+  getListStore(): void {
+    this.subscriptions.add(
+      this.orderFilterStore
+        .getLocalList()
+        .subscribe((localList) => (this.localList = localList))
+    );
   }
 
   ngAfterViewInit(): void {
@@ -379,6 +389,17 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterAll();
   }
 
+  getLocalDescription(localCode: string) {
+    const local = this.localList.find((local) => local.localCode === localCode);
+    if (!local) {
+      return '-';
+    }
+    if (!local.name) {
+      return local.localCode;
+    }
+    return `${local.name} - ${local.localCode}`;
+  }
+
   exportData(): void {
     this.loadingExport = true;
     const orderListId = this.selection.selected.map((order: OrderModel) =>
@@ -395,7 +416,9 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
                   ? value.orderDetail.callNumber
                   : '-',
               ['Estado']: value.state ? value.state : '-',
-              ['Local']: value.local,
+              ['Local']: value.local
+                ? this.getLocalDescription(value.local)
+                : '-',
               ['Marca']: value.companyCode,
               ['Canal']: value.channel,
               ['Servicio']: value.service,
