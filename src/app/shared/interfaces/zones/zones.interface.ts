@@ -17,13 +17,26 @@ export interface IZoneServiceType {
   company: ECompany;
 }
 
+// export interface IZoneServiceTypeUpdate {
+//   enabled: boolean;
+//   startHour: string;
+//   endHour: string;
+//   segmentGap: number;
+//   channel: EChannel;
+//   companyCode: ECompany;
+// }
+
 export interface IZoneServiceTypeUpdate {
   enabled: boolean;
   startHour: string;
   endHour: string;
   segmentGap: number;
-  channel: EChannel;
-  companyCode: ECompany;
+
+  zoneId: string;
+  service: string;
+  serviceTypeId: string;
+  serviceCost: number;
+  intervalTime: number;
 }
 
 export interface IZoneServiceTypeRegister {

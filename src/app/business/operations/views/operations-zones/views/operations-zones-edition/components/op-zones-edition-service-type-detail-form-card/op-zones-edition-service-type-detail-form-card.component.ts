@@ -66,7 +66,6 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
   private channelColor = CChannelColor;
   private companyName = CCompanyName;
   private companyColor = CCompanyColor;
-  
 
   public splitSegmentList: string[] = [];
 
@@ -234,8 +233,14 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
     const zoneServiceTypeUpdate = {} as IZoneServiceTypeUpdate;
     zoneServiceTypeUpdate.enabled =
       this._serviceTypeDetailForm.stateControl.value;
-    zoneServiceTypeUpdate.channel = this.zoneServiceType.channel;
-    zoneServiceTypeUpdate.companyCode = this.zoneServiceType.company;
+    // zoneServiceTypeUpdate.channel = this.zoneServiceType.channel;
+    // zoneServiceTypeUpdate.companyCode = this.zoneServiceType.company;
+    zoneServiceTypeUpdate.serviceTypeId = this.zoneServiceType.id;
+    zoneServiceTypeUpdate.intervalTime = this.zoneServiceType.intervalTime;
+    zoneServiceTypeUpdate.zoneId = this.zoneDetail.id;
+    zoneServiceTypeUpdate.service = this.zoneServiceType.code;
+    zoneServiceTypeUpdate.serviceCost =
+      this._serviceTypeDetailForm.customAmountControl.value;
 
     if (zoneServiceTypeUpdate.enabled) {
       zoneServiceTypeUpdate.startHour = DatesHelper.Date(
@@ -268,6 +273,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
   }
   hideInput(): void {
     this.showCustomAmount = false;
+    this._serviceTypeDetailForm.customAmountControl.setValue(null);
   }
 
   ngOnDestroy(): void {

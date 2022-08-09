@@ -183,7 +183,7 @@
         <app-radio (change)="hideInput()" labelClass="default-radio">Monto por defecto: S/ 6.00 soles</app-radio>
       </div>
       <div class="col-6">
-        <app-radio (change)="showInput()">Monto personalizado:</app-radio>
+        <app-radio [formControlName]="controlNameList.customAmount" (change)="showInput()">Monto personalizado:</app-radio>
       </div>
     </div>
 
