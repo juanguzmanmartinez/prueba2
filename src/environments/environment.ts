@@ -16,6 +16,7 @@ export const environment = {
   // dataStudio:
   //   'https://datastudio.google.com/embed/reporting/6ac0e5bb-786a-4371-98f2-5a2e8035d871',
 
+
   production: false,
   show_logs: false,
   envName: 'qa2',
@@ -25,5 +26,4 @@ export const environment = {
   authUsername: 'adm-operations',
   authPassword: 'ypej47Qm14QhjB93Sf',
   dataStudio: 'https://datastudio.google.com/embed/reporting/6ac0e5bb-786a-4371-98f2-5a2e8035d871'
-
 };

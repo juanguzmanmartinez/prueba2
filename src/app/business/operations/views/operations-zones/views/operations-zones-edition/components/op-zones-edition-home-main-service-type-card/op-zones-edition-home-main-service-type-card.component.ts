@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import {
+  CDeliveryServiceTypeName,
+  EDeliveryServiceType,
+} from '@models/service-type/delivery-service-type.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { CStateValue } from '@models/state/state.model';
@@ -8,15 +11,19 @@ import { CChannelColor, CChannelName } from '@models/channel/channel.model';
 import { ETagAppearance } from '@models/tag/tag.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { minuteFormat } from '@helpers/date-name.helper';
-import { CCompanyColor, CCompanyIcon, CCompanyName, ECompany } from '@models/company/company.model';
+import {
+  CCompanyColor,
+  CCompanyIcon,
+  CCompanyName,
+  ECompany,
+} from '@models/company/company.model';
 
 @Component({
   selector: 'app-op-zones-edition-home-main-service-type-card',
   templateUrl: './op-zones-edition-home-main-service-type-card.component.html',
-  styleUrls: ['./op-zones-edition-home-main-service-type-card.component.sass']
+  styleUrls: ['./op-zones-edition-home-main-service-type-card.component.sass'],
 })
 export class OpZonesEditionHomeMainServiceTypeCardComponent {
-
   private serviceTypeName = CDeliveryServiceTypeName;
   private stateValue = CStateValue;
   private channelName = CChannelName;
@@ -33,7 +40,10 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   @Output() add = new EventEmitter<EDeliveryServiceType>();
 
   get serviceTypeDisabled(): boolean {
-    return !this.serviceType.serviceType || !this.stateValue[this.serviceType.serviceType.state];
+    return (
+      !this.serviceType.serviceType ||
+      !this.stateValue[this.serviceType.serviceType.state]
+    );
   }
 
   get segmentName(): string {
@@ -45,7 +55,9 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   }
 
   get segmentChannelColor(): string {
-    return this.serviceTypeDisabled ? 'gray-3' : this.channelColor[this.serviceType.channel];
+    return this.serviceTypeDisabled
+      ? 'gray-3'
+      : this.channelColor[this.serviceType.channel];
   }
 
   get segmentCompanyName(): string {
@@ -57,15 +69,21 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   }
 
   get segmentCompanyColor(): string {
-    return this.serviceTypeDisabled ? 'gray-3' : this.companyColor[this.company];
+    return this.serviceTypeDisabled
+      ? 'gray-3'
+      : this.companyColor[this.company];
   }
 
   get startAndEndHour(): string {
     if (this.serviceType.serviceType) {
-      const startHour = DatesHelper.date(this.serviceType.serviceType.startHour, DATES_FORMAT.millisecond)
-        .format(DATES_FORMAT.hourMinuteDateTime);
-      const endHour = DatesHelper.date(this.serviceType.serviceType.endHour, DATES_FORMAT.millisecond)
-        .format(DATES_FORMAT.hourMinuteDateTime);
+      const startHour = DatesHelper.date(
+        this.serviceType.serviceType.startHour,
+        DATES_FORMAT.millisecond
+      ).format(DATES_FORMAT.hourMinuteDateTime);
+      const endHour = DatesHelper.date(
+        this.serviceType.serviceType.endHour,
+        DATES_FORMAT.millisecond
+      ).format(DATES_FORMAT.hourMinuteDateTime);
       return `${startHour} - ${endHour}`;
     }
     return 'No habilitado';
@@ -82,8 +100,18 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
     this.serviceType.company = this.company;
     return ROUTER_PATH.opZones_ZoneServiceTypeEdition();
   }
-
-  constructor() { }
+  // get flagServiceType() {
+  //   return this.serviceType?.serviceType?.flagServiceType;
+  // }
+  // get textFlagServiceType() {
+  //   return this.serviceType?.serviceType?.flagServiceType == 'p'
+  //     ? 'Precio personalizado'
+  //     : 'Precio personalizado';
+  // }
+  // get priceServideType(): string {
+  //   return this.serviceType?.serviceType?.serviceCost.toFixed(2);
+  // }
+  constructor() {}
 
   editEvent(): void {
     this.edit.emit(this.serviceType.code);

@@ -8,7 +8,7 @@ import {
   IZoneDetail,
   IZoneDetailUpdate,
   IZoneServiceTypeRegister,
-  IZoneServiceTypeUpdate
+  IZoneServiceTypeUpdate,
 } from '@interfaces/zones/zones.interface';
 import { Zone, ZoneDetail } from '../models/operations-zones.model';
 import { DrugstoresClientService } from '@clients/drugstores/drugstores-client.service';
@@ -22,22 +22,22 @@ import { EZoneType } from '../parameters/operations-zones-type.parameter';
 
 @Injectable()
 export class OperationsZonesImplementService {
-
   get zoneList(): Observable<Zone[]> {
-    return this.zonesClient.getZoneList()
-      .pipe(
-        map((iZoneList: IZone[]) => {
-          return iZoneList.map((iZone: IZone) => new Zone(iZone));
-        })
-      );
+    return this.zonesClient.getZoneList().pipe(
+      map((iZoneList: IZone[]) => {
+        return iZoneList.map((iZone: IZone) => new Zone(iZone));
+      })
+    );
   }
 
   get storeList() {
-    return this.storesClient.getDrugstoreList()
-      .pipe(
-        map((drugstoreList: IDrugstore[]) => {
-          return drugstoreList ? drugstoreList.map(drugstore => new ZonesDrugstore(drugstore)) : [];
-        }));
+    return this.storesClient.getDrugstoreList().pipe(
+      map((drugstoreList: IDrugstore[]) => {
+        return drugstoreList
+          ? drugstoreList.map((drugstore) => new ZonesDrugstore(drugstore))
+          : [];
+      })
+    );
   }
 
   get channelList(): Observable<EChannel[]> {
@@ -59,16 +59,15 @@ export class OperationsZonesImplementService {
   constructor(
     private zonesClient: ZonesClientService,
     private storesClient: DrugstoresClientService,
-    private resourceClient: ResourceClientService,
-  ) { }
+    private resourceClient: ResourceClientService
+  ) {}
 
   getZoneDetail(zoneCode: string): Observable<ZoneDetail> {
-    return this.zonesClient.getZoneDetail(zoneCode)
-      .pipe(
-        map((iZoneDetail: IZoneDetail) => {
-          return new ZoneDetail(iZoneDetail);
-        })
-      );
+    return this.zonesClient.getZoneDetail(zoneCode).pipe(
+      map((iZoneDetail: IZoneDetail) => {
+        return new ZoneDetail(iZoneDetail);
+      })
+    );
   }
 
   putZoneDetail(zoneCode: string, body: IZoneDetailUpdate) {
@@ -79,8 +78,14 @@ export class OperationsZonesImplementService {
     return this.zonesClient.putZoneBackup(zoneCode, body);
   }
 
-  putZoneServiceType(serviceTypeId: string, zoneServiceTypeUpdate: IZoneServiceTypeUpdate) {
-    return this.zonesClient.putZoneServiceType(serviceTypeId, zoneServiceTypeUpdate);
+  putZoneServiceType(
+    serviceTypeId: string,
+    zoneServiceTypeUpdate: IZoneServiceTypeUpdate
+  ) {
+    return this.zonesClient.putZoneServiceType(
+      serviceTypeId,
+      zoneServiceTypeUpdate
+    );
   }
 
   postZoneServiceType(zoneServiceTypRegister: IZoneServiceTypeRegister) {

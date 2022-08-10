@@ -6,7 +6,7 @@ $main-colors-map: (
   "dark-primary": $dark-primary,
   "light-secondary": $light-secondary,
   "secondary": $secondary,
-  "dark-secondary": $dark-secondary
+  "dark-secondary": $dark-secondary,
 );
 $complementary-colors-map: (
   "light-complementary-one": $light-complementary-one,
@@ -17,7 +17,10 @@ $complementary-colors-map: (
   "dark-complementary-two": $dark-complementary-two,
   "light-complementary-three": $light-complementary-three,
   "complementary-three": $complementary-three,
-  "dark-complementary-three": $dark-complementary-three
+  "dark-complementary-three": $dark-complementary-three,
+  "light-complementary-four": $light-complementary-four,
+  "complementary-four": $complementary-four,
+  "dark-complementary-four": $dark-complementary-four,
 );
 
 $neutral-colors-map: (
@@ -29,7 +32,7 @@ $neutral-colors-map: (
   "gray-4": $gray-4,
   "gray-5": $gray-5,
   "gray-6": $gray-6,
-  "black": $black
+  "black": $black,
 );
 
 $semantic-colors-map: (
@@ -41,13 +44,25 @@ $semantic-colors-map: (
   "dark-warning": $dark-warning,
   "light-danger": $light-danger,
   "danger": $danger,
-  "dark-danger": $dark-danger
+  "dark-danger": $dark-danger,
 );
 
 $brand-colors-map: (
   "inkafarma": $inkafarma,
-  "mifarma": $mifarma
+  "mifarma": $mifarma,
 );
 
-$colors: map-collect($main-colors-map, $complementary-colors-map, $semantic-colors-map, $neutral-colors-map, $brand-colors-map);
-$theme-colors: map-collect($main-colors-map, $complementary-colors-map, $semantic-colors-map, $neutral-colors-map, $brand-colors-map);
+$colors: map-collect(
+  $main-colors-map,
+  $complementary-colors-map,
+  $semantic-colors-map,
+  $neutral-colors-map,
+  $brand-colors-map
+);
+$theme-colors: map-collect(
+  $main-colors-map,
+  $complementary-colors-map,
+  $semantic-colors-map,
+  $neutral-colors-map,
+  $brand-colors-map
+);
