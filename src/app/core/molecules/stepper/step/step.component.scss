@@ -1,12 +1,11 @@
-@import 'src/sass/variables';
-@import 'src/sass/mixins/text.mixin';
-@import 'src/sass/mixins/display.mixin';
-@import 'src/sass/mixins/utilities.mixin';
+@import "src/sass/variables";
+@import "src/sass/mixins/text.mixin";
+@import "src/sass/mixins/display.mixin";
+@import "src/sass/mixins/utilities.mixin";
 
 :host .step {
   &.step-disabled {
     pointer-events: none;
-
   }
 
   .steps-panel {
@@ -26,7 +25,7 @@
       background-color: transparent;
     }
 
-    &[aria-disabled=true] {
+    &[aria-disabled="true"] {
       .step-header-id {
         background-color: $gray-4;
       }
@@ -49,11 +48,11 @@
     .step-header-content {
       width: 100%;
       justify-content: space-between;
-      @include d-flex-vertical-center
+      @include d-flex-vertical-center;
     }
 
     .step-header-title-container {
-      @include d-flex-vertical-center
+      @include d-flex-vertical-center;
     }
 
     .step-header-id {
@@ -64,11 +63,11 @@
       color: $white;
       background-color: $gray-6;
       margin-right: 18px;
-      @include text-body-2-regular
+      @include text-body-2-regular;
     }
 
     .step-header-title {
-      @include text-tag
+      @include text-tag;
     }
 
     .step-header-description-container {
@@ -96,13 +95,11 @@
     }
   }
 
-
   ::ng-deep {
     .mat-expansion-panel-body {
       padding: 0 24px 24px;
     }
   }
-
 
   .step-body {
     border-top: 1px solid $gray-1;
@@ -116,4 +113,23 @@
       padding-top: 16px;
     }
   }
+}
+
+.content-body {
+  box-shadow: none;
+  background-color: #ffffff;
+  border: 1px solid #f4f6f7;
+  box-sizing: border-box;
+  border-radius: 8px;
+  .content-header {
+    background-color: transparent;
+    padding: 24px 24px 0;
+    align-items: flex-start;
+  }
+  .content-main {
+    padding: 0 24px 24px;
+  }
+}
+.ml-3 {
+  margin-left: 15px;
 }

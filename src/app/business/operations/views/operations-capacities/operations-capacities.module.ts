@@ -41,6 +41,7 @@ import { TableModule } from '@molecules/table/table.module';
 import { DialogModule } from '@molecules/dialog/dialog.module';
 import { OperationsCapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
 import { PipesModule } from '@pipes/pipes.module';
+import { DropOptionsModule } from '@molecules/drop-options/drop-options.module';
 
 @NgModule({
   declarations: [
@@ -86,11 +87,9 @@ import { PipesModule } from '@pipes/pipes.module';
     DirectivesModule,
     TableModule,
     DialogModule,
-    PipesModule
+    PipesModule,
+    DropOptionsModule,
   ],
-  providers: [
-    OperationsCapacitiesImplementService
-  ]
+  providers: [OperationsCapacitiesImplementService],
 })
-export class OperationsCapacitiesModule {
-}
+export class OperationsCapacitiesModule {}

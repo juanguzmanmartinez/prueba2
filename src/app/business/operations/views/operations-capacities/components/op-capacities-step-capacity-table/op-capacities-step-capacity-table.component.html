@@ -1,24 +1,35 @@
-<app-step stepId="3"
-          stepTitle="Capacidad"
-          [class.card-step-content-disabled]="capacityTableSaveLoad"
-          [stepExpandedToggle]="capacityTableStepStatus === eCapacityStepStatus.open"
-          [stepDisabled]="capacityTableStepStatus === eCapacityStepStatus.disabled  || capacityTableSaveLoad"
-          [saveButtonDisabled]="!_opCapacitiesStepCapacityTableForm.capacityTableForm$.valid || capacityTableSaveLoad"
-          [enableAccess]="true"
-          [pathAccess]="capacityPathAccess"
-          (stepOpenEvent)="openCapacityTableStep()"
-          (stepCloseEvent)="closeCapacityTableStep()"
-          (saveButtonEvent)="saveCapacityTable()"
-          (cancelButtonEvent)="cancelCapacityTable()">
+<app-step
+  stepId="3"
+  stepTitle="Capacidad"
+  [class.card-step-content-disabled]="capacityTableSaveLoad"
+  [stepExpandedToggle]="capacityTableStepStatus === eCapacityStepStatus.open"
+  [stepDisabled]="
+    capacityTableStepStatus === eCapacityStepStatus.disabled ||
+    capacityTableSaveLoad
+  "
+  [saveButtonDisabled]="
+    !_opCapacitiesStepCapacityTableForm.capacityTableForm$.valid ||
+    capacityTableSaveLoad
+  "
+  [enableAccess]="true"
+  [pathAccess]="capacityPathAccess"
+  (stepOpenEvent)="openCapacityTableStep()"
+  (stepCloseEvent)="closeCapacityTableStep()"
+  (saveButtonEvent)="saveCapacityTable()"
+  (cancelButtonEvent)="cancelCapacityTable()"
+>
   <div class="card-step-content">
     <form [formGroup]="_opCapacitiesStepCapacityTableForm.capacityTableForm$">
       <div class="row">
         <div *ngIf="capacityTableDateRange" class="col-12 mb-5">
-          <label class="text-body-2-regular text-gray-5 mb-2">Selecciona días</label>
+          <label class="text-body-2-regular text-gray-5 mb-2"
+            >Selecciona días</label
+          >
           <app-input-datepicker-range
             [maxDate]="capacityTableMaxDateRange"
             [minDate]="capacityTableMinDateRange"
-            formControlName="capacityRange">
+            formControlName="capacityRange"
+          >
           </app-input-datepicker-range>
         </div>
 

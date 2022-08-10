@@ -1,51 +1,76 @@
 <div class="step" [class.step-disabled]="stepDisabled || stepReadonly">
-    <mat-expansion-panel hideToggle
-                         class="steps-panel"
-                         [disabled]="stepDisabled || stepReadonly"
-                         [(expanded)]="stepExpanded"
-                         (opened)="this.stepOpenEvent.emit()"
-                         (closed)="this.stepCloseEvent.emit()">
-        <mat-expansion-panel-header class="step-header"
-                                    expandedHeight="64px"
-                                    [collapsedHeight]="collapsedHeight">
-            <div class="step-header-content flex-column flex-md-row">
-                <mat-panel-title class="step-header-title-container mb-4 mb-md-0">
-                    <span class="step-header-id">{{stepId}}</span>
-                    <span class="step-header-title">{{stepTitle}}</span>
-                </mat-panel-title>
-                <mat-panel-description class="step-header-description-container justify-content-center justify-content-md-end"
-                                       [class.step-header-description-container-readonly]="stepReadonly"
-                                       *ngIf="!stepExpanded && _stepDescription && (!stepDisabled || stepReadonly)">
-                    <span class="step-header-description">{{_stepDescription}}</span>
-                    <app-icon *ngIf="!stepReadonly"
-                              class="step-header-description-icon"
-                              fontName="edit"
-                              fontSize="24px"></app-icon>
-                </mat-panel-description>
-            </div>
-        </mat-expansion-panel-header>
-        <div class="step-body">
-            <div class="steps-body-content">
-                <ng-content></ng-content>
-            </div>
-
-            <div class="step-body-actions d-flex flex-column-reverse flex-md-row justify-content-md-end">
-                <app-button appearance="secondary"
-                            class="me-md-4"
-                            innerClass="w-100 w-md-auto"
-                            (clicked)="cancelButtonEvent.emit()">
-                    {{cancelButtonText}}
-                </app-button>
-                <app-button appearance="primary"
-                            class="mb-4 mb-md-0"
-                            innerClass="w-100 w-md-auto"
-                            [disabled]="saveButtonDisabled"
-                            (editionAccess)="saveButtonEvent.emit()"
-                            [enableAccess]="enableAccess"
-                            [pathAccess]="pathAccess">
-                    {{saveButtonText}}
-                </app-button>
-            </div>
+  <mat-expansion-panel
+    hideToggle
+    class="steps-panel"
+    [disabled]="stepDisabled || stepReadonly"
+    [(expanded)]="stepExpanded"
+    (opened)="this.stepOpenEvent.emit()"
+    (closed)="this.stepCloseEvent.emit()"
+  >
+    <!-- <mat-expansion-panel-header
+      class="step-header"
+      expandedHeight="64px"
+      [collapsedHeight]="collapsedHeight"
+    > -->
+    <div class="step-header-content flex-column flex-md-row">
+      <mat-panel-title class="step-header-title-container mb-4 mb-md-0">
+        <div class="p-x4 mt-5 mb-4 d-flex">
+          <app-icon
+            class="step-header-description-icon mr-3"
+            svgName="stores"
+            svgWidth="30px"
+          ></app-icon>
+          <h2 class="text-h3 text-black ml-3">Editar capacidad RET</h2>
         </div>
-    </mat-expansion-panel>
+
+        <!-- <span class="step-header-id">{{ stepId }}</span>
+        <span class="step-header-title">{{ stepTitle }}</span> -->
+      </mat-panel-title>
+      <mat-panel-description
+        class="step-header-description-container justify-content-center justify-content-md-end"
+        [class.step-header-description-container-readonly]="stepReadonly"
+        *ngIf="
+          !stepExpanded && _stepDescription && (!stepDisabled || stepReadonly)
+        "
+      >
+        <span class="step-header-description">{{ _stepDescription }}</span>
+        <app-icon
+          *ngIf="!stepReadonly"
+          class="step-header-description-icon"
+          fontName="edit"
+          fontSize="24px"
+        ></app-icon>
+      </mat-panel-description>
+    </div>
+    <!-- </mat-expansion-panel-header> -->
+    <div class="step-body">
+      <div class="steps-body-content">
+        <ng-content></ng-content>
+      </div>
+
+      <div
+        class="step-body-actions d-flex flex-column-reverse flex-md-row justify-content-md-end"
+      >
+        <app-button
+          appearance="secondary"
+          class="me-md-4"
+          innerClass="w-100 w-md-auto"
+          (clicked)="cancelButtonEvent.emit()"
+        >
+          {{ cancelButtonText }}
+        </app-button>
+        <app-button
+          appearance="primary"
+          class="mb-4 mb-md-0"
+          innerClass="w-100 w-md-auto"
+          [disabled]="saveButtonDisabled"
+          (editionAccess)="saveButtonEvent.emit()"
+          [enableAccess]="enableAccess"
+          [pathAccess]="pathAccess"
+        >
+          {{ saveButtonText }}
+        </app-button>
+      </div>
+    </div>
+  </mat-expansion-panel>
 </div>

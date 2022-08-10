@@ -1,23 +1,36 @@
-<app-step stepId="2"
-          stepTitle="Modo de edición"
-          saveButtonText="Continuar"
-          [class.card-step-content-disabled]="editionModeStepStatus === eCapacityStepStatus.open && editionModeSaveLoad"
-          [stepExpandedToggle]="editionModeStepStatus === eCapacityStepStatus.open"
-          [stepReadonly]="editionModeStepStatus === eCapacityStepStatus.readonly || editionModeSaveLoad"
-          [stepDisabled]="editionModeStepStatus === eCapacityStepStatus.disabled || editionModeSaveLoad"
-          [stepDescription]="eEditionModeName[editionModeSaveSelected]"
-          [saveButtonDisabled]="!editionModeSelection || editionModeSaveLoad"
-          (stepOpenEvent)="openEditionModeStep()"
-          (stepCloseEvent)="closeEditionModeStep()"
-          (saveButtonEvent)="saveEditionMode()"
-          (cancelButtonEvent)="cancelEditionMode()">
-  <div class="card-step-content py-5 px-4 d-flex flex-column flex-md-row align-items-center align-items-md-start justify-content-md-around">
+<app-step
+  stepId="2"
+  stepTitle="Modo de edición"
+  saveButtonText="Continuar"
+  [class.card-step-content-disabled]="
+    editionModeStepStatus === eCapacityStepStatus.open && editionModeSaveLoad
+  "
+  [stepExpandedToggle]="editionModeStepStatus === eCapacityStepStatus.open"
+  [stepReadonly]="
+    editionModeStepStatus === eCapacityStepStatus.readonly ||
+    editionModeSaveLoad
+  "
+  [stepDisabled]="
+    editionModeStepStatus === eCapacityStepStatus.disabled ||
+    editionModeSaveLoad
+  "
+  [stepDescription]="eEditionModeName[editionModeSaveSelected]"
+  [saveButtonDisabled]="!editionModeSelection || editionModeSaveLoad"
+  (stepOpenEvent)="openEditionModeStep()"
+  (stepCloseEvent)="closeEditionModeStep()"
+  (saveButtonEvent)="saveEditionMode()"
+  (cancelButtonEvent)="cancelEditionMode()"
+>
+  <div
+    class="card-step-content py-5 px-4 d-flex flex-column flex-md-row align-items-center align-items-md-start justify-content-md-around"
+  >
     <div class="mb-4 mb-md-0 me-md-4">
       <app-card-radio
         class="card-radio-edition-mode"
         [value]="eEditionMode.default"
-        [(ngModel)]="editionModeSelection">
-        <span card-title>{{eEditionModeName[eEditionMode.default]}}</span>
+        [(ngModel)]="editionModeSelection"
+      >
+        <span card-title>{{ eEditionModeName[eEditionMode.default] }}</span>
         <span card-description>Capacidad default para un día</span>
       </app-card-radio>
     </div>
@@ -25,8 +38,9 @@
       <app-card-radio
         class="card-radio-edition-mode"
         [value]="eEditionMode.calendar"
-        [(ngModel)]="editionModeSelection">
-        <span card-title>{{eEditionModeName[eEditionMode.calendar]}}</span>
+        [(ngModel)]="editionModeSelection"
+      >
+        <span card-title>{{ eEditionModeName[eEditionMode.calendar] }}</span>
         <span card-description>Capacidad programada</span>
       </app-card-radio>
     </div>

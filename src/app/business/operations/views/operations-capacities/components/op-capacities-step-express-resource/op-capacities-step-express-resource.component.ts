@@ -1,14 +1,20 @@
-import { Component, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  Optional,
+  SkipSelf,
+} from '@angular/core';
 import {
   ECapacitiesStepExpressResource,
-  OpCapacitiesStepExpressResourceService
+  OpCapacitiesStepExpressResourceService,
 } from './op-capacities-step-express-resource.service';
 import { OpCapacitiesStepExpressResourceFormService } from './form/op-capacities-step-express-resource-form.service';
 import { Subscription } from 'rxjs';
 import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
 import {
   FromFormToCapacityStepExpressResourceSegments,
-  ICapacityStepExpressResourceSegments
+  ICapacityStepExpressResourceSegments,
 } from './models/op-capacities-step-express-resource.model';
 import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 import { DatesHelper } from '@helpers/dates.helper';
@@ -20,30 +26,36 @@ import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-acti
   styleUrls: ['./op-capacities-step-express-resource.component.scss'],
   providers: [
     OpCapacitiesStepExpressResourceService,
-    OpCapacitiesStepExpressResourceFormService
-  ]
+    OpCapacitiesStepExpressResourceFormService,
+  ],
 })
-export class OpCapacitiesStepExpressResourceComponent implements OnInit, OnDestroy {
-
+export class OpCapacitiesStepExpressResourceComponent
+  implements OnInit, OnDestroy
+{
   private subscriptions = new Subscription();
 
   public expressResourceSaveLoad: boolean;
   public eCapacityStepStatus = ECapacityStepStatus;
-  public expressResourceStepStatus: ECapacityStepStatus = ECapacityStepStatus.disabled;
+  public expressResourceStepStatus: ECapacityStepStatus =
+    ECapacityStepStatus.disabled;
 
   public expressResourceDateRange: boolean;
 
   public expressResourceMinDateRange: number = DatesHelper.Date().valueOf();
-  public expressResourceMaxDateRange: number = DatesHelper.Date().add(2, 'M').valueOf();
+  public expressResourceMaxDateRange: number = DatesHelper.Date()
+    .add(2, 'M')
+    .valueOf();
   public expressResourceSegments: ICapacityStepExpressResourceSegments;
 
   public expressPathAccess: string;
 
   constructor(
-    @Optional() @SkipSelf() private _opCapacitiesStepExpressResource: OpCapacitiesStepExpressResourceService,
+    @Optional()
+    @SkipSelf()
+    private _opCapacitiesStepExpressResource: OpCapacitiesStepExpressResourceService,
     public _opCapacitiesStepExpressResourceForm: OpCapacitiesStepExpressResourceFormService,
-    private _dialogTwoActions: DialogTwoActionsService,
-  ) { }
+    private _dialogTwoActions: DialogTwoActionsService
+  ) {}
 
   ngOnInit(): void {
     this.updateExpressResourceFormView();
@@ -52,28 +64,37 @@ export class OpCapacitiesStepExpressResourceComponent implements OnInit, OnDestr
     this.resetExpressResourceStep();
     this.updateExpressResourceStepStatus();
 
-    this.expressPathAccess = this._opCapacitiesStepExpressResource.expressResourceEditionAccessPath;
+    this.expressPathAccess =
+      this._opCapacitiesStepExpressResource.expressResourceEditionAccessPath;
   }
 
-
   openExpressResourceStep(): void {
-    this._opCapacitiesStepExpressResource.expressResourceStepStatus = this.eCapacityStepStatus.open;
+    this._opCapacitiesStepExpressResource.expressResourceStepStatus =
+      this.eCapacityStepStatus.open;
   }
 
   closeExpressResourceStep(): void {
-    this._opCapacitiesStepExpressResource.expressResourceStepStatus = this.eCapacityStepStatus.close;
+    this._opCapacitiesStepExpressResource.expressResourceStepStatus =
+      this.eCapacityStepStatus.close;
   }
 
   saveExpressResource(): void {
-    const subscription = this._dialogTwoActions.openConfirmChanges()
+    const subscription = this._dialogTwoActions
+      .openConfirmChanges()
       .afterClosed()
       .subscribe((confirmChanges) => {
         if (confirmChanges) {
-          if (this._opCapacitiesStepExpressResourceForm.expressResourceForm$.valid) {
+          if (
+            this._opCapacitiesStepExpressResourceForm.expressResourceForm$.valid
+          ) {
+            console.log('aquitoy');
+
             this.expressResourceSaveLoad = true;
-            this._opCapacitiesStepExpressResource.expressResourceSave = new FromFormToCapacityStepExpressResourceSegments(
-              this._opCapacitiesStepExpressResourceForm.expressResourceForm$.value as ICapacityStepExpressResourceSegments
-            );
+            this._opCapacitiesStepExpressResource.expressResourceSave =
+              new FromFormToCapacityStepExpressResourceSegments(
+                this._opCapacitiesStepExpressResourceForm.expressResourceForm$
+                  .value as ICapacityStepExpressResourceSegments
+              );
           }
         }
       });
@@ -85,59 +106,76 @@ export class OpCapacitiesStepExpressResourceComponent implements OnInit, OnDestr
   }
 
   updateExpressResourceStepStatus(): void {
-    const subscription = this._opCapacitiesStepExpressResource.expressResourceStepStatus$
-      .subscribe((eCapacityStepStatus: ECapacityStepStatus) => {
-        if (this.expressResourceStepStatus !== eCapacityStepStatus) {
-          this.expressResourceStepStatus = eCapacityStepStatus;
+    const subscription =
+      this._opCapacitiesStepExpressResource.expressResourceStepStatus$.subscribe(
+        (eCapacityStepStatus: ECapacityStepStatus) => {
+          if (this.expressResourceStepStatus !== eCapacityStepStatus) {
+            this.expressResourceStepStatus = eCapacityStepStatus;
+          }
         }
-      });
+      );
     this.subscriptions.add(subscription);
   }
 
   resetExpressResourceStep(): void {
-    const subscription = this._opCapacitiesStepExpressResource.expressResourceResetStepStatus$
-      .subscribe(() => {
-        this.expressResourceDateRange = false;
-        this.expressResourceSaveLoad = false;
-        this.expressResourceSegments = null;
-        this._opCapacitiesStepExpressResourceForm.resetForm();
-      });
+    const subscription =
+      this._opCapacitiesStepExpressResource.expressResourceResetStepStatus$.subscribe(
+        () => {
+          console.log('me ejecuto');
+
+          this.expressResourceDateRange = false;
+          this.expressResourceSaveLoad = false;
+          this.expressResourceSegments = null;
+          this._opCapacitiesStepExpressResourceForm.resetForm();
+        }
+      );
     this.subscriptions.add(subscription);
   }
 
   updateExpressResourceSegments(): void {
-    const subscription = this._opCapacitiesStepExpressResource.expressResourceSegments$
-      .subscribe((expressResourceSegments: ICapacityStepExpressResourceSegments) => {
-        this.expressResourceSegments = expressResourceSegments;
-        if (expressResourceSegments) {
-          this._opCapacitiesStepExpressResourceForm.expressResource.setValue(expressResourceSegments.expressResource);
+    const subscription =
+      this._opCapacitiesStepExpressResource.expressResourceSegments$.subscribe(
+        (expressResourceSegments: ICapacityStepExpressResourceSegments) => {
+          this.expressResourceSegments = expressResourceSegments;
+          if (expressResourceSegments) {
+            console.log('expressResourceSegments', expressResourceSegments);
+
+            this._opCapacitiesStepExpressResourceForm.expressResource.setValue(
+              expressResourceSegments.expressResource
+            );
+          }
         }
-      });
+      );
     this.subscriptions.add(subscription);
   }
 
   updateExpressResourceRangeLimit(): void {
-    const subscription = this._opCapacitiesStepExpressResource.expressResourceRangeLimit$
-      .subscribe((capacityRangeLimit: CapacityRangeLimit) => {
-        this.expressResourceMinDateRange = capacityRangeLimit.startDate;
-        this.expressResourceMaxDateRange = capacityRangeLimit.endDate;
-      });
+    const subscription =
+      this._opCapacitiesStepExpressResource.expressResourceRangeLimit$.subscribe(
+        (capacityRangeLimit: CapacityRangeLimit) => {
+          this.expressResourceMinDateRange = capacityRangeLimit.startDate;
+          this.expressResourceMaxDateRange = capacityRangeLimit.endDate;
+        }
+      );
     this.subscriptions.add(subscription);
   }
 
   updateExpressResourceFormView(): void {
-    const subscription = this._opCapacitiesStepExpressResource.expressResourceFormView$
-      .subscribe((eCapacitiesStepExpressResource: ECapacitiesStepExpressResource) => {
-        switch (eCapacitiesStepExpressResource) {
-          case ECapacitiesStepExpressResource.daysRange:
-            this._opCapacitiesStepExpressResourceForm.capacityRange.enable();
-            break;
-          case ECapacitiesStepExpressResource.hourlyCapacity:
-            this._opCapacitiesStepExpressResourceForm.capacityRange.disable();
-            break;
+    const subscription =
+      this._opCapacitiesStepExpressResource.expressResourceFormView$.subscribe(
+        (eCapacitiesStepExpressResource: ECapacitiesStepExpressResource) => {
+          switch (eCapacitiesStepExpressResource) {
+            case ECapacitiesStepExpressResource.daysRange:
+              this._opCapacitiesStepExpressResourceForm.capacityRange.enable();
+              break;
+            case ECapacitiesStepExpressResource.hourlyCapacity:
+              this._opCapacitiesStepExpressResourceForm.capacityRange.disable();
+              break;
+          }
+          this.expressResourceDateRange =
+            this._opCapacitiesStepExpressResourceForm.capacityRange.enabled;
         }
-        this.expressResourceDateRange = this._opCapacitiesStepExpressResourceForm.capacityRange.enabled;
-      });
+      );
     this.subscriptions.add(subscription);
   }
 
