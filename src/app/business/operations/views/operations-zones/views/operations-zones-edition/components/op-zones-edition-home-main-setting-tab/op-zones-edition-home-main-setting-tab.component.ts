@@ -1,13 +1,17 @@
 import {
+  AfterContentInit,
+  AfterViewInit,
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   SkipSelf,
 } from '@angular/core';
 import {
   ZoneChannelServiceTypeList,
   ZoneCompanyServiceTypeList,
+  ZoneServiceType,
   ZoneServiceTypeList,
 } from '../../../../models/operations-zones-service-type.model';
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
@@ -42,11 +46,14 @@ const listCompanies = [
   templateUrl: './op-zones-edition-home-main-setting-tab.component.html',
   styleUrls: ['./op-zones-edition-home-main-setting-tab.component.sass'],
 })
-export class OpZonesEditionHomeMainSettingTabComponent {
+export class OpZonesEditionHomeMainSettingTabComponent
+  implements OnInit, AfterViewInit, AfterContentInit
+{
   public channelName = CChannelName;
   public companyName = CCompanyName;
   public channelTabList: EChannel[];
   public channelSelected: EChannel;
+  public companiesSelected: ECompany;
   public zoneServiceTypeList: ZoneServiceTypeList;
   public zoneChannelServiceTypeList: ZoneChannelServiceTypeList[];
   public zoneCompanyServiceTypeList: ZoneCompanyServiceTypeList[];
@@ -54,7 +61,8 @@ export class OpZonesEditionHomeMainSettingTabComponent {
   public companyTabList: ECompany[];
 
   public channels = listChannels.map((value) => value.code);
-  public companies = listCompanies.map((value) => value.name);
+  public companies = listCompanies.map((value) => value.code);
+  public serviceList: ZoneServiceType[];
 
   @Input('zoneChannelServiceTypeList')
   set _zoneChannelServiceTypeList(
@@ -76,7 +84,7 @@ export class OpZonesEditionHomeMainSettingTabComponent {
       const hasDigitalChannel = this.channelTabList.find(
         (channel) => channel === savedChannel
       );
-      this.channelChange(hasDigitalChannel || this.channelTabList[0]);
+      // this.channelChange(hasDigitalChannel || this.channelTabList[0]);
 
       const companyTabList = zoneChannelServiceTypeList.map(
         (zoneChannelServiceType) => zoneChannelServiceType.company
@@ -104,6 +112,8 @@ export class OpZonesEditionHomeMainSettingTabComponent {
   }
 
   @Input() homeEditionLoader: boolean;
+  @Input() serviceTypeList: ZoneServiceType[];
+  
 
   @Output() edit = new EventEmitter<ZoneServiceTypeBasicRequest>();
   @Output() add = new EventEmitter<ZoneServiceTypeBasicRequest>();
@@ -113,21 +123,45 @@ export class OpZonesEditionHomeMainSettingTabComponent {
     private _operationsZonesEditionActionsStore: OperationsZonesEditionActionsStoreService
   ) {}
 
+  ngOnInit(): void {
+    
+  }
+
+  ngAfterViewInit(): void {
+    if (this.serviceTypeList) {
+      console.log(this.serviceTypeList);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    if (this.serviceTypeList) {
+      console.log(this.serviceTypeList);
+    }
+  }
+
+  companyChange(companies: ECompany): void{
+    this.companiesSelected = companies;
+  }
+
   channelChange(channel: EChannel): void {
+    console.log(channel);
     this.channelSelected = channel;
-    const zoneChannelServiceTypeList = this.zoneChannelServiceTypeList.find(
-      (channelServiceTypeList) => channelServiceTypeList.channel === channel
-    );
-    this.zoneServiceTypeList = zoneChannelServiceTypeList.serviceTypeList;
+    // const zoneChannelServiceTypeList = this.zoneChannelServiceTypeList.find(
+    //   (channelServiceTypeList) => channelServiceTypeList.channel === channel
+    // );
+    // console.log(zoneChannelServiceTypeList);
+    // this.zoneServiceTypeList = zoneChannelServiceTypeList.serviceTypeList;
+    // console.log(this.zoneServiceTypeList);
+
     this._operationsZonesEditionActionsStore.serviceTypeChannelSelection =
       channel;
   }
 
-  editServiceType(serviceType: EDeliveryServiceType): void {
+  editServiceType(serviceType: ZoneServiceType): void {
     this.edit.emit({
-      code: serviceType,
-      channel: this.channelSelected,
-      company: this.companyItem,
+      code: serviceType.code,
+      channel: serviceType.channel,
+      company: serviceType.companyCode,
     });
   }
 

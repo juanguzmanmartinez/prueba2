@@ -14,7 +14,7 @@ export interface IZoneServiceType {
   enabled: boolean;
   intervalTime: number;
   channel: EChannel;
-  company: ECompany;
+  companyCode: ECompany;
   //nuevos campos
   timeMeasureUnit: string;
   serviceCost: number;
@@ -22,6 +22,7 @@ export interface IZoneServiceType {
   flagServiceType: string;
   ompanyCode: string;
   orderView: number;
+  service: EDeliveryServiceType;
 }
 
 // export interface IZoneServiceTypeUpdate {
@@ -62,7 +63,7 @@ export interface IZone {
   name: string;
   enabled: boolean;
   fulfillmentCenterCode: string;
-  serviceTypes: IZoneServiceType[];
+  serviceType: IZoneServiceType[];
   storeCenter: IDrugstore;
   channel: EChannel[];
   companyCode: ECompany[];

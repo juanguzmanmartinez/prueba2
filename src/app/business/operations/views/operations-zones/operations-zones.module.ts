@@ -63,6 +63,7 @@ import { NotSearchResultModule } from '@pages/not-search-result/not-search-resul
 import { HelpersModule } from '@helpers/helpers.module';
 import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
 import { DividerModule } from '@atoms/divider/divider.module';
+import { ServiceByCompanyPipe, ServiceTypePipe } from './pipes/serviceTypeList.pipe';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,8 @@ import { DividerModule } from '@atoms/divider/divider.module';
     OpZonesEditionBackupDetailFormCardComponent,
     OpZonesEditionBackupServiceTypeDetailFormCardComponent,
     OpZonesEditionBackupServiceTypeDetailCardComponent,
+    ServiceTypePipe,
+    ServiceByCompanyPipe
   ],
   imports: [
     CommonModule,

@@ -47,8 +47,8 @@ export class Zone extends ZoneBase {
 
   constructor(iZone: IZone) {
     super(iZone);
-    this.serviceTypeList = iZone.serviceTypes
-      ? iZone.serviceTypes.map(
+    this.serviceTypeList = iZone.serviceType
+      ? iZone.serviceType.map(
           (serviceType: IZoneServiceType) => serviceType.serviceTypeCode
         )
       : [];
@@ -65,8 +65,9 @@ export class ZoneDetail extends ZoneBase {
     super(iZoneDetail);
     this.label = iZoneDetail.zoneType as EZoneLabel;
     this.companyList = iZoneDetail.companyCode || [];
-    this.serviceTypeList = iZoneDetail.serviceTypes
-      ? iZoneDetail.serviceTypes.map(
+    console.log(iZoneDetail.serviceType);
+    this.serviceTypeList = iZoneDetail.serviceType
+      ? iZoneDetail.serviceType.map(
           (serviceType) => new ZoneServiceType(serviceType)
         )
       : [];

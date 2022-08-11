@@ -31,6 +31,7 @@
       <app-tab label="Configuración principal">
         <app-op-zones-edition-home-main-setting-tab
           [zoneChannelServiceTypeList]="zoneServiceTypeList"
+          [serviceTypeList]="serviceTypeList"
           [homeEditionLoader]="homeEditionLoader"
           (add)="addServiceType($event)"
           (edit)="editServiceType($event)"

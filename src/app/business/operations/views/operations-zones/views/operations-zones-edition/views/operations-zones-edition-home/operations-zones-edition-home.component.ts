@@ -12,6 +12,7 @@ import {
   ZoneBackupServiceTypeList,
   ZoneChannelServiceTypeList,
   ZoneCompanyServiceTypeList,
+  ZoneServiceType,
 } from '../../../../models/operations-zones-service-type.model';
 import {
   OperationsZonesEditionStoreService,
@@ -61,6 +62,8 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
   public updateEditionLoader: boolean;
   public listCompany: ECompany[];
 
+  public serviceTypeList: ZoneServiceType[];
+
   get tabSettingsSelectionIndex(): number {
     return this._operationsZonesEditionActionsStore.tabSettingSelection;
   }
@@ -96,6 +99,8 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
         (zoneDetail: TZoneDetail) => {
           if (zoneDetail instanceof ZoneDetail) {
             this.zoneDetail = zoneDetail;
+            this.serviceTypeList = zoneDetail.serviceTypeList;
+            console.log('zonedetail', zoneDetail);
             this.zoneServiceTypeList = zoneDetail.channelList.map(
               (channel: EChannel) =>
                 new ZoneChannelServiceTypeList(

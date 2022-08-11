@@ -25,11 +25,11 @@ export class ZoneServiceType {
   serviceNew: boolean;
   flagServiceType: string;
   orderView: number;
-  companyCode: string;
+  companyCode: ECompany;
 
   constructor(iZoneServiceType: IZoneServiceType) {
-    this.id = iZoneServiceType.id || null;
-    this.code = iZoneServiceType.serviceTypeCode || null;
+    this.id = iZoneServiceType.serviceTypeId || null;
+    this.code = iZoneServiceType.service || null;
     this.segmentGap = iZoneServiceType.segmentGap || 0;
     this.intervalTime = iZoneServiceType.intervalTime || 0;
     this.startHour =
@@ -44,14 +44,14 @@ export class ZoneServiceType {
       ).valueOf() || null;
     this.state = iZoneServiceType.enabled ? EState.active : EState.inactive;
     this.channel = iZoneServiceType.channel || EChannel.default;
-    this.company = iZoneServiceType.company || ECompany.default;
+    // this.company = iZoneServiceType.company || ECompany.default;
 
     this.timeMeasureUnit = iZoneServiceType.timeMeasureUnit;
     this.serviceCost = iZoneServiceType.serviceCost;
     this.serviceNew = iZoneServiceType.serviceNew;
     this.flagServiceType = iZoneServiceType.flagServiceType;
     this.orderView = iZoneServiceType.orderView;
-    this.companyCode = iZoneServiceType.company;
+    this.companyCode = iZoneServiceType.companyCode;
   }
 }
 

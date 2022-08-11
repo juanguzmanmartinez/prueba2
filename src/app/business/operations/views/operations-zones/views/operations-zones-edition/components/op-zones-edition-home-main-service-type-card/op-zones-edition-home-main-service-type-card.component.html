@@ -1,4 +1,4 @@
-<app-card innerClass="pb-12">
+<app-card innerClass="pb-6">
   <div class="row mb-6">
     <div class="col-12 d-flex-vertical-center justify-content-between">
       <h5 class="text-h5 mb-0" [class.text-gray-4]="serviceTypeDisabled">
@@ -23,14 +23,14 @@
       >
         {{ segmentChannelName }}
       </app-tag>
-      <!-- <app-tag
+      <app-tag
         [appearance]="tagAppearance.coloredWhitePill"
         [tagColor]="'dark-complementary-four'"
         class="ml-10"
-        *ngIf="flagServiceType == 'p'"
+        *ngIf="flagServiceType === 'P'"
       >
         Precio personalizado
-      </app-tag> -->
+      </app-tag>
       <app-tag
         [appearance]="tagAppearance.transparentPill"
         [tagColor]="segmentCompanyColor"
@@ -66,7 +66,7 @@
     <ng-container information-caption>{{ segmentGap }}</ng-container>
   </app-card-static-information>
 
-  <!-- <app-card-static-information
+  <app-card-static-information
     class="d-block"
     svgName="price"
     svgWidth="20px"
@@ -74,11 +74,16 @@
   >
     <ng-container information-title>{{ textFlagServiceType }}</ng-container>
     <ng-container information-caption>S/ {{ priceServideType }}</ng-container>
-  </app-card-static-information> -->
+  </app-card-static-information>
 
   <ng-container *appRouterAccess="serviceTypePath">
-    <ng-container *ngIf="serviceType.available">
+    <ng-container *ngIf="isAvailable">
       <div
+        app-card-edit-button
+        [editMessage]="segmentName"
+        (click)="editEvent()"
+      ></div>
+      <!-- <div
         *ngIf="serviceType.registered"
         app-card-edit-button
         [editMessage]="segmentName"
@@ -90,7 +95,7 @@
         [addMessage]="segmentName"
         (editionAccess)="addEvent()"
         [pathAccess]="serviceTypePath"
-      ></div>
+      ></div> -->
     </ng-container>
   </ng-container>
 </app-card>
