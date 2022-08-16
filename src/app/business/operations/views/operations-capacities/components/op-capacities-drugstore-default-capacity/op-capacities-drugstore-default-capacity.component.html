@@ -75,6 +75,9 @@
             this.capacityDrugstoreServiceExpress
           )
         "
+        (interval)="
+          drugstoreDefaultSetIntervalTime(this.capacityDrugstoreServiceExpress)
+        "
         [capacityQuantity]="capacityDrugstoreServiceExpress?.capacityQuantity"
         [disabled]="!capacityDrugstoreServiceExpress"
         serviceName="Express"

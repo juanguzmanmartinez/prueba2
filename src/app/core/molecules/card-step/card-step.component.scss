@@ -1,0 +1,135 @@
+@import "src/sass/variables";
+@import "src/sass/mixins/text.mixin";
+@import "src/sass/mixins/display.mixin";
+@import "src/sass/mixins/utilities.mixin";
+
+:host .step {
+  &.step-disabled {
+    pointer-events: none;
+  }
+
+  .steps-panel {
+    box-shadow: none;
+    background-color: $white;
+    border: 1px solid $gray-1;
+    box-sizing: border-box;
+    border-radius: $border-radius;
+  }
+
+  .step-header {
+    background-color: transparent;
+    padding: 24px 24px 0;
+    align-items: flex-start;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    &[aria-disabled="true"] {
+      .step-header-id {
+        background-color: $gray-4;
+      }
+
+      .step-header-title {
+        color: $gray-4;
+      }
+    }
+
+    &.mat-expanded {
+      .step-header-id {
+        background-color: $primary;
+      }
+
+      .step-header-title {
+        color: $primary;
+      }
+    }
+
+    .step-header-content {
+      width: 100%;
+      justify-content: space-between;
+      @include d-flex-vertical-center;
+    }
+
+    .step-header-title-container {
+      @include d-flex-vertical-center;
+    }
+
+    .step-header-id {
+      border-radius: $border-radius;
+      padding: 5px 8px;
+      width: 24px;
+      height: 24px;
+      color: $white;
+      background-color: $gray-6;
+      margin-right: 18px;
+      @include text-body-2-regular;
+    }
+
+    .step-header-title {
+      @include text-tag;
+    }
+
+    .step-header-description-container {
+      justify-content: flex-end;
+      margin-right: 0;
+      max-width: 190px;
+      width: 100%;
+      @include d-flex-vertical-center;
+
+      &-readonly {
+        pointer-events: none;
+      }
+    }
+
+    .step-header-description {
+      color: $dark-primary;
+      padding-right: 16px;
+      text-align: right;
+      @include text-h5;
+      @include text-truncate;
+    }
+
+    .step-header-description-icon {
+      color: $dark-primary;
+    }
+  }
+
+  ::ng-deep {
+    .mat-expansion-panel-body {
+      padding: 0 24px 24px;
+    }
+  }
+
+  .step-body {
+    border-top: 1px solid $gray-1;
+
+    .steps-body-content {
+      min-height: 70px;
+    }
+
+    .step-body-actions {
+      border-top: 1px solid $gray-1;
+      padding-top: 16px;
+    }
+  }
+}
+
+.content-body {
+  box-shadow: none;
+  background-color: #ffffff;
+  border: 1px solid #f4f6f7;
+  box-sizing: border-box;
+  border-radius: 8px;
+  .content-header {
+    background-color: transparent;
+    padding: 24px 24px 0;
+    align-items: flex-start;
+  }
+  .content-main {
+    padding: 0 24px 24px;
+  }
+}
+.ml-3 {
+  margin-left: 15px;
+}

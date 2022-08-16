@@ -20,6 +20,7 @@ export class OpCapacitiesDrugstoreDefaultCapacityCardComponent {
 
   @Output() viewMore = new EventEmitter();
   @Output() edit = new EventEmitter();
+  @Output() interval = new EventEmitter();
   @ViewChild('dropDown') dropDown: DropOptionsComponent;
   showOptions: boolean = false;
 
@@ -31,5 +32,12 @@ export class OpCapacitiesDrugstoreDefaultCapacityCardComponent {
 
   editEvent(): void {
     this.edit.emit();
+  }
+
+  setInterval(): void {
+    this.interval.emit();
+  }
+  get isExpress(): boolean {
+    return this.serviceName === 'Express' ? true : false;
   }
 }

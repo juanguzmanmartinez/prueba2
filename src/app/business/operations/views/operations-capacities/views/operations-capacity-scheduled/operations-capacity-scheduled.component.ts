@@ -18,25 +18,29 @@ import { objectHasElements } from '@helpers/objects-equal.helper';
     OperationsCapacityScheduledStoreService,
     OpCapacitiesStepGroupOrDrugstoreService,
     OpCapacitiesStepEditionModeService,
-    OpCapacitiesStepCapacityTableService
-  ]
+    OpCapacitiesStepCapacityTableService,
+  ],
 })
 export class OperationsCapacityScheduledComponent implements OnInit, OnDestroy {
-
   private subscriptions = new Subscription();
+  mode: boolean = false;
 
   constructor(
     private _operationsCapacityScheduled: OperationsCapacityScheduledService,
     private _activatedRoute: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    const subscription = this._activatedRoute.queryParams
-      .subscribe((serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+    const subscription = this._activatedRoute.queryParams.subscribe(
+      (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+        this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
+
         if (objectHasElements(serviceTypeQueryParams)) {
-          this._operationsCapacityScheduled.serviceQueryParams = serviceTypeQueryParams;
+          this._operationsCapacityScheduled.serviceQueryParams =
+            serviceTypeQueryParams;
         }
-      });
+      }
+    );
     this.subscriptions.add(subscription);
   }
 

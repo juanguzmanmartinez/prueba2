@@ -5,4 +5,5 @@ export interface IOpCapacitiesServiceTypeQueryParams {
   groupOrDrugstore: ECapacityStepGroupOrDrugstore;
   drugstoreCode: string;
   editionMode: ECapacitiesStepEditionMode;
+  mode: string;
 }

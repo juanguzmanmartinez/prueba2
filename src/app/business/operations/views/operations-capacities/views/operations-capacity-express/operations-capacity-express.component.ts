@@ -23,6 +23,7 @@ import { OperationsCapacityExpressService } from './operations-capacity-express.
 })
 export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
+  mode: boolean = false;
 
   constructor(
     private _operationsCapacityExpress: OperationsCapacityExpressService,
@@ -32,6 +33,8 @@ export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const subscription = this._activatedRoute.queryParams.subscribe(
       (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+        this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
+
         if (objectHasElements(serviceTypeQueryParams)) {
           this._operationsCapacityExpress.serviceQueryParams =
             serviceTypeQueryParams;

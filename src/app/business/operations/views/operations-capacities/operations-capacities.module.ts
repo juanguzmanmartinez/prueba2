@@ -42,6 +42,10 @@ import { DialogModule } from '@molecules/dialog/dialog.module';
 import { OperationsCapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
 import { PipesModule } from '@pipes/pipes.module';
 import { DropOptionsModule } from '@molecules/drop-options/drop-options.module';
+import { OperationsIntervalExpressComponent } from './views/operations-interval-express/operations-interval-express.component';
+import { OpIntervalsStepSetExpressComponent } from './components/op-intervals-step-set-express/op-intervals-step-set-express.component';
+import { CardStepModule } from '@molecules/card-step/card-step.module';
+import { SwitchModule } from '@atoms/switch/switch.module';
 
 @NgModule({
   declarations: [
@@ -60,6 +64,8 @@ import { DropOptionsModule } from '@molecules/drop-options/drop-options.module';
     OpCapacitiesDrugstoreDefaultCapacityComponent,
     OpCapacitiesDrugstoreDefaultCapacityCardComponent,
     OpCapacitiesDrugstoreDefaultCapacityDialogComponent,
+    OperationsIntervalExpressComponent,
+    OpIntervalsStepSetExpressComponent,
   ],
   imports: [
     CommonModule,
@@ -89,6 +95,8 @@ import { DropOptionsModule } from '@molecules/drop-options/drop-options.module';
     DialogModule,
     PipesModule,
     DropOptionsModule,
+    CardStepModule,
+    SwitchModule,
   ],
   providers: [OperationsCapacitiesImplementService],
 })

@@ -11,23 +11,23 @@
     </div>
   </div>
 
-  <!-- <mat-accordion> -->
-  <div class="row justify-content-center">
-    <div class="d-none col-12 col-xlg-6 mb-4 mb-xlg-0">
-      <div class="row">
-        <div class="col-12 mb-4">
-          <app-op-capacities-step-group-or-drugstore></app-op-capacities-step-group-or-drugstore>
-        </div>
+  <mat-accordion>
+    <div class="row" [ngClass]="{ 'justify-content-center': mode }">
+      <div [hidden]="mode" class="col-12 col-xlg-6 mb-4 mb-xlg-0">
+        <div class="row">
+          <div class="col-12 mb-4">
+            <app-op-capacities-step-group-or-drugstore></app-op-capacities-step-group-or-drugstore>
+          </div>
 
-        <div class="col-12">
-          <app-op-capacities-step-edition-mode></app-op-capacities-step-edition-mode>
+          <div class="col-12">
+            <app-op-capacities-step-edition-mode></app-op-capacities-step-edition-mode>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-12 col-xlg-7">
-      <app-op-capacities-step-capacity-table></app-op-capacities-step-capacity-table>
+      <div class="col-12 col-xlg-6">
+        <app-op-capacities-step-capacity-table></app-op-capacities-step-capacity-table>
+      </div>
     </div>
-  </div>
-  <!-- </mat-accordion> -->
+  </mat-accordion>
 </section>

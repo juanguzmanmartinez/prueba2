@@ -24,6 +24,14 @@
           Ver detalle
         </a>
       </li>
+      <li *ngIf="isExpress">
+        <a
+          (click)="setInterval()"
+          class="text-body-2-regular capacity-card-text mb-0"
+        >
+          Editar interval time flexible
+        </a>
+      </li>
     </ul>
   </app-drop-options>
   <div class="row">

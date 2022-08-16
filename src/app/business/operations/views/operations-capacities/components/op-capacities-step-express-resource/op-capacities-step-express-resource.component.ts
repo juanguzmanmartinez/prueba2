@@ -19,6 +19,8 @@ import {
 import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
+import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-capacities-service-type-query-params.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-operations-capacities-step-express-resources',
@@ -49,12 +51,15 @@ export class OpCapacitiesStepExpressResourceComponent
 
   public expressPathAccess: string;
 
+  mode: boolean = false;
+
   constructor(
     @Optional()
     @SkipSelf()
     private _opCapacitiesStepExpressResource: OpCapacitiesStepExpressResourceService,
     public _opCapacitiesStepExpressResourceForm: OpCapacitiesStepExpressResourceFormService,
-    private _dialogTwoActions: DialogTwoActionsService
+    private _dialogTwoActions: DialogTwoActionsService,
+    private _activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +71,13 @@ export class OpCapacitiesStepExpressResourceComponent
 
     this.expressPathAccess =
       this._opCapacitiesStepExpressResource.expressResourceEditionAccessPath;
+
+    const subscription = this._activatedRoute.queryParams.subscribe(
+      (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+        this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
+      }
+    );
+    this.subscriptions.add(subscription);
   }
 
   openExpressResourceStep(): void {

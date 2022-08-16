@@ -7,14 +7,14 @@
     (opened)="this.stepOpenEvent.emit()"
     (closed)="this.stepCloseEvent.emit()"
   >
-    <mat-expansion-panel-header
+    <!-- <mat-expansion-panel-header
       class="step-header"
       expandedHeight="64px"
       [collapsedHeight]="collapsedHeight"
-    >
-      <div class="step-header-content flex-column flex-md-row">
-        <mat-panel-title class="step-header-title-container mb-4 mb-md-0">
-          <!-- <div class="p-x4 mt-5 mb-4 d-flex">
+    > -->
+    <div class="step-header-content flex-column flex-md-row">
+      <mat-panel-title class="step-header-title-container mb-4 mb-md-0">
+        <div class="p-x4 mt-5 mb-4 d-flex">
           <app-icon
             class="step-header-description-icon mr-3"
             svgName="stores"
@@ -24,28 +24,28 @@
             {{ this._drugStoreServiceStore.getStatusTab()?.drugstoreCode }}
             {{ this._drugStoreServiceStore.getStatusTab()?.name }}
           </h2>
-        </div> -->
+        </div>
 
-          <span class="step-header-id">{{ stepId }}</span>
-          <span class="step-header-title">{{ stepTitle }}</span>
-        </mat-panel-title>
-        <mat-panel-description
-          class="step-header-description-container justify-content-center justify-content-md-end"
-          [class.step-header-description-container-readonly]="stepReadonly"
-          *ngIf="
-            !stepExpanded && _stepDescription && (!stepDisabled || stepReadonly)
-          "
-        >
-          <span class="step-header-description">{{ _stepDescription }}</span>
-          <app-icon
-            *ngIf="!stepReadonly"
-            class="step-header-description-icon"
-            fontName="edit"
-            fontSize="24px"
-          ></app-icon>
-        </mat-panel-description>
-      </div>
-    </mat-expansion-panel-header>
+        <!-- <span class="step-header-id">{{ stepId }}</span>
+        <span class="step-header-title">{{ stepTitle }}</span> -->
+      </mat-panel-title>
+      <mat-panel-description
+        class="step-header-description-container justify-content-center justify-content-md-end"
+        [class.step-header-description-container-readonly]="stepReadonly"
+        *ngIf="
+          !stepExpanded && _stepDescription && (!stepDisabled || stepReadonly)
+        "
+      >
+        <span class="step-header-description">{{ _stepDescription }}</span>
+        <app-icon
+          *ngIf="!stepReadonly"
+          class="step-header-description-icon"
+          fontName="edit"
+          fontSize="24px"
+        ></app-icon>
+      </mat-panel-description>
+    </div>
+    <!-- </mat-expansion-panel-header> -->
     <div class="step-body">
       <div class="steps-body-content">
         <ng-content></ng-content>

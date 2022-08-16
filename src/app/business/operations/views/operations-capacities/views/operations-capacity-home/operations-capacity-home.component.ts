@@ -9,15 +9,13 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
   styleUrls: ['./operations-capacity-home.component.scss'],
   providers: [
     OperationsCapacityHomeStoreService,
-    OpCapacitiesDrugstoreDefaultCapacityService
-  ]
+    OpCapacitiesDrugstoreDefaultCapacityService,
+  ],
 })
 export class OperationsCapacityHomeComponent {
-
   public routerPath = ROUTER_PATH;
 
   constructor(
     private _operationsCapacityHomeStoreService: OperationsCapacityHomeStoreService
-  ) { }
-
+  ) {}
 }

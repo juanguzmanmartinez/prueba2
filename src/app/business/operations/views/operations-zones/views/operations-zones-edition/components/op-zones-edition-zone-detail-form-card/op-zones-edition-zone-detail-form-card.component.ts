@@ -1,30 +1,44 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { CStateName, CStateValue, EState } from '@models/state/state.model';
 import {
   OpZonesEditionZoneDetailFormCardFormService,
-  ZoneDetailControlName
+  ZoneDetailControlName,
 } from './form/op-zones-edition-zone-detail-form-card-form.service';
 import { ZonesDrugstore } from '../../../../models/operations-zones-store.model';
 import { CChannelName, EChannel } from '@models/channel/channel.model';
 import { CheckboxGroupControl } from './controls/checkbox-group.control';
 import { CCompanyName, ECompany } from '@models/company/company.model';
 import { Subscription } from 'rxjs';
-import { CZoneLabelColor, EZoneLabel } from '../../../../models/operations-zones-label.model';
+import {
+  CZoneLabelColor,
+  EZoneLabel,
+} from '../../../../models/operations-zones-label.model';
 import { ETagAppearance } from '@models/tag/tag.model';
 import { IZoneDetailUpdate } from '@interfaces/zones/zones.interface';
 import { CZoneTypeValue } from '../../../../parameters/operations-zones-type.parameter';
-import { CDeliveryTypeId, CDeliveryTypeName } from '@models/service-type/delivery-service-type.model';
+import {
+  CDeliveryTypeId,
+  CDeliveryTypeName,
+} from '@models/service-type/delivery-service-type.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
   selector: 'app-op-zones-edition-zone-detail-form-card',
   templateUrl: './op-zones-edition-zone-detail-form-card.component.html',
   styleUrls: ['./op-zones-edition-zone-detail-form-card.component.sass'],
-  providers: [OpZonesEditionZoneDetailFormCardFormService]
+  providers: [OpZonesEditionZoneDetailFormCardFormService],
 })
-export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDestroy {
-
+export class OpZonesEditionZoneDetailFormCardComponent
+  implements OnInit, OnDestroy
+{
   private subscriptions = new Subscription();
 
   public stateName = CStateName;
@@ -80,7 +94,9 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
   }
 
   get stateControlName(): string {
-    return this.stateName[this.form.stateControl.value ? EState.active : EState.inactive]('a');
+    return this.stateName[
+      this.form.stateControl.value ? EState.active : EState.inactive
+    ]('a');
   }
 
   get zoneDetailPath(): string {
@@ -89,7 +105,7 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
 
   constructor(
     private _editionZoneDetailForm: OpZonesEditionZoneDetailFormCardFormService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.form.stateControl.patchValue(this.stateValue[this.zoneDetail.state]);
@@ -98,20 +114,27 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
   }
 
   updateZoneDetailForm(): void {
-    const findAssignedStore = this.storeList
-      .find((zoneStore) => zoneStore.code === this.zoneDetail.assignedStore?.code);
+    const findAssignedStore = this.storeList.find(
+      (zoneStore) => zoneStore.code === this.zoneDetail.assignedStore?.code
+    );
     this.form.assignedStoreControl.patchValue(findAssignedStore);
     this.form.labelControl.patchValue(this.zoneDetail.label);
-    this.form.companyArray.controls.forEach((companyGroup: CheckboxGroupControl) => {
-      const checkedCompany = this.zoneDetail.companyList
-        .find((company: ECompany) => companyGroup.valueControl?.value === company);
-      companyGroup.checkedControl?.patchValue(!!checkedCompany);
-    });
-    this.form.channelArray.controls.forEach((channelGroup: CheckboxGroupControl) => {
-      const checkedChannel = this.zoneDetail.channelList
-        .find((channel: EChannel) => channelGroup.valueControl?.value === channel);
-      channelGroup.checkedControl?.patchValue(!!checkedChannel);
-    });
+    this.form.companyArray.controls.forEach(
+      (companyGroup: CheckboxGroupControl) => {
+        const checkedCompany = this.zoneDetail.companyList.find(
+          (company: ECompany) => companyGroup.valueControl?.value === company
+        );
+        companyGroup.checkedControl?.patchValue(!!checkedCompany);
+      }
+    );
+    this.form.channelArray.controls.forEach(
+      (channelGroup: CheckboxGroupControl) => {
+        const checkedChannel = this.zoneDetail.channelList.find(
+          (channel: EChannel) => channelGroup.valueControl?.value === channel
+        );
+        channelGroup.checkedControl?.patchValue(!!checkedChannel);
+      }
+    );
     this.checkEditionByStateControl();
   }
 
@@ -130,13 +153,12 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
   }
 
   updateStateControl(): void {
-    const subscription = this.form.stateControl.valueChanges
-      .subscribe(() => {
-        if (this.form.stateControl.value === false) {
-          this.updateZoneDetailForm();
-        }
-        this.checkEditionByStateControl();
-      });
+    const subscription = this.form.stateControl.valueChanges.subscribe(() => {
+      if (this.form.stateControl.value === false) {
+        this.updateZoneDetailForm();
+      }
+      this.checkEditionByStateControl();
+    });
     this.subscriptions.add(subscription);
   }
 
@@ -174,11 +196,14 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     const zoneDetailUpdate = {} as IZoneDetailUpdate;
     zoneDetailUpdate.enabled = this.form.stateControl.value;
     if (zoneDetailUpdate.enabled) {
-      const assignedStore = this.form.assignedStoreControl.value as ZonesDrugstore;
+      const assignedStore = this.form.assignedStoreControl
+        .value as ZonesDrugstore;
       zoneDetailUpdate.fulfillmentCenterCode = assignedStore.code;
-      zoneDetailUpdate.backUpZone = this.zoneTypeValue[this.zoneDetail.zoneType];
+      zoneDetailUpdate.backUpZone =
+        this.zoneTypeValue[this.zoneDetail.zoneType];
       zoneDetailUpdate.zoneType = this.form.labelControl.value;
-      zoneDetailUpdate.deliveryServiceId = this.deliveryTypeId[assignedStore.deliveryType];
+      zoneDetailUpdate.deliveryServiceId =
+        this.deliveryTypeId[assignedStore.deliveryType];
       zoneDetailUpdate.companyCode = this.form.companyArray.value
         .filter((company) => company[this.controlNameList.companyChecked])
         .map((company) => company[this.controlNameList.companyName]);
@@ -186,10 +211,13 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
         .filter((channel) => channel[this.controlNameList.channelChecked])
         .map((channel) => channel[this.controlNameList.channelName]);
     } else {
-      zoneDetailUpdate.fulfillmentCenterCode = this.zoneDetail.assignedStore.code;
-      zoneDetailUpdate.backUpZone = this.zoneTypeValue[this.zoneDetail.zoneType];
+      zoneDetailUpdate.fulfillmentCenterCode =
+        this.zoneDetail.assignedStore.code;
+      zoneDetailUpdate.backUpZone =
+        this.zoneTypeValue[this.zoneDetail.zoneType];
       zoneDetailUpdate.zoneType = this.zoneDetail.label;
-      zoneDetailUpdate.deliveryServiceId = this.deliveryTypeId[this.zoneDetail.assignedStore.deliveryType];
+      zoneDetailUpdate.deliveryServiceId =
+        this.deliveryTypeId[this.zoneDetail.assignedStore.deliveryType];
       zoneDetailUpdate.companyCode = this.zoneDetail.companyList;
       zoneDetailUpdate.channel = this.zoneDetail.channelList;
     }
@@ -199,5 +227,4 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
 }

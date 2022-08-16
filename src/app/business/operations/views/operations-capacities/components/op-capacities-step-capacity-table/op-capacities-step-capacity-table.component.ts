@@ -20,6 +20,8 @@ import {
 import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
+import { ActivatedRoute } from '@angular/router';
+import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-capacities-service-type-query-params.model';
 
 @Component({
   selector: 'app-op-capacities-step-capacity-table',
@@ -48,12 +50,15 @@ export class OpCapacitiesStepCapacityTableComponent
   public capacityTableSegments: ICapacityStepCapacityTableSegments;
   public capacityPathAccess: string;
 
+  mode: boolean = false;
+
   constructor(
     @Optional()
     @SkipSelf()
     private _opCapacitiesStepCapacityTable: OpCapacitiesStepCapacityTableService,
     public _opCapacitiesStepCapacityTableForm: OpCapacitiesStepCapacityTableFormService,
-    private _dialogTwoActions: DialogTwoActionsService
+    private _dialogTwoActions: DialogTwoActionsService,
+    private _activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -65,6 +70,13 @@ export class OpCapacitiesStepCapacityTableComponent
 
     this.capacityPathAccess =
       this._opCapacitiesStepCapacityTable.capacityTableEditionAccessPath;
+
+    const subscription = this._activatedRoute.queryParams.subscribe(
+      (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+        this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
+      }
+    );
+    this.subscriptions.add(subscription);
   }
 
   openCapacityTableStep(): void {

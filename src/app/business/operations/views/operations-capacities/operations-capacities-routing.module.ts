@@ -8,7 +8,7 @@ import { OperationsCapacityExpressComponent } from './views/operations-capacity-
 import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
 import { OP_CAPACITIES_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
 import { OperationsCapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
-
+import { OperationsIntervalExpressComponent } from './views/operations-interval-express/operations-interval-express.component';
 
 const routes: Routes = [
   {
@@ -18,40 +18,44 @@ const routes: Routes = [
       {
         path: '',
         component: OperationsCapacityHomeComponent,
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: OP_CAPACITIES_PATH.capacityAmPm.toString(),
         component: OperationsCapacityAmPmComponent,
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: OP_CAPACITIES_PATH.capacityScheduled.toString(),
         component: OperationsCapacityScheduledComponent,
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: OP_CAPACITIES_PATH.capacityExpress.toString(),
         component: OperationsCapacityExpressComponent,
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: OP_CAPACITIES_PATH.capacityRet.toString(),
         component: OperationsCapacityRetComponent,
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: OP_CAPACITIES_PATH.capacityReport.toString(),
         component: OperationsCapacityReportComponent,
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
-    ]
-  }
+      {
+        path: 'express/interval',
+        component: OperationsIntervalExpressComponent,
+        pathMatch: 'full',
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class OperationsCapacitiesRoutingModule {
-}
+export class OperationsCapacitiesRoutingModule {}

@@ -12,11 +12,11 @@ import { Subscription } from 'rxjs';
 import { DrugStoreServiceStore } from 'app/business/operations/views/operations-capacities/store/drug-store.service';
 
 @Component({
-  selector: 'app-step',
-  templateUrl: './step.component.html',
-  styleUrls: ['./step.component.scss'],
+  selector: 'app-card-step',
+  templateUrl: './card-step.component.html',
+  styleUrls: ['./card-step.component.scss'],
 })
-export class StepComponent implements OnDestroy {
+export class CardStepComponent implements OnDestroy {
   private subscriptions: Subscription[] = [];
   private responsiveStep: boolean;
   public collapsedHeight = '72px';
