@@ -96,6 +96,7 @@ export interface IZoneBackUp {
   forceServicePROG: EStateSetting;
   fulfillmentCenterCode: string;
   fulfillmentCenterName: string;
+  serviceType: IZoneServiceType[];
 }
 
 export interface IZoneBackupUpdate {
@@ -103,4 +104,7 @@ export interface IZoneBackupUpdate {
   preferableLocalBackupToShow: EStateSetting;
   forceServiceAMPM: EStateSetting;
   forceServicePROG: EStateSetting;
+  serviceTypeId: string;
+  serviceCost: number;
+  service: string;
 }

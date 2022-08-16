@@ -1,32 +1,4 @@
-<div class="row justify-content-between mt-6">
-  <div class="col-12 mb-6">
-    <app-op-zones-edition-home-backup-stock-backup-card
-      [disabled]="!stateValue[zoneBackup?.state]"
-      [zoneBackupDetail]="zoneBackupDetail"
-      (edit)="editBackupZonEvent()">
-    </app-op-zones-edition-home-backup-stock-backup-card>
-  </div>
-
-  <div class="col-12 col-lg-6 col-xlg-5 mb-4">
-    <app-op-zones-edition-home-backup-service-type-card
-      [disabled]="!stateValue[zoneBackup?.state]"
-      [zoneBackupDetail]="zoneBackupDetail"
-      [serviceType]="zoneBackupServiceTypeList?.amPm"
-      (edit)="editServiceTypeEvent($event)">
-    </app-op-zones-edition-home-backup-service-type-card>
-  </div>
-
-  <div class="col-12 col-lg-6 col-xlg-5 mb-4">
-    <app-op-zones-edition-home-backup-service-type-card
-      [disabled]="!stateValue[zoneBackup?.state]"
-      [zoneBackupDetail]="zoneBackupDetail"
-      [serviceType]="zoneBackupServiceTypeList?.scheduled"
-      (edit)="editServiceTypeEvent($event)">
-    </app-op-zones-edition-home-backup-service-type-card>
-  </div>
-</div>
-
-<div class="row" *ngIf="zoneBackupDetail">
+<div class="row mt-6 mb-6" *ngIf="zoneBackupDetail">
   <div class="col-12">
     <p class="d-inline-flex align-items-center mb-0">
       <app-icon fontName="info" fontSize="24px" innerClass="text-gray-5 me-2"></app-icon>
@@ -40,3 +12,62 @@
     </p>
   </div>
 </div>
+
+<div class="row align-items-center">
+  <div class="col-4">
+    <h3 class="text-h4 mb-0">Tipo de servicios backup</h3>
+  </div>
+  <div class="col-4 offset-4 d-flex align-items-center justify-content-around">
+    <div class="d-flex align-items-center">
+      <app-icon
+        class="d-inline-block me-1 mt-1"
+        [svgName]="'ellipse-success'"
+      ></app-icon>
+      <p class="mb-0">Activo</p>
+    </div>
+    <div class="d-flex align-items-center">
+      <app-icon
+        class="d-inline-block me-1 mt-1"
+        [svgName]="'elipse-error'"
+      ></app-icon>
+      <p class="mb-0">Inactivo</p>
+    </div>
+    <div class="d-flex align-items-center">
+      <app-icon
+        class="d-inline-block me-1 mt-1"
+        [svgName]="'ellipse-disabled'"
+      ></app-icon>
+      <p class="mb-0">Inhabilitado</p>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-between mt-6">
+  <div class="col-12 col-lg-4 col-xlg-4 mb-6">
+    <app-op-zones-edition-home-backup-stock-backup-card
+      [disabled]="!stateValue[zoneBackup?.state]"
+      [zoneBackupDetail]="zoneBackupDetail"
+      (edit)="editBackupZonEvent()">
+    </app-op-zones-edition-home-backup-stock-backup-card>
+  </div>
+
+  <div class="col-12 col-lg-4 col-xlg-4 mb-4">
+    <app-op-zones-edition-home-backup-service-type-card
+      [disabled]="!stateValue[zoneBackup?.state]"
+      [zoneBackupDetail]="zoneBackupDetail"
+      [serviceType]="zoneBackupServiceTypeList?.amPm"
+      (edit)="editServiceTypeEvent($event)">
+    </app-op-zones-edition-home-backup-service-type-card>
+  </div>
+
+  <div class="col-12 col-lg-4 col-xlg-4 mb-4">
+    <app-op-zones-edition-home-backup-service-type-card
+      [disabled]="!stateValue[zoneBackup?.state]"
+      [zoneBackupDetail]="zoneBackupDetail"
+      [serviceType]="zoneBackupServiceTypeList?.scheduled"
+      (edit)="editServiceTypeEvent($event)">
+    </app-op-zones-edition-home-backup-service-type-card>
+  </div>
+</div>
+
+

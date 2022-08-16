@@ -78,8 +78,8 @@
   </div>
 </div>
 
-<div class="row justify-content-between mt-6">
-  <ng-container
+<div class="row justify-content-between mt-6" *ngFor="let item of companyTabList">
+  <!-- <ng-container
     *ngFor="
       let service of serviceTypeList
         | channelFilter: channelSelected
@@ -94,8 +94,8 @@
       >
       </app-op-zones-edition-home-main-service-type-card>
     </div>
-  </ng-container>
-  <!-- <div class="col-12 col-lg-6 col-xlg-4 mb-6">
+  </ng-container> -->
+  <div class="col-12 col-lg-6 col-xlg-4 mb-6">
     <app-op-zones-edition-home-main-service-type-card
       *appSkeletonCard="
         !!zoneServiceTypeList;
@@ -153,5 +153,5 @@
       (add)="addServiceType($event)"
     >
     </app-op-zones-edition-home-main-service-type-card>
-  </div> -->
+  </div>
 </div>

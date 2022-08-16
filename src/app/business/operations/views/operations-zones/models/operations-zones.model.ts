@@ -86,6 +86,7 @@ export class ZoneBackup {
   assignedStoreName: string;
   forceServiceAMPM: EState;
   forceServiceSCHEDULED: EState;
+  serviceTypeList: ZoneServiceType[];
 
   constructor(iZoneBackup: IZoneBackUp) {
     this.id = iZoneBackup.zoneId;
@@ -101,5 +102,10 @@ export class ZoneBackup {
     this.forceServiceSCHEDULED = CGStateByStateSetting(
       iZoneBackup.forceServicePROG
     );
+    this.serviceTypeList = iZoneBackup.serviceType
+      ? iZoneBackup.serviceType.map(
+          (serviceType) => new ZoneServiceType(serviceType)
+        )
+      : [];
   }
 }

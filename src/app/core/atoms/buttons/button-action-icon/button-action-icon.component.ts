@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ButtonActionIconComponent {
 
   @Input() iconName: string;
+  @Input() svgName: string;
   @Input() iconStyle: 'whole' | 'edge' | 'edge-table' = 'whole';
   @Input() innerClass = '';
   @Input() inlineStyle: { [klass: string]: any; } | null;

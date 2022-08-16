@@ -1,35 +1,72 @@
-<app-card innerClass="pb-12">
+<app-card innerClass="pb-4">
   <div class="row mb-6">
     <div class="col-12">
       <h5 class="text-h5 mb-0" [class.text-gray-4]="serviceTypeDisabled">
         <app-icon
           class="d-inline-block me-5"
-          [svgName]="serviceTypeDisabled ? 'ellipse-disabled' : 'ellipse-success'">
+          [svgName]="
+            serviceTypeDisabled ? 'ellipse-disabled' : 'ellipse-success'
+          "
+        >
         </app-icon>
         <span>{{ segmentName }}</span>
       </h5>
     </div>
   </div>
-  <app-card-static-information class="d-block mb-5" iconName="access_time" [disabled]="serviceTypeDisabled">
-    <ng-container information-title> Horario de atención {{segmentName}} de zona backup</ng-container>
-    <ng-container information-caption>{{startAndEndHour}}</ng-container>
+  <app-card-static-information
+    class="d-block mb-5"
+    iconName="access_time"
+    [disabled]="serviceTypeDisabled"
+  >
+    <ng-container information-title>
+      Horario de atención {{ segmentName }} de zona backup</ng-container
+    >
+    <ng-container information-caption>{{ startAndEndHour }}</ng-container>
   </app-card-static-information>
 
-  <app-card-static-information class="d-block mb-5" iconName="hourglass_empty" [disabled]="serviceTypeDisabled">
-    <ng-container information-title>Lapso de cierre de ventana - GAP de zona backup</ng-container>
+  <app-card-static-information
+    class="d-block mb-5"
+    iconName="hourglass_empty"
+    [disabled]="serviceTypeDisabled"
+  >
+    <ng-container information-title
+      >Lapso de cierre de ventana - GAP de zona backup</ng-container
+    >
     <ng-container information-caption>{{ segmentGap }}</ng-container>
   </app-card-static-information>
 
-  <app-card-static-information class="d-block " iconName="store" [disabled]="serviceTypeDisabled">
-    <ng-container information-title>Forzar {{ segmentName }} al local Backup</ng-container>
+  <app-card-static-information
+    class="d-block mb-5"
+    iconName="store"
+    [disabled]="serviceTypeDisabled"
+  >
+    <ng-container information-title
+      >Forzar {{ segmentName }} al local Backup</ng-container
+    >
     <ng-container information-caption>
-      <span [class.text-capitalize]="!!zoneBackupDetail">{{forceServiceType}}</span>
+      <span [class.text-capitalize]="!!zoneBackupDetail">{{
+        forceServiceType
+      }}</span>
     </ng-container>
+  </app-card-static-information>
+
+  <app-card-static-information
+    class="d-block"
+    svgName="price"
+    svgWidth="20px"
+    [disabled]="serviceTypeDisabled"
+  >
+    <ng-container information-title>{{ textFlagServiceType }}</ng-container>
+    <ng-container information-caption>S/ {{ priceServideType }}</ng-container>
   </app-card-static-information>
 
   <ng-container *appRouterAccess="serviceTypePath">
     <ng-container *ngIf="!serviceTypeDisabled">
-      <div app-card-edit-button [editMessage]="segmentName" (click)="editEvent()"></div>
+      <div
+        app-card-edit-button
+        [editMessage]="segmentName"
+        (click)="editEvent()"
+      ></div>
     </ng-container>
   </ng-container>
 </app-card>

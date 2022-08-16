@@ -217,6 +217,13 @@ export class ZoneBackupServiceType {
   endHour: number;
   forceService: EState;
 
+  timeMeasureUnit: string;
+  serviceCost: number;
+  serviceNew: boolean;
+  flagServiceType: string;
+  orderView: number;
+  companyCode: ECompany;
+
   constructor(zoneServiceType: ZoneServiceType, forceService: EState) {
     this.id = zoneServiceType.id || null;
     this.code = zoneServiceType.code || null;
@@ -224,6 +231,13 @@ export class ZoneBackupServiceType {
     this.startHour = zoneServiceType.startHour || null;
     this.endHour = zoneServiceType.endHour || null;
     this.forceService = forceService || EState.disabled;
+
+    this.timeMeasureUnit = zoneServiceType.timeMeasureUnit;
+    this.serviceCost = zoneServiceType.serviceCost;
+    this.serviceNew = zoneServiceType.serviceNew;
+    this.flagServiceType = zoneServiceType.flagServiceType;
+    this.orderView = zoneServiceType.orderView;
+    this.companyCode = zoneServiceType.companyCode;
   }
 }
 

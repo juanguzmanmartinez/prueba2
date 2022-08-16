@@ -66,6 +66,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
   private channelColor = CChannelColor;
   private companyName = CCompanyName;
   private companyColor = CCompanyColor;
+  public isCostDefault: boolean;
 
   public splitSegmentList: string[] = [];
 
@@ -104,6 +105,12 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
     return ROUTER_PATH.opZones_ZoneServiceTypeEdition();
   }
 
+  get defaultServiceCost(): string {
+    if (this.zoneServiceType.flagServiceType === 'D') {
+      return this.zoneServiceType.serviceCost.toFixed(2);
+    }
+  }
+
   constructor(
     public _serviceTypeDetailForm: OpZonesEditionServiceTypeDetailFormCardFormService,
     private _serviceTypeDetailDialog: OpZonesEditionServiceTypeDetailDialogService,
@@ -120,11 +127,10 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
     this.updateStateControl();
     this.checkEditionByStateControl();
 
-    console.log(this.zoneDetail);
-    console.log(this.zoneServiceType);
   }
 
   updateFormValues(): void {
+    console.log('this.zoneServiceType', this.zoneServiceType);
     this._serviceTypeDetailForm.startHourControl.patchValue(
       this.zoneServiceType.startHour
     );
@@ -139,6 +145,18 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
       minuteFormat(this.zoneServiceType.intervalTime)
     );
     this._serviceTypeDetailForm.intervalTimeControl.disable();
+
+    if (this.zoneServiceType.flagServiceType === 'D') {
+      this.isCostDefault = true;
+      this._serviceTypeDetailForm.customAmountControl.patchValue(0);
+    } else {
+      this.isCostDefault = false;
+      this._serviceTypeDetailForm.customAmountControl.patchValue(
+        `S/ ${this.zoneServiceType.serviceCost.toFixed(2)}`
+      );
+
+      this.showInput();
+    }
 
     this.setSplitSegment();
     this.checkEditionByStateControl();
@@ -221,6 +239,26 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
     this._serviceTypeDetailForm.splitSegmentControl.disable();
   }
 
+  formatCustomAmount(customAmountText: string): number {
+    const amountSplitted = customAmountText.split(' ');
+    let customNumber = 0;
+    if (amountSplitted.length === 1) {
+      const amountNotDot = amountSplitted[0];
+      customNumber = Number(amountNotDot);
+      console.log('customNumber', customNumber);
+    }
+
+    if (amountSplitted.length > 1) {
+      const amountNotDot = amountSplitted[1].split('.');
+      console.log('amountNotDot', amountNotDot);
+      const amountAll = amountNotDot.join('');
+      customNumber = Number(amountAll);
+      console.log('customNumber', customNumber);
+    }
+
+    return customNumber / 100;
+  }
+
   openServiceTypeDetailDialog(): void {
     this._serviceTypeDetailDialog.open(this.splitSegmentList);
   }
@@ -239,8 +277,9 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
     zoneServiceTypeUpdate.intervalTime = this.zoneServiceType.intervalTime;
     zoneServiceTypeUpdate.zoneId = this.zoneDetail.id;
     zoneServiceTypeUpdate.service = this.zoneServiceType.code;
-    zoneServiceTypeUpdate.serviceCost =
-      this._serviceTypeDetailForm.customAmountControl.value;
+    zoneServiceTypeUpdate.serviceCost = this.formatCustomAmount(
+      this._serviceTypeDetailForm.customAmountControl.value
+    );
 
     if (zoneServiceTypeUpdate.enabled) {
       zoneServiceTypeUpdate.startHour = DatesHelper.Date(
@@ -265,6 +304,8 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
       zoneServiceTypeUpdate.segmentGap = this.zoneServiceType.segmentGap;
     }
 
+    console.log('zoneServiceTypeUpdate', zoneServiceTypeUpdate);
+
     this.saveEdition.emit(zoneServiceTypeUpdate);
   }
 
@@ -273,7 +314,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
   }
   hideInput(): void {
     this.showCustomAmount = false;
-    this._serviceTypeDetailForm.customAmountControl.setValue(null);
+    this._serviceTypeDetailForm.customAmountControl.setValue('S/ 0.00');
   }
 
   ngOnDestroy(): void {

@@ -1,59 +1,124 @@
 <app-card>
-  <div class="row mb-6">
-    <div class="col-12">
-      <h5 class="text-h5 mb-0">
-        <app-icon class="d-inline-block me-5" svgName="ellipse-success"></app-icon>
-        <span>{{segmentName}}</span>
+  <div class="row mb-5">
+    <div class="col-12 d-flex align-items-center">
+      <app-icon
+        class="me-5"
+        svgName="ellipse-success"
+      ></app-icon>
+      <h5 class="text-h5 mb-0 ms-3">
+        <span>Servicio {{ segmentName }}</span>
       </h5>
     </div>
   </div>
+  <hr class="m-0 bg-gray-3" />
 
   <form [formGroup]="form.form$">
-    <div class="row mb-9">
-      <div class="col-12 mb-6">
+    <div class="row mt-5 mb-5">
+      <div class="col-12">
+        <p class="d-inline-flex align-items-center mb-5">
+          <app-icon
+            fontName="info"
+            fontSize="24px"
+            innerClass="text-gray-5 me-2"
+          ></app-icon>
+          <span class="text-body-2-regular text-gray-5"
+            >Puedes editar el horario y GAP en la configuración de la zona
+            <app-router [router]="zoneBackupPath">
+              <span
+                class="text-decoration-underline text-gray-5 font-weight-bold"
+              >
+                {{ zoneBackupDetail.name }} - {{ zoneBackupDetail.code }}
+              </span>
+            </app-router>
+          </span>
+        </p>
+
         <app-form-field>
           <app-form-field-label>
-            Forzar <span class="text-uppercase">{{segmentName}}</span> al local Backup
+            <h5 class="text-h5 mb-5">
+              <span class="text-black">
+                Forzar servicio en el local Backup
+              </span>
+            </h5>
           </app-form-field-label>
           <div class="row">
             <div class="col-6">
-              <app-card-radio [formControlName]="controlNameList.state" [value]="false">
+              <app-card-radio
+                [formControlName]="controlNameList.state"
+                [value]="false"
+              >
                 <ng-container card-title>Desactivado</ng-container>
                 <ng-container card-description>
-                  Pedidos saldrán desde el Local Principal si tiene stock o del local Backup si no hay stock en el
-                  Principal
+                  Pedidos saldrán desde el Local Principal si tiene stock o del
+                  local Backup si no hay stock en el Principal
                 </ng-container>
               </app-card-radio>
             </div>
             <div class="col-6">
-              <app-card-radio [formControlName]="controlNameList.state" [value]="true">
+              <app-card-radio
+                [formControlName]="controlNameList.state"
+                [value]="true"
+              >
                 <ng-container card-title>Activado</ng-container>
                 <ng-container card-description>
-                  Los pedidos saldrán desde el Local Backup aún si el Local Principal tiene stock
+                  Los pedidos saldrán desde el Local Backup aún si el Local
+                  Principal tiene stock
                 </ng-container>
               </app-card-radio>
             </div>
           </div>
         </app-form-field>
-
-        <p class="d-inline-flex align-items-center mt-4 mb-0">
-          <app-icon fontName="info" fontSize="24px" innerClass="text-gray-5 me-2"></app-icon>
-          <span class="text-body-2-regular text-gray-5">Puedes editar el horario y GAP en la configuración de la zona
-            <app-router [router]="zoneBackupPath">
-              <span class="text-decoration-underline text-gray-5 font-weight-bold">
-                {{zoneBackupDetail.name}} - {{zoneBackupDetail.code}}
-              </span>
-            </app-router>
-          </span>
-        </p>
       </div>
     </div>
 
-    <div class="card-actions d-flex-horizontal-end pt-5 border-top border-gray-1">
-      <app-button appearance="secondary" class="me-4" (clicked)="cancelEditionEvent()">
+    <div class="row mt-5 mb-5">
+      <div class="col-12">
+        <h5 class="text-h5 mb-0">
+          <span class="text-black">
+            Selecciona el valor de flete del servicio:
+          </span>
+        </h5>
+      </div>
+    </div>
+
+    <div class="row mb-5">
+      <div class="col-6">
+        <app-radio (change)="hideInput()" labelClass="default-radio" [checked]="isCostDefault"
+          >Monto por defecto: S/ {{ defaultServiceCost }} soles</app-radio
+        >
+      </div>
+      <div class="col-6">
+        <app-radio (change)="showInput()" [checked]="!isCostDefault">Monto personalizado:</app-radio>
+      </div>
+    </div>
+
+    <ng-container *ngIf="showCustomAmount">
+      <div class="row mb-5">
+        <div class="col-6 offset-6">
+          <app-input
+            [formControlName]="controlNameList.customAmount"
+            placeholder="S/ 0.00"
+            appAmountReverse
+          ></app-input>
+        </div>
+      </div>
+    </ng-container>
+
+    <div
+      class="card-actions d-flex-horizontal-end pt-5 border-top border-gray-1"
+    >
+      <app-button
+        appearance="secondary"
+        class="me-4"
+        (clicked)="cancelEditionEvent()"
+      >
         Cancelar edición
       </app-button>
-      <app-button appearance="primary" (editionAccess)="saveEditionEvent()" [pathAccess]="zoneBackupServiceTypePath">
+      <app-button
+        appearance="primary"
+        (editionAccess)="saveEditionEvent()"
+        [pathAccess]="zoneBackupServiceTypePath"
+      >
         Guardar cambios
       </app-button>
     </div>

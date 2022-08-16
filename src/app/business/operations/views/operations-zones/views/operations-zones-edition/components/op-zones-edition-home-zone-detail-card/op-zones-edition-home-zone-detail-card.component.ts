@@ -26,13 +26,14 @@ export class OpZonesEditionHomeZoneDetailCardComponent {
   public tagAppearance = ETagAppearance;
 
   @Input() zoneDetail: ZoneDetail;
+  @Input() zoneBackupDetail: ZoneDetail;
   @Output() edit = new EventEmitter();
 
   get zoneEditionZoneBackup(): string {
     return !this.zoneDetail?.zoneBackup
       ? 'Sin zona backup'
       : this.stateValue[this.zoneDetail.zoneBackup.state]
-      ? `${this.zoneDetail.zoneBackup.name} - ${this.zoneDetail.zoneBackup.code}`
+      ? `${this.zoneBackupDetail?.name} - ${this.zoneBackupDetail?.code}`
       : this.stateName[this.zoneDetail.zoneBackup.state]();
   }
 

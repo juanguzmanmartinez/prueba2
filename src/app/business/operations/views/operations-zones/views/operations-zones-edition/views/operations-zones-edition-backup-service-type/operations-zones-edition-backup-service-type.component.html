@@ -1,8 +1,7 @@
 <section class="operations-zones-edition-backup pt-12 pb-15">
   <div class="row mb-7">
     <div class="col-12">
-      <h3 class="text-h3 mb-5">Configuración Backup</h3>
-      <h5 class="text-h5 text-gray-6 mb-7">Editar {{serviceTypeName[serviceType]}}</h5>
+      <h4 class="text-h4 text-gray-6 mb-7">Editar {{serviceTypeName[serviceType]}} en zona backup</h4>
       <hr class="m-0 bg-gray-3">
     </div>
   </div>
@@ -13,6 +12,7 @@
       <app-op-zones-edition-backup-service-type-detail-card
         *appSkeletonCard="!!zoneDetail && !!zoneBackupServiceType; loading: !editionBackupServiceTypeLoader"
         [zoneDetail]="zoneDetail"
+        [zoneBackupDetail]="zoneBackupDetail"
         [zoneBackupServiceType]="zoneBackupServiceType">
       </app-op-zones-edition-backup-service-type-detail-card>
     </div>

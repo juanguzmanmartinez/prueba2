@@ -15,8 +15,7 @@
         </div>
         <div>
           <span class="text-h5">Desactivar servicio</span>
-          <app-switch [formControlName]="controlNameList.state">
-          </app-switch>
+          <app-switch [formControlName]="controlNameList.state"> </app-switch>
         </div>
         <!-- <app-tag
           [appearance]="tagAppearance.coloredWhitePill"
@@ -180,17 +179,23 @@
 
     <div class="row mb-5">
       <div class="col-6">
-        <app-radio (change)="hideInput()" labelClass="default-radio">Monto por defecto: S/ 6.00 soles</app-radio>
+        <app-radio (change)="hideInput()" labelClass="default-radio" [checked]="isCostDefault"
+          >Monto por defecto: S/ {{ defaultServiceCost }} soles</app-radio
+        >
       </div>
       <div class="col-6">
-        <app-radio [formControlName]="controlNameList.customAmount" (change)="showInput()">Monto personalizado:</app-radio>
+        <app-radio (change)="showInput()" [checked]="!isCostDefault">Monto personalizado:</app-radio>
       </div>
     </div>
 
     <ng-container *ngIf="showCustomAmount">
       <div class="row mb-5">
         <div class="col-6 offset-6">
-          <app-input [formControlName]="controlNameList.customAmount" placeholder="S/ 0.00" appAmountReverse></app-input>
+          <app-input
+            [formControlName]="controlNameList.customAmount"
+            placeholder="S/ 0.00"
+            appAmountReverse
+          ></app-input>
         </div>
       </div>
     </ng-container>

@@ -18,8 +18,9 @@
       class="col-12 d-flex-vertical-center justify-content-start align-items-center"
     >
       <app-tag
-        [appearance]="tagAppearance.coloredWhitePill"
+        [appearance]="tagAppearance.coloredDarkPill"
         [tagColor]="segmentChannelColor"
+        innerClass="p-3 border border-primary"
       >
         {{ segmentChannelName }}
       </app-tag>
@@ -73,17 +74,12 @@
     [disabled]="serviceTypeDisabled"
   >
     <ng-container information-title>{{ textFlagServiceType }}</ng-container>
-    <ng-container information-caption>S/ {{ priceServideType }}</ng-container>
+    <ng-container information-caption>{{ priceServideType }}</ng-container>
   </app-card-static-information>
 
   <ng-container *appRouterAccess="serviceTypePath">
-    <ng-container *ngIf="isAvailable">
+    <ng-container *ngIf="serviceType.available">
       <div
-        app-card-edit-button
-        [editMessage]="segmentName"
-        (click)="editEvent()"
-      ></div>
-      <!-- <div
         *ngIf="serviceType.registered"
         app-card-edit-button
         [editMessage]="segmentName"
@@ -95,7 +91,7 @@
         [addMessage]="segmentName"
         (editionAccess)="addEvent()"
         [pathAccess]="serviceTypePath"
-      ></div> -->
+      ></div>
     </ng-container>
   </ng-container>
 </app-card>

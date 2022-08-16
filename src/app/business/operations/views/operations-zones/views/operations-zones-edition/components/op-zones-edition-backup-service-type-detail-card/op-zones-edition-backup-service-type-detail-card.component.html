@@ -1,7 +1,19 @@
-<app-card innerClass="px-6 pt-6 pb-15">
-  <div class="row mb-6">
-    <div class="col-12">
-      <h5 class="text-h5 mb-2">
+<app-card>
+  <div class="row mb-5">
+    <div class="col-12 d-flex align-items-center">
+      <h5 class="text-h5 mb-0 ms-3">
+        <span>Servicio backup</span>
+      </h5>
+    </div>
+  </div>
+  <hr class="m-0 bg-gray-3" />
+  <div class="row mb-5 mt-5">
+    <div class="col-12 d-flex align-items-center">
+      <app-icon
+        class="me-5"
+        svgName="ellipse-success"
+      ></app-icon>
+      <h5 class="text-h5 mb-0 ms-3">
         {{zoneDetail.name}}
         <span class="text-gray-5 mx-3">-</span>
         <span class="text-gray-5 text-nowrap">COD {{zoneDetail.code}}</span>
@@ -32,7 +44,7 @@
 
       <app-card-static-information class="d-block mb-5" iconName="location_searching">
         <ng-container information-title>Zona backup</ng-container>
-        <ng-container information-caption>{{zoneDetail.zoneBackup.name}} - {{zoneDetail.zoneBackup.code}}</ng-container>
+        <ng-container information-caption>{{zoneBackupDetail.name}} - {{zoneBackupDetail.code}}</ng-container>
       </app-card-static-information>
 
       <app-card-static-information class="d-block mb-5" iconName="access_time">

@@ -25,7 +25,7 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
   private _intervalTimeControl: FormControl = new FormControl('');
   private _splitSegmentControl: FormControl = new FormControl('');
   private _splitCompanyControl: FormControl = new FormControl('');
-  private _customAmountControl: FormControl = new FormControl('');
+  private _customAmountControl: FormControl = new FormControl('S/ 0.00');
 
   private _controlNameList = ZoneServiceTypeControlName;
 
@@ -88,7 +88,7 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
     this.intervalTimeControl.patchValue(null);
     this.splitSegmentControl.patchValue(null);
     this.companySegmentControl.patchValue(null);
-    this.customAmountControl.patchValue(null);
+    this.customAmountControl.patchValue('S/ 0.00');
   }
 
   ngOnDestroy(): void {

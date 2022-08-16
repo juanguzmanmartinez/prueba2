@@ -100,7 +100,8 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
           if (zoneDetail instanceof ZoneDetail) {
             this.zoneDetail = zoneDetail;
             this.serviceTypeList = zoneDetail.serviceTypeList;
-            console.log('zonedetail', zoneDetail);
+            console.log('serviceTypeList', this.serviceTypeList);
+            console.log('zoneDetail', this.zoneDetail);
             this.zoneServiceTypeList = zoneDetail.channelList.map(
               (channel: EChannel) =>
                 new ZoneChannelServiceTypeList(
@@ -110,7 +111,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
                   zoneDetail.companyList
                 )
             );
-
+            console.log('zoneServiceTypeList', this.zoneServiceTypeList);
             this.zoneCompanyServiceTypeList = zoneDetail.companyList.map(
               (company: ECompany) =>
                 new ZoneCompanyServiceTypeList(zoneDetail.companyList, company)
@@ -130,6 +131,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     const subscription =
       this._operationsZonesEditionStore.zoneBackup$.subscribe(
         (zoneBackupDetail: TZoneBackup) => {
+          console.log('zoneBackupDetail', zoneBackupDetail);
           if (zoneBackupDetail instanceof ZoneDetail) {
             this.zoneBackupDetail = zoneBackupDetail;
             this.zoneBackupServiceTypeList = new ZoneBackupServiceTypeList(

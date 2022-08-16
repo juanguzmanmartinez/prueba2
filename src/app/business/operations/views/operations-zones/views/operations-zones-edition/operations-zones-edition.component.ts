@@ -6,6 +6,8 @@ import { ZoneDetail } from '../../models/operations-zones.model';
 import { Subscription } from 'rxjs';
 import { OperationsZonesEditionActionsStoreService } from './stores/operations-zones-edition-actions-store.service';
 import { OP_ZONES_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
+import { ZoneServiceType } from '../../models/operations-zones-service-type.model';
+import { map } from 'rxjs/operators';
 
 @Component({
   template: '<router-outlet></router-outlet>',
@@ -42,7 +44,10 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
       (zoneDetail: ZoneDetail) => {
         this._operationsZonesEditionStore.zoneDetail = zoneDetail;
         if (zoneDetail.zoneBackup) {
-          this.getZoneBackup(zoneDetail.zoneBackup.id);
+          this.getZoneBackup(
+            zoneDetail.zoneBackup.id,
+            zoneDetail.zoneBackup.serviceTypeList
+          );
         } else {
           this._operationsZonesEditionStore.zoneBackupNotRegistered();
         }
@@ -62,9 +67,21 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
     this.subscriptions.add(subscription);
   }
 
-  getZoneBackup(zoneCode: string): void {
-    this._operationsZonesImplement.getZoneDetail(zoneCode).subscribe(
+  getZoneBackup(zoneCode: string, servicesType: ZoneServiceType[]): void {
+    this._operationsZonesImplement.getZoneDetail(zoneCode).pipe(map(zoneDetail =>{
+      zoneDetail.serviceTypeList = servicesType;
+      return zoneDetail;
+    })).subscribe(
       (zoneDetail: ZoneDetail) => {
+        const { serviceTypeList, ...zoneDetailRest } = zoneDetail;
+        const newZoneDetail = Object.assign(
+          {} as ZoneDetail,
+          { ...zoneDetailRest },
+          { serviceTypeList: servicesType }
+        );
+        // this._operationsZonesEditionStore.zoneBackup = zoneDetail;
+        console.log('backup - zonedetail', zoneDetail);
+        console.log('backup - newZoneDetail', newZoneDetail);
         this._operationsZonesEditionStore.zoneBackup = zoneDetail;
       },
       (error) => {

@@ -16,6 +16,7 @@ export class OpZonesEditionBackupServiceTypeDetailCardComponent {
   public serviceTypeName = CDeliveryServiceTypeName;
 
   @Input() zoneDetail: ZoneDetail;
+  @Input() zoneBackupDetail: ZoneDetail;
   @Input() zoneBackupServiceType: ZoneBackupServiceType;
 
   get segmentName(): string {

@@ -84,7 +84,10 @@ export class OpZonesEditionHomeMainSettingTabComponent
       const hasDigitalChannel = this.channelTabList.find(
         (channel) => channel === savedChannel
       );
-      // this.channelChange(hasDigitalChannel || this.channelTabList[0]);
+      this.channelList(hasDigitalChannel || this.channelTabList[0]);
+      //
+      // this.zoneServiceTypeList = zoneChannelServiceTypeList.serviceTypeList;
+      //
 
       const companyTabList = zoneChannelServiceTypeList.map(
         (zoneChannelServiceType) => zoneChannelServiceType.company
@@ -141,6 +144,16 @@ export class OpZonesEditionHomeMainSettingTabComponent
 
   companyChange(companies: ECompany): void{
     this.companiesSelected = companies;
+  }
+
+  channelList(channel: EChannel): void {
+    this.channelSelected = channel;
+    const zoneChannelServiceTypeList = this.zoneChannelServiceTypeList.find(
+      (channelServiceTypeList) => channelServiceTypeList.channel === channel
+    );
+    this.zoneServiceTypeList = zoneChannelServiceTypeList.serviceTypeList;
+    this._operationsZonesEditionActionsStore.serviceTypeChannelSelection =
+      channel;
   }
 
   channelChange(channel: EChannel): void {

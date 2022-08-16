@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CDeliveryServiceTypeName, EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
+import {
+  CDeliveryServiceTypeName,
+  EDeliveryServiceType,
+} from '@models/service-type/delivery-service-type.model';
 import { ZoneBackupServiceTypeRegistered } from '../../../../models/operations-zones-service-type.model';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
@@ -10,11 +13,13 @@ import { minuteFormat } from '@helpers/date-name.helper';
 
 @Component({
   selector: 'app-op-zones-edition-home-backup-service-type-card',
-  templateUrl: './op-zones-edition-home-backup-service-type-card.component.html',
-  styleUrls: ['./op-zones-edition-home-backup-service-type-card.component.sass']
+  templateUrl:
+    './op-zones-edition-home-backup-service-type-card.component.html',
+  styleUrls: [
+    './op-zones-edition-home-backup-service-type-card.component.sass',
+  ],
 })
 export class OpZonesEditionHomeBackupServiceTypeCardComponent {
-
   private serviceTypeName = CDeliveryServiceTypeName;
   private stateName = CStateName;
 
@@ -26,7 +31,9 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent {
   @Output() add = new EventEmitter<EDeliveryServiceType>();
 
   get serviceTypeDisabled(): boolean {
-    return !this.zoneBackupDetail || !this.serviceType.serviceType || this.disabled;
+    return (
+      !this.zoneBackupDetail || !this.serviceType.serviceType || this.disabled
+    );
   }
 
   get segmentName(): string {
@@ -35,10 +42,14 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent {
 
   get startAndEndHour(): string {
     if (!this.serviceTypeDisabled) {
-      const startHour = DatesHelper.date(this.serviceType.serviceType.startHour, DATES_FORMAT.millisecond)
-        .format(DATES_FORMAT.hourMinuteDateTime);
-      const endHour = DatesHelper.date(this.serviceType.serviceType.endHour, DATES_FORMAT.millisecond)
-        .format(DATES_FORMAT.hourMinuteDateTime);
+      const startHour = DatesHelper.date(
+        this.serviceType.serviceType.startHour,
+        DATES_FORMAT.millisecond
+      ).format(DATES_FORMAT.hourMinuteDateTime);
+      const endHour = DatesHelper.date(
+        this.serviceType.serviceType.endHour,
+        DATES_FORMAT.millisecond
+      ).format(DATES_FORMAT.hourMinuteDateTime);
       return `${startHour} - ${endHour}`;
     }
     return 'No habilitado';
@@ -58,6 +69,53 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent {
     return 'No habilitado';
   }
 
+  // get flagServiceType() {
+  //   const zoneBackupDetail = this.zoneBackupDetail.serviceTypeList.find(
+  //     (service) => service.id === this.serviceType.serviceType.id
+  //   );
+
+  //   return zoneBackupDetail.flagServiceType;
+  // }
+  // get flagServiceType() {
+  //   return this.serviceType.serviceType.flagServiceType;
+  // }
+
+  // get textFlagServiceType() {
+  //   const zoneBackupDetail = this.zoneBackupDetail.serviceTypeList.find(
+  //     (service) => service.id === this.serviceType.serviceType.id
+  //   );
+
+  //   return zoneBackupDetail.flagServiceType === 'P'
+  //     ? 'Precio personalizado'
+  //     : 'Precio por defecto';
+  // }
+  get textFlagServiceType() {
+    // const zoneBackupDetail = this.zoneBackupDetail.serviceTypeList.find(
+    //   (service) => service.id === this.serviceType.serviceType.id
+    // );
+    if (!this.serviceTypeDisabled) {
+
+      return this.serviceType.serviceType.flagServiceType === 'P'
+        ? 'Precio personalizado'
+        : 'Precio por defecto';
+    }
+
+    return 'Precio por defecto';
+  }
+
+  // get priceServideType(): string {
+  //   const zoneBackupDetail = this.zoneBackupDetail.serviceTypeList.find(
+  //     (service) => service.id === this.serviceType.serviceType.id
+  //   );
+  //   return zoneBackupDetail.serviceCost.toFixed(2);
+  // }
+  get priceServideType(): string {
+    if (!this.serviceTypeDisabled) {
+       return this.serviceType.serviceType.serviceCost.toFixed(2);
+    }
+    return 'No habilitado';
+  }
+
   get serviceTypePath(): string {
     let serviceTypePath;
     switch (this.serviceType.code) {
@@ -71,7 +129,7 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent {
     return serviceTypePath;
   }
 
-  constructor() { }
+  constructor() {}
 
   editEvent(): void {
     this.edit.emit(this.serviceType.code);
