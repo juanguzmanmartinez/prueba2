@@ -94,7 +94,6 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
   }
 
   get segmentChannelName(): string {
-    console.log(this.zoneServiceType.channel)
     return this.channelName[this.zoneServiceType.channel];
   }
 

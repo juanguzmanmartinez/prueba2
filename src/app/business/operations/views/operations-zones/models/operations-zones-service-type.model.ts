@@ -101,6 +101,15 @@ export class ZoneServiceTypeRegistered {
   }
 }
 
+export class ZonesChannelServiceTypeRegistered {
+  channel: EChannel;
+  zonesRegistered: ZoneServiceTypeRegistered[];
+  constructor(channel: EChannel, zonesRegistered: ZoneServiceTypeRegistered[]) {
+    this.channel = channel;
+    this.zonesRegistered = zonesRegistered;
+  }
+}
+
 export class ZoneServiceTypeList {
   amPm: ZoneServiceTypeRegistered;
   express: ZoneServiceTypeRegistered;

@@ -12,6 +12,7 @@ import {
   ZoneBackupServiceTypeList,
   ZoneChannelServiceTypeList,
   ZoneCompanyServiceTypeList,
+  ZonesChannelServiceTypeRegistered,
   ZoneServiceType,
   ZoneServiceTypeRegistered,
 } from '../../../../models/operations-zones-service-type.model';
@@ -68,6 +69,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
   public listChannel: EChannel[];
   public zonesDrugstoreServiceType: ZonesDrugstoreServiceType[];
   public zonesServiceTypeRegistered: ZoneServiceTypeRegistered[];
+  public zonesChannelServiceTypeRegistered: ZonesChannelServiceTypeRegistered[];
 
   public serviceTypeList: ZoneServiceType[];
 
@@ -86,6 +88,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
     private _alert: AlertService
   ) {
     this.zonesServiceTypeRegistered = [];
+    this.zonesChannelServiceTypeRegistered = [];
   }
 
   ngOnInit(): void {
@@ -108,6 +111,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
         (zoneDetail: TZoneDetail) => {
           if (zoneDetail instanceof ZoneDetail) {
             this.zonesServiceTypeRegistered = [];
+            this.zonesChannelServiceTypeRegistered = [];
             this.zoneDetail = zoneDetail;
             this.serviceTypeList = zoneDetail.serviceTypeList;
 
@@ -133,43 +137,94 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
             this.zoneServiceTypeList = null;
             this.zoneDetailError = zoneDetail;
             this.zonesServiceTypeRegistered = [];
+            this.zonesChannelServiceTypeRegistered = [];
           }
         }
       );
     this.subscriptions.add(subscription);
   }
 
+  // mapServiceRegistered() {
+  //   this.zoneDetail.companyList.forEach((company) => {
+  //     Object.keys(CDeliveryServiceTypeName).forEach((value) => {
+  //       if (value !== CDeliveryServiceTypeName.RAD) {
+  //         // this.zonesServiceTypeRegistered.push(
+  //         //   this.getServiceRegistered(value as EDeliveryServiceType, company)
+  //         // );
+  //         this.getServiceRegistered(value as EDeliveryServiceType, company);
+  //       }
+  //     });
+  //   });
+  // }
   mapServiceRegistered() {
-    this.zoneDetail.companyList.forEach((company) => {
-      Object.keys(CDeliveryServiceTypeName).forEach((value) => {
-        if (value !== CDeliveryServiceTypeName.RAD) {
-          this.zonesServiceTypeRegistered.push(
-            this.getServiceRegistered(value as EDeliveryServiceType, company)
-          );
-        }
+    this.zoneDetail.channelList.forEach((channel) => {
+      this.zonesServiceTypeRegistered = [];
+      this.zoneDetail.companyList.forEach((company) => {
+        Object.keys(CDeliveryServiceTypeName).forEach((value) => {
+          if (value !== CDeliveryServiceTypeName.RAD) {
+            this.getServiceRegistered(
+              value as EDeliveryServiceType,
+              channel,
+              company
+            );
+          }
+        });
       });
+      this.zonesChannelServiceTypeRegistered.push(
+        new ZonesChannelServiceTypeRegistered(
+          channel,
+          this.zonesServiceTypeRegistered
+        )
+      );
     });
   }
 
   getServiceRegistered(
     serviceTypeCode: EDeliveryServiceType,
+    channel: EChannel,
     company: ECompany
   ) {
-    const zone: ZoneServiceType = this.serviceTypeList.find(
-      (serviceType) => serviceType.code === serviceTypeCode
+    const zones: ZoneServiceType[] = this.serviceTypeList.filter(
+      (serviceType) =>
+        serviceType.code === serviceTypeCode && serviceType.channel === channel
     );
     const zoneStore: ZonesDrugstoreServiceType =
       this.zonesDrugstoreServiceType.find(
         (serviceType) => serviceType.code === serviceTypeCode
       );
 
-    return new ZoneServiceTypeRegistered(
-      zone,
-      zoneStore,
-      serviceTypeCode,
-      zone?.channel,
-      company
-    );
+    if (zones) {
+      zones.forEach((zone) => {
+        this.zonesServiceTypeRegistered.push(
+          new ZoneServiceTypeRegistered(
+            zone,
+            zoneStore,
+            serviceTypeCode,
+            channel,
+            company
+          )
+        );
+      });
+    }
+    if (!zones || zones.length === 0) {
+      this.zonesServiceTypeRegistered.push(
+        new ZoneServiceTypeRegistered(
+          null,
+          zoneStore,
+          serviceTypeCode,
+          channel,
+          company
+        )
+      );
+    }
+
+    // return new ZoneServiceTypeRegistered(
+    //   zone,
+    //   zoneStore,
+    //   serviceTypeCode,
+    //   channel,
+    //   company
+    // );
   }
 
   getZoneBackup(): void {
@@ -264,8 +319,8 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
         zoneId: this.zoneDetail.id,
         channel: serviceType.channel,
         companyCode: serviceType.company,
+        serviceTypeId: serviceType.serviceTypeId
       } as IZoneServiceTypeRegister;
-
       this._operationsZonesImplement
         .postZoneServiceType(zoneServiceTypRegister)
         .subscribe(

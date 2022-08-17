@@ -56,6 +56,7 @@ export interface IZoneServiceTypeRegister {
   segmentGap: string;
   channel: EChannel;
   companyCode: ECompany;
+  serviceTypeId: string;
 }
 
 export interface IZone {

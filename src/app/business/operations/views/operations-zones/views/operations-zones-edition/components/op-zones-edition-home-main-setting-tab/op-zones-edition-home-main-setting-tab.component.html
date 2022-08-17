@@ -1,4 +1,4 @@
-<div class="row mt-6" *ngIf="channelTabList?.length > 1">
+<!-- <div class="row mt-6" *ngIf="channelTabList?.length > 1">
   <div class="col d-flex-horizontal-end align-items-center pe-0">
     <span class="text-h5">Canal de atención:</span>
   </div>
@@ -15,7 +15,7 @@
   <div class="col-12 mt-4">
     <hr class="m-0 bg-gray-3" />
   </div>
-</div>
+</div> -->
 <div class="row mt-6">
   <div class="col-12">
     <h3 class="text-h4 mb-0">Tipos de servicios de la zona principal</h3>
@@ -77,11 +77,28 @@
     </div>
   </div>
 </div>
-<div class="row justify-content-between mt-6">
+<div
+  class="row mt-6"
+  *ngFor="
+    let zonesChannel of zonesChannelServiceTypeRegistered
+      | channelFilter: channelSelected
+  "
+>
+  <div class="row mt-5 mb-5">
+    <div class="col-12">
+      <h2 class="text-h2 mb-0">
+        {{ getSegmentChannelName(zonesChannel.channel) }}
+      </h2>
+    </div>
+    <div class="col-12">
+      <p class="text-body-1-regular mb-0 text-gray-4">
+        {{ zonesChannel.zonesRegistered.length }} servicios
+      </p>
+    </div>
+  </div>
   <ng-container
     *ngFor="
-      let service of zonesServiceTypeRegistered
-        | channelFilter: channelSelected
+      let service of zonesChannel.zonesRegistered
         | companyFilter: companiesSelected
     "
   >

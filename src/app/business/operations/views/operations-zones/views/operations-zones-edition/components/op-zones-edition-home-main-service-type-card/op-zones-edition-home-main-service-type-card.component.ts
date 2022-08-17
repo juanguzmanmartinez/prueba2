@@ -10,7 +10,11 @@ import {
   ZoneServiceType,
   ZoneServiceTypeRegistered,
 } from '../../../../models/operations-zones-service-type.model';
-import { CChannelColor, CChannelName } from '@models/channel/channel.model';
+import {
+  CChannelColor,
+  CChannelName,
+  EChannel,
+} from '@models/channel/channel.model';
 import { ETagAppearance } from '@models/tag/tag.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { minuteFormat } from '@helpers/date-name.helper';
@@ -41,7 +45,7 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   @Input() service: ZoneServiceType;
   @Input() company: ECompany;
   @Output() edit = new EventEmitter<ZoneServiceType>();
-  @Output() add = new EventEmitter<EDeliveryServiceType>();
+  @Output() add = new EventEmitter<ZoneServiceTypeRegistered>();
 
   get serviceTypeDisabled(): boolean {
     // return (
@@ -49,12 +53,24 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
     //   !this.stateValue[this.serviceType.serviceType.state]
     // );
 
-    return (!this.serviceType?.serviceType || !this.serviceType?.available);
+    return !this.serviceType?.serviceType || !this.serviceType?.available;
   }
 
   // get serviceTypeDisabled(): boolean {
   //   return !this.service || !this.stateValue[this.service.state];
   // }
+
+  get appearanceChannel(): string {
+    return this.serviceType?.channel === EChannel.digital
+      ? this.tagAppearance.coloredFullBluePill
+      : this.tagAppearance.coloredFullPurplePill;
+  }
+
+  get channelInnerClass(): string {
+    return this.serviceType?.channel === EChannel.digital
+      ? 'p-3 border border-complementary-three'
+      : 'p-3 border border-secondary';
+  }
 
   get segmentName(): string {
     return this.serviceTypeName[this.serviceType?.code];
@@ -215,6 +231,6 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   }
 
   addEvent(): void {
-    this.add.emit(this.serviceType?.code);
+    this.add.emit(this.serviceType);
   }
 }

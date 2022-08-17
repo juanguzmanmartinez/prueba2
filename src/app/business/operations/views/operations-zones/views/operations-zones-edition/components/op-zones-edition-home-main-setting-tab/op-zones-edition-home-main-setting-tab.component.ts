@@ -12,6 +12,7 @@ import {
 import {
   ZoneChannelServiceTypeList,
   ZoneCompanyServiceTypeList,
+  ZonesChannelServiceTypeRegistered,
   ZoneServiceType,
   ZoneServiceTypeList,
   ZoneServiceTypeRegistered,
@@ -118,6 +119,7 @@ export class OpZonesEditionHomeMainSettingTabComponent
   @Input() zoneDetail: ZoneDetail;
   @Input() serviceTypeList: ZoneServiceType[];
   @Input() zonesServiceTypeRegistered: ZoneServiceTypeRegistered[];
+  @Input() zonesChannelServiceTypeRegistered: ZonesChannelServiceTypeRegistered[];
 
   @Output() edit = new EventEmitter<ZoneServiceTypeBasicRequest>();
   @Output() add = new EventEmitter<ZoneServiceTypeBasicRequest>();
@@ -162,12 +164,17 @@ export class OpZonesEditionHomeMainSettingTabComponent
     });
   }
 
-  addServiceType(serviceType: EDeliveryServiceType): void {
+  addServiceType(serviceType: ZoneServiceTypeRegistered): void {
     this.add.emit({
-      code: serviceType,
+      code: serviceType?.code,
       channel: this.channelSelected,
       company: this.companyItem,
+      serviceTypeId: serviceType?.serviceType?.id
     });
+  }
+
+  getSegmentChannelName(channelCode: EChannel): string {
+    return this.channelName[channelCode];
   }
 
   ngOnDestroy(): void {

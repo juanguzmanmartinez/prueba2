@@ -23,9 +23,9 @@
     >
       <app-tag
         *ngIf="serviceType?.channel"
-        [appearance]="tagAppearance.coloredFullBluePill"
+        [appearance]="appearanceChannel"
         [tagColor]="segmentChannelColor"
-        innerClass="p-3 border border-complementary-three"
+        [innerClass]="channelInnerClass"
       >
         {{ segmentChannelName }}
       </app-tag>
