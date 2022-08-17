@@ -1,17 +1,22 @@
 <label class="switch-container">
-    <input
-            type="checkbox"
-            class="switch"
-            [ngClass]="innerClass"
-            [name]="name"
-            [formControl]="switchControl"
-            (change)="toggle()">
+  <input
+    type="checkbox"
+    class="switch"
+    [ngClass]="innerClass"
+    [name]="name"
+    [formControl]="switchControl"
+    (change)="toggle()"
+  />
 
-    <span class="switch-toggle-bar">
-        <span class="switch-toggle-thumb"></span>
-    </span>
+  <span
+    class="switch-toggle-bar"
+    [ngClass]="getClassIfChecked()"
+    
+  >
+    <span class="switch-toggle-thumb"></span>
+  </span>
 
-    <span class="switch-content">
-      <ng-content></ng-content>
-    </span>
+  <span class="switch-content">
+    <ng-content></ng-content>
+  </span>
 </label>

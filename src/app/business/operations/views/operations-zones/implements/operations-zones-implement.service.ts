@@ -65,7 +65,6 @@ export class OperationsZonesImplementService {
   getZoneDetail(zoneCode: string): Observable<ZoneDetail> {
     return this.zonesClient.getZoneDetail(zoneCode).pipe(
       map((iZoneDetail: IZoneDetail) => {
-        console.log(iZoneDetail);
         return new ZoneDetail(iZoneDetail);
       })
     );

@@ -43,7 +43,6 @@ export class OperationsZonesEditionStoreService implements OnDestroy {
   }
 
   set zoneBackup(zoneDetail: ZoneDetail) {
-    console.log('instance of', zoneDetail instanceof ZoneDetail);
     this.zoneBackupSubject.next(zoneDetail);
   }
 

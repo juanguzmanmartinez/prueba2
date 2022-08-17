@@ -49,7 +49,7 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
     //   !this.stateValue[this.serviceType.serviceType.state]
     // );
 
-    return (!this.serviceType.serviceType || !this.serviceType.available);
+    return (!this.serviceType?.serviceType || !this.serviceType?.available);
   }
 
   // get serviceTypeDisabled(): boolean {
@@ -57,14 +57,14 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   // }
 
   get segmentName(): string {
-    return this.serviceTypeName[this.serviceType.code];
+    return this.serviceTypeName[this.serviceType?.code];
   }
   // get segmentName(): string {
   //   return this.serviceTypeName[this.service.code];
   // }
 
   get segmentChannelName(): string {
-    return this.channelName[this.serviceType.channel];
+    return this.channelName[this.serviceType?.channel];
   }
   // get segmentChannelName(): string {
   //   return this.channelName[this.service.channel];
@@ -73,7 +73,7 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   get segmentChannelColor(): string {
     return this.serviceTypeDisabled
       ? 'gray-3'
-      : this.channelColor[this.serviceType.channel];
+      : this.channelColor[this.serviceType?.channel];
   }
   // get segmentChannelColor(): string {
   //   return this.serviceTypeDisabled
@@ -90,11 +90,13 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   // }
 
   get segmentCompanyName(): string {
-    return this.companyName[this.company];
+    // return this.companyName[this.company];
+    return this.companyName[this.serviceType?.company];
   }
 
   get segmentCompanyIcon(): string {
-    return this.companyIcon[this.company];
+    // return this.companyIcon[this.company];
+    return this.companyIcon[this.serviceType?.company];
   }
 
   // get segmentCompanyColor(): string {
@@ -103,9 +105,12 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   //     : this.companyColor[this.service.companyCode];
   // }
   get segmentCompanyColor(): string {
+    // return this.serviceTypeDisabled
+    //   ? 'gray-3'
+    //   : this.companyColor[this.company];
     return this.serviceTypeDisabled
       ? 'gray-3'
-      : this.companyColor[this.company];
+      : this.companyColor[this.serviceType?.company];
   }
 
   // get startAndEndHour(): string {
@@ -124,13 +129,13 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   // }
 
   get startAndEndHour(): string {
-    if (this.serviceType.serviceType) {
+    if (this.serviceType?.serviceType) {
       const startHour = DatesHelper.date(
-        this.serviceType.serviceType.startHour,
+        this.serviceType?.serviceType?.startHour,
         DATES_FORMAT.millisecond
       ).format(DATES_FORMAT.hourMinuteDateTime);
       const endHour = DatesHelper.date(
-        this.serviceType.serviceType.endHour,
+        this.serviceType?.serviceType?.endHour,
         DATES_FORMAT.millisecond
       ).format(DATES_FORMAT.hourMinuteDateTime);
       return `${startHour} - ${endHour}`;
@@ -145,14 +150,14 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   //   return 'No habilitado';
   // }
   get segmentGap(): string {
-    if (this.serviceType.serviceType) {
-      return minuteFormat(this.serviceType.serviceType.segmentGap);
+    if (this.serviceType?.serviceType) {
+      return minuteFormat(this.serviceType?.serviceType?.segmentGap);
     }
     return 'No habilitado';
   }
 
   get serviceTypePath(): string {
-    this.serviceType.company = this.company;
+    // this.serviceType.company = this.company;
     return ROUTER_PATH.opZones_ZoneServiceTypeEdition();
   }
   // get serviceTypePath(): string {
@@ -164,14 +169,14 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   //   return CStateValue[this.service.state];
   // }
   get isAvailable(): boolean {
-    return CStateValue[this.serviceType.serviceType.state];
+    return CStateValue[this.serviceType?.serviceType?.state];
   }
 
   // get flagServiceType() {
   //   return this.service.flagServiceType;
   // }
   get flagServiceType() {
-    return this.serviceType.serviceType.flagServiceType;
+    return this.serviceType?.serviceType?.flagServiceType;
   }
 
   // get textFlagServiceType() {
@@ -180,7 +185,7 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   //     : 'Precio por defecto';
   // }
   get textFlagServiceType() {
-    return this.serviceType.serviceType.flagServiceType === 'P'
+    return this.serviceType?.serviceType?.flagServiceType === 'P'
       ? 'Precio personalizado'
       : 'Precio por defecto';
   }
@@ -206,10 +211,10 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   // }
 
   editEvent(): void {
-    this.edit.emit(this.serviceType.serviceType);
+    this.edit.emit(this.serviceType?.serviceType);
   }
 
   addEvent(): void {
-    this.add.emit(this.serviceType.code);
+    this.add.emit(this.serviceType?.code);
   }
 }

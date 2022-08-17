@@ -1,10 +1,7 @@
 <app-card>
   <div class="row mb-5">
     <div class="col-12 d-flex align-items-center">
-      <app-icon
-        class="me-5"
-        svgName="ellipse-success"
-      ></app-icon>
+      <app-icon class="me-5" svgName="ellipse-success"></app-icon>
       <h5 class="text-h5 mb-0 ms-3">
         <span>Servicio {{ segmentName }}</span>
       </h5>
@@ -81,16 +78,29 @@
       </div>
     </div>
 
-    <div class="row mb-5">
-      <div class="col-6">
-        <app-radio (change)="hideInput()" labelClass="default-radio" [checked]="isCostDefault"
-          >Monto por defecto: S/ {{ defaultServiceCost }} soles</app-radio
-        >
+    <app-form-field>
+      <div class="row mb-5">
+        <div class="col-6">
+          <app-radio
+            [formControlName]="controlNameList.customAmountRadio"
+            [value]="false"
+            (change)="hideInput()"
+            labelClass="default-radio"
+            [checked]="isCostDefault"
+            >Monto por defecto: S/ {{ defaultServiceCost }} soles</app-radio
+          >
+        </div>
+        <div class="col-6">
+          <app-radio
+            [formControlName]="controlNameList.customAmountRadio"
+            [value]="true"
+            (change)="showInput()"
+            [checked]="!isCostDefault"
+            >Monto personalizado:</app-radio
+          >
+        </div>
       </div>
-      <div class="col-6">
-        <app-radio (change)="showInput()" [checked]="!isCostDefault">Monto personalizado:</app-radio>
-      </div>
-    </div>
+    </app-form-field>
 
     <ng-container *ngIf="showCustomAmount">
       <div class="row mb-5">
@@ -98,8 +108,12 @@
           <app-input
             [formControlName]="controlNameList.customAmount"
             placeholder="S/ 0.00"
+            [error]="getErrorServiceCost()"
             appAmountReverse
           ></app-input>
+          <p *ngIf="getErrorServiceCost()" class="text-danger mt-1 pe-1">
+            El campo se encuentra vacío
+          </p>
         </div>
       </div>
     </ng-container>
@@ -116,6 +130,7 @@
       </app-button>
       <app-button
         appearance="primary"
+        [disabled]="form$.invalid"
         (editionAccess)="saveEditionEvent()"
         [pathAccess]="zoneBackupServiceTypePath"
       >

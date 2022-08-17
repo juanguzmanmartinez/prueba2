@@ -22,6 +22,7 @@ export class ZoneServiceType {
   //nuevos campos
   timeMeasureUnit: string;
   serviceCost: number;
+  serviceCostDefault: number;
   serviceNew: boolean;
   flagServiceType: string;
   orderView: number;
@@ -48,6 +49,7 @@ export class ZoneServiceType {
 
     this.timeMeasureUnit = iZoneServiceType.timeMeasureUnit;
     this.serviceCost = iZoneServiceType.serviceCost;
+    this.serviceCostDefault = iZoneServiceType.serviceCostDefault;
     this.serviceNew = iZoneServiceType.serviceNew;
     this.flagServiceType = iZoneServiceType.flagServiceType;
     this.orderView = iZoneServiceType.orderView;
@@ -62,6 +64,7 @@ export class ZoneServiceTypeRegistered {
   registered: boolean;
   available: boolean;
   company: ECompany;
+  enabled: boolean;
 
   constructor(
     serviceType: ZoneServiceType,
@@ -72,16 +75,17 @@ export class ZoneServiceTypeRegistered {
   ) {
     this.available = !!storeServiceType && CStateValue[storeServiceType.state];
     this.registered = !!serviceType;
+    this.enabled = !!serviceType && CStateValue[serviceType.state];
     this.code = serviceTypeCode;
     this.channel = serviceTypeChannel;
     this.company = serviceTypeCompany;
     this.serviceType = serviceType || null;
-
     // Exception RET Digital
-    if (
-      serviceTypeCode === EDeliveryServiceType.ret &&
-      serviceTypeChannel === EChannel.digital
-    ) {
+    // if (
+    //   serviceTypeCode === EDeliveryServiceType.ret &&
+    //   serviceTypeChannel === EChannel.digital
+    // ) {
+    if (serviceTypeCode === EDeliveryServiceType.ret) {
       this.available = false;
       this.serviceType = null;
 

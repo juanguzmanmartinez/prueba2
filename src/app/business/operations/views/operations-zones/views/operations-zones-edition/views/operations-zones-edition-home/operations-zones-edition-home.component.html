@@ -1,7 +1,11 @@
 <section class="operations-zones-edition-home pt-8 pb-15">
   <div class="row mb-8">
     <div class="col-12 mb-4">
-      <app-back-router backRoute="/operaciones/zonas">Zonas</app-back-router>
+      <app-back-router-simple
+        backRoute="/operaciones/zonas"
+        class="back"
+        textBackRoute="Zonas"
+      ></app-back-router-simple>
     </div>
 
     <div class="col-12">
@@ -32,6 +36,8 @@
       <app-tab label="Configuración principal">
         <app-op-zones-edition-home-main-setting-tab
           [zoneChannelServiceTypeList]="zoneServiceTypeList"
+          [zoneDetail]="zoneDetail"
+          [zonesServiceTypeRegistered]="zonesServiceTypeRegistered"
           [serviceTypeList]="serviceTypeList"
           [homeEditionLoader]="homeEditionLoader"
           (add)="addServiceType($event)"

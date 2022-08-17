@@ -1,18 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { EChannel } from '@models/channel/channel.model';
-import { ZoneServiceType } from '../models/operations-zones-service-type.model';
+import { ZoneServiceType, ZoneServiceTypeRegistered } from '../models/operations-zones-service-type.model';
 
 @Pipe({ name: 'channelFilter' })
 export class ServiceTypePipe implements PipeTransform {
   transform(
-    value: ZoneServiceType[],
-    channels: string[],
-    companies: string[]
-  ): ZoneServiceType[] {
+    value: ZoneServiceTypeRegistered[],
+    channels: string[]
+  ): ZoneServiceTypeRegistered[] {
     if (!channels || channels.length === 0) {
       return value;
     }
-
+    console.log('channels',channels);
     return value.filter((service) => {
       return !!channels.find((channel) => service.channel === channel);
     });
@@ -20,13 +19,14 @@ export class ServiceTypePipe implements PipeTransform {
 }
 @Pipe({ name: 'companyFilter' })
 export class ServiceByCompanyPipe implements PipeTransform {
-  transform(value: ZoneServiceType[], companies: string[]): ZoneServiceType[] {
+  transform(value: ZoneServiceTypeRegistered[], companies: string[]): ZoneServiceTypeRegistered[] {
     if (!companies || companies.length === 0) {
       return value;
     }
-
+    
     return value.filter((service) => {
-      return !!companies.find((code) => service.companyCode === code);
+      console.log(service.company);
+      return !!companies.find((code) => service.company === code);
     });
   }
 }

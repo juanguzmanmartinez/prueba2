@@ -65,7 +65,6 @@ export class ZoneDetail extends ZoneBase {
     super(iZoneDetail);
     this.label = iZoneDetail.zoneType as EZoneLabel;
     this.companyList = iZoneDetail.companyCode || [];
-    console.log(iZoneDetail.serviceType);
     this.serviceTypeList = iZoneDetail.serviceType
       ? iZoneDetail.serviceType.map(
           (serviceType) => new ZoneServiceType(serviceType)

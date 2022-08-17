@@ -32,6 +32,9 @@ export enum ETagAppearance {
   informativeWhite = 'informative-white',
   brandWhite = 'brand-white',
   coloredLilacPill = 'pill-colored-lilac',
+  coloredFullLilacPill = 'pill-colored-full-lilac',
+  coloredFullBluePill = 'pill-colored-full-blue',
+  coloredFullGreasePill = 'pill-colored-full-gray-blue',
 }
 
 export type TTagAppearance =
@@ -43,4 +46,7 @@ export type TTagAppearance =
   | ETagAppearance.semantic
   | ETagAppearance.informativeWhite
   | ETagAppearance.brandWhite
+  | ETagAppearance.coloredFullLilacPill
+  | ETagAppearance.coloredFullBluePill
+  | ETagAppearance.coloredFullGreasePill
   | ETagAppearance.coloredLilacPill;

@@ -5,7 +5,11 @@
         <app-icon
           class="d-inline-block me-5"
           [svgName]="
-            serviceTypeDisabled ? 'ellipse-disabled' : 'ellipse-success'
+            serviceTypeDisabled
+              ? 'ellipse-disabled'
+              : serviceType?.enabled
+              ? 'ellipse-success'
+              : 'ellipse-danger'
           "
         ></app-icon>
         <span>{{ segmentName }}</span>
@@ -18,29 +22,34 @@
       class="col-12 d-flex-vertical-center justify-content-start align-items-center"
     >
       <app-tag
-        [appearance]="tagAppearance.coloredDarkPill"
+        *ngIf="serviceType?.channel"
+        [appearance]="tagAppearance.coloredFullBluePill"
         [tagColor]="segmentChannelColor"
-        innerClass="p-3 border border-primary"
+        innerClass="p-3 border border-complementary-three"
       >
         {{ segmentChannelName }}
       </app-tag>
       <app-tag
-        [appearance]="tagAppearance.coloredWhitePill"
+        [appearance]="tagAppearance.coloredFullLilacPill"
         [tagColor]="'dark-complementary-four'"
         class="ml-10"
         *ngIf="flagServiceType === 'P'"
+        innerClass="p-3 border border-complementary-four"
       >
         Precio personalizado
       </app-tag>
       <app-tag
-        [appearance]="tagAppearance.transparentPill"
+        [appearance]="tagAppearance.coloredFullGreasePill"
         [tagColor]="segmentCompanyColor"
-        class="mt-10"
+        class="ml-10"
+        innerClass="p-3 border border-gray-1"
       >
-        <span class="me-2">
-          <app-icon [svgName]="segmentCompanyIcon" svgWidth="22px"></app-icon>
-        </span>
-        {{ segmentCompanyName }}
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="me-2 d-flex align-items-center">
+            <app-icon [svgName]="segmentCompanyIcon" svgWidth="22px"></app-icon>
+          </span>
+          {{ segmentCompanyName }}
+        </div>
       </app-tag>
     </div>
   </div>
@@ -78,15 +87,15 @@
   </app-card-static-information>
 
   <ng-container *appRouterAccess="serviceTypePath">
-    <ng-container *ngIf="serviceType.available">
+    <ng-container *ngIf="serviceType?.available">
       <div
-        *ngIf="serviceType.registered"
+        *ngIf="serviceType?.registered"
         app-card-edit-button
         [editMessage]="segmentName"
         (click)="editEvent()"
       ></div>
       <div
-        *ngIf="!serviceType.registered"
+        *ngIf="!serviceType?.registered"
         app-card-add-button
         [addMessage]="segmentName"
         (editionAccess)="addEvent()"

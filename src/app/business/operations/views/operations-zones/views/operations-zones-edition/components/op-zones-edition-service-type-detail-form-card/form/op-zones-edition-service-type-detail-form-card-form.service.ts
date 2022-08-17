@@ -1,5 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  AbstractControl,
+  Form,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+} from '@angular/forms';
 import { ZoneServiceTypeSegmentGapControl } from '../controls/zone-service-type-segment-gap.control';
 
 export class ZoneServiceTypeControlName {
@@ -14,14 +21,16 @@ export class ZoneServiceTypeControlName {
 }
 
 @Injectable()
-export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDestroy {
-
+export class OpZonesEditionServiceTypeDetailFormCardFormService
+  implements OnDestroy
+{
   private readonly formGroup: FormGroup;
 
   private _stateControl: FormControl = new FormControl(null);
   private _startHourControl: FormControl = new FormControl(null);
   private _endHourControl: FormControl = new FormControl(null);
-  private _segmentGapControl: ZoneServiceTypeSegmentGapControl = new ZoneServiceTypeSegmentGapControl(null);
+  private _segmentGapControl: ZoneServiceTypeSegmentGapControl =
+    new ZoneServiceTypeSegmentGapControl(null);
   private _intervalTimeControl: FormControl = new FormControl('');
   private _splitSegmentControl: FormControl = new FormControl('');
   private _splitCompanyControl: FormControl = new FormControl('');
@@ -46,7 +55,9 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
   }
 
   get segmentGapControl(): ZoneServiceTypeSegmentGapControl {
-    return this.form$.get(this._controlNameList.segmentGap) as ZoneServiceTypeSegmentGapControl;
+    return this.form$.get(
+      this._controlNameList.segmentGap
+    ) as ZoneServiceTypeSegmentGapControl;
   }
 
   get intervalTimeControl(): FormControl {
@@ -65,9 +76,7 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
     return this.form$.get(this._controlNameList.customAmount) as FormControl;
   }
 
-  constructor(
-    private _formBuilder: FormBuilder
-  ) {
+  constructor(private _formBuilder: FormBuilder) {
     this.formGroup = this._formBuilder.group({
       [this._controlNameList.state]: this._stateControl,
       [this._controlNameList.startHour]: this._startHourControl,
@@ -76,7 +85,7 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
       [this._controlNameList.intervalTime]: this._intervalTimeControl,
       [this._controlNameList.splitSegment]: this._splitSegmentControl,
       [this._controlNameList.company]: this._splitCompanyControl,
-      [this._controlNameList.customAmount]: this._customAmountControl
+      [this._controlNameList.customAmount]: this._customAmountControl,
     });
   }
 
@@ -93,5 +102,26 @@ export class OpZonesEditionServiceTypeDetailFormCardFormService implements OnDes
 
   ngOnDestroy(): void {
     this.resetForm();
+  }
+
+  setServiceCostValidator() {
+    this.customAmountControl.setValidators([this.serviceCostValidator()]);
+    this.customAmountControl.updateValueAndValidity();
+  }
+
+  clearServiceCostValidator() {
+    this.customAmountControl.clearValidators();
+    this.customAmountControl.updateValueAndValidity();
+  }
+
+  serviceCostValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      return control.value &&
+        control.value !== 'S/ 0.0' &&
+        control.value !== '0' &&
+        control.value !== 'S/ 0.00'
+        ? null
+        : { require: control.value };
+    };
   }
 }

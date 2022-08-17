@@ -20,6 +20,7 @@ import {
   EStateSetting,
 } from '@models/state/state.model';
 import { IZoneBackupUpdate } from '@interfaces/zones/zones.interface';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-op-zones-edition-backup-service-type-detail-form-card',
@@ -60,6 +61,10 @@ export class OpZonesEditionBackupServiceTypeDetailFormCardComponent
     return ROUTER_PATH.opZones_Zone(this.zoneBackupDetail.id);
   }
 
+  get form$(): FormGroup {
+    return this._editionBackupServiceTypeDetailForm.form$;
+  }
+
   get zoneBackupServiceTypePath(): string {
     switch (this.zoneBackupServiceType.code) {
       case EDeliveryServiceType.amPm:
@@ -74,9 +79,11 @@ export class OpZonesEditionBackupServiceTypeDetailFormCardComponent
       (service) => service.id === this.zoneBackupServiceType.id
     );
 
-    if (zoneBackupDetail.flagServiceType === 'D') {
-      return zoneBackupDetail.serviceCost.toFixed(2);
-    }
+    // if (zoneBackupDetail.flagServiceType === 'D') {
+    //   return zoneBackupDetail.serviceCost.toFixed(2);
+    // }
+
+    return zoneBackupDetail.serviceCostDefault.toFixed(2);
   }
 
   constructor(
@@ -95,11 +102,19 @@ export class OpZonesEditionBackupServiceTypeDetailFormCardComponent
   updateFormValues(): void {
     if (this.zoneBackupServiceType.flagServiceType === 'D') {
       this.isCostDefault = true;
-      this._editionBackupServiceTypeDetailForm.customAmountControl.patchValue(0);
+      this._editionBackupServiceTypeDetailForm.customAmountControl.patchValue(
+        0
+      );
+      this._editionBackupServiceTypeDetailForm.customAmountRadioControl.patchValue(
+        false
+      );
     } else {
       this.isCostDefault = false;
       this._editionBackupServiceTypeDetailForm.customAmountControl.patchValue(
         `S/ ${this.zoneBackupServiceType.serviceCost.toFixed(2)}`
+      );
+      this._editionBackupServiceTypeDetailForm.customAmountRadioControl.patchValue(
+        true
       );
 
       this.showInput();
@@ -108,6 +123,7 @@ export class OpZonesEditionBackupServiceTypeDetailFormCardComponent
 
   showInput(): void {
     this.showCustomAmount = true;
+    this._editionBackupServiceTypeDetailForm.setServiceCostValidator();
   }
 
   hideInput(): void {
@@ -115,6 +131,7 @@ export class OpZonesEditionBackupServiceTypeDetailFormCardComponent
     this._editionBackupServiceTypeDetailForm.customAmountControl.setValue(
       'S/ 0.00'
     );
+    this._editionBackupServiceTypeDetailForm.clearServiceCostValidator();
   }
 
   formatCustomAmount(customAmountText: string): number {
@@ -135,6 +152,13 @@ export class OpZonesEditionBackupServiceTypeDetailFormCardComponent
     }
 
     return customNumber / 100;
+  }
+
+  getErrorServiceCost() {
+    return (
+      this._editionBackupServiceTypeDetailForm.customAmountControl.invalid &&
+      this._editionBackupServiceTypeDetailForm.customAmountControl.touched
+    );
   }
 
   cancelEditionEvent(): void {
@@ -159,9 +183,11 @@ export class OpZonesEditionBackupServiceTypeDetailFormCardComponent
         : CGStateSettingByState(this.zoneBackup.forceServiceSCHEDULED);
 
     zoneBackupUpdate.serviceTypeId = this.zoneBackupServiceType.id;
-    zoneBackupUpdate.serviceCost = this.formatCustomAmount(
-      this._editionBackupServiceTypeDetailForm.customAmountControl.value
-    );
+    zoneBackupUpdate.serviceCost = !this.showCustomAmount
+      ? null
+      : this.formatCustomAmount(
+          this._editionBackupServiceTypeDetailForm.customAmountControl.value
+        );
     zoneBackupUpdate.service = this.zoneBackupServiceType.code;
     console.log('zoneBackupUpdate', zoneBackupUpdate);
     this.saveEdition.emit(zoneBackupUpdate);

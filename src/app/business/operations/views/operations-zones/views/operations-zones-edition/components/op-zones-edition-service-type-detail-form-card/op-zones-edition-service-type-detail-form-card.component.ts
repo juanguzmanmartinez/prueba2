@@ -78,18 +78,20 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
   @Output() saveEdition = new EventEmitter();
 
   get segmentCompanyName(): string {
-    return this.companyName[this.zoneServiceType.company];
+    console.log(this.zoneServiceType.company)
+    return this.companyName[this.zoneServiceType.companyCode];
   }
 
   get segmentCompanyIcon(): string {
-    return this.companyIcon[this.zoneServiceType.company];
+    return this.companyIcon[this.zoneServiceType.companyCode];
   }
 
   get segmentCompanyColor(): string {
-    return this.companyColor[this.zoneServiceType.company];
+    return this.companyColor[this.zoneServiceType.companyCode];
   }
 
   get segmentChannelName(): string {
+    console.log(this.zoneServiceType.channel)
     return this.channelName[this.zoneServiceType.channel];
   }
 
@@ -106,9 +108,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
   }
 
   get defaultServiceCost(): string {
-    if (this.zoneServiceType.flagServiceType === 'D') {
-      return this.zoneServiceType.serviceCost.toFixed(2);
-    }
+    return this.zoneServiceType.serviceCostDefault.toFixed(2);
   }
 
   constructor(
@@ -126,11 +126,9 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
     this.updateFormValues();
     this.updateStateControl();
     this.checkEditionByStateControl();
-
   }
 
   updateFormValues(): void {
-    console.log('this.zoneServiceType', this.zoneServiceType);
     this._serviceTypeDetailForm.startHourControl.patchValue(
       this.zoneServiceType.startHour
     );
@@ -160,6 +158,13 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
 
     this.setSplitSegment();
     this.checkEditionByStateControl();
+  }
+
+  getErrorServiceCost() {
+    return (
+      this._serviceTypeDetailForm.customAmountControl.invalid &&
+      this._serviceTypeDetailForm.customAmountControl.touched
+    );
   }
 
   updateStateControl(): void {
@@ -277,9 +282,11 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
     zoneServiceTypeUpdate.intervalTime = this.zoneServiceType.intervalTime;
     zoneServiceTypeUpdate.zoneId = this.zoneDetail.id;
     zoneServiceTypeUpdate.service = this.zoneServiceType.code;
-    zoneServiceTypeUpdate.serviceCost = this.formatCustomAmount(
-      this._serviceTypeDetailForm.customAmountControl.value
-    );
+    zoneServiceTypeUpdate.serviceCost = !this.showCustomAmount
+      ? null
+      : this.formatCustomAmount(
+          this._serviceTypeDetailForm.customAmountControl.value
+        );
 
     if (zoneServiceTypeUpdate.enabled) {
       zoneServiceTypeUpdate.startHour = DatesHelper.Date(
@@ -311,10 +318,12 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
 
   showInput(): void {
     this.showCustomAmount = true;
+    this._serviceTypeDetailForm.setServiceCostValidator();
   }
   hideInput(): void {
     this.showCustomAmount = false;
     this._serviceTypeDetailForm.customAmountControl.setValue('S/ 0.00');
+    this._serviceTypeDetailForm.clearServiceCostValidator();
   }
 
   ngOnDestroy(): void {

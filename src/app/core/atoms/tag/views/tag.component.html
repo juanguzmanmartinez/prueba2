@@ -30,6 +30,36 @@
   </span>
 </ng-container>
 
+<ng-container *ngIf="appearance === tagAppearance.coloredFullGreasePill">
+  <span
+    class="text-tag tag-pill text-capitalize text-inkafarma bg-gray-0 {{
+      innerClass
+    }}"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.coloredFullBluePill">
+  <span
+    class="text-tag tag-pill text-capitalize text-dark-complementary-three bg-light-complementary-three {{
+      innerClass
+    }}"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.coloredFullLilacPill">
+  <span
+    class="text-tag tag-pill text-capitalize text-dark-complementary-four bg-light-complementary-four {{
+      innerClass
+    }}"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
 <ng-container *ngIf="appearance === tagAppearance.coloredDarkPill">
   <span
     class="text-tag tag-pill text-uppercase text-dark-{{ tagColor }} bg-light-{{

@@ -13,9 +13,15 @@
             {{ serviceTypeName[zoneServiceType?.code] }}
           </h5>
         </div>
-        <div>
-          <span class="text-h5">Desactivar servicio</span>
-          <app-switch [formControlName]="controlNameList.state"> </app-switch>
+        <div class="d-flex align-items-center">
+          <span class="text-h5 me-2">Desactivar servicio</span>
+          <app-switch
+            [formControlName]="controlNameList.state"
+            innerClass="bg-gray-0"
+            backgroundClass="bg-secondary"
+            class="d-flex align-items-center"
+          >
+          </app-switch>
         </div>
         <!-- <app-tag
           [appearance]="tagAppearance.coloredWhitePill"
@@ -35,6 +41,47 @@
       </div>
     </div>
     <hr class="m-0 bg-gray-3" />
+    <div class="d-flex mt-5 mb-5 align-items-center">
+      <div>
+        <app-tag
+          *ngIf="zoneServiceType?.channel"
+          [appearance]="tagAppearance.coloredFullBluePill"
+          [tagColor]="segmentChannelColor"
+          innerClass="p-3 border border-complementary-three"
+        >
+          {{ segmentChannelName }}
+        </app-tag>
+      </div>
+      <div>
+        <app-tag
+          [appearance]="tagAppearance.coloredFullLilacPill"
+          [tagColor]="'dark-complementary-four'"
+          class="ms-3 d-flex align-items-center"
+          *ngIf="zoneServiceType?.flagServiceType === 'P'"
+          innerClass="p-3 border border-complementary-four"
+        >
+          Precio personalizado
+        </app-tag>
+      </div>
+      <div>
+        <app-tag
+          [appearance]="tagAppearance.coloredFullGreasePill"
+          [tagColor]="segmentCompanyColor"
+          class="ms-3 d-flex align-items-center"
+          innerClass="p-3 border border-gray-1"
+        >
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="me-2 d-flex align-items-center">
+              <app-icon
+                [svgName]="segmentCompanyIcon"
+                svgWidth="22px"
+              ></app-icon>
+            </span>
+            {{ segmentCompanyName }}
+          </div>
+        </app-tag>
+      </div>
+    </div>
     <div class="row mt-5 mb-5">
       <div class="col-12">
         <h5 class="text-h5 mb-0">
@@ -179,12 +226,17 @@
 
     <div class="row mb-5">
       <div class="col-6">
-        <app-radio (change)="hideInput()" labelClass="default-radio" [checked]="isCostDefault"
+        <app-radio
+          (change)="hideInput()"
+          labelClass="default-radio"
+          [checked]="isCostDefault"
           >Monto por defecto: S/ {{ defaultServiceCost }} soles</app-radio
         >
       </div>
       <div class="col-6">
-        <app-radio (change)="showInput()" [checked]="!isCostDefault">Monto personalizado:</app-radio>
+        <app-radio (change)="showInput()" [checked]="!isCostDefault"
+          >Monto personalizado:</app-radio
+        >
       </div>
     </div>
 
@@ -194,8 +246,12 @@
           <app-input
             [formControlName]="controlNameList.customAmount"
             placeholder="S/ 0.00"
+            [error]="getErrorServiceCost()"
             appAmountReverse
           ></app-input>
+          <p *ngIf="getErrorServiceCost()" class="text-danger mt-1 pe-1">
+            El campo se encuentra vacío
+          </p>
         </div>
       </div>
     </ng-container>

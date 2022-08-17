@@ -42,6 +42,7 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
   getZoneDetail(zoneCode: string): void {
     this._operationsZonesImplement.getZoneDetail(zoneCode).subscribe(
       (zoneDetail: ZoneDetail) => {
+        console.log('zoneDetail', zoneDetail);
         this._operationsZonesEditionStore.zoneDetail = zoneDetail;
         if (zoneDetail.zoneBackup) {
           this.getZoneBackup(
@@ -68,26 +69,22 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
   }
 
   getZoneBackup(zoneCode: string, servicesType: ZoneServiceType[]): void {
-    this._operationsZonesImplement.getZoneDetail(zoneCode).pipe(map(zoneDetail =>{
-      zoneDetail.serviceTypeList = servicesType;
-      return zoneDetail;
-    })).subscribe(
-      (zoneDetail: ZoneDetail) => {
-        const { serviceTypeList, ...zoneDetailRest } = zoneDetail;
-        const newZoneDetail = Object.assign(
-          {} as ZoneDetail,
-          { ...zoneDetailRest },
-          { serviceTypeList: servicesType }
-        );
-        // this._operationsZonesEditionStore.zoneBackup = zoneDetail;
-        console.log('backup - zonedetail', zoneDetail);
-        console.log('backup - newZoneDetail', newZoneDetail);
-        this._operationsZonesEditionStore.zoneBackup = zoneDetail;
-      },
-      (error) => {
-        this._operationsZonesEditionStore.zoneBackupError(error);
-      }
-    );
+    this._operationsZonesImplement
+      .getZoneDetail(zoneCode)
+      .pipe(
+        map((zoneDetail) => {
+          zoneDetail.serviceTypeList = servicesType;
+          return zoneDetail;
+        })
+      )
+      .subscribe(
+        (zoneDetail: ZoneDetail) => {
+          this._operationsZonesEditionStore.zoneBackup = zoneDetail;
+        },
+        (error) => {
+          this._operationsZonesEditionStore.zoneBackupError(error);
+        }
+      );
   }
 
   ngOnDestroy(): void {

@@ -4,6 +4,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   SkipSelf,
@@ -13,6 +14,7 @@ import {
   ZoneCompanyServiceTypeList,
   ZoneServiceType,
   ZoneServiceTypeList,
+  ZoneServiceTypeRegistered,
 } from '../../../../models/operations-zones-service-type.model';
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { CChannelName, EChannel } from '@models/channel/channel.model';
@@ -20,6 +22,7 @@ import { sortByPresetOrder } from '@helpers/sort.helper';
 import { ZoneServiceTypeBasicRequest } from '../../../../parameters/operations-zones-service-type.parameter';
 import { OperationsZonesEditionActionsStoreService } from '../../stores/operations-zones-edition-actions-store.service';
 import { CCompanyName, ECompany } from '@models/company/company.model';
+import { ZoneDetail } from '../../../../models/operations-zones.model';
 
 const ChannelTabListPriority = [
   EChannel.digital,
@@ -47,7 +50,7 @@ const listCompanies = [
   styleUrls: ['./op-zones-edition-home-main-setting-tab.component.sass'],
 })
 export class OpZonesEditionHomeMainSettingTabComponent
-  implements OnInit, AfterViewInit, AfterContentInit
+  implements OnInit, OnDestroy
 {
   public channelName = CChannelName;
   public companyName = CCompanyName;
@@ -59,9 +62,6 @@ export class OpZonesEditionHomeMainSettingTabComponent
   public zoneCompanyServiceTypeList: ZoneCompanyServiceTypeList[];
   public companyItem: ECompany;
   public companyTabList: ECompany[];
-
-  public channels = listChannels.map((value) => value.code);
-  public companies = listCompanies.map((value) => value.code);
   public serviceList: ZoneServiceType[];
 
   @Input('zoneChannelServiceTypeList')
@@ -115,8 +115,9 @@ export class OpZonesEditionHomeMainSettingTabComponent
   }
 
   @Input() homeEditionLoader: boolean;
+  @Input() zoneDetail: ZoneDetail;
   @Input() serviceTypeList: ZoneServiceType[];
-  
+  @Input() zonesServiceTypeRegistered: ZoneServiceTypeRegistered[];
 
   @Output() edit = new EventEmitter<ZoneServiceTypeBasicRequest>();
   @Output() add = new EventEmitter<ZoneServiceTypeBasicRequest>();
@@ -126,28 +127,14 @@ export class OpZonesEditionHomeMainSettingTabComponent
     private _operationsZonesEditionActionsStore: OperationsZonesEditionActionsStoreService
   ) {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
-  ngAfterViewInit(): void {
-    if (this.serviceTypeList) {
-      console.log(this.serviceTypeList);
-    }
-  }
-
-  ngAfterContentInit(): void {
-    if (this.serviceTypeList) {
-      console.log(this.serviceTypeList);
-    }
-  }
-
-  companyChange(companies: ECompany): void{
+  companyChange(companies: ECompany): void {
     this.companiesSelected = companies;
   }
 
   channelList(channel: EChannel): void {
-    this.channelSelected = channel;
+    // this.channelSelected = channel;
     const zoneChannelServiceTypeList = this.zoneChannelServiceTypeList.find(
       (channelServiceTypeList) => channelServiceTypeList.channel === channel
     );
@@ -184,5 +171,9 @@ export class OpZonesEditionHomeMainSettingTabComponent
       channel: this.channelSelected,
       company: this.companyItem,
     });
+  }
+
+  ngOnDestroy(): void {
+    this.zonesServiceTypeRegistered = [];
   }
 }

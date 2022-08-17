@@ -76,6 +76,9 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
       });
     this.subscriptions.add(subscription);
   }
+  routeback(){
+    console.log('hoad')
+  }
 
   private setZoneServiceType(): void {
     this.zoneServiceType = this.zoneDetail?.serviceTypeList

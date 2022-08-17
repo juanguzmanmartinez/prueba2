@@ -18,6 +18,7 @@ export interface IZoneServiceType {
   //nuevos campos
   timeMeasureUnit: string;
   serviceCost: number;
+  serviceCostDefault: number;
   serviceNew: boolean;
   flagServiceType: string;
   ompanyCode: string;

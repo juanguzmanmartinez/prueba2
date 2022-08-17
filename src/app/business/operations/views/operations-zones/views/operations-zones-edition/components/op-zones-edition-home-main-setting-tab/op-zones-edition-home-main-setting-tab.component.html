@@ -27,7 +27,7 @@
       [multiple]="true"
       [selectOptionSquare]="true"
       [showClearValueForButton]="true"
-      [optionList]="channels"
+      [optionList]="zoneDetail?.channelList"
       (optionChange)="channelChange($event)"
     >
       <ng-template let-option>{{ channelName[option] || option }}</ng-template>
@@ -47,7 +47,7 @@
       [multiple]="true"
       [selectOptionSquare]="true"
       [showClearValueForButton]="true"
-      [optionList]="companies"
+      [optionList]="zoneDetail?.companyList"
       (optionChange)="companyChange($event)"
     >
       <ng-template let-option>{{ companyName[option] || option }}</ng-template>
@@ -77,24 +77,28 @@
     </div>
   </div>
 </div>
-
-<div class="row justify-content-between mt-6" *ngFor="let item of companyTabList">
-  <!-- <ng-container
+<div class="row justify-content-between mt-6">
+  <ng-container
     *ngFor="
-      let service of serviceTypeList
+      let service of zonesServiceTypeRegistered
         | channelFilter: channelSelected
         | companyFilter: companiesSelected
     "
   >
     <div class="col-4 col-lg-6 col-xlg-4 mb-6">
       <app-op-zones-edition-home-main-service-type-card
-        [service]="service"
+        [serviceType]="service"
         (edit)="editServiceType($event)"
         (add)="addServiceType($event)"
       >
       </app-op-zones-edition-home-main-service-type-card>
     </div>
-  </ng-container> -->
+  </ng-container>
+</div>
+<!-- <div
+  class="row justify-content-between mt-6"
+  *ngFor="let item of companyTabList"
+>
   <div class="col-12 col-lg-6 col-xlg-4 mb-6">
     <app-op-zones-edition-home-main-service-type-card
       *appSkeletonCard="
@@ -154,4 +158,4 @@
     >
     </app-op-zones-edition-home-main-service-type-card>
   </div>
-</div>
+</div> -->
