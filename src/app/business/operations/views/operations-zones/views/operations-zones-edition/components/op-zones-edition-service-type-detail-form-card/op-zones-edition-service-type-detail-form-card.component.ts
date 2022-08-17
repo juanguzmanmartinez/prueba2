@@ -77,8 +77,11 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
   @Output() cancelEdition = new EventEmitter();
   @Output() saveEdition = new EventEmitter();
 
+  get segmentState(){
+    return CStateValue[this.zoneServiceType.state];
+  }
+
   get segmentCompanyName(): string {
-    console.log(this.zoneServiceType.company)
     return this.companyName[this.zoneServiceType.companyCode];
   }
 

@@ -163,16 +163,6 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
         (serviceType) => serviceType.code === serviceTypeCode
       );
 
-    console.log(
-      'new registered',
-      new ZoneServiceTypeRegistered(
-        zone,
-        zoneStore,
-        serviceTypeCode,
-        zone?.channel,
-        company
-      )
-    );
     return new ZoneServiceTypeRegistered(
       zone,
       zoneStore,

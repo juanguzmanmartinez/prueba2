@@ -42,7 +42,6 @@ export class OperationsZonesEditionComponent implements OnInit, OnDestroy {
   getZoneDetail(zoneCode: string): void {
     this._operationsZonesImplement.getZoneDetail(zoneCode).subscribe(
       (zoneDetail: ZoneDetail) => {
-        console.log('zoneDetail', zoneDetail);
         this._operationsZonesEditionStore.zoneDetail = zoneDetail;
         if (zoneDetail.zoneBackup) {
           this.getZoneBackup(

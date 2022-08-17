@@ -144,14 +144,11 @@ export class OpZonesEditionHomeMainSettingTabComponent
   }
 
   channelChange(channel: EChannel): void {
-    console.log(channel);
     this.channelSelected = channel;
     // const zoneChannelServiceTypeList = this.zoneChannelServiceTypeList.find(
     //   (channelServiceTypeList) => channelServiceTypeList.channel === channel
     // );
-    // console.log(zoneChannelServiceTypeList);
     // this.zoneServiceTypeList = zoneChannelServiceTypeList.serviceTypeList;
-    // console.log(this.zoneServiceTypeList);
 
     this._operationsZonesEditionActionsStore.serviceTypeChannelSelection =
       channel;

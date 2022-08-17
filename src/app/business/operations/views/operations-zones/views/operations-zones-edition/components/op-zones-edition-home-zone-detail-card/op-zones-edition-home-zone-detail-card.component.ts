@@ -51,7 +51,7 @@ export class OpZonesEditionHomeZoneDetailCardComponent {
   get zoneStatus(): string {
     return this.zoneDetail.state == 'active'
       ? 'ellipse-success'
-      : 'ellipse-disabled';
+      : 'ellipse-danger';
   }
   constructor() {}
 

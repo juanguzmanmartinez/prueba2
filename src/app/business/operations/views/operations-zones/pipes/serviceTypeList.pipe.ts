@@ -11,7 +11,6 @@ export class ServiceTypePipe implements PipeTransform {
     if (!channels || channels.length === 0) {
       return value;
     }
-    console.log('channels',channels);
     return value.filter((service) => {
       return !!channels.find((channel) => service.channel === channel);
     });
@@ -25,7 +24,6 @@ export class ServiceByCompanyPipe implements PipeTransform {
     }
     
     return value.filter((service) => {
-      console.log(service.company);
       return !!companies.find((code) => service.company === code);
     });
   }

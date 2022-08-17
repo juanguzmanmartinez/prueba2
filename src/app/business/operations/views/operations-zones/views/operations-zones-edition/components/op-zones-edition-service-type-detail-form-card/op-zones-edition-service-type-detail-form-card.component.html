@@ -5,9 +5,7 @@
         <div class="d-flex align-items-center">
           <app-icon
             class="me-5"
-            [svgName]="
-              zoneServiceType?.state ? 'ellipse-success' : 'ellipse-disabled'
-            "
+            [svgName]="segmentState ? 'ellipse-success' : 'ellipse-danger'"
           ></app-icon>
           <h5 class="text-h5 mb-0 ms-3">
             {{ serviceTypeName[zoneServiceType?.code] }}
