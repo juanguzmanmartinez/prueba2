@@ -57,7 +57,7 @@ const ColumnNameList = {
   providers: [CurrencyPipe],
 })
 export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
-  tableLoader = true;
+  tableLoader = false;
   loadingExport = false;
   errorResponse: HttpErrorResponse;
 
@@ -69,6 +69,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   showPaginator = true;
   fontColorDownloadItem: string;
   notFound = '';
+  appearTable = false;
 
   displayedColumns: string[] = [
     ColumnNameList.select,
@@ -152,7 +153,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     );
     this.subscriptions.add(subscription);
     this.getListStore();
-    this.filterAll();
+    this.appearTable = false;
+    // this.filterAll();
   }
 
   getListStore(): void {
@@ -231,6 +233,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   filterAll(): void {
+    this.appearTable = true;
     const orderFilter = this.orderFilterStore.getOrderFilter();
     const orderFilters = this.presenter.getFilters();
     this.orderFilterStore.setDatePromise = orderFilters.promiseDate;
