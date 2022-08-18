@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IDrugstore } from '@interfaces/drugstores/drugstores.interface';
 import { IOrderFilter } from 'app/business/order/views/order-records/interfaces/order-filter.interface';
 import { BehaviorSubject } from 'rxjs';
 
@@ -6,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class OrderFilterStore {
   private orderFilter: IOrderFilter = {};
   private orderFilterSubject = new BehaviorSubject<IOrderFilter>({});
+  private localList = new BehaviorSubject<IDrugstore[]>([]);
   private isResetFilters = new BehaviorSubject<boolean>(false);
 
   public orderFilter$ = this.orderFilterSubject.asObservable();
@@ -14,6 +16,14 @@ export class OrderFilterStore {
     this.orderFilter$.subscribe((orderFilter) => {
       this.orderFilter = orderFilter;
     });
+  }
+
+  getLocalList() {
+    return this.localList.asObservable();
+  }
+
+  setLocalList(localList: IDrugstore[]) {
+    this.localList.next(localList);
   }
 
   getOrderFilter(): IOrderFilter {

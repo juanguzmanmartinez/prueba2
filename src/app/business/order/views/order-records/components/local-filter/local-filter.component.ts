@@ -34,6 +34,7 @@ export class LocalFilterComponent implements OnInit {
     this.orderRecordImplement.storeList
       .pipe(
         tap((res: IDrugstore[]) => {
+          this.orderFilterStore.setLocalList(res);
           this.list = res;
         }),
         map((res: IDrugstore[]) => {
