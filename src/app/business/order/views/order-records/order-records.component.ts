@@ -8,6 +8,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -22,6 +23,7 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { ExportTableSelection } from '../../../../shared/utils/export-table-selection.util';
 import { OrderRecordsImplementService } from './implements/order-records-implement.service';
 import {
@@ -154,7 +156,33 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.add(subscription);
     this.getListStore();
     this.appearTable = false;
-    // this.filterAll();
+    this.formOnChanges();
+  }
+
+  formOnChanges() {
+    this.presenter.filterForm.valueChanges
+      .pipe(
+        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
+      )
+      .subscribe((val) => {
+        if (
+          (val.companyCode && val.companyCode.length > 0) ||
+          (val.localId && val.localId.length > 0) ||
+          (val.orderStatus && val.orderStatus.length > 0) ||
+          (val.serviceChannel && val.serviceChannel.length > 0) ||
+          (val.serviceTypeId && val.serviceTypeId.length > 0)
+        ) {
+          this.presenter.setPromiseDateRequiredValidator();
+          this.presenter.clearRangeDateRequiredValidator();
+          if(val.promiseDateSelect === 'Otro periodo'){
+            this.presenter.clearPromiseDateValidators();
+            this.presenter.setRangeDateRequiredValidator();
+          }
+        } else {
+          this.presenter.clearPromiseDateValidators();
+          this.presenter.clearRangeDateRequiredValidator();
+        }
+      });
   }
 
   getListStore(): void {
@@ -389,7 +417,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   resetOrderFilters() {
     this.presenter.reset();
     this.orderFilterStore.setIsResetFilters(true);
-    this.filterAll();
   }
 
   getLocalDescription(localCode: string) {

@@ -30,6 +30,12 @@ $select-option-height: 48px
     @include position-vertical-center
 
 .select
+  .error-select
+    .mat-select-trigger
+      border: 1px solid $danger
+      color: $danger
+      border-radius: $border-radius
+
   mat-select
     .mat-select-trigger
       background-color: $white
