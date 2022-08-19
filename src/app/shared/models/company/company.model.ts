@@ -28,7 +28,7 @@ export const CCompanyColor = {
 export const CompanyList = [
   ECompany.inkafarma,
   ECompany.mifarma,
-  ECompany.todos
+  // ECompany.todos
 ];
 
 export const CCompanyRoute = {
