@@ -59,7 +59,7 @@
               innerClass="w-100"
               appearance="primary"
               (clicked)="filterAll()"
-              [disabled]="tableLoader || presenter.isNullFilterForm()"
+              [disabled]="tableLoader || presenter.isNullFilterForm() || presenter.filterForm.invalid"
               >Buscar
             </app-button>
           </div>

@@ -53,6 +53,7 @@ export class InputDatepickerRangeComponent
   @Input() name: string | number = 'input-datepicker-range';
   @Input() placeholder = 'dd/mm/aaaa';
   @Input() disabled = false;
+  @Input() error = false;
 
   @Input('minDate')
   set _minDate(value: number) {
