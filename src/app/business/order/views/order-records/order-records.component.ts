@@ -166,15 +166,16 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       )
       .subscribe((val) => {
         if (
-          (val.companyCode && val.companyCode.length > 0) ||
-          (val.localId && val.localId.length > 0) ||
-          (val.orderStatus && val.orderStatus.length > 0) ||
-          (val.serviceChannel && val.serviceChannel.length > 0) ||
-          (val.serviceTypeId && val.serviceTypeId.length > 0)
+          ((val.companyCode && val.companyCode.length > 0) ||
+            (val.localId && val.localId.length > 0) ||
+            (val.orderStatus && val.orderStatus.length > 0) ||
+            (val.serviceChannel && val.serviceChannel.length > 0) ||
+            (val.serviceTypeId && val.serviceTypeId.length > 0)) &&
+          !val.searchValue
         ) {
           this.presenter.setPromiseDateRequiredValidator();
           this.presenter.clearRangeDateRequiredValidator();
-          if(val.promiseDateSelect === 'Otro periodo'){
+          if (val.promiseDateSelect === 'Otro periodo') {
             this.presenter.clearPromiseDateValidators();
             this.presenter.setRangeDateRequiredValidator();
           }
