@@ -53,6 +53,7 @@ export class SelectComponent<T>
   @Input() enableSearch = false;
   @Input() enableNoSpace = false;
   @Input() customFontName = null;
+  @Input() error: boolean;
 
   @Input('value')
   set _value(option: T | T[]) {
