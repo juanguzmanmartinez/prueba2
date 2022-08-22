@@ -417,6 +417,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   resetOrderFilters() {
     this.presenter.reset();
     this.orderFilterStore.setIsResetFilters(true);
+    this.appearTable = false;
   }
 
   getLocalDescription(localCode: string) {
