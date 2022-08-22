@@ -27,6 +27,14 @@
     >
     </app-icon>
 
-    <!-- <app-icon *ngIf="svgIcon" class="close"> </app-icon> -->
+    <app-tooltip position="above" [value]="tooltipDescription" innerClass="bottom-12-right-24" >
+      <app-icon
+        *ngIf="svgName"
+        class="close"
+        [svgName]="svgName"
+        svgHeight="16px"
+      >
+      </app-icon>
+    </app-tooltip>
   </div>
 </label>

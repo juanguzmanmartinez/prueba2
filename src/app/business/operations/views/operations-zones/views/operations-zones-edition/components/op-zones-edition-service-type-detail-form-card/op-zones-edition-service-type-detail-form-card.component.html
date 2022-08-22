@@ -140,29 +140,12 @@
               <app-input
                 [formControlName]="controlNameList.intervalTime"
                 placeholder="horas"
+                svgName="info"
+                tooltipDescription="Para modificar la duración comunícate 
+                con Soporte Digital al correo:
+                soportedigital@farmaciasperuanas.pe"
               >
               </app-input>
-            </div>
-            <div class="row mx-0">
-              <p
-                class="d-inline-flex align-items-center ms-3 mb-0"
-                *appRouterAccess="configurationPath"
-              >
-                <app-icon
-                  fontName="info"
-                  fontSize="24px"
-                  innerClass="text-gray-5 me-2"
-                ></app-icon>
-                <span class="text-body-2-regular text-gray-5"
-                  >Puedes editar este valor en
-                  <app-router [router]="configurationPath">
-                    <span
-                      class="text-decoration-underline text-gray-5 font-weight-bold"
-                      >configuraciones</span
-                    >
-                  </app-router>
-                </span>
-              </p>
             </div>
           </app-form-field>
         </div>
