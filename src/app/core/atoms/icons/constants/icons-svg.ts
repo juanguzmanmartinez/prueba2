@@ -44,6 +44,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'cart', path: `${pathIcons}cart.svg` },
   { name: 'info', path: `${pathIcons}info.svg` },
   { name: 'edit-tertiary', path: `${pathIcons}edit-tertiary.svg` },
+  { name: 'launch-tertiary', path: `${pathIcons}launch-tertiary.svg` },
   { name: 'edit-tertiary-hover', path: `${pathIcons}edit-tertiary-hover.svg` },
   { name: 'time-circle', path: `${pathIcons}time-circle.svg` },
   { name: 'crosshair', path: `${pathIcons}crosshair.svg` },
