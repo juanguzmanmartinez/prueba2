@@ -90,10 +90,15 @@
     <ng-container *ngIf="serviceType?.available">
       <div
         *ngIf="serviceType?.registered"
-        app-card-edit-button
-        [editMessage]="segmentName"
+        class="card-edit-button"
         (click)="editEvent()"
-      ></div>
+        (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseLeave()"
+      >
+        <app-tooltip [value]="tooltipDescription">
+          <app-icon [svgName]="editIconName" svgWidth="24px"></app-icon>
+        </app-tooltip>
+      </div>
       <div
         *ngIf="!serviceType?.registered"
         app-card-add-button

@@ -38,7 +38,10 @@ export class CardEditButtonDirective implements AfterViewInit {
         const buttonActionIconComponentFactory = this.componentFactoryResolver.resolveComponentFactory(ButtonActionIconComponent);
 
         const buttonActionIconComponentRef = buttonActionIconComponentFactory.create(this.injector);
-        buttonActionIconComponentRef.instance.iconName = 'edit';
+        // buttonActionIconComponentRef.instance.iconName = 'edit';
+        buttonActionIconComponentRef.instance.svgName = 'edit-tertiary';
+        buttonActionIconComponentRef.instance.svgWidth = '24px';
+        buttonActionIconComponentRef.instance.iconStyle = 'edge';
         buttonActionIconComponentRef.instance.innerClass = 'cursor-pointer';
 
         this.applicationRef.attachView(buttonActionIconComponentRef.hostView);

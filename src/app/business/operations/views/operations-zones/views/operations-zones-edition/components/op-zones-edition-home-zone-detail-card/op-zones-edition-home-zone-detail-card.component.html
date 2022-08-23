@@ -6,10 +6,15 @@
       <h5 class="text-h5 mb-0">Zona principal</h5>
       <ng-container *appRouterAccess="zoneEditionPath">
         <div
-          app-card-edit-button
-          [editMessage]="zoneDetail.name"
+          class="card-edit-button"
           (click)="editEvent()"
-        ></div>
+          (mouseenter)="onMouseEnter()"
+          (mouseleave)="onMouseLeave()"
+        >
+          <app-tooltip [value]="tooltipDescription">
+            <app-icon [svgName]="editIconName" svgWidth="24px"></app-icon>
+          </app-tooltip>
+        </div>
       </ng-container>
     </div>
     <app-divider></app-divider>
@@ -27,7 +32,11 @@
 
   <div class="row">
     <!-- <div class="col-6"> -->
-    <app-card-static-information class="d-block mb-5 col-3" iconName="store">
+    <app-card-static-information
+      class="d-block mb-5 col-3"
+      svgName="store"
+      svgWidth="24px"
+    >
       <ng-container information-title>Local de atención</ng-container>
       <ng-container information-caption>
         <ng-container *ngIf="zoneDetail.assignedStore">
@@ -40,7 +49,11 @@
       </ng-container>
     </app-card-static-information>
 
-    <app-card-static-information class="d-block mb-5 col-3" iconName="store">
+    <app-card-static-information
+      class="d-block mb-5 col-3"
+      svgName="store"
+      svgWidth="24px"
+    >
       <ng-container information-title>Local backup</ng-container>
       <ng-container information-caption>
         <span class="text-capitalize">{{ zoneEditionDrugstoreBackup }}</span>
@@ -49,7 +62,8 @@
 
     <app-card-static-information
       class="d-block mb-5 col-3"
-      iconName="record_voice_over"
+      svgName="user"
+      svgWidth="24px"
     >
       <ng-container information-title>Canales de atención</ng-container>
       <ng-container information-caption>
@@ -66,7 +80,8 @@
 
     <app-card-static-information
       class="d-block mb-5 col-3"
-      iconName="motorcycle"
+      svgName="scooter"
+      svgWidth="24px"
     >
       <ng-container information-title>Tipo de delivery</ng-container>
       <ng-container information-caption>
@@ -81,7 +96,8 @@
 
     <app-card-static-information
       class="d-block mb-5 col-3"
-      iconName="location_searching"
+      svgName="crosshair"
+      svgWidth="24px"
     >
       <ng-container information-title>Tipo de zona</ng-container>
       <ng-container information-caption>{{
@@ -91,7 +107,8 @@
 
     <app-card-static-information
       class="d-block mb-5 col-3"
-      iconName="location_searching"
+      svgName="crosshair"
+      svgWidth="24px"
     >
       <ng-container information-title>Zona backup</ng-container>
       <ng-container information-caption>
@@ -103,7 +120,8 @@
 
     <app-card-static-information
       class="d-block mb-5 col-3"
-      iconName="shopping_bag"
+      svgName="bag"
+      svgWidth="24px"
     >
       <ng-container information-title>Marcas</ng-container>
       <ng-container information-caption>
@@ -118,7 +136,11 @@
       </ng-container>
     </app-card-static-information>
 
-    <app-card-static-information class="d-block col-3" iconName="info">
+    <app-card-static-information
+      class="d-block col-3"
+      svgName="location"
+      svgWidth="24px"
+    >
       <ng-container information-title>Etiquetas</ng-container>
       <ng-container information-caption>
         <app-tag

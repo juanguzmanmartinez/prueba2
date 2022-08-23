@@ -24,6 +24,7 @@ export class OpZonesEditionHomeZoneDetailCardComponent {
   public channelName = CChannelName;
   public labelColor = CZoneLabelColor;
   public tagAppearance = ETagAppearance;
+  public editIconName = 'edit-tertiary';
 
   @Input() zoneDetail: ZoneDetail;
   @Input() zoneBackupDetail: ZoneDetail;
@@ -53,7 +54,19 @@ export class OpZonesEditionHomeZoneDetailCardComponent {
       ? 'ellipse-success'
       : 'ellipse-danger';
   }
+
+  get tooltipDescription(): string{
+    return `Editar ${this.zoneDetail.name}`;
+  }
   constructor() {}
+
+  onMouseEnter(): void{
+    this.editIconName = 'edit-tertiary-hover';
+  }
+
+  onMouseLeave(): void{
+    this.editIconName = 'edit-tertiary';
+  }
 
   editEvent(): void {
     this.edit.emit();

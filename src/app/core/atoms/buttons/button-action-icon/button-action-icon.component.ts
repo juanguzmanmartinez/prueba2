@@ -9,6 +9,8 @@ export class ButtonActionIconComponent {
 
   @Input() iconName: string;
   @Input() svgName: string;
+  @Input() svgWidth: '16px' | '24px' | '32px' | '48px' | string = '16px';
+  @Input() svgHeight: '16px' | '24px' | '32px' | '48px' | string;
   @Input() iconStyle: 'whole' | 'edge' | 'edge-table' = 'whole';
   @Input() innerClass = '';
   @Input() inlineStyle: { [klass: string]: any; } | null;
