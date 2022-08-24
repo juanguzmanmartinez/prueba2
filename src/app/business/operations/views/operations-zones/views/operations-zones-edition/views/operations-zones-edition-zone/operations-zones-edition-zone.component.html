@@ -10,14 +10,14 @@
 
 
   <div class="row" *ngIf="!errorResponse">
-    <div class="col-12 col-xlg-6 mb-6 mb-xlg-0">
+    <div class="col-12 col-xlg-4 mb-6 mb-xlg-0">
       <app-op-zones-edition-zone-detail-card
         *appSkeletonCard="!!zoneDetail && !!channelList && !!storeList; loading: !homeEditionZoneLoader"
         [zoneDetail]="zoneDetail">
       </app-op-zones-edition-zone-detail-card>
     </div>
 
-    <div class="col-12 col-xlg-6" [class.container-loader]="saveEditionLoader">
+    <div class="col-12 col-xlg-8" [class.container-loader]="saveEditionLoader">
       <app-op-zones-edition-zone-detail-form-card
         *appSkeletonCard="!!zoneDetail && !!channelList && !!storeList; row: 8; loading: !homeEditionZoneLoader"
         [zoneDetail]="zoneDetail"

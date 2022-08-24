@@ -1,7 +1,7 @@
 <app-card innerClass="px-6 pt-6 pb-15">
   <div class="row mb-5">
     <div class="col-12">
-      <h5 class="text-h5 mb-0">Detalle de la zona principal</h5>
+      <h4 class="text-h4 mb-0 text-gray-7">Detalle de la zona principal</h4>
     </div>
   </div>
   <hr class="m-0 bg-gray-3" />
@@ -29,11 +29,13 @@
         <ng-container information-title>Local de atención</ng-container>
         <ng-container information-caption>
           <ng-container *ngIf="zoneDetail.assignedStore">
-            {{ zoneDetail.assignedStore.code }}
-            {{ zoneDetail.assignedStore.name }}
+            <span class="text-black"
+              >{{ zoneDetail.assignedStore.code }}
+              {{ zoneDetail.assignedStore.name }}</span
+            >
           </ng-container>
           <ng-container *ngIf="!zoneDetail.assignedStore">
-            Sin local de atención
+            <span class="text-black">Sin local de atención</span>
           </ng-container>
         </ng-container>
       </app-card-static-information>
@@ -45,7 +47,9 @@
       >
         <ng-container information-title>Local backup</ng-container>
         <ng-container information-caption>
-          <span class="text-capitalize">{{ zoneEditionDrugstoreBackup }}</span>
+          <span class="text-capitalize text-black">{{
+            zoneEditionDrugstoreBackup
+          }}</span>
         </ng-container>
       </app-card-static-information>
 
@@ -56,7 +60,9 @@
       >
         <ng-container information-title>Zona backup</ng-container>
         <ng-container information-caption>
-          <span class="text-capitalize">{{ zoneEditionZoneBackup }}</span>
+          <span class="text-capitalize text-black">{{
+            zoneEditionZoneBackup
+          }}</span>
         </ng-container>
       </app-card-static-information>
     </div>

@@ -7,16 +7,16 @@
             class="me-5"
             [svgName]="zoneState ? 'ellipse-success' : 'ellipse-danger'"
           ></app-icon>
-          <h5 class="text-h5 mb-0 ms-3">
+          <h4 class="text-h4 mb-0 ms-3 text-gray-5">
             {{ zoneDetail.name }}
             <span class="text-gray-5 mx-3">-</span>
             <span class="text-gray-5 text-nowrap"
               >COD {{ zoneDetail.code }}</span
             >
-          </h5>
+          </h4>
         </div>
         <div class="d-flex align-items-center">
-          <span class="text-h5 me-2">Desactivar zona</span>
+          <span class="text-body-2-regular text-gray-5 me-2">Desactivar zona</span>
           <app-switch
             [formControlName]="controlNameList.state"
             backgroundClass="bg-secondary"

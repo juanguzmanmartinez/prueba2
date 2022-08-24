@@ -1,24 +1,6 @@
-<!-- <div class="row mt-6" *ngIf="channelTabList?.length > 1">
-  <div class="col d-flex-horizontal-end align-items-center pe-0">
-    <span class="text-h5">Canal de atención:</span>
-  </div>
-  <div class="col-3">
-    <app-select
-      placeholder="Agrega una etiqueta a la zona"
-      [optionList]="channelTabList"
-      [value]="channelSelected"
-      (optionChange)="channelChange($event)"
-    >
-      <ng-template let-option>{{ channelName[option] || option }}</ng-template>
-    </app-select>
-  </div>
-  <div class="col-12 mt-4">
-    <hr class="m-0 bg-gray-3" />
-  </div>
-</div> -->
 <div class="row mt-6">
   <div class="col-12">
-    <h3 class="text-h4 mb-0">Tipos de servicios de la zona principal</h3>
+    <h4 class="text-h4 mb-0 text-gray-7">Tipos de servicios de la zona principal</h4>
   </div>
   <div class="col-4 mt-4">
     <!-- <app-select-zone></app-select-zone> -->
@@ -32,14 +14,6 @@
     >
       <ng-template let-option>{{ channelName[option] || option }}</ng-template>
     </app-select>
-    <!-- <app-select
-      placeholder="Agrega una etiqueta a la zona"
-      [optionList]="channelTabList"
-      [value]="channelSelected"
-      (optionChange)="channelChange($event)"
-    >
-      <ng-template let-option>{{ channelName[option] || option }}</ng-template>
-    </app-select> -->
   </div>
   <div class="col-4 mt-4">
     <app-select
@@ -59,21 +33,21 @@
         class="d-inline-block me-1 mt-1"
         [svgName]="'ellipse-success'"
       ></app-icon>
-      <p class="mb-0">Activo</p>
+      <p class="mb-0 text-gray-5">Activo</p>
     </div>
     <div class="d-flex align-items-center">
       <app-icon
         class="d-inline-block me-1 mt-1"
         [svgName]="'elipse-error'"
       ></app-icon>
-      <p class="mb-0">Inactivo</p>
+      <p class="mb-0 text-gray-5">Inactivo</p>
     </div>
     <div class="d-flex align-items-center">
       <app-icon
         class="d-inline-block me-1 mt-1"
         [svgName]="'ellipse-disabled'"
       ></app-icon>
-      <p class="mb-0">Inhabilitado</p>
+      <p class="mb-0 text-gray-5">Inhabilitado</p>
     </div>
   </div>
 </div>
@@ -86,7 +60,7 @@
 >
   <div class="row mt-5 mb-5">
     <div class="col-12">
-      <h2 class="text-h2 mb-0">
+      <h2 class="text-h2 mb-0 text-black">
         {{ getSegmentChannelName(zonesChannel.channel) }}
       </h2>
     </div>

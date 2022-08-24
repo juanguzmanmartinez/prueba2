@@ -1,7 +1,7 @@
 <app-card innerClass="pb-6">
-  <div class="row mb-6">
+  <div class="row mb-4">
     <div class="col-12 d-flex-vertical-center justify-content-between">
-      <h5 class="text-h5 mb-0" [class.text-gray-4]="serviceTypeDisabled">
+      <h4 class="text-h4 mb-0" [class.text-gray-4]="serviceTypeDisabled">
         <app-icon
           class="d-inline-block me-5"
           [svgName]="
@@ -12,12 +12,13 @@
               : 'ellipse-danger'
           "
         ></app-icon>
-        <span>{{ segmentName }}</span>
-      </h5>
+        <span class="text-gray-7">{{ segmentName }}</span>
+      </h4>
     </div>
   </div>
-  <app-divider></app-divider>
-  <div class="row mb-6">
+  <!-- <app-divider></app-divider> -->
+  <hr class="my-4 bg-gray-3" />
+  <div class="row mb-4">
     <div
       class="col-12 d-flex-vertical-center justify-content-start align-items-center"
     >
@@ -56,34 +57,42 @@
 
   <app-card-static-information
     class="d-block mb-5"
-    iconName="access_time"
+    svgName="time-circle"
+    svgWidth="16px"
     [disabled]="serviceTypeDisabled"
   >
     <ng-container information-title
       >Horario de atención {{ segmentName }}</ng-container
     >
-    <ng-container information-caption>{{ startAndEndHour }}</ng-container>
+    <ng-container information-caption
+      ><span class="text-black">{{ startAndEndHour }}</span></ng-container
+    >
   </app-card-static-information>
 
   <app-card-static-information
     class="d-block mb-5"
-    iconName="hourglass_empty"
+    svgName="hourglass"
+    svgWidth="16px"
     [disabled]="serviceTypeDisabled"
   >
     <ng-container information-title
       >Lapso de cierre de ventana - GAP</ng-container
     >
-    <ng-container information-caption>{{ segmentGap }}</ng-container>
+    <ng-container information-caption
+      ><span class="text-black">{{ segmentGap }}</span></ng-container
+    >
   </app-card-static-information>
 
   <app-card-static-information
     class="d-block"
-    svgName="price"
-    svgWidth="20px"
+    svgName="money-circle"
+    svgWidth="16px"
     [disabled]="serviceTypeDisabled"
   >
     <ng-container information-title>{{ textFlagServiceType }}</ng-container>
-    <ng-container information-caption>{{ priceServideType }}</ng-container>
+    <ng-container information-caption
+      ><span class="text-black">{{ priceServideType }}</span></ng-container
+    >
   </app-card-static-information>
 
   <ng-container *appRouterAccess="serviceTypePath">

@@ -52,6 +52,8 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'scooter', path: `${pathIcons}scooter.svg` },
   { name: 'bag', path: `${pathIcons}bag.svg` },
   { name: 'location', path: `${pathIcons}location.svg` },
+  { name: 'hourglass', path: `${pathIcons}hourglass.svg` },
+  { name: 'money-circle', path: `${pathIcons}money-circle.svg` },
   {
     name: 'prescription-product',
     path: `${pathIcons}prescription-product.svg`,

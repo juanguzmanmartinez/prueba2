@@ -186,7 +186,9 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
   ) {
     const zones: ZoneServiceType[] = this.serviceTypeList.filter(
       (serviceType) =>
-        serviceType.code === serviceTypeCode && serviceType.channel === channel
+        serviceType.code === serviceTypeCode &&
+        serviceType.channel === channel &&
+        serviceType.companyCode === company
     );
     const zoneStore: ZonesDrugstoreServiceType =
       this.zonesDrugstoreServiceType.find(
@@ -319,7 +321,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
         zoneId: this.zoneDetail.id,
         channel: serviceType.channel,
         companyCode: serviceType.company,
-        serviceTypeId: serviceType.serviceTypeId
+        serviceTypeId: serviceType.serviceTypeId,
       } as IZoneServiceTypeRegister;
       this._operationsZonesImplement
         .postZoneServiceType(zoneServiceTypRegister)
