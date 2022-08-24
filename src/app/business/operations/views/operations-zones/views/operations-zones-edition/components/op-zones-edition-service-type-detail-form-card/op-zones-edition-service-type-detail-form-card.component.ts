@@ -35,6 +35,7 @@ import {
   CCompanyName,
 } from '@models/company/company.model';
 import { FormGroup } from '@angular/forms';
+import { EZoneType } from '../../../../parameters/operations-zones-type.parameter';
 
 @Component({
   selector: 'app-op-zones-edition-service-type-detail-form-card',
@@ -77,8 +78,12 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
   @Output() cancelEdition = new EventEmitter();
   @Output() saveEdition = new EventEmitter();
 
-  get segmentState(){
+  get segmentState() {
     return CStateValue[this.zoneServiceType.state];
+  }
+
+  get isZoneBackup() {
+    return this.zoneDetail?.zoneType === EZoneType.backup;
   }
 
   get segmentCompanyName(): string {
@@ -128,6 +133,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
     this.updateFormValues();
     this.updateStateControl();
     this.checkEditionByStateControl();
+    console.log(this.zoneDetail);
   }
 
   updateFormValues(): void {

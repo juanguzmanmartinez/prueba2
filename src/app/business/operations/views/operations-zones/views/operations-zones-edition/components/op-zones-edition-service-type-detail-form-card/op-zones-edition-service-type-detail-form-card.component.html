@@ -1,4 +1,4 @@
-<app-card innerClass="px-6 pt-6 pb-15">
+<app-card innerClass="px-6 pt-6 pb-6">
   <form [formGroup]="form$">
     <div class="row mb-5">
       <div class="col-12 d-flex justify-content-between">
@@ -21,21 +21,6 @@
           >
           </app-switch>
         </div>
-        <!-- <app-tag
-          [appearance]="tagAppearance.coloredWhitePill"
-          [tagColor]="segmentChannelColor"
-        >
-          {{ segmentChannelName }}
-        </app-tag>
-        <app-tag
-          [appearance]="tagAppearance.coloredWhitePill"
-          [tagColor]="segmentCompanyColor"
-        >
-          <span class="me-2">
-            <app-icon [svgName]="segmentCompanyIcon" svgWidth="17px"></app-icon>
-          </span>
-          {{ segmentCompanyName }}
-        </app-tag> -->
       </div>
     </div>
     <hr class="m-0 bg-gray-3" />
@@ -195,7 +180,7 @@
       </div>
     </div>
 
-    <div class="row mt-5 mb-5">
+    <div class="row mt-5 mb-5" *ngIf="!isZoneBackup">
       <div class="col-12">
         <h5 class="text-h5 mb-0">
           <span class="text-black">
@@ -205,7 +190,7 @@
       </div>
     </div>
 
-    <div class="row mb-5">
+    <div class="row" *ngIf="!isZoneBackup">
       <div class="col-6">
         <app-radio
           (change)="hideInput()"
@@ -222,7 +207,7 @@
     </div>
 
     <ng-container *ngIf="showCustomAmount">
-      <div class="row mb-5">
+      <div class="row">
         <div class="col-6 offset-6">
           <app-input
             [formControlName]="controlNameList.customAmount"
@@ -238,7 +223,7 @@
     </ng-container>
 
     <div
-      class="card-actions d-flex-horizontal-end pt-5 border-top border-gray-1"
+      class="card-actions d-flex-horizontal-end mt-7"
     >
       <app-button
         appearance="secondary"
