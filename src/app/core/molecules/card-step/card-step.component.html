@@ -1,0 +1,42 @@
+<div class="row justify-content-center mt-8">
+  <div class="col-12" [ngClass]="innerClass">
+    <div class="p-6 card-step-container">
+      <div
+        *ngIf="!hiddenHeader"
+        class="card-step__header d-flex align-items-center"
+      >
+        <app-icon
+          [svgName]="icon"
+          svgHeight="28px"
+          svgWidth="28px"
+          class="icon"
+        >
+        </app-icon>
+        <h2 class="text-h3 text-black mb-0 ml-4">{{ title }}</h2>
+      </div>
+      <div class="card-step__body">
+        <ng-content></ng-content>
+        <div
+          class="d-flex flex-column-reverse flex-md-row justify-content-md-end"
+        >
+          <app-button
+            appearance="secondary"
+            class="me-md-4"
+            innerClass="w-100 w-md-auto"
+            (clicked)="cancel.emit()"
+          >
+            cancelar
+          </app-button>
+          <app-button
+            appearance="primary"
+            class="mb-4 mb-md-0"
+            innerClass="w-100 w-md-auto"
+            (clicked)="next.emit()"
+          >
+            Continuar
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

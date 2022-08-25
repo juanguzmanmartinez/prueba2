@@ -1,0 +1,133 @@
+<app-card-step
+  title="Descargar plantilla"
+  (next)="nextStep($event)"
+  (cancel)="cancelStep($event)"
+>
+  <div class="disclaimer">
+    <app-icon
+      svgName="info-purple"
+      svgHeight="36px"
+      svgWidth="36px"
+      class="icon"
+    >
+    </app-icon>
+    <p class="mb-0">
+      La carga masiva de capacidades solo aplica para las capacidades por
+      defecto, si deseas realizar la edición de capacidades en calendario
+      deberás realizarla desde la opción edición de capacidades.
+    </p>
+  </div>
+  <div class="row">
+    <form [formGroup]="fg">
+      <p class="d-block text-h5 text-black mt-6 mb-5">
+        Selecciona los servicios para cargar las capacidades:
+      </p>
+      <div class="row d-flex justify-content-between">
+        <div class="col-3">
+          <app-checkbox formControlName="ampm" spanClass="cmt-4">
+            <span>AM/PM</span>
+          </app-checkbox>
+        </div>
+        <div class="col-3">
+          <app-checkbox formControlName="scheduled" spanClass="cmt-4">
+            <span>Programado</span>
+          </app-checkbox>
+        </div>
+        <div class="col-3">
+          <app-checkbox formControlName="express" spanClass="cmt-4">
+            <span>Express</span>
+          </app-checkbox>
+        </div>
+        <div class="col-3">
+          <app-checkbox formControlName="ret" spanClass="cmt-4">
+            <span>RET</span>
+          </app-checkbox>
+        </div>
+      </div>
+      <p class="d-block text-h5 text-black mt-5">
+        Selecciona la ubicación de los locales:
+      </p>
+      <div class="row">
+        <div class="col-6">
+          <p>Departamento</p>
+          <app-select
+            formControlName="departamento"
+            placeholder="Selecciona un departamento"
+            [customValue]="true"
+            [optionList]="filtros"
+            (optionChange)="selectionChange($event)"
+          >
+            <!-- <ng-container trigger>
+            <app-icon [fontName]="valueSelect.icon"></app-icon>
+            {{ valueSelect.name }}
+          </ng-container>
+          <ng-template let-type>
+            <app-icon [fontName]="type.icon" fontSize="16px"></app-icon>
+            {{ type.name }}
+          </ng-template> -->
+          </app-select>
+        </div>
+        <div class="col-6">
+          <p>Provincia</p>
+          <app-select
+            formControlName="provincia"
+            placeholder="Selecciona una provincia"
+            [customValue]="true"
+            [optionList]="filtros"
+            (optionChange)="selectionChange($event)"
+          >
+            <!-- <ng-container trigger>
+            <app-icon [fontName]="valueSelect.icon"></app-icon>
+            {{ valueSelect.name }}
+          </ng-container>
+          <ng-template let-type>
+            <app-icon [fontName]="type.icon" fontSize="16px"></app-icon>
+            {{ type.name }}
+          </ng-template> -->
+          </app-select>
+        </div>
+        <div class="col-6 mt-4">
+          <p>Distrito</p>
+          <app-select
+            formControlName="distrito"
+            placeholder="Selecciona un distrito"
+            [customValue]="true"
+            [optionList]="filtros"
+            (optionChange)="selectionChange($event)"
+          >
+            <!-- <ng-container trigger>
+            <app-icon [fontName]="valueSelect.icon"></app-icon>
+            {{ valueSelect.name }}
+          </ng-container>
+          <ng-template let-type>
+            <app-icon [fontName]="type.icon" fontSize="16px"></app-icon>
+            {{ type.name }}
+          </ng-template> -->
+          </app-select>
+        </div>
+        <div class="col-6 mt-4">
+          <p>Local</p>
+          <app-select
+            formControlName="local"
+            placeholder="Selecciona un local"
+            [customValue]="true"
+            [optionList]="filtros"
+            (optionChange)="selectionChange($event)"
+          >
+            <!-- <ng-container trigger>
+            <app-icon [fontName]="valueSelect.icon"></app-icon>
+            {{ valueSelect.name }}
+          </ng-container>
+          <ng-template let-type>
+            <app-icon [fontName]="type.icon" fontSize="16px"></app-icon>
+            {{ type.name }}
+          </ng-template> -->
+          </app-select>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <app-button appearance="primary">Descargar</app-button>
+      </div>
+    </form>
+  </div>
+</app-card-step>

@@ -1,0 +1,47 @@
+<div class="row justify-content-center d-flex">
+  <div class="col-8">
+    <section class="flow">
+      <div class="content" #steps>
+        <div class="steps">
+          <div class="step" *ngFor="let step of tabs; let first = first">
+            <div class="status">
+              <div
+                class="line line-left"
+                [ngClass]="{
+                  'line-done': step.flow == 'done' && step.step !== 'first',
+                  'line-pending': step.flow == 'pending',
+                  'line-cancel': step.flow == 'cancel',
+                  'line-hide': step.step == 'first'
+                }"
+              ></div>
+              <div class="icon">
+                <app-icon
+                  [svgName]="step.flow + '-blue'"
+                  svgHeight="28px"
+                  svgWidth="28px"
+                  class="icon"
+                >
+                </app-icon>
+                <!-- {{ step.flow }} -->
+              </div>
+              <div
+                class="line line-right"
+                [ngClass]="{
+                  'line-done': step.flow == 'done' && step.step !== 'last',
+                  'line-pending':
+                    step.flow == 'pending' || step.flow == 'cancel',
+                  'line-hide': step.step == 'last'
+                }"
+              ></div>
+            </div>
+            <div class="d-inline-flex align-items-center gap-1 mt-3">
+              <p class="m-0 text-gray-7">{{ step.status }}</p>
+            </div>
+            <!-- <p class="text-gray-5 text-body-2-regular m-0 mt-3">{{ step.date }}2</p>
+            <p class="text-gray-5 text-body-2-regular m-0 mt-2">{{ step.name }}3</p> -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

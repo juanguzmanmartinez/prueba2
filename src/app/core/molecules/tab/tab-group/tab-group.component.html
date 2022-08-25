@@ -1,13 +1,15 @@
-<mat-tab-group [disableRipple]="true"
-               (selectedTabChange)="selectTabChangeEvent($event)"
-               (selectedIndexChange)="selectIndexChangeEvent($event)"
-               [selectedIndex]="selectedIndex">
-
-    <ng-container *ngFor="let tabComponent of tabComponentList">
-        <mat-tab [label]="tabComponent.label"
-                 [disabled]="tabComponent.disabled">
-            <ng-container [ngTemplateOutlet]="tabComponent.templateRef"></ng-container>
-        </mat-tab>
-    </ng-container>
-    <ng-content></ng-content>
+<mat-tab-group
+  [disableRipple]="true"
+  (selectedTabChange)="selectTabChangeEvent($event)"
+  (selectedIndexChange)="selectIndexChangeEvent($event)"
+  [selectedIndex]="selectedIndex"
+>
+  <ng-container *ngFor="let tabComponent of tabComponentList">
+    <mat-tab [label]="tabComponent.label" [disabled]="tabComponent.disabled">
+      <ng-container
+        [ngTemplateOutlet]="tabComponent.templateRef"
+      ></ng-container>
+    </mat-tab>
+  </ng-container>
+  <ng-content></ng-content>
 </mat-tab-group>

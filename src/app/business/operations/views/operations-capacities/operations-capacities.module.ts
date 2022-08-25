@@ -41,6 +41,16 @@ import { TableModule } from '@molecules/table/table.module';
 import { DialogModule } from '@molecules/dialog/dialog.module';
 import { OperationsCapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
 import { PipesModule } from '@pipes/pipes.module';
+import { OperationsCapacityUploadComponent } from './views/operations-capacity-upload/operations-capacity-upload.component';
+import { SelectModule } from '@atoms/select/select.module';
+
+import { CardStepModule } from '@molecules/card-step/card-step.module';
+import { StepTabsModule } from '@molecules/step-tabs/step-tabs.module';
+
+import { OpCapacitiesStepFileConfirmationComponent } from './components/op-capacities-step-file-confirmation/op-capacities-step-file-confirmation.component';
+import { OpCapacitiesStepFileDownloadComponent } from './components/op-capacities-step-file-download/op-capacities-step-file-download.component';
+import { OpCapacitiesStepFileUploadComponent } from './components/op-capacities-step-file-upload/op-capacities-step-file-upload.component';
+import { OpCapacitiesStepFileEditCapacityComponent } from './components/op-capacities-step-file-edit-capacity/op-capacities-step-file-edit-capacity.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +69,11 @@ import { PipesModule } from '@pipes/pipes.module';
     OpCapacitiesDrugstoreDefaultCapacityComponent,
     OpCapacitiesDrugstoreDefaultCapacityCardComponent,
     OpCapacitiesDrugstoreDefaultCapacityDialogComponent,
+    OperationsCapacityUploadComponent,
+    OpCapacitiesStepFileConfirmationComponent,
+    OpCapacitiesStepFileDownloadComponent,
+    OpCapacitiesStepFileUploadComponent,
+    OpCapacitiesStepFileEditCapacityComponent,
   ],
   imports: [
     CommonModule,
@@ -86,11 +101,11 @@ import { PipesModule } from '@pipes/pipes.module';
     DirectivesModule,
     TableModule,
     DialogModule,
-    PipesModule
+    PipesModule,
+    SelectModule,
+    CardStepModule,
+    StepTabsModule,
   ],
-  providers: [
-    OperationsCapacitiesImplementService
-  ]
+  providers: [OperationsCapacitiesImplementService],
 })
-export class OperationsCapacitiesModule {
-}
+export class OperationsCapacitiesModule {}

@@ -6,8 +6,15 @@
   </div>
 
   <div class="row mb-5 mb-md-10">
-    <div class="col-12 mb-6">
+    <div class="col-12 mb-6 justify-content-between d-flex">
       <h1 class="text-h3 text-black mb-0">Capacidades por defecto</h1>
+      <app-button
+        appearance="primary"
+        innerClass="w-100 w-md-auto"
+        [mat-dialog-close]="true"
+      >
+        Cargar capacidades
+      </app-button>
     </div>
 
     <div class="col-12 mb-6">
@@ -15,7 +22,8 @@
     </div>
 
     <div class="col-12" *appRouterAccess="routerPath.opCapacitiesReport">
-      <p class="text-body-1-regular text-gray-6 mb-0">Puedes revisar el consumo de capacidades semanal en la
+      <p class="text-body-1-regular text-gray-6 mb-0">
+        Puedes revisar el consumo de capacidades semanal en la
         <app-router [router]="routerPath.opCapacitiesReport">
           <span class="text-link-1">sección de reportes</span>
         </app-router>
@@ -32,7 +40,9 @@
       <app-router [router]="routerPath.opCapacitiesAmPm">
         <app-card-action cardIconSVG="ampm">
           <span card-title>AM/PM</span>
-          <span card-description>Edita las capacidades del rango de la mañana y tarde</span>
+          <span card-description
+            >Edita las capacidades del rango de la mañana y tarde</span
+          >
         </app-card-action>
       </app-router>
     </div>
@@ -40,7 +50,10 @@
       <app-router [router]="routerPath.opCapacitiesExpress">
         <app-card-action cardIconSVG="moto">
           <span card-title>Express</span>
-          <span card-description>Edita la disponibilidad de recursos para este servicio en el día</span>
+          <span card-description
+            >Edita la disponibilidad de recursos para este servicio en el
+            día</span
+          >
         </app-card-action>
       </app-router>
     </div>
@@ -51,7 +64,9 @@
       <app-router [router]="routerPath.opCapacitiesScheduled">
         <app-card-action cardIconSVG="calendar">
           <span card-title>Programado</span>
-          <span card-description>Edita las capacidades por rangos de horas en el día</span>
+          <span card-description
+            >Edita las capacidades por rangos de horas en el día</span
+          >
         </app-card-action>
       </app-router>
     </div>
@@ -60,10 +75,12 @@
       <app-router [router]="routerPath.opCapacitiesRet">
         <app-card-action cardIconSVG="stores">
           <span card-title>Retiro en tienda</span>
-          <span card-description>Edita la cantidad de pedidos que podrás atender con este servicio</span>
+          <span card-description
+            >Edita la cantidad de pedidos que podrás atender con este
+            servicio</span
+          >
         </app-card-action>
       </app-router>
     </div>
   </div>
-
 </section>

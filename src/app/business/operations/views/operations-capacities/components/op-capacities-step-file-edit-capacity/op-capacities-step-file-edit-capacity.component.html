@@ -1,0 +1,236 @@
+<app-card-step
+  title="San Miguel: Editar capacidad"
+  icon="papers"
+  (next)="nextStep($event)"
+  (cancel)="cancelStep($event)"
+  innerClass="w-90"
+>
+  <div class="mt-5 mb-5">
+    <app-tab-group>
+      <app-tab label="AM/PM">
+        <div>
+          <p class="d-block text-h5 text-black mt-6 mb-5">
+            Selecciona los servicios para cargar las capacidades:
+          </p>
+
+          <div>
+            <p>Nro. de transportistas</p>
+            <div class="d-flex justify-content-lg-start">
+              <app-input
+                placeholder="90"
+                labelClass="w-20 ml-4"
+                class="input-num"
+              ></app-input>
+              <app-button appearance="outline">Aplicar selección</app-button>
+            </div>
+          </div>
+          <div class="mt-4">
+            <table
+              mat-table
+              large-table
+              [dataSource]="ampm"
+              class="order-table"
+            >
+              <ng-container matColumnDef="seleccion">
+                <th mat-header-cell *matHeaderCellDef column-width="5%">
+                  <app-checkbox> </app-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <app-checkbox> </app-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="horario">
+                <th class="text-center" mat-header-cell *matHeaderCellDef>
+                  Estado
+                </th>
+                <td class="text-center" mat-cell *matCellDef="let element">
+                  {{ element.segment }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="capacidad">
+                <th class="text-center" mat-header-cell *matHeaderCellDef>
+                  Estado
+                </th>
+                <td class="text-center" mat-cell *matCellDef="let element">
+                  {{ element.capacity }}
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr
+                mat-row
+                row-hover
+                *matRowDef="let row; columns: displayedColumns"
+              ></tr>
+            </table>
+          </div>
+        </div>
+      </app-tab>
+      <app-tab label="Programado"
+        ><div>
+          <p class="d-block text-h5 text-black mt-6 mb-5">
+            Selecciona los servicios para cargar las capacidades:
+          </p>
+
+          <div>
+            <p>Nro. de transportistas</p>
+            <div class="d-flex justify-content-lg-start">
+              <app-input
+                placeholder="90"
+                labelClass="w-20 ml-4"
+                class="input-num"
+              ></app-input>
+              <app-button appearance="outline">Aplicar selección</app-button>
+            </div>
+          </div>
+          <div class="mt-4">
+            <table
+              mat-table
+              large-table
+              [dataSource]="scheduled"
+              class="order-table"
+            >
+              <ng-container matColumnDef="seleccion">
+                <th mat-header-cell *matHeaderCellDef column-width="5%">
+                  <app-checkbox> </app-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <app-checkbox> </app-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="horario">
+                <th class="text-center" mat-header-cell *matHeaderCellDef>
+                  Estado
+                </th>
+                <td class="text-center" mat-cell *matCellDef="let element">
+                  {{ element.segment }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="capacidad">
+                <th class="text-center" mat-header-cell *matHeaderCellDef>
+                  Estado
+                </th>
+                <td class="text-center" mat-cell *matCellDef="let element">
+                  {{ element.capacity }}
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr
+                mat-row
+                row-hover
+                *matRowDef="let row; columns: displayedColumns"
+              ></tr>
+            </table>
+          </div></div
+      ></app-tab>
+      <app-tab label="Express"
+        ><div>
+          <p class="d-block text-h5 text-black mt-6 mb-5">
+            Selecciona los servicios para cargar las capacidades:
+          </p>
+
+          <div>
+            <p>Nro. de transportistas</p>
+            <div class="d-flex justify-content-lg-start">
+              <app-input
+                placeholder="90"
+                labelClass="w-20 ml-4"
+                class="input-num"
+              ></app-input>
+              <app-button appearance="outline">Aplicar selección</app-button>
+            </div>
+          </div>
+          <div class="mt-4">
+            <table
+              mat-table
+              large-table
+              [dataSource]="scheduled"
+              class="order-table"
+            >
+              <ng-container matColumnDef="seleccion">
+                <th mat-header-cell *matHeaderCellDef column-width="5%">
+                  <app-checkbox> </app-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <app-checkbox> </app-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="horario">
+                <th class="text-center" mat-header-cell *matHeaderCellDef>
+                  Estado
+                </th>
+                <td class="text-center" mat-cell *matCellDef="let element">
+                  {{ element.segment }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="capacidad">
+                <th class="text-center" mat-header-cell *matHeaderCellDef>
+                  Estado
+                </th>
+                <td class="text-center" mat-cell *matCellDef="let element">
+                  {{ element.capacity }}
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr
+                mat-row
+                row-hover
+                *matRowDef="let row; columns: displayedColumns"
+              ></tr>
+            </table>
+          </div></div
+      ></app-tab>
+      <app-tab label="RET"
+        ><div>
+          <p class="d-block text-h5 text-black mt-6 mb-5">
+            Selecciona los servicios para cargar las capacidades:
+          </p>
+
+          <div>
+            <p>Nro. de transportistas</p>
+            <div class="d-flex justify-content-lg-start">
+              <app-input
+                placeholder="90"
+                labelClass="w-20 ml-4"
+                class="input-num"
+              ></app-input>
+              <app-button appearance="outline">Aplicar selección</app-button>
+            </div>
+          </div>
+          <div class="mt-4">
+            <table mat-table large-table [dataSource]="ret" class="order-table">
+              <ng-container matColumnDef="seleccion">
+                <th mat-header-cell *matHeaderCellDef column-width="5%">
+                  <app-checkbox> </app-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <app-checkbox> </app-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="horario">
+                <th class="text-center" mat-header-cell *matHeaderCellDef>
+                  Estado
+                </th>
+                <td class="text-center" mat-cell *matCellDef="let element">
+                  {{ element.segment }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="capacidad">
+                <th class="text-center" mat-header-cell *matHeaderCellDef>
+                  Estado
+                </th>
+                <td class="text-center" mat-cell *matCellDef="let element">
+                  {{ element.capacity }}
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr
+                mat-row
+                row-hover
+                *matRowDef="let row; columns: displayedColumns"
+              ></tr>
+            </table>
+          </div></div
+      ></app-tab>
+    </app-tab-group>
+  </div>
+</app-card-step>

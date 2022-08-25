@@ -1,0 +1,27 @@
+:host ::ng-deep .mat-tab-label-active {
+  background: #888bff;
+  border-radius: 64px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 13px 12px;
+  color: white;
+  width: 25%;
+}
+
+:host ::ng-deep .mat-tab-labels {
+  background: #fafbfc;
+  width: 100%;
+  border: 1px solid #f5f6f9;
+  border-radius: 64px;
+  padding: 4px;
+}
+
+:host ::ng-deep .mat-tab-label {
+  width: 25%;
+}
+
+.input-num {
+  margin-right: 25px;
+}

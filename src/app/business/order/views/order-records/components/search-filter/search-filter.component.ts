@@ -30,6 +30,8 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
     private orderFilterStore: OrderFilterStore,
     public presenter: OrderFormPresenter
   ) {
+    console.log('CTypesSearch', CTypesSearch);
+
     this.typesSearch = CTypesSearch;
   }
 

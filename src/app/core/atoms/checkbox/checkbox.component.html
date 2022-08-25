@@ -10,11 +10,12 @@
     [value]="value"
     [(ngModel)]="_checked"
     (change)="chooseCheckbox()"
-    (click)="checkboxClick($event)">
+    (click)="checkboxClick($event)"
+  />
 
-  <span class="checkbox-mark"></span>
+  <span class="checkbox-mark" [ngClass]="spanClass"></span>
 
   <span class="checkbox-content">
-      <ng-content></ng-content>
+    <ng-content></ng-content>
   </span>
 </label>

@@ -153,6 +153,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.add(subscription);
     this.getListStore();
     this.filterAll();
+    console.log(this.presenter.getFilters(), 'presenter');
   }
 
   getListStore(): void {

@@ -1,4 +1,11 @@
-import { AfterContentInit, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  ViewChild,
+} from '@angular/core';
 
 export interface Flow {
   flow: 'done' | 'pending' | 'cancel';
@@ -14,10 +21,9 @@ export interface Flow {
 @Component({
   selector: 'app-flow',
   templateUrl: './flow.component.html',
-  styleUrls: ['./flow.component.scss']
+  styleUrls: ['./flow.component.scss'],
 })
 export class FlowComponent implements AfterContentInit {
-
   @Input() data: Flow[] = [];
 
   @ViewChild('steps') steps: ElementRef;
@@ -34,19 +40,23 @@ export class FlowComponent implements AfterContentInit {
   }
 
   @HostListener('window:resize', ['$event']) changeSizeWindow() {
-    this.totalWidth = this.steps.nativeElement.scrollWidth - this.steps.nativeElement.offsetWidth;
+    this.totalWidth =
+      this.steps.nativeElement.scrollWidth -
+      this.steps.nativeElement.offsetWidth;
   }
 
-  constructor() { }
+  constructor() {}
 
   ngAfterContentInit() {
     setTimeout(() => {
-      this.totalWidth = this.steps.nativeElement?.scrollWidth - this.steps.nativeElement.offsetWidth;
+      this.totalWidth =
+        this.steps.nativeElement?.scrollWidth -
+        this.steps.nativeElement.offsetWidth;
     });
   }
 
   previousStep(): void {
-    if (this.scrollLeft >= 0 ) {
+    if (this.scrollLeft >= 0) {
       this.steps.nativeElement.scrollLeft -= 190;
       this.scrollLeft -= 190;
     }
@@ -58,5 +68,4 @@ export class FlowComponent implements AfterContentInit {
       this.scrollLeft += 190;
     }
   }
-
 }

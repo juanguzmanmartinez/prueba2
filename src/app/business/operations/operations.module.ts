@@ -12,12 +12,8 @@ import { CardModule } from '@molecules/cards/card.module';
 import { ClientsServiceModule } from '@clients/clients-service.module';
 import { DirectivesModule } from '../../shared/directives/directives.module';
 
-
 @NgModule({
-  declarations: [
-    OperationsComponent,
-    OperationsHomeComponent,
-  ],
+  declarations: [OperationsComponent, OperationsHomeComponent],
   imports: [
     CommonModule,
     OperationsRoutingModule,
@@ -28,7 +24,6 @@ import { DirectivesModule } from '../../shared/directives/directives.module';
     ButtonsModule,
     CardModule,
     DirectivesModule,
-  ]
+  ],
 })
-export class OperationsModule {
-}
+export class OperationsModule {}

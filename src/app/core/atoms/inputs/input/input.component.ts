@@ -1,15 +1,20 @@
-import { Component, Input, OnDestroy, OnInit, Optional, Self } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Self,
+} from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
-  styleUrls: ['./input.component.sass']
+  styleUrls: ['./input.component.sass'],
 })
-
 export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
-
   public subscriptions: Subscription[] = [];
   public inputValue: string | number = '';
 
@@ -20,6 +25,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() maxLength = '80';
   @Input() innerClass = '';
   @Input() labelClass = '';
+  @Input() containerClass = '';
   @Input() error: boolean;
   @Input() disabled: boolean;
   @Input() buttonClear: boolean;
@@ -35,13 +41,11 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   onBlur = (_: any) => {};
   onFocus = (_: any) => {};
 
-
   constructor(@Optional() @Self() public ngControl: NgControl) {
     if (ngControl) {
       ngControl.valueAccessor = this;
     }
   }
-
 
   ngOnInit(): void {
     if (this.ngControl) {
@@ -49,19 +53,20 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
         this.name = this.ngControl.name;
       }
 
-      const subscription = this.ngControl.control.valueChanges
-        .subscribe((value) => {
+      const subscription = this.ngControl.control.valueChanges.subscribe(
+        (value) => {
           if (this.inputValue === value) {
             return;
           }
           this.writeValue(value);
-        });
+        }
+      );
       this.subscriptions.push(subscription);
     }
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   writeValue(value: string | number): void {
@@ -89,5 +94,4 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
     this.inputValue = '';
     this.changeInputValue();
   }
-
 }

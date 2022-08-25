@@ -1,0 +1,47 @@
+<app-card-step
+  title="Carga de documento"
+  icon="file"
+  (next)="nextStep($event)"
+  (cancel)="cancelStep($event)"
+>
+  <h3 class="text-h4 text-black mt-4">
+    Adjunta o arrastra la plantilla con la información de las capacidades:
+  </h3>
+  <ng-container *ngIf="files.length == 0; else zeroFiles">
+    <div class="inpunt-content mb-4">
+      <input
+        class="file-chose"
+        type="file"
+        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        #inputRef
+        (change)="fileBrowseHandler($event)"
+      />
+      <div class="container-upload-file">
+        <app-button
+          innerClass="d-flex align-items-center"
+          appearance="primary"
+          (clicked)="onChangeInput()"
+        >
+          <app-icon innerClass="mx-1" svgName="upload"></app-icon> Subir excel
+        </app-button>
+        <span class="container-upload-file__text">O arrastra el documento</span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #zeroFiles>
+    <div class="input-file-content mb-4">
+      <input
+        class="d-none"
+        type="file"
+        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        #inputRef
+        (change)="fileBrowseHandler($event)"
+      />
+      <app-icon svgName="excel" svgWidth="36px" innerClass="fp-mr-8"></app-icon>
+      <span class="text-file text-h5 mt-4">{{ fileName }}</span>
+      <a class="container-upload-file__text--link" (click)="onChangeInput()">
+        Cargar de nuevo
+      </a>
+    </div>
+  </ng-template>
+</app-card-step>

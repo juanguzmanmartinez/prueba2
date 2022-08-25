@@ -39,6 +39,7 @@ export class LocalFilterComponent implements OnInit {
         }),
         map((res: IDrugstore[]) => {
           const newLocals = res.sort(this.sortLocals);
+          console.log('newLocals', newLocals);
 
           return newLocals.map((val) => {
             return {

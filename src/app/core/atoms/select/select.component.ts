@@ -11,7 +11,7 @@ import {
   Self,
   TemplateRef,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
@@ -29,10 +29,11 @@ export interface SearchOptionsI {
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.sass'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestroy, AfterViewInit {
-
+export class SelectComponent<T>
+  implements ControlValueAccessor, OnInit, OnDestroy, AfterViewInit
+{
   private subscriptions = new Subscription();
 
   public optionContainerWidth = '300px';
@@ -142,7 +143,7 @@ export class SelectComponent<T> implements ControlValueAccessor, OnInit, OnDestr
     }
   }
 
-  open(){
+  open() {
     this.select.open();
   }
 
