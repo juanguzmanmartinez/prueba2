@@ -62,7 +62,7 @@ export class OrderFormPresenter {
   isNullFilterForm() {
     const {
       searchCode,
-      
+
       promiseRangeDate,
       promiseDateSelect,
       ...restFilterForm

@@ -7,7 +7,7 @@
 >
   <div class="mt-5 mb-5">
     <app-tab-group>
-      <app-tab label="AM/PM">
+      <app-tab *ngIf="ampm && ampm.length > 0" label="AM/PM">
         <div>
           <p class="d-block text-h5 text-black mt-6 mb-5">
             Selecciona los servicios para cargar las capacidades:
@@ -65,7 +65,7 @@
           </div>
         </div>
       </app-tab>
-      <app-tab label="Programado"
+      <app-tab *ngIf="scheduled && scheduled.length > 0" label="Programado"
         ><div>
           <p class="d-block text-h5 text-black mt-6 mb-5">
             Selecciona los servicios para cargar las capacidades:

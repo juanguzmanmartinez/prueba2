@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-store.service';
 
 @Component({
@@ -7,7 +8,11 @@ import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-sto
   templateUrl: './op-capacities-step-file-edit-capacity.component.html',
   styleUrls: ['./op-capacities-step-file-edit-capacity.component.scss'],
 })
-export class OpCapacitiesStepFileEditCapacityComponent implements OnInit {
+export class OpCapacitiesStepFileEditCapacityComponent
+  implements OnInit, OnDestroy
+{
+  private subscriptions = new Subscription();
+
   displayedColumns: string[] = ['seleccion', 'horario', 'capacidad'];
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
@@ -127,7 +132,23 @@ export class OpCapacitiesStepFileEditCapacityComponent implements OnInit {
       capacity: 5,
     },
   ];
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const subscription =
+      this._uploadCapacitiesStoreService.getElementToEdit$.subscribe(
+        (element) => {
+          console.log('elementen', element);
+
+          this.dataSource = element;
+          this.ampm = element.ampm;
+          this.ret = element.ret;
+          this.scheduled = element.scheduled;
+        }
+      );
+    this.subscriptions.add(subscription);
+  }
   nextStep(e) {}
   cancelStep(e) {}
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

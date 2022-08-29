@@ -51,6 +51,7 @@ import { OpCapacitiesStepFileConfirmationComponent } from './components/op-capac
 import { OpCapacitiesStepFileDownloadComponent } from './components/op-capacities-step-file-download/op-capacities-step-file-download.component';
 import { OpCapacitiesStepFileUploadComponent } from './components/op-capacities-step-file-upload/op-capacities-step-file-upload.component';
 import { OpCapacitiesStepFileEditCapacityComponent } from './components/op-capacities-step-file-edit-capacity/op-capacities-step-file-edit-capacity.component';
+import { LocalFilterModule } from 'app/business/order/views/order-records/components/local-filter/local-filter.module';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { OpCapacitiesStepFileEditCapacityComponent } from './components/op-capac
     SelectModule,
     CardStepModule,
     StepTabsModule,
+    LocalFilterModule,
   ],
   providers: [OperationsCapacitiesImplementService],
 })

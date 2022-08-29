@@ -6,9 +6,10 @@ import { filter } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UploadCapacitiesStoreService {
-  private currentStep = new BehaviorSubject<string>('0');
+  private currentStep = new BehaviorSubject<string>('1');
   private stepsTabs = new BehaviorSubject<any[]>([]);
-
+  private localToEdit = new BehaviorSubject<any>({});
+  private storesList = new BehaviorSubject<any[]>([]);
   stepsTabs$ = this.stepsTabs.asObservable();
   currentStep$ = this.currentStep.asObservable();
   constructor() {}
@@ -27,5 +28,21 @@ export class UploadCapacitiesStoreService {
 
   get getStepsTabs$(): Observable<any> {
     return this.stepsTabs.asObservable().pipe(filter((value) => !!value));
+  }
+
+  setElementToEdit(steps: any[]) {
+    this.localToEdit.next(steps);
+  }
+
+  get getElementToEdit$(): Observable<any> {
+    return this.localToEdit.asObservable().pipe(filter((value) => !!value));
+  }
+
+  setStoreList(steps: any[]) {
+    this.storesList.next(steps);
+  }
+
+  get getStoreList$(): Observable<any> {
+    return this.storesList.asObservable().pipe(filter((value) => !!value));
   }
 }

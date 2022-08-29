@@ -15,6 +15,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
   files: any[] = [];
   dataSource = [];
   fileName: string = '';
+  textButton = 'Regresar';
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router
@@ -118,13 +119,12 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
       console.log('datos', datoss);
 
       this.dataSource = datoss;
+      this._uploadCapacitiesStoreService.setStoreList(datoss);
     };
 
     reader.readAsBinaryString(file);
   }
   onChangeInput() {
-    console.log('click');
-
     this.inputRef.nativeElement.click();
   }
   nextStep(e: any) {

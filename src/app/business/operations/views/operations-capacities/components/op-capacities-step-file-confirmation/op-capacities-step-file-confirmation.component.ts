@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-store.service';
 
 @Component({
@@ -7,7 +8,11 @@ import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-sto
   templateUrl: './op-capacities-step-file-confirmation.component.html',
   styleUrls: ['./op-capacities-step-file-confirmation.component.scss'],
 })
-export class OpCapacitiesStepFileConfirmationComponent implements OnInit {
+export class OpCapacitiesStepFileConfirmationComponent
+  implements OnInit, OnDestroy
+{
+  private subscriptions = new Subscription();
+
   displayedColumns: string[] = [
     'code',
     'name',
@@ -188,16 +193,23 @@ export class OpCapacitiesStepFileConfirmationComponent implements OnInit {
       Capacidad: 1,
     },
   ];
+  dataSource: any[] = [];
+
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router
   ) {}
 
   ngOnInit(): void {
-    this.convert();
-  }
+    const subscription =
+      this._uploadCapacitiesStoreService.getStoreList$.subscribe((element) => {
+        console.log('elementen', element);
 
-  dataSource: any[] = [];
+        this.dataSource = element;
+      });
+    this.subscriptions.add(subscription);
+    // this.convert();
+  }
 
   convert() {
     let datoss: any[] = [];
@@ -272,8 +284,12 @@ export class OpCapacitiesStepFileConfirmationComponent implements OnInit {
     });
     this.dataSource = datoss;
   }
-  editRow(id) {
+  editRow(element) {
+    this._uploadCapacitiesStoreService.setElementToEdit(element);
     this._uploadCapacitiesStoreService.setCurrentStep('0');
   }
   deleteRow(el) {}
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }
