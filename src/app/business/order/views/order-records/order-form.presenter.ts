@@ -80,7 +80,6 @@ export class OrderFormPresenter {
   }
 
   clearPromiseDateValidators() {
-    console.log('entró clear valid');
     this.filterForm.get('promiseDate').clearValidators();
     this.filterForm.get('promiseDate').updateValueAndValidity();
   }

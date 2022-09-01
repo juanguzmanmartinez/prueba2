@@ -5,12 +5,7 @@
         class="text-h4 text-gray-7 mb-0"
         [class.text-gray-4]="serviceTypeDisabled"
       >
-        <app-icon
-          class="d-inline-block me-5"
-          [svgName]="
-            serviceTypeDisabled ? 'ellipse-disabled' : 'ellipse-success'
-          "
-        >
+        <app-icon class="d-inline-block me-5" [svgName]="serviceStateIcon">
         </app-icon>
         <span>{{ segmentName }}</span>
       </h4>
@@ -21,7 +16,7 @@
     class="d-block mb-4"
     svgName="time-circle"
     svgWidth="16px"
-    [disabled]="serviceTypeDisabled"
+    [disabled]="!serviceTypeExist"
   >
     <ng-container information-title>
       Horario de atención {{ segmentName }} de zona backup</ng-container
@@ -35,7 +30,7 @@
     class="d-block mb-4"
     svgName="hourglass"
     svgWidth="16px"
-    [disabled]="serviceTypeDisabled"
+    [disabled]="!serviceTypeExist"
   >
     <ng-container information-title
       >Lapso de cierre de ventana - GAP de zona backup</ng-container
@@ -49,7 +44,7 @@
     class="d-block mb-4"
     svgName="store"
     svgWidth="16px"
-    [disabled]="serviceTypeDisabled"
+    [disabled]="!serviceTypeExist"
   >
     <ng-container information-title
       >Forzar {{ segmentName }} al local Backup</ng-container
@@ -65,7 +60,7 @@
     class="d-block"
     svgName="money-circle"
     svgWidth="16px"
-    [disabled]="serviceTypeDisabled"
+    [disabled]="!serviceTypeExist"
   >
     <ng-container information-title>{{ textFlagServiceType }}</ng-container>
     <ng-container information-caption
@@ -74,7 +69,7 @@
   </app-card-static-information>
 
   <ng-container *appRouterAccess="serviceTypePath">
-    <ng-container *ngIf="!serviceTypeDisabled">
+    <ng-container *ngIf="serviceTypeExist">
       <div
         app-card-edit-button
         [editMessage]="segmentName"

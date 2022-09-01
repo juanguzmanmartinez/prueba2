@@ -10,11 +10,22 @@
     [value]="value"
     [(ngModel)]="_checked"
     (change)="chooseCheckbox()"
-    (click)="checkboxClick($event)">
+    (click)="checkboxClick($event)"
+  />
 
-  <span class="checkbox-mark"></span>
+  <span class="checkbox-mark" [ngStyle]="{'background-color': _checked ? 'blue' : 'white'}">
+    
+      <app-icon
+        
+        svgName="done"
+        svgWidth="16px"
+        *ngIf="_checked"
+        innerClass="mark bg-primary"
+      ></app-icon>
+    
+  </span>
 
   <span class="checkbox-content">
-      <ng-content></ng-content>
+    <ng-content></ng-content>
   </span>
 </label>

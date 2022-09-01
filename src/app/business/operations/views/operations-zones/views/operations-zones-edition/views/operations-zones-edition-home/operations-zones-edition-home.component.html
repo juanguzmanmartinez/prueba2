@@ -1,15 +1,17 @@
-<section class="operations-zones-edition-home pt-8 pb-15">
-  <div class="row mb-5">
-    <div class="col-12 mb-4">
-      <app-back-router-simple
-        backRoute="/operaciones/zonas"
-        class="back"
-        textBackRoute="Volver"
-      ></app-back-router-simple>
-    </div>
+<section class="operations-zones-edition-home pb-15">
+  <div class="pt-5 zone-edition-home-header">
+    <div class="row mb-5">
+      <div class="col-12 mb-4">
+        <app-back-router-simple
+          backRoute="/operaciones/zonas"
+          class="back"
+          textBackRoute="Volver"
+        ></app-back-router-simple>
+      </div>
 
-    <div class="col-12">
-      <h3 class="text-h3 mb-0">Edición de zonas</h3>
+      <div class="col-12">
+        <h3 class="text-h3 mb-0">Edición de zonas</h3>
+      </div>
     </div>
   </div>
 
@@ -38,7 +40,9 @@
           [zoneChannelServiceTypeList]="zoneServiceTypeList"
           [zoneDetail]="zoneDetail"
           [zonesServiceTypeRegistered]="zonesServiceTypeRegistered"
-          [zonesChannelServiceTypeRegistered]="zonesChannelServiceTypeRegistered"
+          [zonesChannelServiceTypeRegistered]="
+            zonesChannelServiceTypeRegistered
+          "
           [serviceTypeList]="serviceTypeList"
           [homeEditionLoader]="homeEditionLoader"
           (add)="addServiceType($event)"

@@ -229,6 +229,7 @@
         appearance="secondary"
         class="me-4"
         (clicked)="cancelEditionEvent()"
+        innerClass="btnServiceEditionStyle"
         >Cancelar edición</app-button
       >
       <app-button
@@ -236,6 +237,7 @@
         [disabled]="form$.invalid"
         [pathAccess]="zoneServiceTypePath"
         (editionAccess)="saveEditionEvent()"
+        innerClass="btnServiceEditionStyle"
       >
         Guardar cambios
       </app-button>

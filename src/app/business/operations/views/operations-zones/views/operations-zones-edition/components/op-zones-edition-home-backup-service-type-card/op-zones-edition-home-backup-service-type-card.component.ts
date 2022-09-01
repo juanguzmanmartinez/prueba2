@@ -7,7 +7,7 @@ import { ZoneBackupServiceTypeRegistered } from '../../../../models/operations-z
 import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
-import { CStateName } from '@models/state/state.model';
+import { CStateName, CStateValue } from '@models/state/state.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { minuteFormat } from '@helpers/date-name.helper';
 
@@ -36,12 +36,24 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent {
     );
   }
 
+  get serviceStateIcon(): string {
+    return this.serviceTypeExist
+      ? CStateValue[this.serviceType?.serviceType.state]
+        ? 'ellipse-success'
+        : 'ellipse-danger'
+      : 'ellipse-disabled';
+  }
+
+  get serviceTypeExist(): boolean {
+    return !!this.serviceType.serviceType;
+  }
+
   get segmentName(): string {
     return this.serviceTypeName[this.serviceType.code];
   }
 
   get startAndEndHour(): string {
-    if (!this.serviceTypeDisabled) {
+    if (this.serviceTypeExist) {
       const startHour = DatesHelper.date(
         this.serviceType.serviceType.startHour,
         DATES_FORMAT.millisecond
@@ -56,14 +68,14 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent {
   }
 
   get segmentGap(): string {
-    if (!this.serviceTypeDisabled) {
+    if (this.serviceTypeExist) {
       return minuteFormat(this.serviceType.serviceType.segmentGap);
     }
     return 'No habilitado';
   }
 
   get forceServiceType(): string {
-    if (!this.serviceTypeDisabled) {
+    if (this.serviceTypeExist) {
       return this.stateName[this.serviceType.serviceType.forceService]();
     }
     return 'No habilitado';
@@ -94,7 +106,6 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent {
     //   (service) => service.id === this.serviceType.serviceType.id
     // );
     if (!this.serviceTypeDisabled) {
-
       return this.serviceType.serviceType.flagServiceType === 'P'
         ? 'Precio personalizado'
         : 'Precio por defecto';
@@ -111,7 +122,7 @@ export class OpZonesEditionHomeBackupServiceTypeCardComponent {
   // }
   get priceServideType(): string {
     if (!this.serviceTypeDisabled) {
-       return this.serviceType.serviceType.serviceCost.toFixed(2);
+      return this.serviceType.serviceType.serviceCost.toFixed(2);
     }
     return 'No habilitado';
   }

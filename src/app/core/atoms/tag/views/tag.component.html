@@ -126,6 +126,14 @@
   </span>
 </ng-container>
 
+<ng-container *ngIf="appearance === tagAppearance.zoneTypeWhite">
+  <span
+    class="text-body-2-regular tag-pill-zone text-black bg-white {{ innerClass }}"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
 <ng-template #ngContent>
   <ng-content></ng-content>
 </ng-template>

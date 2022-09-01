@@ -236,6 +236,7 @@ export class ZoneBackupServiceType {
   flagServiceType: string;
   orderView: number;
   companyCode: ECompany;
+  state: EState;
 
   constructor(zoneServiceType: ZoneServiceType, forceService: EState) {
     this.id = zoneServiceType.id || null;
@@ -251,6 +252,7 @@ export class ZoneBackupServiceType {
     this.flagServiceType = zoneServiceType.flagServiceType;
     this.orderView = zoneServiceType.orderView;
     this.companyCode = zoneServiceType.companyCode;
+    this.state = zoneServiceType.state;
   }
 }
 
@@ -275,13 +277,13 @@ export class ZoneBackupServiceTypeList {
   scheduled: ZoneBackupServiceTypeRegistered;
 
   constructor(zoneServiceTypeList: ZoneServiceType[], zoneBackup?: ZoneBackup) {
-    const zoneDigitalServiceTypeList = zoneServiceTypeList.filter(
-      (zoneServiceType) => CStateValue[zoneServiceType.state]
-    );
-    const zoneAmPm: ZoneServiceType = zoneDigitalServiceTypeList.find(
+    // const zoneDigitalServiceTypeList = zoneServiceTypeList.filter(
+    //   (zoneServiceType) => CStateValue[zoneServiceType.state]
+    // );
+    const zoneAmPm: ZoneServiceType = zoneServiceTypeList.find(
       (serviceType) => serviceType.code === EDeliveryServiceType.amPm
     );
-    const zoneScheduled: ZoneServiceType = zoneDigitalServiceTypeList.find(
+    const zoneScheduled: ZoneServiceType = zoneServiceTypeList.find(
       (serviceType) => serviceType.code === EDeliveryServiceType.scheduled
     );
     this.amPm = new ZoneBackupServiceTypeRegistered(

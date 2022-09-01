@@ -1,15 +1,17 @@
-<section class="operations-capacity-zones pt-8 pb-15">
-  <div class="row mb-4">
-    <div class="col">
-      <!-- <app-back-router>Inicio</app-back-router> -->
-      <app-back-router-simple backRoute="/" textBackRoute="Ir a inicio">
-      </app-back-router-simple>
+<section class="operations-capacity-zones pb-15">
+  <div class="pt-5 zone-home-header">
+    <div class="row mb-4">
+      <div class="col">
+        <!-- <app-back-router>Inicio</app-back-router> -->
+        <app-back-router-simple backRoute="/" textBackRoute="Ir a inicio">
+        </app-back-router-simple>
+      </div>
     </div>
-  </div>
 
-  <div class="row mb-7">
-    <div class="col">
-      <h3 class="text-h3 text-black mb-0">Zonas</h3>
+    <div class="row mb-7">
+      <div class="col">
+        <h3 class="text-h3 text-black mb-0">Zonas</h3>
+      </div>
     </div>
   </div>
 
@@ -155,34 +157,32 @@
               ></app-button-action-icon>
             </app-tooltip> -->
             <div class="d-flex justify-content-around align-items-end h-100">
+              <app-tooltip class="tooltip-button-action" value="Editar">
+                <app-icon
+                  svgName="edit-tertiary"
+                  svgWidth="24px"
+                  svgHeight="24px"
+                  (click)="editRow(element.id)"
+                  class="cursor-pointer"
+                ></app-icon>
+              </app-tooltip>
 
-            <app-tooltip class="tooltip-button-action" value="Editar">
-              <app-icon
-                svgName="edit-tertiary"
-                svgWidth="24px"
-                svgHeight="24px"
-                (click)="editRow(element.id)"
-                class="cursor-pointer"
-              ></app-icon>
-            </app-tooltip>
-
-            <!-- <app-tooltip value="Más detalles">
+              <!-- <app-tooltip value="Más detalles">
               <app-button-action-icon
                 (clicked)="rowDetailDialog(element)"
                 iconName="launch"
               ></app-button-action-icon>
             </app-tooltip> -->
 
-            <app-tooltip class="tooltip-button-action" value="Más detalles">
-              <app-icon
-                svgName="launch-tertiary"
-                svgWidth="24px"
-                svgHeight="24px"
-                (click)="rowDetailDialog(element)"
-                class="cursor-pointer"
-              ></app-icon>
-            </app-tooltip>
-
+              <app-tooltip class="tooltip-button-action" value="Más detalles">
+                <app-icon
+                  svgName="launch-tertiary"
+                  svgWidth="24px"
+                  svgHeight="24px"
+                  (click)="rowDetailDialog(element)"
+                  class="cursor-pointer"
+                ></app-icon>
+              </app-tooltip>
             </div>
           </td>
         </ng-container>

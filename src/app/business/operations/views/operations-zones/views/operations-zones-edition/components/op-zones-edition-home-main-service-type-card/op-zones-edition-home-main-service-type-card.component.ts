@@ -60,8 +60,8 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
 
   get channelInnerClass(): string {
     return this.serviceType?.channel === EChannel.digital
-      ? 'p-3 border border-complementary-three'
-      : 'p-3 border border-secondary';
+      ? 'py-3 px-2 border border-complementary-three'
+      : 'py-3 px-2 border border-secondary';
   }
 
   get segmentName(): string {

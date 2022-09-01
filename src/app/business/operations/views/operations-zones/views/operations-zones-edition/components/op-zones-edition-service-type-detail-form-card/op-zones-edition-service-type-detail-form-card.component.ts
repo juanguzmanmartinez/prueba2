@@ -124,6 +124,7 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
     private _alert: AlertService
   ) {
     this.showCustomAmount = false;
+    
   }
 
   ngOnInit(): void {
