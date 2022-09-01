@@ -181,7 +181,14 @@ export class OpCapacitiesStepFileEditCapacityComponent
     });
   }
   setManyAmpm() {
-    console.log('input', this.inputAmpm);
+    console.log('input', this.inputAmpm.inputValue);
+    this.mostrar.map((item) => {
+      this.ampm.map((item1) => {
+        if (item == item1.id) {
+          item1.capacity = this.inputAmpm.inputValue;
+        }
+      });
+    });
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
