@@ -21,6 +21,7 @@ import { minuteFormat } from '@helpers/date-name.helper';
 import {
   CCompanyColor,
   CCompanyIcon,
+  CCompanyIconDisable,
   CCompanyName,
   ECompany,
 } from '@models/company/company.model';
@@ -39,9 +40,9 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   private companyColor = CCompanyColor;
 
   public companyIcon = CCompanyIcon;
+  public companyIconDisable = CCompanyIconDisable;
   public tagAppearance = ETagAppearance;
-  public editIconName = 'edit-tertiary';
-
+ 
   @Input() serviceType: ZoneServiceTypeRegistered;
   @Input() service: ZoneServiceType;
   @Input() company: ECompany;
@@ -83,12 +84,14 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   }
 
   get segmentCompanyIcon(): string {
-    return this.companyIcon[this.serviceType?.company];
+    return !!this.serviceTypeDisabled
+      ? this.companyIconDisable[this.serviceType?.company]
+      : this.companyIcon[this.serviceType?.company];
   }
 
   get segmentCompanyColor(): string {
-    return this.serviceTypeDisabled
-      ? 'gray-3'
+    return !!this.serviceTypeDisabled
+      ? 'gray-50'
       : this.companyColor[this.serviceType?.company];
   }
 
@@ -145,14 +148,6 @@ export class OpZonesEditionHomeMainServiceTypeCardComponent {
   }
 
   constructor() {}
-
-  onMouseEnter(): void {
-    this.editIconName = 'edit-tertiary-hover';
-  }
-
-  onMouseLeave(): void {
-    this.editIconName = 'edit-tertiary';
-  }
 
   editEvent(): void {
     this.edit.emit(this.serviceType?.serviceType);

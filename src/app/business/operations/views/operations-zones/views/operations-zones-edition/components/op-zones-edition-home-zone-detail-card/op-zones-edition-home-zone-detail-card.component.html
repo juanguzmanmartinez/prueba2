@@ -5,14 +5,17 @@
       </app-icon>
       <h4 class="text-h4 text-black mb-0">Zona principal</h4>
       <ng-container *appRouterAccess="zoneEditionPath">
-        <div
-          class="card-edit-button"
-          (click)="editEvent()"
-          (mouseenter)="onMouseEnter()"
-          (mouseleave)="onMouseLeave()"
-        >
-          <app-tooltip [value]="tooltipDescription">
-            <app-icon [svgName]="editIconName" svgWidth="24px"></app-icon>
+        <div class="card-edit-button" (click)="editEvent()">
+          <app-tooltip
+            [value]="tooltipDescription"
+            position="left"
+            innerClass="bottom-7-right-3"
+          >
+            <app-icon
+              svgName="edit-tertiary"
+              svgNameHover="edit-tertiary-hover"
+              svgWidth="24px"
+            ></app-icon>
           </app-tooltip>
         </div>
       </ng-container>

@@ -19,9 +19,15 @@ export const CCompanyIcon = {
   [ECompany.todos]: 'todos'
 };
 
+export const CCompanyIconDisable = {
+  [ECompany.inkafarma]: 'inkafarma-disable',
+  [ECompany.mifarma]: 'mifarma-disable',
+  [ECompany.todos]: 'todos'
+};
+
 export const CCompanyColor = {
-  [ECompany.inkafarma]: 'secondary-one',
-  [ECompany.mifarma]: 'secondary-two',
+  [ECompany.inkafarma]: 'inkafarma',
+  [ECompany.mifarma]: 'mifarma',
   [ECompany.todos]: 'secondary-two'
 };
 

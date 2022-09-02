@@ -198,11 +198,13 @@
         appearance="secondary"
         class="me-4"
         (clicked)="cancelEditionEvent()"
+        innerClass="btnServiceEditionStyle"
       >
         Cancelar edición
       </app-button>
       <app-button
         appearance="primary"
+        innerClass="btnServiceEditionStyle"
         [disabled]="form.form$.invalid"
         (editionAccess)="saveEditionEvent()"
         [pathAccess]="zoneDetailPath"

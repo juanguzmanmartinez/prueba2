@@ -32,9 +32,9 @@
 
 <ng-container *ngIf="appearance === tagAppearance.coloredFullGreasePill">
   <span
-    class="text-tag tag-pill text-capitalize text-inkafarma bg-gray-0 {{
-      innerClass
-    }}"
+    class="text-tag tag-pill text-capitalize text-{{
+      textTagColor
+    }} bg-gray-0 {{ innerClass }}"
   >
     <ng-container *ngTemplateOutlet="ngContent"></ng-container>
   </span>
@@ -45,6 +45,7 @@
     class="text-tag tag-pill text-capitalize text-dark-complementary-three bg-light-complementary-three {{
       innerClass
     }}"
+    [class.pill-disable]="disabled"
   >
     <ng-container *ngTemplateOutlet="ngContent"></ng-container>
   </span>
@@ -55,6 +56,7 @@
     class="text-tag tag-pill text-capitalize text-dark-complementary-four bg-light-complementary-four {{
       innerClass
     }}"
+    [class.pill-disable]="disabled"
   >
     <ng-container *ngTemplateOutlet="ngContent"></ng-container>
   </span>
@@ -65,6 +67,7 @@
     class="text-tag tag-pill text-capitalize text-dark-secondary bg-light-secondary {{
       innerClass
     }}"
+    [class.pill-disable]="disabled"
   >
     <ng-container *ngTemplateOutlet="ngContent"></ng-container>
   </span>
@@ -128,7 +131,9 @@
 
 <ng-container *ngIf="appearance === tagAppearance.zoneTypeWhite">
   <span
-    class="text-body-2-regular tag-pill-zone text-black bg-white {{ innerClass }}"
+    class="text-body-2-regular tag-pill-zone text-black bg-white {{
+      innerClass
+    }}"
   >
     <ng-container *ngTemplateOutlet="ngContent"></ng-container>
   </span>

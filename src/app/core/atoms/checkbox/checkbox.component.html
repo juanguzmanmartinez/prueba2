@@ -13,16 +13,17 @@
     (click)="checkboxClick($event)"
   />
 
-  <span class="checkbox-mark" [ngStyle]="{'background-color': _checked ? 'blue' : 'white'}">
+  <span
+    class="checkbox-mark d-flex justify-content-center align-items-center"
+    [class.checkbox-checked]="_checked"
     
-      <app-icon
-        
-        svgName="done"
-        svgWidth="16px"
-        *ngIf="_checked"
-        innerClass="mark bg-primary"
-      ></app-icon>
-    
+  >
+    <app-icon
+      svgName="done-white"
+      svgWidth="8px"
+      *ngIf="_checked"
+      innerClass="mark bg-primary"
+    ></app-icon>
   </span>
 
   <span class="checkbox-content">

@@ -10,8 +10,10 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'calendar', path: `${pathIcons}calendar.svg` },
   { name: 'configuration', path: `${pathIcons}configuration.svg` },
   { name: 'inkafarma', path: `${pathIcons}inkafarma.svg` },
+  { name: 'inkafarma-disable', path: `${pathIcons}inkafarma-disable.svg` },
   { name: 'main-logo', path: `${pathIcons}main-logo.svg` },
   { name: 'mifarma', path: `${pathIcons}mifarma.svg` },
+  { name: 'mifarma-disable', path: `${pathIcons}mifarma-disable.svg` },
   { name: 'moto', path: `${pathIcons}moto.svg` },
   { name: 'navigation', path: `${pathIcons}navigation.svg` },
   { name: 'stores', path: `${pathIcons}stores.svg` },
@@ -56,6 +58,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'money-circle', path: `${pathIcons}money-circle.svg` },
   { name: 'cancel', path: `${pathIcons}cancel.svg` },
   { name: 'done', path: `${pathIcons}done.svg` },
+  { name: 'done-white', path: `${pathIcons}done-white.svg` },
   {
     name: 'prescription-product',
     path: `${pathIcons}prescription-product.svg`,

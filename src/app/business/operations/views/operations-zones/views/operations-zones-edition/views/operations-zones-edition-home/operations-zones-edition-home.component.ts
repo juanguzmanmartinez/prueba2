@@ -281,6 +281,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
   }
 
   addServiceType(serviceType: ZoneServiceTypeBasicRequest): void {
+    console.log(serviceType);
     const subscription = this._dialogTwoActions
       .openInfo({
         title: `Añadir servicio ${this.serviceTypeName[serviceType.code]}`,
@@ -323,6 +324,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
         companyCode: serviceType.company,
         serviceTypeId: serviceType.serviceTypeId,
       } as IZoneServiceTypeRegister;
+      console.log(zoneServiceTypRegister);
       this._operationsZonesImplement
         .postZoneServiceType(zoneServiceTypRegister)
         .subscribe(

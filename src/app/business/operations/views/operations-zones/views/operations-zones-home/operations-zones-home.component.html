@@ -157,16 +157,21 @@
               ></app-button-action-icon>
             </app-tooltip> -->
             <div class="d-flex justify-content-around align-items-end h-100">
-              <app-tooltip class="tooltip-button-action" value="Editar">
+              <app-tooltip
+                class="tooltip-button-action"
+                value="Editar"
+                position="left"
+                innerClass="bottom-7-right-3"
+              >
                 <app-icon
                   svgName="edit-tertiary"
+                  svgNameHover="edit-tertiary-hover"
                   svgWidth="24px"
                   svgHeight="24px"
                   (click)="editRow(element.id)"
                   class="cursor-pointer"
                 ></app-icon>
               </app-tooltip>
-
               <!-- <app-tooltip value="Más detalles">
               <app-button-action-icon
                 (clicked)="rowDetailDialog(element)"
@@ -174,7 +179,12 @@
               ></app-button-action-icon>
             </app-tooltip> -->
 
-              <app-tooltip class="tooltip-button-action" value="Más detalles">
+              <app-tooltip
+                class="tooltip-button-action"
+                value="Más detalles"
+                position="left"
+                innerClass="bottom-7-right-3"
+              >
                 <app-icon
                   svgName="launch-tertiary"
                   svgWidth="24px"

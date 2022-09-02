@@ -1,15 +1,31 @@
-<div class="row mt-6" *ngIf="zoneBackupDetail">
-  <div class="col-12">
+<div class="mt-6" *ngIf="zoneBackupDetail">
+  <div
+    class="bg-white rounded-3 d-flex py-4 px-5 align-items-center justify-content-between"
+    *ngIf="showAlert"
+  >
     <p class="d-inline-flex align-items-center mb-0">
-      <app-icon fontName="info" fontSize="24px" innerClass="text-gray-5 me-2"></app-icon>
-      <span class="text-body-2-regular text-gray-5">Puedes editar el horario y GAP en la configuración de la zona
+      <app-icon
+        fontName="info"
+        fontSize="24px"
+        innerClass="text-gray-7 me-2"
+      ></app-icon>
+      <span class="text-body-1-regular text-gray-7 cursor-pointer"
+        >Puedes editar el horario y GAP en la configuración de la zona
         <app-router [router]="zoneBackupPath">
-          <span class="text-decoration-underline text-gray-5 font-weight-bold">
-            {{zoneBackupDetail.name}} - {{zoneBackupDetail.code}}
+          <span
+            class="text-decoration-underline text-secondary font-weight-bold"
+          >
+            {{ zoneBackupDetail.name }} - {{ zoneBackupDetail.code }}
           </span>
         </app-router>
       </span>
     </p>
+    <app-icon
+      fontName="close"
+      fontSize="24px"
+      innerClass="text-gray-7 me-2 cursor-pointer"
+      (click)="hiddenAlert()"
+    ></app-icon>
   </div>
 </div>
 
@@ -47,7 +63,8 @@
     <app-op-zones-edition-home-backup-stock-backup-card
       [disabled]="!stateValue[zoneBackup?.state]"
       [zoneBackupDetail]="zoneBackupDetail"
-      (edit)="editBackupZonEvent()">
+      (edit)="editBackupZonEvent()"
+    >
     </app-op-zones-edition-home-backup-stock-backup-card>
   </div>
 
@@ -56,7 +73,8 @@
       [disabled]="!stateValue[zoneBackup?.state]"
       [zoneBackupDetail]="zoneBackupDetail"
       [serviceType]="zoneBackupServiceTypeList?.amPm"
-      (edit)="editServiceTypeEvent($event)">
+      (edit)="editServiceTypeEvent($event)"
+    >
     </app-op-zones-edition-home-backup-service-type-card>
   </div>
 
@@ -65,9 +83,8 @@
       [disabled]="!stateValue[zoneBackup?.state]"
       [zoneBackupDetail]="zoneBackupDetail"
       [serviceType]="zoneBackupServiceTypeList?.scheduled"
-      (edit)="editServiceTypeEvent($event)">
+      (edit)="editServiceTypeEvent($event)"
+    >
     </app-op-zones-edition-home-backup-service-type-card>
   </div>
 </div>
-
-

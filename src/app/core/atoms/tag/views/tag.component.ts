@@ -22,6 +22,8 @@ export class TagComponent {
   @Input() typeBrand: ETypeTagBrand;
   @Input() appearance: TTagAppearance = ETagAppearance.transparentPill;
   @Input() innerClass: string = '';
+  @Input() disabled: boolean;
+  @Input() textTagColor: string;
 
   constructor() {}
 }
