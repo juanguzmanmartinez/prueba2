@@ -52,6 +52,11 @@ import { OpCapacitiesStepFileDownloadComponent } from './components/op-capacitie
 import { OpCapacitiesStepFileUploadComponent } from './components/op-capacities-step-file-upload/op-capacities-step-file-upload.component';
 import { OpCapacitiesStepFileEditCapacityComponent } from './components/op-capacities-step-file-edit-capacity/op-capacities-step-file-edit-capacity.component';
 import { LocalFilterModule } from 'app/business/order/views/order-records/components/local-filter/local-filter.module';
+import { OpCapacitiesUploadEditAmpmComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-ampm/op-capacities-upload-edit-ampm.component';
+import { OpCapacitiesUploadEditRetComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-ret/op-capacities-upload-edit-ret.component';
+import { OpCapacitiesUploadEditExpressComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-express/op-capacities-upload-edit-express.component';
+import { OpCapacitiesUploadEditScheduledComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-scheduled/op-capacities-upload-edit-scheduled.component';
+import { OpCapacitiesUploadDeleteDialogComponent } from './components/op-capacities-step-file-confirmation/components/op-capacities-upload-delete-dialog/op-capacities-upload-delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +80,11 @@ import { LocalFilterModule } from 'app/business/order/views/order-records/compon
     OpCapacitiesStepFileDownloadComponent,
     OpCapacitiesStepFileUploadComponent,
     OpCapacitiesStepFileEditCapacityComponent,
+    OpCapacitiesUploadEditAmpmComponent,
+    OpCapacitiesUploadEditRetComponent,
+    OpCapacitiesUploadEditExpressComponent,
+    OpCapacitiesUploadEditScheduledComponent,
+    OpCapacitiesUploadDeleteDialogComponent,
   ],
   imports: [
     CommonModule,

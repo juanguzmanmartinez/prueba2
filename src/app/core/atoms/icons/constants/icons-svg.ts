@@ -52,6 +52,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'upload', path: `${pathIcons}upload.svg` },
   { name: 'excel', path: `${pathIcons}excel.svg` },
   { name: 'papers', path: `${pathIcons}papers.svg` },
+  { name: 'place', path: `${pathIcons}place.svg` },
 
   { name: 'logo', path: `${pathIllustrations}logo.svg` },
   { name: 'assigned-orders', path: `${pathIllustrations}assigned-orders.svg` },

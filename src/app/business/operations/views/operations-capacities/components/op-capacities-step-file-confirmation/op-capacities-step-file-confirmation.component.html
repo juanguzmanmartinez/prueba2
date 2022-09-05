@@ -1,4 +1,9 @@
-<app-card-step innerClass="w-100" hiddenHeader="true">
+<app-card-step
+  innerClass="w-100"
+  hiddenHeader="true"
+  (next)="submit($event)"
+  (cancel)="cancelStep($event)"
+>
   <div class="mt-6"></div>
   <div class="row justify-content-center mt-8">
     <div class="col-12 col-xlg-12">

@@ -1,117 +1,32 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-store.service';
+import { UploadCapacitiesStoreService } from '../../../../stores/upload-capacities-store.service';
 
 @Component({
-  selector: 'app-op-capacities-step-file-edit-capacity',
-  templateUrl: './op-capacities-step-file-edit-capacity.component.html',
-  styleUrls: ['./op-capacities-step-file-edit-capacity.component.scss'],
+  selector: 'app-op-capacities-upload-edit-ampm',
+  templateUrl: './op-capacities-upload-edit-ampm.component.html',
+  styleUrls: ['./op-capacities-upload-edit-ampm.component.sass'],
 })
-export class OpCapacitiesStepFileEditCapacityComponent
-  implements OnInit, OnDestroy
-{
+export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
   @ViewChild('inputAmpm') inputAmpm;
   private subscriptions = new Subscription();
 
-  displayedColumns: string[] = ['seleccion', 'horario', 'capacidad'];
-  constructor(
-    private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
-    private _router: Router
-  ) {}
-  dataSource = {
-    code: 'AF8',
-    local: 'LOS OLIVOS',
-    ampm: [
-      {
-        segment: '08:00 am - 02:00 pm',
-        capacity: 6,
-      },
-      {
-        segment: '02:00 pm - 08:00 pm',
-        capacity: 10,
-      },
-      {
-        segment: '08:00 pm - 08:30 pm',
-        capacity: 2,
-      },
-    ],
-    scheduled: [
-      {
-        segment: '08:00 am - 11:00 am',
-        capacity: 1,
-      },
-      {
-        segment: '02:00 pm - 05:00 pm',
-        capacity: 3,
-      },
-      {
-        segment: '05:00 pm - 08:00 pm',
-        capacity: 4,
-      },
-      {
-        segment: '08:00 pm - 11:00 pm',
-        capacity: 5,
-      },
-    ],
-    express: [
-      {
-        segment: '-',
-        capacity: 1,
-      },
-    ],
-    ret: [
-      {
-        segment: '08:00 am - 11:00 am',
-        capacity: 23,
-      },
-      {
-        segment: '11:00 am - 02:00 pm',
-        capacity: 2,
-      },
-      {
-        segment: '02:00 pm - 05:00 pm',
-        capacity: 5,
-      },
-      {
-        segment: '05:00 pm - 08:00 pm',
-        capacity: 0,
-      },
-    ],
-    ampmTotalCapacity: 18,
-    expTotalCapacity: 1,
-    scheTotalCapacity: 13,
-    retTotalCapacity: 30,
-  };
   ampm = [
     { id: 0, segment: '08:00 am - 02:00 pm', capacity: 6 },
     { id: 1, segment: '02:00 pm - 08:00 pm', capacity: 10 },
     { id: 2, segment: '08:00 pm - 08:30 pm', capacity: 2 },
   ];
-  ret = [
-    { id: 0, segment: '08:00 am - 11:00 am', capacity: 23 },
-    { id: 1, segment: '11:00 am - 02:00 pm', capacity: 2 },
-    { id: 2, segment: '02:00 pm - 05:00 pm', capacity: 5 },
-    { id: 3, segment: '05:00 pm - 08:00 pm', capacity: 0 },
-  ];
-  scheduled = [
-    { id: 0, segment: '08:00 am - 11:00 am', capacity: 1 },
-    { id: 1, segment: '02:00 pm - 05:00 pm', capacity: 3 },
-    { id: 2, segment: '05:00 pm - 08:00 pm', capacity: 4 },
-    { id: 3, segment: '08:00 pm - 11:00 pm', capacity: 5 },
-  ];
-  express = [
-    {
-      segment: '-',
-      capacity: 1,
-    },
-  ];
+  displayedColumns: string[] = ['seleccion', 'horario', 'capacidad'];
 
   mostrar: any = [];
   selection = new SelectionModel(true, []);
 
   private fixedSelectedRows: any[] = [];
+
+  constructor(
+    private _uploadCapacitiesStoreService: UploadCapacitiesStoreService
+  ) {}
 
   ngOnInit(): void {
     const subscription =
@@ -126,14 +41,11 @@ export class OpCapacitiesStepFileEditCapacityComponent
         }
       );
     this.subscriptions.add(subscription);
-
     const subscription1 = this.selection.changed.subscribe(
       (x) => (this.fixedSelectedRows = x.source.selected)
     );
     this.subscriptions.add(subscription1);
   }
-  nextStep(e) {}
-  cancelStep(e) {}
 
   isAllSelected(): boolean {
     let allSelected = true;

@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UploadCapacitiesStoreService {
-  private currentStep = new BehaviorSubject<string>('0');
+  private currentStep = new BehaviorSubject<string>('2');
   private stepsTabs = new BehaviorSubject<any[]>([]);
   private localToEdit = new BehaviorSubject<any>({});
   private storesList = new BehaviorSubject<any[]>([]);

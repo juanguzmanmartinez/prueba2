@@ -28,7 +28,6 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
   }
 
   fileBrowseHandler(ev: any) {
-    console.log('$event.target.files', ev.target.files);
     this.fileName = ev.target.files[0].name;
     this.files.push(ev.target.files[0]);
     let workBook = null;
@@ -36,7 +35,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     let dataString;
     const reader = new FileReader();
     const file = ev.target.files[0];
-
+    let qqq = [];
     reader.onload = (event) => {
       const data = reader.result;
       workBook = XLSX.read(data, { type: 'binary' });
@@ -46,8 +45,12 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         return initial;
       }, {});
       dataString = JSON.stringify(jsonData);
-      console.log('datastring', jsonData);
-
+      qqq = jsonData.Sheet1.map((local, index) => {
+        return {
+          ...local,
+          id: index,
+        };
+      });
       let datoss: any[] = [];
       jsonData.Sheet1.forEach((item) => {
         let found = datoss.some((it) => it.code == item.CodLocal);
@@ -116,10 +119,9 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         pla.scheTotalCapacity = scheCap;
         pla.retTotalCapacity = retCap;
       });
-      console.log('datos', datoss);
 
       this.dataSource = datoss;
-      this._uploadCapacitiesStoreService.setStoreList(datoss);
+      this._uploadCapacitiesStoreService.setStoreList(qqq);
     };
 
     reader.readAsBinaryString(file);
