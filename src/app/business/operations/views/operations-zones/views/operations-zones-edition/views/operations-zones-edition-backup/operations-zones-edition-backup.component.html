@@ -6,17 +6,22 @@
         class="back"
       ></app-back-router-simple>
     </div>
-    <div class="row mb-10">
+    <!-- <div class="row mb-10">
       <div class="col-12">
         <h3 class="text-h3 mb-5">Edición de zonas</h3>
         <hr class="mt-0 mb-6 bg-gray-3" />
         <h5 class="text-h5 text-gray-6 mb-0">Edición de zona backup</h5>
       </div>
+    </div> -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <h4 class="text-h4 mb-5">Editar zona backup {{ zoneDetail.name }}</h4>
+      </div>
     </div>
   </div>
 
   <div class="row" *ngIf="!errorResponse">
-    <div class="col-12 col-xlg-6 mb-6 mb-xlg-0">
+    <div class="col-12 col-xlg-4 mb-6 mb-xlg-0">
       <app-op-zones-edition-backup-detail-card
         *appSkeletonCard="
           !!zoneDetail && !!zoneList;
@@ -27,7 +32,7 @@
       </app-op-zones-edition-backup-detail-card>
     </div>
 
-    <div class="col-12 col-xlg-6" [class.container-loader]="saveEditionLoader">
+    <div class="col-12 col-xlg-8" [class.container-loader]="saveEditionLoader">
       <app-op-zones-edition-backup-detail-form-card
         *appSkeletonCard="
           !!zoneDetail && !!zoneList;

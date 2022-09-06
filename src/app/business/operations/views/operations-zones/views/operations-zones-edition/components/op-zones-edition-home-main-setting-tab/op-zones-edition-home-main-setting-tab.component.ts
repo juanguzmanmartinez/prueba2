@@ -167,7 +167,7 @@ export class OpZonesEditionHomeMainSettingTabComponent
   addServiceType(serviceType: ZoneServiceTypeRegistered): void {
     this.add.emit({
       code: serviceType?.code,
-      channel: this.channelSelected,
+      channel: serviceType?.channel,
       company: this.companyItem,
       serviceTypeId: serviceType?.serviceType?.id
     });
