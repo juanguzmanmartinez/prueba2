@@ -132,8 +132,6 @@ export class OpCapacitiesStepFileEditCapacityComponent
     );
     this.subscriptions.add(subscription1);
   }
-  nextStep(e) {}
-  cancelStep(e) {}
 
   isAllSelected(): boolean {
     let allSelected = true;
@@ -195,8 +193,29 @@ export class OpCapacitiesStepFileEditCapacityComponent
     });
   }
 
+  nextStep(e) {
+    this.dataSource = { ...this.dataSource, ampm: this.ampm };
+    const subscription =
+      this._uploadCapacitiesStoreService.getDataSource$.subscribe((element) => {
+        console.log('elementen', element);
+
+        element.map((item) => this.dataSource.code === item.code);
+        // this.dataSource = element;
+        // this.ampm = element.ampm;
+        // this.ret = element.ret;
+        // this.scheduled = element.scheduled;
+      });
+    this.subscriptions.add(subscription);
+    // this._uploadCapacitiesStoreService.setCurrentStep('3');
+  }
+  cancelStep(e) {}
+
   get getTotalCapacityAmpm() {
     return this.ampm.reduce((a, { capacity }) => a + capacity, 0);
+  }
+
+  get getTitle() {
+    return `${this.dataSource.code} - ${this.dataSource.local}: Editar capacidad`;
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

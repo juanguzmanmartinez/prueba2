@@ -10,6 +10,7 @@ export class UploadCapacitiesStoreService {
   private stepsTabs = new BehaviorSubject<any[]>([]);
   private localToEdit = new BehaviorSubject<any>({});
   private storesList = new BehaviorSubject<any[]>([]);
+  private dataSource = new BehaviorSubject<any[]>([]);
   stepsTabs$ = this.stepsTabs.asObservable();
   currentStep$ = this.currentStep.asObservable();
   constructor() {}
@@ -44,5 +45,13 @@ export class UploadCapacitiesStoreService {
 
   get getStoreList$(): Observable<any> {
     return this.storesList.asObservable().pipe(filter((value) => !!value));
+  }
+
+  setDataSource(dataSource: any[]) {
+    this.dataSource.next(dataSource);
+  }
+
+  get getDataSource$(): Observable<any> {
+    return this.dataSource.asObservable().pipe(filter((value) => !!value));
   }
 }

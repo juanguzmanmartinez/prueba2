@@ -1,14 +1,16 @@
 <app-card-step
-  title="San Miguel: Editar capacidad"
+  [title]="getTitle"
   icon="papers"
   (next)="nextStep($event)"
   (cancel)="cancelStep($event)"
   innerClass="w-90"
+  textButtonNext="Guardar cambios"
+  textButtonCancel="Regresar"
 >
   <div class="mt-5 mb-5">
     <app-tab-group>
       <app-tab *ngIf="ampm && ampm.length > 0" label="AM/PM">
-        <!-- <div>
+        <div>
           <p class="d-block text-h5 text-black mt-6 mb-5">
             Selecciona los servicios para cargar las capacidades:
           </p>
@@ -89,8 +91,8 @@
               Capacidad total {{ getTotalCapacityAmpm }}
             </p>
           </div>
-        </div> -->
-        <app-op-capacities-upload-edit-ampm></app-op-capacities-upload-edit-ampm>
+        </div>
+        <!-- <app-op-capacities-upload-edit-ampm></app-op-capacities-upload-edit-ampm> -->
       </app-tab>
       <app-tab *ngIf="scheduled && scheduled.length > 0" label="Programado">
         <div>

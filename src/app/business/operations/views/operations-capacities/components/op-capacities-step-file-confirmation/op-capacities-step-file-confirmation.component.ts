@@ -293,6 +293,8 @@ export class OpCapacitiesStepFileConfirmationComponent
       data.scheTotalCapacity = scheCap;
       data.retTotalCapacity = retCap;
     });
+    this._uploadCapacitiesStoreService.setDataSource(dataProcessed);
+
     this.dataSource = dataProcessed;
   }
   editRow(element) {
