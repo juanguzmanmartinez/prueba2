@@ -15,6 +15,8 @@ import { MatSort } from '@angular/material/sort';
 import { CZoneTypeName } from '../../../../parameters/operations-zones-type.parameter';
 import { OperationsZonesImplementService } from '../../../../implements/operations-zones-implement.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-op-zones-home-zone-detail-dialog',
@@ -63,7 +65,12 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
       : this.stateName[this.zoneDetail.zoneBackup.state]();
   }
 
+  get segmentState() {
+    return CStateValue[this.zone.state];
+  }
+
   constructor(
+    private _router: Router,
     private _operationsZonesImplement: OperationsZonesImplementService
   ) {}
 
@@ -104,5 +111,9 @@ export class OpZonesHomeZoneDetailDialogComponent implements OnInit {
       };
     });
     this.dataSource.sort = this.sort;
+  }
+
+  editZone(): void {
+    this._router.navigate([ROUTER_PATH.opZones_Zone(this.zone.id)]);
   }
 }

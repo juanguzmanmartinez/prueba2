@@ -1,29 +1,25 @@
-<section class="op-zone-home-detail-dialog" app-dialog-container>
+<section class="op-zone-home-detail-dialog" app-dialog-container widthOverlay="700px">
   <div app-dialog-close mat-dialog-close></div>
 
   <ng-container *ngIf="!errorResponse">
-    <div
+    <!-- <div
       *ngIf="!zoneDetailLoader"
       app-dialog-edit-button
       [mat-dialog-close]="true"
-    ></div>
+    ></div> -->
 
     <div class="content mb-6">
       <app-dialog-header svgName="navigation">
         <ng-container dialog-header-title>
-          <p class="mb-2">
-            <app-tag
-              [appearance]="tagAppearance.uppercase"
-              [tagColor]="stateTag[zone.state]"
-            >
-              {{ stateName[zone.state]() }}
-            </app-tag>
-          </p>
-          <p class="text-wrap mb-2">
-            {{ zone.name }}
-            <span class="text-gray-5 mx-3">-</span>
-            <span class="text-gray-5 text-nowrap">COD {{ zone.code }}</span>
-          </p>
+          <div class="d-flex align-items-center">
+            <app-icon
+              class="me-5"
+              [svgName]="segmentState ? 'ellipse-success' : 'ellipse-danger'"
+            ></app-icon>
+            <h4 class="text-h5 mb-0 ms-2">
+              {{ zone.name }} - COD {{ zone.code }}
+            </h4>
+          </div>
         </ng-container>
 
         <ng-container dialog-header-description *ngIf="!zoneDetailLoader">
@@ -169,7 +165,18 @@
           </div>
         </app-tab>
       </app-tab-group>
+      <div *ngIf="!zoneDetailLoader" [mat-dialog-close]="true" class="mt-4 d-flex justify-content-end px-5">
+        <app-button
+          appearance="primary"
+      
+          (clicked)="editZone()"
+          innerClass="btnEditZoneStyle"
+        >
+          Editar
+        </app-button>
+      </div>
     </div>
+
   </ng-container>
 
   <div *ngIf="errorResponse">
