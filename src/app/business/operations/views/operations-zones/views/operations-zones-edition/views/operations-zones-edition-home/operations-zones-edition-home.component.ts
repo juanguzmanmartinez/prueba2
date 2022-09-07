@@ -331,7 +331,7 @@ export class OperationsZonesEditionHomeComponent implements OnInit, OnDestroy {
           () => {
             this.saveEditionLoader = true;
             this._operationsZonesEditionStore.updateZoneDetail = true;
-            this._alert.alertSuccess(
+            this._alert.alertLightSuccess(
               OperationMessages.successServiceTypeRegistered(
                 this.serviceTypeName[serviceType.code],
                 this.zoneDetail.name

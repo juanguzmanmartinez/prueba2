@@ -47,6 +47,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'info', path: `${pathIcons}info.svg` },
   { name: 'edit-tertiary', path: `${pathIcons}edit-tertiary.svg` },
   { name: 'launch-tertiary', path: `${pathIcons}launch-tertiary.svg` },
+  { name: 'launch-tertiary-hover', path: `${pathIcons}launch-tertiary-hover.svg` },
   { name: 'edit-tertiary-hover', path: `${pathIcons}edit-tertiary-hover.svg` },
   { name: 'time-circle', path: `${pathIcons}time-circle.svg` },
   { name: 'crosshair', path: `${pathIcons}crosshair.svg` },
@@ -62,6 +63,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'orders', path: `${pathIcons}orders.svg` },
   { name: 'home', path: `${pathIcons}home.svg` },
   { name: 'operations', path: `${pathIcons}operations.svg` },
+  { name: 'check', path: `${pathIcons}check.svg` },
   {
     name: 'prescription-product',
     path: `${pathIcons}prescription-product.svg`,

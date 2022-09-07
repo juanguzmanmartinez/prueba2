@@ -97,7 +97,7 @@ export class OperationsZonesEditionServiceTypeComponent implements OnInit, OnDes
       `${this.zoneServiceType.id}`, zoneServiceTypeUpdate)
       .subscribe(() => {
         this._operationsZonesEditionStore.updateZoneDetail = true;
-        this._alert.alertSuccess(OperationMessages.successServiceTypeEdition(
+        this._alert.alertLightSuccess(OperationMessages.successServiceTypeEdition(
           this.serviceTypeName[this.zoneServiceType.code], this.zoneDetail.name));
         this.backRoute();
       }, () => {

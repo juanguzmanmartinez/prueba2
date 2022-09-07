@@ -168,7 +168,7 @@ export class OpZonesEditionHomeMainSettingTabComponent
     this.add.emit({
       code: serviceType?.code,
       channel: serviceType?.channel,
-      company: this.companyItem,
+      company: serviceType?.company,
       serviceTypeId: serviceType?.serviceType?.id
     });
   }
