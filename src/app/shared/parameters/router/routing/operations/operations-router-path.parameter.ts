@@ -22,6 +22,7 @@ export const OPERATIONS_ROUTER_PATH = {
     `/${OPERATIONS_ROUTER.path}/${OP_CHILDREN_PATH.drugstores}/${drugstoreCode}/${serviceType}`,
 
   operationZones: `/${OPERATIONS_ROUTER.path}/${OP_CHILDREN_PATH.zones}`,
+
   opZones_Zone: (zoneId = 'zoneId') =>
     `/${OPERATIONS_ROUTER.path}/${OP_CHILDREN_PATH.zones}/${zoneId}`,
   opZones_ZoneEdition: (zoneId = 'zoneId') =>

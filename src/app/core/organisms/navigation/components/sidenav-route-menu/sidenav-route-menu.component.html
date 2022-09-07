@@ -1,22 +1,29 @@
-<app-menu [hasBackdrop]="false"
-          actions="hover"
-          panelClass="sidenav-route-menu-panel">
+<app-menu
+  [hasBackdrop]="false"
+  actions="hover"
+  panelClass="sidenav-route-menu-panel"
+>
+  <ng-container triggerFor>
+    <app-router
+      [routerActiveOptions]="routePathOptions"
+      [router]="routePath"
+      class="sidenav-route-menu-container"
+      routerActive="sidenav-route-menu-active"
+    >
+      <div class="sidenav-route-menu">
+        <span
+          class="sidenav-route-menu-text text-body-1-regular text-truncate"
+          >{{ routeText }}</span
+        >
+        <app-icon
+          class="sidenav-route-menu-icon"
+          fontName="keyboard_arrow_right"
+        ></app-icon>
+      </div>
+    </app-router>
+  </ng-container>
 
-    <ng-container triggerFor>
-        <app-router [routerActiveOptions]="routePathOptions"
-                    [router]="routePath"
-                    class="sidenav-route-menu-container"
-                    routerActive="sidenav-route-menu-active">
-            <div class="sidenav-route-menu">
-                <span class="sidenav-route-menu-text text-body-1-regular text-truncate">{{routeText}}</span>
-                <app-icon class="sidenav-route-menu-icon"
-                          fontName="keyboard_arrow_right"></app-icon>
-            </div>
-        </app-router>
-    </ng-container>
-
-    <ng-container content>
-        <ng-content></ng-content>
-    </ng-container>
-
+  <ng-container content>
+    <ng-content></ng-content>
+  </ng-container>
 </app-menu>

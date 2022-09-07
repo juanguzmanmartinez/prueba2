@@ -40,6 +40,8 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'pending-flow', path: `${pathIcons}pending-flow.svg` },
   { name: 'cancel-flow', path: `${pathIcons}cancel-flow.svg` },
   { name: 'cart', path: `${pathIcons}cart.svg` },
+  { name: 'info-purple', path: `${pathIcons}info-purple.svg` },
+
   {
     name: 'prescription-product',
     path: `${pathIcons}prescription-product.svg`,

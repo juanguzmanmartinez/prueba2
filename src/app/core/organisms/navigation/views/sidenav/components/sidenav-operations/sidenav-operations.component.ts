@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
-import { OPERATIONS_ROUTER } from '@parameters/router/routing/operations/operations-router.parameter';
+import {
+  OPERATIONS_ROUTER,
+  ZONES_ROUTER,
+} from '@parameters/router/routing/operations/operations-router.parameter';
 
 @Component({
   selector: 'app-sidenav-operations',
@@ -11,6 +14,7 @@ import { OPERATIONS_ROUTER } from '@parameters/router/routing/operations/operati
 export class SidenavOperationsComponent implements OnInit {
   public routerPath = ROUTER_PATH;
   public sidenavRouting = OPERATIONS_ROUTER;
+
   @Input() sidenav: MatSidenav;
   @Output() sidenavOpen = new EventEmitter();
   @Output() sidenavClosed = new EventEmitter();

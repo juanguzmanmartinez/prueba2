@@ -1,13 +1,20 @@
-<app-router [routerActiveOptions]="routePathOptions"
-            [router]="routePath"
-            class="sidenav-route-container"
-            routerActive="sidenav-route-active">
-    <div class="sidenav-route">
-        <app-icon *ngIf="routeIcon"
-                  [fontName]="routeIcon"
-                  class="sidenav-route-icon"></app-icon>
-        <span [class.ms-6]="!routeIcon" class="sidenav-route-text text-body-1-regular text-truncate">
-            {{routeText}}
-        </span>
-    </div>
+<app-router
+  [routerActiveOptions]="routePathOptions"
+  [router]="routePath"
+  class="sidenav-route-container"
+  routerActive="sidenav-route-active"
+>
+  <div class="sidenav-route">
+    <app-icon
+      *ngIf="routeIcon"
+      [fontName]="routeIcon"
+      class="sidenav-route-icon"
+    ></app-icon>
+    <span
+      [class.ms-6]="!routeIcon"
+      class="sidenav-route-text text-body-1-regular text-truncate"
+    >
+      {{ routeText }}
+    </span>
+  </div>
 </app-router>

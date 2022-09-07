@@ -1,87 +1,23 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { MatExpansionPanel } from '@angular/material/expansion';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { Subscription } from 'rxjs';
-import { DrugStoreServiceStore } from 'app/business/operations/views/operations-capacities/store/drug-store.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-card-step',
   templateUrl: './card-step.component.html',
   styleUrls: ['./card-step.component.scss'],
 })
-export class CardStepComponent implements OnDestroy {
-  private subscriptions: Subscription[] = [];
-  private responsiveStep: boolean;
-  public collapsedHeight = '72px';
+export class CardStepComponent implements OnInit {
+  @Input() title: string = '';
+  @Input() icon: string = 'stores';
+  @Input() hiddenHeader: boolean = false;
+  @Input() innerClass: string = 'w-70';
 
-  @Input() stepTitle = 'Título';
-  @Input() _stepDescription: string;
-  @Input() stepId: number | string = 1;
-  @Input() stepDisabled: boolean;
-  @Input() stepReadonly: boolean;
-  @Input() stepEdit: boolean;
+  @Input() textButtonNext: string = 'Continuar';
+  @Input() textButtonCancel: string = 'Cancelar';
 
-  @Input() cancelButtonText = 'Cancelar edición';
-  @Input() saveButtonText = 'Guardar cambios';
-  @Input() saveButtonDisabled = true;
+  @Output() cancel = new EventEmitter<any>();
+  @Output() next = new EventEmitter<any>();
 
-  // Edition Access Directive
-  @Input() enableAccess = false;
-  @Input() pathAccess: string;
+  constructor() {}
 
-  @Output() stepOpenEvent = new EventEmitter();
-  @Output() stepCloseEvent = new EventEmitter();
-
-  @Output() cancelButtonEvent = new EventEmitter();
-  @Output() saveButtonEvent = new EventEmitter();
-
-  @Input('stepDescription')
-  set stepDescription(stepDescription: string) {
-    this._stepDescription = stepDescription;
-    this.validateCollapsedHeight();
-  }
-
-  @Input('stepExpandedToggle')
-  set stepExpandedToggle(expandedToggle: boolean) {
-    if (expandedToggle) {
-      this.matExpansionPanel.open();
-    } else {
-      this.matExpansionPanel.close();
-    }
-  }
-
-  stepExpanded = false;
-
-  @ViewChild(MatExpansionPanel, { static: true })
-  matExpansionPanel: MatExpansionPanel;
-
-  constructor(
-    private _breakpointObserver: BreakpointObserver,
-    public _drugStoreServiceStore: DrugStoreServiceStore
-  ) {
-    const subscription = this._breakpointObserver
-      .observe([`(min-width: 768px)`])
-      .subscribe((state) => {
-        this.responsiveStep = !state.matches;
-        this.validateCollapsedHeight();
-      });
-
-    this.subscriptions.push(subscription);
-  }
-
-  validateCollapsedHeight() {
-    this.collapsedHeight =
-      this.responsiveStep && this._stepDescription ? '105px' : '72px';
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
+  ngOnInit(): void {}
 }

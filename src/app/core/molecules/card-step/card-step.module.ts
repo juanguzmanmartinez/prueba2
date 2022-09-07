@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
-import { DirectivesModule } from 'app/shared/directives/directives.module';
+import { DirectivesModule } from '../../../shared/directives/directives.module';
 import { CardStepComponent } from './card-step.component';
 
 @NgModule({

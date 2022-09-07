@@ -1,28 +1,10 @@
-.card-step {
-  &-container {
-    box-shadow: none;
-    background-color: #fff;
-    border: 1px solid #f4f6f7;
-    box-sizing: border-box;
-    border-radius: 8px;
-  }
-
-  &__header {
-    border-bottom: 1px solid #f4f6f7;
-    padding-bottom: 16px;
-    h2 {
-      margin-left: 16px;
-    }
-  }
-}
-
 .disclaimer {
   border: 1px solid #888bff;
   border-radius: 16px;
   padding: 16px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: 24px;
   p {
     margin-left: 15px;
@@ -46,12 +28,6 @@
   margin-right: 5px;
 }
 
-.w-70 {
-  width: 70%;
-}
-.w-100 {
-  width: 100%;
-}
-.w-90 {
-  width: 90%;
+.ml-c {
+  margin-left: 10px;
 }

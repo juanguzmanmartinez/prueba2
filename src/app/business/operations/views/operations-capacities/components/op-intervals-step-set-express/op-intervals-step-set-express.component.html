@@ -1,23 +1,60 @@
 <app-card-step
-  stepId="3"
-  stepTitle="recursos"
-  [stepExpandedToggle]="true"
-  [enableAccess]="true"
+  title="Descargar plantilla"
+  innerClass="w-100"
+  (next)="nextStep($event)"
+  (cancel)="cancelStep($event)"
 >
-  <div class="card-step-content">
-    <form>
-      <div class="row">
-        <div class="col-12 mb-5">
-          <label class="text-body-2-regular text-gray-5 mb-2"
-            >Selecciona días</label
-          >
+  <div class="d-flex justify-content-between mt-6 mb-5">
+    <p class="d-block text-h4 text-black">Configurar parámetros flexibles</p>
+    <app-switch></app-switch>
+  </div>
+  <div class="disclaimer">
+    <app-icon
+      svgName="info-purple"
+      svgHeight="36px"
+      svgWidth="36px"
+      class="icon"
+    >
+    </app-icon>
+    <p class="mb-0">
+      El incremento de interval time y la capacidad flexible será en automático
+      para este local
+    </p>
+  </div>
+  <div class="row">
+    <form [formGroup]="fg">
+      <p class="d-block text-h5 text-black mt-6 mb-5">
+        Capacidad e interval time base:
+      </p>
+      <div class="row d-flex justify-content-between">
+        <div class="col-6">
+          <app-input></app-input>
         </div>
-
-        <div class="col-12 mb-5">
-          <label class="text-body-2-regular text-gray-5 mb-2 d-block"
-            >Nro. de motorizados</label
+        <div class="d-flex justify-content-center align-items-center col-6">
+          <app-icon
+            svgName="info-purple"
+            svgHeight="48px"
+            svgWidth="48px"
+            class="icon"
           >
-          <app-input-number placeholder="10"></app-input-number>
+          </app-icon>
+          <p class="mb-0 ml-c">
+            Si la capacidad llega al % indicando, se tomará el incremento de
+            capacidad e interval time flexible
+          </p>
+        </div>
+      </div>
+      <p class="d-block text-h5 text-black mt-5">
+        Selecciona la ubicación de los locales:
+      </p>
+      <div class="row">
+        <div class="col-6">
+          <p>Departamento</p>
+          <app-input></app-input>
+        </div>
+        <div class="col-6">
+          <p>Provincia</p>
+          <app-input></app-input>
         </div>
       </div>
     </form>
