@@ -6,18 +6,17 @@
         class="back"
       ></app-back-router-simple>
     </div>
-    <div class="row mb-7">
+    <div class="row mb-6">
       <div class="col-12">
-        <h4 class="text-h4 text-gray-6 mb-7">
+        <h4 class="text-h4 text-gray-6 mb-0">
           Editar {{ serviceTypeName[serviceType] }} en zona backup
         </h4>
-        <hr class="m-0 bg-gray-3" />
       </div>
     </div>
   </div>
 
   <div class="row" *ngIf="!errorResponse">
-    <div class="col-12 col-xlg-5 mb-6 mb-xlg-0">
+    <div class="col-12 col-xlg-4 mb-6 mb-xlg-0">
       <app-op-zones-edition-backup-service-type-detail-card
         *appSkeletonCard="
           !!zoneDetail && !!zoneBackupServiceType;
@@ -30,7 +29,7 @@
       </app-op-zones-edition-backup-service-type-detail-card>
     </div>
 
-    <div class="col-12 col-xlg-7" [class.container-loader]="saveEditionLoader">
+    <div class="col-12 col-xlg-8" [class.container-loader]="saveEditionLoader">
       <app-op-zones-edition-backup-service-type-detail-form-card
         *appSkeletonCard="
           !!zoneDetail && !!zoneBackupServiceType;

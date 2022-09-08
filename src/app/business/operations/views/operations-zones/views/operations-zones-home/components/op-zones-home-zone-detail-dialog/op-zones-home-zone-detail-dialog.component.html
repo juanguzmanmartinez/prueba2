@@ -1,4 +1,8 @@
-<section class="op-zone-home-detail-dialog" app-dialog-container widthOverlay="700px">
+<section
+  class="op-zone-home-detail-dialog"
+  app-dialog-container
+  widthOverlay="700px"
+>
   <div app-dialog-close mat-dialog-close></div>
 
   <ng-container *ngIf="!errorResponse">
@@ -12,6 +16,7 @@
       <app-dialog-header svgName="navigation">
         <ng-container dialog-header-title>
           <div class="d-flex align-items-center">
+            <!-- <app-icon svgName="navigation" svgWidth="32px"> </app-icon> -->
             <app-icon
               class="me-5"
               [svgName]="segmentState ? 'ellipse-success' : 'ellipse-danger'"
@@ -165,10 +170,13 @@
           </div>
         </app-tab>
       </app-tab-group>
-      <div *ngIf="!zoneDetailLoader" [mat-dialog-close]="true" class="mt-4 d-flex justify-content-end px-5">
+      <div
+        *ngIf="!zoneDetailLoader"
+        [mat-dialog-close]="true"
+        class="mt-4 d-flex justify-content-end px-5"
+      >
         <app-button
           appearance="primary"
-      
           (clicked)="editZone()"
           innerClass="btnEditZoneStyle"
         >
@@ -176,7 +184,6 @@
         </app-button>
       </div>
     </div>
-
   </ng-container>
 
   <div *ngIf="errorResponse">
