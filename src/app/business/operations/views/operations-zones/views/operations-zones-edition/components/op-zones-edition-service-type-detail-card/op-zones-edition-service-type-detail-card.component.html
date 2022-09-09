@@ -1,21 +1,21 @@
-<app-card innerClass="px-6 pt-6 pb-15" *ngIf="zoneDetail">
-  <div class="row mb-5">
+<app-card innerClass="px-4 py-4" *ngIf="zoneDetail">
+  <div class="row mb-4">
     <div class="col-12">
-      <h5 class="text-h3 mb-0">
-        <span class="text-gray-5 mx-3">Zona principal</span>
+      <h5 class="text-h4 mb-0">
+        <span class="text-gray-7 mx-3">Zona principal</span>
       </h5>
     </div>
   </div>
   <hr class="m-0 bg-gray-3" />
-  <div class="row mt-5 mb-5">
+  <div class="row mt-4 mb-4">
     <div class="col-12 d-flex align-items-center">
       <app-icon
         class="me-5"
         [svgName]="zoneState ? 'ellipse-success' : 'ellipse-danger'"
       ></app-icon>
-      <h5 class="text-h5 mb-0 ms-3">
+      <h5 class="text-h5 text-black mb-0 ms-3">
         {{ zoneDetail.name }}
-        <span class="text-gray-5 mx-3">-</span>
+        <span class="text-gray-5"> - </span>
         <span class="text-gray-5 text-nowrap">COD {{ zoneDetail.code }}</span>
       </h5>
     </div>
@@ -24,7 +24,7 @@
   <div class="row">
     <div class="col-12">
       <app-card-static-information
-        class="d-block mb-5"
+        class="d-block mb-4"
         svgName="store"
         svgWidth="24px"
       >
@@ -36,7 +36,7 @@
       </app-card-static-information>
 
       <app-card-static-information
-        class="d-block mb-5"
+        class="d-block"
         svgName="time-circle"
         svgWidth="24px"
       >

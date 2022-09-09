@@ -5,6 +5,7 @@ import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
 import { ZoneBackupServiceType } from '../../../../models/operations-zones-service-type.model';
 import { minuteFormat } from '@helpers/date-name.helper';
+import { CStateValue } from '@models/state/state.model';
 
 @Component({
   selector: 'app-op-zones-edition-backup-service-type-detail-card',
@@ -21,6 +22,10 @@ export class OpZonesEditionBackupServiceTypeDetailCardComponent {
 
   get segmentName(): string {
     return this.serviceTypeName[this.zoneBackupServiceType.code];
+  }
+
+  get segmentState(): boolean {
+    return CStateValue[this.zoneBackupServiceType.state];
   }
 
   get startAndEndHour(): string {

@@ -1,7 +1,10 @@
 <app-card innerClass="p-5">
   <div class="row mb-5">
     <div class="col-12 d-flex align-items-center">
-      <app-icon class="me-5" svgName="ellipse-success"></app-icon>
+      <app-icon
+        class="me-5"
+        [svgName]="segmentState ? 'ellipse-success' : 'ellipse-danger'"
+      ></app-icon>
       <h4 class="text-h4 text-gray-5 mb-0 ms-3">
         <span>Servicio {{ segmentName }}</span>
       </h4>
@@ -34,7 +37,7 @@
 
         <app-form-field>
           <app-form-field-label>
-            <h5 class="text-h5 mb-5">
+            <h5 class="text-body-1-bold mb-4">
               <span class="text-black">
                 Forzar servicio en el local Backup
               </span>
@@ -74,9 +77,9 @@
       </div>
     </div>
 
-    <div class="row mt-5 mb-5">
+    <div class="row mt-7 mb-4">
       <div class="col-12">
-        <h5 class="text-h5 mb-0">
+        <h5 class="text-body-1-bold mb-0">
           <span class="text-black">
             Selecciona el valor de flete del servicio:
           </span>
@@ -124,9 +127,7 @@
       </div>
     </ng-container>
 
-    <div
-      class="card-actions d-flex-horizontal-end pt-5 border-top border-gray-1"
-    >
+    <div class="card-actions d-flex-horizontal-end pt-6">
       <app-button
         appearance="secondary"
         class="me-4"

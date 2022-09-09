@@ -57,6 +57,10 @@ export class OpZonesEditionBackupServiceTypeDetailFormCardComponent
     return this.serviceTypeName[this.zoneBackupServiceType.code];
   }
 
+  get segmentState(): boolean {
+    return CStateValue[this.zoneBackupServiceType.state];
+  }
+
   get zoneBackupPath(): string {
     return ROUTER_PATH.opZones_Zone(this.zoneBackupDetail.id);
   }

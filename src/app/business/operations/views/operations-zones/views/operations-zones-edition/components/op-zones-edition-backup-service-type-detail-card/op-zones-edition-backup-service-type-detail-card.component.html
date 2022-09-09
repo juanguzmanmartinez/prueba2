@@ -9,10 +9,13 @@
   <hr class="m-0 bg-gray-3" />
   <div class="row mb-5 mt-5">
     <div class="col-12 d-flex align-items-center">
-      <app-icon class="me-5" svgName="ellipse-success"></app-icon>
-      <h5 class="text-h5 mb-0 ms-3">
+      <app-icon
+        class="me-5"
+        [svgName]="segmentState ? 'ellipse-success' : 'ellipse-danger'"
+      ></app-icon>
+      <h5 class="text-h5 text-black mb-0 ms-3">
         {{ zoneDetail.name }}
-        <span class="text-gray-5 mx-3">-</span>
+        <span class="text-gray-5"> - </span>
         <span class="text-gray-5 text-nowrap">COD {{ zoneDetail.code }}</span>
       </h5>
     </div>
@@ -21,7 +24,7 @@
   <div class="row">
     <div class="col-12">
       <app-card-static-information
-        class="d-block mb-5"
+        class="d-block mb-4"
         svgName="store"
         svgWidth="24px"
       >
@@ -38,7 +41,7 @@
       </app-card-static-information>
 
       <app-card-static-information
-        class="d-block mb-5"
+        class="d-block mb-4"
         svgName="store"
         svgWidth="24px"
       >
@@ -50,7 +53,7 @@
       </app-card-static-information>
 
       <app-card-static-information
-        class="d-block mb-5"
+        class="d-block mb-4"
         svgName="crosshair"
         svgWidth="24px"
       >
@@ -62,7 +65,7 @@
       </app-card-static-information>
 
       <app-card-static-information
-        class="d-block mb-5"
+        class="d-block mb-4"
         svgName="time-circle"
         svgWidth="24px"
       >
@@ -73,7 +76,7 @@
       </app-card-static-information>
 
       <app-card-static-information
-        class="d-block mb-5"
+        class="d-block"
         svgName="hourglass"
         svgWidth="24px"
       >
