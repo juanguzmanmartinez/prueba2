@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { TABS } from '../constants/step-tabs.constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UploadCapacitiesStoreService {
-  private currentStep = new BehaviorSubject<string>('2');
-  private stepsTabs = new BehaviorSubject<any[]>([]);
+  private currentStep = new BehaviorSubject<string>('1');
+  private stepsTabs = new BehaviorSubject<any[]>(TABS);
   private localToEdit = new BehaviorSubject<any>({});
   private storesList = new BehaviorSubject<any[]>([]);
   private dataSource = new BehaviorSubject<any[]>([]);
+  private dataEdited = new BehaviorSubject<any[]>([]);
+
   stepsTabs$ = this.stepsTabs.asObservable();
   currentStep$ = this.currentStep.asObservable();
   constructor() {}
@@ -53,5 +56,13 @@ export class UploadCapacitiesStoreService {
 
   get getDataSource$(): Observable<any> {
     return this.dataSource.asObservable().pipe(filter((value) => !!value));
+  }
+
+  setDataEdited(dataEdited: any[]) {
+    this.dataEdited.next(dataEdited);
+  }
+
+  get getDataEdited$(): Observable<any> {
+    return this.dataEdited.asObservable().pipe(filter((value) => !!value));
   }
 }

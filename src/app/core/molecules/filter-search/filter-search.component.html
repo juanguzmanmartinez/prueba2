@@ -1,7 +1,7 @@
-<div [formGroup]="presenter.filterForm">
+<div [formGroup]="fg">
   <app-select
-    formControlName="localId"
-    placeholder="Local"
+    formControlName="code"
+    [placeholder]="placeholder"
     [multiple]="true"
     [customValue]="true"
     [value]="selectedLocals"
@@ -20,7 +20,7 @@
         innerClass="multiline"
         class="content-text"
       >
-        {{ valueSelect }}aaa
+        {{ valueSelect }}
       </app-tooltip>
     </ng-container>
   </app-select>

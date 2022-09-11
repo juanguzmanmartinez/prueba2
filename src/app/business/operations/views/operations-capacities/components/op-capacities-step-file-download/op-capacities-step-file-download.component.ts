@@ -1,34 +1,54 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import * as XLSX from 'xlsx';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-store.service';
 import { TABS } from '../../constants/step-tabs.constants';
 import { Router } from '@angular/router';
-import { CapacitiesDrugstore } from '../../models/operations-capacities-responses.model';
-import { Subscription } from 'rxjs';
-import { OpCapacitiesDrugstoreDefaultCapacityService } from '../op-capacities-drugstore-default-capacity/op-capacities-drugstore-default-capacity.service';
+
 import { ExportTableSelection } from 'app/shared/utils/export-table-selection.util';
+import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 
 @Component({
   selector: 'app-op-capacities-step-file-download',
   templateUrl: './op-capacities-step-file-download.component.html',
   styleUrls: ['./op-capacities-step-file-download.component.scss'],
+  providers: [OperationsCapacitiesImplementService],
 })
 export class OpCapacitiesStepFileDownloadComponent implements OnInit {
-  public capacitiesDrugstoreList: CapacitiesDrugstore[] = [];
-  private subscriptions = new Subscription();
-  public capacitiesDrugstoreSelection: CapacitiesDrugstore;
+  public capacitiesDrugstoreList: any[] = [
+    {
+      code: '01',
+      name: 'lima',
+      desc: 'lima',
+      hidden: false,
+    },
+    {
+      code: '02',
+      name: 'arequipa',
+      desc: 'arequipa',
+      hidden: false,
+    },
+    {
+      code: '03',
+      name: 'cuzco',
+      desc: 'cuzco',
+      hidden: false,
+    },
+    {
+      code: '04',
+      name: 'piura',
+      desc: 'piura',
+      hidden: false,
+    },
+    {
+      code: '05',
+      name: 'iquitos',
+      desc: 'iquitos',
+      hidden: false,
+    },
+  ];
+  departaments = [];
+  provinces: [];
+  districts = [];
   dataDownload = [
     {
       Servicio: 'PROG',
@@ -228,16 +248,18 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       hidden: true,
     },
   ];
-
+  stores: string[] = [];
+  disabled: boolean = true;
   fg: FormGroup;
   constructor(
     private _formBuilder: FormBuilder,
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router,
-    private _opCapacitiesDrugstoreDefaultCapacity: OpCapacitiesDrugstoreDefaultCapacityService
+    private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService
   ) {}
 
   ngOnInit(): void {
+    this._uploadCapacitiesStoreService.setStepsTabs(TABS);
     this.fg = this._formBuilder.group({
       ampm: [false],
       scheduled: [false],
@@ -248,15 +270,16 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       distrito: [''],
       local: [''],
     });
+    let plin = this._operationsCapacitiesImplementService
+      .getDepartamentClient$()
+      .subscribe((res) => {});
   }
 
   @Input() data: any[] = [];
 
-  selectionChange(ev) {
-    console.log('e', ev);
-  }
-
   nextStep(e: any) {
+    if (this.stores.length == 0) return;
+    this.disabled = false;
     this._uploadCapacitiesStoreService.setCurrentStep('2');
   }
   cancelStep(e: any) {
@@ -265,24 +288,43 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     this._router.navigate(['/operaciones/capacidades']);
   }
 
-  updateDefaultCapacityDrugstoreList(): void {
-    const subscription =
-      this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList$.subscribe(
-        (capacitiesDrugstoreList) => {
-          this.capacitiesDrugstoreList = capacitiesDrugstoreList;
-          this.changeCapacitiesDrugstoreSelection(capacitiesDrugstoreList[0]);
-        }
-      );
-    this.subscriptions.add(subscription);
-  }
-  changeCapacitiesDrugstoreSelection(
-    capacitiesDrugstore: CapacitiesDrugstore
-  ): void {
-    this.capacitiesDrugstoreSelection = capacitiesDrugstore;
-    this._opCapacitiesDrugstoreDefaultCapacity.drugstoreSelection =
-      capacitiesDrugstore;
-  }
   downloadData() {
-    ExportTableSelection.exportArrayToExcel(this.dataDownload, 'locales');
+    const ampm = this.fg.controls.ampm.value ? 'AM/PM,' : '';
+    const ret = this.fg.controls.ret.value ? 'RET,' : '';
+    const exp = this.fg.controls.express.value ? 'EXP,' : '';
+    const prog = this.fg.controls.scheduled.value ? 'PROG,' : '';
+    const params = `${ampm}${ret}${exp}${prog}`;
+
+    this._operationsCapacitiesImplementService
+      .getCapcitiesTemplateClient$(this.stores, params)
+      .subscribe((res) => {});
+    ExportTableSelection.exportArrayToExcel(
+      this.dataDownload,
+      'Plantilla descarga capacidades'
+    );
+  }
+  getlistDepartaments(e) {
+    let code = e.join(',');
+    this._operationsCapacitiesImplementService
+      .getProvincesClient$(code)
+      .subscribe((res) => console.log(res));
+  }
+  getlistProvinces(e) {
+    let code = e.join(',');
+    this._operationsCapacitiesImplementService
+      .getDistrictsClient$(code)
+      .subscribe((res) => console.log(res));
+  }
+  getlistDistricts(e) {
+    let code = e.join(',');
+    this._operationsCapacitiesImplementService
+      .getStoresClient$(code)
+      .subscribe((res) => console.log(res));
+  }
+  getlistStores(e) {
+    this.stores = e;
+    if (this.stores.length == 0) return;
+    this.disabled = false;
+    this.fg.controls;
   }
 }

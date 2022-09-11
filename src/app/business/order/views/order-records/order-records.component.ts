@@ -153,7 +153,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.add(subscription);
     this.getListStore();
     this.filterAll();
-    console.log(this.presenter.getFilters(), 'presenter');
   }
 
   getListStore(): void {
@@ -317,11 +316,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     const orderIdsSelected = this.fixedSelectedRows.map(
       (orderSelected) => orderSelected.orderId
     );
-    console.log('orderIdsSelected', orderIdsSelected);
 
     this.dataSource.data.forEach((orderTable) => {
-      // console.log('orderTable', orderTable);
-
       if (!orderIdsSelected.includes(orderTable.orderId)) {
         allSelected = false;
         return;

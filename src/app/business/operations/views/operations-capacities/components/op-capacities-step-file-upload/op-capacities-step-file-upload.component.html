@@ -4,6 +4,7 @@
   (next)="nextStep($event)"
   (cancel)="cancelStep($event)"
   [textButtonCancel]="textButton"
+  [disableNext]="disableNext"
 >
   <h3 class="text-h4 text-black mt-4">
     Adjunta o arrastra la plantilla con la información de las capacidades:
@@ -16,6 +17,7 @@
         accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         #inputRef
         (change)="fileBrowseHandler($event)"
+        multiple="false"
       />
       <div class="container-upload-file">
         <app-button
@@ -37,6 +39,7 @@
         accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         #inputRef
         (change)="fileBrowseHandler($event)"
+        multiple="false"
       />
       <app-icon svgName="excel" svgWidth="36px" innerClass="fp-mr-8"></app-icon>
       <span class="text-file text-h5 mt-4">{{ fileName }}</span>

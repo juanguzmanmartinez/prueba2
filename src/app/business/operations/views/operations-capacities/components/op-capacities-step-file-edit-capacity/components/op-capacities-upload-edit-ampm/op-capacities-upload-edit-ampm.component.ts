@@ -12,14 +12,11 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
   @ViewChild('inputAmpm') inputAmpm;
   private subscriptions = new Subscription();
 
-  ampm = [
-    { id: 0, segment: '08:00 am - 02:00 pm', capacity: 6 },
-    { id: 1, segment: '02:00 pm - 08:00 pm', capacity: 10 },
-    { id: 2, segment: '08:00 pm - 08:30 pm', capacity: 2 },
-  ];
+  ampm = [];
   displayedColumns: string[] = ['seleccion', 'horario', 'capacidad'];
-
-  mostrar: any = [];
+  elementToEdit;
+  datos;
+  showData: any = [];
   selection = new SelectionModel(true, []);
 
   private fixedSelectedRows: any[] = [];
@@ -32,10 +29,8 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
     const subscription =
       this._uploadCapacitiesStoreService.getElementToEdit$.subscribe(
         (element) => {
-          console.log('elementen', element);
-
-          // this.dataSource = element;
-          // this.ampm = element.ampm;
+          this.elementToEdit = element;
+          this.ampm = element.ampm;
           // this.ret = element.ret;
           // this.scheduled = element.scheduled;
         }
@@ -52,7 +47,7 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
     const orderIdsSelected = this.fixedSelectedRows.map(
       (orderSelected) => orderSelected.id
     );
-    this.mostrar = orderIdsSelected;
+    this.showData = orderIdsSelected;
     this.ampm.forEach((orderTable) => {
       if (!orderIdsSelected.includes(orderTable.id)) {
         allSelected = false;
@@ -67,14 +62,12 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
     this.isAllSelected()
       ? this.selection.clear()
       : this.ampm.forEach((row) => {
-          this.mostrar = [];
+          this.showData = [];
           this.selection.select(row);
         });
-    this.isAllSelected() ? console.log('si') : console.log('no');
   }
 
   selectRoiw(row) {
-    console.log('row', row);
     this.selection.toggle(row);
   }
 
@@ -85,28 +78,34 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
           ...item,
           capacity:
             e.target.value != undefined && e.target.value != ''
-              ? e.target.value
+              ? Number(e.target.value)
               : 0,
         };
       } else {
         return item;
       }
     });
+    this.setElementToEdit();
   }
   setManyAmpm() {
-    console.log('input', this.inputAmpm.inputValue);
-
     this.ampm.map((item) => {
-      this.mostrar.map((pla) => {
+      this.showData.map((pla) => {
         if (pla == item.id) {
-          console.log('iguales');
-
           return (item.capacity = this.inputAmpm.inputValue);
         }
       });
     });
+    this.setElementToEdit();
   }
 
+  setElementToEdit() {
+    this.elementToEdit.ampm = this.ampm;
+    this.elementToEdit.ampmTotalCapacity = this.getTotalCapacityAmpm;
+    const subscription = this._uploadCapacitiesStoreService.setElementToEdit(
+      this.elementToEdit
+    );
+    this.subscriptions.add(subscription);
+  }
   get getTotalCapacityAmpm() {
     return this.ampm.reduce((a, { capacity }) => a + capacity, 0);
   }

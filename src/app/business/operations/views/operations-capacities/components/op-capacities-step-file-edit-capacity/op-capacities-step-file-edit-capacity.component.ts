@@ -13,6 +13,7 @@ export class OpCapacitiesStepFileEditCapacityComponent
   implements OnInit, OnDestroy
 {
   @ViewChild('inputAmpm') inputAmpm;
+  textButtonNext = 'Cargar capacidades';
   private subscriptions = new Subscription();
 
   displayedColumns: string[] = ['seleccion', 'horario', 'capacidad'];
@@ -20,93 +21,11 @@ export class OpCapacitiesStepFileEditCapacityComponent
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router
   ) {}
-  dataSource = {
-    code: 'AF8',
-    local: 'LOS OLIVOS',
-    ampm: [
-      {
-        segment: '08:00 am - 02:00 pm',
-        capacity: 6,
-      },
-      {
-        segment: '02:00 pm - 08:00 pm',
-        capacity: 10,
-      },
-      {
-        segment: '08:00 pm - 08:30 pm',
-        capacity: 2,
-      },
-    ],
-    scheduled: [
-      {
-        segment: '08:00 am - 11:00 am',
-        capacity: 1,
-      },
-      {
-        segment: '02:00 pm - 05:00 pm',
-        capacity: 3,
-      },
-      {
-        segment: '05:00 pm - 08:00 pm',
-        capacity: 4,
-      },
-      {
-        segment: '08:00 pm - 11:00 pm',
-        capacity: 5,
-      },
-    ],
-    express: [
-      {
-        segment: '-',
-        capacity: 1,
-      },
-    ],
-    ret: [
-      {
-        segment: '08:00 am - 11:00 am',
-        capacity: 23,
-      },
-      {
-        segment: '11:00 am - 02:00 pm',
-        capacity: 2,
-      },
-      {
-        segment: '02:00 pm - 05:00 pm',
-        capacity: 5,
-      },
-      {
-        segment: '05:00 pm - 08:00 pm',
-        capacity: 0,
-      },
-    ],
-    ampmTotalCapacity: 18,
-    expTotalCapacity: 1,
-    scheTotalCapacity: 13,
-    retTotalCapacity: 30,
-  };
-  ampm = [
-    { id: 0, segment: '08:00 am - 02:00 pm', capacity: 6 },
-    { id: 1, segment: '02:00 pm - 08:00 pm', capacity: 10 },
-    { id: 2, segment: '08:00 pm - 08:30 pm', capacity: 2 },
-  ];
-  ret = [
-    { id: 0, segment: '08:00 am - 11:00 am', capacity: 23 },
-    { id: 1, segment: '11:00 am - 02:00 pm', capacity: 2 },
-    { id: 2, segment: '02:00 pm - 05:00 pm', capacity: 5 },
-    { id: 3, segment: '05:00 pm - 08:00 pm', capacity: 0 },
-  ];
-  scheduled = [
-    { id: 0, segment: '08:00 am - 11:00 am', capacity: 1 },
-    { id: 1, segment: '02:00 pm - 05:00 pm', capacity: 3 },
-    { id: 2, segment: '05:00 pm - 08:00 pm', capacity: 4 },
-    { id: 3, segment: '08:00 pm - 11:00 pm', capacity: 5 },
-  ];
-  express = [
-    {
-      segment: '-',
-      capacity: 1,
-    },
-  ];
+  elementToEdit = { code: '', local: '' };
+  ampm = [];
+  ret = [];
+  scheduled = [];
+  express = [];
 
   mostrar: any = [];
   selection = new SelectionModel(true, []);
@@ -117,12 +36,11 @@ export class OpCapacitiesStepFileEditCapacityComponent
     const subscription =
       this._uploadCapacitiesStoreService.getElementToEdit$.subscribe(
         (element) => {
-          console.log('elementen', element);
-
-          // this.dataSource = element;
-          // this.ampm = element.ampm;
-          // this.ret = element.ret;
-          // this.scheduled = element.scheduled;
+          this.elementToEdit = element;
+          this.ampm = element.ampm;
+          this.ret = element.ret;
+          this.scheduled = element.scheduled;
+          this.express = element.express;
         }
       );
     this.subscriptions.add(subscription);
@@ -156,12 +74,6 @@ export class OpCapacitiesStepFileEditCapacityComponent
           this.mostrar = [];
           this.selection.select(row);
         });
-    this.isAllSelected() ? console.log('si') : console.log('no');
-  }
-
-  selectRoiw(row) {
-    console.log('row', row);
-    this.selection.toggle(row);
   }
 
   changeAmpm(e, row) {
@@ -180,13 +92,9 @@ export class OpCapacitiesStepFileEditCapacityComponent
     });
   }
   setManyAmpm() {
-    console.log('input', this.inputAmpm.inputValue);
-
     this.ampm.map((item) => {
       this.mostrar.map((pla) => {
         if (pla == item.id) {
-          console.log('iguales');
-
           return (item.capacity = this.inputAmpm.inputValue);
         }
       });
@@ -194,19 +102,14 @@ export class OpCapacitiesStepFileEditCapacityComponent
   }
 
   nextStep(e) {
-    this.dataSource = { ...this.dataSource, ampm: this.ampm };
-    const subscription =
-      this._uploadCapacitiesStoreService.getDataSource$.subscribe((element) => {
-        console.log('elementen', element);
+    // let nuevadata = [];
+    // const subscription =
+    //   this._uploadCapacitiesStoreService.getDataSource$.subscribe(
+    //     (element) => {}
+    //   );
+    // this.subscriptions.add(subscription);
 
-        element.map((item) => this.dataSource.code === item.code);
-        // this.dataSource = element;
-        // this.ampm = element.ampm;
-        // this.ret = element.ret;
-        // this.scheduled = element.scheduled;
-      });
-    this.subscriptions.add(subscription);
-    // this._uploadCapacitiesStoreService.setCurrentStep('3');
+    this._uploadCapacitiesStoreService.setCurrentStep('3');
   }
   cancelStep(e) {}
 
@@ -215,7 +118,7 @@ export class OpCapacitiesStepFileEditCapacityComponent
   }
 
   get getTitle() {
-    return `${this.dataSource.code} - ${this.dataSource.local}: Editar capacidad`;
+    return `${this.elementToEdit.code} - ${this.elementToEdit.local}: Editar capacidad`;
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

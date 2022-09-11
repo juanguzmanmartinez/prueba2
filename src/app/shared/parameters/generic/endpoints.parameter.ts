@@ -4,7 +4,7 @@ export const API_GATEWAY = `${environment.api_gateway}`;
 export const API_GATEWAY_ORDER = `${environment.api_gateway_order}`;
 export const API_GATEWAY_AUTH = `${environment.api_gateway_auth}`;
 export const DATA_STUDIO = `${environment.dataStudio}`;
-
+export const API_GATEWAY_CI02_TEST = `${environment.api_gateway_ci02_test}`;
 export class EndpointsParameter {
   public static AUTH_TOKEN = `${API_GATEWAY_AUTH}/oauth/token`;
   public static AUTH_SEND_CODE = `${API_GATEWAY_AUTH}/restorepassword/email`;
@@ -36,4 +36,11 @@ export class EndpointsParameter {
   public static ORDER_DETAIL = `${API_GATEWAY_ORDER}/order/detail`;
   public static ORDER_STATUS = `${API_GATEWAY_ORDER}/order/status/groupByName`;
   public static ORDER_REPORT = `${API_GATEWAY_ORDER}/order/selected`;
+
+  public static DEPARTAMENTS = `${API_GATEWAY_CI02_TEST}/ubigeo/departments`;
+  public static PROVINCES = `${API_GATEWAY_CI02_TEST}/ubigeo/provinces`;
+  public static DISTRICS = `${API_GATEWAY_CI02_TEST}/ubigeo/districts`;
+  public static STORES_LIST = `${API_GATEWAY_CI02_TEST}/ubigeo/stores`;
+
+  public static CAPACITY_TEMPLATE = `${API_GATEWAY_CI02_TEST}/fulfillment/store/capacity/template`;
 }

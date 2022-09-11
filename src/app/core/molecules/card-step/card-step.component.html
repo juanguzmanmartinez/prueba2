@@ -24,6 +24,7 @@
             class="me-md-4"
             innerClass="w-100 w-md-auto"
             (clicked)="cancel.emit()"
+            [disabled]="disableCancel"
           >
             {{ textButtonCancel }}
           </app-button>
@@ -32,6 +33,7 @@
             class="mb-4 mb-md-0"
             innerClass="w-100 w-md-auto"
             (clicked)="next.emit()"
+            [disabled]="disableNext"
           >
             {{ textButtonNext }}
           </app-button>

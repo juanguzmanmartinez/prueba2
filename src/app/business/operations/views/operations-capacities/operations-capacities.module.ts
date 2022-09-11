@@ -57,6 +57,8 @@ import { OpCapacitiesUploadEditRetComponent } from './components/op-capacities-s
 import { OpCapacitiesUploadEditExpressComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-express/op-capacities-upload-edit-express.component';
 import { OpCapacitiesUploadEditScheduledComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-scheduled/op-capacities-upload-edit-scheduled.component';
 import { OpCapacitiesUploadDeleteDialogComponent } from './components/op-capacities-step-file-confirmation/components/op-capacities-upload-delete-dialog/op-capacities-upload-delete-dialog.component';
+import { FormFieldModule } from '@molecules/form-field/form-field.module';
+import { FilterSearchModule } from '@molecules/filter-search/filter-search.module';
 
 @NgModule({
   declarations: [
@@ -117,6 +119,8 @@ import { OpCapacitiesUploadDeleteDialogComponent } from './components/op-capacit
     CardStepModule,
     StepTabsModule,
     LocalFilterModule,
+    FormFieldModule,
+    FilterSearchModule,
   ],
   providers: [OperationsCapacitiesImplementService],
 })

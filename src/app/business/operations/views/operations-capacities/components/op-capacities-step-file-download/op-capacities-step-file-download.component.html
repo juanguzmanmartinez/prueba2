@@ -2,6 +2,7 @@
   title="Descargar plantilla"
   (next)="nextStep($event)"
   (cancel)="cancelStep($event)"
+  [disableNext]="disabled"
 >
   <div class="disclaimer">
     <app-icon
@@ -49,96 +50,36 @@
       </p>
       <div class="row">
         <div class="col-6">
-          <p>Departamento</p>
-          <app-select
-            formControlName="departamento"
+          <app-form-field-label>Departamento</app-form-field-label>
+          <app-filter-search
+            [listOptions]="capacitiesDrugstoreList"
+            (filter)="getlistDepartaments($event)"
             placeholder="Selecciona un departamento"
-            [customValue]="true"
-            [optionList]="filtros"
-            (optionChange)="selectionChange($event)"
-          >
-            <!-- <ng-container trigger>
-            <app-icon [fontName]="valueSelect.icon"></app-icon>
-            {{ valueSelect.name }}
-          </ng-container>
-          <ng-template let-type>
-            <app-icon [fontName]="type.icon" fontSize="16px"></app-icon>
-            {{ type.name }}
-          </ng-template> -->
-          </app-select>
+          ></app-filter-search>
         </div>
         <div class="col-6">
-          <p>Provincia</p>
-          <app-select
-            formControlName="provincia"
+          <app-form-field-label>Provincia</app-form-field-label>
+          <app-filter-search
+            [listOptions]="capacitiesDrugstoreList"
+            (filter)="getlistProvinces($event)"
             placeholder="Selecciona una provincia"
-            [customValue]="true"
-            [optionList]="filtros"
-            (optionChange)="selectionChange($event)"
-          >
-            <!-- <ng-container trigger>
-            <app-icon [fontName]="valueSelect.icon"></app-icon>
-            {{ valueSelect.name }}
-          </ng-container>
-          <ng-template let-type>
-            <app-icon [fontName]="type.icon" fontSize="16px"></app-icon>
-            {{ type.name }}
-          </ng-template> -->
-          </app-select>
+          ></app-filter-search>
         </div>
         <div class="col-6 mt-4">
-          <p>Distrito</p>
-          <app-select
-            formControlName="distrito"
+          <app-form-field-label>Distrito</app-form-field-label>
+          <app-filter-search
+            [listOptions]="capacitiesDrugstoreList"
+            (filter)="getlistDistricts($event)"
             placeholder="Selecciona un distrito"
-            [customValue]="true"
-            [optionList]="filtros"
-            (optionChange)="selectionChange($event)"
-          >
-            <!-- <ng-container trigger>
-            <app-icon [fontName]="valueSelect.icon"></app-icon>
-            {{ valueSelect.name }}
-          </ng-container>
-          <ng-template let-type>
-            <app-icon [fontName]="type.icon" fontSize="16px"></app-icon>
-            {{ type.name }}
-          </ng-template> -->
-          </app-select>
+          ></app-filter-search>
         </div>
         <div class="col-6 mt-4">
-          <p>Local</p>
-
-          <app-select-search
-            (optionSelected)="changeCapacitiesDrugstoreSelection($event)"
-            [optionList]="capacitiesDrugstoreList"
-            [value]="capacitiesDrugstoreSelection"
-            class="drugstore-capacity-select d-block d-md-inline-block"
+          <app-form-field-label>Local</app-form-field-label>
+          <app-filter-search
+            [listOptions]="capacitiesDrugstoreList"
+            (filter)="getlistStores($event)"
             placeholder="Selecciona un local"
-          >
-            <ng-template #optionSelectedTemplate let-optionSelected
-              >{{ optionSelected?.drugstoreCode }}
-              {{ optionSelected?.name }}</ng-template
-            >
-            <ng-template #optionTemplate let-option
-              >{{ option.drugstoreCode }} {{ option.name }}</ng-template
-            >
-          </app-select-search>
-          <!-- <app-select
-            formControlName="local"
-            placeholder="Selecciona un local"
-            [customValue]="true"
-            [optionList]="filtros"
-            (optionChange)="selectionChange($event)"
-          > -->
-          <!-- <ng-container trigger>
-            <app-icon [fontName]="valueSelect.icon"></app-icon>
-            {{ valueSelect.name }}
-          </ng-container>
-          <ng-template let-type>
-            <app-icon [fontName]="type.icon" fontSize="16px"></app-icon>
-            {{ type.name }}
-          </ng-template> -->
-          <!-- </app-select> -->
+          ></app-filter-search>
         </div>
       </div>
       <div class="row mt-4">

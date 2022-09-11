@@ -10,7 +10,7 @@
   <div class="mt-5 mb-5">
     <app-tab-group>
       <app-tab *ngIf="ampm && ampm.length > 0" label="AM/PM">
-        <div>
+        <!-- <div>
           <p class="d-block text-h5 text-black mt-6 mb-5">
             Selecciona los servicios para cargar las capacidades:
           </p>
@@ -91,11 +91,11 @@
               Capacidad total {{ getTotalCapacityAmpm }}
             </p>
           </div>
-        </div>
-        <!-- <app-op-capacities-upload-edit-ampm></app-op-capacities-upload-edit-ampm> -->
+        </div> -->
+        <app-op-capacities-upload-edit-ampm></app-op-capacities-upload-edit-ampm>
       </app-tab>
       <app-tab *ngIf="scheduled && scheduled.length > 0" label="Programado">
-        <div>
+        <!-- <div>
           <p class="d-block text-h5 text-black mt-6 mb-5">
             Selecciona los servicios para cargar las capacidades:
           </p>
@@ -159,10 +159,11 @@
               ></tr>
             </table>
           </div>
-        </div>
+        </div> -->
+        <app-op-capacities-upload-edit-scheduled></app-op-capacities-upload-edit-scheduled>
       </app-tab>
       <app-tab *ngIf="express && express.length > 0" label="Express">
-        <div>
+        <!-- <div>
           <p class="d-block text-h5 text-black mt-6 mb-5">
             Selecciona los servicios para cargar las capacidades:
           </p>
@@ -226,10 +227,11 @@
               ></tr>
             </table>
           </div>
-        </div>
+        </div> -->
+        <app-op-capacities-upload-edit-express></app-op-capacities-upload-edit-express>
       </app-tab>
       <app-tab *ngIf="ret && ret.length > 0" label="RET">
-        <div>
+        <!-- <div>
           <p class="d-block text-h5 text-black mt-6 mb-5">
             Selecciona los servicios para cargar las capacidades:
           </p>
@@ -288,7 +290,8 @@
               ></tr>
             </table>
           </div>
-        </div>
+        </div> -->
+        <app-op-capacities-upload-edit-ret></app-op-capacities-upload-edit-ret>
       </app-tab>
     </app-tab-group>
   </div>
