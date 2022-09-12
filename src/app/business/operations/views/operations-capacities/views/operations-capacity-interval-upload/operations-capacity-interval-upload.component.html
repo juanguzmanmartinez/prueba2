@@ -12,17 +12,11 @@
       </h1>
     </div>
   </div>
-  <!-- <app-step-tabs [tabs]="stepTabs"></app-step-tabs>
-  <ng-container *ngIf="currentStep == '1'">
-    <app-op-capacities-step-file-download></app-op-capacities-step-file-download>
+  <app-step-tabs [tabs]="TABS"></app-step-tabs>
+  <ng-container>
+    <app-op-capacities-interval-step-upload></app-op-capacities-interval-step-upload>
   </ng-container>
-  <ng-container *ngIf="currentStep == '2'">
-    <app-op-capacities-step-file-upload></app-op-capacities-step-file-upload>
+  <ng-container>
+    <app-op-capacities-interval-step-confirmation></app-op-capacities-interval-step-confirmation>
   </ng-container>
-  <ng-container *ngIf="currentStep == '3'">
-    <app-op-capacities-step-file-confirmation></app-op-capacities-step-file-confirmation>
-  </ng-container>
-  <ng-container *ngIf="currentStep == '0'">
-    <app-op-capacities-step-file-edit-capacity></app-op-capacities-step-file-edit-capacity>
-  </ng-container> -->
 </section>

@@ -8,6 +8,21 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./operations-capacity-interval-upload.component.scss'],
 })
 export class OperationsCapacityIntervalUploadComponent implements OnInit {
+  TABS = [
+    {
+      flow: 'done',
+      status: 'Carga de documento',
+      last: false,
+      step: 'first',
+    },
+    {
+      flow: 'pending',
+      status: 'Confirmación',
+      last: false,
+      step: 'last',
+    },
+  ];
+
   // private subscriptions = new Subscription();
   // stepTabs = [];
   // currentStep: string = '1';
