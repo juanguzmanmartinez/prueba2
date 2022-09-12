@@ -48,7 +48,7 @@ export class SelectSearchComponent<T>
   @Input() clearValue: string;
   @Input() selectId: string | number = 'select-search';
   @Input() showIconSvg: boolean = false;
-
+  @Input() showArrowSvg: boolean = true;
   @Input('value')
   set value(option: T) {
     this.validValue(option);

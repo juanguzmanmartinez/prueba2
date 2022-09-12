@@ -48,6 +48,9 @@ import { CardStepModule } from '@molecules/card-step/card-step.module';
 import { SwitchModule } from '@atoms/switch/switch.module';
 import { OperationsCapacityIntervalExpressListComponent } from './views/operations-capacity-interval-express-list/operations-capacity-interval-express-list.component';
 import { OperationsCapacityIntervalExpressUploadComponent } from './views/operations-capacity-interval-express-upload/operations-capacity-interval-express-upload.component';
+import { OperationsCapacityIntervalComponent } from './views/operations-capacity-interval/operations-capacity-interval.component';
+import { SelectModule } from '@atoms/select/select.module';
+import { OperationsCapacityIntervalUploadComponent } from './views/operations-capacity-interval-upload/operations-capacity-interval-upload.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +73,8 @@ import { OperationsCapacityIntervalExpressUploadComponent } from './views/operat
     OpIntervalsStepSetExpressComponent,
     OperationsCapacityIntervalExpressListComponent,
     OperationsCapacityIntervalExpressUploadComponent,
+    OperationsCapacityIntervalComponent,
+    OperationsCapacityIntervalUploadComponent,
   ],
   imports: [
     CommonModule,
@@ -101,6 +106,7 @@ import { OperationsCapacityIntervalExpressUploadComponent } from './views/operat
     DropOptionsModule,
     CardStepModule,
     SwitchModule,
+    SelectModule,
   ],
   providers: [OperationsCapacitiesImplementService],
 })

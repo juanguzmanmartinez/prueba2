@@ -1,29 +1,30 @@
 <label class="input-label" [ngClass]="labelClass">
   <div class="container-input">
-  <input
-    class="input-basic"
-    [style.padding-right]="buttonClear ? '35px' : ''"
-    [class.input-error]="error"
-    [ngClass]="innerClass"
-    [id]="id"
-    [name]="name"
-    [type]="behavior"
-    [placeholder]="placeholder"
-    [disabled]="disabled"
-    [(ngModel)]="inputValue"
-    [readonly]="readOnly"
-    [maxlength]="maxLength"
-    (ngModelChange)="changeInputValue()"
-    (blur)="onBlur($event)"
-    (focus)="onFocus($event)"/>
-
+    <input
+      class="input-basic"
+      [style.padding-right]="buttonClear ? '35px' : ''"
+      [class.input-error]="error"
+      [ngClass]="innerClass"
+      [id]="id"
+      [name]="name"
+      [type]="behavior"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [(ngModel)]="inputValue"
+      [readonly]="readOnly"
+      [maxlength]="maxLength"
+      (ngModelChange)="changeInputValue()"
+      (blur)="onBlur($event)"
+      (focus)="onFocus($event)"
+    />
 
     <app-icon
       *ngIf="buttonClear && inputValue"
       (click)="clearValue()"
       class="close"
-      fontName="close" fontSize="16px">
+      fontName="close"
+      fontSize="16px"
+    >
     </app-icon>
   </div>
 </label>
-

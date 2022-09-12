@@ -1,1 +1,32 @@
-<p>sidenav-capacity works!</p>
+<div *appRouterAccess="routerPath.order">
+  <app-sidenav-route-expansion
+    [disableChildren]="!sidenav?.opened"
+    [routePathOptions]="{ exact: sidenav?.opened }"
+    [routePath]="routerPath.order"
+    [routeText]="sidenavRouting.name"
+    [routeIcon]="sidenavRouting.iconMenu"
+    (sidenavOpen)="onSidenavOpen()"
+  >
+    <app-sidenav-route
+      *appRouterAccess="routerPath.capacitiesPath"
+      [routePathOptions]="{ exact: false }"
+      [routePath]="[routerPath.capacitiesPath]"
+      routeText="Configurar capacidades base"
+    >
+    </app-sidenav-route>
+    <app-sidenav-route
+      *appRouterAccess="routerPath.intervalPath"
+      [routePathOptions]="{ exact: false }"
+      [routePath]="[routerPath.intervalPath]"
+      routeText="Editar interval time flexible"
+    >
+    </app-sidenav-route>
+    <app-sidenav-route
+      *appRouterAccess="routerPath.reportPath"
+      [routePathOptions]="{ exact: false }"
+      [routePath]="[routerPath.reportPath]"
+      routeText="Reporte de capacidades"
+    >
+    </app-sidenav-route>
+  </app-sidenav-route-expansion>
+</div>

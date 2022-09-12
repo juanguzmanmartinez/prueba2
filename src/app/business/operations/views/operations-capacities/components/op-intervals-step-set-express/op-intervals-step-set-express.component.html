@@ -21,14 +21,28 @@
       para este local
     </p>
   </div>
-  <div class="row">
+  <div class="row mb-5">
     <form [formGroup]="fg">
-      <p class="d-block text-h5 text-black mt-6 mb-5">
+      <p class="d-block text-h5 text-black mt-4 mb-2">
         Capacidad e interval time base:
+      </p>
+      <div class="row mt-3">
+        <div class="col-6">
+          <p>Capacidad</p>
+          <app-input placeholder="100 transportistas"></app-input>
+        </div>
+        <div class="col-6">
+          <p>Interval time</p>
+          <app-input placeholder="60 minutos"></app-input>
+        </div>
+      </div>
+      <p class="d-block text-h5 text-black mt-4 mb-2">
+        Capacidad e interval time flexible:
       </p>
       <div class="row d-flex justify-content-between">
         <div class="col-6">
-          <app-input></app-input>
+          <p>Consumo de capacidad mayor a:</p>
+          <app-input placeholder="45 %"></app-input>
         </div>
         <div class="d-flex justify-content-center align-items-center col-6">
           <app-icon
@@ -44,17 +58,14 @@
           </p>
         </div>
       </div>
-      <p class="d-block text-h5 text-black mt-5">
-        Selecciona la ubicación de los locales:
-      </p>
-      <div class="row">
+      <div class="row mt-3">
         <div class="col-6">
-          <p>Departamento</p>
-          <app-input></app-input>
+          <p>Incremento de capacidad (transportistas)</p>
+          <app-input placeholder="15"></app-input>
         </div>
         <div class="col-6">
-          <p>Provincia</p>
-          <app-input></app-input>
+          <p>Incremento de Interval time (minutos)</p>
+          <app-input placeholder="30"></app-input>
         </div>
       </div>
     </form>
