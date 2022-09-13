@@ -4,7 +4,13 @@ import { AlertService } from '@molecules/alert/alert.service';
 import * as XLSX from 'xlsx';
 import { TABS } from '../../constants/step-tabs.constants';
 import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-store.service';
-
+interface A {
+  service: string;
+  storeCode: string;
+  storeName: string;
+  timeRange: string;
+  capacity: number;
+}
 @Component({
   selector: 'app-op-capacities-step-file-upload',
   templateUrl: './op-capacities-step-file-upload.component.html',
@@ -57,6 +63,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
           }
         );
         this.disableNext = false;
+        console.log('dataTosStore', dataTosStore);
       } catch (error) {
         this._alertService.alertError(
           'Verifique si la plantilla es la correcta'
@@ -81,5 +88,19 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
     this._uploadCapacitiesStoreService.setStoreList([]);
     this._uploadCapacitiesStoreService.setCurrentStep('1');
+  }
+  instanceOfA(object: any): object is A {
+    console.log("'member' in object", 'member' in object);
+
+    return 'member' in object;
+  }
+
+  execute() {
+    var a: any = { members: 'foobar', pli: 'ddddddddd' };
+    console.log('this.instanceOfA(a)', this.instanceOfA(a));
+
+    if (this.instanceOfA(a)) {
+      alert(a.service);
+    }
   }
 }

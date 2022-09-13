@@ -37,10 +37,10 @@ export class EndpointsParameter {
   public static ORDER_STATUS = `${API_GATEWAY_ORDER}/order/status/groupByName`;
   public static ORDER_REPORT = `${API_GATEWAY_ORDER}/order/selected`;
 
-  public static DEPARTAMENTS = `${API_GATEWAY_CI02_TEST}/ubigeo/departments`;
-  public static PROVINCES = `${API_GATEWAY_CI02_TEST}/ubigeo/provinces`;
-  public static DISTRICS = `${API_GATEWAY_CI02_TEST}/ubigeo/districts`;
-  public static STORES_LIST = `${API_GATEWAY_CI02_TEST}/ubigeo/stores`;
+  public static DEPARTAMENTS = `${API_GATEWAY}/ubigeo/departments`;
+  public static PROVINCES = `${API_GATEWAY}/ubigeo/provinces`;
+  public static DISTRICS = `${API_GATEWAY}/ubigeo/districts`;
+  public static STORES_LIST = `${API_GATEWAY}/ubigeo/stores`;
 
-  public static CAPACITY_TEMPLATE = `${API_GATEWAY_CI02_TEST}/fulfillment/store/capacity/template`;
+  public static CAPACITY_TEMPLATE = `${API_GATEWAY}/fulfillment/store/capacity/template`;
 }

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import { ExportTableSelection } from 'app/shared/utils/export-table-selection.util';
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-op-capacities-step-file-download',
@@ -14,6 +15,7 @@ import { OperationsCapacitiesImplementService } from '../../implements/operation
   providers: [OperationsCapacitiesImplementService],
 })
 export class OpCapacitiesStepFileDownloadComponent implements OnInit {
+  private subscriptions = new Subscription();
   public capacitiesDrugstoreList: any[] = [
     {
       code: '01',
@@ -270,9 +272,20 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       distrito: [''],
       local: [''],
     });
-    let plin = this._operationsCapacitiesImplementService
+    const subscription = this._operationsCapacitiesImplementService
       .getDepartamentClient$()
-      .subscribe((res) => {});
+      .subscribe((res) => {
+        console.log('res', res);
+        this.departaments = res.map((item) => {
+          return {
+            ...item,
+            hidden: false,
+            desc: item.name,
+          };
+        });
+        console.log('this.departaments', this.departaments);
+      });
+    this.subscriptions.add(subscription);
   }
 
   @Input() data: any[] = [];
