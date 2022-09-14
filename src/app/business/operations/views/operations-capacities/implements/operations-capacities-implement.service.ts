@@ -148,6 +148,8 @@ export class OperationsCapacitiesImplementService {
   getDepartamentClient$(): Observable<any[]> {
     return this.calendarClient.getDepartamentsList$().pipe(
       map((drugstoreList) => {
+        console.log('drugstoreList', drugstoreList);
+
         return drugstoreList;
       })
     );

@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { ExportTableSelection } from 'app/shared/utils/export-table-selection.util';
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { Subscription } from 'rxjs';
+import { OperationsCapacityHomeStoreService } from '../../views/operations-capacity-home/store/operations-capacity-home-store.service';
+import { OpCapacitiesDrugstoreDefaultCapacityService } from '../op-capacities-drugstore-default-capacity/op-capacities-drugstore-default-capacity.service';
 
 @Component({
   selector: 'app-op-capacities-step-file-download',
@@ -16,41 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class OpCapacitiesStepFileDownloadComponent implements OnInit {
   private subscriptions = new Subscription();
-  public capacitiesDrugstoreList: any[] = [
-    {
-      code: '01',
-      name: 'lima',
-      desc: 'lima',
-      hidden: false,
-    },
-    {
-      code: '02',
-      name: 'arequipa',
-      desc: 'arequipa',
-      hidden: false,
-    },
-    {
-      code: '03',
-      name: 'cuzco',
-      desc: 'cuzco',
-      hidden: false,
-    },
-    {
-      code: '04',
-      name: 'piura',
-      desc: 'piura',
-      hidden: false,
-    },
-    {
-      code: '05',
-      name: 'iquitos',
-      desc: 'iquitos',
-      hidden: false,
-    },
-  ];
-  departaments = [];
-  provinces: [];
-  districts = [];
+
   dataDownload = [
     {
       Servicio: 'PROG',
@@ -221,35 +189,7 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       Capacidad: 1,
     },
   ];
-  filtros = [
-    {
-      code: '1',
-      icon: 'local_mall',
-      name: 'Nº de pedido',
-      maxLength: '11',
-      alphanumeric: false,
-      desc: 'string',
-      hidden: true,
-    },
-    {
-      code: '2',
-      icon: 'call',
-      name: 'Nº de teléfono',
-      maxLength: '9',
-      alphanumeric: false,
-      desc: 'string',
-      hidden: true,
-    },
-    {
-      code: '3',
-      icon: 'assignment_ind',
-      name: 'Doc. Identidad',
-      maxLength: '12',
-      alphanumeric: true,
-      desc: 'string',
-      hidden: true,
-    },
-  ];
+
   stores: string[] = [];
   disabled: boolean = true;
   fg: FormGroup;
@@ -275,15 +215,17 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     const subscription = this._operationsCapacitiesImplementService
       .getDepartamentClient$()
       .subscribe((res) => {
-        console.log('res', res);
-        this.departaments = res.map((item) => {
+        let newDepartaments: any[] = res.map((item) => {
           return {
             ...item,
             hidden: false,
             desc: item.name,
           };
         });
-        console.log('this.departaments', this.departaments);
+
+        this._uploadCapacitiesStoreService.setDepartamentsFilter(
+          newDepartaments
+        );
       });
     this.subscriptions.add(subscription);
   }
@@ -320,19 +262,46 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     let code = e.join(',');
     this._operationsCapacitiesImplementService
       .getProvincesClient$(code)
-      .subscribe((res) => console.log(res));
+      .subscribe((res) => {
+        let newDepartaments: any[] = res.map((item) => {
+          return {
+            ...item,
+            hidden: false,
+            desc: item.name,
+          };
+        });
+        this._uploadCapacitiesStoreService.setProvincesFilter(newDepartaments);
+      });
   }
   getlistProvinces(e) {
     let code = e.join(',');
     this._operationsCapacitiesImplementService
       .getDistrictsClient$(code)
-      .subscribe((res) => console.log(res));
+      .subscribe((res) => {
+        let newDepartaments: any[] = res.map((item) => {
+          return {
+            ...item,
+            hidden: false,
+            desc: item.name,
+          };
+        });
+        this._uploadCapacitiesStoreService.setDistrictsFilter(newDepartaments);
+      });
   }
   getlistDistricts(e) {
     let code = e.join(',');
     this._operationsCapacitiesImplementService
       .getStoresClient$(code)
-      .subscribe((res) => console.log(res));
+      .subscribe((res) => {
+        let newDepartaments: any[] = res.map((item) => {
+          return {
+            ...item,
+            hidden: false,
+            desc: item.name,
+          };
+        });
+        this._uploadCapacitiesStoreService.setStoresFilter(newDepartaments);
+      });
   }
   getlistStores(e) {
     this.stores = e;

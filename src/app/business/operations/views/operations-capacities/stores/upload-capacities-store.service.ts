@@ -14,6 +14,11 @@ export class UploadCapacitiesStoreService {
   private dataSource = new BehaviorSubject<any[]>([]);
   private dataEdited = new BehaviorSubject<any[]>([]);
 
+  private departamentsFilter = new BehaviorSubject<any[]>([]);
+  private provincesFilter = new BehaviorSubject<any[]>([]);
+  private districtsFilter = new BehaviorSubject<any[]>([]);
+  private storesFilter = new BehaviorSubject<any[]>([]);
+
   stepsTabs$ = this.stepsTabs.asObservable();
   currentStep$ = this.currentStep.asObservable();
   constructor() {}
@@ -64,5 +69,39 @@ export class UploadCapacitiesStoreService {
 
   get getDataEdited$(): Observable<any> {
     return this.dataEdited.asObservable().pipe(filter((value) => !!value));
+  }
+
+  setDepartamentsFilter(dataEdited: any[]) {
+    this.departamentsFilter.next(dataEdited);
+  }
+
+  get getDepartamentsFilter$(): Observable<any> {
+    return this.departamentsFilter
+      .asObservable()
+      .pipe(filter((value) => !!value));
+  }
+
+  setProvincesFilter(dataEdited: any[]) {
+    this.provincesFilter.next(dataEdited);
+  }
+
+  get getProvincesFilter$(): Observable<any> {
+    return this.provincesFilter.asObservable().pipe(filter((value) => !!value));
+  }
+
+  setDistrictsFilter(dataEdited: any[]) {
+    this.districtsFilter.next(dataEdited);
+  }
+
+  get getDistrictsFilter$(): Observable<any> {
+    return this.districtsFilter.asObservable().pipe(filter((value) => !!value));
+  }
+
+  setStoresFilter(dataEdited: any[]) {
+    this.storesFilter.next(dataEdited);
+  }
+
+  get getStoresFilter$(): Observable<any> {
+    return this.storesFilter.asObservable().pipe(filter((value) => !!value));
   }
 }

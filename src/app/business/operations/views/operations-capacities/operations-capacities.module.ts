@@ -59,6 +59,10 @@ import { OpCapacitiesUploadEditScheduledComponent } from './components/op-capaci
 import { OpCapacitiesUploadDeleteDialogComponent } from './components/op-capacities-step-file-confirmation/components/op-capacities-upload-delete-dialog/op-capacities-upload-delete-dialog.component';
 import { FormFieldModule } from '@molecules/form-field/form-field.module';
 import { FilterSearchModule } from '@molecules/filter-search/filter-search.module';
+import { FilterDepartamentsComponent } from './components/op-capacities-step-file-download/components/filter-departaments/filter-departaments.component';
+import { FilterProvincesComponent } from './components/op-capacities-step-file-download/components/filter-provinces/filter-provinces.component';
+import { FilterDistrictsComponent } from './components/op-capacities-step-file-download/components/filter-districts/filter-districts.component';
+import { FilterStoresComponent } from './components/op-capacities-step-file-download/components/filter-stores/filter-stores.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +91,10 @@ import { FilterSearchModule } from '@molecules/filter-search/filter-search.modul
     OpCapacitiesUploadEditExpressComponent,
     OpCapacitiesUploadEditScheduledComponent,
     OpCapacitiesUploadDeleteDialogComponent,
+    FilterDepartamentsComponent,
+    FilterProvincesComponent,
+    FilterDistrictsComponent,
+    FilterStoresComponent,
   ],
   imports: [
     CommonModule,

@@ -7,11 +7,11 @@ import { OperationsCapacityHomeStoreService } from 'app/business/operations/view
 import { map, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-filter-search',
-  templateUrl: './filter-search.component.html',
-  styleUrls: ['./filter-search.component.scss'],
+  selector: 'app-filter-departaments',
+  templateUrl: './filter-departaments.component.html',
+  styleUrls: ['./filter-departaments.component.sass'],
 })
-export class FilterSearchComponent implements OnInit {
+export class FilterDepartamentsComponent implements OnInit {
   list: any[];
   locals: any[];
   valueSelect: string;
@@ -61,9 +61,9 @@ export class FilterSearchComponent implements OnInit {
         this.locals = response;
         // this.selectionChange(locals ?? [], true);
       });
-    this.locals = this.listOptions;
-    this.list = this.listOptions;
-    console.log('this.listOptions', this.listOptions);
+    // this.locals = this.listOptions;
+    // this.list = this.listOptions;
+    // console.log('this.listOptions', this.listOptions);
   }
 
   getLocalName(option: string): string {

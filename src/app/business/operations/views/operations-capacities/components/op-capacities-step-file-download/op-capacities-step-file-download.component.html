@@ -51,35 +51,31 @@
       <div class="row">
         <div class="col-6">
           <app-form-field-label>Departamento</app-form-field-label>
-          <app-filter-search
-            [listOptions]="departaments"
+          <app-filter-departaments
             (filter)="getlistDepartaments($event)"
             placeholder="Selecciona un departamento"
-          ></app-filter-search>
+          ></app-filter-departaments>
         </div>
         <div class="col-6">
           <app-form-field-label>Provincia</app-form-field-label>
-          <app-filter-search
-            [listOptions]="capacitiesDrugstoreList"
+          <app-filter-provinces
             (filter)="getlistProvinces($event)"
             placeholder="Selecciona una provincia"
-          ></app-filter-search>
+          ></app-filter-provinces>
         </div>
         <div class="col-6 mt-4">
           <app-form-field-label>Distrito</app-form-field-label>
-          <app-filter-search
-            [listOptions]="capacitiesDrugstoreList"
+          <app-filter-districts
             (filter)="getlistDistricts($event)"
             placeholder="Selecciona un distrito"
-          ></app-filter-search>
+          ></app-filter-districts>
         </div>
         <div class="col-6 mt-4">
           <app-form-field-label>Local</app-form-field-label>
-          <app-filter-search
-            [listOptions]="capacitiesDrugstoreList"
+          <app-filter-stores
             (filter)="getlistStores($event)"
             placeholder="Selecciona un local"
-          ></app-filter-search>
+          ></app-filter-stores>
         </div>
       </div>
       <div class="row mt-4">
