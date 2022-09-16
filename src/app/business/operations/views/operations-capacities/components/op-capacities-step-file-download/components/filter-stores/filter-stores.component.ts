@@ -63,7 +63,6 @@ export class FilterStoresComponent implements OnInit {
       });
     // this.locals = this.listOptions;
     // this.list = this.listOptions;
-    // console.log('this.listOptions', this.listOptions);
   }
 
   getLocalName(option: string): string {

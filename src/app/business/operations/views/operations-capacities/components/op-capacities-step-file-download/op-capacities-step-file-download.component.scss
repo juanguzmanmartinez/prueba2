@@ -384,3 +384,7 @@
 .drugstore-capacity-select {
   width: 100% !important;
 }
+
+:host ::ng-deep .option-container {
+  max-height: 200px !important;
+}

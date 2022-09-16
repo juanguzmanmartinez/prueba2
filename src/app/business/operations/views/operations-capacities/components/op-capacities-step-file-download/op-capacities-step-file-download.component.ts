@@ -7,8 +7,6 @@ import { Router } from '@angular/router';
 import { ExportTableSelection } from 'app/shared/utils/export-table-selection.util';
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { Subscription } from 'rxjs';
-import { OperationsCapacityHomeStoreService } from '../../views/operations-capacity-home/store/operations-capacity-home-store.service';
-import { OpCapacitiesDrugstoreDefaultCapacityService } from '../op-capacities-drugstore-default-capacity/op-capacities-drugstore-default-capacity.service';
 
 @Component({
   selector: 'app-op-capacities-step-file-download',
@@ -18,177 +16,6 @@ import { OpCapacitiesDrugstoreDefaultCapacityService } from '../op-capacities-dr
 })
 export class OpCapacitiesStepFileDownloadComponent implements OnInit {
   private subscriptions = new Subscription();
-
-  dataDownload = [
-    {
-      Servicio: 'PROG',
-      CodLocal: 'AF8',
-      Local: 'LOS OLIVOS',
-      SegmentoHorario: '08:00 am - 11:00 am',
-      Capacidad: 1,
-    },
-    {
-      Servicio: 'PROG',
-      CodLocal: 'AF8',
-      Local: 'LOS OLIVOS',
-      SegmentoHorario: '02:00 pm - 05:00 pm',
-      Capacidad: 3,
-    },
-    {
-      Servicio: 'PROG',
-      CodLocal: 'AF8',
-      Local: 'LOS OLIVOS',
-      SegmentoHorario: '05:00 pm - 08:00 pm',
-      Capacidad: 4,
-    },
-    {
-      Servicio: 'PROG',
-      CodLocal: 'AF8',
-      Local: 'LOS OLIVOS',
-      SegmentoHorario: '08:00 pm - 11:00 pm',
-      Capacidad: 5,
-    },
-    {
-      Servicio: 'AM/PM',
-      CodLocal: 'AF8',
-      Local: 'LOS OLIVOS',
-      SegmentoHorario: '08:00 am - 02:00 pm',
-      Capacidad: 6,
-    },
-    {
-      Servicio: 'AM/PM',
-      CodLocal: 'AF8',
-      Local: 'LOS OLIVOS',
-      SegmentoHorario: '02:00 pm - 08:00 pm',
-      Capacidad: 10,
-    },
-    {
-      Servicio: 'AM/PM',
-      CodLocal: 'AF8',
-      Local: 'LOS OLIVOS',
-      SegmentoHorario: '08:00 pm - 08:30 pm',
-      Capacidad: 2,
-    },
-    {
-      Servicio: 'RET',
-      CodLocal: 'AF8',
-      Local: 'LOS OLIVOS',
-      SegmentoHorario: '08:00 am - 11:00 am',
-      Capacidad: 23,
-    },
-    {
-      Servicio: 'RET',
-      CodLocal: 'AF8',
-      Local: 'LOS OLIVOS',
-      SegmentoHorario: '11:00 am - 02:00 pm',
-      Capacidad: 2,
-    },
-    {
-      Servicio: 'RET',
-      CodLocal: 'AF8',
-      Local: 'LOS OLIVOS',
-      SegmentoHorario: '02:00 pm - 05:00 pm',
-      Capacidad: 5,
-    },
-    {
-      Servicio: 'RET',
-      CodLocal: 'AF8',
-      Local: 'LOS OLIVOS',
-      SegmentoHorario: '05:00 pm - 08:00 pm',
-      Capacidad: 0,
-    },
-    {
-      Servicio: 'EXP',
-      CodLocal: 'AF8',
-      Local: 'LOS OLIVOS',
-      SegmentoHorario: '-',
-      Capacidad: 1,
-    },
-    {
-      Servicio: 'PROG',
-      CodLocal: 'AF9',
-      Local: 'MIRAFLORES',
-      SegmentoHorario: '08:00 am - 11:00 am',
-      Capacidad: 1,
-    },
-    {
-      Servicio: 'PROG',
-      CodLocal: 'AF9',
-      Local: 'MIRAFLORES',
-      SegmentoHorario: '02:00 pm - 05:00 pm',
-      Capacidad: 3,
-    },
-    {
-      Servicio: 'PROG',
-      CodLocal: 'AF9',
-      Local: 'MIRAFLORES',
-      SegmentoHorario: '05:00 pm - 08:00 pm',
-      Capacidad: 4,
-    },
-    {
-      Servicio: 'PROG',
-      CodLocal: 'AF9',
-      Local: 'MIRAFLORES',
-      SegmentoHorario: '08:00 pm - 11:00 pm',
-      Capacidad: 5,
-    },
-    {
-      Servicio: 'AM/PM',
-      CodLocal: 'AF9',
-      Local: 'MIRAFLORES',
-      SegmentoHorario: '08:00 am - 02:00 pm',
-      Capacidad: 0,
-    },
-    {
-      Servicio: 'AM/PM',
-      CodLocal: 'AF9',
-      Local: 'MIRAFLORES',
-      SegmentoHorario: '02:00 pm - 08:00 pm',
-      Capacidad: 10,
-    },
-    {
-      Servicio: 'AM/PM',
-      CodLocal: 'AF9',
-      Local: 'MIRAFLORES',
-      SegmentoHorario: '08:00 pm - 08:30 pm',
-      Capacidad: 2,
-    },
-    {
-      Servicio: 'RET',
-      CodLocal: 'AF9',
-      Local: 'MIRAFLORES',
-      SegmentoHorario: '08:00 am - 11:00 am',
-      Capacidad: 23,
-    },
-    {
-      Servicio: 'RET',
-      CodLocal: 'AF9',
-      Local: 'MIRAFLORES',
-      SegmentoHorario: '11:00 am - 02:00 pm',
-      Capacidad: 2,
-    },
-    {
-      Servicio: 'RET',
-      CodLocal: 'AF9',
-      Local: 'MIRAFLORES',
-      SegmentoHorario: '02:00 pm - 05:00 pm',
-      Capacidad: 5,
-    },
-    {
-      Servicio: 'RET',
-      CodLocal: 'AF9',
-      Local: 'MIRAFLORES',
-      SegmentoHorario: '05:00 pm - 08:00 pm',
-      Capacidad: 0,
-    },
-    {
-      Servicio: 'EXP',
-      CodLocal: 'AF9',
-      Local: 'MIRAFLORES',
-      SegmentoHorario: '-',
-      Capacidad: 1,
-    },
-  ];
 
   stores: string[] = [];
   disabled: boolean = true;
@@ -233,7 +60,7 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
   @Input() data: any[] = [];
 
   nextStep(e: any) {
-    if (this.stores.length == 0) return;
+    if (this.validations) return;
     this.disabled = false;
     this._uploadCapacitiesStoreService.setCurrentStep('2');
   }
@@ -252,13 +79,20 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
 
     this._operationsCapacitiesImplementService
       .getCapcitiesTemplateClient$(this.stores, params)
-      .subscribe((res) => {});
-    ExportTableSelection.exportArrayToExcel(
-      this.dataDownload,
-      'Plantilla descarga capacidades'
-    );
+      .subscribe((res) => {
+        ExportTableSelection.exportArrayToExcel(
+          res,
+          'Plantilla descarga capacidades'
+        );
+      });
   }
   getlistDepartaments(e) {
+    if (e.length <= 0) {
+      this._uploadCapacitiesStoreService.setDistrictsFilter([]);
+      this._uploadCapacitiesStoreService.setProvincesFilter([]);
+      this._uploadCapacitiesStoreService.setStoresFilter([]);
+      return;
+    }
     let code = e.join(',');
     this._operationsCapacitiesImplementService
       .getProvincesClient$(code)
@@ -274,6 +108,11 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       });
   }
   getlistProvinces(e) {
+    if (e.length <= 0) {
+      this._uploadCapacitiesStoreService.setDistrictsFilter([]);
+      this._uploadCapacitiesStoreService.setStoresFilter([]);
+      return;
+    }
     let code = e.join(',');
     this._operationsCapacitiesImplementService
       .getDistrictsClient$(code)
@@ -289,6 +128,8 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       });
   }
   getlistDistricts(e) {
+    if (e.length <= 0)
+      return this._uploadCapacitiesStoreService.setStoresFilter([]);
     let code = e.join(',');
     this._operationsCapacitiesImplementService
       .getStoresClient$(code)
@@ -308,5 +149,15 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     if (this.stores.length == 0) return;
     this.disabled = false;
     this.fg.controls;
+  }
+  get getListServices(): string {
+    const ampm = this.fg.controls.ampm.value ? 'AM/PM,' : '';
+    const ret = this.fg.controls.ret.value ? 'RET,' : '';
+    const exp = this.fg.controls.express.value ? 'EXP,' : '';
+    const prog = this.fg.controls.scheduled.value ? 'PROG,' : '';
+    return `${ampm}${ret}${exp}${prog}`;
+  }
+  get validations(): boolean {
+    return this.stores.length == 0 || this.getListServices == '';
   }
 }

@@ -63,7 +63,6 @@ export class FilterDepartamentsComponent implements OnInit {
       });
     // this.locals = this.listOptions;
     // this.list = this.listOptions;
-    // console.log('this.listOptions', this.listOptions);
   }
 
   getLocalName(option: string): string {
@@ -80,6 +79,7 @@ export class FilterDepartamentsComponent implements OnInit {
 
   selectionChange(locals: string[], isCallOnInit = false): void {
     // this.orderFilterStore.setLocals = locals;
+
     this.selectedLocals = locals;
     this.othersSelects = '';
     if (locals.length === 1) {

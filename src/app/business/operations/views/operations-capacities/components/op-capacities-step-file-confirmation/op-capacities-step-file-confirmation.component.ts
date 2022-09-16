@@ -1,23 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  IStoreProcessed,
+  IStoreUpload,
+} from '@interfaces/capacities/upload-capacities.interface';
 import { AlertService } from '@molecules/alert/alert.service';
 import { Subscription } from 'rxjs';
 import { TABS } from '../../constants/step-tabs.constants';
+import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-store.service';
 import { OpCapacitiesUploadDeleteDialogService } from './components/op-capacities-upload-delete-dialog/op-capacities-upload-delete-dialog.service';
 interface ILocal {}
-interface ILocalsProcessed {
-  code: string;
-  local: string;
-  ampm?: any;
-  express?: any;
-  ret?: any;
-  scheduled?: any;
-  ampmTotalCapacity?: number;
-  expTotalCapacity?: number;
-  scheTotalCapacity?: number;
-  retTotalCapacity?: number;
-}
+
 @Component({
   selector: 'app-op-capacities-step-file-confirmation',
   templateUrl: './op-capacities-step-file-confirmation.component.html',
@@ -40,107 +34,116 @@ export class OpCapacitiesStepFileConfirmationComponent
     'actions',
   ];
 
-  // dataSource: ILocalsProcessed;
   dataSource;
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router,
     private _opCapacitiesUploadDeleteDialogService: OpCapacitiesUploadDeleteDialogService,
-    private _alertService: AlertService
+    private _alertService: AlertService,
+    private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService
   ) {}
 
   ngOnInit(): void {
     TABS[2].flow = 'done';
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
     const subscription =
-      this._uploadCapacitiesStoreService.getDataSource$.subscribe((locals) => {
-        if (locals && locals.length > 0) this.dataSource = locals;
-        else this.getListFromStore();
-      });
+      this._uploadCapacitiesStoreService.getDataSource$.subscribe(
+        (store: IStoreProcessed[]) => {
+          if (store && store.length > 0) this.dataSource = store;
+          else this.getListFromStore();
+        }
+      );
     this.subscriptions.add(subscription);
   }
 
   getListFromStore() {
     const subscription =
-      this._uploadCapacitiesStoreService.getStoreList$.subscribe((localsw) => {
-        this.convert(localsw);
-      });
+      this._uploadCapacitiesStoreService.getStoreList$.subscribe(
+        (stores: IStoreUpload[]) => {
+          this.convert(stores);
+        }
+      );
     this.subscriptions.add(subscription);
   }
-  convert(locals) {
-    let dataProcessed: any[] = [];
-
-    locals.forEach((local) => {
-      let locaolFounded = dataProcessed.some((it) => it.code == local.CodLocal);
+  convert(locals: IStoreUpload[]) {
+    let dataProcessed = [];
+    let warningNumber = false;
+    locals.forEach((local: IStoreUpload) => {
+      // if (isNaN(local.capacity)) warningNumber = true;
+      let locaolFounded = dataProcessed.some(
+        (it) => it.code == local.storeCode
+      );
       if (!locaolFounded) {
         dataProcessed.push({
-          code: local.CodLocal,
-          local: local.Local,
+          code: local.storeCode,
+          local: local.storeName,
           ampm: [],
           scheduled: [],
           express: [],
           ret: [],
+          status: false,
         });
       }
-      let type = dataProcessed.find((item) => item.local === local.Local);
 
+      let type = dataProcessed.find((item) => item.local === local.storeName);
       if (type) {
-        switch (local.Servicio) {
+        switch (local.service) {
           case 'PROG':
             type.scheduled.push({
-              segment: local.SegmentoHorario,
-              capacity: local.Capacidad,
+              segment: local.timeRange,
+              capacity: local.capacity,
               id: local.id,
             });
             break;
           case 'AM/PM':
             type.ampm.push({
-              segment: local.SegmentoHorario,
-              capacity: local.Capacidad,
+              segment: local.timeRange,
+              capacity: local.capacity,
               id: local.id,
             });
             break;
           case 'EXP':
             type.express.push({
-              segment: local.SegmentoHorario,
-              capacity: local.Capacidad,
+              segment: local.timeRange,
+              capacity: local.capacity,
               id: local.id,
             });
             break;
           case 'RET':
             type.ret.push({
-              segment: local.SegmentoHorario,
-              capacity: local.Capacidad,
+              segment: local.timeRange,
+              capacity: local.capacity,
               id: local.id,
             });
             break;
         }
       }
+      dataProcessed.map((item) => item.code == type.code ?? type);
+      // if (warningNumber) {
+      //   console.log('si');
+
+      //   dataProcessed.map((item: any) => {
+      //     if (item.code == local.storeCode) {
+      //       return {
+      //         ...item,
+      //         status: true,
+      //       };
+      //     } else {
+      //       return item;
+      //     }
+      //   });
+      // }
+      // console.log(dataProcessed);
     });
 
-    let ampmCap = 0;
-    let expCap = 0;
-    let scheCap = 0;
-    let retCap = 0;
-
-    dataProcessed.forEach((data: any) => {
-      ampmCap = data.ampm.reduce((a, { capacity }) => {
-        return a + capacity;
-      }, 0);
-      expCap = data.express.reduce((a, { capacity }) => {
-        return a + capacity;
-      }, 0);
-      scheCap = data.scheduled.reduce((a, { capacity }) => {
-        return a + capacity;
-      }, 0);
-      retCap = data.ret.reduce((a, { capacity }) => {
-        return a + capacity;
-      }, 0);
-      data.ampmTotalCapacity = ampmCap;
-      data.expTotalCapacity = expCap;
-      data.scheTotalCapacity = scheCap;
-      data.retTotalCapacity = retCap;
+    dataProcessed.map((data: any) => {
+      data.ampmTotalCapacity = this.getTotal(data.ampm);
+      data.expTotalCapacity = this.getTotal(data.express);
+      data.scheTotalCapacity = this.getTotal(data.scheduled);
+      data.retTotalCapacity = this.getTotal(data.ret);
+      return data;
     });
+
     this._uploadCapacitiesStoreService.setDataSource(dataProcessed);
     this.dataSource = dataProcessed;
   }
@@ -161,15 +164,22 @@ export class OpCapacitiesStepFileConfirmationComponent
     this.subscriptions.add(subscription);
   }
   submit(e) {
-    TABS[1].flow = 'pending';
-    TABS[2].flow = 'pending';
-    this._uploadCapacitiesStoreService.setStepsTabs(TABS);
-    this._uploadCapacitiesStoreService.setCurrentStep('1');
-    let dataToUpload = this.rawData(this.dataSource);
-    this._router.navigate(['/operaciones/capacidades']);
-    this._alertService.alertSuccess(
-      'Se realizó la carga de capacidades con éxito.'
-    );
+    let dataToUpload: IStoreUpload[] = this.rawData(this.dataSource);
+    this._operationsCapacitiesImplementService
+      .updateCapacitiesStores$(dataToUpload)
+      .subscribe((res: any) => {
+        console.log('res', res);
+        if (res.processStatus) {
+          TABS[1].flow = 'pending';
+          TABS[2].flow = 'pending';
+          this._uploadCapacitiesStoreService.setStepsTabs(TABS);
+          this._uploadCapacitiesStoreService.setCurrentStep('1');
+          this._router.navigate(['/operaciones/capacidades']);
+          this._alertService.alertSuccess(
+            'Se realizó la carga de capacidades con éxito.'
+          );
+        }
+      });
   }
   rawData(data) {
     let dataToUpload = [];
@@ -199,7 +209,7 @@ export class OpCapacitiesStepFileConfirmationComponent
       if (local?.express.length > 0) {
         local?.express.forEach((row) => {
           dataToUpload.push({
-            service: 'EXPRESS',
+            service: 'EXP',
             storeCode: local.code,
             storeName: local.local,
             timeRange: row.segment,
@@ -210,7 +220,7 @@ export class OpCapacitiesStepFileConfirmationComponent
       if (local?.scheduled.length > 0) {
         local?.scheduled.forEach((row) => {
           dataToUpload.push({
-            service: 'SCHEDULED',
+            service: 'PROG',
             storeCode: local.code,
             storeName: local.local,
             timeRange: row.segment,
@@ -221,8 +231,19 @@ export class OpCapacitiesStepFileConfirmationComponent
     });
     return dataToUpload;
   }
-  cancelStep(e) {}
-
+  cancelStep(e) {
+    TABS[2].flow = 'pending';
+    this._uploadCapacitiesStoreService.setStepsTabs(TABS);
+    this._uploadCapacitiesStoreService.setStoreList([]);
+    this._uploadCapacitiesStoreService.setCurrentStep('2');
+  }
+  getTotal(array) {
+    if (array.length == 0) return 0;
+    return array.reduce((a, { capacity }) => {
+      let sum = a + capacity;
+      return sum;
+    }, 0);
+  }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

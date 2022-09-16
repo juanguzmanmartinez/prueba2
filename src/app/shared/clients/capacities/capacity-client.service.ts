@@ -29,7 +29,7 @@ export class CapacityClientService {
   private readonly DISTRICTS = EndpointsParameter.DISTRICS;
   private readonly STORES_LIST = EndpointsParameter.STORES_LIST;
   private readonly CAPACITY_TEMPLATE = EndpointsParameter.CAPACITY_TEMPLATE;
-
+  private readonly PTACH_CAPACITIES = EndpointsParameter.PTACH_CAPACITIES;
   constructor(private genericService: GenericService) {}
 
   public patchCalendarUpdateClient$(request: ICalendarUpdateRequestParams) {
@@ -126,5 +126,17 @@ export class CapacityClientService {
         return isArray(response) ? response : [];
       })
     );
+  }
+
+  public patchCapacitiesStores$(request: any) {
+    return this.genericService
+      .genericPost<ICapacity[]>(this.PTACH_CAPACITIES, request)
+      .pipe(
+        map((response) => {
+          return response;
+          // const current = isArray(response) ? response : [];
+          // return current.map((e) => new Capacity(e));
+        })
+      );
   }
 }

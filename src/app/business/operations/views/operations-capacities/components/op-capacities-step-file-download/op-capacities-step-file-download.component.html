@@ -2,7 +2,7 @@
   title="Descargar plantilla"
   (next)="nextStep($event)"
   (cancel)="cancelStep($event)"
-  [disableNext]="disabled"
+  [disableNext]="validations"
 >
   <div class="disclaimer">
     <app-icon
@@ -78,8 +78,11 @@
           ></app-filter-stores>
         </div>
       </div>
-      <div class="row mt-4">
-        <app-button (clicked)="downloadData()" appearance="primary"
+      <div class="row mt-6">
+        <app-button
+          [disabled]="validations"
+          (clicked)="downloadData()"
+          appearance="primary"
           >Descargar</app-button
         >
       </div>

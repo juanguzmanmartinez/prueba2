@@ -1,16 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { IStoreUpload } from '@interfaces/capacities/upload-capacities.interface';
 import { AlertService } from '@molecules/alert/alert.service';
 import * as XLSX from 'xlsx';
 import { TABS } from '../../constants/step-tabs.constants';
 import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-store.service';
-interface A {
-  service: string;
-  storeCode: string;
-  storeName: string;
-  timeRange: string;
-  capacity: number;
-}
+
 @Component({
   selector: 'app-op-capacities-step-file-upload',
   templateUrl: './op-capacities-step-file-upload.component.html',
@@ -19,12 +13,11 @@ interface A {
 export class OpCapacitiesStepFileUploadComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   disableNext = true;
-  files: any[] = [];
+  files = [];
   fileName: string = '';
   textButton: string = 'Regresar';
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
-    private _router: Router,
     private _alertService: AlertService
   ) {}
 
@@ -33,18 +26,16 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
   }
 
-  selectionChange(ev) {}
-
   fileBrowseHandler(ev: any) {
     if (this.files.length > 0) this.files = [];
     this.fileName = ev.target.files[0].name;
     this.files.push(ev.target.files[0]);
     let workBook = null;
-    let jsonData = null;
+    let jsonData: IStoreUpload[] = [];
     const reader = new FileReader();
     const file = this.files[0];
     let dataTosStore = [];
-    reader.onload = (event) => {
+    reader.onload = () => {
       const data = reader.result;
       workBook = XLSX.read(data, { type: 'binary' });
       jsonData = workBook.SheetNames.reduce((initial, name) => {
@@ -52,7 +43,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         initial[name] = XLSX.utils.sheet_to_json(sheet);
         return initial;
       }, {});
-      // dataString = JSON.stringify(jsonData);
+
       try {
         dataTosStore = jsonData['Plantilla descarga capacidades'].map(
           (local, index) => {
@@ -63,7 +54,6 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
           }
         );
         this.disableNext = false;
-        console.log('dataTosStore', dataTosStore);
       } catch (error) {
         this._alertService.alertError(
           'Verifique si la plantilla es la correcta'
@@ -89,7 +79,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     this._uploadCapacitiesStoreService.setStoreList([]);
     this._uploadCapacitiesStoreService.setCurrentStep('1');
   }
-  instanceOfA(object: any): object is A {
+  instanceOfIStoreUpload(object: any): object is IStoreUpload {
     console.log("'member' in object", 'member' in object);
 
     return 'member' in object;
@@ -97,9 +87,9 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
 
   execute() {
     var a: any = { members: 'foobar', pli: 'ddddddddd' };
-    console.log('this.instanceOfA(a)', this.instanceOfA(a));
+    console.log('this.instanceOfA(a)', this.instanceOfIStoreUpload(a));
 
-    if (this.instanceOfA(a)) {
+    if (this.instanceOfIStoreUpload(a)) {
       alert(a.service);
     }
   }

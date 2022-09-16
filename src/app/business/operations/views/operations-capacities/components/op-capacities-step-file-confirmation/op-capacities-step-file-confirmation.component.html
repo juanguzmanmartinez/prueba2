@@ -58,7 +58,14 @@
                 Estado
               </th>
               <td class="text-center" mat-cell *matCellDef="let element">
-                {{ element.ampmTotalCapacity }}
+                <!-- {{ element.status }} -->
+                <app-icon
+                  svgName="done-green"
+                  svgHeight="18px"
+                  svgWidth="18px"
+                  class="icon"
+                >
+                </app-icon>
               </td>
             </ng-container>
             <ng-container matColumnDef="actions">

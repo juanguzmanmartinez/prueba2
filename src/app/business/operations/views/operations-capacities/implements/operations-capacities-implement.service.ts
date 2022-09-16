@@ -148,8 +148,6 @@ export class OperationsCapacitiesImplementService {
   getDepartamentClient$(): Observable<any[]> {
     return this.calendarClient.getDepartamentsList$().pipe(
       map((drugstoreList) => {
-        console.log('drugstoreList', drugstoreList);
-
         return drugstoreList;
       })
     );
@@ -184,6 +182,13 @@ export class OperationsCapacitiesImplementService {
       serviceTypes: services,
     };
     return this.calendarClient.getCapacityFromStores$(codes, params).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+  updateCapacitiesStores$(codes: any): Observable<any[]> {
+    return this.calendarClient.patchCapacitiesStores$(codes).pipe(
       map((drugstoreList) => {
         return drugstoreList;
       })

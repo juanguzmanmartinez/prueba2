@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { UploadCapacitiesStoreService } from '../../../../stores/upload-capacities-store.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { UploadCapacitiesStoreService } from '../../../../stores/upload-capaciti
 })
 export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
   @ViewChild('inputAmpm') inputAmpm;
+  @Input() fromParent: Observable<void>;
   private subscriptions = new Subscription();
 
   ampm = [];
@@ -40,6 +41,10 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
       (x) => (this.fixedSelectedRows = x.source.selected)
     );
     this.subscriptions.add(subscription1);
+    const parentEvent = this.fromParent.subscribe(() =>
+      this.setElementToEdit()
+    );
+    this.subscriptions.add(parentEvent);
   }
 
   isAllSelected(): boolean {
@@ -85,7 +90,7 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
         return item;
       }
     });
-    this.setElementToEdit();
+    // this.setElementToEdit();
   }
   setManyAmpm() {
     this.ampm.map((item) => {
@@ -95,7 +100,7 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
         }
       });
     });
-    this.setElementToEdit();
+    // this.setElementToEdit();
   }
 
   setElementToEdit() {

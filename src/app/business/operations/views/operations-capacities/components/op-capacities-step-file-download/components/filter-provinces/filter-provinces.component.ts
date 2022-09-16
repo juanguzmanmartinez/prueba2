@@ -41,7 +41,6 @@ export class FilterProvincesComponent implements OnInit {
       .pipe(
         tap((res: any[]) => {
           // this.orderFilterStore.setLocalList(res);
-          console.log('prinves', res);
 
           this.list = res;
         }),
@@ -64,7 +63,6 @@ export class FilterProvincesComponent implements OnInit {
       });
     // this.locals = this.listOptions;
     // this.list = this.listOptions;
-    // console.log('this.listOptions', this.listOptions);
   }
 
   getLocalName(option: string): string {

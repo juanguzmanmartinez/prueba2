@@ -43,4 +43,5 @@ export class EndpointsParameter {
   public static STORES_LIST = `${API_GATEWAY}/ubigeo/stores`;
 
   public static CAPACITY_TEMPLATE = `${API_GATEWAY}/fulfillment/store/capacity/template`;
+  public static PTACH_CAPACITIES = `${API_GATEWAY}/fulfillment/store/capacity/update`;
 }

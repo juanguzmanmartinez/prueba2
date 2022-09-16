@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  IStoreProcessed,
+  IStoreUpload,
+} from '@interfaces/capacities/upload-capacities.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { TABS } from '../constants/step-tabs.constants';
@@ -7,11 +11,11 @@ import { TABS } from '../constants/step-tabs.constants';
   providedIn: 'root',
 })
 export class UploadCapacitiesStoreService {
-  private currentStep = new BehaviorSubject<string>('1');
+  private currentStep = new BehaviorSubject<string>('2');
   private stepsTabs = new BehaviorSubject<any[]>(TABS);
   private localToEdit = new BehaviorSubject<any>({});
-  private storesList = new BehaviorSubject<any[]>([]);
-  private dataSource = new BehaviorSubject<any[]>([]);
+  private storesList = new BehaviorSubject<IStoreUpload[]>([]);
+  private dataSource = new BehaviorSubject<IStoreProcessed[]>([]);
   private dataEdited = new BehaviorSubject<any[]>([]);
 
   private departamentsFilter = new BehaviorSubject<any[]>([]);
@@ -47,19 +51,19 @@ export class UploadCapacitiesStoreService {
     return this.localToEdit.asObservable().pipe(filter((value) => !!value));
   }
 
-  setStoreList(steps: any[]) {
+  setStoreList(steps: IStoreUpload[]) {
     this.storesList.next(steps);
   }
 
-  get getStoreList$(): Observable<any> {
+  get getStoreList$(): Observable<IStoreUpload[]> {
     return this.storesList.asObservable().pipe(filter((value) => !!value));
   }
 
-  setDataSource(dataSource: any[]) {
+  setDataSource(dataSource: IStoreProcessed[]) {
     this.dataSource.next(dataSource);
   }
 
-  get getDataSource$(): Observable<any> {
+  get getDataSource$(): Observable<IStoreProcessed[]> {
     return this.dataSource.asObservable().pipe(filter((value) => !!value));
   }
 

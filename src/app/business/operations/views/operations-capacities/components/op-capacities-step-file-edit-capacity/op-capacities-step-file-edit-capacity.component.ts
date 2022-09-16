@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-store.service';
 
 @Component({
@@ -12,6 +12,8 @@ import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-sto
 export class OpCapacitiesStepFileEditCapacityComponent
   implements OnInit, OnDestroy
 {
+  eventsSubject: Subject<void> = new Subject<void>();
+
   @ViewChild('inputAmpm') inputAmpm;
   textButtonNext = 'Cargar capacidades';
   private subscriptions = new Subscription();
@@ -108,10 +110,12 @@ export class OpCapacitiesStepFileEditCapacityComponent
     //     (element) => {}
     //   );
     // this.subscriptions.add(subscription);
-
+    this.eventsSubject.next();
     this._uploadCapacitiesStoreService.setCurrentStep('3');
   }
-  cancelStep(e) {}
+  cancelStep(e) {
+    this._uploadCapacitiesStoreService.setCurrentStep('3');
+  }
 
   get getTotalCapacityAmpm() {
     return this.ampm.reduce((a, { capacity }) => a + capacity, 0);
