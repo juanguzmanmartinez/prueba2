@@ -38,27 +38,26 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     reader.onload = () => {
       const data = reader.result;
       workBook = XLSX.read(data, { type: 'binary' });
-      jsonData = workBook.SheetNames.reduce((initial, name) => {
+      const dataraw = workBook.SheetNames.reduce((initial, name) => {
         const sheet = workBook.Sheets[name];
         initial[name] = XLSX.utils.sheet_to_json(sheet);
         return initial;
       }, {});
-
-      try {
-        dataTosStore = jsonData['Plantilla descarga capacidades'].map(
-          (local, index) => {
-            return {
-              ...local,
-              id: index,
-            };
-          }
-        );
-        this.disableNext = false;
-      } catch (error) {
-        this._alertService.alertError(
+      jsonData = dataraw['Plantilla descarga capacidades'];
+      if (!this.execute(jsonData))
+        return this._alertService.alertError(
           'Verifique si la plantilla es la correcta'
         );
-      }
+
+      try {
+        dataTosStore = jsonData.map((local, index) => {
+          return {
+            ...local,
+            id: index,
+          };
+        });
+        this.disableNext = false;
+      } catch (error) {}
 
       this._uploadCapacitiesStoreService.setStoreList(dataTosStore);
     };
@@ -80,17 +79,16 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     this._uploadCapacitiesStoreService.setCurrentStep('1');
   }
   instanceOfIStoreUpload(object: any): object is IStoreUpload {
-    console.log("'member' in object", 'member' in object);
-
-    return 'member' in object;
+    return (
+      'service' in object &&
+      'storeCode' in object &&
+      'storeName' in object &&
+      'timeRange' in object &&
+      'capacity' in object
+    );
   }
 
-  execute() {
-    var a: any = { members: 'foobar', pli: 'ddddddddd' };
-    console.log('this.instanceOfA(a)', this.instanceOfIStoreUpload(a));
-
-    if (this.instanceOfIStoreUpload(a)) {
-      alert(a.service);
-    }
+  execute(stores) {
+    return stores.every((item) => this.instanceOfIStoreUpload(item));
   }
 }

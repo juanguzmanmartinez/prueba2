@@ -106,6 +106,9 @@ export class OpCapacitiesUploadEditExpressComponent implements OnInit {
   setElementToEdit() {
     this.elementToEdit.express = this.express;
     this.elementToEdit.expTotalCapacity = this.getTotalCapacityAmpm;
+    !isNaN(this.getTotalCapacityAmpm)
+      ? (this.elementToEdit.status = false)
+      : null;
     const subscription = this._uploadCapacitiesStoreService.setElementToEdit(
       this.elementToEdit
     );

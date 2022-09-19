@@ -41,7 +41,7 @@ export class FilterProvincesComponent implements OnInit {
       .pipe(
         tap((res: any[]) => {
           // this.orderFilterStore.setLocalList(res);
-
+          if (res.length == 0) this.selectedLocals = [];
           this.list = res;
         }),
         map((res: any[]) => {
@@ -79,6 +79,7 @@ export class FilterProvincesComponent implements OnInit {
 
   selectionChange(locals: string[], isCallOnInit = false): void {
     // this.orderFilterStore.setLocals = locals;
+
     this.selectedLocals = locals;
     this.othersSelects = '';
     if (locals.length === 1) {

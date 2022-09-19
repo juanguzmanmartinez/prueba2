@@ -3,6 +3,7 @@
   hiddenHeader="true"
   (next)="submit($event)"
   (cancel)="cancelStep($event)"
+  [disableNext]="!disableButton"
 >
   <div class="mt-6"></div>
   <div class="row justify-content-center mt-8">
@@ -58,9 +59,17 @@
                 Estado
               </th>
               <td class="text-center" mat-cell *matCellDef="let element">
-                <!-- {{ element.status }} -->
                 <app-icon
+                  *ngIf="!element.status"
                   svgName="done-green"
+                  svgHeight="18px"
+                  svgWidth="18px"
+                  class="icon"
+                >
+                </app-icon>
+                <app-icon
+                  *ngIf="element.status"
+                  svgName="warning"
                   svgHeight="18px"
                   svgWidth="18px"
                   class="icon"

@@ -53,56 +53,6 @@ export class OpCapacitiesStepFileEditCapacityComponent
     this.subscriptions.add(subscription1);
   }
 
-  isAllSelected(): boolean {
-    let allSelected = true;
-    const orderIdsSelected = this.fixedSelectedRows.map(
-      (orderSelected) => orderSelected.id
-    );
-    this.mostrar = orderIdsSelected;
-    this.ampm.forEach((orderTable) => {
-      if (!orderIdsSelected.includes(orderTable.id)) {
-        allSelected = false;
-        return;
-      }
-    });
-
-    return allSelected;
-  }
-
-  masterToggle(data): void {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.ampm.forEach((row) => {
-          this.mostrar = [];
-          this.selection.select(row);
-        });
-  }
-
-  changeAmpm(e, row) {
-    this.ampm = this.ampm.map((item) => {
-      if (item.id === row.id) {
-        return {
-          ...item,
-          capacity:
-            e.target.value != undefined && e.target.value != ''
-              ? e.target.value
-              : 0,
-        };
-      } else {
-        return item;
-      }
-    });
-  }
-  setManyAmpm() {
-    this.ampm.map((item) => {
-      this.mostrar.map((pla) => {
-        if (pla == item.id) {
-          return (item.capacity = this.inputAmpm.inputValue);
-        }
-      });
-    });
-  }
-
   nextStep(e) {
     // let nuevadata = [];
     // const subscription =
@@ -113,12 +63,9 @@ export class OpCapacitiesStepFileEditCapacityComponent
     this.eventsSubject.next();
     this._uploadCapacitiesStoreService.setCurrentStep('3');
   }
+
   cancelStep(e) {
     this._uploadCapacitiesStoreService.setCurrentStep('3');
-  }
-
-  get getTotalCapacityAmpm() {
-    return this.ampm.reduce((a, { capacity }) => a + capacity, 0);
   }
 
   get getTitle() {

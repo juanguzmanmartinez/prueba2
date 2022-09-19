@@ -22,7 +22,7 @@ export class OpCapacitiesStepFileConfirmationComponent
   implements OnInit, OnDestroy
 {
   private subscriptions = new Subscription();
-
+  disableButton: boolean = false;
   displayedColumns: string[] = [
     'code',
     'name',
@@ -34,7 +34,7 @@ export class OpCapacitiesStepFileConfirmationComponent
     'actions',
   ];
 
-  dataSource;
+  dataSource: IStoreProcessed[] = [];
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router,
@@ -49,6 +49,7 @@ export class OpCapacitiesStepFileConfirmationComponent
     const subscription =
       this._uploadCapacitiesStoreService.getDataSource$.subscribe(
         (store: IStoreProcessed[]) => {
+          this.checkStatus(store);
           if (store && store.length > 0) this.dataSource = store;
           else this.getListFromStore();
         }
@@ -67,12 +68,11 @@ export class OpCapacitiesStepFileConfirmationComponent
   }
   convert(locals: IStoreUpload[]) {
     let dataProcessed = [];
-    let warningNumber = false;
     locals.forEach((local: IStoreUpload) => {
-      // if (isNaN(local.capacity)) warningNumber = true;
       let locaolFounded = dataProcessed.some(
         (it) => it.code == local.storeCode
       );
+
       if (!locaolFounded) {
         dataProcessed.push({
           code: local.storeCode,
@@ -86,6 +86,8 @@ export class OpCapacitiesStepFileConfirmationComponent
       }
 
       let type = dataProcessed.find((item) => item.local === local.storeName);
+
+      isNaN(local.capacity) ? (type.status = true) : null;
       if (type) {
         switch (local.service) {
           case 'PROG':
@@ -119,21 +121,6 @@ export class OpCapacitiesStepFileConfirmationComponent
         }
       }
       dataProcessed.map((item) => item.code == type.code ?? type);
-      // if (warningNumber) {
-      //   console.log('si');
-
-      //   dataProcessed.map((item: any) => {
-      //     if (item.code == local.storeCode) {
-      //       return {
-      //         ...item,
-      //         status: true,
-      //       };
-      //     } else {
-      //       return item;
-      //     }
-      //   });
-      // }
-      // console.log(dataProcessed);
     });
 
     dataProcessed.map((data: any) => {
@@ -156,19 +143,21 @@ export class OpCapacitiesStepFileConfirmationComponent
       .open(local)
       .afterClosed()
       .subscribe((edition: boolean) => {
-        if (edition)
-          this.dataSource = this.dataSource.filter(
+        if (edition) {
+          const data = this.dataSource.filter(
             (item) => item.code !== local.code
           );
+          this._uploadCapacitiesStoreService.setDataSource(data);
+        }
       });
     this.subscriptions.add(subscription);
   }
   submit(e) {
     let dataToUpload: IStoreUpload[] = this.rawData(this.dataSource);
+
     this._operationsCapacitiesImplementService
       .updateCapacitiesStores$(dataToUpload)
       .subscribe((res: any) => {
-        console.log('res', res);
         if (res.processStatus) {
           TABS[1].flow = 'pending';
           TABS[2].flow = 'pending';
@@ -243,6 +232,13 @@ export class OpCapacitiesStepFileConfirmationComponent
       let sum = a + capacity;
       return sum;
     }, 0);
+  }
+  getStatus() {}
+  checkStatus(stores: IStoreProcessed[]) {
+    if (stores.length == 0) return;
+    this.disableButton = stores
+      .map((item: IStoreProcessed) => item.status)
+      .every((item) => item == false);
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

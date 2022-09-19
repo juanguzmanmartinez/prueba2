@@ -107,6 +107,9 @@ export class OpCapacitiesUploadEditScheduledComponent implements OnInit {
   setElementToEdit() {
     this.elementToEdit.scheduled = this.scheduled;
     this.elementToEdit.scheTotalCapacity = this.getTotalCapacityAmpm;
+    !isNaN(this.getTotalCapacityAmpm)
+      ? (this.elementToEdit.status = false)
+      : null;
     const subscription = this._uploadCapacitiesStoreService.setElementToEdit(
       this.elementToEdit
     );

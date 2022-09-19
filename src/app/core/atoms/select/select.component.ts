@@ -53,7 +53,7 @@ export class SelectComponent<T>
   @Input() enableSearch = false;
   @Input() enableNoSpace = false;
   @Input() customFontName = null;
-
+  @Input() maxLimit: number = 7;
   @Input('value')
   set _value(option: T | T[]) {
     this.validValue(option);
@@ -151,9 +151,10 @@ export class SelectComponent<T>
     this.clearValueForButton.emit(true);
   }
 
-  selectionChange(option: T) {
+  selectionChange(option: any) {
     // @ts-ignore
-    this.disableOptionsMultiple = this.multiple && option.length > 6;
+    this.disableOptionsMultiple =
+      this.multiple && option.length > this.maxLimit;
     this.optionChange.emit(option);
     this.onChange(option);
   }

@@ -41,7 +41,7 @@ export class FilterStoresComponent implements OnInit {
       .pipe(
         tap((res: any[]) => {
           // this.orderFilterStore.setLocalList(res);
-
+          if (res.length == 0) this.selectedLocals = [];
           this.list = res;
         }),
         map((res: any[]) => {

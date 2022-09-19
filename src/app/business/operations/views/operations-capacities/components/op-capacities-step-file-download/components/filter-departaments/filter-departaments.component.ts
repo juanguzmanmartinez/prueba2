@@ -61,6 +61,7 @@ export class FilterDepartamentsComponent implements OnInit {
         this.locals = response;
         // this.selectionChange(locals ?? [], true);
       });
+
     // this.locals = this.listOptions;
     // this.list = this.listOptions;
   }
@@ -79,7 +80,6 @@ export class FilterDepartamentsComponent implements OnInit {
 
   selectionChange(locals: string[], isCallOnInit = false): void {
     // this.orderFilterStore.setLocals = locals;
-
     this.selectedLocals = locals;
     this.othersSelects = '';
     if (locals.length === 1) {
