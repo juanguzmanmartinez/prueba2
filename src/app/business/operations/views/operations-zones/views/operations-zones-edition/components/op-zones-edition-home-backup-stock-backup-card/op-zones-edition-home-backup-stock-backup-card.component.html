@@ -1,36 +1,46 @@
-<app-card innerClass="py-7">
-  <div class="row mb-6">
+<app-card innerClass="pb-6">
+  <div class="row mb-4">
     <div class="col-12">
-      <h5 class="text-h5 mb-0" [class.text-gray-4]="stockBackupDisabled">
-        <app-icon
-          class="d-inline-block me-5"
-          [svgName]="stockBackupDisabled ? 'ellipse-disabled' : 'ellipse-success'">
+      <h3 class="text-h3 mb-0" [class.text-gray-4]="stockBackupDisabled">
+        <app-icon class="d-inline-block me-5" [svgName]="stockBackupIcon">
         </app-icon>
-        <span>Stock backup</span>
-      </h5>
+        <span class="text-black">Stock backup</span>
+      </h3>
     </div>
   </div>
-
+  <hr class="my-4 bg-gray-3" />
   <div class="row justify-content-between">
-    <div class="col-5">
-      <app-card-static-information iconName="store" [disabled]="stockBackupDisabled">
-        <ng-container information-title>Local backup</ng-container>
+    <div class="col-12 mb-4">
+      <app-card-static-information
+        svgName="crosshair"
+        svgWidth="24px"
+        [disabled]="stockBackupDisabled"
+      >
+        <ng-container information-title>Zona backup</ng-container>
         <ng-container information-caption>
-          <span class="text-capitalize">{{ zoneEditionDrugstoreBackup }}</span>
+          <span class="text-capitalize text-black">{{ zoneEditionZoneBackup }}</span>
         </ng-container>
       </app-card-static-information>
     </div>
-    <div class="col-5">
-      <app-card-static-information iconName="location_searching" [disabled]="stockBackupDisabled">
-        <ng-container information-title>Zona backup</ng-container>
+    <div class="col-12">
+      <app-card-static-information
+        svgName="store"
+        svgWidth="24px"
+        [disabled]="stockBackupDisabled"
+      >
+        <ng-container information-title>Local backup</ng-container>
         <ng-container information-caption>
-          <span class="text-capitalize">{{ zoneEditionZoneBackup }}</span>
+          <span class="text-capitalize text-black">{{ zoneEditionDrugstoreBackup }}</span>
         </ng-container>
       </app-card-static-information>
     </div>
   </div>
 
   <ng-container *appRouterAccess="backupEditionPath">
-    <div app-card-edit-button editMessage="zona backup" (click)="editEvent()"></div>
+    <div
+      app-card-edit-button
+      editMessage="zona backup"
+      (click)="editEvent()"
+    ></div>
   </ng-container>
 </app-card>

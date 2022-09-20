@@ -4,6 +4,7 @@ import { DatesHelper } from '@helpers/dates.helper';
 import { DATES_FORMAT } from '@parameters/dates-format.parameters';
 import { ZonesDrugstoreServiceType } from '../../../../models/operations-zones-store.model';
 import { CDeliveryServiceTypeName } from '@models/service-type/delivery-service-type.model';
+import { CStateValue } from '@models/state/state.model';
 
 @Component({
   selector: 'app-op-zones-edition-service-type-detail-card',
@@ -23,6 +24,10 @@ export class OpZonesEditionServiceTypeDetailCardComponent {
     const endHour = DatesHelper.date(this.zonesStoreServiceType.endHour, DATES_FORMAT.millisecond)
       .format(DATES_FORMAT.hourMinuteDateTime);
     return `${startHour} - ${endHour}`;
+  }
+
+  get zoneState(){
+    return CStateValue[this.zoneDetail?.state];
   }
 
   constructor() { }

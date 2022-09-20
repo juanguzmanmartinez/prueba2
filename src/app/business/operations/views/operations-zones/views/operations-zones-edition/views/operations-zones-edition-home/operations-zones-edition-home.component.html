@@ -1,11 +1,17 @@
-<section class="operations-zones-edition-home pt-8 pb-15">
-  <div class="row mb-8">
-    <div class="col-12 mb-4">
-      <app-back-router backRoute="/operaciones/zonas">Zonas</app-back-router>
-    </div>
+<section class="operations-zones-edition-home pb-15">
+  <div class="pt-5 zone-edition-home-header">
+    <div class="row mb-5">
+      <div class="col-12 mb-4">
+        <app-back-router-simple
+          backRoute="/operaciones/zonas"
+          class="back"
+          textBackRoute="Volver"
+        ></app-back-router-simple>
+      </div>
 
-    <div class="col-12">
-      <h3 class="text-h3 mb-0">Edición de zonas</h3>
+      <div class="col-12">
+        <h3 class="text-h3 mb-0">Edición de zonas</h3>
+      </div>
     </div>
   </div>
 
@@ -18,6 +24,7 @@
         <app-op-zones-edition-home-zone-detail-card
           *appSkeletonCard="!!zoneDetail; row: 5; loading: !homeEditionLoader"
           [zoneDetail]="zoneDetail"
+          [zoneBackupDetail]="zoneBackupDetail"
           (edit)="editZone()"
         >
         </app-op-zones-edition-home-zone-detail-card>
@@ -31,6 +38,12 @@
       <app-tab label="Configuración principal">
         <app-op-zones-edition-home-main-setting-tab
           [zoneChannelServiceTypeList]="zoneServiceTypeList"
+          [zoneDetail]="zoneDetail"
+          [zonesServiceTypeRegistered]="zonesServiceTypeRegistered"
+          [zonesChannelServiceTypeRegistered]="
+            zonesChannelServiceTypeRegistered
+          "
+          [serviceTypeList]="serviceTypeList"
           [homeEditionLoader]="homeEditionLoader"
           (add)="addServiceType($event)"
           (edit)="editServiceType($event)"

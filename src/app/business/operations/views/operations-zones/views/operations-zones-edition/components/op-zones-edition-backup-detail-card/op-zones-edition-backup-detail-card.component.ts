@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CStateValue } from '@models/state/state.model';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 
 @Component({
@@ -18,6 +19,10 @@ export class OpZonesEditionBackupDetailCardComponent {
   get zoneEditionDrugstoreBackup(): string {
     return !this.zoneDetail?.zoneBackup ?
       'Sin local backup' : `${this.zoneDetail.zoneBackup.assignedStoreCode} - ${this.zoneDetail.zoneBackup.assignedStoreName}`;
+  }
+
+  get zoneState(){
+    return CStateValue[this.zoneDetail?.state];
   }
 
   constructor() { }

@@ -1,52 +1,108 @@
-<app-card>
+<app-card innerClass="p-5">
   <form [formGroup]="form.form$">
-    <div class="row mb-6">
-      <div class="col-12">
-        <app-switch [formControlName]="controlNameList.state">
-          Zona {{stateControlName}}
-        </app-switch>
+    <div class="row mb-5">
+      <div class="col-12 d-flex justify-content-between">
+        <div class="d-flex align-items-center">
+          <app-icon
+            class="me-5"
+            [svgName]="zoneState ? 'ellipse-success' : 'ellipse-danger'"
+          ></app-icon>
+          <h4 class="text-h4 mb-0 ms-3 text-gray-5">
+            {{ zoneDetail.name }}
+            <span class="text-gray-5 mx-3">-</span>
+            <span class="text-gray-5 text-nowrap"
+              >COD {{ zoneDetail.code }}</span
+            >
+          </h4>
+        </div>
+        <div class="d-flex align-items-center">
+          <span class="text-body-2-regular text-gray-5 me-2"
+            >Desactivar zona</span
+          >
+          <app-switch
+            [formControlName]="controlNameList.state"
+            backgroundClass="bg-secondary"
+            class="d-flex align-items-center"
+          >
+          </app-switch>
+        </div>
       </div>
     </div>
-
-    <div class="row mb-9">
-      <div class="col-8 mb-5">
+    <hr class="m-0 bg-gray-3" />
+    <div class="row mt-4 mb-4">
+      <div class="col-12">
+        <h5 class="text-body-1-bold mb-0">
+          <span class="text-black">
+            Selecciona el local de atenci&oacute;n
+          </span>
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6 mb-6">
         <app-form-field>
-          <app-form-field-label>Local de atención principal</app-form-field-label>
+          <app-form-field-label>
+            <p class="text-body-1-regular text-gray-7 mb-1">
+              Local de atención principal
+            </p>
+          </app-form-field-label>
           <app-select-search
             [hidden]="form.assignedStoreControl.disabled"
             selectId="storeSelect"
             placeholder="Elije un local"
             [formControlName]="controlNameList.assignedStore"
-            [optionList]="storeList">
+            [optionList]="storeList"
+          >
             <ng-template #optionSelectedTemplate let-optionSelected>
               {{ assignedStoreOptionName(optionSelected) }}
             </ng-template>
-            <ng-template #optionTemplate let-option>{{ assignedStoreOptionName(option) }}</ng-template>
+            <ng-template #optionTemplate let-option>{{
+              assignedStoreOptionName(option)
+            }}</ng-template>
           </app-select-search>
           <app-input
             [hidden]="form.assignedStoreControl.enabled"
             [disabled]="form.assignedStoreControl.disabled"
-            [value]="assignedStoreOptionName(form.assignedStoreControl.value)">
+            [value]="assignedStoreOptionName(form.assignedStoreControl.value)"
+          >
           </app-input>
         </app-form-field>
       </div>
 
-      <div class="col-12 mb-6">
+      <div class="col-6 mb-6">
         <app-form-field>
-          <app-form-field-label>Tipo de delivery</app-form-field-label>
-          <span>{{ deliveryType }}</span>
+          <app-form-field-label>
+            <p class="text-body-1-regular text-gray-7 mb-1">Tipo de delivery</p>
+          </app-form-field-label>
+          <app-input [disabled]="true" [value]="deliveryType"> </app-input>
+          <!-- <span>{{ deliveryType }}</span> -->
         </app-form-field>
       </div>
 
       <div class="col-12 mb-6">
         <app-form-field>
-          <app-form-field-label>Marcas</app-form-field-label>
-          <div class="row mt-4" [formArrayName]="controlNameList.company">
-            <ng-container *ngFor="let companyControl of form.companyArray.controls; let index = index"
-                          [formGroupName]="index">
+          <app-form-field-label>
+            <h5 class="text-body-1-bold mb-2">
+              <span class="text-black">Selecciona la marca</span>
+            </h5>
+          </app-form-field-label>
+          <div class="row" [formArrayName]="controlNameList.company">
+            <ng-container
+              *ngFor="
+                let companyControl of form.companyArray.controls;
+                let index = index
+              "
+              [formGroupName]="index"
+            >
               <div class="col-6">
-                <app-checkbox [formControlName]="controlNameList.companyChecked">
-                  {{ companyName[companyControl.value[controlNameList.companyName]] }}
+                <app-checkbox
+                  [formControlName]="controlNameList.companyChecked"
+                >
+                  {{
+                    companyName[
+                      companyControl.value[controlNameList.companyName]
+                    ]
+                  }}
                 </app-checkbox>
               </div>
             </ng-container>
@@ -54,63 +110,105 @@
         </app-form-field>
       </div>
 
-      <div class="col-12 mb-7" *ngIf="form.channelArray.controls.length">
+      <div class="col-12 mb-6" *ngIf="form.channelArray.controls.length">
         <app-form-field>
-          <app-form-field-label>Canales de atención</app-form-field-label>
-          <div class="row mt-4" [formArrayName]="controlNameList.channel">
-            <ng-container *ngFor="let channelControl of form.channelArray.controls; let index = index"
-                          [formGroupName]="index">
+          <app-form-field-label>
+            <h5 class="text-body-1-bold mb-2">
+              <span class="text-black">Selecciona el canal de atención</span>
+            </h5>
+          </app-form-field-label>
+          <div class="row" [formArrayName]="controlNameList.channel">
+            <ng-container
+              *ngFor="
+                let channelControl of form.channelArray.controls;
+                let index = index
+              "
+              [formGroupName]="index"
+            >
               <div class="col-6">
-                <app-checkbox [formControlName]="controlNameList.channelChecked">
-                  {{ channelName[channelControl.value[controlNameList.channelName]] }}
+                <app-checkbox
+                  [formControlName]="controlNameList.channelChecked"
+                >
+                  {{
+                    channelName[
+                      channelControl.value[controlNameList.channelName]
+                    ]
+                  }}
                 </app-checkbox>
               </div>
             </ng-container>
           </div>
-        </app-form-field>
-      </div>
-
-      <div class="col-8">
-        <app-form-field>
-          <app-form-field-label>Etiqueta</app-form-field-label>
-          <div class="mb-4" *ngIf="form.labelControl.value">
-            <app-tag-delete
-              [hidden]="form.labelControl.disabled"
-              [tagColor]="labelColor[form.labelControl.value]"
-              (delete)="updateLabelControl()">
-              {{ form.labelControl.value }}
-            </app-tag-delete>
-            <app-tag
-              [hidden]="form.labelControl.enabled"
-              [tagColor]="labelColor[form.labelControl.value]"
-              [appearance]="tagAppearance.coloredDarkPill">
-              {{ form.labelControl.value }}
-            </app-tag>
-          </div>
-          <app-select
-            [hidden]="form.labelControl.disabled"
-            [formControlName]="controlNameList.label"
-            placeholder="Agrega una etiqueta a la zona"
-            [optionList]="labelList">
-          </app-select>
-          <app-input
-            [hidden]="form.labelControl.enabled"
-            [disabled]="form.labelControl.disabled"
-            [value]="form.labelControl.value">
-          </app-input>
         </app-form-field>
       </div>
     </div>
+    <div class="row mb-4">
+      <div class="col-12">
+        <h5 class="text-body-1-bold mb-0">
+          <span class="text-black">Coloca una etiqueta a la zona</span>
+        </h5>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <!-- <app-form-field> -->
+      <app-form-field-label>
+        <p class="text-body-1-regular text-gray-7 mb-1">Tipo de zona</p>
+      </app-form-field-label>
+      <div class="col-6">
+        <app-select
+          [hidden]="form.labelControl.disabled"
+          [formControlName]="controlNameList.label"
+          placeholder="Agrega una etiqueta a la zona"
+          [optionList]="labelList"
+        >
+        </app-select>
+        <app-input
+          [hidden]="form.labelControl.enabled"
+          placeholder="Agrega una etiqueta a la zona"
+          [disabled]="form.labelControl.disabled"
+          [value]="form.labelControl.value"
+        >
+        </app-input>
+      </div>
 
-    <div class="card-actions d-flex-horizontal-end pt-5 border-top border-gray-1">
-      <app-button appearance="secondary" class="me-4" (clicked)="cancelEditionEvent()">
+      <div class="col-6 d-flex align-items-center">
+        <div *ngIf="form.labelControl.value">
+          <app-tag-delete
+            [hidden]="form.labelControl.disabled"
+            [appearance]="tagAppearance.zoneTypeWhite"
+            [useSvg]="true"
+            (delete)="updateLabelControl()"
+          >
+            {{ form.labelControl.value }}
+          </app-tag-delete>
+          <app-tag
+            [hidden]="form.labelControl.enabled"
+            [appearance]="tagAppearance.zoneTypeWhite"
+          >
+            {{ form.labelControl.value }}
+          </app-tag>
+        </div>
+      </div>
+
+      <!-- </app-form-field> -->
+    </div>
+    <div
+      class="card-actions d-flex-horizontal-end pt-7"
+    >
+      <app-button
+        appearance="secondary"
+        class="me-4"
+        (clicked)="cancelEditionEvent()"
+        innerClass="btnServiceEditionStyle"
+      >
         Cancelar edición
       </app-button>
       <app-button
         appearance="primary"
+        innerClass="btnServiceEditionStyle"
         [disabled]="form.form$.invalid"
         (editionAccess)="saveEditionEvent()"
-        [pathAccess]="zoneDetailPath">
+        [pathAccess]="zoneDetailPath"
+      >
         Guardar cambios
       </app-button>
     </div>

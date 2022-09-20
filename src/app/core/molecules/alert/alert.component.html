@@ -1,18 +1,25 @@
-<div class="alert-container"
-     [class.background-danger]="data?.status === eAlertStatus.error"
-     [class.background-warning]="data?.status === eAlertStatus.warning"
-     [class.background-success]="data?.status === eAlertStatus.success">
+<div
+  class="alert-container"
+  [class.background-danger]="data?.status === eAlertStatus.error"
+  [class.background-warning]="data?.status === eAlertStatus.warning"
+  [class.background-success]="data?.status === eAlertStatus.success"
+  [class.bg-white]="data?.status === eAlertStatus.lightSuccess"
+>
   <app-icon
-    [fontName]="data?.status === eAlertStatus.error ? 'cancel' :
-                data?.status === eAlertStatus.warning ? 'warning': 'check_circle'"
-    [innerClass]="data.status === eAlertStatus.error ? 'text-dark-danger' :
-                  data.status === eAlertStatus.warning ? 'text-dark-warning' : 'text-dark-success'"
-    fontSize="24px">
+    [fontName]="fontNameIcon"
+    [svgName]="data?.status === eAlertStatus.lightSuccess && 'check'"
+    svgWidth="32px"
+    [innerClass]="
+      data.status === eAlertStatus.error
+        ? 'text-dark-danger'
+        : data.status === eAlertStatus.warning
+        ? 'text-dark-warning'
+        : 'text-dark-success'
+    "
+    fontSize="24px"
+  >
   </app-icon>
 
-  <span class="alert-text"
-        [class]="data.status === eAlertStatus.error ? 'text-dark-danger' :
-                 data.status === eAlertStatus.warning ? 'text-dark-warning' : 'text-dark-success'"
-        [innerHTML]="data?.message">
+  <span class="alert-text" [class]="classAlertText" [innerHTML]="data?.message">
   </span>
 </div>

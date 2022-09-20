@@ -15,7 +15,6 @@ import {
 } from '@parameters/generic/http-header.parameter';
 import {
   API_GATEWAY,
-  API_GATEWAY_CI02_TEST,
   API_GATEWAY_ORDER,
   EndpointsParameter,
 } from '@parameters/generic/endpoints.parameter';
@@ -26,7 +25,6 @@ export class TokenInterceptorService implements HttpInterceptor {
     API_GATEWAY,
     API_GATEWAY_ORDER,
     EndpointsParameter.AUTH_UPDATE_PASSWORD,
-    API_GATEWAY_CI02_TEST,
   ];
 
   private unauthorizedUrls = [];

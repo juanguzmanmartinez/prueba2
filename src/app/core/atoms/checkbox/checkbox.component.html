@@ -13,7 +13,18 @@
     (click)="checkboxClick($event)"
   />
 
-  <span class="checkbox-mark" [ngClass]="spanClass"></span>
+  <span
+    class="checkbox-mark d-flex justify-content-center align-items-center"
+    [class.checkbox-checked]="_checked"
+
+  >
+    <app-icon
+      svgName="done-white"
+      svgWidth="8px"
+      *ngIf="_checked"
+      innerClass="mark bg-primary"
+    ></app-icon>
+  </span>
 
   <span class="checkbox-content">
     <ng-content></ng-content>

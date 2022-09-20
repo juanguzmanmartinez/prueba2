@@ -17,9 +17,10 @@
     }
 
     &:checked ~ .radio-content {
+      border: 1px solid $primary;
       .card-radio-title {
-        color: $gray-6;
-        @include text-h5
+        color: $black;
+        @include text-h4
       }
     }
 

@@ -1,18 +1,22 @@
-<section class="operations-capacity-zones pt-8 pb-15">
-  <div class="row mb-4">
-    <div class="col">
-      <app-back-router>Inicio</app-back-router>
+<section class="operations-capacity-zones pb-15">
+  <div class="pt-5 zone-home-header">
+    <div class="row mb-4">
+      <div class="col">
+        <!-- <app-back-router>Inicio</app-back-router> -->
+        <app-back-router-simple backRoute="/" textBackRoute="Ir a inicio">
+        </app-back-router-simple>
+      </div>
+    </div>
+
+    <div class="row mb-7">
+      <div class="col">
+        <h3 class="text-h3 text-black mb-0">Zonas</h3>
+      </div>
     </div>
   </div>
 
-  <div class="row mb-7">
-    <div class="col">
-      <h1 class="text-h3 text-black mb-0">Zonas</h1>
-    </div>
-  </div>
-
-  <div class="row justify-content-end mb-4" [hidden]="errorResponse">
-    <div class="col-6 col-lg-4">
+  <div class="row mb-4" [hidden]="errorResponse">
+    <div class="col-12">
       <app-input-search
         labelClass="w-100"
         placeholder="Buscar en lista"
@@ -145,18 +149,52 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell column-actions *matHeaderCellDef></th>
           <td mat-cell column-actions *matCellDef="let element">
-            <app-tooltip class="me-4" value="Editar">
+            <!-- <app-tooltip class="me-4" value="Editar">
               <app-button-action-icon
                 (clicked)="editRow(element.id)"
-                iconName="edit"
+                svgName="edit-tertiary"
+                svgWidth="24px"
               ></app-button-action-icon>
-            </app-tooltip>
-            <app-tooltip value="Más detalles">
+            </app-tooltip> -->
+            <div class="d-flex justify-content-around align-items-end h-100">
+              <app-tooltip
+                class="tooltip-button-action"
+                value="Editar"
+                position="left"
+                innerClass="bottom-7-right-3"
+              >
+                <app-icon
+                  svgName="edit-tertiary"
+                  svgNameHover="edit-tertiary-hover"
+                  svgWidth="24px"
+                  svgHeight="24px"
+                  (click)="editRow(element.id)"
+                  class="cursor-pointer"
+                ></app-icon>
+              </app-tooltip>
+              <!-- <app-tooltip value="Más detalles">
               <app-button-action-icon
                 (clicked)="rowDetailDialog(element)"
                 iconName="launch"
               ></app-button-action-icon>
-            </app-tooltip>
+            </app-tooltip> -->
+
+              <app-tooltip
+                class="tooltip-button-action"
+                value="Más detalles"
+                position="left"
+                innerClass="bottom-7-right-3"
+              >
+                <app-icon
+                  svgName="launch-tertiary"
+                  svgNameHover="launch-tertiary-hover"
+                  svgWidth="24px"
+                  svgHeight="24px"
+                  (click)="rowDetailDialog(element)"
+                  class="cursor-pointer"
+                ></app-icon>
+              </app-tooltip>
+            </div>
           </td>
         </ng-container>
 

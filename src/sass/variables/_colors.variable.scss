@@ -1,65 +1,72 @@
 // Colors
-$light-blue: #F1FBFF;
-$blue: #2697FF;
+$light-blue: #f1fbff;
+$blue: #2697ff;
 $dark-blue: #305787;
-$light-purple: #E9EAFF;
-$purple: #888BFF;
-$dark-purple: #696CE1;
-$light-orange: #FFEFDC;
-$orange: #FF804A;
-$dark-orange: #E26742;
-$light-turquoise: #E6FDF3;
-$turquoise: #16DED2;
-$dark-turquoise: #4AB4B7;
-$light-sky-blue: #E3FFFD;
-$sky-blue: #2FCDFF;
-$dark-sky-blue: #49A7D0;
-$light-fuchsia: #FFE5E1;
-$fuchsia: #FF698B;
-$dark-fuchsia: #B7346B;
-$light-green: #F0FCD3;
-$green: #79CC26;
-$dark-green: #4E9F0B;
-$light-yellow: #FFF8DC;
-$yellow: #FFC452;
-$dark-yellow: #CE9440;
-$light-red: #FEEEE2;
-$red: #FE604C;
-$dark-red: #D93B36;
-
+$light-purple: #e9eaff;
+$purple: #888bff;
+$dark-purple: #696ce1;
+$light-orange: #ffefdc;
+$orange: #ff804a;
+$dark-orange: #e26742;
+$light-turquoise: #e6fdf3;
+$turquoise: #16ded2;
+$dark-turquoise: #4ab4b7;
+$light-sky-blue: #e3fffd;
+$sky-blue: #2fcdff;
+$dark-sky-blue: #49a7d0;
+$light-fuchsia: #ffe5e1;
+$fuchsia: #ff698b;
+$dark-fuchsia: #b7346b;
+$light-green: #f0fcd3;
+$green: #79cc26;
+$dark-green: #4e9f0b;
+$light-yellow: #fff8dc;
+$yellow: #ffc452;
+$dark-yellow: #ce9440;
+$light-red: #feeee2;
+$red: #fe604c;
+$dark-red: #d93b36;
+$light-lilac: #fff4ff;
+$lilac: #fcd9ff;
+$dark-lilac: #c454d7;
 
 // Neutrals
-$white: #FFFFFF;
-$gray-0: #F9FAFB;
-$gray-1: #F4F6F7;
-$gray-2: #E9ECEE;
-$gray-3: #CBD2D9;
-$gray-4: #7E8FA0;
+$white: #ffffff;
+$gray-0: #f9fafb;
+$gray-1: #f4f6f7;
+$gray-2: #e9ecee;
+$gray-3: #cbd2d9;
+$gray-4: #7e8fa0;
 $gray-5: #576775;
-$gray-6: #3F4C58;
-$black: #1D2B36;
-
+$gray-50: #c4cdd4;
+$gray-6: #3f4c58;
+$gray-7: #3d4852;
+$black: #1d2b36;
 
 // Primary Colors
 $light-primary: $light-blue;
 $primary: $blue;
+$primary-50: #16a2ff;
+$primary-60: #1b75db;
+$primary-70: #0b5eb7;
 $dark-primary: $dark-blue;
 $light-secondary: $light-purple;
 $secondary: $purple;
 $dark-secondary: $dark-purple;
 
-
 // Complementary Colors
-$light-complementary-one: $light-orange;  // Light Quintary
-$complementary-one: $orange;  // Quintary
-$dark-complementary-one: $dark-orange;  // Dark Quintary
-$light-complementary-two: $light-turquoise;  // Light Quaternary
-$complementary-two: $turquoise;  // Quaternary
-$dark-complementary-two: $dark-turquoise;  // Dark Quaternary
-$light-complementary-three: $light-sky-blue;  // Light Tertiary
+$light-complementary-one: $light-orange; // Light Quintary
+$complementary-one: $orange; // Quintary
+$dark-complementary-one: $dark-orange; // Dark Quintary
+$light-complementary-two: $light-turquoise; // Light Quaternary
+$complementary-two: $turquoise; // Quaternary
+$dark-complementary-two: $dark-turquoise; // Dark Quaternary
+$light-complementary-three: $light-sky-blue; // Light Tertiary
 $complementary-three: $sky-blue; // Tertiary
 $dark-complementary-three: $dark-sky-blue; // Dark Tertiary
-
+$light-complementary-four: $light-lilac; // Light Tertiary
+$complementary-four: $lilac; // Tertiary
+$dark-complementary-four: $dark-lilac; // Dark Tertiary
 
 // Semantics
 $light-success: $light-green;
@@ -72,7 +79,6 @@ $light-danger: $light-red;
 $danger: $red;
 $dark-danger: $dark-red;
 
-
 // Brand
-$inkafarma: #00A651;
-$mifarma: #FF7929;
+$inkafarma: #00a651;
+$mifarma: #ff7929;

@@ -67,7 +67,7 @@ export class OperationsZonesEditionZoneComponent implements OnInit, OnDestroy {
       this.zoneDetail.id, zoneDetailUpdate)
       .subscribe(() => {
         this._operationsZonesEditionStore.updateZoneDetail = true;
-        this._alert.alertSuccess(OperationMessages.successOperationEdition(this.zoneDetail.name));
+        this._alert.alertLightSuccess(OperationMessages.successOperationEdition(this.zoneDetail.name));
         this._routerHelper.backRoute();
       }, () => {
         this._alert.alertError(OperationMessages.errorOperationEdition(this.zoneDetail.name));

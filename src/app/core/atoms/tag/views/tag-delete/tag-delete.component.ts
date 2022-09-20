@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ETag, ETagAppearance } from '@models/tag/tag.model';
+import { ETag, ETagAppearance, TTagAppearance } from '@models/tag/tag.model';
 
 @Component({
     selector: 'app-tag-delete',
@@ -11,6 +11,8 @@ export class TagDeleteComponent implements OnInit {
     public tagAppearance = ETagAppearance;
 
     @Input() tagColor: ETag | string;
+    @Input() useSvg: boolean;
+    @Input() appearance: TTagAppearance = ETagAppearance.coloredDarkPill;
     @Output() delete = new EventEmitter();
 
     constructor() {

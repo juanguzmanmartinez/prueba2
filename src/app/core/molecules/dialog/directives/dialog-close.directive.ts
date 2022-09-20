@@ -24,7 +24,7 @@ export class DialogCloseDirective implements AfterViewInit {
         this.renderer.addClass(this.elementRef.nativeElement, 'dialog-close');
         this.renderer.setStyle(this.elementRef.nativeElement, 'position', 'absolute');
         this.renderer.setStyle(this.elementRef.nativeElement, 'right', '24px');
-        this.renderer.setStyle(this.elementRef.nativeElement, 'top', '20px');
+        this.renderer.setStyle(this.elementRef.nativeElement, 'top', '40px');
         this.renderer.setStyle(this.elementRef.nativeElement, 'z-index', '2');
     }
 
@@ -34,7 +34,7 @@ export class DialogCloseDirective implements AfterViewInit {
 
         const iconComponentRef = iconComponentFactory.create(this.injector);
         iconComponentRef.instance.fontName = 'close';
-        iconComponentRef.instance.fontSize = '24px';
+        iconComponentRef.instance.fontSize = '16px';
         iconComponentRef.instance.innerClass = 'text-gray-5 cursor-pointer';
 
         this.applicationRef.attachView(iconComponentRef.hostView);

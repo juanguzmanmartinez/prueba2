@@ -11,7 +11,7 @@ import { TABS } from '../constants/step-tabs.constants';
   providedIn: 'root',
 })
 export class UploadCapacitiesStoreService {
-  private currentStep = new BehaviorSubject<string>('1');
+  private currentStep = new BehaviorSubject<string>('0');
   private stepsTabs = new BehaviorSubject<any[]>(TABS);
   private localToEdit = new BehaviorSubject<any>({});
   private storesList = new BehaviorSubject<IStoreUpload[]>([]);

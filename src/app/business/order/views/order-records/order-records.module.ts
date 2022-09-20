@@ -27,6 +27,7 @@ import { CardModule } from '@molecules/cards/card.module';
 import { DirectivesModule } from '../../../../shared/directives/directives.module';
 import { PipesModule } from '@pipes/pipes.module';
 import { OrderFormPresenter } from './order-form.presenter';
+import { IconsModule } from '@atoms/icons/icons.module';
 
 @NgModule({
   declarations: [OrderRecordsComponent],
@@ -57,6 +58,7 @@ import { OrderFormPresenter } from './order-form.presenter';
     CardModule,
     DirectivesModule,
     PipesModule,
+    IconsModule,
   ],
   providers: [OrderRecordsImplementService],
 })

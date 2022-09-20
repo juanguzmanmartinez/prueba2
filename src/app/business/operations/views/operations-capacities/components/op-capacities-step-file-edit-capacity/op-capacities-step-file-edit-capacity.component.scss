@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   padding: 13px 12px;
-  color: white;
+  color: white !important;
   width: 25%;
 }
 
@@ -19,7 +19,7 @@
 }
 
 :host ::ng-deep .mat-tab-label {
-  width: 25%;
+  width: 25% !important;
 }
 
 .input-num {
@@ -29,4 +29,16 @@
   font-weight: 700;
   color: #2697ff;
   margin-top: 20px;
+}
+:host ::ng-deep mat-tab-group.mat-tab-group .mat-tab-label.mat-tab-label-active .mat-tab-label-content{
+color: white !important;
+}
+
+
+:host ::ng-deep mat-tab-group.mat-tab-group .mat-tab-header .mat-ink-bar{
+  display: none;
+}
+
+:host ::ng-deep mat-tab-group.mat-tab-group .mat-tab-header{
+ border-bottom: none;
 }

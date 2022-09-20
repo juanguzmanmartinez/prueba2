@@ -1,29 +1,30 @@
-<section class="op-zone-home-detail-dialog" app-dialog-container>
+<section
+  class="op-zone-home-detail-dialog"
+  app-dialog-container
+  widthOverlay="700px"
+>
   <div app-dialog-close mat-dialog-close></div>
 
   <ng-container *ngIf="!errorResponse">
-    <div
+    <!-- <div
       *ngIf="!zoneDetailLoader"
       app-dialog-edit-button
       [mat-dialog-close]="true"
-    ></div>
+    ></div> -->
 
     <div class="content mb-6">
       <app-dialog-header svgName="navigation">
         <ng-container dialog-header-title>
-          <p class="mb-2">
-            <app-tag
-              [appearance]="tagAppearance.uppercase"
-              [tagColor]="stateTag[zone.state]"
-            >
-              {{ stateName[zone.state]() }}
-            </app-tag>
-          </p>
-          <p class="text-wrap mb-2">
-            {{ zone.name }}
-            <span class="text-gray-5 mx-3">-</span>
-            <span class="text-gray-5 text-nowrap">COD {{ zone.code }}</span>
-          </p>
+          <div class="d-flex align-items-center">
+            <!-- <app-icon svgName="navigation" svgWidth="32px"> </app-icon> -->
+            <app-icon
+              class="me-5"
+              [svgName]="segmentState ? 'ellipse-success' : 'ellipse-danger'"
+            ></app-icon>
+            <h4 class="text-h5 mb-0 ms-2">
+              {{ zone.name }} - COD {{ zone.code }}
+            </h4>
+          </div>
         </ng-container>
 
         <ng-container dialog-header-description *ngIf="!zoneDetailLoader">
@@ -44,9 +45,10 @@
             <div class="col-6">
               <app-card-static-information
                 class="d-block mb-5"
-                iconName="store"
+                svgName="store"
+                svgWidth="24px"
               >
-                <ng-container information-title>Local asignado</ng-container>
+                <ng-container information-title>Local de atención</ng-container>
                 <ng-container information-caption>
                   {{ zoneDetail.assignedStore.code }}
                   {{ zoneDetail.assignedStore.name }}
@@ -55,7 +57,8 @@
 
               <app-card-static-information
                 class="d-block mb-5"
-                iconName="store"
+                svgName="store"
+                svgWidth="24px"
               >
                 <ng-container information-title>Local backup</ng-container>
                 <ng-container information-caption>
@@ -67,7 +70,8 @@
 
               <app-card-static-information
                 class="d-block mb-5"
-                iconName="store"
+                svgName="scooter"
+                svgWidth="24px"
               >
                 <ng-container information-title>Tipo de delivery</ng-container>
                 <ng-container information-caption>
@@ -86,7 +90,8 @@
             <div class="col-6">
               <app-card-static-information
                 class="d-block mb-5"
-                iconName="store"
+                svgName="crosshair"
+                svgWidth="24px"
               >
                 <ng-container information-title>Tipo de zona</ng-container>
                 <ng-container information-caption>{{
@@ -96,7 +101,8 @@
 
               <app-card-static-information
                 class="d-block mb-5"
-                iconName="store"
+                svgName="crosshair"
+                svgWidth="24px"
               >
                 <ng-container information-title>Zona backup</ng-container>
                 <ng-container information-caption>
@@ -106,7 +112,7 @@
                 </ng-container>
               </app-card-static-information>
 
-              <app-card-static-information iconName="shopping_bag">
+              <app-card-static-information svgName="bag" svgWidth="24px">
                 <ng-container information-title>Marcas</ng-container>
                 <ng-container information-caption>
                   <ng-container
@@ -164,6 +170,19 @@
           </div>
         </app-tab>
       </app-tab-group>
+      <div
+        *ngIf="!zoneDetailLoader"
+        [mat-dialog-close]="true"
+        class="mt-4 d-flex justify-content-end px-5"
+      >
+        <app-button
+          appearance="primary"
+          (clicked)="editZone()"
+          innerClass="btnEditZoneStyle"
+        >
+          Editar
+        </app-button>
+      </div>
     </div>
   </ng-container>
 

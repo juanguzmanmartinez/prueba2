@@ -1,21 +1,41 @@
-<div class="dialog-header d-flex" [ngClass]="containerClass">
-    <div class="d-flex-vertical-center d-inline-flex me-3 me-md-5">
-        <app-icon *ngIf="svgName"
-                  [svgName]="svgName"
-                  svgWidth="40px"></app-icon>
-        <app-icon *ngIf="fontName"
-                  [fontName]="fontName"
-                  [innerClass]="fontClass"
-                  fontSize="32px"></app-icon>
-    </div>
-    <div class="d-inline-block ps-0 mw-75">
-        <h1 class="text-h5 mb-0" [class.mb-2]="headerDescription.childNodes.length">
-                <span class="d-block text-truncate">
-                    <ng-content select="[dialog-header-title]"></ng-content>
-                </span>
-        </h1>
-        <p #headerDescription class="text-body-2-regular text-gray-5 mb-0">
-            <ng-content select="[dialog-header-description]"></ng-content>
-        </p>
-    </div>
+<div class="dialog-header d-flex flex-column" [ngClass]="containerClass">
+  <!-- <div class="d-flex-vertical-center d-inline-flex me-3 me-md-5">
+    <app-icon *ngIf="svgName" [svgName]="svgName" svgWidth="32px"></app-icon>
+    <app-icon
+      *ngIf="fontName"
+      [fontName]="fontName"
+      [innerClass]="fontClass"
+      fontSize="32px"
+    ></app-icon>
+  </div>
+  <div class="d-inline-block ps-0 mw-75">
+    <h1 class="text-h5 mb-0" [class.mb-2]="headerDescription.childNodes.length">
+      <span class="d-block text-truncate">
+        <ng-content select="[dialog-header-title]"></ng-content>
+      </span>
+    </h1>
+    <p #headerDescription class="text-body-2-regular text-gray-5 mb-0">
+      <ng-content select="[dialog-header-description]"></ng-content>
+    </p>
+  </div> -->
+
+  <div class="d-flex align-items-center" [class.mb-2]="headerDescription.childNodes.length">
+    <app-icon *ngIf="svgName" [svgName]="svgName" svgWidth="32px"></app-icon>
+    <app-icon
+      *ngIf="fontName"
+      [fontName]="fontName"
+      [innerClass]="fontClass"
+      fontSize="32px"
+    ></app-icon>
+    <h1 class="text-h5 mb-0 ms-4">
+      <span class="d-block text-truncate">
+        <ng-content select="[dialog-header-title]"></ng-content>
+      </span>
+    </h1>
+  </div>
+  <div>
+    <p #headerDescription class="text-body-2-regular text-gray-5 mb-0 ms-8">
+      <ng-content select="[dialog-header-description]"></ng-content>
+    </p>
+  </div>
 </div>

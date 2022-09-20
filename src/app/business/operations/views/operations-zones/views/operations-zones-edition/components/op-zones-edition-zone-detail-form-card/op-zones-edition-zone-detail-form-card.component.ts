@@ -79,6 +79,10 @@ export class OpZonesEditionZoneDetailFormCardComponent implements OnInit, OnDest
     return 'Sin delivery';
   }
 
+  get zoneState(){
+    return CStateValue[this.zoneDetail?.state];
+  }
+
   get stateControlName(): string {
     return this.stateName[this.form.stateControl.value ? EState.active : EState.inactive]('a');
   }

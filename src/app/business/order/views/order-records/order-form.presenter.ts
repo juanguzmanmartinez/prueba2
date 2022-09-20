@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ValidationErrors,
   ValidatorFn,
+  Validators,
 } from '@angular/forms';
 import * as moment from 'moment';
 import {
@@ -59,6 +61,34 @@ export class OrderFormPresenter {
     return true;
   }
 
+  isPromiseDateInvalid() {
+    return (
+      this.filterForm.get('promiseDate').invalid ||
+      this.filterForm.get('promiseRangeDate').invalid
+    );
+  }
+
+  setPromiseDateRequiredValidator() {
+    this.filterForm.get('promiseDate').setValidators([Validators.required]);
+    this.filterForm.get('promiseDate').updateValueAndValidity();
+  }
+  setRangeDateRequiredValidator() {
+    this.filterForm
+      .get('promiseRangeDate')
+      .setValidators([this.rangeDateValidator()]);
+    this.filterForm.get('promiseRangeDate').updateValueAndValidity();
+  }
+
+  clearPromiseDateValidators() {
+    this.filterForm.get('promiseDate').clearValidators();
+    this.filterForm.get('promiseDate').updateValueAndValidity();
+  }
+
+  clearRangeDateRequiredValidator() {
+    this.filterForm.get('promiseRangeDate').clearValidators();
+    this.filterForm.get('promiseRangeDate').updateValueAndValidity();
+  }
+
   isNullFilterForm() {
     const {
       searchCode,
@@ -108,6 +138,19 @@ export class OrderFormPresenter {
         if (searchValue.length < 8 && searchValue.length !== 0) {
           return { searchError: true };
         }
+      }
+      return null;
+    };
+  }
+
+  rangeDateValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (!control.value) {
+        return { isRequired: true };
+      }
+
+      if (!control.value?.endDate || !control.value?.startDate) {
+        return { isRequired: true };
       }
       return null;
     };
