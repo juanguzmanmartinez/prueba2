@@ -74,7 +74,6 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
   changeCapacitiesDrugstoreSelection(
     capacitiesDrugstore: CapacitiesDrugstore
   ): void {
-    console.log('capacitiesDrugstore1111111111', capacitiesDrugstore);
     this._drugStoreServiceStore.setStatusTab(capacitiesDrugstore);
     this.capacitiesDrugstoreSelection = capacitiesDrugstore;
     this._opCapacitiesDrugstoreDefaultCapacity.drugstoreSelection =
@@ -119,7 +118,6 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
     const subscription =
       this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityList$.subscribe(
         (capacitiesServiceType: CapacitiesServiceType) => {
-          console.log('cambie');
 
           this.capacitiesServiceTypeSelection = capacitiesServiceType;
           this.openServiceDefaultCapacity();
@@ -129,7 +127,6 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
   }
 
   openServiceDefaultCapacity(): void {
-    console.log('me abri');
 
     const serviceDefaultCapacityDialogRef =
       this._opCapacitiesDrugstoreDefaultCapacityDialog.openServiceDefaultCapacityDialog(
@@ -174,13 +171,7 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
     });
   }
   drugstoreDefaultSetIntervalTime(e): void {
-    // console.log('e', e);
-    // const drugstoreServiceTypePath = `${ROUTER_PATH.operationCapacities}/${
-    //   CDeliveryServiceTypeRoute[drugstoreService.serviceType]
-    // }`;
-    // const drugstoreServiceTypePath = `${ROUTER_PATH.operationCapacities}/${
-    //   CDeliveryServiceTypeRoute[drugstoreService.serviceType]
-    // }`;
+  this._router.navigate(['operaciones/capacidades/interval-express'])
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

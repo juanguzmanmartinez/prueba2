@@ -99,7 +99,6 @@ export class OpCapacitiesStepExpressResourceComponent
           if (
             this._opCapacitiesStepExpressResourceForm.expressResourceForm$.valid
           ) {
-            console.log('aquitoy');
 
             this.expressResourceSaveLoad = true;
             this._opCapacitiesStepExpressResource.expressResourceSave =
@@ -133,7 +132,6 @@ export class OpCapacitiesStepExpressResourceComponent
     const subscription =
       this._opCapacitiesStepExpressResource.expressResourceResetStepStatus$.subscribe(
         () => {
-          console.log('me ejecuto');
 
           this.expressResourceDateRange = false;
           this.expressResourceSaveLoad = false;
@@ -150,7 +148,6 @@ export class OpCapacitiesStepExpressResourceComponent
         (expressResourceSegments: ICapacityStepExpressResourceSegments) => {
           this.expressResourceSegments = expressResourceSegments;
           if (expressResourceSegments) {
-            console.log('expressResourceSegments', expressResourceSegments);
 
             this._opCapacitiesStepExpressResourceForm.expressResource.setValue(
               expressResourceSegments.expressResource

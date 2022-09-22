@@ -26,21 +26,17 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
 
   ngOnInit(): void {
     this.fg = this._formBuilder.group({
-      ampm: [false],
-      scheduled: [false],
-      express: [false],
-      ret: [false],
-      departamento: [''],
-      provincia: [''],
-      distrito: [''],
-      local: [''],
+      capacity: [false],
+      intervaltime: [false],
+      percentCapacity: [false],
+      incrementCapcity: [false],
+      incrementInterval: [''],
     });
   }
 
   @Input() data: any[] = [];
 
   selectionChange(ev) {
-    console.log('e', ev);
   }
 
   nextStep(e: any) {}
@@ -48,21 +44,5 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
     this._router.navigate(['/operaciones/capacidades']);
   }
 
-  // updateDefaultCapacityDrugstoreList(): void {
-  //   const subscription =
-  //     this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList$.subscribe(
-  //       (capacitiesDrugstoreList) => {
-  //         this.capacitiesDrugstoreList = capacitiesDrugstoreList;
-  //         this.changeCapacitiesDrugstoreSelection(capacitiesDrugstoreList[0]);
-  //       }
-  //     );
-  //   this.subscriptions.add(subscription);
-  // }
-  // changeCapacitiesDrugstoreSelection(
-  //   capacitiesDrugstore: CapacitiesDrugstore
-  // ): void {
-  //   this.capacitiesDrugstoreSelection = capacitiesDrugstore;
-  //   this._opCapacitiesDrugstoreDefaultCapacity.drugstoreSelection =
-  //     capacitiesDrugstore;
-  // }
+
 }
