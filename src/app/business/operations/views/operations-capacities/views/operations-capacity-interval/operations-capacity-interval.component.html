@@ -79,7 +79,7 @@
             class="order-table"
           >
             <ng-container matColumnDef="select">
-              <th mat-header-cell *matHeaderCellDef column-width="5%">
+              <th mat-header-cell *matHeaderCellDef column-width="4%">
                 <app-checkbox
                   (change)="$event ? masterToggle() : null"
                   [checked]="selection.hasValue() && isAllSelected()"
@@ -100,7 +100,7 @@
             <ng-container matColumnDef="code">
               <th
                 mat-header-cell
-                column-width="10%"
+                column-width="7%"
                 *matHeaderCellDef
                 app-sort-custom
                 (currentOrder)="sortData($event)"
@@ -115,7 +115,7 @@
             <ng-container matColumnDef="name">
               <th
                 mat-header-cell
-                column-width="12%"
+                column-width="15%"
                 *matHeaderCellDef
                 app-sort-custom
                 (currentOrder)="sortData($event)"
@@ -128,13 +128,13 @@
             <ng-container matColumnDef="demand">
               <th
                 mat-header-cell
-                column-width="12%"
+                column-width="7%"
                 *matHeaderCellDef
                 app-sort-custom
                 (currentOrder)="sortData($event)"
                 class="th-center"
               >
-                % demanda
+                %demanda
               </th>
               <td mat-cell *matCellDef="let element">{{ element.demand }}</td>
             </ng-container>
@@ -142,7 +142,7 @@
             <ng-container matColumnDef="intervaltime-base">
               <th
                 mat-header-cell
-                column-width="13%"
+                column-width="15%"
                 *matHeaderCellDef
                 app-sort-custom
                 (currentOrder)="sortData($event)"
@@ -158,7 +158,7 @@
             <ng-container matColumnDef="intervaltime">
               <th
                 mat-header-cell
-                column-width="16%"
+                column-width="17%"
                 *matHeaderCellDef
                 app-sort-custom
                 (currentOrder)="sortData($event)"
@@ -173,7 +173,7 @@
             <ng-container matColumnDef="capacity-base">
               <th
                 mat-header-cell
-                column-width="16%"
+                column-width="17%"
                 *matHeaderCellDef
                 app-sort-custom
                 (currentOrder)="sortData($event)"
@@ -189,7 +189,7 @@
             <ng-container matColumnDef="capacity">
               <th
                 mat-header-cell
-                column-width="12%"
+                column-width="15%"
                 *matHeaderCellDef
                 app-sort-custom
                 (currentOrder)="sortData($event)"
@@ -205,7 +205,7 @@
             <ng-container matColumnDef="times">
               <th
                 mat-header-cell
-                column-width="12%"
+                column-width="15%"
                 *matHeaderCellDef
                 app-sort-custom
                 (currentOrder)="sortData($event)"
