@@ -63,6 +63,7 @@ import { FilterDepartamentsComponent } from './components/op-capacities-step-fil
 import { FilterProvincesComponent } from './components/op-capacities-step-file-download/components/filter-provinces/filter-provinces.component';
 import { FilterDistrictsComponent } from './components/op-capacities-step-file-download/components/filter-districts/filter-districts.component';
 import { FilterStoresComponent } from './components/op-capacities-step-file-download/components/filter-stores/filter-stores.component';
+import { PaginatorModule } from '@atoms/paginator/paginator.module';
 
 @NgModule({
   declarations: [
@@ -128,7 +129,7 @@ import { FilterStoresComponent } from './components/op-capacities-step-file-down
     StepTabsModule,
     LocalFilterModule,
     FormFieldModule,
-    FilterSearchModule,
+    FilterSearchModule,PaginatorModule
   ],
   providers: [OperationsCapacitiesImplementService],
 })

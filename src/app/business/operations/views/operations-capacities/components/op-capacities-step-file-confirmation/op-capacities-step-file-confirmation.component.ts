@@ -23,6 +23,8 @@ export class OpCapacitiesStepFileConfirmationComponent
 {
   private subscriptions = new Subscription();
   disableButton: boolean = false;
+  pageSize = 10;
+  page = 1;
   displayedColumns: string[] = [
     'code',
     'name',
@@ -240,6 +242,10 @@ export class OpCapacitiesStepFileConfirmationComponent
       .map((item: IStoreProcessed) => item.status)
       .every((item) => item == false);
   }
+  filterAll(){
+
+  }
+  onChangePage(e){}
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

@@ -103,6 +103,36 @@
             ></tr>
           </table>
         </div>
+        <!-- <div class="row" >
+          <div class="col-lg-4"></div>
+
+          <div class="col-lg-4 d-flex-center" >
+            <app-paginator
+              length="30"
+              [pageIndex]="page - 1"
+              [pageSize]="pageSize"
+              (page)="onChangePage($event)"
+            >
+            </app-paginator>
+          </div>
+
+          <div class="col-lg-4" >
+            <div class="page-size">
+              <div class="d-flex align-items-center justify-content-end">
+                <p class="page-size-label text-gray-6 mb-0">Items por página</p>
+                <app-select
+                  class="select-size"
+                  [(ngModel)]="pageSize"
+                  [value]="10"
+                  containerMaxHeight="80px"
+                  [optionList]="[10, 20, 30]"
+                  (ngModelChange)="filterAll()"
+                >
+                </app-select>
+              </div>
+            </div>
+          </div>
+        </div> -->
       </div>
     </div>
   </div>

@@ -134,11 +134,12 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     this._operationsCapacitiesImplementService
       .getStoresClient$(code)
       .subscribe((res) => {
+
         let newDepartaments: any[] = res.map((item) => {
           return {
             ...item,
             hidden: false,
-            desc: item.name,
+            desc: item.code +"-"+item.name,
           };
         });
         this._uploadCapacitiesStoreService.setStoresFilter(newDepartaments);
