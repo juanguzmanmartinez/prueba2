@@ -46,8 +46,7 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
 import { OpIntervalsStepSetExpressComponent } from './components/op-intervals-step-set-express/op-intervals-step-set-express.component';
 import { CardStepModule } from '@molecules/card-step/card-step.module';
 import { SwitchModule } from '@atoms/switch/switch.module';
-import { OperationsCapacityIntervalExpressListComponent } from './views/operations-capacity-interval-express-list/operations-capacity-interval-express-list.component';
-import { OperationsCapacityIntervalExpressUploadComponent } from './views/operations-capacity-interval-express-upload/operations-capacity-interval-express-upload.component';
+
 import { OperationsCapacityIntervalComponent } from './views/operations-capacity-interval/operations-capacity-interval.component';
 import { SelectModule } from '@atoms/select/select.module';
 import { OperationsCapacityIntervalUploadComponent } from './views/operations-capacity-interval-upload/operations-capacity-interval-upload.component';
@@ -74,8 +73,6 @@ import { OpCapacitiesIntervalStepConfirmationComponent } from './components/op-c
     OpCapacitiesDrugstoreDefaultCapacityDialogComponent,
     OperationsIntervalExpressComponent,
     OpIntervalsStepSetExpressComponent,
-    OperationsCapacityIntervalExpressListComponent,
-    OperationsCapacityIntervalExpressUploadComponent,
     OperationsCapacityIntervalComponent,
     OperationsCapacityIntervalUploadComponent,
     OpCapacitiesIntervalStepUploadComponent,
