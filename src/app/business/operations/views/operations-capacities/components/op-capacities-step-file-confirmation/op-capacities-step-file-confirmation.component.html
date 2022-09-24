@@ -29,7 +29,7 @@
                 AM/PM
               </th>
               <td class="text-center" mat-cell *matCellDef="let element">
-                {{ element.ampmTotalCapacity }}
+                {{ getStatusService(element.ampmTotalCapacity) }}
               </td>
             </ng-container>
             <ng-container matColumnDef="programado">
@@ -37,7 +37,7 @@
                 Programado
               </th>
               <td class="text-center" mat-cell *matCellDef="let element">
-                {{ element.scheTotalCapacity }}
+                {{  getStatusService(element.scheTotalCapacity) }}
               </td>
             </ng-container>
             <ng-container matColumnDef="express">
@@ -45,13 +45,26 @@
                 Express
               </th>
               <td class="text-center" mat-cell *matCellDef="let element">
-                {{ element.expTotalCapacity }}
+                <ng-container *ngIf="getStatusService(element.expTotalCapacity) != -1; else iconDanger">
+                  {{  getStatusService(element.expTotalCapacity)}}
+                </ng-container>
+                  <ng-template #iconDanger>
+                    <app-icon
+                    *ngIf="element.status"
+                    svgName="warning"
+                    svgHeight="18px"
+                    svgWidth="18px"
+                    class="icon"
+                  >
+                  </app-icon>
+                </ng-template>
+
               </td>
             </ng-container>
             <ng-container matColumnDef="ret">
               <th class="text-center" mat-header-cell *matHeaderCellDef>RET</th>
               <td class="text-center" mat-cell *matCellDef="let element">
-                {{ element.retTotalCapacity }}
+                {{ getStatusService(element.retTotalCapacity) }}
               </td>
             </ng-container>
             <ng-container matColumnDef="estado">

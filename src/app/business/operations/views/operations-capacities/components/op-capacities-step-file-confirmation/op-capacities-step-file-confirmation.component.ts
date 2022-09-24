@@ -10,7 +10,6 @@ import { TABS } from '../../constants/step-tabs.constants';
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-store.service';
 import { OpCapacitiesUploadDeleteDialogService } from './components/op-capacities-upload-delete-dialog/op-capacities-upload-delete-dialog.service';
-interface ILocal {}
 
 @Component({
   selector: 'app-op-capacities-step-file-confirmation',
@@ -46,7 +45,10 @@ export class OpCapacitiesStepFileConfirmationComponent
   ) {}
 
   ngOnInit(): void {
+
     TABS[2].flow = 'done';
+    TABS[2].icon = 'done';
+    TABS[1].icon = 'check';
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
     const subscription =
       this._uploadCapacitiesStoreService.getDataSource$.subscribe(
@@ -244,6 +246,11 @@ export class OpCapacitiesStepFileConfirmationComponent
   }
   filterAll(){
 
+  }
+  getStatusService(element){
+    if(isNaN(element)) return -1
+    if(element == 0) return '-'
+    return element
   }
   onChangePage(e){}
   ngOnDestroy(): void {

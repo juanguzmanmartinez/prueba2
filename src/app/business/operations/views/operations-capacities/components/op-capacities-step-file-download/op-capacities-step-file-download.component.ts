@@ -82,7 +82,7 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       .subscribe((res) => {
         ExportTableSelection.exportArrayToExcel(
           res,
-          'Plantilla descarga capacidades'
+          'Plantilla descarga capacidades',true
         );
       });
   }

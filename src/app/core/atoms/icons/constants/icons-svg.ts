@@ -72,6 +72,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   },
   { name: 'product', path: `${pathIcons}product.svg` },
   { name: 'done-blue', path: `${pathIcons}done-blue.svg` },
+  { name: 'check-blue', path: `${pathIcons}check-blue.svg` },
   { name: 'pending-blue', path: `${pathIcons}pending-blue.svg` },
   { name: 'info-purple', path: `${pathIcons}info-purple.svg` },
   { name: 'file', path: `${pathIcons}file.svg` },
