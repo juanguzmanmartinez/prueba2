@@ -5,6 +5,7 @@
   position: relative
   cursor: pointer
   display: inline-flex
+  align-items: center
   margin: 0
   @include non-selectable()
 
@@ -13,8 +14,7 @@
     left: 99999px
     opacity: 0
 
-    &:checked ~ .checkbox-content
-      @include text-h5
+ 
 
     &:checked ~ .checkbox-mark:after
       top: 2px
@@ -44,30 +44,21 @@
 
   .checkbox-mark
     position: absolute
-    top: 0
-    left: 0
     z-index: 2
     height: 16px
     width: 16px
     border: 1px solid $gray-3
     background-color: $white
-    border-radius: 2px
-
-    &:after
-      content: ""
-      position: absolute
-      top: 4px
-      left: 4px
-      width: 6px
-      height: 6px
-      background: white
-      border: 0
-      transition: top 0.3s, left 0.3s, width 0.3s, height 0.3s
-
+    border-radius: 4px
+  
+  .checkbox-checked
+    border: 0px
+    background-color: $primary
 
   .checkbox-content
     display: inline-block
     padding-left: 24px
     min-height: 16px
+    color: $gray-7
     @include text-body-1-regular
 

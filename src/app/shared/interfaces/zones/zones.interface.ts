@@ -14,16 +14,38 @@ export interface IZoneServiceType {
   enabled: boolean;
   intervalTime: number;
   channel: EChannel;
-  company: ECompany;
+  companyCode: ECompany;
+  //nuevos campos
+  timeMeasureUnit: string;
+  serviceCost: number;
+  serviceCostDefault: number;
+  serviceNew: boolean;
+  flagServiceType: string;
+  ompanyCode: string;
+  orderView: number;
+  service: EDeliveryServiceType;
 }
+
+// export interface IZoneServiceTypeUpdate {
+//   enabled: boolean;
+//   startHour: string;
+//   endHour: string;
+//   segmentGap: number;
+//   channel: EChannel;
+//   companyCode: ECompany;
+// }
 
 export interface IZoneServiceTypeUpdate {
   enabled: boolean;
   startHour: string;
   endHour: string;
   segmentGap: number;
-  channel: EChannel;
-  companyCode: ECompany;
+
+  zoneId: string;
+  service: string;
+  serviceTypeId: string;
+  serviceCost: number;
+  intervalTime: number;
 }
 
 export interface IZoneServiceTypeRegister {
@@ -34,6 +56,7 @@ export interface IZoneServiceTypeRegister {
   segmentGap: string;
   channel: EChannel;
   companyCode: ECompany;
+  serviceTypeId: string;
 }
 
 export interface IZone {
@@ -42,7 +65,7 @@ export interface IZone {
   name: string;
   enabled: boolean;
   fulfillmentCenterCode: string;
-  serviceTypes: IZoneServiceType[];
+  serviceType: IZoneServiceType[];
   storeCenter: IDrugstore;
   channel: EChannel[];
   companyCode: ECompany[];
@@ -75,6 +98,7 @@ export interface IZoneBackUp {
   forceServicePROG: EStateSetting;
   fulfillmentCenterCode: string;
   fulfillmentCenterName: string;
+  serviceType: IZoneServiceType[];
 }
 
 export interface IZoneBackupUpdate {
@@ -82,4 +106,7 @@ export interface IZoneBackupUpdate {
   preferableLocalBackupToShow: EStateSetting;
   forceServiceAMPM: EStateSetting;
   forceServicePROG: EStateSetting;
+  serviceTypeId: string;
+  serviceCost: number;
+  service: string;
 }

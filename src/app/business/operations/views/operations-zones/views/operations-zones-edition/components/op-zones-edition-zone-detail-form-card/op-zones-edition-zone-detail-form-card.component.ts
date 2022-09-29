@@ -93,6 +93,10 @@ export class OpZonesEditionZoneDetailFormCardComponent
     return 'Sin delivery';
   }
 
+  get zoneState(){
+    return CStateValue[this.zoneDetail?.state];
+  }
+
   get stateControlName(): string {
     return this.stateName[
       this.form.stateControl.value ? EState.active : EState.inactive

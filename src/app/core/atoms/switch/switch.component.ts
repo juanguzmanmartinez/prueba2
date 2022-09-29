@@ -24,6 +24,7 @@ export class SwitchComponent
 
   @Input() name: number | string = 'switch';
   @Input() innerClass: string;
+  @Input() backgroundClass: string = '';
 
   @Input('checked')
   set checked(checked: boolean) {
@@ -62,6 +63,10 @@ export class SwitchComponent
 
   toggle() {
     this.onChange(this.switchControl.value);
+  }
+
+  getClassIfChecked() {
+    return { [this.backgroundClass]: this.switchControl.value === true };
   }
 
   registerOnChange(fn: any): void {

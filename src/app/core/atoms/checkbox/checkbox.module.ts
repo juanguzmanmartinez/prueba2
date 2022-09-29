@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CheckboxComponent } from './checkbox.component';
 import { FormsModule } from '@angular/forms';
+import { IconsModule } from '@atoms/icons/icons.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { FormsModule } from '@angular/forms';
     ],
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        IconsModule
     ]
 })
 export class CheckboxModule {

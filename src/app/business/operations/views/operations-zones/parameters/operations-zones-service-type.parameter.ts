@@ -4,6 +4,7 @@ import { ECompany } from '@models/company/company.model';
 
 export type ZoneServiceTypeBasicRequest = {
   code: EDeliveryServiceType,
+  serviceTypeId?: string;
   channel: EChannel,
   company: ECompany
 };

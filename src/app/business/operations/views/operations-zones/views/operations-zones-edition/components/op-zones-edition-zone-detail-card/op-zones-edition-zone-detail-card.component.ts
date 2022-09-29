@@ -28,6 +28,10 @@ export class OpZonesEditionZoneDetailCardComponent {
         this.stateName[this.zoneDetail.zoneBackup.state]();
   }
 
+  get zoneState(){
+    return CStateValue[this.zoneDetail?.state];
+  }
+
   constructor() { }
 
 }

@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ZoneBackup, ZoneDetail } from '../../../../models/operations-zones.model';
+import {
+  ZoneBackup,
+  ZoneDetail,
+} from '../../../../models/operations-zones.model';
 import { ZoneBackupServiceTypeList } from '../../../../models/operations-zones-service-type.model';
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { CStateValue } from '@models/state/state.model';
@@ -8,11 +11,11 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 @Component({
   selector: 'app-op-zones-edition-home-backup-setting-tab',
   templateUrl: './op-zones-edition-home-backup-setting-tab.component.html',
-  styleUrls: ['./op-zones-edition-home-backup-setting-tab.component.sass']
+  styleUrls: ['./op-zones-edition-home-backup-setting-tab.component.sass'],
 })
 export class OpZonesEditionHomeBackupSettingTabComponent {
-
   public stateValue = CStateValue;
+  public showAlert: boolean;
 
   @Input() zoneBackup: ZoneBackup;
   @Input() zoneBackupDetail: ZoneDetail;
@@ -21,7 +24,9 @@ export class OpZonesEditionHomeBackupSettingTabComponent {
   @Output() editBackupZone = new EventEmitter();
   @Output() editServiceType = new EventEmitter<EDeliveryServiceType>();
 
-  constructor() { }
+  constructor() {
+    this.showAlert = true;
+  }
 
   editBackupZonEvent(): void {
     this.editBackupZone.emit();
@@ -33,5 +38,9 @@ export class OpZonesEditionHomeBackupSettingTabComponent {
 
   get zoneBackupPath(): string {
     return ROUTER_PATH.opZones_Zone(this.zoneBackupDetail.id);
+  }
+
+  hiddenAlert(): void {
+    this.showAlert = false;
   }
 }

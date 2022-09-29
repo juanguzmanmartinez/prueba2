@@ -59,7 +59,7 @@
               innerClass="w-100"
               appearance="primary"
               (clicked)="filterAll()"
-              [disabled]="tableLoader || presenter.isNullFilterForm()"
+              [disabled]="tableLoader || presenter.isNullFilterForm() || presenter.filterForm.invalid"
               >Buscar
             </app-button>
           </div>
@@ -76,8 +76,19 @@
       </div>
     </div>
 
+    <div class="row" *ngIf="!appearTable">
+      <section class="not-search-result d-flex-center py-8">
+        <div class="content text-center">
+          <app-icon svgName="look-orders" svgWidth="200px"></app-icon>
+          <h1 class="text-h4 mt-5 mb-5">
+            Ingresa los datos o selecciona los campos para iniciar la b&uacute;squeda
+          </h1>
+        </div>
+      </section>
+    </div>
+
     <div class="row">
-      <div class="col-12 mb-8">
+      <div class="col-12 mb-8" *ngIf="appearTable">
         <table
           mat-table
           large-table
@@ -288,7 +299,7 @@
       </div>
     </div>
 
-    <div class="row" [hidden]="errorResponse">
+    <div class="row" [hidden]="errorResponse" *ngIf="appearTable">
       <div class="col-lg-4"></div>
 
       <div class="col-lg-4 d-flex-center" *ngIf="showPaginator">

@@ -6,6 +6,7 @@
     disableOptionCentering
     panelClass="select-component"
     [enableNoSpace]="enableNoSpace"
+    [class.error-select]="error"
     [multiple]="multiple"
     [disabled]="disabled"
     [placeholder]="placeholder"
@@ -61,7 +62,7 @@
           [hidden]="option.hidden"
           [disabled]="disableOptionsMultiple && !value.includes(option.code)"
         >
-        {{option.desc}}    
+          {{ option.desc }}
         </mat-option>
       </ng-container>
 

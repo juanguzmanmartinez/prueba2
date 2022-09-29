@@ -17,6 +17,7 @@ import { SelectModule } from '@atoms/select/select.module';
 import { SwitchModule } from '@atoms/switch/switch.module';
 import { TooltipModule } from '@atoms/tooltip/tooltip.module';
 import { AlertModule } from '@molecules/alert/alert.module';
+import { BackRouterSimpleModule } from '@molecules/back-router-simple/back-router-simple.module';
 import { BackRouterModule } from '@molecules/back-router/back-router.module';
 import { CardStepModule } from '@molecules/card-step/card-step.module';
 import { CardModule } from '@molecules/cards/card.module';
@@ -108,6 +109,7 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     SwitchModule,
     SelectModule,
     StepTabsModule,
+    BackRouterSimpleModule
   ],
   providers: [OperationsCapacitiesImplementService],
 })

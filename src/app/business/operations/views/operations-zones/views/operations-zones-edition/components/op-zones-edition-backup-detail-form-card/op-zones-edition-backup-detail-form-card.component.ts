@@ -7,7 +7,7 @@ import {
 } from './form/op-zones-edition-backup-detail-form-card-form.service';
 import { CGStateSettingByValue, CStateValue } from '@models/state/state.model';
 import { IZoneBackupUpdate } from '@interfaces/zones/zones.interface';
-import { CZoneTypeName, EZoneType } from '../../../../parameters/operations-zones-type.parameter';
+import { CZoneTypeName, EZoneType, ZoneTypeList } from '../../../../parameters/operations-zones-type.parameter';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
@@ -26,6 +26,8 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
   public controlNameList = ZoneBackupDetailControlName;
   public zoneListStored: Zone[];
   public zoneList: Zone[];
+  public main = ZoneTypeList[0];
+  public backup = ZoneTypeList[1];
 
   @Input() zoneDetail: ZoneDetail;
 
@@ -46,7 +48,11 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
   get zoneBackupPath(): string {
     return ROUTER_PATH.opZones_ZoneBackupEdition();
   }
-
+  
+  get zoneState(){
+    return CStateValue[this.zoneDetail?.state];
+  }
+  
   constructor(
     public _editionZoneBackupDetailForm: OpZonesEditionBackupDetailFormCardFormService
   ) { }

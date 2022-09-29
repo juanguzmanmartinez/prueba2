@@ -4,35 +4,47 @@ import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
   selector: 'app-op-zones-edition-home-backup-stock-backup-card',
-  templateUrl: './op-zones-edition-home-backup-stock-backup-card.component.html',
-  styleUrls: ['./op-zones-edition-home-backup-stock-backup-card.component.sass']
+  templateUrl:
+    './op-zones-edition-home-backup-stock-backup-card.component.html',
+  styleUrls: [
+    './op-zones-edition-home-backup-stock-backup-card.component.sass',
+  ],
 })
 export class OpZonesEditionHomeBackupStockBackupCardComponent {
-
   @Input() zoneBackupDetail: ZoneDetail;
   @Input() disabled: boolean;
 
   @Output() edit = new EventEmitter();
 
   get zoneEditionZoneBackup(): string {
-    return !this.zoneBackupDetail ?
-      'Sin zona backup' : `${this.zoneBackupDetail.name} - ${this.zoneBackupDetail.code}`;
+    return !this.zoneBackupDetail
+      ? 'Sin zona backup'
+      : `${this.zoneBackupDetail.name} - ${this.zoneBackupDetail.code}`;
   }
 
   get zoneEditionDrugstoreBackup(): string {
-    return !this.zoneBackupDetail?.assignedStore ?
-      'Sin local backup' : `${this.zoneBackupDetail.assignedStore.code} - ${this.zoneBackupDetail.assignedStore.name}`;
+    return !this.zoneBackupDetail?.assignedStore
+      ? 'Sin local backup'
+      : `${this.zoneBackupDetail.assignedStore.code} - ${this.zoneBackupDetail.assignedStore.name}`;
   }
 
   get stockBackupDisabled(): boolean {
     return !this.zoneBackupDetail || this.disabled;
   }
 
+  get stockBackupIcon(): string {
+    return !this.zoneBackupDetail
+      ? 'ellipse-disabled'
+      : !this.disabled
+      ? 'ellipse-success'
+      : 'ellipse-danger';
+  }
+
   get backupEditionPath(): string {
     return ROUTER_PATH.opZones_ZoneBackupEdition();
   }
 
-  constructor() { }
+  constructor() {}
 
   editEvent(): void {
     this.edit.emit();

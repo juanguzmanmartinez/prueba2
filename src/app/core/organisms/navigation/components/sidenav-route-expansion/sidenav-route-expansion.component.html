@@ -22,7 +22,9 @@
         <div class="sidenav-route-expansion-header-router">
           <app-icon
             [fontName]="routeIcon"
-            class="sidenav-route-expansion-icon-container"
+            [svgName]="svgName"
+            [svgWidth]="svgWidth"
+            class="sidenav-route-expansion-icon-container d-block"
           ></app-icon>
           <span
             [hidden]="disableChildren"

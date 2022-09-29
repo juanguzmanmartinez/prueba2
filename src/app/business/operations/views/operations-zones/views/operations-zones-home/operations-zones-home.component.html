@@ -1,23 +1,28 @@
-<section class="operations-capacity-zones pt-8 pb-15">
-  <div class="row mb-4">
-    <div class="col">
-      <app-back-router>Inicio</app-back-router>
+<section class="operations-capacity-zones pb-15">
+  <div class="pt-5 zone-home-header">
+    <div class="row mb-4">
+      <div class="col">
+        <!-- <app-back-router>Inicio</app-back-router> -->
+        <app-back-router-simple backRoute="/" textBackRoute="Ir a inicio">
+        </app-back-router-simple>
+      </div>
+    </div>
+
+    <div class="row mb-7">
+      <div class="col">
+        <h3 class="text-h3 text-black mb-0">Zonas</h3>
+      </div>
     </div>
   </div>
 
-  <div class="row mb-7">
-    <div class="col">
-      <h1 class="text-h3 text-black mb-0">Zonas</h1>
-    </div>
-  </div>
-
-  <div class="row justify-content-end mb-4" [hidden]="errorResponse">
-    <div class="col-6 col-lg-4">
+  <div class="row mb-4" [hidden]="errorResponse">
+    <div class="col-12">
       <app-input-search
         labelClass="w-100"
         placeholder="Buscar en lista"
         [(ngModel)]="searchInput"
-        (ngModelChange)="filterBySearchInput()">
+        (ngModelChange)="filterBySearchInput()"
+      >
       </app-input-search>
     </div>
   </div>
@@ -25,19 +30,36 @@
   <div class="row" [hidden]="errorResponse">
     <div class="col-12 mb-8">
       <table mat-table large-table [dataSource]="dataSource" matSort>
-
         <ng-container matColumnDef="zoneCode">
-          <th mat-header-cell column-width="8%" *matHeaderCellDef mat-sort-header>Código</th>
-          <td mat-cell column-width="8%" cell-bold *matCellDef="let element">{{element.code}}</td>
+          <th
+            mat-header-cell
+            column-width="8%"
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Código
+          </th>
+          <td mat-cell column-width="8%" cell-bold *matCellDef="let element">
+            {{ element.code }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="zoneName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre de zona</th>
-          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Nombre de zona
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
         </ng-container>
 
         <ng-container matColumnDef="assignedStore">
-          <th mat-header-cell column-width="18%" *matHeaderCellDef mat-sort-header>Local asignado</th>
+          <th
+            mat-header-cell
+            column-width="18%"
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Local asignado
+          </th>
           <td mat-cell column-width="18%" *matCellDef="let element">
             <ng-container *ngIf="element.assignedStore">
               {{ element.assignedStore.name }}
@@ -49,11 +71,26 @@
         </ng-container>
 
         <ng-container matColumnDef="zoneCompany">
-          <th mat-header-cell column-width="153px" *matHeaderCellDef mat-sort-header>Marca</th>
-          <td mat-cell column-width="153px" cell-double-text *matCellDef="let element">
+          <th
+            mat-header-cell
+            column-width="153px"
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Marca
+          </th>
+          <td
+            mat-cell
+            column-width="153px"
+            cell-double-text
+            *matCellDef="let element"
+          >
             <ng-container *ngFor="let company of element.companyList">
               <span class="me-4">
-                <app-icon [svgName]="companyIcon[company]" svgWidth="24px"></app-icon>
+                <app-icon
+                  [svgName]="companyIcon[company]"
+                  svgWidth="24px"
+                ></app-icon>
               </span>
             </ng-container>
             <ng-container *ngIf="!element.companyList?.length">
@@ -63,10 +100,25 @@
         </ng-container>
 
         <ng-container matColumnDef="zoneChannel">
-          <th mat-header-cell column-width="153px" *matHeaderCellDef mat-sort-header>Canal</th>
-          <td mat-cell column-width="153px" cell-double-text *matCellDef="let element">
+          <th
+            mat-header-cell
+            column-width="153px"
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Canal
+          </th>
+          <td
+            mat-cell
+            column-width="153px"
+            cell-double-text
+            *matCellDef="let element"
+          >
             <ng-container *ngIf="element.channelList?.length">
-              <p class="mb-0" *ngFor="let channel of element.channelList; let last = last">
+              <p
+                class="mb-0"
+                *ngFor="let channel of element.channelList; let last = last"
+              >
                 {{ channelName[channel] }}
                 <span class="mx-2" *ngIf="!last">-</span>
               </p>
@@ -78,41 +130,101 @@
         </ng-container>
 
         <ng-container matColumnDef="zoneState">
-          <th mat-header-cell column-width="12%" header-cell-center *matHeaderCellDef mat-sort-header>Estado</th>
+          <th
+            mat-header-cell
+            column-width="12%"
+            header-cell-center
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Estado
+          </th>
           <td mat-cell column-width="12%" cell-center *matCellDef="let element">
-            <app-tag [tagColor]="stateTag[element.state]">{{ stateName[element.state]() }}</app-tag>
+            <app-tag [tagColor]="stateTag[element.state]">{{
+              stateName[element.state]()
+            }}</app-tag>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
           <th mat-header-cell column-actions *matHeaderCellDef></th>
           <td mat-cell column-actions *matCellDef="let element">
-            <app-tooltip class="me-4" value="Editar">
-              <app-button-action-icon (clicked)="editRow(element.id)" iconName="edit"></app-button-action-icon>
-            </app-tooltip>
-            <app-tooltip value="Más detalles">
-              <app-button-action-icon (clicked)="rowDetailDialog(element)" iconName="launch"></app-button-action-icon>
-            </app-tooltip>
+            <!-- <app-tooltip class="me-4" value="Editar">
+              <app-button-action-icon
+                (clicked)="editRow(element.id)"
+                svgName="edit-tertiary"
+                svgWidth="24px"
+              ></app-button-action-icon>
+            </app-tooltip> -->
+            <div class="d-flex justify-content-around align-items-end h-100">
+              <app-tooltip
+                class="tooltip-button-action"
+                value="Editar"
+                position="left"
+                innerClass="bottom-7-right-3"
+              >
+                <app-icon
+                  svgName="edit-tertiary"
+                  svgNameHover="edit-tertiary-hover"
+                  svgWidth="24px"
+                  svgHeight="24px"
+                  (click)="editRow(element.id)"
+                  class="cursor-pointer"
+                ></app-icon>
+              </app-tooltip>
+              <!-- <app-tooltip value="Más detalles">
+              <app-button-action-icon
+                (clicked)="rowDetailDialog(element)"
+                iconName="launch"
+              ></app-button-action-icon>
+            </app-tooltip> -->
+
+              <app-tooltip
+                class="tooltip-button-action"
+                value="Más detalles"
+                position="left"
+                innerClass="bottom-7-right-3"
+              >
+                <app-icon
+                  svgName="launch-tertiary"
+                  svgNameHover="launch-tertiary-hover"
+                  svgWidth="24px"
+                  svgHeight="24px"
+                  (click)="rowDetailDialog(element)"
+                  class="cursor-pointer"
+                ></app-icon>
+              </app-tooltip>
+            </div>
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row row-hover *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr
+          mat-row
+          row-hover
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
       </table>
 
       <app-table-loader *ngIf="tableLoader" [cells]="7"></app-table-loader>
       <app-not-search-result
         *ngIf="!tableLoader && !dataSource.filteredData.length"
-        [keyword]="searchInput">
+        [keyword]="searchInput"
+      >
       </app-not-search-result>
     </div>
 
-    <div class="col-12 d-flex-center" [hidden]="dataSource.paginator?.getNumberOfPages() < 2">
+    <div
+      class="col-12 d-flex-center"
+      [hidden]="dataSource.paginator?.getNumberOfPages() < 2"
+    >
       <app-paginator [pageSize]="10"></app-paginator>
     </div>
   </div>
 
   <div class="pt-6" *ngIf="errorResponse">
-    <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
+    <app-http-error-viewer
+      [errorResponse]="errorResponse"
+    ></app-http-error-viewer>
   </div>
 </section>

@@ -46,6 +46,8 @@ export class SidenavRouteExpansionComponent implements OnInit, OnDestroy {
   @Input() routeIcon: string;
   @Input() routeText: string;
   @Input() routePath: string;
+  @Input() svgName: string;
+  @Input() svgWidth: '16px' | '24px' | '32px' | '48px' | string = '16px';
   @Input() routePathOptions: { exact: boolean } = { exact: true };
   @Output() sidenavOpen = new EventEmitter();
 

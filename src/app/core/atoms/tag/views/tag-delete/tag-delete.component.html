@@ -1,9 +1,11 @@
-<app-tag [appearance]="tagAppearance.coloredDarkPill"
+<app-tag [appearance]="appearance"
          [tagColor]="tagColor">
     <ng-content></ng-content>
     <app-icon (click)="deleteTagEvent()"
               innerClass="text-{{tagTextColor}} cursor-pointer ms-2"
-              fontName="close"
-              fontSize="12px">
+              [svgName]="useSvg && 'cancel'"
+              [svgWidth]="useSvg && '16px'"
+              [fontName]="!useSvg && 'close'"
+              [fontSize]="!useSvg && '12px'">
     </app-icon>
 </app-tag>

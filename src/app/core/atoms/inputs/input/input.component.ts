@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   public subscriptions: Subscription[] = [];
   public inputValue: string | number = '';
+  
 
   @Input() id = 'input';
   @Input() name: string | number = 'input';
@@ -29,6 +30,8 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() disabled: boolean;
   @Input() buttonClear: boolean;
   @Input() readOnly: boolean;
+  @Input() svgName: string;
+  @Input() tooltipDescription: string;
 
   @Input('value')
   set value(value: string) {
