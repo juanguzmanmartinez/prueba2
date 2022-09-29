@@ -1,0 +1,82 @@
+<section class="operations-capacity-home pt-6 pt-md-8 pb-8 pb-md-15">
+  <div class="row mb-4">
+    <div class="col">
+      <app-back-router>Inicio</app-back-router>
+    </div>
+  </div>
+
+  <div class="row mb-5 mb-md-10">
+    <div class="col-12 mb-4">
+      <h1 class="text-h3 text-black mb-0">Capacidades por defecto</h1>
+    </div>
+    <p class="text-body-1-regular text-gray-6 mb-4">
+      Visualiza las capacidades que se encuentran por defecto en el local que
+      desees
+    </p>
+    <div class="col-12 mb-6">
+      <app-op-capacities-drugstore-default-capacity></app-op-capacities-drugstore-default-capacity>
+    </div>
+
+    <div class="col-12" *appRouterAccess="routerPath.capacityReport">
+      <p class="text-body-1-regular text-gray-6 mb-0">
+        Puedes revisar el consumo de capacidades semanal en la
+        <app-router [router]="routerPath.capacityReport">
+          <span class="text-link-1">sección de reportes</span>
+        </app-router>
+      </p>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-12 mb-7">
+      <h2 class="text-h4 text-black mb-0">Más opciones de capacidades</h2>
+    </div>
+
+    <div class="col-12 col-xlg-6 mb-4 mb-xlg-0">
+      <app-router [router]="routerPath.capacitiesAmPm">
+        <app-card-action cardIconSVG="ampm">
+          <span card-title>AM/PM</span>
+          <span card-description
+            >Edita las capacidades del rango de la mañana y tarde</span
+          >
+        </app-card-action>
+      </app-router>
+    </div>
+    <div class="col-12 col-xlg-6">
+      <app-router [router]="routerPath.capacitiesExpress">
+        <app-card-action cardIconSVG="moto">
+          <span card-title>Express</span>
+          <span card-description
+            >Edita la disponibilidad de recursos para este servicio en el
+            día</span
+          >
+        </app-card-action>
+      </app-router>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-xlg-6 mb-4 mb-xlg-0">
+      <app-router [router]="routerPath.capacitiesScheduled">
+        <app-card-action cardIconSVG="calendar">
+          <span card-title>Programado</span>
+          <span card-description
+            >Edita las capacidades por rangos de horas en el día</span
+          >
+        </app-card-action>
+      </app-router>
+    </div>
+
+    <div class="col-12 col-xlg-6">
+      <app-router [router]="routerPath.capacitiesRet">
+        <app-card-action cardIconSVG="stores">
+          <span card-title>Retiro en tienda</span>
+          <span card-description
+            >Edita la cantidad de pedidos que podrás atender con este
+            servicio</span
+          >
+        </app-card-action>
+      </app-router>
+    </div>
+  </div>
+</section>

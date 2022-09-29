@@ -9,6 +9,9 @@ export enum Access {
   AdministratorUsers = 'AD-US',
 
   Order = 'OR',
-  OrderRecords = 'OR-HM'
+  OrderRecords = 'OR-HM',
+
+  Capacities = 'OR',
+  CapacitiesServiceType = 'OR-HM'
 }
 

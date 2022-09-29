@@ -11,6 +11,7 @@ import { ADMINISTRATOR_ROUTER } from '@parameters/router/routing/administrator/a
 import { OPERATIONS_ROUTER } from '@parameters/router/routing/operations/operations-router.parameter';
 import { CORE_ROUTER } from '@parameters/router/routing/core/core-router.parameter';
 import { ORDER_ROUTER } from '@parameters/router/routing/order/order-router.parameter';
+import { CAPACITIES_ROUTER } from '@parameters/router/routing/capacities/capacities-router.parameters';
 
 const ACCOUNT: Route = {
   path: ACCOUNT_ROUTER.path.valueOf(),
@@ -44,6 +45,13 @@ const ORDER: Route = {
   loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
 };
 
+const CAPACITIES: Route = {
+  path: CAPACITIES_ROUTER.path.valueOf(),
+  canLoad: [PermissionsGuard],
+  data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.capacities.valueOf()]},
+  loadChildren: () => import('./capacities/capacities.module').then(m => m.CapacitiesModule)
+};
+
 const routes: Routes = [
   {
     path: '',
@@ -53,6 +61,7 @@ const routes: Routes = [
       HOME,
       OPERATIONS,
       ADMINISTRATOR,
+      CAPACITIES,
       ORDER
     ]
   },

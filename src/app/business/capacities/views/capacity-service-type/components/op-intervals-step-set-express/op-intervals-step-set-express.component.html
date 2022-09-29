@@ -1,0 +1,73 @@
+<app-card-step
+  title="Descargar plantilla"
+  innerClass="w-100"
+  (next)="nextStep($event)"
+  (cancel)="cancelStep($event)"
+>
+  <div class="d-flex justify-content-between mt-6 mb-5">
+    <p class="d-block text-h4 text-black">Configurar parámetros flexibles</p>
+    <app-switch></app-switch>
+  </div>
+  <div class="disclaimer">
+    <app-icon
+      svgName="info-purple"
+      svgHeight="36px"
+      svgWidth="36px"
+      class="icon"
+    >
+    </app-icon>
+    <p class="mb-0">
+      El incremento de interval time y la capacidad flexible será en automático
+      para este local
+    </p>
+  </div>
+  <div class="row mb-5">
+    <form [formGroup]="fg">
+      <p class="d-block text-h5 text-black mt-4 mb-2">
+        Capacidad e interval time base:
+      </p>
+      <div class="row mt-3">
+        <div class="col-6">
+          <p>Capacidad</p>
+          <app-input placeholder="100 transportistas"></app-input>
+        </div>
+        <div class="col-6">
+          <p>Interval time</p>
+          <app-input placeholder="60 minutos"></app-input>
+        </div>
+      </div>
+      <p class="d-block text-h5 text-black mt-4 mb-2">
+        Capacidad e interval time flexible:
+      </p>
+      <div class="row d-flex justify-content-between">
+        <div class="col-6">
+          <p>Consumo de capacidad mayor a:</p>
+          <app-input placeholder="45 %"></app-input>
+        </div>
+        <div class="d-flex justify-content-center align-items-center col-6">
+          <app-icon
+            svgName="info-purple"
+            svgHeight="48px"
+            svgWidth="48px"
+            class="icon"
+          >
+          </app-icon>
+          <p class="mb-0 ml-c">
+            Si la capacidad llega al % indicando, se tomará el incremento de
+            capacidad e interval time flexible
+          </p>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-6">
+          <p>Incremento de capacidad (transportistas)</p>
+          <app-input placeholder="15"></app-input>
+        </div>
+        <div class="col-6">
+          <p>Incremento de Interval time (minutos)</p>
+          <app-input placeholder="30"></app-input>
+        </div>
+      </div>
+    </form>
+  </div>
+</app-card-step>

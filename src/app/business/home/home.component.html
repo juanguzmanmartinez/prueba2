@@ -36,6 +36,18 @@
         </div>
       </div>
 
+      <div class="row mb-8" *appRouterAccess="routerPath.capacities">
+        <h3 class="text-h3 text-black mb-5">Capacidades</h3>
+        <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.capacitiesServiceType">
+          <app-router [router]="routerPath.capacitiesServiceType">
+            <app-card-action cardIconSVG="navigation">
+              <span card-title>Configurar capacidades base</span>
+              <span card-description>Visualiza reportes y edita capacidades por tipo de despacho</span>
+            </app-card-action>
+          </app-router>
+        </div>
+      </div>
+
       <div class="row mb-8" *appRouterAccess="routerPath.order">
         <h3 class="text-h3 text-black mb-5">Pedidos</h3>
         <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.orderRecords">
