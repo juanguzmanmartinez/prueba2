@@ -1,11 +1,11 @@
 <section class="op-capacities-home-drugstore-capacity">
   <div class="row mb-6">
-    <div class="col-12">
+    <div class="col-6">
       <app-select-search
         (optionSelected)="changeCapacitiesDrugstoreSelection($event)"
         [optionList]="capacitiesDrugstoreList"
         [value]="capacitiesDrugstoreSelection"
-        class="drugstore-capacity-select d-block d-md-inline-block"
+        class="drugstore-capacity-select"
         placeholder="Elije un local"
         [showIconSvg]="true"
       >
