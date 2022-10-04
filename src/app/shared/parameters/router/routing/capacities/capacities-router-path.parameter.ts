@@ -6,7 +6,7 @@ import {
 export const CAPACITIES_MODULE_ROUTER_PATH = {
   capacities: `/${CAPACITIES_ROUTER.path}`,
   capacitiesServiceType: `/${CAPACITIES_ROUTER.path}/${CAPACITIES_CHILDREN_PATH.serviceType}`,
-  capacitiesConfigurationBase: `/${CAPACITIES_ROUTER.path}/${CAPACITIES_CHILDREN_PATH.serviceType}/${CAPACITIES_CHILDREN_PATH.base}`,
+  capacitiesConfigurationBase: `/${CAPACITIES_ROUTER.path}/${CAPACITIES_CHILDREN_PATH.serviceType}/${CAPACITIES_CHILDREN_PATH.configuration}`,
   capacitiesConfigurationIntervalTime: `/${CAPACITIES_ROUTER.path}/${CAPACITIES_CHILDREN_PATH.serviceType}/${CAPACITIES_CHILDREN_PATH.intervalTime}`,
   capacitiesConfigurationWindowsTime: `/${CAPACITIES_ROUTER.path}/${CAPACITIES_CHILDREN_PATH.serviceType}/${CAPACITIES_CHILDREN_PATH.windowTime}`,
   capacitiesAmPm: `/${CAPACITIES_ROUTER.path}/${CAPACITIES_CHILDREN_PATH.serviceType}/${CAPACITIES_CHILDREN_PATH.capacityAmPm}`,

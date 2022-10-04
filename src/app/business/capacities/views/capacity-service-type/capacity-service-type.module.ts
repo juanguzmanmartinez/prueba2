@@ -43,6 +43,7 @@ import { OpCapacitiesStepExpressResourceComponent } from './components/op-capaci
 import { OpCapacitiesStepGroupOrDrugstoreComponent } from './components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.component';
 import { OpIntervalsStepSetExpressComponent } from './components/op-intervals-step-set-express/op-intervals-step-set-express.component';
 import { OperationsCapacitiesImplementService } from './implements/operations-capacities-implement.service';
+import { DrugStoreServiceStore } from './store/drug-store.service';
 import { CapacityAmPmComponent } from './views/operations-capacity-am-pm/operations-capacity-am-pm.component';
 import { CapacityExpressComponent } from './views/operations-capacity-express/operations-capacity-express.component';
 import { CapacityHomeComponent } from './views/operations-capacity-home/operations-capacity-home.component';
@@ -111,6 +112,6 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     StepTabsModule,
     BackRouterSimpleModule
   ],
-  providers: [OperationsCapacitiesImplementService],
+  providers: [OperationsCapacitiesImplementService, DrugStoreServiceStore],
 })
 export class CapacityServiceTypeModule {}

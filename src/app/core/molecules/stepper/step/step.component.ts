@@ -9,7 +9,7 @@ import {
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
-import { DrugStoreServiceStore } from 'app/business/operations/views/operations-capacities/store/drug-store.service';
+// import { DrugStoreServiceStore } from 'app/business/operations/views/operations-capacities/store/drug-store.service';
 
 @Component({
   selector: 'app-step',
@@ -64,7 +64,7 @@ export class StepComponent implements OnDestroy {
 
   constructor(
     private _breakpointObserver: BreakpointObserver,
-    public _drugStoreServiceStore: DrugStoreServiceStore
+    // public _drugStoreServiceStore: DrugStoreServiceStore
   ) {
     const subscription = this._breakpointObserver
       .observe([`(min-width: 768px)`])

@@ -8,6 +8,7 @@ import { CapacityHomeComponent } from './views/operations-capacity-home/operatio
 import { CapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
 import { CapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
 import { CapacityScheduledComponent } from './views/operations-capacity-scheduled/operations-capacity-scheduled.component';
+import { OperationsIntervalExpressComponent } from './views/operations-interval-express/operations-interval-express.component';
 
 const routes: Routes = [
   {
@@ -44,11 +45,11 @@ const routes: Routes = [
         component: CapacityReportComponent,
         pathMatch: 'full',
       },
-      // {
-      //   path: 'interval-express',
-      //   component: OperationsIntervalExpressComponent,
-      //   pathMatch: 'full',
-      // },
+      {
+        path: CAPACITIES_CHILDREN_PATH.intervalTime.toString(),
+        component: OperationsIntervalExpressComponent,
+        pathMatch: 'full',
+      },
       // {
       //   path: 'intervaltime',
       //   component: OperationsCapacityIntervalComponent,

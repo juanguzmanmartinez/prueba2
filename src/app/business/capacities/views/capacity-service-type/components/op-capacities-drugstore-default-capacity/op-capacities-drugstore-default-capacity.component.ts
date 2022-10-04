@@ -20,7 +20,10 @@ import { OpCapacitiesDrugstoreDefaultCapacityDialogService } from '../op-capacit
 import { Router } from '@angular/router';
 import { ECapacityStepGroupOrDrugstore } from '../op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.service';
 import { ECapacitiesStepEditionMode } from '../op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
-import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-capacities-service-type-query-params.model';
+import {
+  IDrugStoreIntervalTimeQueryParams,
+  IOpCapacitiesServiceTypeQueryParams,
+} from '../../models/operations-capacities-service-type-query-params.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { DrugStoreServiceStore } from '../../store/drug-store.service';
 
@@ -74,7 +77,7 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
   changeCapacitiesDrugstoreSelection(
     capacitiesDrugstore: CapacitiesDrugstore
   ): void {
-    this._drugStoreServiceStore.setStatusTab(capacitiesDrugstore);
+    this._drugStoreServiceStore.setDrugStore(capacitiesDrugstore);
     this.capacitiesDrugstoreSelection = capacitiesDrugstore;
     this._opCapacitiesDrugstoreDefaultCapacity.drugstoreSelection =
       capacitiesDrugstore;
@@ -118,7 +121,6 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
     const subscription =
       this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityList$.subscribe(
         (capacitiesServiceType: CapacitiesServiceType) => {
-
           this.capacitiesServiceTypeSelection = capacitiesServiceType;
           this.openServiceDefaultCapacity();
         }
@@ -127,7 +129,6 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
   }
 
   openServiceDefaultCapacity(): void {
-
     const serviceDefaultCapacityDialogRef =
       this._opCapacitiesDrugstoreDefaultCapacityDialog.openServiceDefaultCapacityDialog(
         this.capacitiesDrugstoreSelection,
@@ -157,7 +158,7 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
   drugstoreDefaultCapacityEditService(
     drugstoreService: CapacitiesDrugstoreServiceDefaultCapacity
   ): void {
-    const drugstoreServiceTypePath = `${ROUTER_PATH.operationCapacities}/${
+    const drugstoreServiceTypePath = `${ROUTER_PATH.capacitiesServiceType}/${
       CDeliveryServiceTypeRoute[drugstoreService.serviceType]
     }`;
     const drugstoreServiceTypeParams = {
@@ -166,13 +167,26 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
       editionMode: ECapacitiesStepEditionMode.default,
       mode: 'simple',
     } as IOpCapacitiesServiceTypeQueryParams;
+    console.log(drugstoreServiceTypePath);
     this._router.navigate([drugstoreServiceTypePath], {
       queryParams: drugstoreServiceTypeParams,
     });
   }
+
   drugstoreDefaultSetIntervalTime(e): void {
-  this._router.navigate(['operaciones/capacidades/interval-express'])
+    const drugStoreIntervalTimeParams: IDrugStoreIntervalTimeQueryParams = {
+      drugStoreCode: this.capacitiesDrugstoreSelection.drugstoreCode,
+      drugStoreName: this.capacitiesDrugstoreSelection.name,
+    };
+
+    this._router.navigate(
+      [ROUTER_PATH.capacitiesConfigurationIntervalTime.toString()],
+      {
+        queryParams: drugStoreIntervalTimeParams,
+      }
+    );
   }
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

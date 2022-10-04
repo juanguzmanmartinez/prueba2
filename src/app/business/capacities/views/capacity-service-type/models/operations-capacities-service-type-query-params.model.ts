@@ -7,3 +7,8 @@ export interface IOpCapacitiesServiceTypeQueryParams {
   editionMode: ECapacitiesStepEditionMode;
   mode: string;
 }
+
+export interface IDrugStoreIntervalTimeQueryParams {
+  drugStoreCode: string;
+  drugStoreName: string;
+}

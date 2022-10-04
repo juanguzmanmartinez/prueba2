@@ -1,5 +1,5 @@
 <app-card-step
-  title="Descargar plantilla"
+  [title]="drugStoreCardTitle"
   innerClass="w-100"
   (next)="nextStep($event)"
   (cancel)="cancelStep($event)"
@@ -23,48 +23,68 @@
   </div>
   <div class="row mb-5">
     <form [formGroup]="fg">
-      <p class="d-block text-h5 text-black mt-4 mb-2">
+      <p class="d-block text-h4 text-black mt-4 mb-5">
         Capacidad e interval time base:
       </p>
-      <div class="row mt-3">
+      <div class="row mb-5">
         <div class="col-6">
-          <p>Capacidad</p>
+          <p class="text-body-1-regular text-gray-7 mb-3">Capacidad</p>
           <app-input placeholder="100 transportistas"></app-input>
         </div>
         <div class="col-6">
-          <p>Interval time</p>
+          <p class="text-body-1-regular text-gray-7">Interval time</p>
           <app-input placeholder="60 minutos"></app-input>
         </div>
       </div>
-      <p class="d-block text-h5 text-black mt-4 mb-2">
+      <p class="d-block text-h4 text-black mb-5">
         Capacidad e interval time flexible:
       </p>
-      <div class="row d-flex justify-content-between">
-        <div class="col-6">
-          <p>Consumo de capacidad mayor a:</p>
-          <app-input placeholder="45 %"></app-input>
-        </div>
-        <div class="d-flex justify-content-center align-items-center col-6">
-          <app-icon
-            svgName="info-purple"
-            svgHeight="48px"
-            svgWidth="48px"
-            class="icon"
-          >
-          </app-icon>
-          <p class="mb-0 ml-c">
-            Si la capacidad llega al % indicando, se tomará el incremento de
-            capacidad e interval time flexible
+      <div class="row mb-5">
+        <div class="col-12">
+          <p class="text-body-1-regular text-gray-7 mb-3">
+            Consumo de capacidad mayor a:
           </p>
         </div>
-      </div>
-      <div class="row mt-3">
         <div class="col-6">
-          <p>Incremento de capacidad (transportistas)</p>
+          <app-input placeholder="45 %"></app-input>
+        </div>
+        <div class="col-6 d-flex align-items-center">
+          <div>
+            <app-icon
+              svgName="info-purple"
+              svgWidth="24px"
+              innerClass="d-block"
+            >
+            </app-icon>
+          </div>
+          <div>
+            <p class="text-body-2-regular text-black mb-0 ms-3">
+              Si la capacidad llega al % indicando, se tomará el incremento de
+              capacidad e interval time flexible
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col-6">
+          <p class="text-body-1-regular text-gray-7 mb-3">
+            Incremento de capacidad (transportistas)
+          </p>
           <app-input placeholder="15"></app-input>
         </div>
         <div class="col-6">
-          <p>Incremento de Interval time (minutos)</p>
+          <p class="text-body-1-regular text-gray-7">
+            Incremento de Interval time (minutos)
+          </p>
+          <app-input placeholder="30"></app-input>
+        </div>
+      </div>
+      <p class="text-h4 text-black mb-5">Nº de veces a incrementar:</p>
+      <div class="row">
+        <div class="col-6">
+          <p class="text-body-1-regular text-gray-7 mb-3">
+            Cantidad de vueltas
+          </p>
           <app-input placeholder="30"></app-input>
         </div>
       </div>
