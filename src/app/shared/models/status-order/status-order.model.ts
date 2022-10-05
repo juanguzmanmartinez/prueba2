@@ -53,6 +53,7 @@ export const CStatusOrderName = {
   [EStatusOrder.errorOnRouted]: 'Error en ruta',
   [EStatusOrder.errorPicked]: 'Error en picking',
   [EStatusOrder.errorReadyForPickup]: 'Error listo para recoger',
+  [EStatusOrder.errorReadyToAssign]: 'Error listo para asignar',
   [EStatusOrder.externalAssigned]: 'Asignado por ruteador',
   [EStatusOrder.errorExternalAssigned]: 'Error asignado por ruteador'
 };
