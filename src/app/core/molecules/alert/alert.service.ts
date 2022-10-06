@@ -36,4 +36,8 @@ export class AlertService {
         return this.alert(message, EAlertStatus.error, config);
     }
 
+    public alertLightError(message: string, config: MatSnackBarConfig = {}) {
+        return this.alert(message, EAlertStatus.lightError, config);
+    }
+
 }

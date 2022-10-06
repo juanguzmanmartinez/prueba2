@@ -17,6 +17,7 @@ export class EndpointsParameter {
   public static DRUGSTORE_LIST = `${API_GATEWAY}/fulfillment/store`;
   public static DRUGSTORE_BY_SERVICE_TYPE = `${API_GATEWAY}/fulfillment/store/servicetype/`;
   public static DRUGSTORE_SERVICE_TYPE = `${API_GATEWAY}/store-service-type`;
+  public static CAPACITY_INTERVAL_TIME_EXPRESS = `${API_GATEWAY}/capacity/flex/setting`;
 
   public static CALENDAR_CAPACITIES = `${API_GATEWAY}/fulfillment/calendar/capacities`;
   public static CALENDAR_RANGE_UPDATE = `${API_GATEWAY}/fulfillment/calendar/detail/hours/quantities`;

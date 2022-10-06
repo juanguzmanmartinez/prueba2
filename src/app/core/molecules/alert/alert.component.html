@@ -3,23 +3,27 @@
   [class.background-danger]="data?.status === eAlertStatus.error"
   [class.background-warning]="data?.status === eAlertStatus.warning"
   [class.background-success]="data?.status === eAlertStatus.success"
-  [class.bg-white]="data?.status === eAlertStatus.lightSuccess"
+  [class.bg-white]="
+    data?.status === eAlertStatus.lightSuccess ||
+    data?.status === eAlertStatus.lightError
+  "
 >
-  <app-icon
-    [fontName]="fontNameIcon"
-    [svgName]="data?.status === eAlertStatus.lightSuccess && 'check'"
-    svgWidth="32px"
-    [innerClass]="
-      data.status === eAlertStatus.error
-        ? 'text-dark-danger'
-        : data.status === eAlertStatus.warning
-        ? 'text-dark-warning'
-        : 'text-dark-success'
-    "
-    fontSize="24px"
-  >
-  </app-icon>
-
-  <span class="alert-text" [class]="classAlertText" [innerHTML]="data?.message">
-  </span>
+  <div>
+    <app-icon
+      [fontName]="fontNameIcon"
+      [svgName]="svgLightIcon"
+      svgWidth="32px"
+      [innerClass]="innerClassIcon"
+      fontSize="24px"
+    >
+    </app-icon>
+  </div>
+  <div class="ms-3">
+    <span
+      class="alert-text"
+      [class]="classAlertText"
+      [innerHTML]="data?.message"
+    >
+    </span>
+  </div>
 </div>

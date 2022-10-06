@@ -9,12 +9,22 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
+import { IExpressIntervalTimeRequest } from '@interfaces/capacities/interval-time.interface';
+import { AlertService } from '@molecules/alert/alert.service';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { OperationMessages } from 'app/business/operations/parameters/operations-messages.parameter';
 import { Subscription } from 'rxjs';
+import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { CapacitiesDrugstore } from '../../models/operations-capacities-responses.model';
 import { DrugStoreServiceStore } from '../../store/drug-store.service';
+import { IntervalTimeExpressFormService } from '../../store/interval-time-express-form.service';
 
 @Component({
   selector: 'app-op-intervals-step-set-express',
@@ -30,22 +40,17 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
 
   fg: FormGroup;
   constructor(
-    private _formBuilder: FormBuilder,
     private _router: Router,
-    private _drugStoreServiceStore: DrugStoreServiceStore
+    private _drugStoreServiceStore: DrugStoreServiceStore,
+    private _intervalTimeForm: IntervalTimeExpressFormService,
+    private _capacitiesService: OperationsCapacitiesImplementService,
+    private _alert: AlertService
   ) {
     // this.drugStore = null;
   }
 
   ngOnInit(): void {
     this.getDrugStore();
-    this.fg = this._formBuilder.group({
-      capacity: [false],
-      intervaltime: [false],
-      percentCapacity: [false],
-      incrementCapcity: [false],
-      incrementInterval: [''],
-    });
   }
 
   getDrugStore(): void {
@@ -64,7 +69,83 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
     return `${this.drugStoreCode} ${this.drugStoreName}`;
   }
 
-  cancelStep(e: any) {
+  get intervalTimeForm() {
+    return this._intervalTimeForm.intervalTimeForm;
+  }
+
+  get lapsHasError() {
+    return this._intervalTimeForm.isNotValidatedLapsControl();
+  }
+
+  get consumptionMaxHasError() {
+    return this._intervalTimeForm.isNotValidatedConsumptionMaxControl();
+  }
+
+  get capacityAddedHasError() {
+    return this._intervalTimeForm.isNotValidatedCapacityAddedCControl();
+  }
+
+  get intervalTimeHasError() {
+    return this._intervalTimeForm.isNotValidatedIntervalTimeControl();
+  }
+
+  get lapsControl() {
+    return this._intervalTimeForm.lapsControl;
+  }
+
+  get intervalTimeControl() {
+    return this._intervalTimeForm.intervalTimeControl;
+  }
+
+  get consumptionMaxControl() {
+    return this._intervalTimeForm.consumptionMaxControl;
+  }
+
+  get capacityAddedControl() {
+    return this._intervalTimeForm.capacityAddedControl;
+  }
+
+  getIntervalTimeSaveRequest(): IExpressIntervalTimeRequest {
+    const intervalTimeformValues =
+      this._intervalTimeForm.getIntervalTimeFormRequest();
+    const request: IExpressIntervalTimeRequest = {
+      localCode: this.drugStoreCode,
+      serviceType: 'EXP',
+      ...intervalTimeformValues,
+    };
+
+    return request;
+  }
+
+  messageError(control: AbstractControl) {
+    return this._intervalTimeForm.messageError(control);
+  }
+
+  saveEdition() {
+    const request = this.getIntervalTimeSaveRequest();
+    this._capacitiesService.saveCapacityIntervalTimeExpress$(request).subscribe(
+      () => {
+        this._alert.alertLightSuccess(
+          OperationMessages.successIntervalTimeExpressEdition(
+            this.drugStoreName
+          )
+        );
+        this.backRoute();
+      },
+      () => {
+        this._alert.alertLightError(
+          OperationMessages.errorIntervalTimeExpressEdition(this.drugStoreName)
+        );
+        this.backRoute();
+      }
+    );
+  }
+
+  cancelEdition() {
+    this.backRoute();
+  }
+
+  backRoute() {
     this._router.navigate([ROUTER_PATH.capacities]);
   }
 }

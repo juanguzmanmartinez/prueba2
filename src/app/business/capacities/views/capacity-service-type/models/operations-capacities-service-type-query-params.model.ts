@@ -4,8 +4,10 @@ import { ECapacitiesStepEditionMode } from '../components/op-capacities-step-edi
 export interface IOpCapacitiesServiceTypeQueryParams {
   groupOrDrugstore: ECapacityStepGroupOrDrugstore;
   drugstoreCode: string;
+  drugstoreName: string;
   editionMode: ECapacitiesStepEditionMode;
   mode: string;
+  configBase?: boolean
 }
 
 export interface IDrugStoreIntervalTimeQueryParams {

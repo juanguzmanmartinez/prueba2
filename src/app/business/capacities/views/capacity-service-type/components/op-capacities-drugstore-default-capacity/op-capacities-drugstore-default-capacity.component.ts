@@ -164,8 +164,10 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
     const drugstoreServiceTypeParams = {
       groupOrDrugstore: ECapacityStepGroupOrDrugstore.drugstore,
       drugstoreCode: this.capacitiesDrugstoreSelection.drugstoreCode,
+      drugstoreName: this.capacitiesDrugstoreSelection.name,
       editionMode: ECapacitiesStepEditionMode.default,
       mode: 'simple',
+      configBase: true
     } as IOpCapacitiesServiceTypeQueryParams;
     console.log(drugstoreServiceTypePath);
     this._router.navigate([drugstoreServiceTypePath], {

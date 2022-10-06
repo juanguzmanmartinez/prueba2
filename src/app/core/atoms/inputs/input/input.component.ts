@@ -32,6 +32,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() readOnly: boolean;
   @Input() svgName: string;
   @Input() tooltipDescription: string;
+  @Input() messageError: string;
 
   @Input('value')
   set value(value: string) {

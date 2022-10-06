@@ -24,6 +24,8 @@ import { objectHasElements } from '@helpers/objects-equal.helper';
 export class CapacityScheduledComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
   mode: boolean = false;
+  isConfigBase: boolean;
+  drugStoreName: string;
 
   constructor(
     private _operationsCapacityScheduled: OperationsCapacityScheduledService,
@@ -34,7 +36,8 @@ export class CapacityScheduledComponent implements OnInit, OnDestroy {
     const subscription = this._activatedRoute.queryParams.subscribe(
       (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
         this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
-
+        this.isConfigBase = serviceTypeQueryParams.configBase;
+        this.drugStoreName = serviceTypeQueryParams.drugstoreName;
         if (objectHasElements(serviceTypeQueryParams)) {
           this._operationsCapacityScheduled.serviceQueryParams =
             serviceTypeQueryParams;

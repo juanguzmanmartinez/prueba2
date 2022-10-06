@@ -32,3 +32,14 @@
     }
   }
 }
+
+.drop-option-service {
+  padding: 0.5rem 1rem;
+  text-align: left;
+  text-decoration: none;
+  font-weight: 500;
+  &:hover {
+    background-color: #fafbfc;
+    cursor: pointer;
+  }
+}

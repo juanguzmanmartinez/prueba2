@@ -31,6 +31,8 @@ import { PipesModule } from '@pipes/pipes.module';
 import { DirectivesModule } from 'app/shared/directives/directives.module';
 import { CapacityServiceTypeRoutingModule } from './capacity-service-type-routing.module';
 import { CapacityServiceTypeComponent } from './capacity-service-type.component';
+import { BaseCapacityEditionExpress } from './components/base-capacity-edition-express/base-capacity-edition-express.component';
+import { BaseCapacityEditionScheduled } from './components/base-capacity-edition-scheduled/base-capacity-edition-scheduled.component';
 import { OpCapacitiesDrugstoreDefaultCapacityCardComponent } from './components/op-capacities-drugstore-default-capacity-card/op-capacities-drugstore-default-capacity-card.component';
 import { OpCapacitiesDrugstoreDefaultCapacityDialogComponent } from './components/op-capacities-drugstore-default-capacity-dialog/op-capacities-drugstore-default-capacity-dialog.component';
 import { OpCapacitiesDrugstoreDefaultCapacityComponent } from './components/op-capacities-drugstore-default-capacity/op-capacities-drugstore-default-capacity.component';
@@ -44,6 +46,7 @@ import { OpCapacitiesStepGroupOrDrugstoreComponent } from './components/op-capac
 import { OpIntervalsStepSetExpressComponent } from './components/op-intervals-step-set-express/op-intervals-step-set-express.component';
 import { OperationsCapacitiesImplementService } from './implements/operations-capacities-implement.service';
 import { DrugStoreServiceStore } from './store/drug-store.service';
+import { IntervalTimeExpressFormService } from './store/interval-time-express-form.service';
 import { CapacityAmPmComponent } from './views/operations-capacity-am-pm/operations-capacity-am-pm.component';
 import { CapacityExpressComponent } from './views/operations-capacity-express/operations-capacity-express.component';
 import { CapacityHomeComponent } from './views/operations-capacity-home/operations-capacity-home.component';
@@ -77,6 +80,8 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     OperationsCapacityIntervalUploadComponent,
     OpCapacitiesIntervalStepUploadComponent,
     OpCapacitiesIntervalStepConfirmationComponent,
+    BaseCapacityEditionExpress,
+    BaseCapacityEditionScheduled,
   ],
   imports: [
     CommonModule,
@@ -110,8 +115,12 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     SwitchModule,
     SelectModule,
     StepTabsModule,
-    BackRouterSimpleModule
+    BackRouterSimpleModule,
   ],
-  providers: [OperationsCapacitiesImplementService, DrugStoreServiceStore],
+  providers: [
+    OperationsCapacitiesImplementService,
+    DrugStoreServiceStore,
+    IntervalTimeExpressFormService,
+  ],
 })
 export class CapacityServiceTypeModule {}

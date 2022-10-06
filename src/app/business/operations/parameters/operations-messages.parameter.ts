@@ -41,4 +41,11 @@ export const OperationMessages = {
   ) => {
     return `${parentName} no tiene activo el <span class="text-h5">tipo de despacho ${serviceTypeName}</span>, por favor primero activalo en el local y vuelve a intentarlo.`;
   },
+
+  successIntervalTimeExpressEdition: (drugStoreName: string) => {
+    return `Se realizó la edición de capacidad en el servicio express para el local ${drugStoreName}.`;
+  },
+  errorIntervalTimeExpressEdition: (drugStoreName: string) => {
+    return `Hubo un error al realizar la configuración de la capacidad e intervaltime flexible para el servicio express del local ${drugStoreName}, por favor, intenta de nuevo.`;
+  },
 };

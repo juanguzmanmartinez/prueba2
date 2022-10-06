@@ -1,6 +1,7 @@
 <section
   class="operations-capacities-local-default-capacity-dialog"
   app-dialog-container
+  widthOverlay="700px"
 >
   <div app-dialog-close mat-dialog-close></div>
   <!-- <div
@@ -19,9 +20,9 @@
     </app-dialog-header>
   </div>
   <div class="divider px-5"></div>
-  <div class="content-store mb-4 d-flex flex-column align-items-start">
-    <h2 class="text-h4 text-black mb-2">Ventanas horarias</h2>
-    <h2 class="text-h5 text-black mb-0">
+  <div class="content-store mb-0 d-flex flex-column align-items-start">
+    <h4 class="text-h4 text-black mb-4">Ventanas horarias</h4>
+    <h2 class="text-body-1-regular text-gray-7 mb-5">
       Servicio
       {{ capacityServiceTypeName[drugstoreServiceTypeTable.serviceType] }}
     </h2>
@@ -38,13 +39,13 @@
       <ng-container matColumnDef="capacity">
         <th
           mat-header-cell
-          column-width="140px"
-          header-cell-center
+          column-width="180px"
+          header-cell-left
           *matHeaderCellDef
         >
           Capacidad
         </th>
-        <td mat-cell column-width="140px" cell-center *matCellDef="let element">
+        <td mat-cell column-width="140px" cell-left *matCellDef="let element">
           <span class="text-h5">{{ element.segmentCapacity }}</span>
         </td>
       </ng-container>
@@ -150,7 +151,10 @@
       </app-tab-group> -->
   </div>
   <div class="d-flex justify-content-end mt-4 px-5">
-    <app-button appearance="primary" [mat-dialog-close]="true"
+    <app-button
+      appearance="primary"
+      [mat-dialog-close]="true"
+      innerClass="btnServiceEditionStyle"
       >Editar</app-button
     >
   </div>

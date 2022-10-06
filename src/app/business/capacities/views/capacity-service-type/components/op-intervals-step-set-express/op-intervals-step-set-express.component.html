@@ -1,12 +1,14 @@
-<app-card-step
-  [title]="drugStoreCardTitle"
-  innerClass="w-100"
-  (next)="nextStep($event)"
-  (cancel)="cancelStep($event)"
->
-  <div class="d-flex justify-content-between mt-6 mb-5">
+<app-card innerClass="p-5" [formGroup]="intervalTimeForm">
+  <div class="row mb-5">
+    <div class="col-12 d-flex justify-content-start align-items-center">
+      <app-icon svgName="stores" svgWidth="32px"></app-icon>
+      <h4 class="text-h4 text-black ms-3 mb-0">{{ drugStoreCardTitle }}</h4>
+    </div>
+  </div>
+  <hr class="m-0 bg-gray-3" />
+  <div class="d-flex justify-content-between mt-5 mb-5">
     <p class="d-block text-h4 text-black">Configurar parámetros flexibles</p>
-    <app-switch></app-switch>
+    <app-switch formControlName="enabled"></app-switch>
   </div>
   <div class="disclaimer">
     <app-icon
@@ -22,72 +24,112 @@
     </p>
   </div>
   <div class="row mb-5">
-    <form [formGroup]="fg">
-      <p class="d-block text-h4 text-black mt-4 mb-5">
-        Capacidad e interval time base:
-      </p>
-      <div class="row mb-5">
-        <div class="col-6">
-          <p class="text-body-1-regular text-gray-7 mb-3">Capacidad</p>
-          <app-input placeholder="100 transportistas"></app-input>
-        </div>
-        <div class="col-6">
-          <p class="text-body-1-regular text-gray-7">Interval time</p>
-          <app-input placeholder="60 minutos"></app-input>
-        </div>
+    <p class="d-block text-h4 text-black mt-4 mb-5">
+      Capacidad e interval time base:
+    </p>
+    <div class="row mb-5">
+      <div class="col-6">
+        <p class="text-body-1-regular text-gray-7 mb-3">Capacidad</p>
+        <app-input
+          placeholder=""
+          formControlName="baseLineCapacity"
+        ></app-input>
       </div>
-      <p class="d-block text-h4 text-black mb-5">
-        Capacidad e interval time flexible:
-      </p>
-      <div class="row mb-5">
-        <div class="col-12">
-          <p class="text-body-1-regular text-gray-7 mb-3">
-            Consumo de capacidad mayor a:
+      <div class="col-6">
+        <p class="text-body-1-regular text-gray-7">Interval time</p>
+        <app-input
+          placeholder=""
+          formControlName="baseLineIntervalTime"
+        ></app-input>
+      </div>
+    </div>
+    <p class="d-block text-h4 text-black mb-5">
+      Capacidad e interval time flexible:
+    </p>
+    <div class="row mb-5">
+      <div class="col-12">
+        <p class="text-body-1-regular text-gray-7 mb-3">
+          Consumo de capacidad mayor a:
+        </p>
+      </div>
+      <div class="col-6">
+        <app-input
+          appDigitsOnly
+          placeholder="45 %"
+          formControlName="consumptionMax"
+          [error]="consumptionMaxHasError"
+          [messageError]="messageError(consumptionMaxControl)"
+        ></app-input>
+      </div>
+      <div class="col-6 d-flex align-items-center">
+        <div>
+          <app-icon svgName="info-purple" svgWidth="24px" innerClass="d-block">
+          </app-icon>
+        </div>
+        <div>
+          <p class="text-body-2-regular text-black mb-0 ms-3">
+            Si la capacidad llega al % indicando, se tomará el incremento de
+            capacidad e interval time flexible
           </p>
         </div>
-        <div class="col-6">
-          <app-input placeholder="45 %"></app-input>
-        </div>
-        <div class="col-6 d-flex align-items-center">
-          <div>
-            <app-icon
-              svgName="info-purple"
-              svgWidth="24px"
-              innerClass="d-block"
-            >
-            </app-icon>
-          </div>
-          <div>
-            <p class="text-body-2-regular text-black mb-0 ms-3">
-              Si la capacidad llega al % indicando, se tomará el incremento de
-              capacidad e interval time flexible
-            </p>
-          </div>
-        </div>
       </div>
-      <div class="row mb-5">
-        <div class="col-6">
-          <p class="text-body-1-regular text-gray-7 mb-3">
-            Incremento de capacidad (transportistas)
-          </p>
-          <app-input placeholder="15"></app-input>
-        </div>
-        <div class="col-6">
-          <p class="text-body-1-regular text-gray-7">
-            Incremento de Interval time (minutos)
-          </p>
-          <app-input placeholder="30"></app-input>
-        </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col-6">
+        <p class="text-body-1-regular text-gray-7 mb-3">
+          Incremento de capacidad (transportistas)
+        </p>
+        <app-input
+          appDigitsOnly
+          placeholder="15"
+          formControlName="addCapacity"
+          [error]="capacityAddedHasError"
+          [messageError]="messageError(capacityAddedControl)"
+        ></app-input>
       </div>
-      <p class="text-h4 text-black mb-5">Nº de veces a incrementar:</p>
-      <div class="row">
-        <div class="col-6">
-          <p class="text-body-1-regular text-gray-7 mb-3">
-            Cantidad de vueltas
-          </p>
-          <app-input placeholder="30"></app-input>
-        </div>
+      <div class="col-6">
+        <p class="text-body-1-regular text-gray-7">
+          Incremento de Interval time (minutos)
+        </p>
+        <app-input
+          appDigitsOnly
+          placeholder=""
+          formControlName="addIntervalTime"
+          [error]="intervalTimeHasError"
+          [messageError]="messageError(intervalTimeControl)"
+        ></app-input>
       </div>
-    </form>
+    </div>
+    <p class="text-h4 text-black mb-5">Nº de veces a incrementar:</p>
+    <div class="row">
+      <div class="col-6">
+        <p class="text-body-1-regular text-gray-7 mb-3">Cantidad de vueltas</p>
+        <app-input
+          appDigitsOnly
+          placeholder=""
+          formControlName="laps"
+          [error]="lapsHasError"
+          [messageError]="messageError(lapsControl)"
+        ></app-input>
+      </div>
+    </div>
   </div>
-</app-card-step>
+  <div class="card-actions d-flex-horizontal-end pt-7">
+    <app-button
+      appearance="secondary"
+      innerClass="btnServiceEditionStyle"
+      class="me-4"
+      (clicked)="cancelEdition()"
+    >
+      Cancelar edición
+    </app-button>
+    <app-button
+      appearance="primary"
+      innerClass="btnServiceEditionStyle"
+      (clicked)="saveEdition()"
+      [disabled]="intervalTimeForm.invalid"
+    >
+      Guardar cambios
+    </app-button>
+  </div>
+</app-card>

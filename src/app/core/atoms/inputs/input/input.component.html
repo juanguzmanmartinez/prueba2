@@ -27,7 +27,11 @@
     >
     </app-icon>
 
-    <app-tooltip position="above" [value]="tooltipDescription" innerClass="bottom-12-right-24" >
+    <app-tooltip
+      position="above"
+      [value]="tooltipDescription"
+      innerClass="bottom-12-right-24"
+    >
       <app-icon
         *ngIf="svgName"
         class="close"
@@ -37,4 +41,7 @@
       </app-icon>
     </app-tooltip>
   </div>
+  <p *ngIf="error" class="text-danger mt-1 pe-1">
+    {{ messageError }}
+  </p>
 </label>

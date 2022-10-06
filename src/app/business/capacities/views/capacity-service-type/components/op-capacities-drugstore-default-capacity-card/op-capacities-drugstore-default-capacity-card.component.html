@@ -8,32 +8,30 @@
       information-dropdown-options
       [showOptions]="showOptions"
     >
-      <ul class="m-0 p-0" (click)="dropDown.showOptions = false">
-        <li>
-          <a
-            (click)="editEvent()"
-            class="text-body-2-regular capacity-card-text mb-0"
-          >
-            Configurar capacidad base
-          </a>
-        </li>
-        <li *ngIf="hasDetail">
-          <a
-            (click)="viewMoreEvent()"
-            class="text-body-2-regular capacity-card-text mb-0"
-          >
-            Ver ventanas horarias
-          </a>
-        </li>
-        <li *ngIf="isExpress">
-          <a
-            (click)="setInterval()"
-            class="text-body-2-regular capacity-card-text mb-0"
-          >
-            Editar interval time/capacidad flexible
-          </a>
-        </li>
-      </ul>
+      <div class="m-0 p-0" (click)="dropDown.showOptions = false">
+        <div
+          (click)="editEvent()"
+          class="text-body-2-regular capacity-card-text mb-0 drop-option-service"
+        >
+          Configurar capacidad base
+        </div>
+
+        <div
+          *ngIf="hasDetail"
+          (click)="viewMoreEvent()"
+          class="text-body-2-regular capacity-card-text mb-0 drop-option-service"
+        >
+          Ver ventanas horarias
+        </div>
+
+        <div
+          *ngIf="isExpress"
+          (click)="setInterval()"
+          class="text-body-2-regular capacity-card-text mb-0 drop-option-service"
+        >
+          Editar interval time/capacidad flexible
+        </div>
+      </div>
     </app-drop-options>
   </div>
   <div class="d-flex flex-column justify-content-end align-items-start">

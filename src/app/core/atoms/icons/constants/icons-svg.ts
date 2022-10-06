@@ -109,4 +109,5 @@ export const ICONS_SVG: IconsSvgModel[] = [
   },
   { name: '404', path: `${pathIllustrations}404.svg` },
   { name: 'responsive', path: `${pathIllustrations}responsive.svg` },
+  { name: 'alert-error', path: `${pathIcons}alert-error.svg` },
 ];

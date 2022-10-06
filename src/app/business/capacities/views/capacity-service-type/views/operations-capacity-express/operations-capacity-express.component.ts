@@ -24,6 +24,8 @@ import { OperationsCapacityExpressService } from './operations-capacity-express.
 export class CapacityExpressComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
   mode: boolean = false;
+  isConfigBase: boolean;
+  drugStoreName: string;
 
   constructor(
     private _operationsCapacityExpress: OperationsCapacityExpressService,
@@ -34,7 +36,8 @@ export class CapacityExpressComponent implements OnInit, OnDestroy {
     const subscription = this._activatedRoute.queryParams.subscribe(
       (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
         this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
-
+        this.isConfigBase = serviceTypeQueryParams.configBase;
+        this.drugStoreName = serviceTypeQueryParams.drugstoreName;
         if (objectHasElements(serviceTypeQueryParams)) {
           this._operationsCapacityExpress.serviceQueryParams =
             serviceTypeQueryParams;
