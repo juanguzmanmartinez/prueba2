@@ -16,7 +16,7 @@ export class UploadCapacitiesStoreService {
   private localToEdit = new BehaviorSubject<any>({});
   private storesList = new BehaviorSubject<IStoreUpload[]>([]);
   private dataSource = new BehaviorSubject<IStoreProcessed[]>([]);
-  private dataEdited = new BehaviorSubject<any[]>([]);
+  private dataRaw = new BehaviorSubject<any[]>([]);
 
   private departamentsFilter = new BehaviorSubject<any[]>([]);
   private provincesFilter = new BehaviorSubject<any[]>([]);
@@ -67,12 +67,14 @@ export class UploadCapacitiesStoreService {
     return this.dataSource.asObservable().pipe(filter((value) => !!value));
   }
 
-  setDataEdited(dataEdited: any[]) {
-    this.dataEdited.next(dataEdited);
+  setDataRaw(dataEdited: any[]) {
+    console.log('dataEdited', dataEdited);
+
+    this.dataRaw.next(dataEdited);
   }
 
-  get getDataEdited$(): Observable<any> {
-    return this.dataEdited.asObservable().pipe(filter((value) => !!value));
+  get getDataRaw$(): Observable<any> {
+    return this.dataRaw.asObservable().pipe(filter((value) => !!value));
   }
 
   setDepartamentsFilter(dataEdited: any[]) {

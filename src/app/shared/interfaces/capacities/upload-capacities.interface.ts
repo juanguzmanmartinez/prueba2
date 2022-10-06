@@ -5,6 +5,7 @@ export interface IStoreUpload {
   timeRange: string;
   capacity: number;
   id?: number;
+  value?: string;
 }
 
 export interface IStoreProcessed {

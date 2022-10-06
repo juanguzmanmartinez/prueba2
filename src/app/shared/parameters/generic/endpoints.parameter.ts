@@ -43,4 +43,5 @@ export class EndpointsParameter {
 
   public static CAPACITY_TEMPLATE = `${API_GATEWAY}/fulfillment/store/capacity/template`;
   public static PTACH_CAPACITIES = `${API_GATEWAY}/fulfillment/store/capacity/update`;
+  public static VALIDATE_STORES = `${API_GATEWAY}/fulfillment/store/capacity/template/validate`;
 }

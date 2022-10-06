@@ -3,6 +3,7 @@ import { IStoreUpload } from '@interfaces/capacities/upload-capacities.interface
 import { AlertService } from '@molecules/alert/alert.service';
 import * as XLSX from 'xlsx';
 import { TABS } from '../../constants/step-tabs.constants';
+import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-store.service';
 
 @Component({
@@ -16,9 +17,11 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
   files = [];
   fileName: string = '';
   textButton: string = 'Regresar';
+  dataRaw = [];
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
-    private _alertService: AlertService
+    private _alertService: AlertService,
+    private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +29,9 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     TABS[1].icon = 'done';
     TABS[0].icon = 'check';
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
+    this._uploadCapacitiesStoreService.getDataRaw$.subscribe((dataRaw) => {
+      this.dataRaw = dataRaw;
+    });
   }
 
   fileBrowseHandler(ev: any) {
@@ -46,27 +52,43 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         return initial;
       }, {});
       jsonData = dataraw['Plantilla descarga capacidades'];
+
       try {
         if (!this.execute(jsonData))
+          return this._alertService.alertError(
+            'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
+          );
+        jsonData.map((item: any) => {
+          this.dataRaw.forEach((dat: any) => {
+            if (item.service != 'EXP' && item.timeRange == dat.timeRange)
+              item.value = dat.value;
+          });
+          return item;
+        });
+
+        this._operationsCapacitiesImplementService
+          .validateStores$(jsonData)
+          .subscribe((res) => {
+            let plin = res.every((item: any) => item.validate == true);
+            if (!plin)
+              return this._alertService.alertError(
+                'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
+              );
+            dataTosStore = jsonData.map((local, index) => {
+              return {
+                ...local,
+                id: index,
+              };
+            });
+            this.disableNext = false;
+
+            this._uploadCapacitiesStoreService.setStoreList(dataTosStore);
+          });
+      } catch (error) {
         return this._alertService.alertError(
           'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
         );
-      } catch (error) {
-        return this._alertService.alertError(
-          'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.')
       }
-
-      try {
-        dataTosStore = jsonData.map((local, index) => {
-          return {
-            ...local,
-            id: index,
-          };
-        });
-        this.disableNext = false;
-      } catch (error) {}
-
-      this._uploadCapacitiesStoreService.setStoreList(dataTosStore);
     };
 
     reader.readAsBinaryString(file);

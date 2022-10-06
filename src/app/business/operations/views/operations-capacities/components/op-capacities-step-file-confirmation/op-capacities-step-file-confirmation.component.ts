@@ -34,7 +34,7 @@ export class OpCapacitiesStepFileConfirmationComponent
     'estado',
     'actions',
   ];
-
+  dataWithValue: any[] = [];
   dataSource: IStoreProcessed[] = [];
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
@@ -45,7 +45,6 @@ export class OpCapacitiesStepFileConfirmationComponent
   ) {}
 
   ngOnInit(): void {
-
     TABS[2].flow = 'done';
     TABS[2].icon = 'done';
     TABS[1].icon = 'check';
@@ -65,6 +64,7 @@ export class OpCapacitiesStepFileConfirmationComponent
     const subscription =
       this._uploadCapacitiesStoreService.getStoreList$.subscribe(
         (stores: IStoreUpload[]) => {
+          this.dataWithValue = stores;
           this.convert(stores);
         }
       );
@@ -101,7 +101,7 @@ export class OpCapacitiesStepFileConfirmationComponent
               id: local.id,
             });
             break;
-          case 'AM/PM':
+          case 'AM_PM':
             type.ampm.push({
               segment: local.timeRange,
               capacity: local.capacity,
@@ -159,6 +159,14 @@ export class OpCapacitiesStepFileConfirmationComponent
   submit(e) {
     let dataToUpload: IStoreUpload[] = this.rawData(this.dataSource);
 
+    dataToUpload.map((item: any) => {
+      this.dataWithValue.forEach((dat: any) => {
+        if (item.service != 'EXP' && item.timeRange == dat.timeRange)
+          item.value = dat.value;
+      });
+      return item;
+    });
+
     this._operationsCapacitiesImplementService
       .updateCapacitiesStores$(dataToUpload)
       .subscribe((res: any) => {
@@ -180,7 +188,7 @@ export class OpCapacitiesStepFileConfirmationComponent
       if (local?.ampm.length > 0) {
         local?.ampm.forEach((row) => {
           dataToUpload.push({
-            service: 'AM/PM',
+            service: 'AM_PM',
             storeCode: local.code,
             storeName: local.local,
             timeRange: row.segment,
@@ -244,15 +252,13 @@ export class OpCapacitiesStepFileConfirmationComponent
       .map((item: IStoreProcessed) => item.status)
       .every((item) => item == false);
   }
-  filterAll(){
-
+  filterAll() {}
+  getStatusService(element) {
+    if (isNaN(element)) return -1;
+    if (element == 0) return '-';
+    return element;
   }
-  getStatusService(element){
-    if(isNaN(element)) return -1
-    if(element == 0) return '-'
-    return element
-  }
-  onChangePage(e){}
+  onChangePage(e) {}
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

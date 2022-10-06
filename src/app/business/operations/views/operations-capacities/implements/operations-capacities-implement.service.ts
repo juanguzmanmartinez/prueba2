@@ -194,4 +194,11 @@ export class OperationsCapacitiesImplementService {
       })
     );
   }
+  validateStores$(codes: any): Observable<any[]> {
+    return this.calendarClient.validateDataStores$(codes).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
 }

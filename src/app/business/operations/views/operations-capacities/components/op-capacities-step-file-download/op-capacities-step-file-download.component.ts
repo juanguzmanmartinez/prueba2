@@ -71,7 +71,7 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
   }
 
   downloadData() {
-    const ampm = this.fg.controls.ampm.value ? 'AM/PM,' : '';
+    const ampm = this.fg.controls.ampm.value ? 'AM_PM,' : '';
     const ret = this.fg.controls.ret.value ? 'RET,' : '';
     const exp = this.fg.controls.express.value ? 'EXP,' : '';
     const prog = this.fg.controls.scheduled.value ? 'PROG,' : '';
@@ -80,9 +80,18 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     this._operationsCapacitiesImplementService
       .getCapcitiesTemplateClient$(this.stores, params)
       .subscribe((res) => {
+        this._uploadCapacitiesStoreService.setDataRaw(res);
+        let data = [];
+        res.forEach((store: any) => {
+          const { value, ...rest } = store;
+          if (store.service == 'EXP') data.push({ ...rest, timeRange: '-' });
+          else data.push({ ...rest });
+        });
+
         ExportTableSelection.exportArrayToExcel(
-          res,
-          'Plantilla descarga capacidades',true
+          data,
+          'Plantilla descarga capacidades',
+          true
         );
       });
   }
@@ -134,12 +143,11 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     this._operationsCapacitiesImplementService
       .getStoresClient$(code)
       .subscribe((res) => {
-
         let newDepartaments: any[] = res.map((item) => {
           return {
             ...item,
             hidden: false,
-            desc: item.code +"-"+item.name,
+            desc: item.code + '-' + item.name,
           };
         });
         this._uploadCapacitiesStoreService.setStoresFilter(newDepartaments);
@@ -152,7 +160,7 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     this.fg.controls;
   }
   get getListServices(): string {
-    const ampm = this.fg.controls.ampm.value ? 'AM/PM,' : '';
+    const ampm = this.fg.controls.ampm.value ? 'AM_PM,' : '';
     const ret = this.fg.controls.ret.value ? 'RET,' : '';
     const exp = this.fg.controls.express.value ? 'EXP,' : '';
     const prog = this.fg.controls.scheduled.value ? 'PROG,' : '';

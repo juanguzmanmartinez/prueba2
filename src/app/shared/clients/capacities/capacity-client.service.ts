@@ -30,6 +30,7 @@ export class CapacityClientService {
   private readonly STORES_LIST = EndpointsParameter.STORES_LIST;
   private readonly CAPACITY_TEMPLATE = EndpointsParameter.CAPACITY_TEMPLATE;
   private readonly PTACH_CAPACITIES = EndpointsParameter.PTACH_CAPACITIES;
+  private readonly VALIDATE_STORES = EndpointsParameter.VALIDATE_STORES;
   constructor(private genericService: GenericService) {}
 
   public patchCalendarUpdateClient$(request: ICalendarUpdateRequestParams) {
@@ -134,8 +135,17 @@ export class CapacityClientService {
       .pipe(
         map((response) => {
           return response;
-          // const current = isArray(response) ? response : [];
-          // return current.map((e) => new Capacity(e));
+
+        })
+      );
+  }
+  public validateDataStores$(request: any) {
+    return this.genericService
+      .genericPost<ICapacity[]>(this.VALIDATE_STORES, request)
+      .pipe(
+        map((response) => {
+          return response;
+
         })
       );
   }
