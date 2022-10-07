@@ -69,8 +69,8 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         this._operationsCapacitiesImplementService
           .validateStores$(jsonData)
           .subscribe((res) => {
-            let plin = res.every((item: any) => item.validate == true);
-            if (!plin)
+            let validate = res.every((item: any) => item.validate == true);
+            if (!validate)
               return this._alertService.alertError(
                 'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
               );

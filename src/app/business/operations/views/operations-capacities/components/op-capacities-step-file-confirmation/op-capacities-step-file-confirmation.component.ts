@@ -163,6 +163,7 @@ export class OpCapacitiesStepFileConfirmationComponent
       this.dataWithValue.forEach((dat: any) => {
         if (item.service != 'EXP' && item.timeRange == dat.timeRange)
           item.value = dat.value;
+        else if (item.service == 'EXP') delete item.timeRange;
       });
       return item;
     });

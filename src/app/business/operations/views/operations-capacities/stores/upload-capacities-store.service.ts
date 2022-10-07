@@ -68,8 +68,6 @@ export class UploadCapacitiesStoreService {
   }
 
   setDataRaw(dataEdited: any[]) {
-    console.log('dataEdited', dataEdited);
-
     this.dataRaw.next(dataEdited);
   }
 
