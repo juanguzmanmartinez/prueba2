@@ -13,13 +13,6 @@ import { objectHasElements } from '@helpers/objects-equal.helper';
   selector: 'app-operations-capacity-scheduled',
   templateUrl: './operations-capacity-scheduled.component.html',
   styleUrls: ['./operations-capacity-scheduled.component.scss'],
-  providers: [
-    OperationsCapacityScheduledService,
-    OperationsCapacityScheduledStoreService,
-    OpCapacitiesStepGroupOrDrugstoreService,
-    OpCapacitiesStepEditionModeService,
-    OpCapacitiesStepCapacityTableService,
-  ],
 })
 export class CapacityScheduledComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();

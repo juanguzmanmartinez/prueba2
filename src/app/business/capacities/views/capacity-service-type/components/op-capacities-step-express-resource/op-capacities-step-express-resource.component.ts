@@ -26,10 +26,6 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-operations-capacities-step-express-resources',
   templateUrl: './op-capacities-step-express-resource.component.html',
   styleUrls: ['./op-capacities-step-express-resource.component.scss'],
-  providers: [
-    OpCapacitiesStepExpressResourceService,
-    OpCapacitiesStepExpressResourceFormService,
-  ],
 })
 export class OpCapacitiesStepExpressResourceComponent
   implements OnInit, OnDestroy
@@ -99,7 +95,6 @@ export class OpCapacitiesStepExpressResourceComponent
           if (
             this._opCapacitiesStepExpressResourceForm.expressResourceForm$.valid
           ) {
-
             this.expressResourceSaveLoad = true;
             this._opCapacitiesStepExpressResource.expressResourceSave =
               new FromFormToCapacityStepExpressResourceSegments(
@@ -132,7 +127,6 @@ export class OpCapacitiesStepExpressResourceComponent
     const subscription =
       this._opCapacitiesStepExpressResource.expressResourceResetStepStatus$.subscribe(
         () => {
-
           this.expressResourceDateRange = false;
           this.expressResourceSaveLoad = false;
           this.expressResourceSegments = null;
@@ -148,7 +142,6 @@ export class OpCapacitiesStepExpressResourceComponent
         (expressResourceSegments: ICapacityStepExpressResourceSegments) => {
           this.expressResourceSegments = expressResourceSegments;
           if (expressResourceSegments) {
-
             this._opCapacitiesStepExpressResourceForm.expressResource.setValue(
               expressResourceSegments.expressResource
             );

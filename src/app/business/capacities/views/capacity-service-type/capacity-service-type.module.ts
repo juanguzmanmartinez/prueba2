@@ -32,22 +32,30 @@ import { DirectivesModule } from 'app/shared/directives/directives.module';
 import { CapacityServiceTypeRoutingModule } from './capacity-service-type-routing.module';
 import { CapacityServiceTypeComponent } from './capacity-service-type.component';
 import { BaseCapacityEditionExpress } from './components/base-capacity-edition-express/base-capacity-edition-express.component';
-import { BaseCapacityEditionScheduled } from './components/base-capacity-edition-scheduled/base-capacity-edition-scheduled.component';
+import { BaseCapacityEditionTableForm } from './components/base-capacity-edition-table-form/base-capacity-edition-table-form.component';
 import { OpCapacitiesDrugstoreDefaultCapacityCardComponent } from './components/op-capacities-drugstore-default-capacity-card/op-capacities-drugstore-default-capacity-card.component';
 import { OpCapacitiesDrugstoreDefaultCapacityDialogComponent } from './components/op-capacities-drugstore-default-capacity-dialog/op-capacities-drugstore-default-capacity-dialog.component';
 import { OpCapacitiesDrugstoreDefaultCapacityComponent } from './components/op-capacities-drugstore-default-capacity/op-capacities-drugstore-default-capacity.component';
 import { OpCapacitiesIntervalStepConfirmationComponent } from './components/op-capacities-interval-step-confirmation/op-capacities-interval-step-confirmation.component';
 import { OpCapacitiesIntervalStepUploadComponent } from './components/op-capacities-interval-step-upload/op-capacities-interval-step-upload.component';
+import { OpCapacitiesStepCapacityTableFormService } from './components/op-capacities-step-capacity-table-form/form/op-capacities-step-capacity-table-form.service';
 import { OpCapacitiesStepCapacityTableFormComponent } from './components/op-capacities-step-capacity-table-form/op-capacities-step-capacity-table-form.component';
 import { OpCapacitiesStepCapacityTableComponent } from './components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.component';
+import { OpCapacitiesStepCapacityTableService } from './components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
 import { OpCapacitiesStepEditionModeComponent } from './components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.component';
+import { OpCapacitiesStepEditionModeService } from './components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
+import { OpCapacitiesStepExpressResourceFormService } from './components/op-capacities-step-express-resource/form/op-capacities-step-express-resource-form.service';
 import { OpCapacitiesStepExpressResourceComponent } from './components/op-capacities-step-express-resource/op-capacities-step-express-resource.component';
+import { OpCapacitiesStepExpressResourceService } from './components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
 import { OpCapacitiesStepGroupOrDrugstoreComponent } from './components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.component';
+import { OpCapacitiesStepGroupOrDrugstoreService } from './components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.service';
 import { OpIntervalsStepSetExpressComponent } from './components/op-intervals-step-set-express/op-intervals-step-set-express.component';
 import { OperationsCapacitiesImplementService } from './implements/operations-capacities-implement.service';
 import { DrugStoreServiceStore } from './store/drug-store.service';
 import { IntervalTimeExpressFormService } from './store/interval-time-express-form.service';
 import { CapacityAmPmComponent } from './views/operations-capacity-am-pm/operations-capacity-am-pm.component';
+import { OperationsCapacityAmPmService } from './views/operations-capacity-am-pm/operations-capacity-am-pm.service';
+import { OperationsCapacityAmPmStoreService } from './views/operations-capacity-am-pm/store/operations-capacity-am-pm-store.service';
 import { CapacityExpressComponent } from './views/operations-capacity-express/operations-capacity-express.component';
 import { CapacityHomeComponent } from './views/operations-capacity-home/operations-capacity-home.component';
 import { OperationsCapacityIntervalUploadComponent } from './views/operations-capacity-interval-upload/operations-capacity-interval-upload.component';
@@ -55,6 +63,8 @@ import { OperationsCapacityIntervalComponent } from './views/operations-capacity
 import { CapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
 import { CapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
 import { CapacityScheduledComponent } from './views/operations-capacity-scheduled/operations-capacity-scheduled.component';
+import { OperationsCapacityScheduledService } from './views/operations-capacity-scheduled/operations-capacity-scheduled.service';
+import { OperationsCapacityScheduledStoreService } from './views/operations-capacity-scheduled/store/operations-capacity-scheduled-store.service';
 import { OperationsIntervalExpressComponent } from './views/operations-interval-express/operations-interval-express.component';
 
 @NgModule({
@@ -81,7 +91,7 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     OpCapacitiesIntervalStepUploadComponent,
     OpCapacitiesIntervalStepConfirmationComponent,
     BaseCapacityEditionExpress,
-    BaseCapacityEditionScheduled,
+    BaseCapacityEditionTableForm,
   ],
   imports: [
     CommonModule,
@@ -121,6 +131,16 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     OperationsCapacitiesImplementService,
     DrugStoreServiceStore,
     IntervalTimeExpressFormService,
+    OpCapacitiesStepExpressResourceService,
+    OpCapacitiesStepExpressResourceFormService,
+    OpCapacitiesStepEditionModeService,
+    OpCapacitiesStepGroupOrDrugstoreService,
+    OperationsCapacityScheduledService,
+    OperationsCapacityScheduledStoreService,
+    OpCapacitiesStepCapacityTableService,
+    OpCapacitiesStepCapacityTableFormService,
+    OperationsCapacityAmPmService,
+    OperationsCapacityAmPmStoreService,
   ],
 })
 export class CapacityServiceTypeModule {}

@@ -11,7 +11,7 @@ export enum Access {
   Order = 'OR',
   OrderRecords = 'OR-HM',
 
-  Capacities = 'OR',
-  CapacitiesServiceType = 'OR-HM'
+  Capacities = 'CP', //CP
+  CapacitiesServiceType = 'CP-BL' //BL
 }
 

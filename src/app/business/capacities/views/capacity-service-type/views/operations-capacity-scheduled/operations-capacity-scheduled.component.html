@@ -8,19 +8,13 @@
     </div>
   </div>
 
-  <!-- <div class="row mb-5 mb-md-9">
-    <div class="col">
-      <h1 class="text-h3 text-black mb-5">Editar capacidad Programada</h1>
-    </div>
-  </div> -->
-
   <div *ngIf="isConfigBase" class="card-capacity-base-container m-auto">
-    <app-base-capacity-edition-scheduled
+    <app-base-capacity-edition-table-form
       [drugStoreName]="drugStoreName"
-    ></app-base-capacity-edition-scheduled>
+    ></app-base-capacity-edition-table-form>
   </div>
 
-  <mat-accordion>
+  <mat-accordion *ngIf="!isConfigBase">
     <div class="row" [ngClass]="{ 'justify-content-center': mode }">
       <div [hidden]="mode" class="col-12 col-xlg-6 mb-4 mb-xlg-0">
         <div class="row">

@@ -27,10 +27,6 @@ import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-cap
   selector: 'app-op-capacities-step-capacity-table',
   templateUrl: './op-capacities-step-capacity-table.component.html',
   styleUrls: ['./op-capacities-step-capacity-table.component.scss'],
-  providers: [
-    OpCapacitiesStepCapacityTableService,
-    OpCapacitiesStepCapacityTableFormService,
-  ],
 })
 export class OpCapacitiesStepCapacityTableComponent
   implements OnInit, OnDestroy
@@ -53,8 +49,6 @@ export class OpCapacitiesStepCapacityTableComponent
   mode: boolean = false;
 
   constructor(
-    @Optional()
-    @SkipSelf()
     private _opCapacitiesStepCapacityTable: OpCapacitiesStepCapacityTableService,
     public _opCapacitiesStepCapacityTableForm: OpCapacitiesStepCapacityTableFormService,
     private _dialogTwoActions: DialogTwoActionsService,

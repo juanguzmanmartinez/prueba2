@@ -17,6 +17,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IExpressIntervalTimeRequest } from '@interfaces/capacities/interval-time.interface';
+import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { AlertService } from '@molecules/alert/alert.service';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OperationMessages } from 'app/business/operations/parameters/operations-messages.parameter';
@@ -38,19 +39,17 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
   @Input() drugStoreCode: string;
   @Input() drugStoreName: string;
 
-  fg: FormGroup;
   constructor(
     private _router: Router,
     private _drugStoreServiceStore: DrugStoreServiceStore,
     private _intervalTimeForm: IntervalTimeExpressFormService,
     private _capacitiesService: OperationsCapacitiesImplementService,
     private _alert: AlertService
-  ) {
-    // this.drugStore = null;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getDrugStore();
+    this._intervalTimeForm.stateControlValueChange();
   }
 
   getDrugStore(): void {
@@ -110,7 +109,7 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
       this._intervalTimeForm.getIntervalTimeFormRequest();
     const request: IExpressIntervalTimeRequest = {
       localCode: this.drugStoreCode,
-      serviceType: 'EXP',
+      serviceType: EDeliveryServiceType.express,
       ...intervalTimeformValues,
     };
 

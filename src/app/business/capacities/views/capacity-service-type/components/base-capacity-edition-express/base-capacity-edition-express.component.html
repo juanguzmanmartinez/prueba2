@@ -1,4 +1,4 @@
-<app-card innerClass="p-5">
+<app-card innerClass="p-5" [formGroup]="expressResourceForm">
   <div class="row mb-5">
     <div class="col-12 d-flex justify-content-start align-items-center">
       <app-icon svgName="stores" svgWidth="32px"></app-icon>
@@ -16,7 +16,7 @@
   <div class="row">
     <div class="col-4">
       <p class="text-body-1-regular text-black mb-2">Nro. de transportistas</p>
-      <app-input></app-input>
+      <app-input formControlName="expressResource"></app-input>
     </div>
   </div>
 
@@ -24,11 +24,16 @@
     <app-button
       appearance="secondary"
       innerClass="btnServiceEditionStyle"
+      (clicked)="cancelExpressResource()"
       class="me-4"
     >
       Cancelar edición
     </app-button>
-    <app-button appearance="primary" innerClass="btnServiceEditionStyle">
+    <app-button
+      appearance="primary"
+      innerClass="btnServiceEditionStyle"
+      (clicked)="saveExpressResource()"
+    >
       Guardar cambios
     </app-button>
   </div>

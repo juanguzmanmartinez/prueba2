@@ -1,0 +1,156 @@
+<app-card
+  innerClass="p-5"
+  [formGroup]="_opCapacitiesStepCapacityTableForm.capacityTableForm$"
+>
+  <div class="row mb-5">
+    <div class="col-12 d-flex justify-content-start align-items-center">
+      <app-icon svgName="stores" svgWidth="32px"></app-icon>
+      <h4 class="text-h4 text-black ms-3 mb-0">{{ drugStoreName }}</h4>
+    </div>
+  </div>
+  <hr class="m-0 bg-gray-3" />
+
+  <div class="row mb-4 mt-5">
+    <div class="col-12">
+      <p class="text-h4 text-black mb-0">Ingresa la cantidad de capacidad</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <p class="text-body-1-regular text-black mb-2">Nro. de transportistas</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <app-input-number
+        formControlName="capacityForSelection"
+        placeholder="10"
+      ></app-input-number>
+    </div>
+
+    <div class="col-9 mb-5">
+      <app-button
+        appearance="outline"
+        [disabled]="
+          _opCapacitiesStepCapacityTableForm.capacityForSelection.value ===
+            null ||
+          _opCapacitiesStepCapacityTableForm.capacityForSelection.invalid ||
+          !capacityTableSelection.selected.length
+        "
+        (clicked)="applyCapacity()"
+      >
+        Aplicar a selección
+      </app-button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div
+      class="col-12 mb-5"
+      *ngIf="
+        _opCapacitiesStepCapacityTableForm.capacitySegmentList?.controls.length
+      "
+    >
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        formArrayName="capacitySegmentList"
+      >
+        <ng-container matColumnDef="value">
+          <th mat-header-cell column-width="64px" *matHeaderCellDef>
+            <app-checkbox
+              (change)="$event ? masterToggle() : null"
+              [checked]="capacityTableSelection.hasValue() && isAllSelected()"
+              [indeterminate]="
+                capacityTableSelection.hasValue() && !isAllSelected()
+              "
+            >
+            </app-checkbox>
+          </th>
+          <td mat-cell column-width="64px" *matCellDef="let row">
+            <app-checkbox
+              (clicked)="$event.stopPropagation()"
+              (change)="$event ? capacityTableSelection.toggle(row) : null"
+              [checked]="capacityTableSelection.isSelected(row)"
+            >
+            </app-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="hour">
+          <th mat-header-cell *matHeaderCellDef>Bloque horario</th>
+          <td
+            mat-cell
+            *matCellDef="let element; let index = index"
+            [formGroupName]="index"
+          >
+            {{ element.value.segmentHour }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="capacity">
+          <th
+            mat-header-cell
+            column-width="110px"
+            header-cell-center
+            *matHeaderCellDef
+          >
+            Capacidad
+          </th>
+          <td
+            mat-cell
+            column-width="110px"
+            cell-center
+            *matCellDef="let element; let index = index"
+            [formGroupName]="index"
+          >
+            <app-input-number
+              class="capacity-table-input"
+              formControlName="segmentCapacity"
+              placeholder="10"
+              (click)="$event.stopPropagation()"
+            >
+            </app-input-number>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          row-small
+          row-hover
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="capacityTableSelection.toggle(row)"
+        ></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <p class="text-h5 text-primary text-center mb-0">
+        Capacidad total <span class="ms-3">{{ totalCapacity }}</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="card-actions d-flex-horizontal-end pt-7">
+    <app-button
+      appearance="secondary"
+      innerClass="btnServiceEditionStyle"
+      (clicked)="cancelCapacityTable()"
+      class="me-4"
+    >
+      Cancelar edición
+    </app-button>
+    <app-button
+      appearance="primary"
+      innerClass="btnServiceEditionStyle"
+      (clicked)="saveCapacityTable()"
+    >
+      Guardar cambios
+    </app-button>
+  </div>
+</app-card>

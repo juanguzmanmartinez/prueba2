@@ -87,9 +87,61 @@ export class IntervalTimeExpressFormService {
     return this.lapsControl.invalid && this.lapsControl.touched;
   }
 
+  stateControlValueChange() {
+    this.stateControl.valueChanges.subscribe((value) => {
+      if (value) {
+        this.addValidators();
+      } else {
+        this.clearValidators();
+      }
+      this.consumptionMaxControl.markAsTouched();
+      this.capacityAddedControl.markAsTouched();
+      this.intervalTimeControl.markAsTouched();
+      this.lapsControl.markAsTouched();
+    });
+  }
+
+  clearValidators() {
+    // this.consumptionMaxControl.clearValidators();
+    // this.capacityAddedControl.clearValidators();
+    // this.intervalTimeControl.clearValidators();
+    // this.lapsControl.clearValidators();
+    this.intervalTimeForm.get('addCapacity').clearValidators();
+    this.intervalTimeForm.get('addIntervalTime').clearValidators();
+    this.intervalTimeForm.get('laps').clearValidators();
+    this.intervalTimeForm.get('consumptionMax').clearValidators();
+
+    this.intervalTimeForm.get('addCapacity').updateValueAndValidity();
+    this.intervalTimeForm.get('addIntervalTime').updateValueAndValidity();
+    this.intervalTimeForm.get('laps').updateValueAndValidity();
+    this.intervalTimeForm.get('consumptionMax').updateValueAndValidity();
+    this.intervalTimeForm.updateValueAndValidity();
+  }
+
+  addValidators() {
+    this.intervalTimeForm
+      .get('addCapacity')
+      .setValidators([Validators.required, this.valueNotZeroValidator()]);
+    this.intervalTimeForm
+      .get('addIntervalTime')
+      .setValidators([Validators.required, this.valueNotZeroValidator()]);
+    this.intervalTimeForm
+      .get('laps')
+      .setValidators([Validators.required, this.valueNotZeroValidator()]);
+    this.intervalTimeForm
+      .get('consumptionMax')
+      .setValidators([Validators.required, this.valueNotZeroValidator()]);
+    this.intervalTimeForm.get('addCapacity').updateValueAndValidity();
+    this.intervalTimeForm.get('addIntervalTime').updateValueAndValidity();
+    this.intervalTimeForm.get('laps').updateValueAndValidity();
+    this.intervalTimeForm.get('consumptionMax').updateValueAndValidity();
+    this.intervalTimeForm.updateValueAndValidity();
+  }
+
   valueNotZeroValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value && Number(control.value) === 0) {
+      if (control.value === '0' && Number(control.value) === 0) {
+        console.log('debió entrar aquí');
         return { isZero: true };
       }
       return null;

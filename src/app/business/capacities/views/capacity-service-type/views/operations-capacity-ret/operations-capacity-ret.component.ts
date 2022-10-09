@@ -18,7 +18,6 @@ import { objectHasElements } from '@helpers/objects-equal.helper';
     OperationsCapacityRetStoreService,
     OpCapacitiesStepGroupOrDrugstoreService,
     OpCapacitiesStepEditionModeService,
-    OpCapacitiesStepCapacityTableService,
   ],
 })
 export class CapacityRetComponent implements OnInit, OnDestroy {

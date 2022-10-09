@@ -22,7 +22,6 @@ const CCapacitiesStepEditionModeName = {
   selector: 'app-op-capacities-step-edition-mode',
   templateUrl: './op-capacities-step-edition-mode.component.html',
   styleUrls: ['./op-capacities-step-edition-mode.component.scss'],
-  providers: [OpCapacitiesStepEditionModeService],
 })
 export class OpCapacitiesStepEditionModeComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
