@@ -15,6 +15,7 @@ import { SelectSearchModule } from '@atoms/select-search/select-search.module';
 import { SelectTabModule } from '@atoms/select-tab/select-tab.module';
 import { SelectModule } from '@atoms/select/select.module';
 import { SwitchModule } from '@atoms/switch/switch.module';
+import { TagModule } from '@atoms/tag/tag.module';
 import { TooltipModule } from '@atoms/tooltip/tooltip.module';
 import { AlertModule } from '@molecules/alert/alert.module';
 import { BackRouterSimpleModule } from '@molecules/back-router-simple/back-router-simple.module';
@@ -62,6 +63,8 @@ import { OperationsCapacityIntervalUploadComponent } from './views/operations-ca
 import { OperationsCapacityIntervalComponent } from './views/operations-capacity-interval/operations-capacity-interval.component';
 import { CapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
 import { CapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
+import { OperationsCapacityRetService } from './views/operations-capacity-ret/operations-capacity-ret.service';
+import { OperationsCapacityRetStoreService } from './views/operations-capacity-ret/store/operations-capacity-ret-store.service';
 import { CapacityScheduledComponent } from './views/operations-capacity-scheduled/operations-capacity-scheduled.component';
 import { OperationsCapacityScheduledService } from './views/operations-capacity-scheduled/operations-capacity-scheduled.service';
 import { OperationsCapacityScheduledStoreService } from './views/operations-capacity-scheduled/store/operations-capacity-scheduled-store.service';
@@ -126,6 +129,7 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     SelectModule,
     StepTabsModule,
     BackRouterSimpleModule,
+    TagModule
   ],
   providers: [
     OperationsCapacitiesImplementService,
@@ -141,6 +145,8 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     OpCapacitiesStepCapacityTableFormService,
     OperationsCapacityAmPmService,
     OperationsCapacityAmPmStoreService,
+    OperationsCapacityRetService,
+    OperationsCapacityRetStoreService,
   ],
 })
 export class CapacityServiceTypeModule {}

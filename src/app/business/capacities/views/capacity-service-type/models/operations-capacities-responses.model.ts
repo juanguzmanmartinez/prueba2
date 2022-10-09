@@ -52,6 +52,7 @@ export class CapacitiesDrugstoreServiceDefaultCapacity extends CalendarServiceDe
       : ({} as ICalendarServiceDefaultCapacities);
     this.serviceType = serviceDefaultCapacities.serviceTypeCode;
     this.capacityQuantity = serviceDefaultCapacities.capacitiesQuantity;
+    this.isHighDemand = serviceDefaultCapacities.isHighDemand;
   }
 }
 

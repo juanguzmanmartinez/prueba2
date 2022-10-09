@@ -13,16 +13,12 @@ import { objectHasElements } from '@helpers/objects-equal.helper';
   selector: 'app-operations-capacity-ret',
   templateUrl: './operations-capacity-ret.component.html',
   styleUrls: ['./operations-capacity-ret.component.scss'],
-  providers: [
-    OperationsCapacityRetService,
-    OperationsCapacityRetStoreService,
-    OpCapacitiesStepGroupOrDrugstoreService,
-    OpCapacitiesStepEditionModeService,
-  ],
 })
 export class CapacityRetComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
   mode: boolean = false;
+  isConfigBase: boolean;
+  drugStoreName: string;
 
   constructor(
     private _operationsCapacityRet: OperationsCapacityRetService,
@@ -33,6 +29,8 @@ export class CapacityRetComponent implements OnInit, OnDestroy {
     const subscription = this._activatedRoute.queryParams.subscribe(
       (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
         this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
+        this.isConfigBase = serviceTypeQueryParams.configBase;
+        this.drugStoreName = serviceTypeQueryParams.drugstoreName;
 
         if (objectHasElements(serviceTypeQueryParams)) {
           this._operationsCapacityRet.serviceQueryParams =

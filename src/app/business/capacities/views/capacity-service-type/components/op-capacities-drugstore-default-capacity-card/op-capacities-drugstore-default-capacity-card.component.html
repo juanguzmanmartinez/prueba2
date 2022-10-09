@@ -2,7 +2,18 @@
   [class.capacity-card-disabled]="disabled"
   class="drugstore-default-capacity-card"
 >
-  <div class="d-flex mb-2 justify-content-end">
+  <div
+    class="d-flex mb-2"
+    [ngClass]="isExpress ? 'justify-content-between' : 'justify-content-end'"
+  >
+    <app-tag
+      *ngIf="isHighDemand"
+      [appearance]="tagAppearance.coloredFullBluePill"
+      [tagColor]="segmentChannelColor"
+      [innerClass]="channelInnerClass"
+    >
+      Incremento de interval time en automático
+    </app-tag>
     <app-drop-options
       #dropDown
       information-dropdown-options
