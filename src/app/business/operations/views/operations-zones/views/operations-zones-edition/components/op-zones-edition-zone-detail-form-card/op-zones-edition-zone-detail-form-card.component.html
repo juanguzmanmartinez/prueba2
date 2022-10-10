@@ -16,9 +16,9 @@
           </h4>
         </div>
         <div class="d-flex align-items-center">
-          <span class="text-body-2-regular text-gray-5 me-2"
-            >Desactivar zona</span
-          >
+          <span class="text-body-2-regular text-gray-5 me-2">
+            {{ stateOptionDesc }}
+          </span>
           <app-switch
             [formControlName]="controlNameList.state"
             backgroundClass="bg-secondary"
@@ -191,9 +191,7 @@
 
       <!-- </app-form-field> -->
     </div>
-    <div
-      class="card-actions d-flex-horizontal-end pt-7"
-    >
+    <div class="card-actions d-flex-horizontal-end pt-7">
       <app-button
         appearance="secondary"
         class="me-4"

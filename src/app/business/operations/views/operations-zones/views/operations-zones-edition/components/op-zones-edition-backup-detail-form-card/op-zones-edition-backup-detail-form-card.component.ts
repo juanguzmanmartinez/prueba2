@@ -1,23 +1,35 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Zone, ZoneDetail } from '../../../../models/operations-zones.model';
 import { Subscription } from 'rxjs';
 import {
   OpZonesEditionBackupDetailFormCardFormService,
-  ZoneBackupDetailControlName
+  ZoneBackupDetailControlName,
 } from './form/op-zones-edition-backup-detail-form-card-form.service';
 import { CGStateSettingByValue, CStateValue } from '@models/state/state.model';
 import { IZoneBackupUpdate } from '@interfaces/zones/zones.interface';
-import { CZoneTypeName, EZoneType, ZoneTypeList } from '../../../../parameters/operations-zones-type.parameter';
+import {
+  CZoneTypeName,
+  EZoneType,
+  ZoneTypeList,
+} from '../../../../parameters/operations-zones-type.parameter';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
   selector: 'app-op-zones-edition-backup-detail-form-card',
   templateUrl: './op-zones-edition-backup-detail-form-card.component.html',
   styleUrls: ['./op-zones-edition-backup-detail-form-card.component.sass'],
-  providers: [OpZonesEditionBackupDetailFormCardFormService]
+  providers: [OpZonesEditionBackupDetailFormCardFormService],
 })
-export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDestroy {
-
+export class OpZonesEditionBackupDetailFormCardComponent
+  implements OnInit, OnDestroy
+{
   private subscriptions = new Subscription();
 
   public stateValue = CStateValue;
@@ -48,17 +60,25 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
   get zoneBackupPath(): string {
     return ROUTER_PATH.opZones_ZoneBackupEdition();
   }
-  
-  get zoneState(){
+
+  get zoneState() {
     return CStateValue[this.zoneDetail?.state];
   }
-  
+
+  get stateOptionDesc(): string {
+    return this._editionZoneBackupDetailForm.stateControl.value
+      ? 'Desactivar servicio'
+      : 'Activar servicio';
+  }
+
   constructor(
     public _editionZoneBackupDetailForm: OpZonesEditionBackupDetailFormCardFormService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    const state = !!this.zoneDetail.zoneBackup ? CStateValue[this.zoneDetail.zoneBackup.state] : false;
+    const state = !!this.zoneDetail.zoneBackup
+      ? CStateValue[this.zoneDetail.zoneBackup.state]
+      : false;
     this._editionZoneBackupDetailForm.stateControl.patchValue(state);
 
     this.updateStateControl();
@@ -72,7 +92,7 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
     this.checkEditionByStateControl();
   }
 
-  checkEditionByStateControl(): void{
+  checkEditionByStateControl(): void {
     if (this._editionZoneBackupDetailForm.stateControl.value) {
       this._editionZoneBackupDetailForm.zoneBackupControl.enable();
       this._editionZoneBackupDetailForm.zoneTypeControl.enable();
@@ -85,41 +105,56 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
   }
 
   updateStateControl(): void {
-    const subscription = this._editionZoneBackupDetailForm.stateControl.valueChanges
-      .subscribe(() => {
-        if (this._editionZoneBackupDetailForm.stateControl.value === false) {
-          this.updateZoneBackupDetailForm();
+    const subscription =
+      this._editionZoneBackupDetailForm.stateControl.valueChanges.subscribe(
+        () => {
+          if (this._editionZoneBackupDetailForm.stateControl.value === false) {
+            this.updateZoneBackupDetailForm();
+          }
+          this.checkEditionByStateControl();
         }
-        this.checkEditionByStateControl();
-      });
+      );
     this.subscriptions.add(subscription);
   }
 
   updateZoneTypeControl(): void {
-    const subscription = this._editionZoneBackupDetailForm.zoneTypeControl.valueChanges
-      .subscribe(() => {
-        const zoneType = this._editionZoneBackupDetailForm.zoneTypeControl.value;
-        if (zoneType) {
-          this.zoneList = this.zoneListStored
-            .filter((zone: Zone) => {
+    const subscription =
+      this._editionZoneBackupDetailForm.zoneTypeControl.valueChanges.subscribe(
+        () => {
+          const zoneType =
+            this._editionZoneBackupDetailForm.zoneTypeControl.value;
+          if (zoneType) {
+            this.zoneList = this.zoneListStored.filter((zone: Zone) => {
               return zone.zoneType === zoneType;
             });
-        } else {
-          this.zoneList = this.zoneListStored;
+          } else {
+            this.zoneList = this.zoneListStored;
+          }
+          const zoneBackup = this.zoneList.find(
+            (zone) => zone.code === this.zoneDetail.zoneBackup?.code
+          );
+          this._editionZoneBackupDetailForm.zoneBackupControl.patchValue(
+            zoneBackup
+          );
         }
-        const zoneBackup = this.zoneList.find((zone) => zone.code === this.zoneDetail.zoneBackup?.code);
-        this._editionZoneBackupDetailForm.zoneBackupControl.patchValue(zoneBackup);
-      });
+      );
     this.subscriptions.add(subscription);
   }
 
   updateZoneBackupControl(): void {
-    const subscription = this._editionZoneBackupDetailForm.zoneBackupControl.valueChanges
-      .subscribe(() => {
-        const zoneBackup = this._editionZoneBackupDetailForm.zoneBackupControl.value;
-        const backupAssignedStore = zoneBackup?.assignedStore ? `${zoneBackup.assignedStore.code} ${zoneBackup.assignedStore.name}` : '';
-        this._editionZoneBackupDetailForm.assignedStoreControl.patchValue(backupAssignedStore);
-      });
+    const subscription =
+      this._editionZoneBackupDetailForm.zoneBackupControl.valueChanges.subscribe(
+        () => {
+          const zoneBackup =
+            this._editionZoneBackupDetailForm.zoneBackupControl.value;
+          const backupAssignedStore = zoneBackup?.assignedStore
+            ? `${zoneBackup.assignedStore.code} ${zoneBackup.assignedStore.name}`
+            : '';
+          this._editionZoneBackupDetailForm.assignedStoreControl.patchValue(
+            backupAssignedStore
+          );
+        }
+      );
     this.subscriptions.add(subscription);
   }
 
@@ -138,9 +173,11 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
   saveEditionEvent(): void {
     const enabled = this._editionZoneBackupDetailForm.stateControl.value;
     const zoneBackupUpdate = {} as IZoneBackupUpdate;
-    const zoneBackup = this._editionZoneBackupDetailForm.zoneBackupControl.value as Zone;
+    const zoneBackup = this._editionZoneBackupDetailForm.zoneBackupControl
+      .value as Zone;
     zoneBackupUpdate.zoneId = zoneBackup.id;
-    zoneBackupUpdate.preferableLocalBackupToShow = CGStateSettingByValue(enabled);
+    zoneBackupUpdate.preferableLocalBackupToShow =
+      CGStateSettingByValue(enabled);
     zoneBackupUpdate.forceServiceAMPM = CGStateSettingByValue(false);
     zoneBackupUpdate.forceServicePROG = CGStateSettingByValue(false);
     this.saveEdition.emit(zoneBackupUpdate);
@@ -149,5 +186,4 @@ export class OpZonesEditionBackupDetailFormCardComponent implements OnInit, OnDe
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
 }
