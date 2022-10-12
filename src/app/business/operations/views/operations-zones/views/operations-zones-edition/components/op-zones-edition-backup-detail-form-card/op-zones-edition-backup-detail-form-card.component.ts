@@ -67,8 +67,8 @@ export class OpZonesEditionBackupDetailFormCardComponent
 
   get stateOptionDesc(): string {
     return this._editionZoneBackupDetailForm.stateControl.value
-      ? 'Desactivar servicio'
-      : 'Activar servicio';
+      ? 'Desactivar zona'
+      : 'Activar zona';
   }
 
   constructor(
