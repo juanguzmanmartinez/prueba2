@@ -14,7 +14,7 @@ import { map, tap } from 'rxjs/operators';
 export class FilterStoresComponent implements OnInit {
   list: any[];
   locals: any[];
-  valueSelect: string;
+  valueSelect: string = 'asdasd';
   selectedLocals: string[];
   othersSelects = '';
   filterForm: FormGroup;
@@ -22,7 +22,8 @@ export class FilterStoresComponent implements OnInit {
   @Input() placeholder: string;
   @Input() listOptions: IOptionFilterItem[];
   @Output() filter = new EventEmitter();
-
+  @Input() containerSearchClass = '';
+  @Input() inputSearchClass = '';
   constructor(
     private _formBuilder: FormBuilder,
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService
@@ -33,41 +34,31 @@ export class FilterStoresComponent implements OnInit {
       code: [''],
       nombre: [''],
     });
-    // const { locals } = this.orderFilterStore.getOrderFilter();
 
-    // this.selectedLocals = locals ?? [];
-
+    this.list = [];
     this._uploadCapacitiesStoreService.getStoresFilter$
       .pipe(
         tap((res: any[]) => {
-          // this.orderFilterStore.setLocalList(res);
           if (res.length == 0) this.selectedLocals = [];
           this.list = res;
+          if (
+            this.selectedLocals != undefined &&
+            this.selectedLocals.length > 0
+          )
+            this.selectionChange(this.selectedLocals, true);
         }),
         map((res: any[]) => {
-          // const newLocals = res.sort(this.sortLocals);
-
-          // return newLocals.map((val) => {
-          //   return {
-          //     code: val.localCode,
-          //     desc: `${val.name} - ${val.localCode}`,
-          //     hidden: false,
-          //   };
-          // });
           return res;
         })
       )
       .subscribe((response: any[]) => {
         this.locals = response;
-        // this.selectionChange(locals ?? [], true);
       });
-    // this.locals = this.listOptions;
-    // this.list = this.listOptions;
   }
 
   getLocalName(option: string): string {
     const localSelected = this.locals.find((local) => local.code === option);
-    return `${localSelected.name}`;
+    return `${localSelected.code}- ${localSelected.name}`;
   }
 
   private getLocalsName(locals: string[]): string {
@@ -77,32 +68,44 @@ export class FilterStoresComponent implements OnInit {
     return localsWithName.toString();
   }
 
-  selectionChange(locals: string[], isCallOnInit = false): void {
-    // this.orderFilterStore.setLocals = locals;
-    this.selectedLocals = locals;
+  selectionChange(locals: string[], isCallOnInit?: boolean): void {
+    let filterLocals = [];
+    if (isCallOnInit) {
+      locals.map((local: any) => {
+        this.list.forEach((item: any) => {
+          if (local == item.code) filterLocals.push(local);
+        });
+      });
+    }
+    if (filterLocals.length > 0) this.selectedLocals = filterLocals;
+    else this.selectedLocals = locals;
     this.othersSelects = '';
-    if (locals.length === 1) {
-      this.valueSelect = this.getLocalName(locals[0]);
-    } else if (locals.length === 2) {
-      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
-        locals[1]
+    if (this.selectedLocals.length === 1) {
+      this.valueSelect = this.getLocalName(this.selectedLocals[0]);
+    } else if (this.selectedLocals.length === 2) {
+      this.valueSelect = `${this.getLocalName(
+        this.selectedLocals[0]
+      )}, ${this.getLocalName(this.selectedLocals[1])}`;
+    } else if (this.selectedLocals.length === 3) {
+      this.valueSelect = `${this.getLocalName(
+        this.selectedLocals[0]
+      )}, ${this.getLocalName(this.selectedLocals[1])},${this.getLocalName(
+        this.selectedLocals[2]
       )}`;
-    } else if (locals.length > 2) {
-      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
-        locals[1]
+    } else if (this.selectedLocals.length > 3) {
+      this.valueSelect = `${this.getLocalName(
+        this.selectedLocals[0]
+      )}, ${this.getLocalName(this.selectedLocals[1])},${this.getLocalName(
+        this.selectedLocals[2]
       )}...`;
     }
 
-    if (locals.length > 2) {
-      locals.slice(2).forEach((v) => {
+    if (this.selectedLocals.length > 3) {
+      this.selectedLocals.slice(2).forEach((v) => {
         this.othersSelects = `${this.othersSelects} ${this.getLocalName(v)}\n`;
       });
     }
     this.filter.emit(this.selectedLocals);
-
-    if (isCallOnInit) {
-      return;
-    }
   }
 
   filterOptionList(value: string): void {
@@ -118,14 +121,13 @@ export class FilterStoresComponent implements OnInit {
         name: v.name,
         code: v.code,
         hidden: isHide,
-        desc: `${v.name} `,
+        desc: `${v.code} - ${v.name}`,
       };
     });
   }
 
   clearValues(): void {
     this.selectionChange([]);
-    // this.presenter.filterForm.get('localId').reset();
   }
 
   private sortLocals(x, y) {

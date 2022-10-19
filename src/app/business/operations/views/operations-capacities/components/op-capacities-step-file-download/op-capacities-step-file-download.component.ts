@@ -53,6 +53,9 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
         this._uploadCapacitiesStoreService.setDepartamentsFilter(
           newDepartaments
         );
+        this._uploadCapacitiesStoreService.setProvincesFilter([]);
+        this._uploadCapacitiesStoreService.setDistrictsFilter([]);
+        this._uploadCapacitiesStoreService.setStoresFilter([]);
       });
     this.subscriptions.add(subscription);
   }
@@ -81,6 +84,7 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       .getCapcitiesTemplateClient$(this.stores, params)
       .subscribe((res) => {
         this._uploadCapacitiesStoreService.setDataRaw(res);
+
         let data = [];
         res.forEach((store: any) => {
           const { value, ...rest } = store;
@@ -93,6 +97,7 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
           'Plantilla descarga capacidades',
           true
         );
+        this.disabled = false;
       });
   }
   getlistDepartaments(e) {
@@ -155,8 +160,8 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
   }
   getlistStores(e) {
     this.stores = e;
-    if (this.stores.length == 0) return;
-    this.disabled = false;
+    if (this.stores.length == 0) this.disabled = true;
+    // this.disabled = false;
     this.fg.controls;
   }
   get getListServices(): string {

@@ -1,12 +1,15 @@
 <app-card-step
   innerClass="w-100"
-  hiddenHeader="true"
+  title="Confirmación"
+  icon="file"
   (next)="submit($event)"
   (cancel)="cancelStep($event)"
   [disableNext]="!disableButton"
+  textButtonNext="Cargar capacidades"
+  textButtonCancel="Regresar"
 >
   <div class="mt-6"></div>
-  <div class="row justify-content-center mt-8">
+  <div class="row justify-content-center">
     <div class="col-12 col-xlg-12">
       <div class="p-6 card-step-container">
         <div class="card-step__body">
@@ -37,7 +40,7 @@
                 Programado
               </th>
               <td class="text-center" mat-cell *matCellDef="let element">
-                {{  getStatusService(element.scheTotalCapacity) }}
+                {{ getStatusService(element.scheTotalCapacity) }}
               </td>
             </ng-container>
             <ng-container matColumnDef="express">
@@ -45,11 +48,16 @@
                 Express
               </th>
               <td class="text-center" mat-cell *matCellDef="let element">
-                <ng-container *ngIf="getStatusService(element.expTotalCapacity) != -1; else iconDanger">
-                  {{  getStatusService(element.expTotalCapacity)}}
+                <ng-container
+                  *ngIf="
+                    getStatusService(element.expTotalCapacity) != -1;
+                    else iconDanger
+                  "
+                >
+                  {{ getStatusService(element.expTotalCapacity) }}
                 </ng-container>
-                  <ng-template #iconDanger>
-                    <app-icon
+                <ng-template #iconDanger>
+                  <app-icon
                     *ngIf="element.status"
                     svgName="warning"
                     svgHeight="18px"
@@ -58,7 +66,6 @@
                   >
                   </app-icon>
                 </ng-template>
-
               </td>
             </ng-container>
             <ng-container matColumnDef="ret">
@@ -116,12 +123,12 @@
             ></tr>
           </table>
         </div>
-        <!-- <div class="row" >
+        <div class="row">
           <div class="col-lg-4"></div>
 
-          <div class="col-lg-4 d-flex-center" >
+          <div class="col-lg-4 d-flex-center">
             <app-paginator
-              length="30"
+              [length]="dataLength"
               [pageIndex]="page - 1"
               [pageSize]="pageSize"
               (page)="onChangePage($event)"
@@ -129,7 +136,7 @@
             </app-paginator>
           </div>
 
-          <div class="col-lg-4" >
+          <div class="col-lg-4">
             <div class="page-size">
               <div class="d-flex align-items-center justify-content-end">
                 <p class="page-size-label text-gray-6 mb-0">Items por página</p>
@@ -138,14 +145,14 @@
                   [(ngModel)]="pageSize"
                   [value]="10"
                   containerMaxHeight="80px"
-                  [optionList]="[10, 20, 30]"
-                  (ngModelChange)="filterAll()"
+                  [optionList]="[10, 20]"
+                  (ngModelChange)="changeDataFilter()"
                 >
                 </app-select>
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>

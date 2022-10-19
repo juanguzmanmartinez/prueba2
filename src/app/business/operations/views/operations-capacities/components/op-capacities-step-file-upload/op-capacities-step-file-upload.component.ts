@@ -32,6 +32,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     this._uploadCapacitiesStoreService.getDataRaw$.subscribe((dataRaw) => {
       this.dataRaw = dataRaw;
     });
+    // this.dataRaw =
   }
 
   fileBrowseHandler(ev: any) {
@@ -52,7 +53,6 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         return initial;
       }, {});
       jsonData = dataraw['Plantilla descarga capacidades'];
-
       try {
         if (!this.execute(jsonData))
           return this._alertService.alertError(
@@ -60,7 +60,11 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
           );
         jsonData.map((item: any) => {
           this.dataRaw.forEach((dat: any) => {
-            if (item.service != 'EXP' && item.timeRange == dat.timeRange)
+            if (
+              item.service != 'EXP' &&
+              item.timeRange == dat.timeRange &&
+              item.storeCode == dat.storeCode
+            )
               item.value = dat.value;
           });
           return item;
@@ -68,22 +72,32 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
 
         this._operationsCapacitiesImplementService
           .validateStores$(jsonData)
-          .subscribe((res) => {
-            let validate = res.every((item: any) => item.validate == true);
-            if (!validate)
+          .subscribe(
+            (res) => {
+              let validate = res.every((item: any) => item.validate == true);
+              if (!validate) {
+                this.disableNext = true;
+                return this._alertService.alertError(
+                  'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
+                );
+              }
+              dataTosStore = jsonData.map((local, index) => {
+                return {
+                  ...local,
+                  id: index,
+                };
+              });
+              this.disableNext = false;
+
+              this._uploadCapacitiesStoreService.setStoreList(dataTosStore);
+            },
+            (error) => {
+              this.disableNext = true;
               return this._alertService.alertError(
                 'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
               );
-            dataTosStore = jsonData.map((local, index) => {
-              return {
-                ...local,
-                id: index,
-              };
-            });
-            this.disableNext = false;
-
-            this._uploadCapacitiesStoreService.setStoreList(dataTosStore);
-          });
+            }
+          );
       } catch (error) {
         return this._alertService.alertError(
           'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
@@ -119,5 +133,63 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
 
   execute(stores) {
     return stores.every((item) => this.instanceOfIStoreUpload(item));
+  }
+  convert(locals: IStoreUpload[]) {
+    let dataProcessed = [];
+    locals.forEach((local: IStoreUpload) => {
+      let locaolFounded = dataProcessed.some(
+        (it) => it.code == local.storeCode
+      );
+
+      if (!locaolFounded) {
+        dataProcessed.push({
+          code: local.storeCode,
+          local: local.storeName,
+          ampm: [],
+          scheduled: [],
+          express: [],
+          ret: [],
+          status: false,
+        });
+      }
+
+      let type = dataProcessed.find((item) => item.local === local.storeName);
+
+      isNaN(local.capacity) ? (type.status = true) : null;
+      if (type) {
+        switch (local.service) {
+          case 'PROG':
+            type.scheduled.push({
+              segment: local.timeRange,
+              capacity: local.capacity,
+              id: local.id,
+            });
+            break;
+          case 'AM_PM':
+            type.ampm.push({
+              segment: local.timeRange,
+              capacity: local.capacity,
+              id: local.id,
+            });
+            break;
+          case 'EXP':
+            type.express.push({
+              segment: local.timeRange,
+              capacity: local.capacity,
+              id: local.id,
+            });
+            break;
+          case 'RET':
+            type.ret.push({
+              segment: local.timeRange,
+              capacity: local.capacity,
+              id: local.id,
+            });
+            break;
+        }
+      }
+      dataProcessed.map((item) => item.code == type.code ?? type);
+    });
+    return dataProcessed;
   }
 }

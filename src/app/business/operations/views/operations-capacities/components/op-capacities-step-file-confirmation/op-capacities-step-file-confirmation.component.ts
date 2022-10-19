@@ -22,6 +22,7 @@ export class OpCapacitiesStepFileConfirmationComponent
 {
   private subscriptions = new Subscription();
   disableButton: boolean = false;
+  dataLength = 0;
   pageSize = 10;
   page = 1;
   displayedColumns: string[] = [
@@ -58,13 +59,15 @@ export class OpCapacitiesStepFileConfirmationComponent
         }
       );
     this.subscriptions.add(subscription);
+    this._uploadCapacitiesStoreService.getDataRaw$.subscribe((dataRaw) => {
+      this.dataWithValue = dataRaw;
+    });
   }
 
   getListFromStore() {
     const subscription =
       this._uploadCapacitiesStoreService.getStoreList$.subscribe(
         (stores: IStoreUpload[]) => {
-          this.dataWithValue = stores;
           this.convert(stores);
         }
       );
@@ -137,6 +140,7 @@ export class OpCapacitiesStepFileConfirmationComponent
 
     this._uploadCapacitiesStoreService.setDataSource(dataProcessed);
     this.dataSource = dataProcessed;
+    this.dataLength = dataProcessed.length;
   }
   editRow(element) {
     this._uploadCapacitiesStoreService.setElementToEdit(element);
@@ -163,8 +167,27 @@ export class OpCapacitiesStepFileConfirmationComponent
       this.dataWithValue.forEach((dat: any) => {
         if (item.service != 'EXP' && item.timeRange == dat.timeRange)
           item.value = dat.value;
-        else if (item.service == 'EXP') delete item.timeRange;
+        else if (item.service == 'EXP') {
+          if (
+            dat.storeCode == item.storeCode &&
+            dat.timeRange == undefined &&
+            dat.value == undefined
+          ) {
+            delete item.timeRange;
+            delete item.value;
+            item = {
+              service: item.service,
+              storeCode: item.storeCode,
+              storeName: item.storeName,
+              capacity: item.capacity,
+            };
+          } else {
+            item.value = '-';
+            item.timeRange = '-';
+          }
+        }
       });
+
       return item;
     });
 
@@ -253,13 +276,14 @@ export class OpCapacitiesStepFileConfirmationComponent
       .map((item: IStoreProcessed) => item.status)
       .every((item) => item == false);
   }
-  filterAll() {}
   getStatusService(element) {
     if (isNaN(element)) return -1;
     if (element == 0) return '-';
     return element;
   }
   onChangePage(e) {}
+
+  changeDataFilter() {}
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

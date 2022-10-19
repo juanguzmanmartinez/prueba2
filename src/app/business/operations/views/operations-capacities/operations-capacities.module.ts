@@ -64,6 +64,7 @@ import { FilterProvincesComponent } from './components/op-capacities-step-file-d
 import { FilterDistrictsComponent } from './components/op-capacities-step-file-download/components/filter-districts/filter-districts.component';
 import { FilterStoresComponent } from './components/op-capacities-step-file-download/components/filter-stores/filter-stores.component';
 import { PaginatorModule } from '@atoms/paginator/paginator.module';
+import { BackRouterSimpleModule } from '@molecules/back-router-simple/back-router-simple.module';
 
 @NgModule({
   declarations: [
@@ -129,7 +130,9 @@ import { PaginatorModule } from '@atoms/paginator/paginator.module';
     StepTabsModule,
     LocalFilterModule,
     FormFieldModule,
-    FilterSearchModule,PaginatorModule
+    FilterSearchModule,
+    PaginatorModule,
+    BackRouterSimpleModule,
   ],
   providers: [OperationsCapacitiesImplementService],
 })

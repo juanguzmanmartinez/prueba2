@@ -22,7 +22,8 @@ export class FilterProvincesComponent implements OnInit {
   @Input() placeholder: string;
   @Input() listOptions: IOptionFilterItem[];
   @Output() filter = new EventEmitter();
-
+  @Input() containerSearchClass = '';
+  @Input() inputSearchClass = '';
   constructor(
     private _formBuilder: FormBuilder,
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService

@@ -55,7 +55,8 @@ export class SelectComponent<T>
   @Input() customFontName = null;
   @Input() maxLimit: number = 7;
   @Input() error: boolean;
-
+  @Input() containerSearchClass = '';
+  @Input() inputSearchClass = '';
   @Input('value')
   set _value(option: T | T[]) {
     this.validValue(option);

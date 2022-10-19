@@ -21,6 +21,7 @@
     </mat-select-trigger>
 
     <div
+      [ngClass]="containerSearchClass"
       class="option-container"
       [style.max-height]="containerMaxHeight"
       [style.width]="optionContainerWidth"
@@ -34,7 +35,12 @@
         {{ clearValue }}
       </mat-option>
 
-      <mat-option class="option-search" disabled="true" *ngIf="enableSearch">
+      <mat-option
+        [ngClass]="inputSearchClass"
+        class="option-search"
+        disabled="true"
+        *ngIf="enableSearch"
+      >
         <div style="display: block">
           <input
             id="input"

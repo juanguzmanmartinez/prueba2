@@ -18,7 +18,13 @@ export class OperationsCapacityUploadComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // this.currentStep = this._uploadCapacitiesStoreService.getCurrentStep();
-
+    TABS[1].flow = 'pending';
+    TABS[2].flow = 'pending';
+    TABS[2].icon = 'pending';
+    TABS[1].icon = 'pending';
+    this._uploadCapacitiesStoreService.setStepsTabs(TABS);
+    this._uploadCapacitiesStoreService.setCurrentStep('1');
+    this._uploadCapacitiesStoreService.setDataSource([]);
     const subscription =
       this._uploadCapacitiesStoreService.getCurrentStep$.subscribe(
         (eCapacityStepStatus: any) => {
