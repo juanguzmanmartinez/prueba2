@@ -92,8 +92,30 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
           else data.push({ ...rest });
         });
 
+        let toExport = [];
+        data.forEach((item: any) => {
+          let store = {};
+          store['Servicio'] = item.service;
+          store['Cod. Local'] = item.storeCode;
+          store['Local'] = item.storeName;
+          store['SegmentoHorario'] = item.timeRange;
+          store['Capacidad'] = item.capacity;
+          toExport.push(store);
+        });
+
+        let dataSort = toExport.sort((a, b) => {
+          let fa = a['Cod. Local'].toLowerCase(),
+            fb = b['Cod. Local'].toLowerCase();
+          if (fa < fb) {
+            return -1;
+          }
+          if (fa > fb) {
+            return 1;
+          }
+          return 0;
+        });
         ExportTableSelection.exportArrayToExcel(
-          data,
+          dataSort,
           'Plantilla descarga capacidades',
           true
         );

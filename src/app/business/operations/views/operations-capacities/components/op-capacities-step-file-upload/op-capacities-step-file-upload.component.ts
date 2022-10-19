@@ -52,12 +52,24 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         initial[name] = XLSX.utils.sheet_to_json(sheet);
         return initial;
       }, {});
-      jsonData = dataraw['Plantilla descarga capacidades'];
+      let dataToProcess = [];
+      dataraw['Plantilla descarga capacidades'].forEach((item: any) => {
+        let store: any = {};
+        store.service = item['Servicio'];
+        store.storeCode = item['Cod. Local'];
+        store.storeName = item['Local'];
+        store.timeRange = item['SegmentoHorario'];
+        store.capacity = item['Capacidad'];
+        dataToProcess.push(store);
+      });
+      jsonData = dataToProcess;
+
       try {
         if (!this.execute(jsonData))
           return this._alertService.alertError(
             'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
           );
+
         jsonData.map((item: any) => {
           this.dataRaw.forEach((dat: any) => {
             if (
