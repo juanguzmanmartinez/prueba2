@@ -19,7 +19,7 @@ export class OpCapacitiesUploadEditRetComponent implements OnInit {
   datos;
   showData: any = [];
   selection = new SelectionModel(true, []);
-
+  disabledBtn = true;
   private fixedSelectedRows: any[] = [];
 
   constructor(
@@ -116,6 +116,13 @@ export class OpCapacitiesUploadEditRetComponent implements OnInit {
   }
   get getTotalCapacityAmpm() {
     return this.ret.reduce((a, { capacity }) => a + capacity, 0);
+  }
+  changeInput(e) {
+    if (this.inputRet.inputValue) {
+      this.disabledBtn = false;
+    } else {
+      this.disabledBtn = true;
+    }
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

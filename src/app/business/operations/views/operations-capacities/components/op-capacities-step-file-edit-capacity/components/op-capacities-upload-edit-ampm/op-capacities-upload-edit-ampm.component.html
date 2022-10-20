@@ -6,12 +6,17 @@
     <p>Nro. de transportistas</p>
     <div class="d-flex justify-content-lg-start">
       <app-input-number
-        placeholder="90"
+        placeholder="10"
         labelClass="ml-4"
         class="input-num"
         #inputAmpm
+        (change)="changeInput($event)"
       ></app-input-number>
-      <app-button (clicked)="setManyAmpm()" appearance="outline"
+      <app-button
+        class="ml-2"
+        (clicked)="setManyAmpm()"
+        appearance="outline"
+        [disabled]="disabledBtn"
         >Aplicar selección</app-button
       >
     </div>

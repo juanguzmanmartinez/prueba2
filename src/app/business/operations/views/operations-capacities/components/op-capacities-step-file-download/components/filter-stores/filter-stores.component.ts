@@ -1,9 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IOptionFilterItem } from '@interfaces/capacities/options-filter';
 import { UploadCapacitiesStoreService } from 'app/business/operations/views/operations-capacities/stores/upload-capacities-store.service';
 import { OperationsCapacityHomeStoreService } from 'app/business/operations/views/operations-capacities/views/operations-capacity-home/store/operations-capacity-home-store.service';
+import { Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 @Component({
@@ -19,11 +28,14 @@ export class FilterStoresComponent implements OnInit {
   othersSelects = '';
   filterForm: FormGroup;
   fg: FormGroup;
+  @ViewChild('inputStores') inputStores;
+
   @Input() placeholder: string;
   @Input() listOptions: IOptionFilterItem[];
   @Output() filter = new EventEmitter();
   @Input() containerSearchClass = '';
   @Input() inputSearchClass = '';
+
   constructor(
     private _formBuilder: FormBuilder,
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService
@@ -127,7 +139,10 @@ export class FilterStoresComponent implements OnInit {
   }
 
   clearValues(): void {
+    this.selectedLocals = [];
     this.selectionChange([]);
+    this.inputStores.value = [];
+    this.inputStores.disableOptionsMultiple = false;
   }
 
   private sortLocals(x, y) {

@@ -19,7 +19,7 @@ export class OpCapacitiesUploadEditScheduledComponent implements OnInit {
   datos;
   showData: any = [];
   selection = new SelectionModel(true, []);
-
+  disabledBtn = true;
   private fixedSelectedRows: any[] = [];
 
   constructor(
@@ -117,6 +117,13 @@ export class OpCapacitiesUploadEditScheduledComponent implements OnInit {
   }
   get getTotalCapacityAmpm() {
     return this.scheduled.reduce((a, { capacity }) => a + capacity, 0);
+  }
+  changeInput(e) {
+    if (this.inputScheduled.inputValue) {
+      this.disabledBtn = false;
+    } else {
+      this.disabledBtn = true;
+    }
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

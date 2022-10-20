@@ -18,6 +18,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
   fileName: string = '';
   textButton: string = 'Regresar';
   dataRaw = [];
+  file: any;
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _alertService: AlertService,
@@ -36,6 +37,8 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
   }
 
   fileBrowseHandler(ev: any) {
+    console.log('ev', ev);
+    this.file = ev.target.files[0];
     if (this.files.length > 0) this.files = [];
     this.fileName = ev.target.files[0].name;
     this.files.push(ev.target.files[0]);

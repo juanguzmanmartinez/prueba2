@@ -17,7 +17,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { isObject } from '@helpers/objects-equal.helper';
 import { normalizeValue } from '@helpers/string.helper';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 export interface SearchOptionsI {
   code: string;
