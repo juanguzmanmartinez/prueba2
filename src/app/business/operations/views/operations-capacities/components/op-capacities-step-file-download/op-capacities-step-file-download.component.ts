@@ -28,6 +28,13 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    TABS[1].flow = 'pending';
+    TABS[1].icon = 'pending';
+    TABS[0].icon = 'done';
+    TABS[0].flow = 'done';
+    TABS[2].icon = 'pending';
+    TABS[2].flow = 'pending';
+
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
     this.fg = this._formBuilder.group({
       ampm: [false],

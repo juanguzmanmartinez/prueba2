@@ -1,5 +1,5 @@
 <app-card-step
-  title="Carga de documento"
+  titleCard="Carga de documento"
   icon="file"
   (next)="nextStep($event)"
   (cancel)="cancelStep($event)"
@@ -43,7 +43,10 @@
       />
       <app-icon svgName="excel" svgWidth="36px" innerClass="fp-mr-8"></app-icon>
       <span class="text-file text-h5 mt-4">{{ fileName }}</span>
-      <a class="container-upload-file__text--link" (click)="onChangeInput()">
+      <a
+        class="container-upload-file__text--link"
+        (click)="onChangeInput($event)"
+      >
         Cargar de nuevo
       </a>
     </div>

@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { StorageClientService } from '@clients/storage/storage-client.service';
 import { IStoreUpload } from '@interfaces/capacities/upload-capacities.interface';
 import { AlertService } from '@molecules/alert/alert.service';
 import * as XLSX from 'xlsx';
@@ -22,24 +23,37 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _alertService: AlertService,
-    private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService
+    private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService,
+    private _storageClientService: StorageClientService
   ) {}
 
   ngOnInit(): void {
     TABS[1].flow = 'done';
     TABS[1].icon = 'done';
     TABS[0].icon = 'check';
+    TABS[0].flow = 'done';
+    TABS[2].flow = 'pending';
+    TABS[2].icon = 'pending';
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
     this._uploadCapacitiesStoreService.getDataRaw$.subscribe((dataRaw) => {
       this.dataRaw = dataRaw;
     });
-    // this.dataRaw =
+    this._storageClientService.setStorageCrypto(
+      'lalaldalsdaosd adlasldla doasoda'
+    );
   }
 
   fileBrowseHandler(ev: any) {
-    console.log('ev', ev);
     this.file = ev.target.files[0];
-    if (this.files.length > 0) this.files = [];
+    var allowedExtensions = /(\.xls|\.xlsm|\.xlsx|\.xlsb)$/i;
+    if (!allowedExtensions.exec(this.file.name)) {
+      this.disableNext = true;
+      return this._alertService.alertError(
+        'Error de subida, este formato no es soportado. Recuerda que solo se pueden subir archivos excel.'
+      );
+    }
+
+    if (this.file.name) if (this.files.length > 0) this.files = [];
     this.fileName = ev.target.files[0].name;
     this.files.push(ev.target.files[0]);
     let workBook = null;
@@ -56,22 +70,40 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         return initial;
       }, {});
       let dataToProcess = [];
+      let noRegistered = [];
       dataraw['Plantilla descarga capacidades'].forEach((item: any) => {
+        let founded = this.dataRaw.find((raw) => {
+          return (
+            item['Cod. Local'] === raw.storeCode &&
+            raw.storeName == item['Local']
+          );
+        });
+        if (founded == undefined) noRegistered.push(founded);
+
         let store: any = {};
-        store.service = item['Servicio'];
-        store.storeCode = item['Cod. Local'];
-        store.storeName = item['Local'];
-        store.timeRange = item['SegmentoHorario'];
-        store.capacity = item['Capacidad'];
+        if (item['Servicio']) store.service = item['Servicio'];
+        if (item['Cod. Local']) store.storeCode = item['Cod. Local'];
+        if (item['Local']) store.storeName = item['Local'];
+        if (item['SegmentoHorario']) store.timeRange = item['SegmentoHorario'];
+        if (item['Capacidad']) store.capacity = item['Capacidad'];
+
         dataToProcess.push(store);
       });
       jsonData = dataToProcess;
 
+      if (noRegistered.length > 0) {
+        this.disableNext = true;
+        return this._alertService.alertError(
+          'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
+        );
+      }
       try {
-        if (!this.execute(jsonData))
+        if (!this.execute(jsonData)) {
+          this.disableNext = true;
           return this._alertService.alertError(
             'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
           );
+        }
 
         jsonData.map((item: any) => {
           this.dataRaw.forEach((dat: any) => {
@@ -79,10 +111,14 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
               item.service != 'EXP' &&
               item.timeRange == dat.timeRange &&
               item.storeCode == dat.storeCode
-            )
+            ) {
               item.value = dat.value;
+              return item;
+            }
+            if (item.storeCode === dat.storeCode && item.service == 'EXP') {
+              return item;
+            }
           });
-          return item;
         });
 
         this._operationsCapacitiesImplementService
@@ -123,6 +159,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     reader.readAsBinaryString(file);
   }
   onChangeInput() {
+    this.inputRef.nativeElement.value = null;
     this.inputRef.nativeElement.click();
   }
   nextStep(e: any) {
@@ -147,7 +184,10 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
   }
 
   execute(stores) {
-    return stores.every((item) => this.instanceOfIStoreUpload(item));
+    return (
+      stores.every((item) => this.instanceOfIStoreUpload(item)) &&
+      stores.every((item) => item.capacity > 0)
+    );
   }
   convert(locals: IStoreUpload[]) {
     let dataProcessed = [];
