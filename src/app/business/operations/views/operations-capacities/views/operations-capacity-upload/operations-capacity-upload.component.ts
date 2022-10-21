@@ -23,8 +23,8 @@ export class OperationsCapacityUploadComponent implements OnInit, OnDestroy {
     TABS[2].icon = 'pending';
     TABS[1].icon = 'pending';
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
-    this._uploadCapacitiesStoreService.setCurrentStep('2');
-    // this._uploadCapacitiesStoreService.setDataSource([]);
+    this._uploadCapacitiesStoreService.setCurrentStep('1');
+    this._uploadCapacitiesStoreService.setDataSource([]);
     const subscription =
       this._uploadCapacitiesStoreService.getCurrentStep$.subscribe(
         (eCapacityStepStatus: any) => {
