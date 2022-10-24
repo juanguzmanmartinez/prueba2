@@ -1,0 +1,12 @@
+.page-size {
+  &-label {
+    font-size: 12px;
+    margin-right: 12px;
+  }
+
+  .select-size {
+    &::ng-deep > .select {
+      width: 90px;
+    }
+  }
+}

@@ -4,7 +4,6 @@
   icon="file"
   (next)="submit($event)"
   (cancel)="cancelStep($event)"
-  [disableNext]="!disableButton"
   textButtonNext="Cargar capacidades"
   textButtonCancel="Regresar"
 >
@@ -13,7 +12,7 @@
     <div class="col-12 col-xlg-12">
       <div class="p-6 card-step-container">
         <div class="card-step__body">
-          <table mat-table [dataSource]="dataSource">
+          <table mat-table [dataSource]="datatoShow">
             <ng-container matColumnDef="code">
               <th mat-header-cell *matHeaderCellDef>Código</th>
               <td mat-cell *matCellDef="let element">
@@ -123,13 +122,13 @@
             ></tr>
           </table>
         </div>
-        <!-- <div class="row mt-4">
+        <div class="row mt-4">
           <div class="col-lg-4"></div>
 
           <div class="col-lg-4 d-flex-center">
             <app-paginator
               [length]="dataLength"
-              [pageIndex]="page - 1"
+              [pageIndex]="pageIndex"
               [pageSize]="pageSize"
               (page)="onChangePage($event)"
             >
@@ -152,7 +151,7 @@
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>

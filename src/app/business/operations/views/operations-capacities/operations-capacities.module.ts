@@ -65,6 +65,7 @@ import { FilterDistrictsComponent } from './components/op-capacities-step-file-d
 import { FilterStoresComponent } from './components/op-capacities-step-file-download/components/filter-stores/filter-stores.component';
 import { PaginatorModule } from '@atoms/paginator/paginator.module';
 import { BackRouterSimpleModule } from '@molecules/back-router-simple/back-router-simple.module';
+import { OpCapacitiesUploadEditTableComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-table/op-capacities-upload-edit-table.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { BackRouterSimpleModule } from '@molecules/back-router-simple/back-route
     FilterProvincesComponent,
     FilterDistrictsComponent,
     FilterStoresComponent,
+    OpCapacitiesUploadEditTableComponent,
   ],
   imports: [
     CommonModule,

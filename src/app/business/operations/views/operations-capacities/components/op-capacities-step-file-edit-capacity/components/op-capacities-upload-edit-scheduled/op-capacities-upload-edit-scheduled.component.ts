@@ -32,8 +32,6 @@ export class OpCapacitiesUploadEditScheduledComponent implements OnInit {
         (element) => {
           this.elementToEdit = element;
           this.scheduled = element.scheduled;
-          // this.ret = element.ret;
-          // this.scheduled = element.scheduled;
         }
       );
     this.subscriptions.add(subscription);
@@ -91,7 +89,6 @@ export class OpCapacitiesUploadEditScheduledComponent implements OnInit {
         return item;
       }
     });
-    // this.setElementToEdit();
   }
   setManyScheduled() {
     this.scheduled.map((item) => {
@@ -101,7 +98,6 @@ export class OpCapacitiesUploadEditScheduledComponent implements OnInit {
         }
       });
     });
-    // this.setElementToEdit();
   }
 
   setElementToEdit() {

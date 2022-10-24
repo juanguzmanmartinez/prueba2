@@ -39,15 +39,15 @@ export class StorageClientService {
     return storage.removeItem(key);
   }
 
-  setStorageCrypto(cryptoItem) {
+  setStorageCrypto(field, cryptoItem) {
     localStorage.setItem(
-      'dasda',
+      field,
       this.cryptoService.set(JSON.stringify(cryptoItem))
     );
   }
 
-  getStorageCrypto() {
-    const cryptoItem = this.decryptItem('dasda');
+  getStorageCrypto(field) {
+    const cryptoItem = this.decryptItem(field);
     return JSON.parse(cryptoItem);
   }
 
