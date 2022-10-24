@@ -55,7 +55,7 @@ export class OperationsCapacityUploadComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    this._storageClientService.setStorageCrypto('current-step', '2');
+    this._storageClientService.setStorageCrypto('current-step', '1');
     this._storageClientService.setStorageCrypto('data-raw', null);
     this._storageClientService.setStorageCrypto('list-stores', null);
     this._storageClientService.setStorageCrypto('data-source', null);
