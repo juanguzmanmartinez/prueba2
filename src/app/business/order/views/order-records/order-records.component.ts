@@ -157,6 +157,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getListStore();
     this.appearTable = false;
     this.formOnChanges();
+    this.searchIfExistFilters();
   }
 
   formOnChanges() {
@@ -233,6 +234,15 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   viewOrderDetails(id: string): void {
     this.router.navigate([ROUTER_PATH.orderDetail(id)]);
+  }
+
+  searchIfExistFilters(): void {
+    if (
+      !this.presenter.isNullFilterForm() &&
+      !this.presenter.filterForm.invalid
+    ) {
+      this.filterAll();
+    }
   }
 
   onChangePage(pe: PageEvent): void {
