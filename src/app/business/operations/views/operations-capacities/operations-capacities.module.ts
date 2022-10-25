@@ -53,6 +53,26 @@ import { OperationsCapacityIntervalUploadComponent } from './views/operations-ca
 import { StepTabsModule } from '@molecules/step-tabs/step-tabs.module';
 import { OpCapacitiesIntervalStepUploadComponent } from './components/op-capacities-interval-step-upload/op-capacities-interval-step-upload.component';
 import { OpCapacitiesIntervalStepConfirmationComponent } from './components/op-capacities-interval-step-confirmation/op-capacities-interval-step-confirmation.component';
+import { OperationsCapacityUploadComponent } from './views/operations-capacity-upload/operations-capacity-upload.component';
+
+import { OpCapacitiesStepFileConfirmationComponent } from './components/op-capacities-step-file-confirmation/op-capacities-step-file-confirmation.component';
+import { OpCapacitiesStepFileDownloadComponent } from './components/op-capacities-step-file-download/op-capacities-step-file-download.component';
+import { OpCapacitiesStepFileUploadComponent } from './components/op-capacities-step-file-upload/op-capacities-step-file-upload.component';
+import { OpCapacitiesStepFileEditCapacityComponent } from './components/op-capacities-step-file-edit-capacity/op-capacities-step-file-edit-capacity.component';
+import { LocalFilterModule } from 'app/business/order/views/order-records/components/local-filter/local-filter.module';
+import { OpCapacitiesUploadEditAmpmComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-ampm/op-capacities-upload-edit-ampm.component';
+import { OpCapacitiesUploadEditRetComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-ret/op-capacities-upload-edit-ret.component';
+import { OpCapacitiesUploadEditExpressComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-express/op-capacities-upload-edit-express.component';
+import { OpCapacitiesUploadEditScheduledComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-scheduled/op-capacities-upload-edit-scheduled.component';
+import { OpCapacitiesUploadDeleteDialogComponent } from './components/op-capacities-step-file-confirmation/components/op-capacities-upload-delete-dialog/op-capacities-upload-delete-dialog.component';
+import { FormFieldModule } from '@molecules/form-field/form-field.module';
+import { FilterSearchModule } from '@molecules/filter-search/filter-search.module';
+import { FilterDepartamentsComponent } from './components/op-capacities-step-file-download/components/filter-departaments/filter-departaments.component';
+import { FilterProvincesComponent } from './components/op-capacities-step-file-download/components/filter-provinces/filter-provinces.component';
+import { FilterDistrictsComponent } from './components/op-capacities-step-file-download/components/filter-districts/filter-districts.component';
+import { FilterStoresComponent } from './components/op-capacities-step-file-download/components/filter-stores/filter-stores.component';
+import { PaginatorModule } from '@atoms/paginator/paginator.module';
+import { BackRouterSimpleModule } from '@molecules/back-router-simple/back-router-simple.module';
 
 @NgModule({
   declarations: [
@@ -77,6 +97,20 @@ import { OpCapacitiesIntervalStepConfirmationComponent } from './components/op-c
     OperationsCapacityIntervalUploadComponent,
     OpCapacitiesIntervalStepUploadComponent,
     OpCapacitiesIntervalStepConfirmationComponent,
+    OperationsCapacityUploadComponent,
+    OpCapacitiesStepFileConfirmationComponent,
+    OpCapacitiesStepFileDownloadComponent,
+    OpCapacitiesStepFileUploadComponent,
+    OpCapacitiesStepFileEditCapacityComponent,
+    OpCapacitiesUploadEditAmpmComponent,
+    OpCapacitiesUploadEditRetComponent,
+    OpCapacitiesUploadEditExpressComponent,
+    OpCapacitiesUploadEditScheduledComponent,
+    OpCapacitiesUploadDeleteDialogComponent,
+    FilterDepartamentsComponent,
+    FilterProvincesComponent,
+    FilterDistrictsComponent,
+    FilterStoresComponent,
   ],
   imports: [
     CommonModule,
@@ -106,10 +140,15 @@ import { OpCapacitiesIntervalStepConfirmationComponent } from './components/op-c
     DialogModule,
     PipesModule,
     DropOptionsModule,
-    CardStepModule,
     SwitchModule,
     SelectModule,
+    CardStepModule,
     StepTabsModule,
+    LocalFilterModule,
+    FormFieldModule,
+    FilterSearchModule,
+    PaginatorModule,
+    BackRouterSimpleModule,
   ],
   providers: [OperationsCapacitiesImplementService],
 })

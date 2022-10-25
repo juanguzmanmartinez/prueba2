@@ -24,6 +24,7 @@ import { CardStepModule } from '@molecules/card-step/card-step.module';
 import { CardModule } from '@molecules/cards/card.module';
 import { DialogModule } from '@molecules/dialog/dialog.module';
 import { DropOptionsModule } from '@molecules/drop-options/drop-options.module';
+import { FormFieldModule } from '@molecules/form-field/form-field.module';
 import { StepTabsModule } from '@molecules/step-tabs/step-tabs.module';
 import { StepperModule } from '@molecules/stepper/stepper.module';
 import { TabModule } from '@molecules/tab/tab.module';
@@ -48,12 +49,26 @@ import { OpCapacitiesStepEditionModeService } from './components/op-capacities-s
 import { OpCapacitiesStepExpressResourceFormService } from './components/op-capacities-step-express-resource/form/op-capacities-step-express-resource-form.service';
 import { OpCapacitiesStepExpressResourceComponent } from './components/op-capacities-step-express-resource/op-capacities-step-express-resource.component';
 import { OpCapacitiesStepExpressResourceService } from './components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
+import { OpCapacitiesUploadDeleteDialogComponent } from './components/op-capacities-step-file-confirmation/components/op-capacities-upload-delete-dialog/op-capacities-upload-delete-dialog.component';
+import { OpCapacitiesStepFileConfirmationComponent } from './components/op-capacities-step-file-confirmation/op-capacities-step-file-confirmation.component';
+import { FilterDepartamentsComponent } from './components/op-capacities-step-file-download/components/filter-departaments/filter-departaments.component';
+import { FilterDistrictsComponent } from './components/op-capacities-step-file-download/components/filter-districts/filter-districts.component';
+import { FilterProvincesComponent } from './components/op-capacities-step-file-download/components/filter-provinces/filter-provinces.component';
+import { FilterStoresComponent } from './components/op-capacities-step-file-download/components/filter-stores/filter-stores.component';
+import { OpCapacitiesStepFileDownloadComponent } from './components/op-capacities-step-file-download/op-capacities-step-file-download.component';
+import { OpCapacitiesUploadEditAmpmComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-ampm/op-capacities-upload-edit-ampm.component';
+import { OpCapacitiesUploadEditExpressComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-express/op-capacities-upload-edit-express.component';
+import { OpCapacitiesUploadEditRetComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-ret/op-capacities-upload-edit-ret.component';
+import { OpCapacitiesUploadEditScheduledComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-scheduled/op-capacities-upload-edit-scheduled.component';
+import { OpCapacitiesStepFileEditCapacityComponent } from './components/op-capacities-step-file-edit-capacity/op-capacities-step-file-edit-capacity.component';
+import { OpCapacitiesStepFileUploadComponent } from './components/op-capacities-step-file-upload/op-capacities-step-file-upload.component';
 import { OpCapacitiesStepGroupOrDrugstoreComponent } from './components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.component';
 import { OpCapacitiesStepGroupOrDrugstoreService } from './components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.service';
 import { OpIntervalsStepSetExpressComponent } from './components/op-intervals-step-set-express/op-intervals-step-set-express.component';
 import { OperationsCapacitiesImplementService } from './implements/operations-capacities-implement.service';
 import { DrugStoreServiceStore } from './store/drug-store.service';
 import { IntervalTimeExpressFormService } from './store/interval-time-express-form.service';
+import { UploadCapacitiesStoreService } from './store/upload-capacities-store.service';
 import { CapacityAmPmComponent } from './views/operations-capacity-am-pm/operations-capacity-am-pm.component';
 import { OperationsCapacityAmPmService } from './views/operations-capacity-am-pm/operations-capacity-am-pm.service';
 import { OperationsCapacityAmPmStoreService } from './views/operations-capacity-am-pm/store/operations-capacity-am-pm-store.service';
@@ -68,6 +83,7 @@ import { OperationsCapacityRetStoreService } from './views/operations-capacity-r
 import { CapacityScheduledComponent } from './views/operations-capacity-scheduled/operations-capacity-scheduled.component';
 import { OperationsCapacityScheduledService } from './views/operations-capacity-scheduled/operations-capacity-scheduled.service';
 import { OperationsCapacityScheduledStoreService } from './views/operations-capacity-scheduled/store/operations-capacity-scheduled-store.service';
+import { OperationsCapacityUploadComponent } from './views/operations-capacity-upload/operations-capacity-upload.component';
 import { OperationsIntervalExpressComponent } from './views/operations-interval-express/operations-interval-express.component';
 
 @NgModule({
@@ -95,6 +111,20 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     OpCapacitiesIntervalStepConfirmationComponent,
     BaseCapacityEditionExpress,
     BaseCapacityEditionTableForm,
+    OperationsCapacityUploadComponent,
+    OpCapacitiesStepFileConfirmationComponent,
+    OpCapacitiesStepFileDownloadComponent,
+    OpCapacitiesStepFileUploadComponent,
+    OpCapacitiesStepFileEditCapacityComponent,
+    OpCapacitiesUploadEditAmpmComponent,
+    OpCapacitiesUploadEditRetComponent,
+    OpCapacitiesUploadEditExpressComponent,
+    OpCapacitiesUploadEditScheduledComponent,
+    OpCapacitiesUploadDeleteDialogComponent,
+    FilterDepartamentsComponent,
+    FilterProvincesComponent,
+    FilterDistrictsComponent,
+    FilterStoresComponent,
   ],
   imports: [
     CommonModule,
@@ -129,12 +159,14 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     SelectModule,
     StepTabsModule,
     BackRouterSimpleModule,
+    FormFieldModule,
     TagModule
   ],
   providers: [
     OperationsCapacitiesImplementService,
     DrugStoreServiceStore,
     IntervalTimeExpressFormService,
+    UploadCapacitiesStoreService,
     OpCapacitiesStepExpressResourceService,
     OpCapacitiesStepExpressResourceFormService,
     OpCapacitiesStepEditionModeService,

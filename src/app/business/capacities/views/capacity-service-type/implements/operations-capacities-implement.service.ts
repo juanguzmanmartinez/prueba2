@@ -162,4 +162,61 @@ export class OperationsCapacitiesImplementService {
   saveCapacityIntervalTimeExpress$(request: IExpressIntervalTimeRequest) {
     return this.calendarClient.saveCapacityIntervalTimeExpress(request);
   }
+
+  getDepartamentClient$(): Observable<any[]> {
+    return this.calendarClient.getDepartamentsList$().pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+
+  getProvincesClient$(params: any): Observable<any[]> {
+    return this.calendarClient.getProvincesList$(params).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+
+  getDistrictsClient$(params: any): Observable<any[]> {
+    return this.calendarClient.getDistricsList$(params).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+
+  getStoresClient$(params: any): Observable<any[]> {
+    return this.calendarClient.getStoresList$(params).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+
+  getCapcitiesTemplateClient$(codes: any, services: any): Observable<any[]> {
+    const params = {
+      serviceTypes: services,
+    };
+    return this.calendarClient.getCapacityFromStores$(codes, params).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+  updateCapacitiesStores$(codes: any): Observable<any[]> {
+    return this.calendarClient.patchCapacitiesStores$(codes).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+  validateStores$(codes: any): Observable<any[]> {
+    return this.calendarClient.validateDataStores$(codes).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
 }

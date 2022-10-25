@@ -6,10 +6,17 @@
         class="back"
       ></app-back-router-simple>
     </div>
-    <div class="col-12">
+    <div class="col-12 d-flex justify-content-between">
       <h4 class="text-h4 text-black mb-0">
         Configuraci&oacute;n de capacidades
       </h4>
+      <app-button
+        appearance="primary"
+        innerClass="w-100 w-md-auto"
+        (clicked)="chargeCapacities()"
+      >
+        Cargar capacidades
+      </app-button>
     </div>
   </div>
 

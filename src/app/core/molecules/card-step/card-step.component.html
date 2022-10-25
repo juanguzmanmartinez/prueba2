@@ -12,7 +12,7 @@
           class="icon"
         >
         </app-icon>
-        <h4 class="text-h4 text-black mb-0 ml-4 ms-3">{{ title }}</h4>
+        <h4 class="text-h4 text-black mb-0 ml-4 ms-3">{{ titleCard }}</h4>
       </div>
       <div class="card-step__body">
         <ng-content></ng-content>
@@ -24,6 +24,7 @@
             class="me-md-4"
             innerClass="w-100 w-md-auto"
             (clicked)="cancel.emit()"
+            [disabled]="disableCancel"
           >
             {{ textButtonCancel }}
           </app-button>
@@ -32,6 +33,7 @@
             class="mb-4 mb-md-0"
             innerClass="w-100 w-md-auto"
             (clicked)="next.emit()"
+            [disabled]="disableNext"
           >
             {{ textButtonNext }}
           </app-button>

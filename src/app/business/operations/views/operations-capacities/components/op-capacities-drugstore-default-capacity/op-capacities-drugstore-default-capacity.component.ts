@@ -118,7 +118,6 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
     const subscription =
       this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityList$.subscribe(
         (capacitiesServiceType: CapacitiesServiceType) => {
-
           this.capacitiesServiceTypeSelection = capacitiesServiceType;
           this.openServiceDefaultCapacity();
         }
@@ -127,7 +126,6 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
   }
 
   openServiceDefaultCapacity(): void {
-
     const serviceDefaultCapacityDialogRef =
       this._opCapacitiesDrugstoreDefaultCapacityDialog.openServiceDefaultCapacityDialog(
         this.capacitiesDrugstoreSelection,

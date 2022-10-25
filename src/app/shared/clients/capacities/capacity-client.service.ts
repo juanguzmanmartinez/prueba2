@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
+import { HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { map, take } from 'rxjs/operators';
 
@@ -31,6 +31,14 @@ export class CapacityClientService {
   private readonly CAPACITY_INTERVAL_TIME_EXPRESS =
     EndpointsParameter.CAPACITY_INTERVAL_TIME_EXPRESS;
 
+
+  private readonly DEPARTAMENTS = EndpointsParameter.DEPARTAMENTS;
+  private readonly PROVINCES = EndpointsParameter.PROVINCES;
+  private readonly DISTRICTS = EndpointsParameter.DISTRICS;
+  private readonly STORES_LIST = EndpointsParameter.STORES_LIST;
+  private readonly CAPACITY_TEMPLATE = EndpointsParameter.CAPACITY_TEMPLATE;
+  private readonly PTACH_CAPACITIES = EndpointsParameter.PTACH_CAPACITIES;
+  private readonly VALIDATE_STORES = EndpointsParameter.VALIDATE_STORES;
   constructor(private genericService: GenericService) {}
 
   public patchCalendarUpdateClient$(request: ICalendarUpdateRequestParams) {
@@ -95,5 +103,79 @@ export class CapacityClientService {
     return this.genericService
       .genericPost(this.CAPACITY_INTERVAL_TIME_EXPRESS, request)
       .pipe(take(1));
+  }
+  
+  public getDepartamentsList$(params?: any): Observable<any[]> {
+    return this.genericService.genericGet<any[]>(this.DEPARTAMENTS).pipe(
+      take(1),
+      map((response) => {
+        return isArray(response) ? response : [];
+      })
+    );
+  }
+
+  public getProvincesList$(params?: any): Observable<any[]> {
+    const URI = `${this.PROVINCES}/${params}`;
+    return this.genericService.genericGet<any[]>(URI).pipe(
+      take(1),
+      map((response) => {
+        return isArray(response) ? response : [];
+      })
+    );
+  }
+
+  public getDistricsList$(params?: any): Observable<any[]> {
+    const URI = `${this.DISTRICTS}/${params}`;
+    return this.genericService.genericGet<any[]>(URI).pipe(
+      take(1),
+      map((response) => {
+        return isArray(response) ? response : [];
+      })
+    );
+  }
+
+  public getStoresList$(params?: any): Observable<any[]> {
+    const URI = `${this.STORES_LIST}/${params}`;
+    return this.genericService.genericGet<any[]>(URI).pipe(
+      take(1),
+      map((response) => {
+        return isArray(response) ? response : [];
+      })
+    );
+  }
+
+  public getCapacityFromStores$(codes: any, params?: any): Observable<any[]> {
+    const httpParams = new HttpParams().set(
+      'serviceTypes',
+      String(params.serviceTypes)
+    );
+    const URI = `${this.CAPACITY_TEMPLATE}/${codes}`;
+    return this.genericService.genericGet<any[]>(URI, httpParams).pipe(
+      take(1),
+      map((response) => {
+        return isArray(response) ? response : [];
+      })
+    );
+  }
+
+  public patchCapacitiesStores$(request: any) {
+    return this.genericService
+      .genericPost<ICapacity[]>(this.PTACH_CAPACITIES, request)
+      .pipe(
+        map((response) => {
+          return response;
+
+        })
+      );
+  }
+  public validateDataStores$(request: any) {
+    return this.genericService
+      .genericPost<ICapacity[]>(this.VALIDATE_STORES, request)
+      .pipe(
+        map((response) => {
+          return response;
+
+        })
+      );
   }
 }

@@ -6,8 +6,15 @@
   </div>
 
   <div class="row mb-5 mb-md-10">
-    <div class="col-12 mb-4">
+    <div class="col-12 mb-4 d-flex justify-content-between">
       <h1 class="text-h3 text-black mb-0">Capacidades por defecto</h1>
+      <app-button
+        appearance="primary"
+        innerClass="w-100 w-md-auto"
+        (clicked)="chargeCapacities()"
+      >
+        Cargar capacidades
+      </app-button>
     </div>
     <p class="text-body-1-regular text-gray-6 mb-4">
       Visualiza las capacidades que se encuentran por defecto en el local que

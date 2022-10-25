@@ -26,6 +26,7 @@ export class InputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() maxLength = '80';
   @Input() innerClass = '';
   @Input() labelClass = '';
+  @Input() containerClass = '';
   @Input() error: boolean;
   @Input() disabled: boolean;
   @Input() buttonClear: boolean;

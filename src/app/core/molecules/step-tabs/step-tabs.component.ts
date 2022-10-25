@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class StepTabsComponent implements OnInit {
   @Input() tabs: any[] = [];
+
   constructor() {}
 
   ngOnInit(): void {}

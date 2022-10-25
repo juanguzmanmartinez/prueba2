@@ -12,6 +12,7 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
 import { INTERVAL_CHILDREN_PATH } from '@parameters/router/routing/capacity/capacities-router.parameter';
 import { OperationsCapacityIntervalComponent } from './views/operations-capacity-interval/operations-capacity-interval.component';
 import { OperationsCapacityIntervalUploadComponent } from './views/operations-capacity-interval-upload/operations-capacity-interval-upload.component';
+import { OperationsCapacityUploadComponent } from './views/operations-capacity-upload/operations-capacity-upload.component';
 
 const routes: Routes = [
   {
@@ -59,8 +60,8 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: 'intervaltime/upload',
-        component: OperationsCapacityIntervalUploadComponent,
+        path: 'upload',
+        component: OperationsCapacityUploadComponent,
         pathMatch: 'full',
       },
     ],
