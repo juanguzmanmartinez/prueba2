@@ -121,23 +121,29 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
   }
 
   saveEdition() {
-    const request = this.getIntervalTimeSaveRequest();
-    this._capacitiesService.saveCapacityIntervalTimeExpress$(request).subscribe(
-      () => {
-        this._alert.alertLightSuccess(
-          OperationMessages.successIntervalTimeExpressEdition(
-            this.drugStoreName
-          )
+    if (this.intervalTimeForm.valid) {
+      const request = this.getIntervalTimeSaveRequest();
+      this._capacitiesService
+        .saveCapacityIntervalTimeExpress$(request)
+        .subscribe(
+          () => {
+            this._alert.alertLightSuccess(
+              OperationMessages.successIntervalTimeExpressEdition(
+                this.drugStoreName
+              )
+            );
+            this.backRoute();
+          },
+          () => {
+            this._alert.alertLightError(
+              OperationMessages.errorIntervalTimeExpressEdition(
+                this.drugStoreName
+              )
+            );
+            this.backRoute();
+          }
         );
-        this.backRoute();
-      },
-      () => {
-        this._alert.alertLightError(
-          OperationMessages.errorIntervalTimeExpressEdition(this.drugStoreName)
-        );
-        this.backRoute();
-      }
-    );
+    }
   }
 
   cancelEdition() {

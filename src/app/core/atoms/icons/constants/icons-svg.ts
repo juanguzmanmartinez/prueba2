@@ -86,6 +86,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'price', path: `${pathIcons}price.svg` },
   { name: 'elipse-error', path: `${pathIcons}elipse-error.svg` },
   { name: 'edit-card', path: `${pathIcons}edit-card.svg` },
+  { name: 'capacity-menu', path: `${pathIcons}capacity-menu.svg` },
 
   { name: 'logo', path: `${pathIllustrations}logo.svg` },
   { name: 'assigned-orders', path: `${pathIllustrations}assigned-orders.svg` },

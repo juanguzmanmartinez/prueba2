@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { StorageClientService } from '@clients/storage/storage-client.service';
 import { Subscription } from 'rxjs';
 import { TABS } from '../../constants/step-tabs.constants';
 import { UploadCapacitiesStoreService } from '../../store/upload-capacities-store.service';
@@ -13,17 +14,30 @@ export class OperationsCapacityUploadComponent implements OnInit, OnDestroy {
   stepTabs = [];
   currentStep: string = '1';
   constructor(
-    private _uploadCapacitiesStoreService: UploadCapacitiesStoreService
+    private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
+    private _storageClientService: StorageClientService
   ) {}
 
   ngOnInit(): void {
     // this.currentStep = this._uploadCapacitiesStoreService.getCurrentStep();
-    TABS[1].flow = 'pending';
-    TABS[2].flow = 'pending';
-    TABS[2].icon = 'pending';
+    TABS[0].icon = 'done';
+    TABS[0].left = '';
+    TABS[0].rigth = 'pending';
     TABS[1].icon = 'pending';
+    TABS[1].left = 'pending';
+    TABS[1].rigth = 'pending';
+
+    TABS[2].icon = 'pending';
+    TABS[2].left = 'pending';
+    TABS[2].rigth = 'pending';
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
-    this._uploadCapacitiesStoreService.setCurrentStep('1');
+
+    let currentStep =
+      this._storageClientService.getStorageCrypto('current-step');
+    if (currentStep)
+      this._uploadCapacitiesStoreService.setCurrentStep(currentStep);
+    else this._uploadCapacitiesStoreService.setCurrentStep('1');
+
     this._uploadCapacitiesStoreService.setDataSource([]);
     const subscription =
       this._uploadCapacitiesStoreService.getCurrentStep$.subscribe(
@@ -41,6 +55,10 @@ export class OperationsCapacityUploadComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this._storageClientService.setStorageCrypto('current-step', '1');
+    this._storageClientService.setStorageCrypto('data-raw', null);
+    this._storageClientService.setStorageCrypto('list-stores', null);
+    this._storageClientService.setStorageCrypto('data-source', null);
   }
 }
 

@@ -4,13 +4,14 @@
     [routePathOptions]="{ exact: sidenav?.opened }"
     [routePath]="routerPath.order"
     [routeText]="sidenavRouting.name"
-    [routeIcon]="sidenavRouting.iconMenu"
+    [svgName]="sidenavRouting.svgMenu"
+  
     (sidenavOpen)="onSidenavOpen()"
   >
     <app-sidenav-route
-      *appRouterAccess="routerPath.capacitiesPath"
+      *appRouterAccess="routerPath.capacitiesServiceType"
       [routePathOptions]="{ exact: false }"
-      [routePath]="[routerPath.capacitiesPath]"
+      [routePath]="[routerPath.capacitiesServiceType]"
       routeText="Configurar capacidades base"
     >
     </app-sidenav-route>

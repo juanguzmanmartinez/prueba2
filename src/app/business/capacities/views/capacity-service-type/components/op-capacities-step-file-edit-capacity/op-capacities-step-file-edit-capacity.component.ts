@@ -1,6 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageClientService } from '@clients/storage/storage-client.service';
 import { Subject, Subscription } from 'rxjs';
 import { UploadCapacitiesStoreService } from '../../store/upload-capacities-store.service';
 
@@ -21,14 +22,15 @@ export class OpCapacitiesStepFileEditCapacityComponent
   displayedColumns: string[] = ['seleccion', 'horario', 'capacidad'];
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
-    private _router: Router
+    private _router: Router,
+    private _storageClientService: StorageClientService
   ) {}
   elementToEdit = { code: '', local: '' };
   ampm = [];
   ret = [];
   scheduled = [];
   express = [];
-
+  dataSource = [];
   mostrar: any = [];
   selection = new SelectionModel(true, []);
 
@@ -51,17 +53,16 @@ export class OpCapacitiesStepFileEditCapacityComponent
       (x) => (this.fixedSelectedRows = x.source.selected)
     );
     this.subscriptions.add(subscription1);
+    this._uploadCapacitiesStoreService.getDataSource$.subscribe((list) => {
+      this.dataSource = list;
+    });
   }
 
   nextStep(e) {
-    // let nuevadata = [];
-    // const subscription =
-    //   this._uploadCapacitiesStoreService.getDataSource$.subscribe(
-    //     (element) => {}
-    //   );
-    // this.subscriptions.add(subscription);
     this.eventsSubject.next();
+    this._uploadCapacitiesStoreService.setDataSource(this.dataSource);
     this._uploadCapacitiesStoreService.setCurrentStep('3');
+    this._storageClientService.setStorageCrypto('data-source', this.dataSource);
   }
 
   cancelStep(e) {

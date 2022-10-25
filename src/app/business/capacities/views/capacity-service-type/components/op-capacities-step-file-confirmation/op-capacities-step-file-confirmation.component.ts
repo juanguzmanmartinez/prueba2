@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageClientService } from '@clients/storage/storage-client.service';
 import {
   IStoreProcessed,
   IStoreUpload,
 } from '@interfaces/capacities/upload-capacities.interface';
 import { AlertService } from '@molecules/alert/alert.service';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { Subscription } from 'rxjs';
 import { TABS } from '../../constants/step-tabs.constants';
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
@@ -25,6 +27,8 @@ export class OpCapacitiesStepFileConfirmationComponent
   dataLength = 0;
   pageSize = 10;
   page = 1;
+  startCount = 0;
+  pageIndex = 0;
   displayedColumns: string[] = [
     'code',
     'name',
@@ -37,25 +41,46 @@ export class OpCapacitiesStepFileConfirmationComponent
   ];
   dataWithValue: any[] = [];
   dataSource: IStoreProcessed[] = [];
+  datatoShow: IStoreProcessed[] = [];
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router,
     private _opCapacitiesUploadDeleteDialogService: OpCapacitiesUploadDeleteDialogService,
     private _alertService: AlertService,
-    private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService
+    private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService,
+    private _storageClientService: StorageClientService
   ) {}
 
   ngOnInit(): void {
-    TABS[2].flow = 'done';
-    TABS[2].icon = 'done';
+    TABS[0].icon = 'check';
+    TABS[0].left = 'done';
+    TABS[0].rigth = 'done';
     TABS[1].icon = 'check';
+    TABS[1].left = 'done';
+    TABS[1].rigth = 'done';
+
+    TABS[2].icon = 'done';
+    TABS[2].left = 'done';
+    TABS[2].rigth = 'done';
+    this.startCount = this.pageSize;
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
     const subscription =
       this._uploadCapacitiesStoreService.getDataSource$.subscribe(
         (store: IStoreProcessed[]) => {
-          this.checkStatus(store);
-          if (store && store.length > 0) this.dataSource = store;
-          else this.getListFromStore();
+          let dataSourceFromStorage =
+            this._storageClientService.getStorageCrypto('data-source');
+
+          if (store && store.length > 0) {
+            this.dataSource = store;
+            this.orderData();
+          } else if (
+            dataSourceFromStorage &&
+            dataSourceFromStorage.length > 0 &&
+            (!store || store.length == 0)
+          ) {
+            this.dataSource = dataSourceFromStorage;
+            this.orderData();
+          } else this.getListFromStore();
         }
       );
     this.subscriptions.add(subscription);
@@ -68,7 +93,13 @@ export class OpCapacitiesStepFileConfirmationComponent
     const subscription =
       this._uploadCapacitiesStoreService.getStoreList$.subscribe(
         (stores: IStoreUpload[]) => {
-          this.convert(stores);
+          if (stores && stores.length > 0) this.convert(stores);
+          else {
+            const storesFromStorage =
+              this._storageClientService.getStorageCrypto('list-stores');
+
+            this.convert(storesFromStorage);
+          }
         }
       );
     this.subscriptions.add(subscription);
@@ -140,6 +171,7 @@ export class OpCapacitiesStepFileConfirmationComponent
 
     this._uploadCapacitiesStoreService.setDataSource(dataProcessed);
     this.dataSource = dataProcessed;
+    this.orderData();
     this.dataLength = dataProcessed.length;
   }
   editRow(element) {
@@ -195,11 +227,10 @@ export class OpCapacitiesStepFileConfirmationComponent
       .updateCapacitiesStores$(dataToUpload)
       .subscribe((res: any) => {
         if (res.processStatus) {
-          TABS[1].flow = 'pending';
-          TABS[2].flow = 'pending';
           this._uploadCapacitiesStoreService.setStepsTabs(TABS);
           this._uploadCapacitiesStoreService.setCurrentStep('1');
-          this._router.navigate(['/operaciones/capacidades']);
+          this._storageClientService.setStorageCrypto('current-step', '1');
+          this._router.navigate([`${ROUTER_PATH.capacities}`]);
           this._alertService.alertSuccess(
             'Se realizó la carga de capacidades con éxito.'
           );
@@ -257,10 +288,13 @@ export class OpCapacitiesStepFileConfirmationComponent
     return dataToUpload;
   }
   cancelStep(e) {
-    TABS[2].flow = 'pending';
+    this._storageClientService.setStorageCrypto('current-step', 2);
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
     this._uploadCapacitiesStoreService.setStoreList([]);
     this._uploadCapacitiesStoreService.setCurrentStep('2');
+    this._storageClientService.setStorageCrypto('current-step', '2');
+    this._storageClientService.setStorageCrypto('data-source', null);
+    this._storageClientService.setStorageCrypto('list-stores', null);
   }
   getTotal(array) {
     if (array.length == 0) return 0;
@@ -281,9 +315,28 @@ export class OpCapacitiesStepFileConfirmationComponent
     if (element == 0) return '-';
     return element;
   }
-  onChangePage(e) {}
+  onChangePage(e) {
+    if (e.pageIndex == 0) {
+      this.page = 1;
+      this.startCount = this.pageSize;
+      this.pageIndex = 0;
+      this.orderData();
+    } else {
+      this.page = this.page + this.pageSize;
+      this.startCount += this.pageSize;
+      this.pageIndex = 1;
+      this.orderData();
+    }
+  }
 
-  changeDataFilter() {}
+  changeDataFilter() {
+    this.startCount = this.pageSize;
+    this.orderData();
+  }
+  orderData() {
+    this.datatoShow = this.dataSource.slice(this.page - 1, this.startCount);
+    this.dataLength = this.dataSource.length;
+  }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

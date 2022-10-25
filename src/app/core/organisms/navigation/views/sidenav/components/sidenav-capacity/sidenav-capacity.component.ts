@@ -14,6 +14,7 @@ export class SidenavCapacityComponent {
     name: 'Capacidades',
     iconCard: 'motorcycle',
     iconMenu: 'motorcycle',
+    svgMenu: 'capacity-menu',
     description: 'Consulta de pedidos',
   };
 

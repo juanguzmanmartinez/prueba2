@@ -10,6 +10,7 @@ import { IconsModule } from '@atoms/icons/icons.module';
 import { InputDatepickerModule } from '@atoms/input-datepicker/input-datepicker.module';
 import { InputsModule } from '@atoms/inputs/inputs.module';
 import { LinksModule } from '@atoms/links/links.module';
+import { PaginatorModule } from '@atoms/paginator/paginator.module';
 import { RadioModule } from '@atoms/radio/radio.module';
 import { SelectSearchModule } from '@atoms/select-search/select-search.module';
 import { SelectTabModule } from '@atoms/select-tab/select-tab.module';
@@ -24,12 +25,14 @@ import { CardStepModule } from '@molecules/card-step/card-step.module';
 import { CardModule } from '@molecules/cards/card.module';
 import { DialogModule } from '@molecules/dialog/dialog.module';
 import { DropOptionsModule } from '@molecules/drop-options/drop-options.module';
+import { FilterSearchModule } from '@molecules/filter-search/filter-search.module';
 import { FormFieldModule } from '@molecules/form-field/form-field.module';
 import { StepTabsModule } from '@molecules/step-tabs/step-tabs.module';
 import { StepperModule } from '@molecules/stepper/stepper.module';
 import { TabModule } from '@molecules/tab/tab.module';
 import { TableModule } from '@molecules/table/table.module';
 import { PipesModule } from '@pipes/pipes.module';
+import { LocalFilterModule } from 'app/business/order/views/order-records/components/local-filter/local-filter.module';
 import { DirectivesModule } from 'app/shared/directives/directives.module';
 import { CapacityServiceTypeRoutingModule } from './capacity-service-type-routing.module';
 import { CapacityServiceTypeComponent } from './capacity-service-type.component';
@@ -160,7 +163,10 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     StepTabsModule,
     BackRouterSimpleModule,
     FormFieldModule,
-    TagModule
+    TagModule,
+    LocalFilterModule,
+    FilterSearchModule,
+    PaginatorModule,
   ],
   providers: [
     OperationsCapacitiesImplementService,

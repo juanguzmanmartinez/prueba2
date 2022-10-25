@@ -21,8 +21,8 @@ export class IntervalTimeExpressFormService {
     this.valueNotZeroValidator(),
   ]);
   intervalTimeControl = new FormControl(0, [
-    Validators.required,
     this.valueNotZeroValidator(),
+    Validators.required,
   ]);
   lapsControl = new FormControl(0, [
     Validators.required,
@@ -140,7 +140,7 @@ export class IntervalTimeExpressFormService {
 
   valueNotZeroValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value === '0' && Number(control.value) === 0) {
+      if (control.value === '0' || Number(control.value) === 0) {
         console.log('debió entrar aquí');
         return { isZero: true };
       }
