@@ -1,20 +1,23 @@
 export const TABS = [
   {
-    flow: 'done',
+    left: 'pending',
+    rigth: 'pending',
     status: 'Descarga de plantilla',
     last: false,
     step: 'first',
     icon: 'done',
   },
   {
-    flow: 'pending',
+    left: 'pending',
+    rigth: 'pending',
     status: 'Carga de documento',
     last: false,
     step: 'middle',
     icon: 'pending',
   },
   {
-    flow: 'pending',
+    left: 'pending',
+    rigth: 'pending',
     status: 'Confirmación',
     last: true,
     step: 'last',

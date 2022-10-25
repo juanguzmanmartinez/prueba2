@@ -10,24 +10,46 @@
   <div class="mt-5 mb-5">
     <app-tab-group>
       <app-tab *ngIf="ampm && ampm.length > 0" label="AM/PM">
+        <app-op-capacities-upload-edit-table
+          [fromParent]="eventsSubject.asObservable()"
+          [data]="ampm"
+          type="ampm"
+        ></app-op-capacities-upload-edit-table>
+      </app-tab>
+      <!-- <app-tab *ngIf="ampm && ampm.length > 0" label="AM/PM">
         <app-op-capacities-upload-edit-ampm
           [fromParent]="eventsSubject.asObservable()"
         ></app-op-capacities-upload-edit-ampm>
-      </app-tab>
+      </app-tab> -->
       <app-tab *ngIf="scheduled && scheduled.length > 0" label="Programado">
-        <app-op-capacities-upload-edit-scheduled
+        <!-- <app-op-capacities-upload-edit-scheduled
           [fromParent]="eventsSubject.asObservable()"
-        ></app-op-capacities-upload-edit-scheduled>
+        ></app-op-capacities-upload-edit-scheduled> -->
+        <app-op-capacities-upload-edit-table
+          [fromParent]="eventsSubject.asObservable()"
+          [data]="scheduled"
+          type="scheduled"
+        ></app-op-capacities-upload-edit-table>
       </app-tab>
       <app-tab *ngIf="express && express.length > 0" label="Express">
-        <app-op-capacities-upload-edit-express
+        <!-- <app-op-capacities-upload-edit-express
           [fromParent]="eventsSubject.asObservable()"
-        ></app-op-capacities-upload-edit-express>
+        ></app-op-capacities-upload-edit-express> -->
+        <app-op-capacities-upload-edit-table
+          [fromParent]="eventsSubject.asObservable()"
+          [data]="express"
+          type="express"
+        ></app-op-capacities-upload-edit-table>
       </app-tab>
       <app-tab *ngIf="ret && ret.length > 0" label="RET">
-        <app-op-capacities-upload-edit-ret
+        <!-- <app-op-capacities-upload-edit-ret
           [fromParent]="eventsSubject.asObservable()"
-        ></app-op-capacities-upload-edit-ret>
+        ></app-op-capacities-upload-edit-ret> -->
+        <app-op-capacities-upload-edit-table
+          [fromParent]="eventsSubject.asObservable()"
+          [data]="ret"
+          type="ret"
+        ></app-op-capacities-upload-edit-table>
       </app-tab>
     </app-tab-group>
   </div>

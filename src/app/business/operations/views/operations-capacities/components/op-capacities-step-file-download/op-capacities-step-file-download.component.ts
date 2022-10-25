@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ExportTableSelection } from 'app/shared/utils/export-table-selection.util';
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { Subscription } from 'rxjs';
+import { StorageClientService } from '@clients/storage/storage-client.service';
 
 @Component({
   selector: 'app-op-capacities-step-file-download',
@@ -24,16 +25,21 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router,
-    private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService
+    private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService,
+    private _storageClientService: StorageClientService
   ) {}
 
   ngOnInit(): void {
-    TABS[1].flow = 'pending';
-    TABS[1].icon = 'pending';
     TABS[0].icon = 'done';
-    TABS[0].flow = 'done';
+    TABS[0].left = '';
+    TABS[0].rigth = 'pending';
+    TABS[1].icon = 'pending';
+    TABS[1].left = 'pending';
+    TABS[1].rigth = 'pending';
+
     TABS[2].icon = 'pending';
-    TABS[2].flow = 'pending';
+    TABS[2].left = 'pending';
+    TABS[2].rigth = 'pending';
 
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
     this.fg = this._formBuilder.group({
@@ -73,6 +79,7 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     if (this.validations) return;
     this.disabled = false;
     this._uploadCapacitiesStoreService.setCurrentStep('2');
+    this._storageClientService.setStorageCrypto('current-step', 2);
   }
   cancelStep(e: any) {
     this._uploadCapacitiesStoreService.setCurrentStep('1');
@@ -91,7 +98,7 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       .getCapcitiesTemplateClient$(this.stores, params)
       .subscribe((res) => {
         this._uploadCapacitiesStoreService.setDataRaw(res);
-
+        this._storageClientService.setStorageCrypto('data-raw', res);
         let data = [];
         res.forEach((store: any) => {
           const { value, ...rest } = store;

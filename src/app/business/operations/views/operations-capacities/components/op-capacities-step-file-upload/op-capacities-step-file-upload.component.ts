@@ -28,19 +28,22 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    TABS[1].flow = 'done';
-    TABS[1].icon = 'done';
     TABS[0].icon = 'check';
-    TABS[0].flow = 'done';
-    TABS[2].flow = 'pending';
+    TABS[0].left = 'done';
+    TABS[0].rigth = 'done';
+    TABS[1].icon = 'done';
+    TABS[1].left = 'done';
+    TABS[1].rigth = 'pending';
+
     TABS[2].icon = 'pending';
+    TABS[2].left = 'pending';
+    TABS[2].rigth = 'done';
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
     this._uploadCapacitiesStoreService.getDataRaw$.subscribe((dataRaw) => {
-      this.dataRaw = dataRaw;
+      if (dataRaw && dataRaw.length > 0) this.dataRaw = dataRaw;
+      else
+        this.dataRaw = this._storageClientService.getStorageCrypto('data-raw');
     });
-    this._storageClientService.setStorageCrypto(
-      'lalaldalsdaosd adlasldla doasoda'
-    );
   }
 
   fileBrowseHandler(ev: any) {
@@ -85,7 +88,8 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         if (item['Cod. Local']) store.storeCode = item['Cod. Local'];
         if (item['Local']) store.storeName = item['Local'];
         if (item['SegmentoHorario']) store.timeRange = item['SegmentoHorario'];
-        if (item['Capacidad']) store.capacity = item['Capacidad'];
+        if (item['Capacidad'] || item['Capacidad'] == 0)
+          store.capacity = item['Capacidad'];
 
         dataToProcess.push(store);
       });
@@ -141,6 +145,10 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
               this.disableNext = false;
 
               this._uploadCapacitiesStoreService.setStoreList(dataTosStore);
+              this._storageClientService.setStorageCrypto(
+                'list-stores',
+                dataTosStore
+              );
             },
             (error) => {
               this.disableNext = true;
@@ -165,13 +173,14 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
   nextStep(e: any) {
     if (this.files.length > 0) {
       this._uploadCapacitiesStoreService.setCurrentStep('3');
+      this._storageClientService.setStorageCrypto('current-step', 3);
     }
   }
   cancelStep(e: any) {
-    TABS[1].flow = 'pending';
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
     this._uploadCapacitiesStoreService.setStoreList([]);
     this._uploadCapacitiesStoreService.setCurrentStep('1');
+    this._storageClientService.setStorageCrypto('current-step', '1');
   }
   instanceOfIStoreUpload(object: any): object is IStoreUpload {
     return (
@@ -186,7 +195,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
   execute(stores) {
     return (
       stores.every((item) => this.instanceOfIStoreUpload(item)) &&
-      stores.every((item) => item.capacity > 0)
+      stores.every((item) => item.capacity >= 0)
     );
   }
   convert(locals: IStoreUpload[]) {

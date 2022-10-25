@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="mt-4">
-    <table mat-table large-table [dataSource]="ampm" class="order-table">
+    <table mat-table large-table [dataSource]="dataSource" class="order-table">
       <ng-container matColumnDef="seleccion">
         <th mat-header-cell *matHeaderCellDef column-width="5%">
           <app-checkbox
