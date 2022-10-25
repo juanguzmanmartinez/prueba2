@@ -20,6 +20,7 @@ import {
 } from '@models/status-order/status-order.model';
 import { AlertService } from '@molecules/alert/alert.service';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { ORDER_ROUTER_PATH } from '@parameters/router/routing/order/order-router-path.parameter';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -233,7 +234,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   viewOrderDetails(id: string): void {
-    this.router.navigate([ROUTER_PATH.orderDetail(id)]);
+    this.router.navigate([ORDER_ROUTER_PATH.orderDetail(id)]);
   }
 
   searchIfExistFilters(): void {
