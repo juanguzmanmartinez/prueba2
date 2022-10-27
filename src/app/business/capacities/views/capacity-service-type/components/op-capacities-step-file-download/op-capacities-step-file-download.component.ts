@@ -8,6 +8,7 @@ import { OperationsCapacitiesImplementService } from '../../implements/operation
 import { Subscription } from 'rxjs';
 import { UploadCapacitiesStoreService } from '../../store/upload-capacities-store.service';
 import { StorageClientService } from '@clients/storage/storage-client.service';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
   selector: 'app-op-capacities-step-file-download',
@@ -94,7 +95,7 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
   cancelStep(e: any) {
     this._uploadCapacitiesStoreService.setCurrentStep('1');
     this._uploadCapacitiesStoreService.setStepsTabs(TABS);
-    this._router.navigate(['/operaciones/capacidades']);
+    this._router.navigate([ROUTER_PATH.capacities]);
   }
 
   downloadData() {
