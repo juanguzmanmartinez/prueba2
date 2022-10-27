@@ -65,6 +65,11 @@ export class FilterStoresComponent implements OnInit {
         })
       )
       .subscribe((response: any[]) => {
+        this._uploadCapacitiesStoreService.getStoresSelected$.subscribe(
+          (res) => {
+            if (res) this.clearValues();
+          }
+        );
         this.locals = response;
       });
   }
@@ -114,7 +119,7 @@ export class FilterStoresComponent implements OnInit {
     }
 
     if (this.selectedLocals.length > 0) {
-      this.selectedLocals.slice(2).forEach((v) => {
+      this.selectedLocals.slice(0).forEach((v) => {
         this.othersSelects = `${this.othersSelects} ${this.getLocalName(v)}\n`;
       });
     }
