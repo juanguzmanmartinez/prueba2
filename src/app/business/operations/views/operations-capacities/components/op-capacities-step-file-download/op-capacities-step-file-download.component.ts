@@ -21,6 +21,16 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
   stores: string[] = [];
   disabled: boolean = true;
   fg: FormGroup;
+  departaments: any[] = [];
+  provinces: any[] = [];
+  districts: any[] = [];
+  storesList: any[] = [];
+  errorList = {
+    departaments: true,
+    provinces: true,
+    districts: true,
+    stores: true,
+  };
   constructor(
     private _formBuilder: FormBuilder,
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
@@ -141,9 +151,15 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       this._uploadCapacitiesStoreService.setDistrictsFilter([]);
       this._uploadCapacitiesStoreService.setProvincesFilter([]);
       this._uploadCapacitiesStoreService.setStoresFilter([]);
+      this.departaments = [];
+      this.provinces = [];
+      this.districts = [];
+      this.storesList = [];
       return;
     }
     let code = e.join(',');
+    this.departaments = e;
+    this.changeStatus('departaments');
     this._operationsCapacitiesImplementService
       .getProvincesClient$(code)
       .subscribe((res) => {
@@ -161,9 +177,14 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     if (e.length <= 0) {
       this._uploadCapacitiesStoreService.setDistrictsFilter([]);
       this._uploadCapacitiesStoreService.setStoresFilter([]);
+      this.provinces = [];
+      this.districts = [];
+      this.storesList = [];
       return;
     }
     let code = e.join(',');
+    this.provinces = e;
+    this.changeStatus('provinces');
     this._operationsCapacitiesImplementService
       .getDistrictsClient$(code)
       .subscribe((res) => {
@@ -174,13 +195,18 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
             desc: item.name,
           };
         });
+        this;
         this._uploadCapacitiesStoreService.setDistrictsFilter(newDepartaments);
       });
   }
   getlistDistricts(e) {
     if (e.length <= 0)
       return this._uploadCapacitiesStoreService.setStoresFilter([]);
+    this.districts = [];
+    this.storesList = [];
     let code = e.join(',');
+    this.districts = e;
+    this.changeStatus('districts');
     this._operationsCapacitiesImplementService
       .getStoresClient$(code)
       .subscribe((res) => {
@@ -209,5 +235,36 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
   }
   get validations(): boolean {
     return this.stores.length == 0 || this.getListServices == '';
+  }
+  get activeSelects(): boolean {
+    return this.getListServices == '' && this.departaments.length > 0;
+  }
+  changeStatus(type) {
+    if (type == 'departaments') {
+      this.errorList.departaments = false;
+    } else if (type == 'provinces') {
+      this.errorList.departaments = false;
+      this.errorList.provinces = false;
+    } else {
+      this.errorList.departaments = false;
+      this.errorList.provinces = false;
+      this.errorList.districts = false;
+    }
+  }
+  get errorDepartaments(): boolean {
+    return this.departaments.length == 0 && !this.errorList.departaments
+      ? true
+      : false;
+  }
+  get errorProvinces(): boolean {
+    return this.provinces.length == 0 && !this.errorList.provinces
+      ? true
+      : false;
+  }
+
+  get errorDistricts(): boolean {
+    return this.districts.length == 0 && !this.errorList.districts
+      ? true
+      : false;
   }
 }

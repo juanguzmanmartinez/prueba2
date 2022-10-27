@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IOptionFilterItem } from '@interfaces/capacities/options-filter';
@@ -24,9 +31,11 @@ export class FilterDepartamentsComponent implements OnInit {
   @Output() filter = new EventEmitter();
   @Input() containerSearchClass = '';
   @Input() inputSearchClass = '';
+  @Input() isError: boolean = false;
   constructor(
     private _formBuilder: FormBuilder,
-    private _uploadCapacitiesStoreService: UploadCapacitiesStoreService
+    private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -127,6 +136,8 @@ export class FilterDepartamentsComponent implements OnInit {
 
   clearValues(): void {
     this.selectionChange([]);
+    let stores = document.querySelector('.select-stores');
+
     // this.presenter.filterForm.get('localId').reset();
   }
 

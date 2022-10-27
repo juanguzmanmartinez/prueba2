@@ -40,15 +40,17 @@ export class StorageClientService {
   }
 
   setStorageCrypto(field, cryptoItem) {
-    localStorage.setItem(
-      field,
-      this.cryptoService.set(JSON.stringify(cryptoItem))
-    );
+    // localStorage.setItem(
+    //   field,
+    //   this.cryptoService.set(JSON.stringify(cryptoItem))
+    // );
+    localStorage.setItem(field, JSON.stringify(cryptoItem));
   }
 
   getStorageCrypto(field) {
-    const cryptoItem = this.decryptItem(field);
-    return JSON.parse(cryptoItem);
+    // const cryptoItem = this.decryptItem(field);
+    // return JSON.parse(cryptoItem);
+    return JSON.parse(localStorage.getItem(field));
   }
 
   public decryptItem(key: string) {
