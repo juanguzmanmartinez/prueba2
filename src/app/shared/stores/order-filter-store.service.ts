@@ -120,5 +120,6 @@ export class OrderFilterStore {
   clear(): void {
     this.orderFilter = {};
     this.orderFilterSubject.next({});
+    this.orderPaginationSubject.next(this.orderPaginationInit);
   }
 }

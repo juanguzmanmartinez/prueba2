@@ -66,8 +66,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   localList: IDrugstore[];
   totalOrder = 0;
   activeButtonFilter: boolean;
-  page = 1;
-  pageSize = 10;
+  page: number;
+  pageSize: number;
   showPaginator = true;
   fontColorDownloadItem: string;
   notFound = '';
@@ -154,10 +154,21 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       (x) => (this.fixedSelectedRows = x.source.selected)
     );
     this.subscriptions.add(subscription);
+    this.orderPaginationOnChanges();
     this.getListStore();
     this.appearTable = false;
     this.formOnChanges();
     this.searchIfExistFilters();
+  }
+
+  orderPaginationOnChanges() {
+    this.subscriptions.add(
+      this.orderFilterStore.getOrderPagination().subscribe((pagination) => {
+        this.page = pagination.page;
+        console.log(this.page);
+        this.pageSize = pagination.pageSize;
+      })
+    );
   }
 
   formOnChanges() {
@@ -264,7 +275,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       )
       .subscribe({
         next: (res: OrderRecords) => {
-          this.page = res.page;
+          // this.page = res.page;
+          this.orderFilterStore.setPage(res.page);
           this.setOrderPageData(res, false);
         },
         error: (err) => (this.errorResponse = err),
@@ -275,14 +287,14 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.appearTable = true;
     const orderFilter = this.orderFilterStore.getOrderFilter();
     const orderFilters = this.presenter.getFilters();
+    this.orderFilterStore.setPageSize(this.pageSize);
     this.orderFilterStore.setDatePromise = orderFilters.promiseDate;
     this.tableLoader = true;
     this.showPaginator = false;
     this.orderRecordsImplement
-      .orderList(1, this.pageSize, orderFilters, orderFilter.orderCriteria)
+      .orderList(this.page, this.pageSize, orderFilters, orderFilter.orderCriteria)
       .pipe(
         finalize(() => {
-          this.page = 1;
           this.tableLoader = false;
           this.showPaginator = true;
         })
