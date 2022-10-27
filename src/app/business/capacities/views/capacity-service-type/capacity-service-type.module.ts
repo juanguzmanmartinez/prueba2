@@ -63,6 +63,7 @@ import { OpCapacitiesUploadEditAmpmComponent } from './components/op-capacities-
 import { OpCapacitiesUploadEditExpressComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-express/op-capacities-upload-edit-express.component';
 import { OpCapacitiesUploadEditRetComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-ret/op-capacities-upload-edit-ret.component';
 import { OpCapacitiesUploadEditScheduledComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-scheduled/op-capacities-upload-edit-scheduled.component';
+import { OpCapacitiesUploadEditTableComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-table/op-capacities-upload-edit-table.component';
 import { OpCapacitiesStepFileEditCapacityComponent } from './components/op-capacities-step-file-edit-capacity/op-capacities-step-file-edit-capacity.component';
 import { OpCapacitiesStepFileUploadComponent } from './components/op-capacities-step-file-upload/op-capacities-step-file-upload.component';
 import { OpCapacitiesStepGroupOrDrugstoreComponent } from './components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.component';
@@ -128,6 +129,7 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     FilterProvincesComponent,
     FilterDistrictsComponent,
     FilterStoresComponent,
+    OpCapacitiesUploadEditTableComponent
   ],
   imports: [
     CommonModule,
