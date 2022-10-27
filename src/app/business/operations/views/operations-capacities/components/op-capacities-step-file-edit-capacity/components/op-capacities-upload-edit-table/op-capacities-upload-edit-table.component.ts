@@ -1,5 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { StorageClientService } from '@clients/storage/storage-client.service';
 import { Observable, Subscription } from 'rxjs';
 import { UploadCapacitiesStoreService } from '../../../../stores/upload-capacities-store.service';
 const DATA_TYPES = {
@@ -18,6 +19,7 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
   @Input() fromParent: Observable<void>;
   @Input() data;
   @Input() type;
+  @Input() message: string = 'Edita capacidades';
   private subscriptions = new Subscription();
   dataSource: any = [];
   ampm = [];
@@ -27,10 +29,12 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
   showData: any = [];
   selection = new SelectionModel(true, []);
   disabledBtn = true;
+  dataStorage: any = [];
   private fixedSelectedRows: any[] = [];
 
   constructor(
-    private _uploadCapacitiesStoreService: UploadCapacitiesStoreService
+    private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
+    private _storageClientService: StorageClientService
   ) {}
 
   ngOnInit(): void {
@@ -38,13 +42,8 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
       this._uploadCapacitiesStoreService.getElementToEdit$.subscribe(
         (element) => {
           this.elementToEdit = element;
-
-          // this.ampm = element.ampm;
-          // this.ret = element.ret;
-          // this.scheduled = element.scheduled;
         }
       );
-    // this.subscriptions.add(subscription);
     this.dataSource = this.data;
     const subscription1 = this.selection.changed.subscribe(
       (x) => (this.fixedSelectedRows = x.source.selected)
@@ -54,6 +53,8 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
       this.setElementToEdit();
     });
     this.subscriptions.add(parentEvent);
+    this.dataStorage =
+      this._storageClientService.getStorageCrypto('data-source');
   }
 
   isAllSelected(): boolean {
@@ -62,12 +63,7 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
       (orderSelected) => orderSelected.id
     );
     this.showData = orderIdsSelected;
-    // this.ampm.forEach((orderTable) => {
-    //   if (!orderIdsSelected.includes(orderTable.id)) {
-    //     allSelected = false;
-    //     return;
-    //   }
-    // });
+
     this.dataSource.forEach((orderTable) => {
       if (!orderIdsSelected.includes(orderTable.id)) {
         allSelected = false;
@@ -79,13 +75,6 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
   }
 
   masterToggle(data?): void {
-    // this.isAllSelected()
-    //   ? this.selection.clear()
-    //   : this.ampm.forEach((row) => {
-    //       this.showData = [];
-    //       this.selection.select(row);
-    //     });
-
     this.isAllSelected()
       ? this.selection.clear()
       : this.dataSource.forEach((row) => {
@@ -99,20 +88,6 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
   }
 
   changeAmpm(e, row) {
-    // this.ampm = this.ampm.map((item) => {
-    //   if (item.id === row.id) {
-    //     return {
-    //       ...item,
-    //       capacity:
-    //         e.target.value != undefined && e.target.value != ''
-    //           ? Number(e.target.value)
-    //           : 0,
-    //     };
-    //   } else {
-    //     return item;
-    //   }
-    // });
-
     this.dataSource = this.dataSource.map((item) => {
       if (item.id === row.id) {
         return {
@@ -126,16 +101,8 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
         return item;
       }
     });
-    // this.setElementToEdit();
   }
   setManyAmpm() {
-    // this.ampm.map((item) => {
-    //   this.showData.map((pla) => {
-    //     if (pla == item.id) {
-    //       return (item.capacity = this.inputAmpm.inputValue);
-    //     }
-    //   });
-    // });
     this.dataSource.map((item) => {
       this.showData.map((pla) => {
         if (pla == item.id) {
@@ -144,7 +111,6 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
       });
     });
     this.selection.clear();
-    // this.setElementToEdit();
   }
   selectRow() {}
   setElementToEdit() {
@@ -157,6 +123,17 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
     const subscription = this._uploadCapacitiesStoreService.setElementToEdit(
       this.elementToEdit
     );
+    const target = this.dataStorage.findIndex((obj) => {
+      return obj.local === this.elementToEdit.local;
+    });
+    if (target !== -1) this.dataStorage[target] = this.elementToEdit;
+
+    this._uploadCapacitiesStoreService.setDataSource(this.dataStorage);
+    this._storageClientService.setStorageCrypto(
+      'data-source',
+      this.dataStorage
+    );
+
     this.subscriptions.add(subscription);
   }
   get getTotalCapacityAmpm() {

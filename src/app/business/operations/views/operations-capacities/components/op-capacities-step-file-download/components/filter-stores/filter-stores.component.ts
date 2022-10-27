@@ -35,6 +35,7 @@ export class FilterStoresComponent implements OnInit {
   @Output() filter = new EventEmitter();
   @Input() containerSearchClass = '';
   @Input() inputSearchClass = '';
+  @Input() isError: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -112,7 +113,7 @@ export class FilterStoresComponent implements OnInit {
       )}...`;
     }
 
-    if (this.selectedLocals.length > 3) {
+    if (this.selectedLocals.length > 0) {
       this.selectedLocals.slice(2).forEach((v) => {
         this.othersSelects = `${this.othersSelects} ${this.getLocalName(v)}\n`;
       });
@@ -155,4 +156,5 @@ export class FilterStoresComponent implements OnInit {
     }
     return 0;
   }
+  focusEvent(e) {}
 }

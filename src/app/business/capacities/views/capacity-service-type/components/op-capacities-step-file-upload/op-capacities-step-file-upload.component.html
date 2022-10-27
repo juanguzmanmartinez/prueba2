@@ -9,8 +9,10 @@
   <h3 class="text-h4 text-black mt-4">
     Adjunta o arrastra la plantilla con la información de las capacidades:
   </h3>
-  <ng-container *ngIf="files.length == 0; else zeroFiles">
-    <div class="inpunt-content mb-4">
+  <ng-container
+    *ngIf="files.length == 0 || passValidations == false; else zeroFiles"
+  >
+    <div class="inpunt-content mb-4" (clicked)="onChangeInput()">
       <input
         class="file-chose"
         type="file"
@@ -21,9 +23,10 @@
       />
       <div class="container-upload-file">
         <app-button
-          innerClass="d-flex align-items-center"
+          innerClass="d-flex align-items-center "
           appearance="primary"
           (clicked)="onChangeInput()"
+          class="z-11"
         >
           <app-icon innerClass="mx-1" svgName="upload"></app-icon> Subir excel
         </app-button>
@@ -33,20 +36,17 @@
   </ng-container>
   <ng-template #zeroFiles>
     <div class="input-file-content mb-4">
-      <input
+      <!-- <input
         class="d-none"
         type="file"
         accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         #inputRef
         (change)="fileBrowseHandler($event)"
         multiple="false"
-      />
+      /> -->
       <app-icon svgName="excel" svgWidth="36px" innerClass="fp-mr-8"></app-icon>
       <span class="text-file text-h5 mt-4">{{ fileName }}</span>
-      <a
-        class="container-upload-file__text--link"
-        (click)="onChangeInput($event)"
-      >
+      <a class="container-upload-file__text--link" (click)="deleteFile()">
         Eliminar y subir otro documento
       </a>
     </div>

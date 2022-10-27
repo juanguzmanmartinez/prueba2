@@ -24,6 +24,7 @@ export class FilterProvincesComponent implements OnInit {
   @Output() filter = new EventEmitter();
   @Input() containerSearchClass = '';
   @Input() inputSearchClass = '';
+  @Input() isError: boolean = false;
   constructor(
     private _formBuilder: FormBuilder,
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService

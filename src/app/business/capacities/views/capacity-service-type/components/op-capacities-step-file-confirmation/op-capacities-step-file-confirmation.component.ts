@@ -93,11 +93,11 @@ export class OpCapacitiesStepFileConfirmationComponent
     const subscription =
       this._uploadCapacitiesStoreService.getStoreList$.subscribe(
         (stores: IStoreUpload[]) => {
-          if (stores && stores.length > 0) this.convert(stores);
-          else {
+          if (stores && stores.length > 0) {
+            this.convert(stores);
+          } else {
             const storesFromStorage =
               this._storageClientService.getStorageCrypto('list-stores');
-
             this.convert(storesFromStorage);
           }
         }
@@ -170,6 +170,7 @@ export class OpCapacitiesStepFileConfirmationComponent
     });
 
     this._uploadCapacitiesStoreService.setDataSource(dataProcessed);
+    this._storageClientService.setStorageCrypto('data-source', dataProcessed);
     this.dataSource = dataProcessed;
     this.orderData();
     this.dataLength = dataProcessed.length;
@@ -339,5 +340,6 @@ export class OpCapacitiesStepFileConfirmationComponent
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this._uploadCapacitiesStoreService.setDataSource([]);
   }
 }

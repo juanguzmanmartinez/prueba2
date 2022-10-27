@@ -13,9 +13,10 @@
     >
     </app-icon>
     <p class="mb-0">
-      La carga masiva de capacidades solo aplica para las capacidades por
-      defecto, si deseas realizar la edición de capacidades en calendario
-      deberás realizarla desde la opción edición de capacidades.
+      La carga masiva de capacidades
+      <b>solo aplica para las capacidades por defecto</b>, si deseas realizar la
+      edición de capacidades en calendario deberás realizarla desde la opción
+      edición de capacidades.
     </p>
   </div>
   <div class="row">
@@ -44,8 +45,13 @@
             <span>RET</span>
           </app-checkbox>
         </div>
+        <div *ngIf="activeSelects" class="col-12 mt-4">
+          <p class="mb-0 text-danger">
+            Debes seleccionar al menos un servicio para continuar
+          </p>
+        </div>
       </div>
-      <p class="d-block text-h5 text-black mt-5">
+      <p class="d-block text-h5 text-black mt-3">
         Selecciona la ubicación de los locales:
       </p>
       <div class="row">
@@ -54,6 +60,7 @@
           <app-filter-departaments
             (filter)="getlistDepartaments($event)"
             placeholder="Selecciona un departamento"
+            [isError]="errorDepartaments"
           ></app-filter-departaments>
         </div>
         <div class="col-6">
@@ -61,6 +68,8 @@
           <app-filter-provinces
             (filter)="getlistProvinces($event)"
             placeholder="Selecciona una provincia"
+            (click)="changeStatus('departaments')"
+            [isError]="errorProvinces"
           ></app-filter-provinces>
         </div>
         <div class="col-6 mt-4">
@@ -68,6 +77,8 @@
           <app-filter-districts
             (filter)="getlistDistricts($event)"
             placeholder="Selecciona un distrito"
+            (click)="changeStatus('provinces')"
+            [isError]="errorDistricts"
           ></app-filter-districts>
         </div>
         <div class="col-6 mt-4">
@@ -75,6 +86,7 @@
           <app-filter-stores
             (filter)="getlistStores($event)"
             placeholder="Selecciona un local"
+            (click)="changeStatus('districts')"
           ></app-filter-stores>
         </div>
       </div>

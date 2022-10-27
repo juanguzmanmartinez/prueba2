@@ -65,7 +65,7 @@ export class SelectComponent<T>
   @Output() optionChange = new EventEmitter();
   @Output() clearValueForButton = new EventEmitter();
   @Output() filterList = new EventEmitter<string>(true);
-
+  @Output() focusSelect = new EventEmitter();
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
   @ViewChild('selectContainer') selectContainer;
@@ -74,7 +74,7 @@ export class SelectComponent<T>
 
   onChange = (_: any) => {};
   onTouched = (_: any) => {};
-
+  onFocus = (_: any) => {};
   constructor(@Optional() @Self() public ngControl: NgControl) {
     if (ngControl) {
       ngControl.valueAccessor = this;

@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { StorageClientService } from '@clients/storage/storage-client.service';
 import { IStoreUpload } from '@interfaces/capacities/upload-capacities.interface';
@@ -20,6 +21,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
   textButton: string = 'Regresar';
   dataRaw = [];
   file: any;
+  passValidations: boolean = false;
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _alertService: AlertService,
@@ -48,14 +50,14 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
 
   fileBrowseHandler(ev: any) {
     this.file = ev.target.files[0];
-    var allowedExtensions = /(\.xls|\.xlsm|\.xlsx|\.xlsb)$/i;
-    if (!allowedExtensions.exec(this.file.name)) {
-      this.disableNext = true;
+
+    if (this.validateExtension()) {
+      this.passValidations = false;
+
       return this._alertService.alertError(
         'Error de subida, este formato no es soportado. Recuerda que solo se pueden subir archivos excel.'
       );
     }
-
     if (this.file.name) if (this.files.length > 0) this.files = [];
     this.fileName = ev.target.files[0].name;
     this.files.push(ev.target.files[0]);
@@ -74,29 +76,40 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
       }, {});
       let dataToProcess = [];
       let noRegistered = [];
-      dataraw['Plantilla descarga capacidades'].forEach((item: any) => {
-        let founded = this.dataRaw.find((raw) => {
-          return (
-            item['Cod. Local'] === raw.storeCode &&
-            raw.storeName == item['Local']
-          );
+      try {
+        dataraw['Plantilla descarga capacidades'].forEach((item: any) => {
+          let founded = this.dataRaw.find((raw) => {
+            return (
+              item['Cod. Local'] === raw.storeCode &&
+              raw.storeName == item['Local']
+            );
+          });
+          if (founded == undefined) noRegistered.push(founded);
+
+          let store: any = {};
+          if (item['Servicio']) store.service = item['Servicio'];
+          if (item['Cod. Local']) store.storeCode = item['Cod. Local'];
+          if (item['Local']) store.storeName = item['Local'];
+          if (item['SegmentoHorario'])
+            store.timeRange = item['SegmentoHorario'];
+          if (item['Capacidad'] || item['Capacidad'] == 0)
+            store.capacity = item['Capacidad'];
+
+          dataToProcess.push(store);
         });
-        if (founded == undefined) noRegistered.push(founded);
+      } catch (error) {
+        this.passValidations = false;
 
-        let store: any = {};
-        if (item['Servicio']) store.service = item['Servicio'];
-        if (item['Cod. Local']) store.storeCode = item['Cod. Local'];
-        if (item['Local']) store.storeName = item['Local'];
-        if (item['SegmentoHorario']) store.timeRange = item['SegmentoHorario'];
-        if (item['Capacidad'] || item['Capacidad'] == 0)
-          store.capacity = item['Capacidad'];
-
-        dataToProcess.push(store);
-      });
+        return this._alertService.alertError(
+          'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
+        );
+      }
       jsonData = dataToProcess;
 
       if (noRegistered.length > 0) {
         this.disableNext = true;
+        this.passValidations = false;
+
         return this._alertService.alertError(
           'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
         );
@@ -104,6 +117,8 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
       try {
         if (!this.execute(jsonData)) {
           this.disableNext = true;
+          this.passValidations = false;
+
           return this._alertService.alertError(
             'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
           );
@@ -130,7 +145,8 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
           .subscribe(
             (res) => {
               let validate = res.every((item: any) => item.validate == true);
-              if (!validate) {
+
+              if (!validate || !this.valdateExp(jsonData)) {
                 this.disableNext = true;
                 return this._alertService.alertError(
                   'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
@@ -143,7 +159,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
                 };
               });
               this.disableNext = false;
-
+              this.passValidations = true;
               this._uploadCapacitiesStoreService.setStoreList(dataTosStore);
               this._storageClientService.setStorageCrypto(
                 'list-stores',
@@ -152,12 +168,16 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
             },
             (error) => {
               this.disableNext = true;
+              this.passValidations = false;
+
               return this._alertService.alertError(
                 'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
               );
             }
           );
       } catch (error) {
+        this.passValidations = false;
+
         return this._alertService.alertError(
           'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
         );
@@ -255,5 +275,25 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
       dataProcessed.map((item) => item.code == type.code ?? type);
     });
     return dataProcessed;
+  }
+  validateExtension() {
+    let allowedExtensions = /(\.xls|\.xlsm|\.xlsx|\.xlsb)$/i;
+    return !allowedExtensions.exec(this.file.name);
+  }
+  deleteFile() {
+    this.file = null;
+    this.passValidations = false;
+    this.disableNext = true;
+  }
+  valdateExp(data) {
+    let resArr, arr;
+    arr = data.filter((item: any) => item.service == 'EXP');
+    resArr = arr.reduce(function (r, a) {
+      r[a.storeCode] = (r[a.storeCode] || 0) + 1;
+      return r;
+    }, {});
+    let valuesExp = Object.values(resArr).every((item) => item == 1);
+
+    return valuesExp;
   }
 }

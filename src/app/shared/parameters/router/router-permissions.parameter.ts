@@ -2,6 +2,7 @@ import { ADMINISTRATOR_ROUTER_PERMISSIONS } from '@parameters/router/routing/adm
 import { OPERATIONS_ROUTER_PERMISSIONS } from '@parameters/router/routing/operations/operations-router-permissions.parameter';
 import { ORDER_ROUTER_PERMISSIONS } from '@parameters/router/routing/order/order-router-permission.parameter';
 import { CAPACITIES_ROUTER_PERMISSIONS } from './routing/capacities/capacities-router-permission.parameter';
+// import { CAPACITIES_ROUTER_PERMISSIONS } from './routing/capacities/capacities-router-permission.parameter';
 // import { CAPACITY_ROUTER_PERMISSIONS } from './routing/capacity/capacities-router-permission.parameter';
 // import { ZONE_ROUTER_PERMISSIONS } from './routing/zones/zones-router-permission.parameter';
 

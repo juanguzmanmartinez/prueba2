@@ -55,7 +55,10 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'info', path: `${pathIcons}info.svg` },
   { name: 'edit-tertiary', path: `${pathIcons}edit-tertiary.svg` },
   { name: 'launch-tertiary', path: `${pathIcons}launch-tertiary.svg` },
-  { name: 'launch-tertiary-hover', path: `${pathIcons}launch-tertiary-hover.svg` },
+  {
+    name: 'launch-tertiary-hover',
+    path: `${pathIcons}launch-tertiary-hover.svg`,
+  },
   { name: 'edit-tertiary-hover', path: `${pathIcons}edit-tertiary-hover.svg` },
   { name: 'time-circle', path: `${pathIcons}time-circle.svg` },
   { name: 'crosshair', path: `${pathIcons}crosshair.svg` },
@@ -87,6 +90,8 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'elipse-error', path: `${pathIcons}elipse-error.svg` },
   { name: 'edit-card', path: `${pathIcons}edit-card.svg` },
   { name: 'capacity-menu', path: `${pathIcons}capacity-menu.svg` },
+  { name: 'edit-n', path: `${pathIcons}edit-n.svg` },
+  { name: 'delete-n', path: `${pathIcons}delete-n.svg` },
 
   { name: 'logo', path: `${pathIllustrations}logo.svg` },
   { name: 'assigned-orders', path: `${pathIllustrations}assigned-orders.svg` },

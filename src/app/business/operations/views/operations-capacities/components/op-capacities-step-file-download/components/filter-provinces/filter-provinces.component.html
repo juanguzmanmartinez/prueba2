@@ -17,6 +17,7 @@
     maxLimit="200"
     containerSearchClass="custom-container"
     inputSearchClass="custom-input"
+    [error]="isError"
   >
     <ng-container trigger>
       <app-tooltip
@@ -28,4 +29,5 @@
       </app-tooltip>
     </ng-container>
   </app-select>
+  <p *ngIf="isError" class="text-danger mt-1 ms-4">Selecciona una provincia</p>
 </div>
