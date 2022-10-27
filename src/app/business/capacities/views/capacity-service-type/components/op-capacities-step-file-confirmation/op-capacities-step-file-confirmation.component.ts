@@ -189,6 +189,7 @@ export class OpCapacitiesStepFileConfirmationComponent
             (item) => item.code !== local.code
           );
           this._uploadCapacitiesStoreService.setDataSource(data);
+          this._storageClientService.setStorageCrypto('data-source', data);
         }
       });
     this.subscriptions.add(subscription);

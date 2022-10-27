@@ -35,36 +35,20 @@ export class FilterProvincesComponent implements OnInit {
       code: [''],
       nombre: [''],
     });
-    // const { locals } = this.orderFilterStore.getOrderFilter();
-
-    // this.selectedLocals = locals ?? [];
 
     this._uploadCapacitiesStoreService.getProvincesFilter$
       .pipe(
         tap((res: any[]) => {
-          // this.orderFilterStore.setLocalList(res);
           if (res.length == 0) this.selectedLocals = [];
           this.list = res;
         }),
         map((res: any[]) => {
-          // const newLocals = res.sort(this.sortLocals);
-
-          // return newLocals.map((val) => {
-          //   return {
-          //     code: val.localCode,
-          //     desc: `${val.name} - ${val.localCode}`,
-          //     hidden: false,
-          //   };
-          // });
           return res;
         })
       )
       .subscribe((response: any[]) => {
         this.locals = response;
-        // this.selectionChange(locals ?? [], true);
       });
-    // this.locals = this.listOptions;
-    // this.list = this.listOptions;
   }
 
   getLocalName(option: string): string {
@@ -80,8 +64,6 @@ export class FilterProvincesComponent implements OnInit {
   }
 
   selectionChange(locals: string[], isCallOnInit = false): void {
-    // this.orderFilterStore.setLocals = locals;
-
     this.selectedLocals = locals;
     this.othersSelects = '';
     if (locals.length === 1) {
@@ -97,7 +79,7 @@ export class FilterProvincesComponent implements OnInit {
     }
 
     if (locals.length > 2) {
-      locals.slice(2).forEach((v) => {
+      locals.slice(0).forEach((v) => {
         this.othersSelects = `${this.othersSelects} ${this.getLocalName(v)}\n`;
       });
     }
@@ -128,7 +110,7 @@ export class FilterProvincesComponent implements OnInit {
 
   clearValues(): void {
     this.selectionChange([]);
-    // this.presenter.filterForm.get('localId').reset();
+    this._uploadCapacitiesStoreService.setStoresSelected(true);
   }
 
   private sortLocals(x, y) {
