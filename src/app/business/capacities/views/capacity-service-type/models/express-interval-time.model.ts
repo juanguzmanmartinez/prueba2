@@ -17,9 +17,9 @@ export class ExpressIntervalTime {
     this.enabled = res.data.enabled;
     this.baseLineCapacity = res.data.baseLineCapacity;
     this.baseLineIntervalTime = res.data.baseLineIntervalTime;
-    this.consumptionMax = res.data.consumptionMax;
-    this.addCapacity = res.data.addCapacity;
-    this.addIntervalTime = res.data.addIntervalTime;
-    this.laps = res.data.laps;
+    this.consumptionMax = res.data.consumptionMax || 0;
+    this.addCapacity = res.data.addCapacity || 0;
+    this.addIntervalTime = res.data.addIntervalTime || 0;
+    this.laps = res.data.laps || 0;
   }
 }
