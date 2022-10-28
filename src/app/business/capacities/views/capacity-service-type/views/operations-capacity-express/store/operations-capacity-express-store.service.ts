@@ -98,7 +98,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
   }
 
   initService(): void {
-    this._opCapacitiesStepExpressResource.expressResourceEditionAccessPath = ROUTER_PATH.opCapacitiesExpress;
+    this._opCapacitiesStepExpressResource.expressResourceEditionAccessPath = ROUTER_PATH.capacitiesExpress;
   }
 
   getDrugstoreGroupList(): void {
