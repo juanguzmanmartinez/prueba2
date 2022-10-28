@@ -102,7 +102,7 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
   }
 
   initService(): void {
-    this._opCapacitiesStepRetCapacity.capacityTableEditionAccessPath = ROUTER_PATH.opCapacitiesRet;
+    this._opCapacitiesStepRetCapacity.capacityTableEditionAccessPath = ROUTER_PATH.capacitiesRet;
   }
 
   getDrugstoreGroupList(): void {

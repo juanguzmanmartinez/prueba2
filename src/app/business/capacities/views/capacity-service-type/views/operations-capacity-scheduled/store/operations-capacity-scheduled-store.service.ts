@@ -101,7 +101,7 @@ export class OperationsCapacityScheduledStoreService implements OnDestroy {
   }
 
   initService(): void {
-    this._opCapacitiesStepScheduledCapacity.capacityTableEditionAccessPath = ROUTER_PATH.opCapacitiesScheduled;
+    this._opCapacitiesStepScheduledCapacity.capacityTableEditionAccessPath = ROUTER_PATH.capacitiesScheduled;
   }
 
   getDrugstoreGroupList(): void {

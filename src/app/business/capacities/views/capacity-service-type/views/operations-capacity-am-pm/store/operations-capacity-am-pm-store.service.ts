@@ -99,7 +99,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   }
 
   initService(): void {
-    this._opCapacitiesStepAmPmCapacity.capacityTableEditionAccessPath = ROUTER_PATH.opCapacitiesAmPm;
+    this._opCapacitiesStepAmPmCapacity.capacityTableEditionAccessPath = ROUTER_PATH.capacitiesAmPm;
   }
 
   getDrugstoreGroupList(): void {
