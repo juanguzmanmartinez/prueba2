@@ -23,6 +23,12 @@ export class UploadCapacitiesStoreService {
   private districtsFilter = new BehaviorSubject<any[]>([]);
   private storesFilter = new BehaviorSubject<any[]>([]);
   private storesSelected = new BehaviorSubject<boolean>(false);
+  private disbaleEdit = new BehaviorSubject({
+    ampm: false,
+    ret: false,
+    scheduled: false,
+    express: false,
+  });
 
   stepsTabs$ = this.stepsTabs.asObservable();
   currentStep$ = this.currentStep.asObservable();
@@ -116,5 +122,12 @@ export class UploadCapacitiesStoreService {
 
   get getStoresSelected$(): Observable<any> {
     return this.storesSelected.asObservable().pipe(filter((value) => !!value));
+  }
+  setDiableEdit(status: any) {
+    this.disbaleEdit.next(status);
+  }
+
+  get getDiableEdit$(): Observable<any> {
+    return this.disbaleEdit.asObservable().pipe(filter((value) => !!value));
   }
 }

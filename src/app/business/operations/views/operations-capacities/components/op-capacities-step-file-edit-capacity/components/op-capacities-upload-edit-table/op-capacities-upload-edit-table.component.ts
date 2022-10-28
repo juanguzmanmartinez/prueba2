@@ -1,6 +1,8 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { StorageClientService } from '@clients/storage/storage-client.service';
+import { EventEmitter } from 'protractor';
 import { Observable, Subscription } from 'rxjs';
 import { UploadCapacitiesStoreService } from '../../../../stores/upload-capacities-store.service';
 const DATA_TYPES = {
@@ -30,14 +32,18 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
   selection = new SelectionModel(true, []);
   disabledBtn = true;
   dataStorage: any = [];
+  disabledSave: any = {};
   private fixedSelectedRows: any[] = [];
-
+  // fg: FormGroup;
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
-    private _storageClientService: StorageClientService
+    private _storageClientService: StorageClientService // private _formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    // this.fg = this._formBuilder.group({
+    //   capacity: [0],
+    // });
     const subscription =
       this._uploadCapacitiesStoreService.getElementToEdit$.subscribe(
         (element) => {
@@ -55,6 +61,9 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
     this.subscriptions.add(parentEvent);
     this.dataStorage =
       this._storageClientService.getStorageCrypto('data-source');
+    this._uploadCapacitiesStoreService.getDiableEdit$.subscribe(
+      (res) => (this.disabledSave = res)
+    );
   }
 
   isAllSelected(): boolean {
@@ -137,7 +146,12 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
     this.subscriptions.add(subscription);
   }
   get getTotalCapacityAmpm() {
-    // return this.ampm.reduce((a, { capacity }) => a + capacity, 0);
+    this.disabledSave[this.type] =
+      this.dataSource.reduce((a, { capacity }) => a + capacity, 0) > 99999
+        ? true
+        : false;
+    this._uploadCapacitiesStoreService.setDiableEdit(this.disabledSave);
+
     return this.dataSource.reduce((a, { capacity }) => a + capacity, 0);
   }
   changeInput(e) {
