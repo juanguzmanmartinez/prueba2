@@ -33,7 +33,7 @@ export class OpCapacitiesStepFileEditCapacityComponent
   dataSource = [];
   mostrar: any = [];
   selection = new SelectionModel(true, []);
-
+  disabledEditSave: boolean = false;
   private fixedSelectedRows: any[] = [];
 
   ngOnInit(): void {
@@ -55,6 +55,10 @@ export class OpCapacitiesStepFileEditCapacityComponent
     this.subscriptions.add(subscription1);
     this._uploadCapacitiesStoreService.getDataSource$.subscribe((list) => {
       this.dataSource = list;
+    });
+
+    this._uploadCapacitiesStoreService.getDiableEdit$.subscribe((disabled) => {
+      this.disabledEditSave = Object.values(disabled).some((item) => item);
     });
   }
 
