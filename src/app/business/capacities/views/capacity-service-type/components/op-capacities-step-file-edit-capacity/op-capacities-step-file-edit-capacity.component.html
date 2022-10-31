@@ -8,7 +8,7 @@
   textButtonCancel="Regresar"
   [disableNext]="disabledEditSave"
 >
-  <div class="mt-5 mb-5">
+  <div *ngIf="count > 1; else onlyOne" class="mt-5 mb-5">
     <app-tab-group>
       <app-tab *ngIf="ampm && ampm.length > 0" label="AM/PM">
         <app-op-capacities-upload-edit-table
@@ -42,4 +42,37 @@
       </app-tab>
     </app-tab-group>
   </div>
+  <ng-template #onlyOne>
+    <div class="mt-5 mb-5">
+      <app-op-capacities-upload-edit-table
+        [fromParent]="eventsSubject.asObservable()"
+        [data]="ampm"
+        type="ampm"
+        *ngIf="ampm && ampm.length > 0"
+        onlyOne="true"
+      ></app-op-capacities-upload-edit-table>
+      <app-op-capacities-upload-edit-table
+        [fromParent]="eventsSubject.asObservable()"
+        [data]="scheduled"
+        type="scheduled"
+        *ngIf="scheduled && scheduled.length > 0"
+        onlyOne="true"
+      ></app-op-capacities-upload-edit-table>
+      <app-op-capacities-upload-edit-table
+        [fromParent]="eventsSubject.asObservable()"
+        [data]="express"
+        type="express"
+        message="Nro. de motorizados"
+        *ngIf="express && express.length > 0"
+        onlyOne="true"
+      ></app-op-capacities-upload-edit-table>
+      <app-op-capacities-upload-edit-table
+        [fromParent]="eventsSubject.asObservable()"
+        [data]="ret"
+        type="ret"
+        *ngIf="ret && ret.length > 0"
+        onlyOne="true"
+      ></app-op-capacities-upload-edit-table>
+    </div>
+  </ng-template>
 </app-card-step>
