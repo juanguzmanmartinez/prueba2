@@ -118,13 +118,18 @@ export class OpZonesEditionServiceTypeDetailFormCardComponent
     return this.zoneServiceType.serviceCostDefault.toFixed(2);
   }
 
+  get stateOptionDesc(): string {
+    return this._serviceTypeDetailForm.stateControl.value
+      ? 'Desactivar servicio'
+      : 'Activar servicio';
+  }
+
   constructor(
     public _serviceTypeDetailForm: OpZonesEditionServiceTypeDetailFormCardFormService,
     private _serviceTypeDetailDialog: OpZonesEditionServiceTypeDetailDialogService,
     private _alert: AlertService
   ) {
     this.showCustomAmount = false;
-    
   }
 
   ngOnInit(): void {

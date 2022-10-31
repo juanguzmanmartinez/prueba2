@@ -93,7 +93,7 @@ export class OpZonesEditionZoneDetailFormCardComponent
     return 'Sin delivery';
   }
 
-  get zoneState(){
+  get zoneState() {
     return CStateValue[this.zoneDetail?.state];
   }
 
@@ -105,6 +105,12 @@ export class OpZonesEditionZoneDetailFormCardComponent
 
   get zoneDetailPath(): string {
     return ROUTER_PATH.opZones_ZoneEdition();
+  }
+
+  get stateOptionDesc(): string {
+    return this._editionZoneDetailForm.stateControl.value
+      ? 'Desactivar zona'
+      : 'Activar zona';
   }
 
   constructor(
