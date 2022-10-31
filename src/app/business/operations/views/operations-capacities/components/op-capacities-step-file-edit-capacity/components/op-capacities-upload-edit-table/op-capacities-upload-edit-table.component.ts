@@ -6,10 +6,18 @@ import { EventEmitter } from 'protractor';
 import { Observable, Subscription } from 'rxjs';
 import { UploadCapacitiesStoreService } from '../../../../stores/upload-capacities-store.service';
 const DATA_TYPES = {
-  ampm: { type: 'ampm', capacity: 'ampmTotalCapacity' },
-  ret: { type: 'ret', capacity: 'retTotalCapacity' },
-  scheduled: { type: 'scheduled', capacity: 'scheTotalCapacity' },
-  express: { type: 'express', capacity: 'expTotalCapacity' },
+  ampm: { type: 'ampm', capacity: 'ampmTotalCapacity', service: 'AM/PM' },
+  ret: { type: 'ret', capacity: 'retTotalCapacity', service: 'RET' },
+  scheduled: {
+    type: 'scheduled',
+    capacity: 'scheTotalCapacity',
+    service: 'programado',
+  },
+  express: {
+    type: 'express',
+    capacity: 'expTotalCapacity',
+    service: 'express',
+  },
 };
 @Component({
   selector: 'app-op-capacities-upload-edit-table',
@@ -22,6 +30,7 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
   @Input() data;
   @Input() type;
   @Input() message: string = 'Edita capacidades';
+  @Input() onlyOne = false;
   private subscriptions = new Subscription();
   dataSource: any = [];
   ampm = [];
@@ -34,6 +43,7 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
   dataStorage: any = [];
   disabledSave: any = {};
   private fixedSelectedRows: any[] = [];
+  expressValue: number = 0;
   // fg: FormGroup;
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
@@ -48,6 +58,9 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
       this._uploadCapacitiesStoreService.getElementToEdit$.subscribe(
         (element) => {
           this.elementToEdit = element;
+          if (element.express.length > 0) {
+            this.expressValue = element.express[0].capacity;
+          }
         }
       );
     this.dataSource = this.data;
@@ -111,6 +124,9 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
       }
     });
   }
+  changeExpress(e) {
+    this.dataSource[0].capacity = this.expressValue;
+  }
   setManyAmpm() {
     this.dataSource.map((item) => {
       this.showData.map((pla) => {
@@ -168,5 +184,8 @@ export class OpCapacitiesUploadEditTableComponent implements OnInit {
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+  get getType() {
+    return DATA_TYPES[this.type].service;
   }
 }
