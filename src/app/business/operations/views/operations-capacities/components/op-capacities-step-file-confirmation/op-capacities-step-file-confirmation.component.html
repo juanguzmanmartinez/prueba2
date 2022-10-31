@@ -100,18 +100,26 @@
               <th mat-header-cell column-actions *matHeaderCellDef></th>
               <td mat-cell column-actions *matCellDef="let element">
                 <app-tooltip class="me-4" value="Editar">
-                  <app-button-action-icon
-                    (clicked)="editRow(element)"
-                    iconName="edit"
-                    iconStyle="edge"
-                  ></app-button-action-icon>
+                  <app-button innerClass="p-0" (clicked)="editRow(element)">
+                    <app-icon
+                      svgName="edit-n"
+                      svgHeight="24px"
+                      svgWidth="24px"
+                      class="icon"
+                    >
+                    </app-icon>
+                  </app-button>
                 </app-tooltip>
                 <app-tooltip value="Eliminar">
-                  <app-button-action-icon
-                    (clicked)="deleteRow(element)"
-                    iconName="delete"
-                    iconStyle="edge"
-                  ></app-button-action-icon>
+                  <app-button innerClass="p-0" (clicked)="deleteRow(element)">
+                    <app-icon
+                      svgName="delete-n"
+                      svgHeight="24px"
+                      svgWidth="24px"
+                      class="icon"
+                    >
+                    </app-icon>
+                  </app-button>
                 </app-tooltip>
               </td>
             </ng-container>

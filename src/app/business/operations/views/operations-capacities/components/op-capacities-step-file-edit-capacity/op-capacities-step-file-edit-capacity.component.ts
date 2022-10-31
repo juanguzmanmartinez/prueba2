@@ -34,6 +34,7 @@ export class OpCapacitiesStepFileEditCapacityComponent
   mostrar: any = [];
   selection = new SelectionModel(true, []);
   disabledEditSave: boolean = false;
+  count = 0;
   private fixedSelectedRows: any[] = [];
 
   ngOnInit(): void {
@@ -45,6 +46,8 @@ export class OpCapacitiesStepFileEditCapacityComponent
           this.ret = element.ret;
           this.scheduled = element.scheduled;
           this.express = element.express;
+
+          this.countServices(element);
         }
       );
     this.subscriptions.add(subscription);
@@ -78,5 +81,13 @@ export class OpCapacitiesStepFileEditCapacityComponent
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+  countServices(element) {
+    let conut = 0;
+    let services = ['ret', 'ampm', 'scheduled', 'express'];
+    services.forEach((item) => {
+      element[item].length > 0 ? conut++ : null;
+    });
+    this.count = conut;
   }
 }
