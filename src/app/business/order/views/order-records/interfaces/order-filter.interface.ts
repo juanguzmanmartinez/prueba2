@@ -29,3 +29,8 @@ export interface ITypeSearch {
   maxLength: string;
   alphanumeric: boolean;
 }
+
+export interface IOrderPagination {
+  page: number;
+  pageSize: number;
+}
