@@ -169,7 +169,6 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
       mode: 'simple',
       configBase: true
     } as IOpCapacitiesServiceTypeQueryParams;
-    console.log(drugstoreServiceTypePath);
     this._router.navigate([drugstoreServiceTypePath], {
       queryParams: drugstoreServiceTypeParams,
     });

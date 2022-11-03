@@ -50,8 +50,6 @@ export class OpCapacitiesStepExpressResourceComponent
   mode: boolean = false;
 
   constructor(
-    @Optional()
-    @SkipSelf()
     private _opCapacitiesStepExpressResource: OpCapacitiesStepExpressResourceService,
     public _opCapacitiesStepExpressResourceForm: OpCapacitiesStepExpressResourceFormService,
     private _dialogTwoActions: DialogTwoActionsService,

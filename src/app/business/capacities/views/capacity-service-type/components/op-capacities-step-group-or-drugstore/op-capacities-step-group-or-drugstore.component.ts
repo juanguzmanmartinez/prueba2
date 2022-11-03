@@ -19,7 +19,6 @@ import { ECapacityStepStatus } from '../../models/operations-capacity-step-statu
   selector: 'app-op-capacities-step-group-or-drugstore',
   templateUrl: './op-capacities-step-group-or-drugstore.component.html',
   styleUrls: ['./op-capacities-step-group-or-drugstore.component.scss'],
-  providers: [OpCapacitiesStepGroupOrDrugstoreService],
 })
 export class OpCapacitiesStepGroupOrDrugstoreComponent
   implements OnInit, OnDestroy
@@ -45,8 +44,6 @@ export class OpCapacitiesStepGroupOrDrugstoreComponent
   public groupOrDrugstoreStepDescription: string;
 
   constructor(
-    @Optional()
-    @SkipSelf()
     private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
     private _changeDetectorRef: ChangeDetectorRef
   ) {}
