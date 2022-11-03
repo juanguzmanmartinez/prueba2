@@ -4,7 +4,8 @@
     [routePathOptions]="{ exact: sidenav?.opened }"
     [routePath]="routerPath.operations"
     [routeText]="sidenavRouting.name"
-    [routeIcon]="sidenavRouting.iconMenu"
+    svgName="operations"
+    svgWidth="16px"
     (sidenavOpen)="onSidenavOpen()"
   >
     <app-sidenav-route

@@ -77,6 +77,8 @@ import { CapacityAmPmComponent } from './views/operations-capacity-am-pm/operati
 import { OperationsCapacityAmPmService } from './views/operations-capacity-am-pm/operations-capacity-am-pm.service';
 import { OperationsCapacityAmPmStoreService } from './views/operations-capacity-am-pm/store/operations-capacity-am-pm-store.service';
 import { CapacityExpressComponent } from './views/operations-capacity-express/operations-capacity-express.component';
+import { OperationsCapacityExpressService } from './views/operations-capacity-express/operations-capacity-express.service';
+import { OperationsCapacityExpressStoreService } from './views/operations-capacity-express/store/operations-capacity-express-store.service';
 import { CapacityHomeComponent } from './views/operations-capacity-home/operations-capacity-home.component';
 import { OperationsCapacityIntervalUploadComponent } from './views/operations-capacity-interval-upload/operations-capacity-interval-upload.component';
 import { OperationsCapacityIntervalComponent } from './views/operations-capacity-interval/operations-capacity-interval.component';
@@ -187,6 +189,8 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     OperationsCapacityAmPmStoreService,
     OperationsCapacityRetService,
     OperationsCapacityRetStoreService,
+    OperationsCapacityExpressService,
+    OperationsCapacityExpressStoreService
   ],
 })
 export class CapacityServiceTypeModule {}

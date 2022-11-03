@@ -49,7 +49,7 @@ export class OpCapacitiesDrugstoreDefaultCapacityCardComponent {
   }
 
   get channelInnerClass(): string {
-    return 'py-3 px-2 border border-complementary-three';
+    return 'py-3 px-2 border border-complementary-three tag-transform-none';
   }
 
   get segmentChannelColor(): string {

@@ -12,16 +12,12 @@
       [tagColor]="segmentChannelColor"
       [innerClass]="channelInnerClass"
     >
-      Incremento de interval time en automático
+      Incremento de interval time flexible
     </app-tag>
-    <app-drop-options
-      #dropDown
-      information-dropdown-options
-      [showOptions]="showOptions"
-    >
-      <div class="m-0 p-0" (click)="dropDown.showOptions = false">
+    <app-drop-options [showOptions]="showOptions">
+      <div class="m-0 p-0">
         <div
-          (click)="editEvent()"
+          (mousedown)="editEvent()"
           class="text-body-2-regular capacity-card-text mb-0 drop-option-service"
         >
           Configurar capacidad base
@@ -29,7 +25,7 @@
 
         <div
           *ngIf="hasDetail"
-          (click)="viewMoreEvent()"
+          (mousedown)="viewMoreEvent()"
           class="text-body-2-regular capacity-card-text mb-0 drop-option-service"
         >
           Ver ventanas horarias
@@ -37,7 +33,7 @@
 
         <div
           *ngIf="isExpress"
-          (click)="setInterval()"
+          (mousedown)="setInterval()"
           class="text-body-2-regular capacity-card-text mb-0 drop-option-service"
         >
           Editar interval time/capacidad flexible
