@@ -92,7 +92,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'capacity-menu', path: `${pathIcons}capacity-menu.svg` },
   { name: 'edit-n', path: `${pathIcons}edit-n.svg` },
   { name: 'delete-n', path: `${pathIcons}delete-n.svg` },
-
+  { name: 'alert-blue', path: `${pathIcons}alert-blue.svg` },
   { name: 'logo', path: `${pathIllustrations}logo.svg` },
   { name: 'assigned-orders', path: `${pathIllustrations}assigned-orders.svg` },
   { name: 'call-attention', path: `${pathIllustrations}call-attention.svg` },
