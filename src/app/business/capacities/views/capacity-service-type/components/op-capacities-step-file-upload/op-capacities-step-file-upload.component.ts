@@ -7,6 +7,7 @@ import * as XLSX from 'xlsx';
 import { TABS } from '../../constants/step-tabs.constants';
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { UploadCapacitiesStoreService } from '../../store/upload-capacities-store.service';
+import { OpCapacitiesUploadBackDialogService } from '../op-capacities-upload-back-dialog/op-capacities-upload-back-dialog.service';
 
 @Component({
   selector: 'app-op-capacities-step-file-upload',
@@ -14,7 +15,7 @@ import { UploadCapacitiesStoreService } from '../../store/upload-capacities-stor
   styleUrls: ['./op-capacities-step-file-upload.component.scss'],
 })
 export class OpCapacitiesStepFileUploadComponent implements OnInit {
-  @ViewChild('inputRef') inputRef: ElementRef;
+  @ViewChild('fileDropRef') inputRef: ElementRef;
   disableNext = true;
   files = [];
   fileName: string = '';
@@ -26,7 +27,8 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _alertService: AlertService,
     private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService,
-    private _storageClientService: StorageClientService
+    private _storageClientService: StorageClientService,
+    private _opCapacitiesUploadBackDialogService: OpCapacitiesUploadBackDialogService
   ) {}
 
   ngOnInit(): void {
@@ -48,8 +50,9 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     });
   }
 
-  fileBrowseHandler(ev: any) {
-    this.file = ev.target.files[0];
+  fileBrowseHandler(ev?: any) {
+    this.file = this.files1[0];
+    // this.file = ev.target.files[0];
 
     if (this.validateExtension()) {
       this.passValidations = false;
@@ -58,13 +61,18 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         'Error de subida, este formato no es soportado. Recuerda que solo se pueden subir archivos excel.'
       );
     }
-    if (this.file.name) if (this.files.length > 0) this.files = [];
-    this.fileName = ev.target.files[0].name;
-    this.files.push(ev.target.files[0]);
+    // if (this.file.name) if (this.files.length > 0) this.files = [];
+    if (this.file.name) if (this.files1.length > 0) this.files = [];
+
+    // this.fileName = ev.target.files[0].name;
+    // this.files.push(ev.target.files[0]);
+    this.fileName = this.file.name;
+    this.files.push(this.file);
     let workBook = null;
     let jsonData: IStoreUpload[] = [];
     const reader = new FileReader();
-    const file = this.files[0];
+    // const file = this.files[0];
+    const file = this.files1[0];
     let dataTosStore = [];
     reader.onload = () => {
       const data = reader.result;
@@ -197,10 +205,18 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     }
   }
   cancelStep(e: any) {
-    this._uploadCapacitiesStoreService.setStepsTabs(TABS);
-    this._uploadCapacitiesStoreService.setStoreList([]);
-    this._uploadCapacitiesStoreService.setCurrentStep('1');
-    this._storageClientService.setStorageCrypto('current-step', '1');
+    const subscription = this._opCapacitiesUploadBackDialogService
+      .open(e)
+      .afterClosed()
+      .subscribe((back: boolean) => {
+        if (back) {
+          this._uploadCapacitiesStoreService.setStepsTabs(TABS);
+          this._uploadCapacitiesStoreService.setStoreList([]);
+          this._uploadCapacitiesStoreService.setCurrentStep('1');
+          this._storageClientService.setStorageCrypto('current-step', '1');
+        }
+      });
+    // this.subscriptions.add(subscription);
   }
   instanceOfIStoreUpload(object: any): object is IStoreUpload {
     return (
@@ -295,5 +311,82 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     let valuesExp = Object.values(resArr).every((item) => item == 1);
 
     return valuesExp;
+  }
+  //clickki
+
+  files1: any[] = [];
+  algo: any;
+  /**
+   * on file drop handler
+   */
+  onFileDropped($event) {
+    this.algo = $event;
+    this.prepareFilesList($event);
+    // this.fileBrowseHandler($event);
+  }
+
+  /**
+   * handle file from browsing
+   */
+  fileBrowseHandler1(files) {
+    this.prepareFilesList(files);
+  }
+
+  /**
+   * Delete file from files list
+   * @param index (File index)
+   */
+  deleteFile1(index: number) {
+    this.files.splice(index, 1);
+  }
+
+  /**
+   * Simulate the upload process
+   */
+  uploadFilesSimulator(index: number) {
+    setTimeout(() => {
+      if (index === this.files1.length) {
+        return;
+      } else {
+        const progressInterval = setInterval(() => {
+          if (this.files1[index].progress === 100) {
+            clearInterval(progressInterval);
+            this.uploadFilesSimulator(index + 1);
+          } else {
+            this.files1[index].progress += 5;
+          }
+        }, 200);
+      }
+    }, 1000);
+  }
+
+  /**
+   * Convert Files list to normal array list
+   * @param files (Files List)
+   */
+  prepareFilesList(files: Array<any>) {
+    for (const item of files) {
+      item.progress = 0;
+      // this.files1.push(item);
+      this.files1[0] = item;
+    }
+    this.uploadFilesSimulator(0);
+    this.fileBrowseHandler();
+  }
+
+  /**
+   * format bytes
+   * @param bytes (File size in bytes)
+   * @param decimals (Decimals point)
+   */
+  formatBytes(bytes, decimals) {
+    if (bytes === 0) {
+      return '0 Bytes';
+    }
+    const k = 1024;
+    const dm = decimals <= 0 ? 0 : decimals || 2;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 }

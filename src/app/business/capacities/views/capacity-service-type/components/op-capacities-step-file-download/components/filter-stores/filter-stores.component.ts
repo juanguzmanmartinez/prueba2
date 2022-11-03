@@ -36,7 +36,7 @@ export class FilterStoresComponent implements OnInit {
   @Input() containerSearchClass = '';
   @Input() inputSearchClass = '';
   @Input() isError: boolean = false;
-
+  orderBySelect = [];
   constructor(
     private _formBuilder: FormBuilder,
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService
@@ -53,7 +53,14 @@ export class FilterStoresComponent implements OnInit {
       .pipe(
         tap((res: any[]) => {
           if (res.length == 0) this.selectedLocals = [];
-          this.list = res;
+
+          this.list = res.map((val, index) => {
+            return {
+              ...val,
+              id: index,
+            };
+          });
+
           if (
             this.selectedLocals != undefined &&
             this.selectedLocals.length > 0
@@ -61,7 +68,12 @@ export class FilterStoresComponent implements OnInit {
             this.selectionChange(this.selectedLocals, true);
         }),
         map((res: any[]) => {
-          return res;
+          return res.map((val, index) => {
+            return {
+              ...val,
+              id: index,
+            };
+          });
         })
       )
       .subscribe((response: any[]) => {
@@ -70,6 +82,7 @@ export class FilterStoresComponent implements OnInit {
             if (res) this.clearValues();
           }
         );
+
         this.locals = response;
       });
   }
@@ -98,6 +111,25 @@ export class FilterStoresComponent implements OnInit {
     if (filterLocals.length > 0) this.selectedLocals = filterLocals;
     else this.selectedLocals = locals;
     this.othersSelects = '';
+
+    this.orderBySelect = [];
+    this.list.forEach((item) => {
+      let stattus;
+      this.selectedLocals.forEach((local) => {
+        if (local == item.code) {
+          stattus = true;
+        }
+      });
+      if (stattus) {
+        this.orderBySelect.unshift(item);
+      } else {
+        this.orderBySelect.push(item);
+      }
+      stattus = null;
+    });
+    if (locals.length > 0) this.list = this.orderBySelect;
+    else this.locals = this.list.sort((a, b) => a.id - b.id);
+
     if (this.selectedLocals.length === 1) {
       this.valueSelect = this.getLocalName(this.selectedLocals[0]);
     } else if (this.selectedLocals.length === 2) {
@@ -136,6 +168,7 @@ export class FilterStoresComponent implements OnInit {
         isHide = false;
       }
       return {
+        id: v.id,
         name: v.name,
         code: v.code,
         hidden: isHide,

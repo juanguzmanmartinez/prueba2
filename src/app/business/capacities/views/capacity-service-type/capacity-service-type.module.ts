@@ -65,9 +65,12 @@ import { OpCapacitiesUploadEditRetComponent } from './components/op-capacities-s
 import { OpCapacitiesUploadEditScheduledComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-scheduled/op-capacities-upload-edit-scheduled.component';
 import { OpCapacitiesUploadEditTableComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-table/op-capacities-upload-edit-table.component';
 import { OpCapacitiesStepFileEditCapacityComponent } from './components/op-capacities-step-file-edit-capacity/op-capacities-step-file-edit-capacity.component';
+import { DndDirective } from './components/op-capacities-step-file-upload/directiva/dnd.directive';
 import { OpCapacitiesStepFileUploadComponent } from './components/op-capacities-step-file-upload/op-capacities-step-file-upload.component';
 import { OpCapacitiesStepGroupOrDrugstoreComponent } from './components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.component';
 import { OpCapacitiesStepGroupOrDrugstoreService } from './components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.service';
+import { OpCapacitiesUploadBackDialogComponent } from './components/op-capacities-upload-back-dialog/op-capacities-upload-back-dialog.component';
+import { OpCapacitiesUploadBackDialogService } from './components/op-capacities-upload-back-dialog/op-capacities-upload-back-dialog.service';
 import { OpIntervalsStepSetExpressComponent } from './components/op-intervals-step-set-express/op-intervals-step-set-express.component';
 import { OperationsCapacitiesImplementService } from './implements/operations-capacities-implement.service';
 import { DrugStoreServiceStore } from './store/drug-store.service';
@@ -131,7 +134,9 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     FilterProvincesComponent,
     FilterDistrictsComponent,
     FilterStoresComponent,
-    OpCapacitiesUploadEditTableComponent
+    OpCapacitiesUploadEditTableComponent,
+    DndDirective,
+    OpCapacitiesUploadBackDialogComponent
   ],
   imports: [
     CommonModule,
@@ -190,7 +195,8 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     OperationsCapacityRetService,
     OperationsCapacityRetStoreService,
     OperationsCapacityExpressService,
-    OperationsCapacityExpressStoreService
+    OperationsCapacityExpressStoreService,
+    OpCapacitiesUploadBackDialogService
   ],
 })
 export class CapacityServiceTypeModule {}

@@ -32,6 +32,8 @@ export class FilterDepartamentsComponent implements OnInit {
   @Input() containerSearchClass = '';
   @Input() inputSearchClass = '';
   @Input() isError: boolean = false;
+  orderBySelect = [];
+  latestOrders = [];
   constructor(
     private _formBuilder: FormBuilder,
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
@@ -73,6 +75,29 @@ export class FilterDepartamentsComponent implements OnInit {
   selectionChange(locals: string[], isCallOnInit = false): void {
     this.selectedLocals = locals;
     this.othersSelects = '';
+
+    this.orderBySelect = [];
+    this.latestOrders = [];
+    this.list.forEach((item) => {
+      let stattus;
+      this.selectedLocals.forEach((local) => {
+        if (local == item.code) {
+          stattus = true;
+        }
+      });
+      if (stattus) {
+        this.orderBySelect.unshift(item);
+      } else {
+        this.orderBySelect.push(item);
+      }
+      stattus = null;
+    });
+
+    if (locals.length > 0) this.list = this.orderBySelect;
+    else {
+      this.locals = this.list.sort((a, b) => a.code - b.code);
+    }
+
     if (locals.length === 1) {
       this.valueSelect = this.getLocalName(locals[0]);
     } else if (locals.length === 2) {

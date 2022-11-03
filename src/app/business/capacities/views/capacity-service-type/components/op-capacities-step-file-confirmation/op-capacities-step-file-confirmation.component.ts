@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { TABS } from '../../constants/step-tabs.constants';
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { UploadCapacitiesStoreService } from '../../store/upload-capacities-store.service';
+import { OpCapacitiesUploadBackDialogService } from '../op-capacities-upload-back-dialog/op-capacities-upload-back-dialog.service';
 import { OpCapacitiesUploadDeleteDialogService } from './components/op-capacities-upload-delete-dialog/op-capacities-upload-delete-dialog.service';
 
 @Component({
@@ -48,7 +49,8 @@ export class OpCapacitiesStepFileConfirmationComponent
     private _opCapacitiesUploadDeleteDialogService: OpCapacitiesUploadDeleteDialogService,
     private _alertService: AlertService,
     private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService,
-    private _storageClientService: StorageClientService
+    private _storageClientService: StorageClientService,
+    private _opCapacitiesUploadBackDialogService: OpCapacitiesUploadBackDialogService
   ) {}
 
   ngOnInit(): void {
@@ -290,13 +292,21 @@ export class OpCapacitiesStepFileConfirmationComponent
     return dataToUpload;
   }
   cancelStep(e) {
-    this._storageClientService.setStorageCrypto('current-step', 2);
-    this._uploadCapacitiesStoreService.setStepsTabs(TABS);
-    this._uploadCapacitiesStoreService.setStoreList([]);
-    this._uploadCapacitiesStoreService.setCurrentStep('2');
-    this._storageClientService.setStorageCrypto('current-step', '2');
-    this._storageClientService.setStorageCrypto('data-source', null);
-    this._storageClientService.setStorageCrypto('list-stores', null);
+    const subscription = this._opCapacitiesUploadBackDialogService
+      .open(e)
+      .afterClosed()
+      .subscribe((back: boolean) => {
+        if (back) {
+          this._storageClientService.setStorageCrypto('current-step', 2);
+          this._uploadCapacitiesStoreService.setStepsTabs(TABS);
+          this._uploadCapacitiesStoreService.setStoreList([]);
+          this._uploadCapacitiesStoreService.setCurrentStep('2');
+          this._storageClientService.setStorageCrypto('current-step', '2');
+          this._storageClientService.setStorageCrypto('data-source', null);
+          this._storageClientService.setStorageCrypto('list-stores', null);
+        }
+      });
+    this.subscriptions.add(subscription);
   }
   getTotal(array) {
     if (array.length == 0) return 0;
