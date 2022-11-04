@@ -1,5 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StorageClientService } from '@clients/storage/storage-client.service';
 import { Subject, Subscription } from 'rxjs';
@@ -13,6 +14,8 @@ import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-sto
 export class OpCapacitiesStepFileEditCapacityComponent
   implements OnInit, OnDestroy
 {
+  private readonly capacityTableForm: FormGroup;
+
   eventsSubject: Subject<void> = new Subject<void>();
 
   @ViewChild('inputAmpm') inputAmpm;
@@ -23,8 +26,15 @@ export class OpCapacitiesStepFileEditCapacityComponent
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router,
-    private _storageClientService: StorageClientService
-  ) {}
+    private _storageClientService: StorageClientService,
+    private _formBuilder: FormBuilder
+  ) {
+    // this.capacityTableForm = this._formBuilder.group({
+    //   capacityRange: new FormControl(),
+    //   capacityForSelection: new FormControl(),
+    //   capacitySegmentList: new FormArray([]),
+    // });
+  }
   elementToEdit = { code: '', local: '' };
   ampm = [];
   ret = [];
