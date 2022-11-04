@@ -66,12 +66,12 @@ export class OpCapacitiesStepExpressResourceComponent
     this.expressPathAccess =
       this._opCapacitiesStepExpressResource.expressResourceEditionAccessPath;
 
-    const subscription = this._activatedRoute.queryParams.subscribe(
-      (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
-        this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
-      }
-    );
-    this.subscriptions.add(subscription);
+    // const subscription = this._activatedRoute.queryParams.subscribe(
+    //   (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+    //     this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
+    //   }
+    // );
+    // this.subscriptions.add(subscription);
   }
 
   openExpressResourceStep(): void {

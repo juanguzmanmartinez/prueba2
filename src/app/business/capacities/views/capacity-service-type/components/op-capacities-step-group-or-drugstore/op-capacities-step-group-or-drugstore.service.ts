@@ -6,7 +6,7 @@ import { ECapacityStepStatus } from '../../models/operations-capacity-step-statu
 
 export enum ECapacityStepGroupOrDrugstore {
   group = 'GROUP',
-  drugstore = 'LOCAL'
+  drugstore = 'LOCAL',
 }
 
 export const CCapacityStepGroupOrDrugstoreName = {
@@ -16,23 +16,31 @@ export const CCapacityStepGroupOrDrugstoreName = {
 
 @Injectable()
 export class OpCapacitiesStepGroupOrDrugstoreService {
-
-  public defaultGroupOrDrugstoreTabSelection: ECapacityStepGroupOrDrugstore = ECapacityStepGroupOrDrugstore.group;
+  public defaultGroupOrDrugstoreTabSelection: ECapacityStepGroupOrDrugstore =
+    ECapacityStepGroupOrDrugstore.group;
   public defaultGroupOrDrugstoreSelection: ICustomSelectOption;
   public defaultGroupOrDrugstoreSelectionSaved: boolean;
 
-  private groupOrDrugstoreListSubject = new BehaviorSubject<ICustomSelectOption[]>(null);
+  private groupOrDrugstoreListSubject = new BehaviorSubject<
+    ICustomSelectOption[]
+  >(null);
   private groupOrDrugstoreCancelSubject = new BehaviorSubject<boolean>(null);
-  private groupOrDrugstoreSaveSubject = new BehaviorSubject<ICustomSelectOption>(null);
-  private groupOrDrugstoreStepStatusSubject = new BehaviorSubject<ECapacityStepStatus>(null);
-  private getGroupOrDrugstoreTabSubject = new BehaviorSubject<ECapacityStepGroupOrDrugstore>(null);
+  private groupOrDrugstoreSaveSubject =
+    new BehaviorSubject<ICustomSelectOption>(null);
+  private groupOrDrugstoreStepStatusSubject =
+    new BehaviorSubject<ECapacityStepStatus>(null);
+  private getGroupOrDrugstoreTabSubject =
+    new BehaviorSubject<ECapacityStepGroupOrDrugstore>(null);
 
   get groupOrDrugstoreStepStatus$(): Observable<ECapacityStepStatus> {
-    return this.groupOrDrugstoreStepStatusSubject.asObservable()
+    return this.groupOrDrugstoreStepStatusSubject
+      .asObservable()
       .pipe(filter((value) => !!value));
   }
 
-  set groupOrDrugstoreStepStatus(groupOrDrugstoreDisabled: ECapacityStepStatus) {
+  set groupOrDrugstoreStepStatus(
+    groupOrDrugstoreDisabled: ECapacityStepStatus
+  ) {
     this.groupOrDrugstoreStepStatusSubject.next(groupOrDrugstoreDisabled);
   }
 
@@ -53,7 +61,8 @@ export class OpCapacitiesStepGroupOrDrugstoreService {
   }
 
   get groupOrDrugstoreCancel$(): Observable<boolean> {
-    return this.groupOrDrugstoreCancelSubject.asObservable()
+    return this.groupOrDrugstoreCancelSubject
+      .asObservable()
       .pipe(filter((value) => !!value));
   }
 
@@ -62,7 +71,8 @@ export class OpCapacitiesStepGroupOrDrugstoreService {
   }
 
   get groupOrDrugstoreSave$(): Observable<ICustomSelectOption> {
-    return this.groupOrDrugstoreSaveSubject.asObservable()
+    return this.groupOrDrugstoreSaveSubject
+      .asObservable()
       .pipe(filter((value) => !!value));
   }
 
@@ -70,6 +80,14 @@ export class OpCapacitiesStepGroupOrDrugstoreService {
     this.groupOrDrugstoreSaveSubject.next(groupOrDrugstoreSelected);
   }
 
-  constructor() { }
+  resetStepGroupOrDrugstore() {
+    console.log('entró aquí');
+    this.groupOrDrugstoreListSubject.next(null);
+    this.groupOrDrugstoreCancelSubject.next(null);
+    this.groupOrDrugstoreSaveSubject.next(null);
+    this.groupOrDrugstoreStepStatusSubject.next(null);
+    this.getGroupOrDrugstoreTabSubject.next(null);
+  }
 
+  constructor() {}
 }

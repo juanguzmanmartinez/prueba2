@@ -24,8 +24,8 @@ export class CapacityExpressComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const subscription = this._activatedRoute.queryParams.subscribe(
       (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
-        console.log('serviceTypeQueryParams', serviceTypeQueryParams)
-        this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
+        // console.log('serviceTypeQueryParams', serviceTypeQueryParams)
+        // this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
         this.isConfigBase = serviceTypeQueryParams.configBase;
         this.drugStoreName = serviceTypeQueryParams.drugstoreName;
         if (objectHasElements(serviceTypeQueryParams)) {

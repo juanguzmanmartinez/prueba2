@@ -1,9 +1,8 @@
 <app-step
-  *ngIf="!mode"
   stepId="3"
   stepTitle="recursos"
   [class.card-step-content-disabled]="expressResourceSaveLoad"
-  [stepExpandedToggle]="true"
+  [stepExpandedToggle]="expressResourceStepStatus === eCapacityStepStatus.open"
   [stepDisabled]="
     expressResourceStepStatus === eCapacityStepStatus.disabled ||
     expressResourceSaveLoad
@@ -50,7 +49,7 @@
   </div>
 </app-step>
 
-<app-card-step
+<!-- <app-card-step
   *ngIf="mode"
   stepId="3"
   stepTitle="recursos"
@@ -100,4 +99,4 @@
       </div>
     </form>
   </div>
-</app-card-step>
+</app-card-step> -->

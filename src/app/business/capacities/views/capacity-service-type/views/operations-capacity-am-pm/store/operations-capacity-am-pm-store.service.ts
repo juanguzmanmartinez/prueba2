@@ -275,6 +275,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
       `${this.groupOrDrugstoreSelection.fulfillmentCenterCode} ${this.groupOrDrugstoreSelection.text}`);
     this._alertService.alertSuccess(message);
     this.operationsCapacityAmPmSave = true;
+    this._opCapacitiesStepGroupOrDrugstore.resetStepGroupOrDrugstore();
   }
 
   capacityAmPmSaveError(error): void {
