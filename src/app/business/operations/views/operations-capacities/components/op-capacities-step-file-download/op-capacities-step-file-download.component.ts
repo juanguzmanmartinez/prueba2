@@ -8,6 +8,7 @@ import { ExportTableSelection } from 'app/shared/utils/export-table-selection.ut
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { Subscription } from 'rxjs';
 import { StorageClientService } from '@clients/storage/storage-client.service';
+import { OpCapacitiesUploadBackDialogService } from '../op-capacities-upload-back-dialog/op-capacities-upload-back-dialog.service';
 
 @Component({
   selector: 'app-op-capacities-step-file-download',
@@ -36,7 +37,8 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router,
     private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService,
-    private _storageClientService: StorageClientService
+    private _storageClientService: StorageClientService,
+    private _opCapacitiesUploadBackDialogService: OpCapacitiesUploadBackDialogService
   ) {}
 
   ngOnInit(): void {
@@ -92,9 +94,17 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     this._storageClientService.setStorageCrypto('current-step', 2);
   }
   cancelStep(e: any) {
-    this._uploadCapacitiesStoreService.setCurrentStep('1');
-    this._uploadCapacitiesStoreService.setStepsTabs(TABS);
-    this._router.navigate(['/operaciones/capacidades']);
+    const subscription = this._opCapacitiesUploadBackDialogService
+      .open(e)
+      .afterClosed()
+      .subscribe((back: boolean) => {
+        if (back) {
+          this._uploadCapacitiesStoreService.setCurrentStep('1');
+          this._uploadCapacitiesStoreService.setStepsTabs(TABS);
+          this._router.navigate(['/operaciones/capacidades']);
+        }
+      });
+    this.subscriptions.add(subscription);
   }
 
   downloadData() {
