@@ -1,10 +1,18 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  Optional,
+  SkipSelf,
+  ViewChild,
+} from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StorageClientService } from '@clients/storage/storage-client.service';
 import { Subject, Subscription } from 'rxjs';
 import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-store.service';
+import { OpCapacitiesStepFileEditFormService } from './form/op-capacities-step-file-edit-form.service';
 
 @Component({
   selector: 'app-op-capacities-step-file-edit-capacity',
@@ -14,8 +22,6 @@ import { UploadCapacitiesStoreService } from '../../stores/upload-capacities-sto
 export class OpCapacitiesStepFileEditCapacityComponent
   implements OnInit, OnDestroy
 {
-  private readonly capacityTableForm: FormGroup;
-
   eventsSubject: Subject<void> = new Subject<void>();
 
   @ViewChild('inputAmpm') inputAmpm;
@@ -23,11 +29,15 @@ export class OpCapacitiesStepFileEditCapacityComponent
   private subscriptions = new Subscription();
 
   displayedColumns: string[] = ['seleccion', 'horario', 'capacidad'];
+
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router,
     private _storageClientService: StorageClientService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    @Optional()
+    @SkipSelf()
+    public _opCapacitiesStepFileEditForm: OpCapacitiesStepFileEditFormService
   ) {
     // this.capacityTableForm = this._formBuilder.group({
     //   capacityRange: new FormControl(),
@@ -35,7 +45,7 @@ export class OpCapacitiesStepFileEditCapacityComponent
     //   capacitySegmentList: new FormArray([]),
     // });
   }
-  elementToEdit = { code: '', local: '' };
+  elementToEdit: any = {};
   ampm = [];
   ret = [];
   scheduled = [];
@@ -76,10 +86,60 @@ export class OpCapacitiesStepFileEditCapacityComponent
   }
 
   nextStep(e) {
-    this.eventsSubject.next();
-    this._uploadCapacitiesStoreService.setDataSource(this.dataSource);
+    // this.eventsSubject.next();
+    // this._uploadCapacitiesStoreService.setDataSource(this.dataSource);
+    // this._uploadCapacitiesStoreService.setCurrentStep('3');
+    // this._storageClientService.setStorageCrypto('data-source', this.dataSource);
+    let form = this._opCapacitiesStepFileEditForm.capacityTableForm$;
+
+    this.elementToEdit.ampm =
+      form.value.ampmList.length > 0 && form.value.ampmList
+        ? form.value.ampmList
+        : [];
+
+    this.elementToEdit.ret =
+      form.value.retList.length > 0 && form.value.retList
+        ? form.value.retList
+        : [];
+    this.elementToEdit.express =
+      form.value.expressList.length > 0 && form.value.expressList
+        ? form.value.expressList
+        : [];
+    this.elementToEdit.scheduled =
+      form.value.scheduledList.length > 0 && form.value.scheduledList
+        ? form.value.scheduledList
+        : [];
+    this.elementToEdit.ampmTotalCapacity = this.elementToEdit.ampm.reduce(
+      (a, { capacity }) => a + capacity,
+      0
+    );
+    this.elementToEdit.expTotalCapacity = this.elementToEdit.express.reduce(
+      (a, { capacity }) => a + capacity,
+      0
+    );
+    this.elementToEdit.retTotalCapacity = this.elementToEdit.ret.reduce(
+      (a, { capacity }) => a + capacity,
+      0
+    );
+    this.elementToEdit.scheTotalCapacity = this.elementToEdit.scheduled.reduce(
+      (a, { capacity }) => a + capacity,
+      0
+    );
+    const subscription = this._uploadCapacitiesStoreService.setElementToEdit(
+      this.elementToEdit
+    );
+    this.subscriptions.add(subscription);
+
+    let dataStorage =
+      this._storageClientService.getStorageCrypto('data-source');
+    const target = dataStorage.findIndex((obj) => {
+      return obj.local === this.elementToEdit.local;
+    });
+    if (target !== -1) dataStorage[target] = this.elementToEdit;
+
+    this._uploadCapacitiesStoreService.setDataSource(dataStorage);
+    this._storageClientService.setStorageCrypto('data-source', dataStorage);
     this._uploadCapacitiesStoreService.setCurrentStep('3');
-    this._storageClientService.setStorageCrypto('data-source', this.dataSource);
   }
 
   cancelStep(e) {
@@ -100,4 +160,5 @@ export class OpCapacitiesStepFileEditCapacityComponent
     });
     this.count = conut;
   }
+  showform() {}
 }

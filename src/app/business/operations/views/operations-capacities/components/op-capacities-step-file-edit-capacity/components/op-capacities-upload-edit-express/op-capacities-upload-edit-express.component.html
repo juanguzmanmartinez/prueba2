@@ -1,80 +1,29 @@
-<div>
-  <p class="d-block text-h5 text-black mt-6 mb-5">
-    Selecciona los servicios para cargar las capacidades:
+<div
+  class="mt-4"
+  [formGroup]="_opCapacitiesStepFileEditForm.capacityTableForm$"
+>
+  <p *ngIf="onlyOne" class="d-block text-h3 text-black mt-6 mb-5">
+    Serivicio express
   </p>
-  <div>
-    <p>Nro. de transportistas</p>
-    <div class="d-flex justify-content-lg-start">
-      <app-input-number
-        placeholder="10"
-        labelClass="ml-4"
-        class="input-num"
-        #inputExpress
-        (change)="changeInput($event)"
-      ></app-input-number>
-      <app-button
-        class="ml-2"
-        (clicked)="setManyExpress()"
-        appearance="outline"
-        [disabled]="disabledBtn"
-        >Aplicar selección</app-button
-      >
-    </div>
-  </div>
-  <div class="mt-4">
-    <table mat-table large-table [dataSource]="express" class="order-table">
-      <ng-container matColumnDef="seleccion">
-        <th mat-header-cell *matHeaderCellDef column-width="5%">
-          <app-checkbox
-            (change)="$event ? masterToggle() : null"
-            [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()"
-          >
-          </app-checkbox>
-        </th>
-        <td mat-cell *matCellDef="let row">
-          <app-checkbox
-            (click)="$event.stopPropagation()"
-            (change)="$event ? selection.toggle(row) : null"
-            [checked]="selection.isSelected(row)"
-          >
-          </app-checkbox>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="horario">
-        <th class="text-center" mat-header-cell *matHeaderCellDef>
-          Bloque horario
-        </th>
-        <td class="text-center" mat-cell *matCellDef="let element">
-          {{ element.segment }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="capacidad">
-        <th
-          class="text-center"
-          mat-header-cell
-          *matHeaderCellDef
-          column-width="20%"
+  <p class="d-block text-h5 text-black mt-0 mb-3">
+    Ingresa la cantidad de capacidad
+  </p>
+  <div formArrayName="expressList">
+    <p>Nro. de motorizados</p>
+    <div
+      class="d-flex justify-content-lg-start"
+      *ngFor="let item of express; let i = index"
+    >
+      <div [formGroupName]="i">
+        <app-input-number
+          placeholder="10"
+          labelClass="ml-4"
+          class="input-num"
+          #inputAmpm
+          formControlName="capacity"
         >
-          Capacidad
-        </th>
-        <td class="text-center" mat-cell *matCellDef="let element">
-          <app-input-number
-            placeholder="0"
-            (change)="changeExpress($event, element)"
-            [value]="element.capacity"
-          ></app-input-number>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        row-hover
-        *matRowDef="let row; columns: displayedColumns"
-      ></tr>
-    </table>
-  </div>
-  <div class="text-center">
-    <p class="total-capacity">Capacidad total {{ getTotalCapacityAmpm }}</p>
+        </app-input-number>
+      </div>
+    </div>
   </div>
 </div>
