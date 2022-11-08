@@ -76,6 +76,7 @@ import { BackRouterSimpleModule } from '@molecules/back-router-simple/back-route
 import { OpCapacitiesUploadEditTableComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-table/op-capacities-upload-edit-table.component';
 import { DndDirective } from './components/op-capacities-step-file-upload/directiva/dnd.directive';
 import { OpCapacitiesUploadBackDialogComponent } from './components/op-capacities-upload-back-dialog/op-capacities-upload-back-dialog.component';
+import { OpCapacitiesStepFileEditFormService } from './components/op-capacities-step-file-edit-capacity/form/op-capacities-step-file-edit-form.service';
 
 @NgModule({
   declarations: [
@@ -156,6 +157,9 @@ import { OpCapacitiesUploadBackDialogComponent } from './components/op-capacitie
     PaginatorModule,
     BackRouterSimpleModule,
   ],
-  providers: [OperationsCapacitiesImplementService],
+  providers: [
+    OperationsCapacitiesImplementService,
+    OpCapacitiesStepFileEditFormService,
+  ],
 })
 export class OperationsCapacitiesModule {}
