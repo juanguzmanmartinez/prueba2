@@ -64,6 +64,7 @@ import { OpCapacitiesUploadEditExpressComponent } from './components/op-capaciti
 import { OpCapacitiesUploadEditRetComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-ret/op-capacities-upload-edit-ret.component';
 import { OpCapacitiesUploadEditScheduledComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-scheduled/op-capacities-upload-edit-scheduled.component';
 import { OpCapacitiesUploadEditTableComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-table/op-capacities-upload-edit-table.component';
+import { OpCapacitiesStepFileEditFormService } from './components/op-capacities-step-file-edit-capacity/form/op-capacities-step-file-edit-form.service';
 import { OpCapacitiesStepFileEditCapacityComponent } from './components/op-capacities-step-file-edit-capacity/op-capacities-step-file-edit-capacity.component';
 import { DndDirective } from './components/op-capacities-step-file-upload/directiva/dnd.directive';
 import { OpCapacitiesStepFileUploadComponent } from './components/op-capacities-step-file-upload/op-capacities-step-file-upload.component';
@@ -196,7 +197,8 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     OperationsCapacityRetStoreService,
     OperationsCapacityExpressService,
     OperationsCapacityExpressStoreService,
-    OpCapacitiesUploadBackDialogService
+    OpCapacitiesUploadBackDialogService,
+    OpCapacitiesStepFileEditFormService
   ],
 })
 export class CapacityServiceTypeModule {}

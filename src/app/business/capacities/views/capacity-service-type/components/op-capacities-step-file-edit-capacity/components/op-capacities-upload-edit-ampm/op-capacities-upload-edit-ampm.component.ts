@@ -1,8 +1,24 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { UploadCapacitiesStoreService } from '../../../../store/upload-capacities-store.service';
+import { OpCapacitiesStepFileEditFormService } from '../../form/op-capacities-step-file-edit-form.service';
 
+const DATA_TYPES = {
+  ampm: { type: 'ampm', capacity: 'ampmTotalCapacity', service: 'AM/PM' },
+  ret: { type: 'ret', capacity: 'retTotalCapacity', service: 'RET' },
+  scheduled: {
+    type: 'scheduled',
+    capacity: 'scheTotalCapacity',
+    service: 'programado',
+  },
+  express: {
+    type: 'express',
+    capacity: 'expTotalCapacity',
+    service: 'express',
+  },
+};
 @Component({
   selector: 'app-op-capacities-upload-edit-ampm',
   templateUrl: './op-capacities-upload-edit-ampm.component.html',
@@ -11,6 +27,10 @@ import { UploadCapacitiesStoreService } from '../../../../store/upload-capacitie
 export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
   @ViewChild('inputAmpm') inputAmpm;
   @Input() fromParent: Observable<void>;
+  @Input() form: FormGroup;
+  @Input() type;
+  @Input() message: string = 'Edita capacidades';
+  @Input() onlyOne = false;
   private subscriptions = new Subscription();
 
   ampm = [];
@@ -18,12 +38,13 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
   elementToEdit;
   datos;
   showData: any = [];
-  selection = new SelectionModel(true, []);
+  selection = new SelectionModel<FormGroup>(true, []);
   disabledBtn = true;
   private fixedSelectedRows: any[] = [];
-
+  capacityTableSelection = new SelectionModel<FormGroup>(true, []);
   constructor(
-    private _uploadCapacitiesStoreService: UploadCapacitiesStoreService
+    private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
+    public _opCapacitiesStepFileEditForm: OpCapacitiesStepFileEditFormService
   ) {}
 
   ngOnInit(): void {
@@ -32,8 +53,25 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
         (element) => {
           this.elementToEdit = element;
           this.ampm = element.ampm;
-          // this.ret = element.ret;
-          // this.scheduled = element.scheduled;
+          this._opCapacitiesStepFileEditForm.ampmList.clear();
+          this.ampm.forEach((item) => {
+            const capacitySegmentListGroup =
+              this._opCapacitiesStepFileEditForm.ampmListGroup;
+
+            this._opCapacitiesStepFileEditForm
+              .ampmIdByGroup(capacitySegmentListGroup)
+              .setValue(item.id);
+            this._opCapacitiesStepFileEditForm
+              .ampmSegmentByGroup(capacitySegmentListGroup)
+              .setValue(item.segment);
+            this._opCapacitiesStepFileEditForm
+              .ampmCapacityByGroup(capacitySegmentListGroup)
+              .setValue(item.capacity);
+
+            this._opCapacitiesStepFileEditForm.ampmList.push(
+              capacitySegmentListGroup
+            );
+          });
         }
       );
     this.subscriptions.add(subscription);
@@ -52,6 +90,7 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
     const orderIdsSelected = this.fixedSelectedRows.map(
       (orderSelected) => orderSelected.id
     );
+
     this.showData = orderIdsSelected;
     this.ampm.forEach((orderTable) => {
       if (!orderIdsSelected.includes(orderTable.id)) {
@@ -93,14 +132,18 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
     // this.setElementToEdit();
   }
   setManyAmpm() {
-    this.ampm.map((item) => {
-      this.showData.map((pla) => {
-        if (pla == item.id) {
-          return (item.capacity = this.inputAmpm.inputValue);
+    this.selection.selected.forEach((row: any) => {
+      this._opCapacitiesStepFileEditForm.ampmList.controls.forEach((item) => {
+        if (row.id == item.value.id) {
+          item.setValue({
+            ...item.value,
+            capacity: this.inputAmpm.inputValue,
+          });
         }
       });
     });
     this.selection.clear();
+
     // this.setElementToEdit();
   }
   selectRow() {}
@@ -132,5 +175,18 @@ export class OpCapacitiesUploadEditAmpmComponent implements OnInit {
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  get totalCapacity() {
+    return this._opCapacitiesStepFileEditForm.ampmList.controls
+      .map((formGroup: FormGroup) => {
+        return this._opCapacitiesStepFileEditForm.ampmCapacityByGroup(
+          formGroup
+        );
+      })
+      .reduce((acc, value: any) => acc + value.value, 0);
+  }
+  get getType() {
+    return DATA_TYPES[this.type].service;
   }
 }
