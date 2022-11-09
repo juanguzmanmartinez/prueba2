@@ -89,7 +89,9 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
           let founded = this.dataRaw.find((raw) => {
             return (
               item['Cod. Local'] === raw.storeCode &&
-              raw.storeName == item['Local']
+              raw.storeName == item['Local'] &&
+              raw.service == item['Servicio'] &&
+              raw.timeRange == item['SegmentoHorario']
             );
           });
           if (founded == undefined) noRegistered.push(founded);
