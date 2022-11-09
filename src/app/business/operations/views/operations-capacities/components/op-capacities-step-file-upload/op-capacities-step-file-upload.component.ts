@@ -30,9 +30,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
     private _storageClientService: StorageClientService,
     private _opCapacitiesUploadBackDialogService: OpCapacitiesUploadBackDialogService
   ) {}
-  mostrar() {
-    console.log(this.inputRef);
-  }
+
   ngOnInit(): void {
     TABS[0].icon = 'check';
     TABS[0].left = 'done';
