@@ -8,6 +8,8 @@ import { OpCapacitiesStepCapacityTableService } from '../../components/op-capaci
 import { OperationsCapacityScheduledService } from './operations-capacity-scheduled.service';
 import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-capacities-service-type-query-params.model';
 import { objectHasElements } from '@helpers/objects-equal.helper';
+import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
+import { OpCapacitiesStepExpressResourceService } from '../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
 
 @Component({
   selector: 'app-operations-capacity-scheduled',
@@ -22,10 +24,15 @@ export class CapacityScheduledComponent implements OnInit, OnDestroy {
 
   constructor(
     private _operationsCapacityScheduled: OperationsCapacityScheduledService,
+    private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
+    private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
+    private _opCapacitiesStepExpressResource: OpCapacitiesStepExpressResourceService,
+    private _opCapacitiesStepAmPmCapacity: OpCapacitiesStepCapacityTableService,
     private _activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.initConfig();
     const subscription = this._activatedRoute.queryParams.subscribe(
       (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
         this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
@@ -38,6 +45,17 @@ export class CapacityScheduledComponent implements OnInit, OnDestroy {
       }
     );
     this.subscriptions.add(subscription);
+  }
+
+  initConfig() {
+    this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreStepStatus =
+      ECapacityStepStatus.open;
+    this._opCapacitiesStepEditionMode.editionModeStepStatus =
+      ECapacityStepStatus.disabled;
+    this._opCapacitiesStepExpressResource.expressResourceStepStatus =
+      ECapacityStepStatus.disabled;
+    this._opCapacitiesStepAmPmCapacity.capacityTableStepStatus =
+      ECapacityStepStatus.disabled;
   }
 
   ngOnDestroy(): void {

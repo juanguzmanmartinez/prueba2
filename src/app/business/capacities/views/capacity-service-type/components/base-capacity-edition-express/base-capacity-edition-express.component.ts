@@ -78,9 +78,6 @@ export class BaseCapacityEditionExpress implements OnInit, OnDestroy {
       .afterClosed()
       .subscribe((confirmChanges) => {
         if (confirmChanges) {
-          console.log(
-            this._opCapacitiesStepExpressResourceForm.expressResourceForm$.valid
-          );
           if (
             this._opCapacitiesStepExpressResourceForm.expressResourceForm$.valid
           ) {

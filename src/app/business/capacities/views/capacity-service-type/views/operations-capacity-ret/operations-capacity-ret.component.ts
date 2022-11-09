@@ -8,6 +8,8 @@ import { OpCapacitiesStepCapacityTableService } from '../../components/op-capaci
 import { OperationsCapacityRetService } from './operations-capacity-ret.service';
 import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-capacities-service-type-query-params.model';
 import { objectHasElements } from '@helpers/objects-equal.helper';
+import { OpCapacitiesStepExpressResourceService } from '../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
+import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
 
 @Component({
   selector: 'app-operations-capacity-ret',
@@ -22,10 +24,15 @@ export class CapacityRetComponent implements OnInit, OnDestroy {
 
   constructor(
     private _operationsCapacityRet: OperationsCapacityRetService,
+    private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
+    private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
+    private _opCapacitiesStepExpressResource: OpCapacitiesStepExpressResourceService,
+    private _opCapacitiesStepAmPmCapacity: OpCapacitiesStepCapacityTableService,
     private _activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.initConfig();
     const subscription = this._activatedRoute.queryParams.subscribe(
       (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
         this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
@@ -39,6 +46,17 @@ export class CapacityRetComponent implements OnInit, OnDestroy {
       }
     );
     this.subscriptions.add(subscription);
+  }
+
+  initConfig() {
+    this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreStepStatus =
+      ECapacityStepStatus.open;
+    this._opCapacitiesStepEditionMode.editionModeStepStatus =
+      ECapacityStepStatus.disabled;
+    this._opCapacitiesStepExpressResource.expressResourceStepStatus =
+      ECapacityStepStatus.disabled;
+    this._opCapacitiesStepAmPmCapacity.capacityTableStepStatus =
+      ECapacityStepStatus.disabled;
   }
 
   ngOnDestroy(): void {
