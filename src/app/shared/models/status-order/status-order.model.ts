@@ -24,7 +24,9 @@ export enum EStatusOrder {
   errorOnRouted = 'ERROR_ON_ROUTED',
   errorPicked = 'ERROR_PICKED',
   errorReadyForPickup = 'ERROR_READY_FOR_PICKUP',
-  errorReadyToAssign = 'ERROR_READY_TO_ASSIGN'
+  errorReadyToAssign = 'ERROR_READY_TO_ASSIGN',
+  externalAssigned = 'EXT_ASSIGNED',
+  errorExternalAssigned = 'ERROR_EXT_ASSIGNED',
 }
 
 export const CStatusOrderName = {
@@ -51,7 +53,9 @@ export const CStatusOrderName = {
   [EStatusOrder.errorOnRouted]: 'Error en ruta',
   [EStatusOrder.errorPicked]: 'Error en picking',
   [EStatusOrder.errorReadyForPickup]: 'Error listo para recoger',
-  [EStatusOrder.errorReadyToAssign]: 'Error listo para asignar'
+  [EStatusOrder.errorReadyToAssign]: 'Error listo para asignar',
+  [EStatusOrder.externalAssigned]: 'Asignado por ruteador',
+  [EStatusOrder.errorExternalAssigned]: 'Error asignado por ruteador'
 };
 
 export const CStatusOrderColor = {
@@ -78,7 +82,9 @@ export const CStatusOrderColor = {
   [EStatusOrder.errorOnRouted]: ETextColor.error,
   [EStatusOrder.errorPicked]: ETextColor.error,
   [EStatusOrder.errorReadyForPickup]: ETextColor.error,
-  [EStatusOrder.errorReadyToAssign]: ETextColor.error
+  [EStatusOrder.errorReadyToAssign]: ETextColor.error,
+  [EStatusOrder.externalAssigned]: ETextColor.success,
+  [EStatusOrder.errorExternalAssigned]: ETextColor.error
 };
 
 export const CStatusOrderNameCall = {
@@ -117,7 +123,8 @@ export const LStatusOrderRADLITE = [
   CStatusOrderName[EStatusOrder.arrived],
   CStatusOrderName[EStatusOrder.delivered],
   CStatusOrderName[EStatusOrder.rejected],
-  CStatusOrderName[EStatusOrder.cancelled]
+  CStatusOrderName[EStatusOrder.cancelled],
+  CStatusOrderName[EStatusOrder.externalAssigned]
 ];
 
 export const LStatusOrderRETLITE = [
