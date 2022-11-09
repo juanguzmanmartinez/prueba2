@@ -90,7 +90,8 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
             return (
               item['Cod. Local'] === raw.storeCode &&
               raw.storeName == item['Local'] &&
-              raw.service == item['Servicio']
+              raw.service == item['Servicio'] &&
+              raw.timeRange == item['SegmentoHorario']
             );
           });
           if (founded == undefined) noRegistered.push(founded);
