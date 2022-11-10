@@ -39,6 +39,11 @@ export class BaseCapacityEditionTableForm implements OnInit {
       .reduce((acc, value: FormControl) => acc + value.value, 0);
   }
 
+  get drugStoreCardTitle() {
+    return `${this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelection.fulfillmentCenterCode}
+     - ${this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelection.text}`;
+  }
+
   constructor(
     public _opCapacitiesStepCapacityTableForm: OpCapacitiesStepCapacityTableFormService,
     private _opCapacitiesStepCapacityTable: OpCapacitiesStepCapacityTableService,

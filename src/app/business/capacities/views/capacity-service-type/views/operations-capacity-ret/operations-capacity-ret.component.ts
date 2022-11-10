@@ -15,6 +15,13 @@ import { ECapacityStepStatus } from '../../models/operations-capacity-step-statu
   selector: 'app-operations-capacity-ret',
   templateUrl: './operations-capacity-ret.component.html',
   styleUrls: ['./operations-capacity-ret.component.scss'],
+  providers: [
+    OperationsCapacityRetService,
+    OperationsCapacityRetStoreService,
+    OpCapacitiesStepGroupOrDrugstoreService,
+    OpCapacitiesStepEditionModeService,
+    OpCapacitiesStepCapacityTableService,
+  ],
 })
 export class CapacityRetComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();

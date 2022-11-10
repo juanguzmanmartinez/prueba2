@@ -275,7 +275,7 @@ export class OperationsCapacityRetStoreService implements OnDestroy {
     const message = capacityAlertSuccessMessage(
       CDeliveryServiceTypeName[this.retCapacityId],
       `${this.groupOrDrugstoreSelection.fulfillmentCenterCode} ${this.groupOrDrugstoreSelection.text}`);
-    this._alertService.alertSuccess(message);
+    this._alertService.alertLightSuccess(message);
     this.operationsCapacityRetSave = true;
   }
 

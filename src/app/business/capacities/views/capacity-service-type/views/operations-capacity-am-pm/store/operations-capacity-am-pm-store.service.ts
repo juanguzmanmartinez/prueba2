@@ -121,6 +121,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
   groupOrDrugstoreActions(): void {
     const subscriptionSave = this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreSave$
       .subscribe((drugstore: ICustomSelectOption) => {
+        console.log(drugstore);
         this.groupOrDrugstoreSelection = drugstore;
         this._opCapacitiesStepEditionMode.editionModeResetStepStatus = true;
         this._opCapacitiesStepAmPmCapacity.capacityTableResetStepStatus = true;
@@ -273,7 +274,7 @@ export class OperationsCapacityAmPmStoreService implements OnDestroy {
     const message = capacityAlertSuccessMessage(
       CDeliveryServiceTypeName[this.amPmCapacityId],
       `${this.groupOrDrugstoreSelection.fulfillmentCenterCode} ${this.groupOrDrugstoreSelection.text}`);
-    this._alertService.alertSuccess(message);
+    this._alertService.alertLightSuccess(message);
     this.operationsCapacityAmPmSave = true;
     this._opCapacitiesStepGroupOrDrugstore.resetStepGroupOrDrugstore();
   }

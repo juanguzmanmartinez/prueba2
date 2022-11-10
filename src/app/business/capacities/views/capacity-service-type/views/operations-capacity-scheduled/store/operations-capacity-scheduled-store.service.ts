@@ -282,7 +282,7 @@ export class OperationsCapacityScheduledStoreService implements OnDestroy {
     const message = capacityAlertSuccessMessage(
         CDeliveryServiceTypeName[this.scheduledCapacityId],
         `${this.groupOrDrugstoreSelection.fulfillmentCenterCode} ${this.groupOrDrugstoreSelection.text}`);
-    this._alertService.alertSuccess(message);
+    this._alertService.alertLightSuccess(message);
     this.operationsCapacityScheduledSave = true;
   }
 

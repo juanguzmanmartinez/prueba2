@@ -65,7 +65,7 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
   nextStep(e: any) {}
 
   get drugStoreCardTitle() {
-    return `${this.drugStoreCode} ${this.drugStoreName}`;
+    return `${this.drugStoreCode} - ${this.drugStoreName}`;
   }
 
   get intervalTimeForm() {
@@ -129,7 +129,7 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
           () => {
             this._alert.alertLightSuccess(
               OperationMessages.successIntervalTimeExpressEdition(
-                this.drugStoreName
+                `${this.drugStoreCode} ${this.drugStoreName}`
               )
             );
             this.backRoute();
@@ -137,7 +137,7 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
           () => {
             this._alert.alertLightError(
               OperationMessages.errorIntervalTimeExpressEdition(
-                this.drugStoreName
+                `${this.drugStoreCode} ${this.drugStoreName}`
               )
             );
             this.backRoute();

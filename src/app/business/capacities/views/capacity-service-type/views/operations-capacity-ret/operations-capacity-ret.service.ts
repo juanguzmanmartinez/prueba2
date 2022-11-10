@@ -18,7 +18,7 @@ export class OperationsCapacityRetService implements OnDestroy {
       this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreTabSelection = serviceQueryParams.groupOrDrugstore;
     }
     if (serviceQueryParams.groupOrDrugstore && serviceQueryParams.drugstoreCode) {
-      this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelection = {fulfillmentCenterCode: serviceQueryParams.drugstoreCode} as ICustomSelectOption;
+      this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelection = {fulfillmentCenterCode: serviceQueryParams.drugstoreCode, text: serviceQueryParams.drugstoreName} as ICustomSelectOption;
       this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelectionSaved = true;
     }
     if (serviceQueryParams.groupOrDrugstore && serviceQueryParams.drugstoreCode && serviceQueryParams.editionMode) {

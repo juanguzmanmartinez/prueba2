@@ -63,6 +63,11 @@ export class BaseCapacityEditionExpress implements OnInit, OnDestroy {
     return this._opCapacitiesStepExpressResourceForm.expressResourceForm$;
   }
 
+  get drugStoreCardTitle() {
+    return `${this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelection.fulfillmentCenterCode}
+     - ${this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelection.text}`;
+  }
+
   initialSettings() {
     this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreSave =
       this._opCapacitiesStepGroupOrDrugstore.defaultGroupOrDrugstoreSelection;

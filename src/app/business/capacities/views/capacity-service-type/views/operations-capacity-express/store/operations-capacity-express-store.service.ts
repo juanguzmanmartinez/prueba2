@@ -217,7 +217,8 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
 
   expressResourceActions(): void {
     const subscriptionSave = this._opCapacitiesStepExpressResource.expressResourceSave$
-      .subscribe((expressResourceSegments: ICapacityStepExpressResourceSegments) => {
+    .subscribe((expressResourceSegments: ICapacityStepExpressResourceSegments) => {
+        console.log('se lanza aquí')
         this.expressResourceSelection = expressResourceSegments;
         this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreStepStatus = ECapacityStepStatus.disabled;
         this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;
@@ -281,7 +282,7 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
     const message = capacityAlertSuccessMessage(
       CDeliveryServiceTypeName[this.expressCapacityId],
       `${this.groupOrDrugstoreSelection.fulfillmentCenterCode} ${this.groupOrDrugstoreSelection.text}`);
-    this._alertService.alertSuccess(message);
+    this._alertService.alertLightSuccess(message);
     this.operationsCapacityExpressSave = true;
   }
 

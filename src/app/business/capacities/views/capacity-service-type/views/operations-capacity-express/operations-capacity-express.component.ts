@@ -9,11 +9,20 @@ import { OpCapacitiesStepEditionModeService } from '../../components/op-capaciti
 import { OpCapacitiesStepExpressResourceService } from '../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
 import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
 import { OpCapacitiesStepCapacityTableService } from '../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
+import { OperationsCapacityExpressStoreService } from './store/operations-capacity-express-store.service';
 
 @Component({
   selector: 'app-operations-capacity-express',
   templateUrl: './operations-capacity-express.component.html',
   styleUrls: ['./operations-capacity-express.component.scss'],
+  providers: [
+    OperationsCapacityExpressService,
+    OperationsCapacityExpressStoreService,
+    OpCapacitiesStepGroupOrDrugstoreService,
+    OpCapacitiesStepEditionModeService,
+    OpCapacitiesStepCapacityTableService,
+    OpCapacitiesStepExpressResourceService,
+  ],
 })
 export class CapacityExpressComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
