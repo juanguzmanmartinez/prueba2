@@ -87,12 +87,21 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
       try {
         dataraw['Plantilla descarga capacidades'].forEach((item: any) => {
           let founded = this.dataRaw.find((raw) => {
-            return (
-              item['Cod. Local'] === raw.storeCode &&
-              raw.storeName == item['Local'] &&
-              raw.service == item['Servicio'] &&
-              raw.timeRange == item['SegmentoHorario']
-            );
+            if (raw.service == 'EXP') {
+              return (
+                item['Cod. Local'] === raw.storeCode &&
+                raw.storeName == item['Local'] &&
+                raw.service == item['Servicio'] &&
+                (raw.timeRange == '-' || raw.timeRange == undefined)
+              );
+            } else {
+              return (
+                item['Cod. Local'] === raw.storeCode &&
+                raw.storeName == item['Local'] &&
+                raw.service == item['Servicio'] &&
+                raw.timeRange == item['SegmentoHorario']
+              );
+            }
           });
           if (founded == undefined) noRegistered.push(founded);
 
