@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   IExpressIntervalTimeParams,
@@ -16,18 +16,22 @@ import { IntervalTimeExpressFormService } from '../../store/interval-time-expres
   templateUrl: './operations-interval-express.component.html',
   styleUrls: ['./operations-interval-express.component.sass'],
 })
-export class OperationsIntervalExpressComponent implements OnInit {
+export class OperationsIntervalExpressComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
   drugStoreCode: string;
   drugStoreName: string;
   expressIntervalTime: ExpressIntervalTime;
+  loading: boolean;
   public controlNameList = ZoneBackupDetailControlName;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _capacitiesService: OperationsCapacitiesImplementService,
     private _intervalTimeForm: IntervalTimeExpressFormService
-  ) {}
+  ) {
+    this.loading = true;
+    this._intervalTimeForm.initValues();
+  }
 
   ngOnInit(): void {
     this.getQueryParams();
@@ -57,7 +61,13 @@ export class OperationsIntervalExpressComponent implements OnInit {
         .subscribe((res) => {
           this._intervalTimeForm.updateInvertalTimeForm(res);
           this.expressIntervalTime = res;
+          this.loading = false;
         })
     );
+  }
+
+  ngOnDestroy(): void {
+    this._intervalTimeForm.intervalTimeForm.reset();
+    this.subscriptions.unsubscribe();
   }
 }

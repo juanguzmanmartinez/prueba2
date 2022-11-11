@@ -27,6 +27,7 @@ import { DialogModule } from '@molecules/dialog/dialog.module';
 import { DropOptionsModule } from '@molecules/drop-options/drop-options.module';
 import { FilterSearchModule } from '@molecules/filter-search/filter-search.module';
 import { FormFieldModule } from '@molecules/form-field/form-field.module';
+import { SkeletonModule } from '@molecules/skeleton/skeleton.module';
 import { StepTabsModule } from '@molecules/step-tabs/step-tabs.module';
 import { StepperModule } from '@molecules/stepper/stepper.module';
 import { TabModule } from '@molecules/tab/tab.module';
@@ -177,6 +178,7 @@ import { OperationsIntervalExpressComponent } from './views/operations-interval-
     LocalFilterModule,
     FilterSearchModule,
     PaginatorModule,
+    SkeletonModule
   ],
   providers: [
     OperationsCapacitiesImplementService,

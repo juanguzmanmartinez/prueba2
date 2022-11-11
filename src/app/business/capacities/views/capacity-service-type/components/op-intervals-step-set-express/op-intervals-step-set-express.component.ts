@@ -49,7 +49,6 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDrugStore();
-    // this._intervalTimeForm.stateControlValueChange();
   }
 
   getDrugStore(): void {

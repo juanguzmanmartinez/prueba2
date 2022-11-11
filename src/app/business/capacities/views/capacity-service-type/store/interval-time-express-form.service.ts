@@ -12,19 +12,19 @@ import { ExpressIntervalTime } from '../models/express-interval-time.model';
 @Injectable()
 export class IntervalTimeExpressFormService {
   stateControl = new FormControl(false, [Validators.required]);
-  consumptionMaxControl = new FormControl(0, [
+  consumptionMaxControl = new FormControl('', [
     Validators.required,
     this.valueNotZeroValidator(),
   ]);
-  capacityAddedControl = new FormControl(0, [
+  capacityAddedControl = new FormControl('', [
     Validators.required,
     this.valueNotZeroValidator(),
   ]);
-  intervalTimeControl = new FormControl(0, [
+  intervalTimeControl = new FormControl('', [
     this.valueNotZeroValidator(),
     Validators.required,
   ]);
-  lapsControl = new FormControl(0, [
+  lapsControl = new FormControl('', [
     Validators.required,
     this.valueNotZeroValidator(),
   ]);
@@ -45,8 +45,19 @@ export class IntervalTimeExpressFormService {
     });
   }
 
+  initValues() {
+    this.stateControl.setValue(false);
+    this.consumptionMaxControl.setValue('');
+    this.capacityAddedControl.setValue('');
+    this.intervalTimeControl.setValue('');
+    this.lapsControl.setValue('');
+    this.baseLineCapacityControl.setValue('');
+    this.baseLineIntervalTimeControl.setValue('');
+  }
+
   updateInvertalTimeForm(expInvertalTime: ExpressIntervalTime) {
-    const { baseLineCapacity, baseLineIntervalTime } = expInvertalTime;
+    const { baseLineCapacity, baseLineIntervalTime, enabled, isEditionState } =
+      expInvertalTime;
     const baseLineCapacityTransform = `${baseLineCapacity.toString()} transportista${
       baseLineCapacity > 1 ? 's' : ''
     }`;
@@ -55,6 +66,7 @@ export class IntervalTimeExpressFormService {
     }`;
     this.intervalTimeForm.patchValue({
       ...expInvertalTime,
+      enabled: isEditionState ? enabled : true,
       baseLineCapacity: baseLineCapacityTransform,
       baseLineIntervalTime: baseLineIntervalTimeTransform,
     });
