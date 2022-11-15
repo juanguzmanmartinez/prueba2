@@ -28,6 +28,7 @@ export class BaseCapacityEditionTableForm implements OnInit {
   capacityTableSelection = new SelectionModel<FormGroup>(true, []);
   capacityTableSegments: ICapacityStepCapacityTableSegments;
   capacityTableSaveLoad: boolean;
+  tableListLoader: boolean;
 
   get totalCapacity() {
     return this._opCapacitiesStepCapacityTableForm.capacitySegmentList.controls
@@ -50,13 +51,16 @@ export class BaseCapacityEditionTableForm implements OnInit {
     private _opCapacitiesStepEditionMode: OpCapacitiesStepEditionModeService,
     private _opCapacitiesStepGroupOrDrugstore: OpCapacitiesStepGroupOrDrugstoreService,
     private _dialogTwoActions: DialogTwoActionsService
-  ) {}
+  ) {
+    this.tableListLoader = true;
+  }
 
   ngOnInit(): void {
     this.initialSettings();
     const subscription =
       this._opCapacitiesStepCapacityTableForm.capacitySegmentList.valueChanges.subscribe(
         () => {
+          this.tableListLoader = false;
           this.updateView();
           this.capacityTableSelection.clear();
         }

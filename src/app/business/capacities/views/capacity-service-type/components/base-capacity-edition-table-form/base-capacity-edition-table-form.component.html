@@ -1,6 +1,7 @@
 <app-card
   innerClass="p-5"
   [formGroup]="_opCapacitiesStepCapacityTableForm.capacityTableForm$"
+  *ngIf="!tableListLoader"
 >
   <div class="row mb-5">
     <div class="col-12 d-flex justify-content-start align-items-center">
@@ -25,6 +26,7 @@
   <div class="row">
     <div class="col-3">
       <app-input-number
+        [appMaxDigits]="5"
         formControlName="capacityForSelection"
         placeholder="10"
       ></app-input-number>
@@ -107,6 +109,7 @@
             [formGroupName]="index"
           >
             <app-input-number
+            [appMaxDigits]="5"
               class="capacity-table-input"
               formControlName="segmentCapacity"
               placeholder="10"

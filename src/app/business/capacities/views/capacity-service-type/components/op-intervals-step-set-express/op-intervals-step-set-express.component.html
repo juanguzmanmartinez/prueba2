@@ -8,7 +8,18 @@
   <hr class="m-0 bg-gray-3" />
   <div class="d-flex justify-content-between mt-5 mb-5">
     <p class="d-block text-h4 text-black">Configurar parámetros flexibles</p>
-    <app-switch formControlName="enabled"></app-switch>
+    <div class="d-flex align-items-center">
+      <span class="text-body-2-regular text-gray-5 me-2">
+        {{ stateOptionDesc }}
+      </span>
+      <app-switch
+        formControlName="enabled"
+        backgroundClass="bg-secondary"
+        class="d-flex align-items-center"
+      >
+      </app-switch>
+    </div>
+    <!-- <app-switch formControlName="enabled"></app-switch> -->
   </div>
   <div class="disclaimer">
     <app-icon

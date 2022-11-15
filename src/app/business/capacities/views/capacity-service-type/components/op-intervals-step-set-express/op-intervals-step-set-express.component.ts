@@ -66,6 +66,11 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
   get drugStoreCardTitle() {
     return `${this.drugStoreCode} - ${this.drugStoreName}`;
   }
+  
+  get stateOptionDesc(){
+    const stateDesc = this._intervalTimeForm.stateControl.value ? 'Desactivar' : 'Activar';
+    return `${stateDesc} parámetros`;
+  }
 
   get intervalTimeForm() {
     return this._intervalTimeForm.intervalTimeForm;
