@@ -54,6 +54,7 @@
       </div>
       <div class="col-6">
         <app-input
+          [appMaxDigits]="3"
           appDigitsOnly
           placeholder="Ingresa el porcentaje"
           formControlName="consumptionMax"
@@ -80,6 +81,7 @@
           Incremento de capacidad (transportistas)
         </p>
         <app-input
+          [appMaxDigits]="5"
           appDigitsOnly
           placeholder="Ingresa la capacidad"
           formControlName="addCapacity"
@@ -92,6 +94,7 @@
           Incremento de Interval time (minutos)
         </p>
         <app-input
+          [appMaxDigits]="5"
           appDigitsOnly
           placeholder="Ingresa los minutos"
           formControlName="addIntervalTime"
@@ -105,6 +108,7 @@
       <div class="col-6">
         <p class="text-body-1-regular text-gray-7 mb-3">Cantidad de vueltas</p>
         <app-input
+          [appMaxDigits]="5"
           appDigitsOnly
           placeholder="Ingresa en n° de vueltas"
           formControlName="laps"

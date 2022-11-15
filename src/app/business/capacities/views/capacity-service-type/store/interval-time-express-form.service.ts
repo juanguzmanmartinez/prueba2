@@ -14,6 +14,7 @@ export class IntervalTimeExpressFormService {
   stateControl = new FormControl(false, [Validators.required]);
   consumptionMaxControl = new FormControl('', [
     Validators.required,
+    Validators.max(100),
     this.valueNotZeroValidator(),
   ]);
   capacityAddedControl = new FormControl('', [
@@ -167,6 +168,10 @@ export class IntervalTimeExpressFormService {
 
     if (control.errors?.isZero) {
       return 'El valor debe ser mayor a 0';
+    }
+
+    if (control.errors?.max) {
+      return 'El valor debe ser máximo 100';
     }
   }
 }
