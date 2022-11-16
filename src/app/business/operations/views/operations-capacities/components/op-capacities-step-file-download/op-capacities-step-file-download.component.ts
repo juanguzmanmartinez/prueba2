@@ -31,6 +31,7 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     provinces: true,
     districts: true,
     stores: true,
+    services: false,
   };
   constructor(
     private _formBuilder: FormBuilder,
@@ -157,6 +158,8 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       });
   }
   getlistDepartaments(e) {
+    console.log('e', e);
+
     if (e.length <= 0) {
       this._uploadCapacitiesStoreService.setDistrictsFilter([]);
       this._uploadCapacitiesStoreService.setProvincesFilter([]);
@@ -166,6 +169,9 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       this.districts = [];
       this.storesList = [];
       return;
+    }
+    if (this.getListServices == '') {
+      this.errorList.services = false;
     }
     let code = e.join(',');
     this.departaments = e;
@@ -252,13 +258,25 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
   changeStatus(type) {
     if (type == 'departaments') {
       this.errorList.departaments = false;
+      if (this.getListServices == '') {
+        this.errorList.services = true;
+      }
     } else if (type == 'provinces') {
       this.errorList.departaments = false;
       this.errorList.provinces = false;
+      if (this.getListServices == '') {
+        this.errorList.services = true;
+      }
+    } else if (type == 'services') {
+      if (this.getListServices == '') {
+      }
     } else {
       this.errorList.departaments = false;
       this.errorList.provinces = false;
       this.errorList.districts = false;
+      if (this.getListServices == '') {
+        this.errorList.services = true;
+      }
     }
   }
   get errorDepartaments(): boolean {
@@ -276,5 +294,14 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
     return this.districts.length == 0 && !this.errorList.districts
       ? true
       : false;
+  }
+  get errorSelects() {
+    if (this.getListServices !== '') {
+      this.errorList.services = false;
+    }
+    return (
+      (this.getListServices == '' || this.departaments.length > 0) &&
+      this.errorList.services
+    );
   }
 }
