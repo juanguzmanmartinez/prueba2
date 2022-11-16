@@ -121,7 +121,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         this.passValidations = false;
         this.inputRef.nativeElement.value = '';
         return this._alertService.alertError(
-          'El documento que intentas cargar, no cumple con los parámetros indicados. Por favor asegúrate de usar la plantilla para la carga de capacidades por defecto.'
+          'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
         );
       }
       jsonData = dataToProcess;
@@ -131,7 +131,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         this.passValidations = false;
         this.inputRef.nativeElement.value = '';
         return this._alertService.alertError(
-          'El documento que intentas cargar, no cumple con los parámetros indicados. Por favor asegúrate de usar la plantilla para la carga de capacidades por defecto.'
+          'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
         );
       }
       try {
@@ -140,7 +140,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
           this.passValidations = false;
           this.inputRef.nativeElement.value = '';
           return this._alertService.alertError(
-            'El documento que intentas cargar, no cumple con los parámetros indicados. Por favor asegúrate de usar la plantilla para la carga de capacidades por defecto.'
+            'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
           );
         }
 
@@ -170,7 +170,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
                 this.disableNext = true;
                 this.inputRef.nativeElement.value = '';
                 return this._alertService.alertError(
-                  'El documento que intentas cargar, no cumple con los parámetros indicados. Por favor asegúrate de usar la plantilla para la carga de capacidades por defecto.'
+                  'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
                 );
               }
               dataTosStore = jsonData.map((local, index) => {
@@ -192,7 +192,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
               this.passValidations = false;
               this.inputRef.nativeElement.value = '';
               return this._alertService.alertError(
-                'El documento que intentas cargar, no cumple con los parámetros indicados. Por favor asegúrate de usar la plantilla para la carga de capacidades por defecto.'
+                'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
               );
             }
           );
@@ -200,7 +200,7 @@ export class OpCapacitiesStepFileUploadComponent implements OnInit {
         this.passValidations = false;
         this.inputRef.nativeElement.value = '';
         return this._alertService.alertError(
-          'El documento que intentas cargar, no cumple con los parámetros indicados. Por favor asegúrate de usar la plantilla para la carga de capacidades por defecto.'
+          'El documento que intentas cargar, no cumple con los parámetros. Por favor, asegúrate que contenga la plantilla indicada para la carga de capacidades por defecto.'
         );
       }
     };

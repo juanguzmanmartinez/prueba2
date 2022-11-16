@@ -92,13 +92,17 @@ export class FilterProvincesComponent implements OnInit {
       this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
         locals[1]
       )}`;
-    } else if (locals.length > 2) {
+    } else if (locals.length === 3) {
       this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
         locals[1]
-      )}...`;
+      )}, ${this.getLocalName(locals[2])}`;
+    } else if (locals.length > 3) {
+      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
+        locals[1]
+      )}, ${this.getLocalName(locals[2])}...`;
     }
 
-    if (locals.length > 2) {
+    if (locals.length > 0) {
       locals.slice(0).forEach((v) => {
         this.othersSelects = `${this.othersSelects} ${this.getLocalName(v)}\n`;
       });
