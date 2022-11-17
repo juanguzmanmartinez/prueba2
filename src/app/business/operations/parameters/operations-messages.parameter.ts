@@ -45,6 +45,12 @@ export const OperationMessages = {
   successIntervalTimeExpressEdition: (drugStoreName: string) => {
     return `<span class="text-body-2-regular text-gray-90">Se realizó la configuración de la capacidad e intervaltime flexible en el servicio express del local ${drugStoreName}</span>`;
   },
+  successIntervalTimeActiveParams: (drugStoreName: string) => {
+    return `<span class="text-body-2-regular text-gray-90">Se activaron los parámetros flexibles para el servicio express del local ${drugStoreName}</span>`;
+  },
+  successIntervalTimeDesactiveParams: (drugStoreName: string) => {
+    return `<span class="text-body-2-regular text-gray-90">Se desactivaron los parámetros flexibles para el servicio express del local ${drugStoreName}</span>`;
+  },
   errorIntervalTimeExpressEdition: (drugStoreName: string) => {
     return `Hubo un error al realizar la configuración de la capacidad e intervaltime flexible para el servicio express del local ${drugStoreName}, por favor, intenta de nuevo.`;
   },

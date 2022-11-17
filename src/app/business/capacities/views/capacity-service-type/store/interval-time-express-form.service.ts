@@ -32,6 +32,7 @@ export class IntervalTimeExpressFormService {
   ]);
   baseLineCapacityControl = new FormControl({ value: '', disabled: true });
   baseLineIntervalTimeControl = new FormControl({ value: '', disabled: true });
+  isEditionStateControl = new FormControl(false);
 
   intervalTimeForm: FormGroup;
 
@@ -44,6 +45,7 @@ export class IntervalTimeExpressFormService {
       consumptionMax: this.consumptionMaxControl,
       baseLineCapacity: this.baseLineCapacityControl,
       baseLineIntervalTime: this.baseLineIntervalTimeControl,
+      isEditionState: this.isEditionStateControl
     });
   }
 
@@ -68,6 +70,7 @@ export class IntervalTimeExpressFormService {
     }`;
     this.intervalTimeForm.patchValue({
       ...expInvertalTime,
+      isEditionState: isEditionState,
       enabled: isEditionState ? enabled : true,
       baseLineCapacity: baseLineCapacityTransform,
       baseLineIntervalTime: baseLineIntervalTimeTransform,

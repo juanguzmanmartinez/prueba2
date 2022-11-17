@@ -19,10 +19,11 @@ import { Router } from '@angular/router';
 import { IExpressIntervalTimeRequest } from '@interfaces/capacities/interval-time.interface';
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { AlertService } from '@molecules/alert/alert.service';
+import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OperationMessages } from 'app/business/operations/parameters/operations-messages.parameter';
 import { Subscription } from 'rxjs';
-import { EIntervalControlName } from '../../constants/interval-form-message.constant';
+import { EConfirmMessageDesc, EIntervalControlName } from '../../constants/interval-form-message.constant';
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { CapacitiesDrugstore } from '../../models/operations-capacities-responses.model';
 import { DrugStoreServiceStore } from '../../store/drug-store.service';
@@ -46,6 +47,7 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
     private _drugStoreServiceStore: DrugStoreServiceStore,
     private _intervalTimeForm: IntervalTimeExpressFormService,
     private _capacitiesService: OperationsCapacitiesImplementService,
+    private _dialogTwoActions: DialogTwoActionsService,
     private _alert: AlertService
   ) {}
 
@@ -112,6 +114,14 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
     return this._intervalTimeForm.capacityAddedControl;
   }
 
+  get enabledControl() {
+    return this._intervalTimeForm.stateControl;
+  }
+
+  get isEditionState() {
+    return this._intervalTimeForm?.isEditionStateControl.value;
+  }
+
   getIntervalTimeSaveRequest(): IExpressIntervalTimeRequest {
     const intervalTimeformValues =
       this._intervalTimeForm.getIntervalTimeFormRequest();
@@ -129,6 +139,41 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
   }
 
   saveEdition() {
+    const successMessage = this.getIntervalTimeSuccessMessage();
+    const confirmMessageDesc = this.getConfirmMessageDesc();
+    const subscription = this._dialogTwoActions
+      .openConfirmIntervalChanges(confirmMessageDesc)
+      .afterClosed()
+      .subscribe((confirmChanges) => {
+        if (confirmChanges) {
+          this.executeSaveEdition(successMessage);
+        }
+      });
+    this.subscriptions.add(subscription);
+  }
+  
+  getConfirmMessageDesc() {
+    if (this.isEditionState) {
+      if (this.enabledControl.value) {
+        return EConfirmMessageDesc.active;
+      } else {
+        return EConfirmMessageDesc.inactive;
+      }
+    }
+    return EConfirmMessageDesc.active;
+  }
+  getIntervalTimeSuccessMessage() {
+    if (this.isEditionState) {
+      if (this.enabledControl.value) {
+        return OperationMessages.successIntervalTimeActiveParams;
+      } else {
+        return OperationMessages.successIntervalTimeDesactiveParams;
+      }
+    }
+    return OperationMessages.successIntervalTimeExpressEdition;
+  }
+
+  executeSaveEdition(sucessIntervalTime) {
     if (this.intervalTimeForm.valid) {
       const request = this.getIntervalTimeSaveRequest();
       this._capacitiesService
@@ -136,7 +181,7 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
         .subscribe(
           () => {
             this._alert.alertLightSuccess(
-              OperationMessages.successIntervalTimeExpressEdition(
+              sucessIntervalTime(
                 `${this.drugStoreCode} ${this.drugStoreName}`
               )
             );

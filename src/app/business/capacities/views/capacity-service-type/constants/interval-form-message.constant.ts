@@ -14,8 +14,13 @@ export const CMessageErrorIsZero = {
 
 export const CMessageErrorMaxValue = {
   [EIntervalControlName.consumptionMax]: 'El porcentaje no debe superar 100%',
-}
+};
 
 export const CMessageError = {
-  required: 'El campo se encuentra vacío'
+  required: 'El campo se encuentra vacío',
+};
+
+export enum EConfirmMessageDesc {
+  active = 'La configuración se guardará con los parámetros activos.',
+  inactive = 'La configuración se guardará con los parámetros inactivos.',
 }
