@@ -22,6 +22,7 @@ import { AlertService } from '@molecules/alert/alert.service';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OperationMessages } from 'app/business/operations/parameters/operations-messages.parameter';
 import { Subscription } from 'rxjs';
+import { EIntervalControlName } from '../../constants/interval-form-message.constant';
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { CapacitiesDrugstore } from '../../models/operations-capacities-responses.model';
 import { DrugStoreServiceStore } from '../../store/drug-store.service';
@@ -35,6 +36,7 @@ import { IntervalTimeExpressFormService } from '../../store/interval-time-expres
 export class OpIntervalsStepSetExpressComponent implements OnInit {
   private subscriptions = new Subscription();
   private drugStore: CapacitiesDrugstore;
+  public intervalControlName = EIntervalControlName;
 
   @Input() drugStoreCode: string;
   @Input() drugStoreName: string;
@@ -66,9 +68,11 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
   get drugStoreCardTitle() {
     return `${this.drugStoreCode} - ${this.drugStoreName}`;
   }
-  
-  get stateOptionDesc(){
-    const stateDesc = this._intervalTimeForm.stateControl.value ? 'Desactivar' : 'Activar';
+
+  get stateOptionDesc() {
+    const stateDesc = this._intervalTimeForm.stateControl.value
+      ? 'Desactivar'
+      : 'Activar';
     return `${stateDesc} parámetros`;
   }
 
@@ -120,8 +124,8 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
     return request;
   }
 
-  messageError(control: AbstractControl) {
-    return this._intervalTimeForm.messageError(control);
+  messageError(control: AbstractControl, controlName: EIntervalControlName) {
+    return this._intervalTimeForm.messageError(control, controlName);
   }
 
   saveEdition() {

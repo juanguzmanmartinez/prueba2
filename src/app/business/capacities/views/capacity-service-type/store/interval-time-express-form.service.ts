@@ -7,6 +7,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { CMessageError, CMessageErrorIsZero, CMessageErrorMaxValue, EIntervalControlName } from '../constants/interval-form-message.constant';
 import { ExpressIntervalTime } from '../models/express-interval-time.model';
 
 @Injectable()
@@ -154,24 +155,24 @@ export class IntervalTimeExpressFormService {
   valueNotZeroValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (control.value === '0' || Number(control.value) === 0) {
-        console.log('debió entrar aquí');
         return { isZero: true };
       }
       return null;
     };
   }
 
-  messageError(control: AbstractControl) {
+  messageError(control: AbstractControl, controlName: EIntervalControlName) {
+    
     if (control.errors?.required) {
-      return 'El campo se encuentra vacío';
+      return CMessageError.required;
     }
 
     if (control.errors?.isZero) {
-      return 'El valor debe ser mayor a 0';
+      return CMessageErrorIsZero[controlName];
     }
 
     if (control.errors?.max) {
-      return 'El valor debe ser máximo 100';
+      return CMessageErrorMaxValue[controlName];
     }
   }
 }

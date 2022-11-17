@@ -166,7 +166,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.add(
       this.orderFilterStore.getOrderPagination().subscribe((pagination) => {
         this.page = pagination.page;
-        console.log(this.page);
         this.pageSize = pagination.pageSize;
       })
     );

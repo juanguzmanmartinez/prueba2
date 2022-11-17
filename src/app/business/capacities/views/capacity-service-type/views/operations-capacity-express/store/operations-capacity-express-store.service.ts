@@ -218,7 +218,6 @@ export class OperationsCapacityExpressStoreService implements OnDestroy {
   expressResourceActions(): void {
     const subscriptionSave = this._opCapacitiesStepExpressResource.expressResourceSave$
     .subscribe((expressResourceSegments: ICapacityStepExpressResourceSegments) => {
-        console.log('se lanza aquí')
         this.expressResourceSelection = expressResourceSegments;
         this._opCapacitiesStepGroupOrDrugstore.groupOrDrugstoreStepStatus = ECapacityStepStatus.disabled;
         this._opCapacitiesStepEditionMode.editionModeStepStatus = ECapacityStepStatus.disabled;

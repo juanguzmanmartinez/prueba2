@@ -81,7 +81,6 @@ export class OpCapacitiesStepGroupOrDrugstoreService {
   }
 
   resetStepGroupOrDrugstore() {
-    console.log('entró aquí');
     this.groupOrDrugstoreListSubject.next(null);
     this.groupOrDrugstoreCancelSubject.next(null);
     this.groupOrDrugstoreSaveSubject.next(null);
