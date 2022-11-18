@@ -19,6 +19,8 @@ export class FilterProvincesComponent implements OnInit {
   othersSelects = '';
   filterForm: FormGroup;
   fg: FormGroup;
+  arriba: any = [];
+  abajo: any = [];
   @Input() placeholder: string;
   @Input() listOptions: IOptionFilterItem[];
   @Output() filter = new EventEmitter();
@@ -48,7 +50,59 @@ export class FilterProvincesComponent implements OnInit {
         })
       )
       .subscribe((response: any[]) => {
-        this.locals = response;
+        if (response.length > 0) {
+          if (this.arriba.length > 0) {
+            let noSelectedLocals = response;
+
+            this.arriba.forEach((item) => {
+              noSelectedLocals = noSelectedLocals.filter((res) => {
+                return res.code != item.code && item.name != res.name;
+              });
+            });
+
+            this.locals = [
+              ...this.arriba.sort((a, b) => {
+                let fa = a.name.toLowerCase(),
+                  fb = b.name.toLowerCase();
+
+                if (fa < fb) {
+                  return -1;
+                }
+                if (fa > fb) {
+                  return 1;
+                }
+                return 0;
+              }),
+              ...noSelectedLocals.sort((a, b) => {
+                let fa = a.name.toLowerCase(),
+                  fb = b.name.toLowerCase();
+
+                if (fa < fb) {
+                  return -1;
+                }
+                if (fa > fb) {
+                  return 1;
+                }
+                return 0;
+              }),
+            ];
+          } else {
+            this.locals = response.sort((a, b) => {
+              let fa = a.name.toLowerCase(),
+                fb = b.name.toLowerCase();
+
+              if (fa < fb) {
+                return -1;
+              }
+              if (fa > fb) {
+                return 1;
+              }
+              return 0;
+            });
+          }
+        } else {
+          this.locals = [];
+        }
       });
   }
 
@@ -69,6 +123,8 @@ export class FilterProvincesComponent implements OnInit {
     this.othersSelects = '';
 
     this.orderBySelect = [];
+    this.arriba = [];
+    this.abajo = [];
     this.list.forEach((item) => {
       let stattus;
       this.selectedLocals.forEach((local) => {
@@ -78,13 +134,56 @@ export class FilterProvincesComponent implements OnInit {
       });
       if (stattus) {
         this.orderBySelect.unshift(item);
+        this.arriba.push(item);
       } else {
         this.orderBySelect.push(item);
+        this.abajo.push(item);
       }
       stattus = null;
     });
-    if (locals.length > 0) this.list = this.orderBySelect;
-    else this.locals = this.list.sort((a, b) => a.code - b.code);
+    let nuevo = [
+      ...this.arriba.sort((a, b) => {
+        let fa = a.name.toLowerCase(),
+          fb = b.name.toLowerCase();
+
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      }),
+      ...this.abajo.sort((a, b) => {
+        let fa = a.name.toLowerCase(),
+          fb = b.name.toLowerCase();
+
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      }),
+    ];
+    this.orderBySelect = nuevo;
+    if (locals.length > 0) {
+      this.list = this.orderBySelect;
+    } else {
+      this.locals = this.list.sort((a, b) => {
+        let fa = a.name.toLowerCase(),
+          fb = b.name.toLowerCase();
+
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      });
+    }
 
     if (locals.length === 1) {
       this.valueSelect = this.getLocalName(locals[0]);
@@ -146,5 +245,37 @@ export class FilterProvincesComponent implements OnInit {
       return 1;
     }
     return 0;
+  }
+  isKVEqual(obj1, obj2) {
+    // Get the keys of these objects, make sure they have the same number of keys.
+    const o1keys = Object.keys(obj1);
+    const o2keys = Object.keys(obj2);
+    if (o1keys.length !== o2keys.length) return false;
+
+    // Check that the value of each key is the same in each object.
+    for (const key of o1keys) {
+      if (obj2[key] !== obj1[key]) return false;
+    }
+
+    return true;
+  }
+  objectsEqual(o1, o2) {
+    const entries1 = Object.entries(o1);
+    const entries2 = Object.entries(o2);
+    if (entries1.length !== entries2.length) {
+      return false;
+    }
+    for (let i = 0; i < entries1.length; ++i) {
+      // Keys
+      if (entries1[i][0] !== entries2[i][0]) {
+        return false;
+      }
+      // Values
+      if (entries1[i][1] !== entries2[i][1]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }

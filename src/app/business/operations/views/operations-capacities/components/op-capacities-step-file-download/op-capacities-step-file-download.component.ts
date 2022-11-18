@@ -158,8 +158,6 @@ export class OpCapacitiesStepFileDownloadComponent implements OnInit {
       });
   }
   getlistDepartaments(e) {
-    console.log('e', e);
-
     if (e.length <= 0) {
       this._uploadCapacitiesStoreService.setDistrictsFilter([]);
       this._uploadCapacitiesStoreService.setProvincesFilter([]);
