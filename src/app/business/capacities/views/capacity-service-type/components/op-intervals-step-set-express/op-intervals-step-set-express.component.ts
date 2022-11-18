@@ -23,7 +23,10 @@ import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-acti
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { OperationMessages } from 'app/business/operations/parameters/operations-messages.parameter';
 import { Subscription } from 'rxjs';
-import { EConfirmMessageDesc, EIntervalControlName } from '../../constants/interval-form-message.constant';
+import {
+  EConfirmMessageDesc,
+  EIntervalControlName,
+} from '../../constants/interval-form-message.constant';
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
 import { CapacitiesDrugstore } from '../../models/operations-capacities-responses.model';
 import { DrugStoreServiceStore } from '../../store/drug-store.service';
@@ -151,16 +154,12 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
       });
     this.subscriptions.add(subscription);
   }
-  
+
   getConfirmMessageDesc() {
-    if (this.isEditionState) {
-      if (this.enabledControl.value) {
-        return EConfirmMessageDesc.active;
-      } else {
-        return EConfirmMessageDesc.inactive;
-      }
+    if (this.enabledControl.value) {
+      return EConfirmMessageDesc.active;
     }
-    return EConfirmMessageDesc.active;
+    return EConfirmMessageDesc.inactive;
   }
   getIntervalTimeSuccessMessage() {
     if (this.isEditionState) {
@@ -181,9 +180,7 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
         .subscribe(
           () => {
             this._alert.alertLightSuccess(
-              sucessIntervalTime(
-                `${this.drugStoreCode} ${this.drugStoreName}`
-              )
+              sucessIntervalTime(`${this.drugStoreCode} ${this.drugStoreName}`)
             );
             this.backRoute();
           },
