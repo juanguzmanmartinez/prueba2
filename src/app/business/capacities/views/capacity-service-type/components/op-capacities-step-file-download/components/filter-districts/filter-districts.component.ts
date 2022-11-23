@@ -26,6 +26,8 @@ export class FilterDistrictsComponent implements OnInit {
   @Input() inputSearchClass = '';
   @Input() isError: boolean = false;
   orderBySelect = [];
+  arriba: any = [];
+  abajo: any = [];
   constructor(
     private _formBuilder: FormBuilder,
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService
@@ -48,7 +50,59 @@ export class FilterDistrictsComponent implements OnInit {
         })
       )
       .subscribe((response: any[]) => {
-        this.locals = response;
+        if (response.length > 0) {
+          if (this.arriba.length > 0) {
+            let noSelectedLocals = response;
+
+            this.arriba.forEach((item) => {
+              noSelectedLocals = noSelectedLocals.filter((res) => {
+                return res.code != item.code && item.name != res.name;
+              });
+            });
+
+            this.locals = [
+              ...this.arriba.sort((a, b) => {
+                let fa = a.name.toLowerCase(),
+                  fb = b.name.toLowerCase();
+
+                if (fa < fb) {
+                  return -1;
+                }
+                if (fa > fb) {
+                  return 1;
+                }
+                return 0;
+              }),
+              ...noSelectedLocals.sort((a, b) => {
+                let fa = a.name.toLowerCase(),
+                  fb = b.name.toLowerCase();
+
+                if (fa < fb) {
+                  return -1;
+                }
+                if (fa > fb) {
+                  return 1;
+                }
+                return 0;
+              }),
+            ];
+          } else {
+            this.locals = response.sort((a, b) => {
+              let fa = a.name.toLowerCase(),
+                fb = b.name.toLowerCase();
+
+              if (fa < fb) {
+                return -1;
+              }
+              if (fa > fb) {
+                return 1;
+              }
+              return 0;
+            });
+          }
+        } else {
+          this.locals = [];
+        }
       });
   }
 
@@ -69,6 +123,8 @@ export class FilterDistrictsComponent implements OnInit {
     this.othersSelects = '';
 
     this.orderBySelect = [];
+    this.arriba = [];
+    this.abajo = [];
     this.list.forEach((item) => {
       let stattus;
       this.selectedLocals.forEach((local) => {
@@ -78,26 +134,71 @@ export class FilterDistrictsComponent implements OnInit {
       });
       if (stattus) {
         this.orderBySelect.unshift(item);
+        this.arriba.push(item);
       } else {
         this.orderBySelect.push(item);
+        this.abajo.push(item);
       }
       stattus = null;
     });
+    let newOrder = [
+      ...this.arriba.sort((a, b) => {
+        let fa = a.name.toLowerCase(),
+          fb = b.name.toLowerCase();
+
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      }),
+      ...this.abajo.sort((a, b) => {
+        let fa = a.name.toLowerCase(),
+          fb = b.name.toLowerCase();
+
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      }),
+    ];
+    this.orderBySelect = newOrder;
     if (locals.length > 0) this.list = this.orderBySelect;
-    else this.locals = this.list.sort((a, b) => a.code - b.code);
+    else
+      this.locals = this.list.sort((a, b) => {
+        let fa = a.name.toLowerCase(),
+          fb = b.name.toLowerCase();
+
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      });
     if (locals.length === 1) {
       this.valueSelect = this.getLocalName(locals[0]);
     } else if (locals.length === 2) {
       this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
         locals[1]
       )}`;
-    } else if (locals.length > 2) {
+    } else if (locals.length === 3) {
       this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
         locals[1]
-      )}...`;
+      )}, ${this.getLocalName(locals[2])}`;
+    } else if (locals.length > 3) {
+      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
+        locals[1]
+      )}, ${this.getLocalName(locals[2])}...`;
     }
 
-    if (locals.length > 2) {
+    if (locals.length > 0) {
       locals.slice(0).forEach((v) => {
         this.othersSelects = `${this.othersSelects} ${this.getLocalName(v)}\n`;
       });
