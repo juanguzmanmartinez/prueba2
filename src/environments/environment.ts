@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   show_logs: false,
-  envName: 'dev',
+  envName: 'dev2',
   api_gateway: 'https://4kz2r4t838.execute-api.us-east-1.amazonaws.com/CI02',
   api_gateway_order:
     'https://4kz2r4t838.execute-api.us-east-1.amazonaws.com/CI02',

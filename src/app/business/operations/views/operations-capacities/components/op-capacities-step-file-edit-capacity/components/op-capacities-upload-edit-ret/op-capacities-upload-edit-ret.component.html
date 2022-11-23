@@ -1,0 +1,103 @@
+<div class="mt-4">
+  <div *ngIf="type != 'express'">
+    <p *ngIf="onlyOne" class="d-block text-h3 text-black mt-6 mb-5">
+      Serivicio {{ getType }}
+    </p>
+    <p class="d-block text-h5 text-black mt-0 mb-3">
+      Ingresa la cantidad de capacidad
+    </p>
+    <div>
+      <p>Edita capacidades</p>
+      <div class="d-flex justify-content-lg-start">
+        <app-input-number
+          placeholder="10"
+          labelClass="ml-4"
+          class="input-num"
+          #inputRet
+          (change)="changeInput($event)"
+        ></app-input-number>
+        <app-button
+          class="ml-2"
+          (clicked)="setManyRet()"
+          appearance="outline"
+          [disabled]="statusButtonAplly"
+          >Aplicar selección</app-button
+        >
+      </div>
+    </div>
+    <div
+      [formGroup]="_opCapacitiesStepFileEditForm.capacityTableForm$"
+      class="mt-4"
+    >
+      <table
+        formArrayName="retList"
+        mat-table
+        large-table
+        [dataSource]="ret"
+        class="order-table"
+      >
+        <ng-container matColumnDef="seleccion">
+          <th mat-header-cell *matHeaderCellDef column-width="5%">
+            <app-checkbox
+              (change)="$event ? masterToggle() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+            >
+            </app-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <app-checkbox
+              (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)"
+            >
+            </app-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="horario">
+          <th class="text-center" mat-header-cell *matHeaderCellDef>
+            Bloque horario
+          </th>
+          <td
+            (click)="$event ? selection.toggle(element) : null"
+            class="text-center"
+            mat-cell
+            *matCellDef="let element"
+          >
+            {{ element.segment }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="capacidad">
+          <th
+            class="text-center"
+            mat-header-cell
+            *matHeaderCellDef
+            column-width="20%"
+          >
+            Capacidad
+          </th>
+          <td
+            class="text-center"
+            mat-cell
+            *matCellDef="let element; let index = index"
+            [formGroupName]="index"
+          >
+            <app-input-number
+              placeholder="0"
+              formControlName="capacity"
+            ></app-input-number>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          row-hover
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+    </div>
+    <div class="text-center">
+      <p class="total-capacity">Capacidad total {{ totalCapacity }}</p>
+    </div>
+  </div>
+</div>

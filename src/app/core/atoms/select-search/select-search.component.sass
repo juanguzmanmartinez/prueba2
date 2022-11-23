@@ -30,20 +30,17 @@ $select-input-height: 40px
     @include text-body-1-regular
     z-index: 2
 
-
   .select-search-span
     position: absolute
     @include text-body-1-regular
     z-index: 1
     width: 100%
 
-
   .select-search-icon
     pointer-events: none
     right: 16px
     display: inline-flex
     @include position-vertical-center
-
 
   &.select-search-disabled
     pointer-events: none
@@ -52,9 +49,6 @@ $select-input-height: 40px
 
     .select-search-span
       color: $gray-4
-
-
-
 
 .mat-autocomplete-panel.select-search-component
   background-color: transparent
@@ -71,7 +65,6 @@ $select-input-height: 40px
     overflow: auto
     max-height: 300px
 
-
   mat-option.select-basic-option,
   mat-option.select-basic-option.mat-option.mat-active
     color: $black
@@ -82,14 +75,9 @@ $select-input-height: 40px
     &:hover
       background-color: $gray-1
 
-
     &.mat-selected
       background-color: $light-primary
 
-
-
   mat-option.select-basic-option.select-basic-option-clear,
   mat-option.select-basic-option.select-basic-option-clear.mat-active
-    color: $gray-4
-
-
+      color: $gray-4

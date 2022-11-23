@@ -348,6 +348,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     const orderIdsSelected = this.fixedSelectedRows.map(
       (orderSelected) => orderSelected.orderId
     );
+
     this.dataSource.data.forEach((orderTable) => {
       if (!orderIdsSelected.includes(orderTable.orderId)) {
         allSelected = false;

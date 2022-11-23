@@ -30,10 +30,9 @@ const ColumnNameList = {
   selector: 'app-operations-zones-home',
   templateUrl: './operations-zones-home.component.html',
   styleUrls: ['./operations-zones-home.component.sass'],
-  providers: [OpZonesHomeZoneDetailDialogService]
+  providers: [OpZonesHomeZoneDetailDialogService],
 })
 export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
-
   private subscriptions = new Subscription();
 
   public serviceTypeName = CDeliveryServiceTypeName;
@@ -48,9 +47,14 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
   public errorResponse: HttpErrorResponse;
 
   public displayedColumns: string[] = [
-    ColumnNameList.zoneCode, ColumnNameList.zoneName,
-    ColumnNameList.assignedStore, ColumnNameList.zoneCompany,
-    ColumnNameList.zoneChannel, ColumnNameList.zoneState, ColumnNameList.actions];
+    ColumnNameList.zoneCode,
+    ColumnNameList.zoneName,
+    ColumnNameList.assignedStore,
+    ColumnNameList.zoneCompany,
+    ColumnNameList.zoneChannel,
+    ColumnNameList.zoneState,
+    ColumnNameList.actions,
+  ];
   public dataSource = new MatTableDataSource([]);
 
   @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
@@ -59,20 +63,21 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _zoneDetailDialog: OpZonesHomeZoneDetailDialogService,
-    private _operationsZonesImplement: OperationsZonesImplementService,
-  ) { }
+    private _operationsZonesImplement: OperationsZonesImplementService
+  ) {}
 
   ngOnInit(): void {
-    this._operationsZonesImplement.zoneList
-      .subscribe((zoneList: Zone[]) => {
-          this.tableLoader = false;
-          this.dataSource.data = zoneList;
-          this.setDataSourceService();
-        },
-        (error) => {
-          this.tableLoader = false;
-          this.errorResponse = error;
-        });
+    this._operationsZonesImplement.zoneList.subscribe(
+      (zoneList: Zone[]) => {
+        this.tableLoader = false;
+        this.dataSource.data = zoneList;
+        this.setDataSourceService();
+      },
+      (error) => {
+        this.tableLoader = false;
+        this.errorResponse = error;
+      }
+    );
   }
 
   setDataSourceService(): void {
@@ -82,16 +87,32 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
       const filterNormalize = normalizeValue(filter);
       const idNormalize = normalizeValue(data.code);
       const nameNormalize = normalizeValue(data.name);
-      const assignedStoreNameNormalize = normalizeValue(data.assignedStore ? data.assignedStore.name : '');
+      const assignedStoreNameNormalize = normalizeValue(
+        data.assignedStore ? data.assignedStore.name : ''
+      );
       const assignedStoreCodeNormalize = normalizeValue(data.assignedStoreCode);
-      const companyNormalize = normalizeValue(data.companyList.map(company => this.companyName[company]).join(''));
+      const companyNormalize = normalizeValue(
+        data.companyList.map((company) => this.companyName[company]).join('')
+      );
 
-      const channelNormalize = normalizeValue(data.channelList.map(channel => this.channelName[channel]).join(''));
+      const channelNormalize = normalizeValue(
+        data.channelList.map((channel) => this.channelName[channel]).join('')
+      );
       const stateNormalize = normalizeValue(this.stateName[data.state]());
-      const valueArray = [idNormalize, nameNormalize, assignedStoreCodeNormalize, assignedStoreNameNormalize, companyNormalize, channelNormalize, stateNormalize];
+      const valueArray = [
+        idNormalize,
+        nameNormalize,
+        assignedStoreCodeNormalize,
+        assignedStoreNameNormalize,
+        companyNormalize,
+        channelNormalize,
+        stateNormalize,
+      ];
 
       const concatValue = normalizeValue(valueArray.join(''));
-      const everyValue = valueArray.some(value => value.includes(filterNormalize));
+      const everyValue = valueArray.some((value) =>
+        value.includes(filterNormalize)
+      );
 
       return concatValue.includes(filterNormalize) && everyValue;
     };
@@ -104,21 +125,41 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
           case ColumnNameList.zoneName:
             return SortAlphanumeric(a.name, b.name, sort.direction);
           case ColumnNameList.assignedStore:
-            const assignedStoreNameA = a.assignedStore ? a.assignedStore.name : '';
-            const assignedStoreNameB = b.assignedStore ? b.assignedStore.name : '';
-            return SortAlphanumeric(assignedStoreNameA, assignedStoreNameB, sort.direction);
+            const assignedStoreNameA = a.assignedStore
+              ? a.assignedStore.name
+              : '';
+            const assignedStoreNameB = b.assignedStore
+              ? b.assignedStore.name
+              : '';
+            return SortAlphanumeric(
+              assignedStoreNameA,
+              assignedStoreNameB,
+              sort.direction
+            );
           case ColumnNameList.zoneCompany:
             const companyListNameA = a.companyList
-              .map(company => this.companyName[company]).join('');
+              .map((company) => this.companyName[company])
+              .join('');
             const companyListNameB = b.companyList
-              .map(company => this.companyName[company]).join('');
-            return SortString(companyListNameA, companyListNameB, sort.direction);
+              .map((company) => this.companyName[company])
+              .join('');
+            return SortString(
+              companyListNameA,
+              companyListNameB,
+              sort.direction
+            );
           case ColumnNameList.zoneChannel:
             const channelListNameA = a.channelList
-              .map(channel => this.channelName[channel]).join('');
+              .map((channel) => this.channelName[channel])
+              .join('');
             const channelListNameB = b.channelList
-              .map(channel => this.channelName[channel]).join('');
-            return SortString(channelListNameA, channelListNameB, sort.direction);
+              .map((channel) => this.channelName[channel])
+              .join('');
+            return SortString(
+              channelListNameA,
+              channelListNameB,
+              sort.direction
+            );
           case ColumnNameList.zoneState:
             const stateNameA = this.stateName[a.state]();
             const stateNameB = this.stateName[b.state]();
@@ -132,7 +173,6 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
     };
   }
 
-
   filterBySearchInput(): void {
     this.dataSource.filter = this.searchInput.trim().toLowerCase();
     if (this.dataSource.paginator) {
@@ -145,7 +185,8 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
   }
 
   rowDetailDialog(zone: Zone): void {
-    const subscription = this._zoneDetailDialog.open(zone)
+    const subscription = this._zoneDetailDialog
+      .open(zone)
       .afterClosed()
       .subscribe((edition) => {
         if (edition) {
@@ -158,5 +199,4 @@ export class OperationsZonesHomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
 }

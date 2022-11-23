@@ -4,16 +4,14 @@ import { AlertService } from '@molecules/alert/alert.service';
 import { OperationsCapacitiesImplementService } from '../../../implements/operations-capacities-implement.service';
 import {
   CapacitiesDrugstore,
-  CapacitiesDrugstoreServiceDefaultCapacity
+  CapacitiesDrugstoreServiceDefaultCapacity,
 } from '../../../models/operations-capacities-responses.model';
 import { OpCapacitiesDrugstoreDefaultCapacityService } from '../../../components/op-capacities-drugstore-default-capacity/op-capacities-drugstore-default-capacity.service';
 import { ECapacitiesStepEditionMode } from '../../../components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
 
-
 @Injectable()
 export class OperationsCapacityHomeStoreService implements OnDestroy {
-
   private subscriptions = new Subscription();
 
   private capacitiesDrugstoreSelection: CapacitiesDrugstore;
@@ -21,7 +19,7 @@ export class OperationsCapacityHomeStoreService implements OnDestroy {
   constructor(
     private _operationsCapacityImplement: OperationsCapacitiesImplementService,
     private _opCapacitiesDrugstoreDefaultCapacity: OpCapacitiesDrugstoreDefaultCapacityService,
-    private _alertService: AlertService,
+    private _alertService: AlertService
   ) {
     this.getDrugstoreList();
     this.getDrugstoreSelection();
@@ -29,44 +27,102 @@ export class OperationsCapacityHomeStoreService implements OnDestroy {
   }
 
   getDrugstoreList(): void {
-    this._operationsCapacityImplement.getDrugstoreImplement$()
+    this._operationsCapacityImplement
+      .getDrugstoreImplement$()
       .subscribe((capacitiesDrugstoreList: CapacitiesDrugstore[]) => {
-        this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList = capacitiesDrugstoreList;
+        this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList =
+          capacitiesDrugstoreList;
       });
   }
 
   getDrugstoreSelection(): void {
-    const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreSelection$
-      .subscribe((capacityDrugstoreSelection: CapacitiesDrugstore) => {
-        this.capacitiesDrugstoreSelection = capacityDrugstoreSelection;
-        this.getDrugstoreAvailableServices(capacityDrugstoreSelection);
-      });
+    const subscription =
+      this._opCapacitiesDrugstoreDefaultCapacity.drugstoreSelection$.subscribe(
+        (capacityDrugstoreSelection: CapacitiesDrugstore) => {
+          this.capacitiesDrugstoreSelection = capacityDrugstoreSelection;
+          this.getDrugstoreAvailableServices(capacityDrugstoreSelection);
+        }
+      );
     this.subscriptions.add(subscription);
   }
 
   getDrugstoreAvailableServices(drugstore: CapacitiesDrugstore): void {
-    this._operationsCapacityImplement.getCalendarDefaultCapacitiesImplement$(drugstore)
-      .subscribe((serviceDefaultCapacityList: CapacitiesDrugstoreServiceDefaultCapacity[]) => {
-        this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceList = serviceDefaultCapacityList;
-      });
+    this._operationsCapacityImplement
+      .getCalendarDefaultCapacitiesImplement$(drugstore)
+      .subscribe(
+        (
+          serviceDefaultCapacityList: CapacitiesDrugstoreServiceDefaultCapacity[]
+        ) => {
+          this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceList =
+            serviceDefaultCapacityList;
+        }
+      );
   }
 
   getDrugstoreServiceTypeSelection(): void {
-    const subscription = this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceTypeSelection$
-      .subscribe((drugstoreService: CapacitiesDrugstoreServiceDefaultCapacity) => {
-        const drugstoreSelection = {fulfillmentCenterCode: this.capacitiesDrugstoreSelection.drugstoreCode} as ICustomSelectOption;
+    const subscription =
+      this._opCapacitiesDrugstoreDefaultCapacity.drugstoreServiceTypeSelection$.subscribe(
+        (drugstoreService: CapacitiesDrugstoreServiceDefaultCapacity) => {
+          const drugstoreSelection = {
+            fulfillmentCenterCode:
+              this.capacitiesDrugstoreSelection.drugstoreCode,
+          } as ICustomSelectOption;
 
-        this._operationsCapacityImplement.getTypeOperationImplements$(
-          ECapacitiesStepEditionMode.default, drugstoreSelection, drugstoreService.serviceType)
-          .subscribe((capacitiesServiceType) => {
-            this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityList = capacitiesServiceType;
-          });
-      });
+          this._operationsCapacityImplement
+            .getTypeOperationImplements$(
+              ECapacitiesStepEditionMode.default,
+              drugstoreSelection,
+              drugstoreService.serviceType
+            )
+            .subscribe((capacitiesServiceType) => {
+              this._opCapacitiesDrugstoreDefaultCapacity.drugstoreDefaultCapacityList =
+                capacitiesServiceType;
+            });
+        }
+      );
     this.subscriptions.add(subscription);
   }
+
+  // getDepartamentList(): void {
+  //   this._operationsCapacityImplement
+  //     .getDepartamentClient$()
+  //     .subscribe((capacitiesDrugstoreList: any[]) => {
+  //       return capacitiesDrugstoreList;
+  //       // this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList =
+  //       //   capacitiesDrugstoreList;
+  //     });
+  // }
+
+  // getProvincesList(): void {
+  //   this._operationsCapacityImplement
+  //     .getProvincesClient$()
+  //     .subscribe((capacitiesDrugstoreList: any[]) => {
+  //       return capacitiesDrugstoreList;
+  //       // this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList =
+  //       //   capacitiesDrugstoreList;
+  //     });
+  // }
+
+  // getDistrictsList(): void {
+  //   this._operationsCapacityImplement
+  //     .getDistrictsClient$()
+  //     .subscribe((capacitiesDrugstoreList: any[]) => {
+  //       return capacitiesDrugstoreList;
+  //       // this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList =
+  //       //   capacitiesDrugstoreList;
+  //     });
+  // }
+  // getStoresList(): void {
+  //   this._operationsCapacityImplement
+  //     .getStoresClient$()
+  //     .subscribe((capacitiesDrugstoreList: any[]) => {
+  //       return capacitiesDrugstoreList;
+  //       // this._opCapacitiesDrugstoreDefaultCapacity.drugstoreList =
+  //       //   capacitiesDrugstoreList;
+  //     });
+  // }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
 }

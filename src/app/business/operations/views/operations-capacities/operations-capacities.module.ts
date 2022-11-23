@@ -41,6 +41,34 @@ import { TableModule } from '@molecules/table/table.module';
 import { DialogModule } from '@molecules/dialog/dialog.module';
 import { OperationsCapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
 import { PipesModule } from '@pipes/pipes.module';
+import { OperationsCapacityUploadComponent } from './views/operations-capacity-upload/operations-capacity-upload.component';
+import { SelectModule } from '@atoms/select/select.module';
+
+import { CardStepModule } from '@molecules/card-step/card-step.module';
+import { StepTabsModule } from '@molecules/step-tabs/step-tabs.module';
+
+import { OpCapacitiesStepFileConfirmationComponent } from './components/op-capacities-step-file-confirmation/op-capacities-step-file-confirmation.component';
+import { OpCapacitiesStepFileDownloadComponent } from './components/op-capacities-step-file-download/op-capacities-step-file-download.component';
+import { OpCapacitiesStepFileUploadComponent } from './components/op-capacities-step-file-upload/op-capacities-step-file-upload.component';
+import { OpCapacitiesStepFileEditCapacityComponent } from './components/op-capacities-step-file-edit-capacity/op-capacities-step-file-edit-capacity.component';
+import { LocalFilterModule } from 'app/business/order/views/order-records/components/local-filter/local-filter.module';
+import { OpCapacitiesUploadEditAmpmComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-ampm/op-capacities-upload-edit-ampm.component';
+import { OpCapacitiesUploadEditRetComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-ret/op-capacities-upload-edit-ret.component';
+import { OpCapacitiesUploadEditExpressComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-express/op-capacities-upload-edit-express.component';
+import { OpCapacitiesUploadEditScheduledComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-scheduled/op-capacities-upload-edit-scheduled.component';
+import { OpCapacitiesUploadDeleteDialogComponent } from './components/op-capacities-step-file-confirmation/components/op-capacities-upload-delete-dialog/op-capacities-upload-delete-dialog.component';
+import { FormFieldModule } from '@molecules/form-field/form-field.module';
+import { FilterSearchModule } from '@molecules/filter-search/filter-search.module';
+import { FilterDepartamentsComponent } from './components/op-capacities-step-file-download/components/filter-departaments/filter-departaments.component';
+import { FilterProvincesComponent } from './components/op-capacities-step-file-download/components/filter-provinces/filter-provinces.component';
+import { FilterDistrictsComponent } from './components/op-capacities-step-file-download/components/filter-districts/filter-districts.component';
+import { FilterStoresComponent } from './components/op-capacities-step-file-download/components/filter-stores/filter-stores.component';
+import { PaginatorModule } from '@atoms/paginator/paginator.module';
+import { BackRouterSimpleModule } from '@molecules/back-router-simple/back-router-simple.module';
+import { OpCapacitiesUploadEditTableComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-table/op-capacities-upload-edit-table.component';
+import { DndDirective } from './components/op-capacities-step-file-upload/directiva/dnd.directive';
+import { OpCapacitiesUploadBackDialogComponent } from './components/op-capacities-upload-back-dialog/op-capacities-upload-back-dialog.component';
+import { OpCapacitiesStepFileEditFormService } from './components/op-capacities-step-file-edit-capacity/form/op-capacities-step-file-edit-form.service';
 
 @NgModule({
   declarations: [
@@ -59,6 +87,23 @@ import { PipesModule } from '@pipes/pipes.module';
     OpCapacitiesDrugstoreDefaultCapacityComponent,
     OpCapacitiesDrugstoreDefaultCapacityCardComponent,
     OpCapacitiesDrugstoreDefaultCapacityDialogComponent,
+    OperationsCapacityUploadComponent,
+    OpCapacitiesStepFileConfirmationComponent,
+    OpCapacitiesStepFileDownloadComponent,
+    OpCapacitiesStepFileUploadComponent,
+    OpCapacitiesStepFileEditCapacityComponent,
+    OpCapacitiesUploadEditAmpmComponent,
+    OpCapacitiesUploadEditRetComponent,
+    OpCapacitiesUploadEditExpressComponent,
+    OpCapacitiesUploadEditScheduledComponent,
+    OpCapacitiesUploadDeleteDialogComponent,
+    FilterDepartamentsComponent,
+    FilterProvincesComponent,
+    FilterDistrictsComponent,
+    FilterStoresComponent,
+    OpCapacitiesUploadEditTableComponent,
+    DndDirective,
+    OpCapacitiesUploadBackDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -86,11 +131,19 @@ import { PipesModule } from '@pipes/pipes.module';
     DirectivesModule,
     TableModule,
     DialogModule,
-    PipesModule
+    PipesModule,
+    SelectModule,
+    CardStepModule,
+    StepTabsModule,
+    LocalFilterModule,
+    FormFieldModule,
+    FilterSearchModule,
+    PaginatorModule,
+    BackRouterSimpleModule,
   ],
   providers: [
-    OperationsCapacitiesImplementService
-  ]
+    OperationsCapacitiesImplementService,
+    OpCapacitiesStepFileEditFormService,
+  ],
 })
-export class OperationsCapacitiesModule {
-}
+export class OperationsCapacitiesModule {}

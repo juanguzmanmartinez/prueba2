@@ -4,20 +4,30 @@ import { filter } from 'rxjs/operators';
 import {
   CapacitiesDrugstore,
   CapacitiesDrugstoreServiceDefaultCapacity,
-  CapacitiesServiceType
+  CapacitiesServiceType,
 } from '../../models/operations-capacities-responses.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class OpCapacitiesDrugstoreDefaultCapacityService {
-
-  private drugstoreListSubject = new BehaviorSubject<CapacitiesDrugstore[]>(null);
-  private drugstoreSelectionSubject = new BehaviorSubject<CapacitiesDrugstore>(null);
-  private drugstoreServiceTypeListSubject = new BehaviorSubject<CapacitiesDrugstoreServiceDefaultCapacity[]>(null);
-  private drugstoreServiceTypeSelectionSubject = new BehaviorSubject<CapacitiesDrugstoreServiceDefaultCapacity>(null);
-  private drugstoreDefaultCapacityListSubject = new BehaviorSubject<CapacitiesServiceType>(null);
+  private drugstoreListSubject = new BehaviorSubject<CapacitiesDrugstore[]>(
+    null
+  );
+  private drugstoreSelectionSubject = new BehaviorSubject<CapacitiesDrugstore>(
+    null
+  );
+  private drugstoreServiceTypeListSubject = new BehaviorSubject<
+    CapacitiesDrugstoreServiceDefaultCapacity[]
+  >(null);
+  private drugstoreServiceTypeSelectionSubject =
+    new BehaviorSubject<CapacitiesDrugstoreServiceDefaultCapacity>(null);
+  private drugstoreDefaultCapacityListSubject =
+    new BehaviorSubject<CapacitiesServiceType>(null);
 
   get drugstoreList$(): Observable<CapacitiesDrugstore[]> {
-    return this.drugstoreListSubject.asObservable()
+    return this.drugstoreListSubject
+      .asObservable()
       .pipe(filter((value) => !!value));
   }
 
@@ -26,7 +36,8 @@ export class OpCapacitiesDrugstoreDefaultCapacityService {
   }
 
   get drugstoreSelection$(): Observable<CapacitiesDrugstore> {
-    return this.drugstoreSelectionSubject.asObservable()
+    return this.drugstoreSelectionSubject
+      .asObservable()
       .pipe(filter((value) => !!value));
   }
 
@@ -34,33 +45,43 @@ export class OpCapacitiesDrugstoreDefaultCapacityService {
     this.drugstoreSelectionSubject.next(capacitiesDrugstore);
   }
 
-  get drugstoreServiceList$(): Observable<CapacitiesDrugstoreServiceDefaultCapacity[]> {
-    return this.drugstoreServiceTypeListSubject.asObservable()
+  get drugstoreServiceList$(): Observable<
+    CapacitiesDrugstoreServiceDefaultCapacity[]
+  > {
+    return this.drugstoreServiceTypeListSubject
+      .asObservable()
       .pipe(filter((value) => !!value));
   }
 
-  set drugstoreServiceList(serviceDefaultCapacityList: CapacitiesDrugstoreServiceDefaultCapacity[]) {
+  set drugstoreServiceList(
+    serviceDefaultCapacityList: CapacitiesDrugstoreServiceDefaultCapacity[]
+  ) {
     this.drugstoreServiceTypeListSubject.next(serviceDefaultCapacityList);
   }
 
   get drugstoreServiceTypeSelection$(): Observable<CapacitiesDrugstoreServiceDefaultCapacity> {
-    return this.drugstoreServiceTypeSelectionSubject.asObservable()
+    return this.drugstoreServiceTypeSelectionSubject
+      .asObservable()
       .pipe(filter((value) => !!value));
   }
 
-  set drugstoreServiceTypeSelection(serviceDefaultCapacity: CapacitiesDrugstoreServiceDefaultCapacity) {
+  set drugstoreServiceTypeSelection(
+    serviceDefaultCapacity: CapacitiesDrugstoreServiceDefaultCapacity
+  ) {
     this.drugstoreServiceTypeSelectionSubject.next(serviceDefaultCapacity);
   }
 
   get drugstoreDefaultCapacityList$(): Observable<CapacitiesServiceType> {
-    return this.drugstoreDefaultCapacityListSubject.asObservable()
+    return this.drugstoreDefaultCapacityListSubject
+      .asObservable()
       .pipe(filter((value) => !!value));
   }
 
-  set drugstoreDefaultCapacityList(capacitiesServiceType: CapacitiesServiceType) {
+  set drugstoreDefaultCapacityList(
+    capacitiesServiceType: CapacitiesServiceType
+  ) {
     this.drugstoreDefaultCapacityListSubject.next(capacitiesServiceType);
   }
 
-  constructor() { }
-
+  constructor() {}
 }

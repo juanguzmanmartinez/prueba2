@@ -106,6 +106,8 @@ export class OpCapacitiesStepCapacityTableComponent implements OnInit, OnDestroy
   updateCapacityTableSegments(): void {
     const subscription = this._opCapacitiesStepCapacityTable.capacityTableSegments$
       .subscribe((capacityTableSegments: ICapacityStepCapacityTableSegments) => {
+        console.log("capacityTableSegments",capacityTableSegments);
+
         this.capacityTableSegments = capacityTableSegments;
         this._opCapacitiesStepCapacityTableForm.capacitySegmentList.clear();
 

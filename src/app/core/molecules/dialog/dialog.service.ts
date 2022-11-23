@@ -5,28 +5,26 @@ import { MatDialogConfig } from '@angular/material/dialog/dialog-config';
 
 @Injectable()
 export class DialogService {
+  private readonly config: MatDialogConfig = {
+    width: '526px',
+    minHeight: '225px',
+    closeOnNavigation: true,
+  };
 
-    private readonly config: MatDialogConfig = {
-        width: '526px',
-        minHeight: '347px',
-        closeOnNavigation: true,
-    };
+  constructor(private matDialog: MatDialog) {}
 
-    constructor(private matDialog: MatDialog) {
-    }
+  get dialog() {
+    return this.matDialog;
+  }
 
-    get dialog() {
-        return this.matDialog;
-    }
+  open(
+    template: ComponentType<any> | TemplateRef<any>,
+    config: MatDialogConfig = this.config
+  ): MatDialogRef<any> {
+    return this.matDialog.open(template, config);
+  }
 
-    open(
-        template: ComponentType<any> | TemplateRef<any>,
-        config: MatDialogConfig = this.config
-    ): MatDialogRef<any> {
-        return this.matDialog.open(template, config);
-    }
-
-    closeAll() {
-        this.matDialog.closeAll();
-    }
+  closeAll() {
+    this.matDialog.closeAll();
+  }
 }

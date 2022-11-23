@@ -17,7 +17,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { isObject } from '@helpers/objects-equal.helper';
 import { normalizeValue } from '@helpers/string.helper';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 export interface SearchOptionsI {
   code: string;
@@ -53,8 +53,10 @@ export class SelectComponent<T>
   @Input() enableSearch = false;
   @Input() enableNoSpace = false;
   @Input() customFontName = null;
+  @Input() maxLimit: number = 7;
   @Input() error: boolean;
-
+  @Input() containerSearchClass = '';
+  @Input() inputSearchClass = '';
   @Input('value')
   set _value(option: T | T[]) {
     this.validValue(option);
@@ -63,7 +65,7 @@ export class SelectComponent<T>
   @Output() optionChange = new EventEmitter();
   @Output() clearValueForButton = new EventEmitter();
   @Output() filterList = new EventEmitter<string>(true);
-
+  @Output() focusSelect = new EventEmitter();
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
   @ViewChild('selectContainer') selectContainer;
@@ -72,7 +74,7 @@ export class SelectComponent<T>
 
   onChange = (_: any) => {};
   onTouched = (_: any) => {};
-
+  onFocus = (_: any) => {};
   constructor(@Optional() @Self() public ngControl: NgControl) {
     if (ngControl) {
       ngControl.valueAccessor = this;
@@ -152,9 +154,10 @@ export class SelectComponent<T>
     this.clearValueForButton.emit(true);
   }
 
-  selectionChange(option: T) {
+  selectionChange(option: any) {
     // @ts-ignore
-    this.disableOptionsMultiple = this.multiple && option.length > 6;
+    this.disableOptionsMultiple =
+      this.multiple && option.length > this.maxLimit;
     this.optionChange.emit(option);
     this.onChange(option);
   }

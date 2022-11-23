@@ -5,13 +5,16 @@
   [class.whole]="iconStyle === 'whole'"
   [class.edge]="iconStyle === 'edge'"
   [class.edge-table]="iconStyle === 'edge-table'"
-  (clicked)="clicked.emit($event)">
+  (clicked)="clicked.emit($event)"
+>
   <span class="d-inline-flex">
-    <app-icon class="button-action-icon"
-              [fontName]="iconName"
-              [svgName]="svgName"
-              fontSize="16px"
-              [svgWidth]="svgWidth"
-              fontColor="white"></app-icon>
+    <app-icon
+      class="button-action-icon"
+      [fontName]="iconName"
+      [svgName]="svgName"
+      fontSize="16px"
+      [svgWidth]="svgWidth"
+      fontColor="white"
+    ></app-icon>
   </span>
 </app-button>

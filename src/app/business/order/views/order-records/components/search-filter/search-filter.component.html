@@ -5,7 +5,6 @@
       placeholder="Tipo"
       [customValue]="true"
       [optionList]="typesSearch"
-      
       (optionChange)="selectionChange($event)"
     >
       <ng-container trigger>
@@ -27,7 +26,6 @@
       [maxLength]="valueSelect.maxLength"
       [buttonClear]="true"
       [placeholder]="'Buscar por ' + valueSelect.name"
-      
     >
     </app-input>
   </div>

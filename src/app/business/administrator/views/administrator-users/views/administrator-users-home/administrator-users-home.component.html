@@ -1,177 +1,179 @@
 <section class="administrator-users-home">
-    <header class="py-5 bg-white position-sticky top-0 z-index-10">
-        <div class="row align-items-center">
-            <div class="col-6">
-                <h5 class="text-h5 mb-0">Administrar usuarios</h5>
-            </div>
-            <div class="col-6 d-flex-horizontal-end">
-                <app-button-icon iconName="person_add_alt"
-                                 iconStyle="round">
-                    Crear usuario
-                </app-button-icon>
-            </div>
-        </div>
-    </header>
+  <header class="py-5 bg-white position-sticky top-0 z-index-10">
+    <div class="row align-items-center">
+      <div class="col-6">
+        <h5 class="text-h5 mb-0">Administrar usuarios</h5>
+      </div>
+      <div class="col-6 d-flex-horizontal-end">
+        <app-button-icon iconName="person_add_alt" iconStyle="round">
+          Crear usuario
+        </app-button-icon>
+      </div>
+    </div>
+  </header>
 
+  <div class="row mt-2">
+    <div class="col-4">
+      <app-form-field>
+        <app-form-field-label>Nombre</app-form-field-label>
+        <app-input-search
+          (ngModelChange)="filterBySearchInput()"
+          [(ngModel)]="searchInput"
+          placeholder="Buscar por nombre"
+        ></app-input-search>
+      </app-form-field>
+    </div>
+    <div class="col-4">
+      <app-form-field>
+        <app-form-field-label>Rol</app-form-field-label>
+        <app-select-search
+          (ngModelChange)="filterBySearchInput()"
+          [(ngModel)]="searchInput"
+          placeholder="Seleccione un rol"
+          selectId="rolSelect"
+        ></app-select-search>
+      </app-form-field>
+    </div>
+    <div class="col-4">
+      <app-form-field>
+        <app-form-field-label>Estado</app-form-field-label>
+        <app-select-search
+          (ngModelChange)="filterBySearchInput()"
+          [(ngModel)]="searchInput"
+          placeholder="Seleccione un estado"
+          selectId="stateSelect"
+        ></app-select-search>
+      </app-form-field>
+    </div>
+  </div>
 
-    <div class="row mt-2">
-        <div class="col-4">
-            <app-form-field>
-                <app-form-field-label>Nombre</app-form-field-label>
-                <app-input-search (ngModelChange)="filterBySearchInput()"
-                                  [(ngModel)]="searchInput"
-                                  placeholder="Buscar por nombre"></app-input-search>
-            </app-form-field>
-        </div>
-        <div class="col-4">
-            <app-form-field>
-                <app-form-field-label>Rol</app-form-field-label>
-                <app-select-search (ngModelChange)="filterBySearchInput()"
-                                   [(ngModel)]="searchInput"
-                                   placeholder="Seleccione un rol"
-                                   selectId="rolSelect"></app-select-search>
-            </app-form-field>
-        </div>
-        <div class="col-4">
-            <app-form-field>
-                <app-form-field-label>Estado</app-form-field-label>
-                <app-select-search (ngModelChange)="filterBySearchInput()"
-                                   [(ngModel)]="searchInput"
-                                   placeholder="Seleccione un estado"
-                                   selectId="stateSelect"></app-select-search>
-            </app-form-field>
-        </div>
+  <div [hidden]="errorResponse" class="row mt-5">
+    <div class="col-12 mb-8">
+      <table [dataSource]="dataSource" large-table mat-table matSort>
+        <ng-container [matColumnDef]="columnNameList.id">
+          <th
+            *matHeaderCellDef
+            column-width="8%"
+            mat-header-cell
+            mat-sort-header
+          >
+            Documento
+          </th>
+          <td *matCellDef="let element" column-width="8%" mat-cell>
+            {{ element.id }}
+          </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="columnNameList.name">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>Nombres</th>
+          <td *matCellDef="let element" mat-cell>
+            {{ element.name }}
+          </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="columnNameList.lastname">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>Apellidos</th>
+          <td *matCellDef="let element" mat-cell>
+            {{ element.lastname }}
+          </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="columnNameList.position">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>Cargo</th>
+          <td *matCellDef="let element" mat-cell>
+            {{ element.position }}
+          </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="columnNameList.role">
+          <th
+            *matHeaderCellDef
+            column-width="153px"
+            mat-header-cell
+            mat-sort-header
+          >
+            Rol
+          </th>
+          <td
+            *matCellDef="let element"
+            cell-double-text
+            column-width="153px"
+            mat-cell
+          >
+            <ng-container *ngIf="element.permissionList?.length">
+              <p
+                *ngFor="
+                  let permission of element.permissionList;
+                  let last = last
+                "
+                class="mb-0"
+              >
+                {{ roleName[permission.role] }}
+                <span *ngIf="!last" class="mx-2">-</span>
+              </p>
+            </ng-container>
+            <ng-container *ngIf="!element.permissionList?.length">
+              <p class="text-center m-0">-</p>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="columnNameList.state">
+          <th
+            *matHeaderCellDef
+            column-width="12%"
+            header-cell-center
+            mat-header-cell
+            mat-sort-header
+          >
+            Estado
+          </th>
+          <td *matCellDef="let element" cell-center column-width="12%" mat-cell>
+            <app-tag [tagColor]="stateTag[element.state]">
+              {{ stateName[element.state]() }}
+            </app-tag>
+          </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="columnNameList.actions">
+          <th *matHeaderCellDef column-actions mat-header-cell></th>
+          <td *matCellDef="let element" column-actions mat-cell>
+            <app-tooltip class="me-4" value="Editar">
+              <app-button-action-icon
+                (clicked)="editRow(element.id)"
+                iconName="edit"
+              >
+              </app-button-action-icon>
+            </app-tooltip>
+          </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr
+          *matRowDef="let row; columns: displayedColumns"
+          mat-row
+          row-hover
+        ></tr>
+      </table>
+
+      <app-table-loader *ngIf="usersHomeLoader" [cells]="7"></app-table-loader>
+      <app-not-search-result
+        *ngIf="!usersHomeLoader && !dataSource.filteredData.length"
+        [keyword]="searchInput"
+      ></app-not-search-result>
     </div>
 
-    <div [hidden]="errorResponse"
-         class="row mt-5">
-        <div class="col-12 mb-8">
-            <table [dataSource]="dataSource"
-                   large-table
-                   mat-table
-                   matSort>
-
-                <ng-container [matColumnDef]="columnNameList.id">
-                    <th *matHeaderCellDef
-                        column-width="8%"
-                        mat-header-cell
-                        mat-sort-header>
-                        Documento
-                    </th>
-                    <td *matCellDef="let element"
-                        column-width="8%"
-                        mat-cell>
-                        {{element.id}}
-                    </td>
-                </ng-container>
-
-                <ng-container [matColumnDef]="columnNameList.name">
-                    <th *matHeaderCellDef
-                        mat-header-cell
-                        mat-sort-header>
-                        Nombres
-                    </th>
-                    <td *matCellDef="let element"
-                        mat-cell>
-                        {{element.name}}
-                    </td>
-                </ng-container>
-
-                <ng-container [matColumnDef]="columnNameList.lastname">
-                    <th *matHeaderCellDef
-                        mat-header-cell
-                        mat-sort-header>
-                        Apellidos
-                    </th>
-                    <td *matCellDef="let element"
-                        mat-cell>
-                        {{element.lastname}}
-                    </td>
-                </ng-container>
-
-                <ng-container [matColumnDef]="columnNameList.position">
-                    <th *matHeaderCellDef
-                        mat-header-cell
-                        mat-sort-header>
-                        Cargo
-                    </th>
-                    <td *matCellDef="let element"
-                        mat-cell>
-                        {{element.position}}
-                    </td>
-                </ng-container>
-
-                <ng-container [matColumnDef]="columnNameList.role">
-                    <th *matHeaderCellDef
-                        column-width="153px"
-                        mat-header-cell
-                        mat-sort-header>
-                        Rol
-                    </th>
-                    <td *matCellDef="let element"
-                        cell-double-text
-                        column-width="153px"
-                        mat-cell>
-                        <ng-container *ngIf="element.permissionList?.length">
-                            <p *ngFor="let permission of element.permissionList; let last = last" class="mb-0">
-                                {{roleName[permission.role]}}
-                                <span *ngIf="!last" class="mx-2">-</span>
-                            </p>
-                        </ng-container>
-                        <ng-container *ngIf="!element.permissionList?.length">
-                            <p class="text-center m-0">-</p>
-                        </ng-container>
-                    </td>
-                </ng-container>
-
-                <ng-container [matColumnDef]="columnNameList.state">
-                    <th *matHeaderCellDef
-                        column-width="12%"
-                        header-cell-center
-                        mat-header-cell
-                        mat-sort-header>
-                        Estado
-                    </th>
-                    <td *matCellDef="let element"
-                        cell-center
-                        column-width="12%"
-                        mat-cell>
-                        <app-tag [tagColor]="stateTag[element.state]">
-                            {{stateName[element.state]()}}
-                        </app-tag>
-                    </td>
-                </ng-container>
-
-                <ng-container [matColumnDef]="columnNameList.actions">
-                    <th *matHeaderCellDef column-actions mat-header-cell></th>
-                    <td *matCellDef="let element" column-actions
-                        mat-cell>
-                        <app-tooltip class="me-4" value="Editar">
-                            <app-button-action-icon (clicked)="editRow(element.id)"
-                                                    iconName="edit">
-                            </app-button-action-icon>
-                        </app-tooltip>
-                    </td>
-                </ng-container>
-
-                <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-                <tr *matRowDef="let row; columns: displayedColumns;" mat-row row-hover></tr>
-
-            </table>
-
-            <app-table-loader *ngIf="usersHomeLoader" [cells]="7"></app-table-loader>
-            <app-not-search-result *ngIf="!usersHomeLoader && !dataSource.filteredData.length"
-                                   [keyword]="searchInput"></app-not-search-result>
-        </div>
-
-        <div [hidden]="dataSource.paginator?.getNumberOfPages() < 2" class="col-12 d-flex-center">
-            <app-paginator [pageSize]="10"></app-paginator>
-        </div>
+    <div
+      [hidden]="dataSource.paginator?.getNumberOfPages() < 2"
+      class="col-12 d-flex-center"
+    >
+      <app-paginator [pageSize]="10"></app-paginator>
     </div>
+  </div>
 
-    <div *ngIf="errorResponse" class="pt-6">
-        <app-http-error-viewer [errorResponse]="errorResponse"></app-http-error-viewer>
-    </div>
-
-
+  <div *ngIf="errorResponse" class="pt-6">
+    <app-http-error-viewer
+      [errorResponse]="errorResponse"
+    ></app-http-error-viewer>
+  </div>
 </section>
