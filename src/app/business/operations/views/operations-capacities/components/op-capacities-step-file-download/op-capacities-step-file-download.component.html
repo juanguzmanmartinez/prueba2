@@ -45,7 +45,7 @@
             <span>RET</span>
           </app-checkbox>
         </div>
-        <div *ngIf="activeSelects" class="col-12 mt-4">
+        <div *ngIf="errorSelects" class="col-12 mt-4">
           <p class="mb-0 text-danger">
             Debes seleccionar al menos un servicio para continuar
           </p>
@@ -60,6 +60,7 @@
           <app-filter-departaments
             (filter)="getlistDepartaments($event)"
             placeholder="Selecciona un departamento"
+            (click)="changeStatus('services')"
             [isError]="errorDepartaments"
           ></app-filter-departaments>
         </div>

@@ -56,7 +56,18 @@ export class FilterDepartamentsComponent implements OnInit {
         })
       )
       .subscribe((response: any[]) => {
-        this.locals = response;
+        this.locals = response.sort((a, b) => {
+          let fa = a.name.toLowerCase(),
+            fb = b.name.toLowerCase();
+
+          if (fa < fb) {
+            return -1;
+          }
+          if (fa > fb) {
+            return 1;
+          }
+          return 0;
+        });
       });
   }
 
@@ -78,6 +89,9 @@ export class FilterDepartamentsComponent implements OnInit {
 
     this.orderBySelect = [];
     this.latestOrders = [];
+
+    let arriba = [];
+    let abajo = [];
     this.list.forEach((item) => {
       let stattus;
       this.selectedLocals.forEach((local) => {
@@ -87,15 +101,55 @@ export class FilterDepartamentsComponent implements OnInit {
       });
       if (stattus) {
         this.orderBySelect.unshift(item);
+        arriba.push(item);
       } else {
         this.orderBySelect.push(item);
+        abajo.push(item);
       }
       stattus = null;
     });
 
+    let nuevo = [
+      ...arriba.sort((a, b) => {
+        let fa = a.name.toLowerCase(),
+          fb = b.name.toLowerCase();
+
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      }),
+      ...abajo.sort((a, b) => {
+        let fa = a.name.toLowerCase(),
+          fb = b.name.toLowerCase();
+
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      }),
+    ];
+    this.orderBySelect = nuevo;
     if (locals.length > 0) this.list = this.orderBySelect;
     else {
-      this.locals = this.list.sort((a, b) => a.code - b.code);
+      this.locals = this.list.sort((a, b) => {
+        let fa = a.name.toLowerCase(),
+          fb = b.name.toLowerCase();
+
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      });
     }
 
     if (locals.length === 1) {
@@ -104,13 +158,17 @@ export class FilterDepartamentsComponent implements OnInit {
       this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
         locals[1]
       )}`;
-    } else if (locals.length > 2) {
+    } else if (locals.length === 3) {
       this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
         locals[1]
-      )}...`;
+      )}, ${this.getLocalName(locals[2])}`;
+    } else if (locals.length > 3) {
+      this.valueSelect = `${this.getLocalName(locals[0])}, ${this.getLocalName(
+        locals[1]
+      )}, ${this.getLocalName(locals[2])}...`;
     }
 
-    if (locals.length > 2) {
+    if (locals.length > 0) {
       locals.slice(0).forEach((v) => {
         this.othersSelects = `${this.othersSelects} ${this.getLocalName(v)}\n`;
       });
