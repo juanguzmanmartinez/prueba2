@@ -32,7 +32,9 @@
             appearance="primary"
             class="mb-4 mb-md-0"
             innerClass="w-100 w-md-auto"
-            (clicked)="next.emit()"
+            (editionAccess)="next.emit()"
+            [pathAccess]="pathAccess"
+            [enableAccess]="enableAccess"
             [disabled]="disableNext"
           >
             {{ textButtonNext }}
