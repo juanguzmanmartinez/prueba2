@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { DatesHelper } from '@helpers/dates.helper';
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { Subscription } from 'rxjs';
 import { CapacityRangeLimit } from '../../models/operations-capacity-converter.model';
 import {
@@ -36,6 +37,7 @@ export class BaseCapacityEditionExpress implements OnInit, OnDestroy {
   @Input() drugStoreName: string;
 
   private subscriptions = new Subscription();
+  uploadPathAccess: string;
   expressResourceSaveLoad: boolean;
   expressResourceDateRange: boolean;
   expressResourceSegments: ICapacityStepExpressResourceSegments;
@@ -50,7 +52,9 @@ export class BaseCapacityEditionExpress implements OnInit, OnDestroy {
     private _opCapacitiesStepExpressResource: OpCapacitiesStepExpressResourceService,
     public _opCapacitiesStepExpressResourceForm: OpCapacitiesStepExpressResourceFormService,
     private _dialogTwoActions: DialogTwoActionsService
-  ) {}
+  ) {
+    this.uploadPathAccess = `${ROUTER_PATH.capacitiesExpress}`;
+  }
 
   ngOnInit(): void {
     this.initialSettings();

@@ -43,6 +43,7 @@ export class OpCapacitiesStepFileConfirmationComponent
   dataWithValue: any[] = [];
   dataSource: IStoreProcessed[] = [];
   datatoShow: IStoreProcessed[] = [];
+  uploadPathAccess: string;
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router,
@@ -51,7 +52,9 @@ export class OpCapacitiesStepFileConfirmationComponent
     private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService,
     private _storageClientService: StorageClientService,
     private _opCapacitiesUploadBackDialogService: OpCapacitiesUploadBackDialogService
-  ) {}
+  ) {
+    this.uploadPathAccess = `${ROUTER_PATH.capacitiesServiceType}/upload`;
+  }
 
   ngOnInit(): void {
     TABS[0].icon = 'check';

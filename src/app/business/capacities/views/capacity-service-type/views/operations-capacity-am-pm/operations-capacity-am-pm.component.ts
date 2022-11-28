@@ -10,6 +10,7 @@ import { OpCapacitiesStepEditionModeService } from '../../components/op-capaciti
 import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
 import { OpCapacitiesStepCapacityTableService } from '../../components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
 import { OperationsCapacityAmPmStoreService } from './store/operations-capacity-am-pm-store.service';
+import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 
 @Component({
   selector: 'app-operations-capacity-am-pm',
@@ -28,6 +29,7 @@ export class CapacityAmPmComponent implements OnInit, OnDestroy {
   mode: boolean = false;
   isConfigBase: boolean;
   drugStoreName: string;
+  serviceType = EDeliveryServiceType.amPm;
 
   constructor(
     private _operationsCapacityAmPm: OperationsCapacityAmPmService,

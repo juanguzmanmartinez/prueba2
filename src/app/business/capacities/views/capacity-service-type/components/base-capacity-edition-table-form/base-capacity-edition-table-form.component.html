@@ -151,7 +151,8 @@
     <app-button
       appearance="primary"
       innerClass="btnServiceEditionStyle"
-      (clicked)="saveCapacityTable()"
+      (editionAccess)="saveCapacityTable()"
+      [pathAccess]="uploadPathAccess"
     >
       Guardar cambios
     </app-button>

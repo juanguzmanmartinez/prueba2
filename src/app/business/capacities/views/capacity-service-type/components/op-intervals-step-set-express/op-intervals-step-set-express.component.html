@@ -141,8 +141,9 @@
     <app-button
       appearance="primary"
       innerClass="btnServiceEditionStyle"
-      (clicked)="saveEdition()"
+      (editionAccess)="saveEdition()"
       [disabled]="intervalTimeForm.invalid"
+      [pathAccess]="uploadPathAccess"
     >
       Guardar cambios
     </app-button>

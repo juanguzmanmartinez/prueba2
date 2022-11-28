@@ -11,9 +11,21 @@ import {
   ECapacitiesStepEditionMode,
   OpCapacitiesStepEditionModeService,
 } from '../op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
-import { ECapacitiesStepCapacityTable, OpCapacitiesStepCapacityTableService } from '../op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
-import { FromFormToCapacityStepCapacityTableSegments, ICapacityStepCapacityTableFormValue, ICapacityStepCapacityTableSegments } from '../op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
+import {
+  ECapacitiesStepCapacityTable,
+  OpCapacitiesStepCapacityTableService,
+} from '../op-capacities-step-capacity-table/op-capacities-step-capacity-table.service';
+import {
+  FromFormToCapacityStepCapacityTableSegments,
+  ICapacityStepCapacityTableFormValue,
+  ICapacityStepCapacityTableSegments,
+} from '../op-capacities-step-capacity-table/models/op-capacities-step-capacity-table.model';
 import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-actions/dialog-two-actions.service';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import {
+  CDeliveryServiceTypeRoute,
+  EDeliveryServiceType,
+} from '@models/service-type/delivery-service-type.model';
 
 @Component({
   selector: 'app-base-capacity-edition-table-form',
@@ -21,6 +33,7 @@ import { DialogTwoActionsService } from '@molecules/dialog/views/dialog-two-acti
 })
 export class BaseCapacityEditionTableForm implements OnInit {
   @Input() drugStoreName: string;
+  @Input() serviceType: EDeliveryServiceType;
 
   private subscriptions = new Subscription();
   displayedColumns: string[] = ['value', 'hour', 'capacity'];
@@ -29,6 +42,7 @@ export class BaseCapacityEditionTableForm implements OnInit {
   capacityTableSegments: ICapacityStepCapacityTableSegments;
   capacityTableSaveLoad: boolean;
   tableListLoader: boolean;
+  uploadPathAccess: string;
 
   get totalCapacity() {
     return this._opCapacitiesStepCapacityTableForm.capacitySegmentList.controls
@@ -77,6 +91,10 @@ export class BaseCapacityEditionTableForm implements OnInit {
       ECapacityStepGroupOrDrugstore.drugstore;
     this._opCapacitiesStepEditionMode.editionModeSave =
       ECapacitiesStepEditionMode.default;
+
+    this.uploadPathAccess = `${ROUTER_PATH.capacitiesServiceType}/${
+      CDeliveryServiceTypeRoute[this.serviceType]
+    }`;
   }
 
   isAllSelected(): boolean {

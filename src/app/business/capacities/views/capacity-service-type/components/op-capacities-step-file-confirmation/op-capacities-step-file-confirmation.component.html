@@ -4,6 +4,8 @@
   icon="file"
   (next)="submit($event)"
   (cancel)="cancelStep($event)"
+  [enableAccess]="true"
+  [pathAccess]="uploadPathAccess"
   textButtonNext="Cargar capacidades"
   textButtonCancel="Regresar"
 >

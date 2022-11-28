@@ -32,7 +32,8 @@
     <app-button
       appearance="primary"
       innerClass="btnServiceEditionStyle"
-      (clicked)="saveExpressResource()"
+      (editionAccess)="saveExpressResource()"
+      [pathAccess]="uploadPathAccess"
     >
       Guardar cambios
     </app-button>

@@ -41,6 +41,7 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
   private subscriptions = new Subscription();
   private drugStore: CapacitiesDrugstore;
   public intervalControlName = EIntervalControlName;
+  uploadPathAccess: string;
 
   @Input() drugStoreCode: string;
   @Input() drugStoreName: string;
@@ -52,7 +53,9 @@ export class OpIntervalsStepSetExpressComponent implements OnInit {
     private _capacitiesService: OperationsCapacitiesImplementService,
     private _dialogTwoActions: DialogTwoActionsService,
     private _alert: AlertService
-  ) {}
+  ) {
+    this.uploadPathAccess = `${ROUTER_PATH.capacitiesExpress}`;
+  }
 
   ngOnInit(): void {
     this.getDrugStore();

@@ -10,6 +10,7 @@ import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-cap
 import { objectHasElements } from '@helpers/objects-equal.helper';
 import { OpCapacitiesStepExpressResourceService } from '../../components/op-capacities-step-express-resource/op-capacities-step-express-resource.service';
 import { ECapacityStepStatus } from '../../models/operations-capacity-step-status.model';
+import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 
 @Component({
   selector: 'app-operations-capacity-ret',
@@ -28,6 +29,7 @@ export class CapacityRetComponent implements OnInit, OnDestroy {
   mode: boolean = false;
   isConfigBase: boolean;
   drugStoreName: string;
+  serviceType = EDeliveryServiceType.ret;
 
   constructor(
     private _operationsCapacityRet: OperationsCapacityRetService,

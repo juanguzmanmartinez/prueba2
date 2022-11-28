@@ -73,6 +73,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   fontColorDownloadItem: string;
   notFound = '';
   appearTable = false;
+  
 
   displayedColumns: string[] = [
     ColumnNameList.select,
@@ -159,7 +160,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getListStore();
     this.appearTable = false;
     this.formOnChanges();
-    this.searchIfExistFilters();
   }
 
   orderPaginationOnChanges() {
@@ -665,5 +665,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.orderFilterStore.clearPagination();
   }
 }
