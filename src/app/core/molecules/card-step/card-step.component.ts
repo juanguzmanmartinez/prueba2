@@ -18,6 +18,9 @@ export class CardStepComponent implements OnInit {
   @Input() textButtonNext: string = 'Continuar';
   @Input() textButtonCancel: string = 'Cancelar';
 
+  @Input() enableAccess = false;
+  @Input() pathAccess: string;
+
   @Output() cancel = new EventEmitter<any>();
   @Output() next = new EventEmitter<any>();
 
