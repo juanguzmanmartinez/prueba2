@@ -1,3 +1,10 @@
+export interface PersonPickUpInformation {
+  fullName: string;
+  documentNumber: string;
+  email: string;
+  phoneNumber: string;
+}
+
 export interface ClientInformation {
   addressClient: string;
   clientName: string;
@@ -8,6 +15,7 @@ export interface ClientInformation {
   coordinates: string;
   reference: string;
   ruc: string;
+  personToPickup: PersonPickUpInformation;
 }
 
 export interface OrderTimeline {
@@ -51,6 +59,7 @@ export interface OrderInformation {
   localDescription: string;
   serviceType: string;
   stockType: string;
+  pickup: string;
 }
 
 export interface PaymentInformation {
