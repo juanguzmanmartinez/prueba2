@@ -33,10 +33,10 @@ export class ClientInformationModel {
 
   transformToPersonPickUp(personPickUp: PersonPickUpInformation) {
     return {
-      fullName: personPickUp.fullName || '-',
-      documentNumber: personPickUp.documentNumber || '-',
-      email: personPickUp.email || '-',
-      phoneNumber: personPickUp.phoneNumber || '-',
+      fullName: personPickUp?.fullName || '-',
+      documentNumber: personPickUp?.documentNumber || '-',
+      email: personPickUp?.email || '-',
+      phoneNumber: personPickUp?.phoneNumber || '-',
     } as PersonPickUpInformation;
   }
 }
