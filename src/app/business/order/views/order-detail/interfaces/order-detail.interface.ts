@@ -46,6 +46,7 @@ export interface OrderMainData {
   localCode: string;
   serviceType: string;
   source: string;
+  pickup?: string;
 }
 
 export interface OrderInformation {
@@ -59,7 +60,7 @@ export interface OrderInformation {
   localDescription: string;
   serviceType: string;
   stockType: string;
-  pickup?: string;
+
 }
 
 export interface PaymentInformation {
