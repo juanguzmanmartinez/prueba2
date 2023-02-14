@@ -1,18 +1,18 @@
 <div class="row justify-content-center mt-8">
   <div class="col-12" [ngClass]="innerClass">
-    <div class="p-6 card-step-container">
+    <div class="p-5 card-step-container">
       <div
         *ngIf="!hiddenHeader"
         class="card-step__header d-flex align-items-center"
       >
         <app-icon
           [svgName]="icon"
-          svgHeight="28px"
-          svgWidth="28px"
+          svgHeight="32px"
+          svgWidth="32px"
           class="icon"
         >
         </app-icon>
-        <h2 class="text-h3 text-black mb-0 ml-4">{{ titleCard }}</h2>
+        <h4 class="text-h4 text-black mb-0 ml-4 ms-3">{{ titleCard }}</h4>
       </div>
       <div class="card-step__body">
         <ng-content></ng-content>
@@ -32,7 +32,9 @@
             appearance="primary"
             class="mb-4 mb-md-0"
             innerClass="w-100 w-md-auto"
-            (clicked)="next.emit()"
+            (editionAccess)="next.emit()"
+            [pathAccess]="pathAccess"
+            [enableAccess]="enableAccess"
             [disabled]="disableNext"
           >
             {{ textButtonNext }}

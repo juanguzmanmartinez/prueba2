@@ -1,0 +1,45 @@
+<section class="operations-capacity-express pt-6 pt-md-8 pb-8 pb-md-15">
+  <div class="row mb-7">
+    <div class="col-12">
+      <app-back-router-simple class="back"></app-back-router-simple>
+    </div>
+    <div class="col-12">
+      <h4 class="text-h4 text-black mb-0">Editar capacidad Express</h4>
+    </div>
+  </div>
+
+  <!-- <div class="row mb-5 mb-md-9">
+    <div class="col">
+      <h1 class="text-h3 text-black mb-5">Editar capacidad Express</h1>
+    </div>
+  </div> -->
+
+  <div
+    *ngIf="isConfigBase"
+    class="card-capacity-base-container m-auto"
+  >
+    <app-base-capacity-edition-express
+      [drugStoreName]="drugStoreName"
+    ></app-base-capacity-edition-express>
+  </div>
+
+  <mat-accordion *ngIf="!isConfigBase">
+    <div class="row">
+      <div class="col-12 col-xlg-6 mb-4 mb-xlg-0">
+        <div class="row">
+          <div class="col-12 mb-4">
+            <app-op-capacities-step-group-or-drugstore></app-op-capacities-step-group-or-drugstore>
+          </div>
+
+          <div class="col-12">
+            <app-op-capacities-step-edition-mode></app-op-capacities-step-edition-mode>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-xlg-6">
+        <app-operations-capacities-step-express-resources></app-operations-capacities-step-express-resources>
+      </div>
+    </div>
+  </mat-accordion>
+</section>

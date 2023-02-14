@@ -18,31 +18,31 @@ import { objectHasElements } from '@helpers/objects-equal.helper';
     OperationsCapacityAmPmStoreService,
     OpCapacitiesStepGroupOrDrugstoreService,
     OpCapacitiesStepEditionModeService,
-    OpCapacitiesStepCapacityTableService
-  ]
+    OpCapacitiesStepCapacityTableService,
+  ],
 })
 export class OperationsCapacityAmPmComponent implements OnInit, OnDestroy {
-
   private subscriptions = new Subscription();
-
+  mode: boolean = false;
   constructor(
     private _operationsCapacityAmPm: OperationsCapacityAmPmService,
     private _activatedRoute: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    const subscription = this._activatedRoute.queryParams
-      .subscribe((serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+    const subscription = this._activatedRoute.queryParams.subscribe(
+      (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+        this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
         if (objectHasElements(serviceTypeQueryParams)) {
-          this._operationsCapacityAmPm.serviceQueryParams = serviceTypeQueryParams;
+          this._operationsCapacityAmPm.serviceQueryParams =
+            serviceTypeQueryParams;
         }
-      });
+      }
+    );
     this.subscriptions.add(subscription);
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
-
 }

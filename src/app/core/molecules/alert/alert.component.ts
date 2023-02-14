@@ -6,6 +6,7 @@ export enum EAlertStatus {
   warning = 'warning',
   error = 'error',
   lightSuccess = 'lightSuccess',
+  lightError = 'lightError',
 }
 
 @Component({
@@ -26,8 +27,19 @@ export class AlertComponent implements OnInit {
     if (this.data?.status === EAlertStatus.error) return 'text-dark-danger';
     if (this.data?.status === EAlertStatus.warning) return 'text-dark-warning';
     if (this.data?.status === EAlertStatus.success) return 'text-dark-success';
-    if (this.data?.status === EAlertStatus.lightSuccess) return 'text-body-1-regular text-black';
+    if (
+      this.data?.status === EAlertStatus.lightSuccess ||
+      this.data?.status === EAlertStatus.lightError
+    )
+      return 'text-body-1-regular text-black';
     return '';
+  }
+
+  get innerClassIcon(): string {
+    if (this.data?.status === EAlertStatus.error) return 'text-dark-danger';
+    if (this.data?.status === EAlertStatus.warning) return 'text-dark-warning';
+    if (this.data?.status === EAlertStatus.success) return 'text-dark-success';
+    else 'd-block';
   }
 
   constructor(
@@ -36,4 +48,11 @@ export class AlertComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  get svgLightIcon(): string {
+    if (this.data?.status === this.eAlertStatus.lightSuccess) return 'check';
+    if (this.data?.status === this.eAlertStatus.lightError)
+      return 'alert-error';
+    return '';
+  }
 }

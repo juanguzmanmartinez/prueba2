@@ -4,16 +4,25 @@ import { TRouter } from '@models/auth/router.model';
 export const OPERATIONS_ROUTER: TRouter = {
   path: 'operaciones',
   name: 'Operaciones',
-  description: 'Visualiza todos los locales y edita algunas de sus características.',
+  description:
+    'Visualiza todos los locales y edita algunas de sus características.',
   iconCard: 'configuration',
-  iconMenu: 'storefront'
+  iconMenu: 'storefront',
 };
 
+export const ZONES_ROUTER: TRouter = {
+  path: 'operaciones',
+  name: 'Zonitas PA',
+  description:
+    'Visualiza todos los locales y edita algunas de sus características.',
+  iconCard: 'configuration',
+  iconMenu: 'storefront',
+};
 export const OP_CHILDREN_PATH = {
   drugstores: 'locales',
   zones: 'zonas',
   capacities: 'capacidades',
-  settings: 'configuraciones'
+  settings: 'configuraciones',
 };
 
 export const OP_CAPACITIES_PATH = {
@@ -21,7 +30,7 @@ export const OP_CAPACITIES_PATH = {
   capacityScheduled: DELIVERY_SERVICE_TYPE_PATH.deliveryScheduled,
   capacityExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
   capacityRet: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
-  capacityReport: 'reportes'
+  capacityReport: 'reportes',
 };
 
 export const OP_DRUGSTORES_PATH = {

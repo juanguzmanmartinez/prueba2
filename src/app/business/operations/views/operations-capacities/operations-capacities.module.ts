@@ -41,11 +41,19 @@ import { TableModule } from '@molecules/table/table.module';
 import { DialogModule } from '@molecules/dialog/dialog.module';
 import { OperationsCapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
 import { PipesModule } from '@pipes/pipes.module';
-import { OperationsCapacityUploadComponent } from './views/operations-capacity-upload/operations-capacity-upload.component';
-import { SelectModule } from '@atoms/select/select.module';
-
+import { DropOptionsModule } from '@molecules/drop-options/drop-options.module';
+import { OperationsIntervalExpressComponent } from './views/operations-interval-express/operations-interval-express.component';
+import { OpIntervalsStepSetExpressComponent } from './components/op-intervals-step-set-express/op-intervals-step-set-express.component';
 import { CardStepModule } from '@molecules/card-step/card-step.module';
+import { SwitchModule } from '@atoms/switch/switch.module';
+
+import { OperationsCapacityIntervalComponent } from './views/operations-capacity-interval/operations-capacity-interval.component';
+import { SelectModule } from '@atoms/select/select.module';
+import { OperationsCapacityIntervalUploadComponent } from './views/operations-capacity-interval-upload/operations-capacity-interval-upload.component';
 import { StepTabsModule } from '@molecules/step-tabs/step-tabs.module';
+import { OpCapacitiesIntervalStepUploadComponent } from './components/op-capacities-interval-step-upload/op-capacities-interval-step-upload.component';
+import { OpCapacitiesIntervalStepConfirmationComponent } from './components/op-capacities-interval-step-confirmation/op-capacities-interval-step-confirmation.component';
+import { OperationsCapacityUploadComponent } from './views/operations-capacity-upload/operations-capacity-upload.component';
 
 import { OpCapacitiesStepFileConfirmationComponent } from './components/op-capacities-step-file-confirmation/op-capacities-step-file-confirmation.component';
 import { OpCapacitiesStepFileDownloadComponent } from './components/op-capacities-step-file-download/op-capacities-step-file-download.component';
@@ -87,6 +95,12 @@ import { OpCapacitiesStepFileEditFormService } from './components/op-capacities-
     OpCapacitiesDrugstoreDefaultCapacityComponent,
     OpCapacitiesDrugstoreDefaultCapacityCardComponent,
     OpCapacitiesDrugstoreDefaultCapacityDialogComponent,
+    OperationsIntervalExpressComponent,
+    OpIntervalsStepSetExpressComponent,
+    OperationsCapacityIntervalComponent,
+    OperationsCapacityIntervalUploadComponent,
+    OpCapacitiesIntervalStepUploadComponent,
+    OpCapacitiesIntervalStepConfirmationComponent,
     OperationsCapacityUploadComponent,
     OpCapacitiesStepFileConfirmationComponent,
     OpCapacitiesStepFileDownloadComponent,
@@ -132,6 +146,8 @@ import { OpCapacitiesStepFileEditFormService } from './components/op-capacities-
     TableModule,
     DialogModule,
     PipesModule,
+    DropOptionsModule,
+    SwitchModule,
     SelectModule,
     CardStepModule,
     StepTabsModule,

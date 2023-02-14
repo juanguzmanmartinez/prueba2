@@ -20,6 +20,7 @@ import {
 } from '@models/status-order/status-order.model';
 import { AlertService } from '@molecules/alert/alert.service';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { ORDER_ROUTER_PATH } from '@parameters/router/routing/order/order-router-path.parameter';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -66,12 +67,13 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   localList: IDrugstore[];
   totalOrder = 0;
   activeButtonFilter: boolean;
-  page = 1;
-  pageSize = 10;
+  page: number;
+  pageSize: number;
   showPaginator = true;
   fontColorDownloadItem: string;
   notFound = '';
   appearTable = false;
+  appearSection = false;
 
   displayedColumns: string[] = [
     ColumnNameList.select,
@@ -154,9 +156,26 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       (x) => (this.fixedSelectedRows = x.source.selected)
     );
     this.subscriptions.add(subscription);
+    this.orderPaginationOnChanges();
     this.getListStore();
     this.appearTable = false;
     this.formOnChanges();
+    this.setSectionAvailable();
+  }
+
+  setSectionAvailable() {
+    setTimeout(() => {
+      this.appearSection = true;
+    }, 5);
+  }
+
+  orderPaginationOnChanges() {
+    this.subscriptions.add(
+      this.orderFilterStore.getOrderPagination().subscribe((pagination) => {
+        this.page = pagination.page;
+        this.pageSize = pagination.pageSize;
+      })
+    );
   }
 
   formOnChanges() {
@@ -232,7 +251,16 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   viewOrderDetails(id: string): void {
-    this.router.navigate([ROUTER_PATH.orderDetail(id)]);
+    this.router.navigate([ORDER_ROUTER_PATH.orderDetail(id)]);
+  }
+
+  searchIfExistFilters(): void {
+    if (
+      !this.presenter.isNullFilterForm() &&
+      !this.presenter.filterForm.invalid
+    ) {
+      this.filterAll();
+    }
   }
 
   onChangePage(pe: PageEvent): void {
@@ -254,7 +282,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       )
       .subscribe({
         next: (res: OrderRecords) => {
-          this.page = res.page;
+          // this.page = res.page;
+          this.orderFilterStore.setPage(res.page);
           this.setOrderPageData(res, false);
         },
         error: (err) => (this.errorResponse = err),
@@ -265,14 +294,19 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.appearTable = true;
     const orderFilter = this.orderFilterStore.getOrderFilter();
     const orderFilters = this.presenter.getFilters();
+    this.orderFilterStore.setPageSize(this.pageSize);
     this.orderFilterStore.setDatePromise = orderFilters.promiseDate;
     this.tableLoader = true;
     this.showPaginator = false;
     this.orderRecordsImplement
-      .orderList(1, this.pageSize, orderFilters, orderFilter.orderCriteria)
+      .orderList(
+        this.page,
+        this.pageSize,
+        orderFilters,
+        orderFilter.orderCriteria
+      )
       .pipe(
         finalize(() => {
-          this.page = 1;
           this.tableLoader = false;
           this.showPaginator = true;
         })
@@ -643,5 +677,6 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.orderFilterStore.clearPagination();
   }
 }

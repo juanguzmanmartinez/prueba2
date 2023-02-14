@@ -4,6 +4,7 @@ import { DialogModule } from '@molecules/dialog/dialog.module';
 import { AmountReverseDirective } from './amount-reverse/amount-reverse.directive';
 import { CapsLockDirective } from './caps-lock/caps-lock.directive';
 import { DigitsOnlyDirective } from './digits-only/digits-only.directive';
+import { MaxDigitsDirective } from './max-digits/max-digits.directive';
 import { NoSpaceDirective } from './no-space/no-space.directive';
 import { ResizedDirective } from './resize/resize.directive';
 import { EditionAccessDirective } from './roles/edition-access.directive';
@@ -20,7 +21,8 @@ const DIRECTIVES = [
   SearchCharactersDirective,
   NoSpaceDirective,
   ResizedDirective,
-  AmountReverseDirective
+  AmountReverseDirective,
+  MaxDigitsDirective
 ];
 
 @NgModule({

@@ -1,4 +1,5 @@
 <section class="dialog-two-actions" app-dialog-container>
+  <div app-dialog-close mat-dialog-close></div>
   <div class="px-5 pt-3">
     <div class="mb-7">
       <app-dialog-header
@@ -25,7 +26,7 @@
     <div class="d-flex-horizontal-end flex-column flex-md-row">
       <app-button
         appearance="secondary"
-        innerClass="w-100 w-md-auto"
+        innerClass="w-100 w-md-auto mx-2"
         class="me-md-4 mb-4 mb-md-0"
         [mat-dialog-close]="false"
       >
@@ -33,7 +34,7 @@
       </app-button>
       <app-button
         appearance="primary"
-        innerClass="w-100 w-md-auto"
+        innerClass="w-100 w-md-auto mx-2"
         [mat-dialog-close]="true"
       >
         {{ primaryAction }}

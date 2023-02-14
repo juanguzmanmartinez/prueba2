@@ -7,8 +7,11 @@
     [value]="selectedStatus"
     [selectOptionSquare]="true"
     [optionList]="status"
+    [enableSearch]="true"
+    [enableNoSpace]="true"
     [showClearValueForButton]="true"
     (optionChange)="selectionChange($event)"
+    (filterList)="filterOptionList($event)"
     (clearValueForButton)="clearValues()"
   >
     <ng-container trigger>

@@ -16,6 +16,11 @@ import { EChannel } from '@models/channel/channel.model';
 import { ICalendarParams } from '@models/calendar/calendar-params.model';
 import { Observable } from 'rxjs';
 import { ICalendarServiceDefaultCapacities } from '@models/calendar/calendar-response.model';
+import {
+  IExpressIntervalTimeParams,
+  IExpressIntervalTimeRequest,
+  IExpressIntervalTimeResponse,
+} from '@interfaces/capacities/interval-time.interface';
 
 @Injectable()
 export class CapacityClientService {
@@ -23,6 +28,9 @@ export class CapacityClientService {
   private readonly CALENDAR_UPDATE_RANGE =
     EndpointsParameter.CALENDAR_RANGE_UPDATE;
   private readonly CALENDAR_CAPACITIES = EndpointsParameter.CALENDAR_CAPACITIES;
+  private readonly CAPACITY_INTERVAL_TIME_EXPRESS =
+    EndpointsParameter.CAPACITY_INTERVAL_TIME_EXPRESS;
+
 
   private readonly DEPARTAMENTS = EndpointsParameter.DEPARTAMENTS;
   private readonly PROVINCES = EndpointsParameter.PROVINCES;
@@ -76,6 +84,27 @@ export class CapacityClientService {
       );
   }
 
+  public getCapacityIntervalTimeExpress(
+    params: IExpressIntervalTimeParams
+  ): Observable<IExpressIntervalTimeResponse> {
+    const httpParams = new HttpParams()
+      .set('localCode', String(params.localCode))
+      .set('serviceType', String(params.serviceType));
+
+    return this.genericService
+      .genericGet<IExpressIntervalTimeResponse>(
+        this.CAPACITY_INTERVAL_TIME_EXPRESS,
+        httpParams
+      )
+      .pipe(take(1));
+  }
+
+  public saveCapacityIntervalTimeExpress(request: IExpressIntervalTimeRequest) {
+    return this.genericService
+      .genericPost(this.CAPACITY_INTERVAL_TIME_EXPRESS, request)
+      .pipe(take(1));
+  }
+  
   public getDepartamentsList$(params?: any): Observable<any[]> {
     return this.genericService.genericGet<any[]>(this.DEPARTAMENTS).pipe(
       take(1),

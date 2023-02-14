@@ -8,6 +8,10 @@ import { OperationsCapacityExpressComponent } from './views/operations-capacity-
 import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
 import { OP_CAPACITIES_PATH } from '@parameters/router/routing/operations/operations-router.parameter';
 import { OperationsCapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
+import { OperationsIntervalExpressComponent } from './views/operations-interval-express/operations-interval-express.component';
+import { INTERVAL_CHILDREN_PATH } from '@parameters/router/routing/capacity/capacities-router.parameter';
+import { OperationsCapacityIntervalComponent } from './views/operations-capacity-interval/operations-capacity-interval.component';
+import { OperationsCapacityIntervalUploadComponent } from './views/operations-capacity-interval-upload/operations-capacity-interval-upload.component';
 import { OperationsCapacityUploadComponent } from './views/operations-capacity-upload/operations-capacity-upload.component';
 
 const routes: Routes = [
@@ -43,6 +47,16 @@ const routes: Routes = [
       {
         path: OP_CAPACITIES_PATH.capacityReport.toString(),
         component: OperationsCapacityReportComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'interval-express',
+        component: OperationsIntervalExpressComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'intervaltime',
+        component: OperationsCapacityIntervalComponent,
         pathMatch: 'full',
       },
       {

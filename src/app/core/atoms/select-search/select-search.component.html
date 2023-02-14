@@ -1,56 +1,79 @@
-<label class="select-search"
-       [class.select-search-disabled]="disabled"
-       [htmlFor]="selectId">
+<label
+  class="select-search"
+  [class.select-search-disabled]="disabled"
+  [htmlFor]="selectId"
+>
+  <app-icon
+    innerClass="search-icon"
+    svgName="search"
+    svgWidth="16px"
+    *ngIf="showIconSvg"
+  ></app-icon>
 
   <ng-container *ngIf="!showSearchInput">
-    <span *ngIf="placeholder && !_optionSelected"
-          class="select-search-span text-truncate text-gray-4">
-      {{placeholder}}
+    <span
+      *ngIf="placeholder && !_optionSelected"
+      class="select-search-span text-truncate text-gray-4"
+    >
+      {{ placeholder }}
     </span>
 
-    <span class="select-search-span text-truncate"
-          *ngIf="_optionSelected">
-      <ng-container *ngIf="!optionSelectedTemplate">{{_optionSelected}}</ng-container>
-      <ng-container [ngTemplateOutlet]="optionSelectedTemplate"
-                    [ngTemplateOutletContext]="{$implicit: _optionSelected}">
+    <span class="select-search-span text-truncate" *ngIf="_optionSelected">
+      <ng-container *ngIf="!optionSelectedTemplate">{{
+        _optionSelected
+      }}</ng-container>
+      <ng-container
+        [ngTemplateOutlet]="optionSelectedTemplate"
+        [ngTemplateOutletContext]="{ $implicit: _optionSelected }"
+      >
       </ng-container>
     </span>
   </ng-container>
+  <input
+    type="search"
+    class="select-search-input"
+    #inputSelectSearch
+    [id]="selectId"
+    [name]="name"
+    [formControl]="inputSelectSearchControl"
+    (ngModelChange)="inputSelectSearchChange()"
+    [matAutocomplete]="selectSearch"
+  />
 
-  <input type="search"
-         class="select-search-input"
-         #inputSelectSearch
-         [id]="selectId"
-         [name]="name"
-         [formControl]="inputSelectSearchControl"
-         (ngModelChange)="inputSelectSearchChange()"
-         [matAutocomplete]="selectSearch">
-
-  <mat-autocomplete autoActiveFirstOption
-                    (optionSelected)="optionSelectedAutocomplete($event.option.value)"
-                    [disableRipple]="true"
-                    #selectSearch="matAutocomplete"
-                    class="select-search-component">
+  <mat-autocomplete
+    autoActiveFirstOption
+    (optionSelected)="optionSelectedAutocomplete($event.option.value)"
+    [disableRipple]="true"
+    #selectSearch="matAutocomplete"
+    class="select-search-component"
+  >
     <div class="option-container">
-      <mat-option class="select-basic-option select-basic-option-clear"
-                  *ngIf="clearValue && filteredOptions?.length">
-        {{clearValue}}
+      <mat-option
+        class="select-basic-option select-basic-option-clear"
+        *ngIf="clearValue && filteredOptions?.length"
+      >
+        {{ clearValue }}
       </mat-option>
       <mat-option
         class="select-basic-option"
         *ngFor="let option of filteredOptions"
-        [value]="option">
-        <ng-container *ngIf="!optionTemplate">{{option}}</ng-container>
-        <ng-container [ngTemplateOutlet]="optionTemplate"
-                      [ngTemplateOutletContext]="{$implicit: option}">
+        [value]="option"
+      >
+        <ng-container *ngIf="!optionTemplate">{{ option }}</ng-container>
+        <ng-container
+          [ngTemplateOutlet]="optionTemplate"
+          [ngTemplateOutletContext]="{ $implicit: option }"
+        >
         </ng-container>
       </mat-option>
     </div>
   </mat-autocomplete>
 
-
-  <app-icon class="select-search-icon"
-            fontName="keyboard_arrow_down"
-            innerClass="text-gray-5"
-            fontSize="14px"></app-icon>
+  <app-icon
+    class="select-search-icon"
+    fontName="keyboard_arrow_down"
+    innerClass="text-gray-5"
+    fontSize="14px"
+    *ngIf="showArrowSvg"
+  ></app-icon>
 </label>

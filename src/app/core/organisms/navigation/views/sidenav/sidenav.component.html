@@ -11,10 +11,18 @@
       <app-sidenav-administrator
         [sidenav]="sidenav"
       ></app-sidenav-administrator>
-      <app-sidenav-operations
+      <app-sidenav-zones
         [sidenav]="sidenav"
         (sidenavOpen)="sidenavOpened()"
-      ></app-sidenav-operations>
+      ></app-sidenav-zones>
+      <app-sidenav-capacity
+        [sidenav]="sidenav"
+        (sidenavOpen)="sidenavOpened()"
+      ></app-sidenav-capacity>
+      <!-- <app-sidenav-operations
+        [sidenav]="sidenav"
+        (sidenavOpen)="sidenavOpened()"
+      ></app-sidenav-operations> -->
       <app-sidenav-order
         [sidenav]="sidenav"
         (sidenavOpen)="sidenavOpened()"

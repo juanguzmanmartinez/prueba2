@@ -1,0 +1,41 @@
+<app-card innerClass="p-5" [formGroup]="expressResourceForm">
+  <div class="row mb-5">
+    <div class="col-12 d-flex justify-content-start align-items-center">
+      <app-icon svgName="stores" svgWidth="32px"></app-icon>
+      <h4 class="text-h4 text-black ms-3 mb-0">{{ drugStoreCardTitle }}</h4>
+    </div>
+  </div>
+  <hr class="m-0 bg-gray-3" />
+
+  <div class="row mb-4 mt-5">
+    <div class="col-12">
+      <p class="text-h4 text-black mb-0">Ingresa la cantidad de capacidad</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <p class="text-body-1-regular text-black mb-2">Nro. de motorizados</p>
+      <app-input [appMaxDigits]="5" formControlName="expressResource" placeholder="Ingrese la cantidad"></app-input>
+    </div>
+  </div>
+
+  <div class="card-actions d-flex-horizontal-end pt-7">
+    <app-button
+      appearance="secondary"
+      innerClass="btnServiceEditionStyle"
+      (clicked)="cancelExpressResource()"
+      class="me-4"
+    >
+      Cancelar edición
+    </app-button>
+    <app-button
+      appearance="primary"
+      innerClass="btnServiceEditionStyle"
+      (editionAccess)="saveExpressResource()"
+      [pathAccess]="uploadPathAccess"
+    >
+      Guardar cambios
+    </app-button>
+  </div>
+</app-card>

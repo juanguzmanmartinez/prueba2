@@ -1,0 +1,10 @@
+<button class="dropdown-button" (blur)="onBlur()">
+  <app-icon
+    fontName="more_vert"
+    innerClass="icon__action noselect {{ innerClass }}"
+    (click)="showOptions = !showOptions"
+  ></app-icon>
+</button>
+<div class="actions" *ngIf="showOptions">
+  <ng-content> </ng-content>
+</div>

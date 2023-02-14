@@ -14,6 +14,7 @@ export class ChannelFilterComponent implements OnInit {
   list = [
     { code: 'CALL', name: 'Call Center' },
     { code: 'DIGITAL', name: 'Digital' },
+    // { code: 'AG', name: 'Convenio' },
   ];
   channels = this.list.map((value) => value.code);
   selectedChannels: string[];

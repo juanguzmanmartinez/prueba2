@@ -18,30 +18,33 @@ import { OperationsCapacityExpressService } from './operations-capacity-express.
     OperationsCapacityExpressStoreService,
     OpCapacitiesStepGroupOrDrugstoreService,
     OpCapacitiesStepEditionModeService,
-    OpCapacitiesStepExpressResourceService
-  ]
+    OpCapacitiesStepExpressResourceService,
+  ],
 })
 export class OperationsCapacityExpressComponent implements OnInit, OnDestroy {
-
   private subscriptions = new Subscription();
+  mode: boolean = false;
 
   constructor(
     private _operationsCapacityExpress: OperationsCapacityExpressService,
     private _activatedRoute: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    const subscription = this._activatedRoute.queryParams
-      .subscribe((serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+    const subscription = this._activatedRoute.queryParams.subscribe(
+      (serviceTypeQueryParams: IOpCapacitiesServiceTypeQueryParams) => {
+        this.mode = serviceTypeQueryParams.mode == undefined ? false : true;
+
         if (objectHasElements(serviceTypeQueryParams)) {
-          this._operationsCapacityExpress.serviceQueryParams = serviceTypeQueryParams;
+          this._operationsCapacityExpress.serviceQueryParams =
+            serviceTypeQueryParams;
         }
-      });
+      }
+    );
     this.subscriptions.add(subscription);
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
 }

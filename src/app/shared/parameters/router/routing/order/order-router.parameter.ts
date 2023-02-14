@@ -5,11 +5,11 @@ export const ORDER_ROUTER: TRouter = {
   name: 'Pedidos',
   iconCard: 'dump',
   iconMenu: 'local_mall',
-  description: 'Consulta de pedidos'
+  description: 'Consulta de pedidos',
 };
 
 export const OR_CHILDREN_PATH = {
   records: 'registros',
   detail: 'detalle',
-  orderCode: 'orderCode'
+  orderCode: 'orderCode',
 };

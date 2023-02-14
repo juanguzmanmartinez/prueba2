@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { SearchOptionsI } from '@atoms/select/select.component';
 import { OrderFilterStore } from '@stores/order-filter-store.service';
 import { map, tap } from 'rxjs/operators';
 import { OrderRecordsImplementService } from '../../implements/order-records-implement.service';
@@ -17,7 +18,7 @@ export class StatusFilterComponent implements OnInit {
   @Output() filter = new EventEmitter<StatusFilterEvent>();
 
   list: OrderStatus[];
-  status: string[];
+  status: SearchOptionsI[];
   valueSelect: string;
   selectedStatus: string[];
   othersSelects = '';
@@ -35,18 +36,22 @@ export class StatusFilterComponent implements OnInit {
     this.orderRecordImplement.statusList
       .pipe(
         tap((res: OrderStatus[]) => {
-          this.list = [...new Set(res)];
+          this.list = res;
         }),
         map((res: OrderStatus[]) => {
           const newStatus = res.sort(this.sortStatus);
-          const codes = newStatus.map((val) => {
-            return val.id;
-          });
-          return [...new Set(codes)];
+          console.log(res);
+          return newStatus.map((val) => {
+            return {
+              code: val.id,
+              desc: val.name,
+              hidden: false,
+            };
+          });         
         })
       )
-      .subscribe((response: string[]) => {
-        this.status = response.filter((item) => item !== '70');
+      .subscribe((response: SearchOptionsI[]) => {
+        this.status = response.filter((item) => item.code !== '70');
         this.selectionChange(statusOrder ?? [], true);
       });
   }
@@ -60,6 +65,23 @@ export class StatusFilterComponent implements OnInit {
       return this.getStatusName(value);
     });
     return statusWithName.toString();
+  }
+
+  filterOptionList(value: string): void {
+    this.status = this.list.map((v) => {
+      let isHide = true;
+      if (
+        v.name.toLowerCase().includes(value.toLowerCase()) ||
+        v.id.toLowerCase().includes(value.toLowerCase())
+      ) {
+        isHide = false;
+      }
+      return {
+        code: v.id,
+        hidden: isHide,
+        desc: v.name,
+      };
+    });
   }
 
   selectionChange(status: string[], isOnInit = false): void {

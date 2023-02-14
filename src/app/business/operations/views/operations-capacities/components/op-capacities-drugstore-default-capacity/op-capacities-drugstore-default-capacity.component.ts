@@ -22,6 +22,7 @@ import { ECapacityStepGroupOrDrugstore } from '../op-capacities-step-group-or-dr
 import { ECapacitiesStepEditionMode } from '../op-capacities-step-edition-mode/op-capacities-step-edition-mode.service';
 import { IOpCapacitiesServiceTypeQueryParams } from '../../models/operations-capacities-service-type-query-params.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
+import { DrugStoreServiceStore } from '../../store/drug-store.service';
 
 @Component({
   selector: 'app-op-capacities-drugstore-default-capacity',
@@ -49,7 +50,8 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
     @SkipSelf()
     private _opCapacitiesDrugstoreDefaultCapacity: OpCapacitiesDrugstoreDefaultCapacityService,
     private _opCapacitiesDrugstoreDefaultCapacityDialog: OpCapacitiesDrugstoreDefaultCapacityDialogService,
-    private _router: Router
+    private _router: Router,
+    private _drugStoreServiceStore: DrugStoreServiceStore
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +74,7 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
   changeCapacitiesDrugstoreSelection(
     capacitiesDrugstore: CapacitiesDrugstore
   ): void {
+    this._drugStoreServiceStore.setStatusTab(capacitiesDrugstore);
     this.capacitiesDrugstoreSelection = capacitiesDrugstore;
     this._opCapacitiesDrugstoreDefaultCapacity.drugstoreSelection =
       capacitiesDrugstore;
@@ -159,12 +162,15 @@ export class OpCapacitiesDrugstoreDefaultCapacityComponent
       groupOrDrugstore: ECapacityStepGroupOrDrugstore.drugstore,
       drugstoreCode: this.capacitiesDrugstoreSelection.drugstoreCode,
       editionMode: ECapacitiesStepEditionMode.default,
+      mode: 'simple',
     } as IOpCapacitiesServiceTypeQueryParams;
     this._router.navigate([drugstoreServiceTypePath], {
       queryParams: drugstoreServiceTypeParams,
     });
   }
-
+  drugstoreDefaultSetIntervalTime(e): void {
+  this._router.navigate(['operaciones/capacidades/interval-express'])
+  }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

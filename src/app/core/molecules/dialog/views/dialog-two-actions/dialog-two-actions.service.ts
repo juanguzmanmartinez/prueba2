@@ -60,6 +60,17 @@ export class DialogTwoActionsService {
             {disableClose: true});
     }
 
+    openConfirmIntervalChanges(description: string) {
+        return this.open({
+            title: '¿Deseas continuar?',
+            description: description,
+            primaryAction: 'Guardar',
+            secondaryAction: 'Cancelar',
+            svgName: 'alert-message',
+            fontClass: 'text-primary'
+        });
+    }
+
 
     openInfo(
         data: {

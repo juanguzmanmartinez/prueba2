@@ -1,0 +1,102 @@
+<app-step
+  stepId="3"
+  stepTitle="recursos"
+  [class.card-step-content-disabled]="expressResourceSaveLoad"
+  [stepExpandedToggle]="expressResourceStepStatus === eCapacityStepStatus.open"
+  [stepDisabled]="
+    expressResourceStepStatus === eCapacityStepStatus.disabled ||
+    expressResourceSaveLoad
+  "
+  [saveButtonDisabled]="
+    !_opCapacitiesStepExpressResourceForm.expressResourceForm$.valid ||
+    expressResourceSaveLoad
+  "
+  [enableAccess]="true"
+  [pathAccess]="expressPathAccess"
+  (stepOpenEvent)="openExpressResourceStep()"
+  (stepCloseEvent)="closeExpressResourceStep()"
+  (saveButtonEvent)="saveExpressResource()"
+  (cancelButtonEvent)="cancelExpressResource()"
+>
+  <div class="card-step-content">
+    <form
+      [formGroup]="_opCapacitiesStepExpressResourceForm.expressResourceForm$"
+    >
+      <div class="row">
+        <div *ngIf="expressResourceDateRange" class="col-12 mb-5">
+          <label class="text-body-2-regular text-gray-5 mb-2"
+            >Selecciona días</label
+          >
+          <app-input-datepicker-range
+            [maxDate]="expressResourceMaxDateRange"
+            [minDate]="expressResourceMinDateRange"
+            formControlName="capacityRange"
+          >
+          </app-input-datepicker-range>
+        </div>
+
+        <div class="col-12 mb-5">
+          <label class="text-body-2-regular text-gray-5 mb-2 d-block"
+            >Nro. de motorizados</label
+          >
+          <app-input-number
+            formControlName="expressResource"
+            placeholder="10"
+          ></app-input-number>
+        </div>
+      </div>
+    </form>
+  </div>
+</app-step>
+
+<!-- <app-card-step
+  *ngIf="mode"
+  stepId="3"
+  stepTitle="recursos"
+  [class.card-step-content-disabled]="expressResourceSaveLoad"
+  [stepExpandedToggle]="true"
+  [stepDisabled]="
+    expressResourceStepStatus === eCapacityStepStatus.disabled ||
+    expressResourceSaveLoad
+  "
+  [saveButtonDisabled]="
+    !_opCapacitiesStepExpressResourceForm.expressResourceForm$.valid ||
+    expressResourceSaveLoad
+  "
+  [enableAccess]="true"
+  [pathAccess]="expressPathAccess"
+  (stepOpenEvent)="openExpressResourceStep()"
+  (stepCloseEvent)="closeExpressResourceStep()"
+  (saveButtonEvent)="saveExpressResource()"
+  (cancelButtonEvent)="cancelExpressResource()"
+>
+  <div class="card-step-content">
+    <form
+      [formGroup]="_opCapacitiesStepExpressResourceForm.expressResourceForm$"
+    >
+      <div class="row">
+        <div *ngIf="expressResourceDateRange" class="col-12 mb-5">
+          <label class="text-body-2-regular text-gray-5 mb-2"
+            >Selecciona días</label
+          >
+          <app-input-datepicker-range
+            [maxDate]="expressResourceMaxDateRange"
+            [minDate]="expressResourceMinDateRange"
+            formControlName="capacityRange"
+          >
+          </app-input-datepicker-range>
+        </div>
+
+        <div class="col-12 mb-5">
+          <label class="text-body-2-regular text-gray-5 mb-2 d-block"
+            >Nro. de motorizados</label
+          >
+          <app-input-number
+            formControlName="expressResource"
+            placeholder="10"
+          ></app-input-number>
+        </div>
+      </div>
+    </form>
+  </div>
+</app-card-step> -->

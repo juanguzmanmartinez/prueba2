@@ -1,29 +1,67 @@
-<div [class.capacity-card-disabled]="disabled" class="drugstore-default-capacity-card">
+<div
+  [class.capacity-card-disabled]="disabled"
+  class="drugstore-default-capacity-card"
+>
+  <app-drop-options
+    #dropDown
+    information-dropdown-options
+    [showOptions]="showOptions"
+  >
+    <ul class="m-0 p-0" (click)="dropDown.showOptions = false">
+      <li>
+        <a
+          (click)="editEvent()"
+          class="text-body-2-regular capacity-card-text mb-0"
+        >
+          Editar capacidad base
+        </a>
+      </li>
+      <li *ngIf="hasDetail">
+        <a
+          (click)="viewMoreEvent()"
+          class="text-body-2-regular capacity-card-text mb-0"
+        >
+          Ver detalle
+        </a>
+      </li>
+      <li *ngIf="isExpress">
+        <a
+          (click)="setInterval()"
+          class="text-body-2-regular capacity-card-text mb-0"
+        >
+          Editar interval time flexible
+        </a>
+      </li>
+    </ul>
+  </app-drop-options>
   <div class="row">
     <div class="col-12 mb-5">
-      <h5 class="text-h4 capacity-card-name mb-0">{{serviceName}}</h5>
+      <h5 class="text-h4 capacity-card-name mb-0">{{ serviceName }}</h5>
     </div>
 
     <div class="col-12 mb-4">
       <ng-container *ngIf="!disabled">
-        <h4 class="text-h2 capacity-card-quantity mb-0">{{capacityQuantity}}</h4>
+        <h4 class="text-h2 capacity-card-quantity mb-0">
+          {{ capacityQuantity }}
+        </h4>
       </ng-container>
       <ng-container *ngIf="disabled">
         <h4 class="text-h2 capacity-card-quantity mb-0">--</h4>
       </ng-container>
     </div>
 
-    <div class="col-12 mb-6">
+    <div class="col-12 mb-3">
       <p class="text-body-2-regular capacity-card-text mb-0">pedidos por día</p>
     </div>
 
-    <div class="col-12">
+    <!-- <div class="col-12">
       <ng-container *ngIf="hasDetail">
         <app-tooltip class="d-inline-block me-4" value="Más detalles">
           <app-button-action-icon
             (clicked)="viewMoreEvent()"
             [disabled]="disabled"
-            iconName="launch">
+            iconName="launch"
+          >
           </app-button-action-icon>
         </app-tooltip>
       </ng-container>
@@ -32,9 +70,10 @@
         <app-button-action-icon
           (clicked)="editEvent()"
           [disabled]="disabled"
-          iconName="edit">
+          iconName="edit"
+        >
         </app-button-action-icon>
       </app-tooltip>
-    </div>
+    </div> -->
   </div>
 </div>

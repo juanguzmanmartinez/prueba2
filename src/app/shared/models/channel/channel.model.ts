@@ -4,13 +4,15 @@ export enum EChannel {
   default = 'DEFAULT',
   digital = 'DIGITAL',
   call = 'CALL',
-  omnichannel = 'OMNI'
+  omnichannel = 'OMNI',
+  convenio = 'AG'
 }
 
 export const CChannelName = {
   [EChannel.digital]: 'Digital',
   [EChannel.call]: 'Call Center',
-  [EChannel.omnichannel]: 'Omnicanalidad'
+  [EChannel.omnichannel]: 'Omnicanalidad',
+  [EChannel.convenio]: 'Convenio'
 };
 
 export const CChannelColor = {

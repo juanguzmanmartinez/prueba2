@@ -6,6 +6,7 @@ import {
   IStoreUpload,
 } from '@interfaces/capacities/upload-capacities.interface';
 import { AlertService } from '@molecules/alert/alert.service';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { Subscription } from 'rxjs';
 import { TABS } from '../../constants/step-tabs.constants';
 import { OperationsCapacitiesImplementService } from '../../implements/operations-capacities-implement.service';
@@ -42,6 +43,7 @@ export class OpCapacitiesStepFileConfirmationComponent
   dataWithValue: any[] = [];
   dataSource: IStoreProcessed[] = [];
   datatoShow: IStoreProcessed[] = [];
+  uploadPathAccess: string;
   constructor(
     private _uploadCapacitiesStoreService: UploadCapacitiesStoreService,
     private _router: Router,
@@ -50,7 +52,9 @@ export class OpCapacitiesStepFileConfirmationComponent
     private _operationsCapacitiesImplementService: OperationsCapacitiesImplementService,
     private _storageClientService: StorageClientService,
     private _opCapacitiesUploadBackDialogService: OpCapacitiesUploadBackDialogService
-  ) {}
+  ) {
+    this.uploadPathAccess = `${ROUTER_PATH.operationCapacities}/upload`;
+  }
 
   ngOnInit(): void {
     TABS[0].icon = 'check';

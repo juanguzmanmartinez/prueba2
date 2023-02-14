@@ -6,6 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./card-step.component.scss'],
 })
 export class CardStepComponent implements OnInit {
+  @Input() title: string = '';
   @Input() titleCard: string = '';
   @Input() icon: string = 'stores';
   @Input() hiddenHeader: boolean = false;
@@ -16,6 +17,9 @@ export class CardStepComponent implements OnInit {
 
   @Input() textButtonNext: string = 'Continuar';
   @Input() textButtonCancel: string = 'Cancelar';
+
+  @Input() enableAccess = false;
+  @Input() pathAccess: string;
 
   @Output() cancel = new EventEmitter<any>();
   @Output() next = new EventEmitter<any>();
