@@ -5,6 +5,7 @@ import { OR_CHILDREN_PATH } from '@parameters/router/routing/order/order-router.
 import { OrderDetailImplementService } from './implements/order-detail-implement.service';
 import { OrderDetailModel } from './models/order-detail.model';
 import { finalize } from 'rxjs/operators';
+import { OrderCancelDialogService } from '../order-cancel-dialog/order-cancel-dialog.service';
 
 @Component({
   selector: 'app-order-detail',
@@ -21,7 +22,8 @@ export class OrderDetailComponent implements OnInit {
 
   constructor(
     private implementsService: OrderDetailImplementService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private orderCancelDialog: OrderCancelDialogService
   ) {
     this.orderId =
       this.activatedRoute.snapshot.params[OR_CHILDREN_PATH.orderCode];
@@ -56,6 +58,6 @@ export class OrderDetailComponent implements OnInit {
     return response;
   }
   cancelOrderModal(){
-
+    this.orderCancelDialog.open(this.orderId.toString());
   }
 }

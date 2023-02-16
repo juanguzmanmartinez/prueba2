@@ -38,7 +38,13 @@
     Cancelar
   </app-button>
   <app-button appearance="primary" (click)="onSubmit()"
-    [disabled]="form.invalid">
-    Cancelar pedido
+    [inlineStyle]="{
+    'height': '40px',
+    'width': '150px',
+    'justify-content': 'center'
+    }"
+    [disabled]="form.invalid && !loading">
+    <span>{{ !loading ? 'Cancelar pedido' : '' }}</span>
+    <app-icon *ngIf="loading" class="refresh-icon" svgName="loader" svgWidth="16px" svgHeight="16px"></app-icon>
   </app-button>
 </div>

@@ -10,10 +10,11 @@ import { IconsModule } from '@atoms/icons/icons.module';
 import { SelectModule } from '@atoms/select/select.module';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [OrderComponent, OrderCancelDialogComponent],
-  imports: [OrderRoutingModule,DialogModule,IconsModule,SelectModule,ButtonsModule,ReactiveFormsModule,FormsModule],
+  imports: [CommonModule,OrderRoutingModule,DialogModule,IconsModule,SelectModule,ButtonsModule,ReactiveFormsModule,FormsModule],
   providers: [OrderFilterStore, OrderFormPresenter,OrderCancelDialogService],
 })
 export class OrderModule {}
