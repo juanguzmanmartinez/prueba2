@@ -36,19 +36,28 @@
           </app-tag>
         </div>
       </div>
-
+      <div class="d-inline-flex justify-content-between">
+        <app-button style="margin-right: 10px;" (click)="cancelOrderModal()"
+        appearance="primary">
+        {{ 'Cancelar pedido' }}
+      </app-button>
       <app-button-icon
         [iconName]="!orderLoading ? 'refresh' : ''" (click)="refreshData()"
+        fontColor="#16A2FF"
+        appearance="secondary"
         [inlineStyle]="{
          'height': '40px',
          'width': '129px',
          'justify-content': 'center',
-         'background-color': orderLoading ? '#305787FF' : '',
-         'border-color': orderLoading ? '#305787FF': ''
+         'border-color': orderLoading ? '': '#7145D6',
+         'border-width': '2px',
+         'border-style': 'solid'
         }">
-        {{ !orderLoading ? 'Actualizar' : '' }}
+        <span style="color:#7145D6">{{ !orderLoading ? 'Actualizar' : '' }}</span>
         <app-icon *ngIf="orderLoading" class="refresh-icon" svgName="loader" svgWidth="16px" svgHeight="16px"></app-icon>
       </app-button-icon>
+      </div>
+
     </div>
   </div>
 

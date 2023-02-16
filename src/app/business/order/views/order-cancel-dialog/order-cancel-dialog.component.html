@@ -1,0 +1,36 @@
+<div class="mb-4">
+  <app-dialog-header svgName="bag-2">
+    <ng-container dialog-header-title>
+      <div class="d-flex align-items-center">
+        <h4 class="text-h5 mb-0 ms-2">
+         Cancelar pedido N° {{ orderId }}
+        </h4>
+      </div>
+    </ng-container>
+  </app-dialog-header>
+</div>
+<div class="dialog-content">
+  <h3>Ingresa los datos solicitados</h3>
+  <div class="mb-4">
+    <p class="text-label ">Motivo de cancelación</p>
+    <app-select
+    class="select-size"
+    [optionList]="optionList"
+    placeholder="Selecciona un motivo"
+  ></app-select>
+ </div>
+ <div>
+  <p class="text-label ">Nota (Opcional)</p>
+  <textarea placeholder="Escribe un comentario" maxlength="300" class="text-area" rows="5"></textarea>
+  <span class="hint"></span>
+</div>
+</div>
+<div class="dialog-footer">
+  <app-button (click)="onClose()" appearance="secondary" style="margin-right: 10px;"
+  [inlineStyle]="{'color': '#7145D6'}">
+    Cancelar
+  </app-button>
+  <app-button appearance="primary">
+    Cancelar pedido
+  </app-button>
+</div>

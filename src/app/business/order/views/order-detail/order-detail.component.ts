@@ -10,6 +10,7 @@ import { finalize } from 'rxjs/operators';
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.scss'],
+
 })
 export class OrderDetailComponent implements OnInit {
   orderId: number;
@@ -53,5 +54,8 @@ export class OrderDetailComponent implements OnInit {
     response.timeline = timeLine;
 
     return response;
+  }
+  cancelOrderModal(){
+
   }
 }

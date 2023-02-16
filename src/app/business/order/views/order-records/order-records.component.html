@@ -270,6 +270,18 @@
             <td mat-cell column-actions *matCellDef="let element">
               <div class="d-inline-flex">
                 <app-tooltip
+                *ngIf="element.state !== statusError"
+                value="Cancelar pedido"
+                position="left"
+              >
+                <app-button-action-icon style="margin-right: 16px;"
+                  iconName="close"
+                  iconStyle="edge-table"
+                  (clicked)="cancelOrderModal(element.ecommerceId)"
+                >
+                </app-button-action-icon>
+              </app-tooltip>
+                <app-tooltip
                   *ngIf="element.state !== statusError"
                   value="Ver Detalle"
                   position="left"

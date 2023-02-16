@@ -118,4 +118,5 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: '404', path: `${pathIllustrations}404.svg` },
   { name: 'responsive', path: `${pathIllustrations}responsive.svg` },
   { name: 'responsive', path: `${pathIllustrations}responsive.svg` },
+  { name: 'bag-2', path: `${pathIcons}bag-2.svg` },
 ];
