@@ -17,6 +17,7 @@ import { OrderDetailModel } from '../../../business/order/views/order-detail/mod
 import { OrderDetailResponse } from '../../../business/order/views/order-detail/interfaces/order-detail.interface';
 import { OrderReasonCancelResponse } from 'app/business/order/views/order-cancel-dialog/interfaces/order-reason-cancel-response';
 import { OrderReasonCancelModel } from 'app/business/order/views/order-cancel-dialog/models/OrderReasonCancelModel';
+import { OrderCancelRequest } from './../../../business/order/views/order-cancel-dialog/interfaces/order-cancel-request';
 
 @Injectable()
 export class OrderClientService {
@@ -25,6 +26,7 @@ export class OrderClientService {
   private readonly ORDER_STATUS = EndpointsParameter.ORDER_STATUS;
   private readonly ORDER_REPORT = EndpointsParameter.ORDER_REPORT;
   private readonly ORDER_REASON_CANCELATION = EndpointsParameter.ORDER_REASON_CANCELATION;
+  private readonly ORDER_CANCELATION = EndpointsParameter.ORDER_CANCELATION;
 
   constructor(private generic: GenericService) {}
 
@@ -103,4 +105,9 @@ export class OrderClientService {
       )})
     );
   }
+  cancelOrder(body:OrderCancelRequest): Observable<any> {
+    const endpoint = `${this.ORDER_CANCELATION}/${body.orderId}/status`;
+    return this.generic.genericPut<OrderRecordsResponse>(endpoint, body);
+  }
+
 }

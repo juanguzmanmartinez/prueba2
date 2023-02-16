@@ -10,28 +10,35 @@
   </app-dialog-header>
 </div>
 <div class="dialog-content">
-  <h3>Ingresa los datos solicitados</h3>
-  <div class="mb-4">
-    <p class="text-label ">Motivo de cancelación</p>
-    <app-select
-    class="select-size"
-    [optionList]="optionList"
-    normalSelect = "true"
-    placeholder="Selecciona un motivo"
-  ></app-select>
- </div>
- <div>
-  <p class="text-label ">Nota (Opcional)</p>
-  <textarea placeholder="Escribe un comentario" maxlength="300" class="text-area" rows="5"></textarea>
-  <span class="hint"></span>
-</div>
+  <form [formGroup]="form">
+    <h3>Ingresa los datos solicitados</h3>
+    <div class="mb-4">
+      <p class="text-label ">Motivo de cancelación</p>
+      <app-select
+      formControlName="reason"
+      class="select-size"
+      [optionList]="optionList"
+      normalSelect = "true"
+      placeholder="Selecciona un motivo"
+    ></app-select>
+   </div>
+   <div>
+    <p class="text-label ">Nota (Opcional)</p>
+    <textarea
+      formControlName="note"
+    placeholder="Escribe un comentario" maxlength="300" class="text-area" rows="5"></textarea>
+    <span class="hint"></span>
+  </div>
+  </form>
+
 </div>
 <div class="dialog-footer">
   <app-button (click)="onClose()" appearance="secondary" style="margin-right: 10px;"
   [inlineStyle]="{'color': '#7145D6'}">
     Cancelar
   </app-button>
-  <app-button appearance="primary">
+  <app-button appearance="primary" (click)="onSubmit()"
+    [disabled]="form.invalid">
     Cancelar pedido
   </app-button>
 </div>
