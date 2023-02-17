@@ -73,7 +73,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   fontColorDownloadItem: string;
   notFound = '';
   appearTable = false;
-  
+  appearSection = false;
 
   displayedColumns: string[] = [
     ColumnNameList.select,
@@ -160,6 +160,13 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getListStore();
     this.appearTable = false;
     this.formOnChanges();
+    this.setSectionAvailable();
+  }
+
+  setSectionAvailable() {
+    setTimeout(() => {
+      this.appearSection = true;
+    }, 5);
   }
 
   orderPaginationOnChanges() {
@@ -292,7 +299,12 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tableLoader = true;
     this.showPaginator = false;
     this.orderRecordsImplement
-      .orderList(this.page, this.pageSize, orderFilters, orderFilter.orderCriteria)
+      .orderList(
+        this.page,
+        this.pageSize,
+        orderFilters,
+        orderFilter.orderCriteria
+      )
       .pipe(
         finalize(() => {
           this.tableLoader = false;
