@@ -6,6 +6,7 @@ import { OrderDetailImplementService } from './implements/order-detail-implement
 import { OrderDetailModel } from './models/order-detail.model';
 import { finalize } from 'rxjs/operators';
 import { OrderCancelDialogService } from '../order-cancel-dialog/order-cancel-dialog.service';
+import { OrderHelper } from '@helpers/disable-cancel-order.helper';
 
 @Component({
   selector: 'app-order-detail',
@@ -19,7 +20,7 @@ export class OrderDetailComponent implements OnInit {
   orderLoading = false;
   errorResponse: HttpErrorResponse;
   timelineData: any;
-
+  orderHelper = OrderHelper;
   constructor(
     private implementsService: OrderDetailImplementService,
     private activatedRoute: ActivatedRoute,

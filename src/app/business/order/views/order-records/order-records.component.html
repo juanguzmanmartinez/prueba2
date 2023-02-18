@@ -275,6 +275,7 @@
                 position="left"
               >
                 <app-button-action-icon style="margin-right: 16px;"
+                  [disabled]="orderHelper.disableCancel(element.orderStatus)"
                   iconName="close"
                   iconStyle="edge-table"
                   (clicked)="cancelOrderModal(element.ecommerceId)"

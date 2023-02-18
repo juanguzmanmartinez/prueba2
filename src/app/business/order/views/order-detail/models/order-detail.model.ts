@@ -1,3 +1,5 @@
+import { R } from '@angular/cdk/keycodes';
+import { LStatusNotAllowed } from '@helpers/disable-cancel-order.helper';
 import { ETypeTagBrand } from '@models/tag/tag.model';
 import { reorderTimeline } from '../../../../../shared/utils/timeline.util';
 import { OrderDetailResponse } from '../interfaces/order-detail.interface';
@@ -23,7 +25,7 @@ export class OrderDetailModel {
   paymentInformation: PaymentInformationModel;
   carrierInformation: CarrierInformationModel;
   productInformation: ProductInformationModel;
-
+  disabled:boolean;
   constructor(data: OrderDetailResponse) {
     this.orderNumber = data.orderInfoConsolidated?.orderInfo?.ecommerceId ?
       data.orderInfoConsolidated.orderInfo.ecommerceId.toString() : '-';
@@ -66,6 +68,7 @@ export class OrderDetailModel {
       new CarrierInformationModel(data.orderInfoMotorized) : null;
     this.productInformation = data.orderInfoConsolidated?.productDetail ?
       new ProductInformationModel(data.orderInfoConsolidated.productDetail) : null;
+    this.disabled = this.searchStatusNotAllowed(this.timeline);
   }
 
   private formatPromiseDate = (scheduledTime: string): string => {
@@ -76,6 +79,12 @@ export class OrderDetailModel {
       .replace('AM', 'a.m.')
       .replace('PM', 'p.m.');
     return `${day}/${month} a las ${hours}`;
+  }
+
+  private searchStatusNotAllowed(data:TimelineModel[]){
+    let dataNotAllowed = data.filter(t=>LStatusNotAllowed.includes(t.codeStatus));
+    if(dataNotAllowed.find(r=>r.selected)) return true
+    return false;
   }
 
 }

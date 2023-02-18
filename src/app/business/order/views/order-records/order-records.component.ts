@@ -12,6 +12,7 @@ import { Validators } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { OrderHelper } from '@helpers/disable-cancel-order.helper';
 import { normalizeValue } from '@helpers/string.helper';
 import { IDrugstore } from '@interfaces/drugstores/drugstores.interface';
 import {
@@ -133,7 +134,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       reload: false,
     },
   };
-
+  orderHelper = OrderHelper;
   readonly statusError = CStatusOrderName[EStatusOrder.error];
 
   private subscriptions = new Subscription();

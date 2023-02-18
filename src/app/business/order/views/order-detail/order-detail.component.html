@@ -37,7 +37,9 @@
         </div>
       </div>
       <div class="d-inline-flex justify-content-between">
-        <app-button style="margin-right: 10px;" (click)="cancelOrderModal()"
+        <app-button style="margin-right: 10px;"
+        [disabled] ="orderDetail.disabled"
+        (click)="cancelOrderModal()"
         appearance="primary">
         {{ 'Cancelar pedido' }}
       </app-button>

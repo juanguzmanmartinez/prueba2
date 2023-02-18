@@ -18,7 +18,8 @@ export class TimelineModel {
   name: string;
   isCall: boolean;
   showInfo: boolean;
-
+  selected:boolean;
+  codeStatus:string;
   constructor(data: OrderTimeline, channel: string, serviceType: string) {
     this.flow = data?.code && data.selected ? this.getFlow(data?.code, data.selected) : 'pending';
     this.status = data?.code ? this.getStatus(data?.code) : '-';
@@ -28,6 +29,8 @@ export class TimelineModel {
     this.infoDetail = '';
     this.date = data?.time ? this.formatDate(data?.time) : '-';
     this.name = '';
+    this.selected = data?.selected;
+    this.codeStatus = data?.code;
   }
 
   private getFlow = (code: string, selected: boolean): 'done' | 'pending' | 'cancel' => {
