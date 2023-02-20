@@ -12,6 +12,7 @@ import { Validators } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { OrderHelper } from '@helpers/disable-cancel-order.helper';
 import { normalizeValue } from '@helpers/string.helper';
 import { IDrugstore } from '@interfaces/drugstores/drugstores.interface';
 import {
@@ -26,6 +27,7 @@ import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ExportTableSelection } from '../../../../shared/utils/export-table-selection.util';
+import { OrderCancelDialogService } from '../order-cancel-dialog/order-cancel-dialog.service';
 import { OrderRecordsImplementService } from './implements/order-records-implement.service';
 import {
   ChannelFilterEvent,
@@ -134,7 +136,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       reload: false,
     },
   };
-
+  orderHelper = OrderHelper;
   readonly statusError = CStatusOrderName[EStatusOrder.error];
 
   private subscriptions = new Subscription();
@@ -145,7 +147,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     private alertService: AlertService,
     private orderFilterStore: OrderFilterStore,
     private currencyPipe: CurrencyPipe,
-    public presenter: OrderFormPresenter
+    public presenter: OrderFormPresenter,
+    private orderCancelDialog: OrderCancelDialogService
   ) {
     this.activeButtonFilter = false;
     this.fontColorDownloadItem = '#2697FF';
@@ -667,7 +670,9 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
   }
-
+  cancelOrderModal(id){
+    this.orderCancelDialog.open(id);
+  }
   appearanceDownloadButton(): string {
     if (!this.selected || this.loadingExport) {
       return 'primary';

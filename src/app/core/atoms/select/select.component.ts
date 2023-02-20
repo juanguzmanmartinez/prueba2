@@ -57,6 +57,7 @@ export class SelectComponent<T>
   @Input() error: boolean;
   @Input() containerSearchClass = '';
   @Input() inputSearchClass = '';
+  @Input() normalSelect = false;
   @Input('value')
   set _value(option: T | T[]) {
     this.validValue(option);
