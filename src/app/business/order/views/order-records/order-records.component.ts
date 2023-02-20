@@ -671,7 +671,9 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
   cancelOrderModal(id){
-    this.orderCancelDialog.open(id);
+    this.orderCancelDialog.open(id).afterClosed().subscribe((res:boolean)=>{
+      if(res) this.filterAll();
+    });
   }
   appearanceDownloadButton(): string {
     if (!this.selected || this.loadingExport) {

@@ -20,6 +20,7 @@ export class OrderCancelDialogComponent implements OnInit {
   optionList:Array<SearchOptionsI> = [];
   public form:FormGroup;
   public loading:boolean;
+  public canceledFlag = false;
   constructor(private orderCancelDialog:OrderCancelDialogService,
     private orderClient:OrderClientService,
     private _alertService: AlertService,
@@ -46,7 +47,7 @@ export class OrderCancelDialogComponent implements OnInit {
         desc:r.description
       } as SearchOptionsI })),
       catchError((err)=>{
-        this.orderCancelDialog.close();
+        this.orderCancelDialog.close(false);
         this._alertService.alertError("Lo sentimos, ocurrió un error, por favor intenta de nuevo.")
         return throwError(err)}),
     )
@@ -63,14 +64,16 @@ export class OrderCancelDialogComponent implements OnInit {
         orderCancelObservation:this.form.value.note,
       } as OrderCancelRequest),this.orderId).pipe(
         catchError((err)=>{
+          this.canceledFlag = false;
           this._alertService.alertError("Lo sentimos, el pedido no se ha podido cancelar, por favor intenta de nuevo.")
           return throwError(err)}),
         tap(()=>{
-          this._alertService.alertSuccess("Pedido cancelado con éxito.")
+          this.canceledFlag = true;
+          this._alertService.alertSuccess("Pedido cancelado con éxito.");
           this.router.navigate([ROUTER_PATH.orderRecords]);
         }),
         finalize(()=>{
-          this.orderCancelDialog.close();
+          this.orderCancelDialog.close(this.canceledFlag);
           this.loading = false
         })
       ).subscribe();

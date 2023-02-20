@@ -10,8 +10,9 @@ export class OrderCancelDialogService {
   open(orderId: string) {
     this.dialogRef = this.dialog.open(OrderCancelDialogComponent);
     this.dialogRef.componentInstance.orderId = orderId;
+    return this.dialogRef;
   }
-  close(){
-    this.dialogRef.close();
+  close(data?){
+    this.dialogRef.close(data);
   }
 }
