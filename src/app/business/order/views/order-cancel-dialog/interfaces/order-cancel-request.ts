@@ -1,7 +1,6 @@
 export interface OrderCancelRequest{
-  statusName:string,
-  updatedBy:string,
-  orderId:string,
-  code:string,
-  customNote:string
+  action:string,
+  orderCancelCode:string,
+  orderCancelObservation:string,
+  origin:string
 }

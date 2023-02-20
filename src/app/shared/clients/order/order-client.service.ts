@@ -99,15 +99,12 @@ export class OrderClientService {
       map((response: Array<OrderReasonCancelResponse>) => {
         const list = response.map((r:OrderReasonCancelResponse)=> new OrderReasonCancelModel(r))
         return (list);
-      }),
-      catchError(err=>{return of(
-        [{"id":"C02","reason":"Error por geolocalización"},{"id":"C03","reason":"Error en el App Delivery (producto, precio)"},{"id":"C04","reason":"Error en el Sistema de Inkaventa"},{"id":"C05","reason":"Producto no disponible en el local"},{"id":"C06","reason":"Pedido Reprogramado"},{"id":"C08","reason":"Pedido cancelado por adelanto en el horario de entrega"},{"id":"C10","reason":"Cambio de forma de pago"},{"id":"C11","reason":"Datos del cliente no son verificables"},{"id":"C12","reason":"Pedido duplicado"},{"id":"C13","reason":"Desperfecto mecánico del motorizado"},{"id":"C14","reason":"Accidente del motorizado"},{"id":"C15","reason":"Motorizado con problemas para acceder a la dirección (vías cerradas, etc)"},{"id":"C16","reason":"Compra de mayoristas"},{"id":"EXP","reason":"Cancelación desde el POS Unificado"}].map(r=> new OrderReasonCancelModel(r))
-      )})
+      })
     );
   }
-  cancelOrder(body:OrderCancelRequest): Observable<any> {
-    const endpoint = `${this.ORDER_CANCELATION}/${body.orderId}/status`;
-    return this.generic.genericPut<OrderRecordsResponse>(endpoint, body);
+  cancelOrder(body:OrderCancelRequest,orderId): Observable<any> {
+    const endpoint = `${this.ORDER_CANCELATION}/${orderId}`;
+    return this.generic.genericPatch<OrderRecordsResponse>(endpoint, body);
   }
 
 }
