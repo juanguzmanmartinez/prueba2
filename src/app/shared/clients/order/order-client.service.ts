@@ -18,6 +18,7 @@ import { OrderDetailResponse } from '../../../business/order/views/order-detail/
 import { OrderReasonCancelResponse } from 'app/business/order/views/order-cancel-dialog/interfaces/order-reason-cancel-response';
 import { OrderReasonCancelModel } from 'app/business/order/views/order-cancel-dialog/models/OrderReasonCancelModel';
 import { OrderCancelRequest } from './../../../business/order/views/order-cancel-dialog/interfaces/order-cancel-request';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class OrderClientService {
@@ -94,7 +95,10 @@ export class OrderClientService {
   }
   getOptionListReason():Observable<Array<OrderReasonCancelModel>>{
     const endpoint = `${this.ORDER_REASON_CANCELATION}`;
-    return this.generic.genericGet<Array<OrderReasonCancelResponse>>(endpoint).pipe(
+    const params = new HttpParams()
+      .set('appType','DIGITAL')
+      .set('type','CANCELLED');
+    return this.generic.genericGet<Array<OrderReasonCancelResponse>>(endpoint,params).pipe(
       take(1),
       map((response: Array<OrderReasonCancelResponse>) => {
         const list = response.map((r:OrderReasonCancelResponse)=> new OrderReasonCancelModel(r))

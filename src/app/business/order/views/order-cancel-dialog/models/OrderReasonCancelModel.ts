@@ -1,10 +1,10 @@
 import { OrderReasonCancelResponse } from "../interfaces/order-reason-cancel-response";
 
 export class OrderReasonCancelModel{
-  id:string;
-  reason:string
+  code:string;
+  description:string
   constructor(data:OrderReasonCancelResponse){
-    this.id = data.id || '';
-    this.reason = data.reason || '';
+    this.code = data.code || '';
+    this.description = data.description || '';
   }
 }

@@ -35,7 +35,7 @@ export class EndpointsParameter {
   public static ORDER_DETAIL = `${API_GATEWAY_ORDER}/order/detail`;
   public static ORDER_STATUS = `${API_GATEWAY_ORDER}/order/status/groupByName`;
   public static ORDER_REPORT = `${API_GATEWAY_ORDER}/order/selected`;
-  public static ORDER_REASON_CANCELATION = `${API_GATEWAY}//orders/cancelled/reason`;
+  public static ORDER_REASON_CANCELATION = `${API_GATEWAY}/order/cancellation/reason`;
   public static ORDER_CANCELATION = `${API_GATEWAY}/order/cancel`;
 
   public static DEPARTAMENTS = `${API_GATEWAY}/ubigeo/departments`;

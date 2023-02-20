@@ -42,9 +42,13 @@ export class OrderCancelDialogComponent implements OnInit {
     this.orderClient.getOptionListReason()
     .pipe(
       map(list=>list.map(r=>{return {
-        code: r.id,
-        desc:r.reason
-      } as SearchOptionsI }))
+        code: r.code,
+        desc:r.description
+      } as SearchOptionsI })),
+      catchError((err)=>{
+        this.orderCancelDialog.close();
+        this._alertService.alertError("Los sentimos, ocurrió un error, por favor intenta de nuevo.")
+        return throwError(err)}),
     )
     .subscribe(
       (list:Array<any>) =>this.optionList = list)
@@ -59,7 +63,7 @@ export class OrderCancelDialogComponent implements OnInit {
         orderCancelObservation:this.form.value.note,
       } as OrderCancelRequest),this.orderId).pipe(
         catchError((err)=>{
-          this._alertService.alertError("Los sentimos, el pedio no se ha podido cancelar, por favor intenta de nuevo.")
+          this._alertService.alertError("Los sentimos, el pedido no se ha podido cancelar, por favor intenta de nuevo.")
           return throwError(err)}),
         tap(()=>{
           this._alertService.alertSuccess("Pedido cancelado con éxito.")

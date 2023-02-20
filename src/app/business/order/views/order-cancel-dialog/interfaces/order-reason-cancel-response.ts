@@ -1,4 +1,5 @@
 export interface OrderReasonCancelResponse{
-  id:string,
-  reason:string
+  code:string,
+  description:string,
+  type?:string
 }
