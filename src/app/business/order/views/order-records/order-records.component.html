@@ -278,7 +278,8 @@
                   [disabled]="orderHelper.disableCancel(element.orderStatus)"
                   iconName="close"
                   iconStyle="edge-table"
-                  (clicked)="cancelOrderModal(element.ecommerceId)"
+                  (editionAccess)="cancelOrderModal(element.ecommerceId)"
+                  [pathAccess]="uploadPathAccess"
                 >
                 </app-button-action-icon>
               </app-tooltip>

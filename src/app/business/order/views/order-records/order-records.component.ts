@@ -65,7 +65,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   tableLoader = false;
   loadingExport = false;
   errorResponse: HttpErrorResponse;
-
+  uploadPathAccess: string;
   localList: IDrugstore[];
   totalOrder = 0;
   activeButtonFilter: boolean;
@@ -152,6 +152,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     this.activeButtonFilter = false;
     this.fontColorDownloadItem = '#2697FF';
+    this.uploadPathAccess = `${ROUTER_PATH.orderRecords}`;
   }
 
   ngOnInit(): void {

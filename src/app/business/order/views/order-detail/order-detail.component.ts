@@ -7,6 +7,7 @@ import { OrderDetailModel } from './models/order-detail.model';
 import { finalize } from 'rxjs/operators';
 import { OrderCancelDialogService } from '../order-cancel-dialog/order-cancel-dialog.service';
 import { OrderHelper } from '@helpers/disable-cancel-order.helper';
+import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
   selector: 'app-order-detail',
@@ -21,6 +22,7 @@ export class OrderDetailComponent implements OnInit {
   errorResponse: HttpErrorResponse;
   timelineData: any;
   orderHelper = OrderHelper;
+  uploadPathAccess:string;
   constructor(
     private implementsService: OrderDetailImplementService,
     private activatedRoute: ActivatedRoute,
@@ -28,6 +30,7 @@ export class OrderDetailComponent implements OnInit {
   ) {
     this.orderId =
       this.activatedRoute.snapshot.params[OR_CHILDREN_PATH.orderCode];
+      this.uploadPathAccess = `${ROUTER_PATH.orderRecords}`;
   }
 
   ngOnInit(): void {

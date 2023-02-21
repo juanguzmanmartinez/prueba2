@@ -39,7 +39,8 @@
       <div class="d-inline-flex justify-content-between">
         <app-button style="margin-right: 10px;"
         [disabled] ="orderDetail.disabled"
-        (click)="cancelOrderModal()"
+        (editionAccess)="cancelOrderModal()"
+        [pathAccess]="uploadPathAccess"
         appearance="primary">
         {{ 'Cancelar pedido' }}
       </app-button>

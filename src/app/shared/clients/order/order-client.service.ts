@@ -96,7 +96,7 @@ export class OrderClientService {
   getOptionListReason():Observable<Array<OrderReasonCancelModel>>{
     const endpoint = `${this.ORDER_REASON_CANCELATION}`;
     const params = new HttpParams()
-      .set('appType','DIGITAL')
+      .set('appType','DIGITAL,CALL')
       .set('type','CANCELLED');
     return this.generic.genericGet<Array<OrderReasonCancelResponse>>(endpoint,params).pipe(
       take(1),
