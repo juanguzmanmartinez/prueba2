@@ -19,6 +19,7 @@ import { OrderReasonCancelResponse } from 'app/business/order/views/order-cancel
 import { OrderReasonCancelModel } from 'app/business/order/views/order-cancel-dialog/models/OrderReasonCancelModel';
 import { OrderCancelRequest } from './../../../business/order/views/order-cancel-dialog/interfaces/order-cancel-request';
 import { HttpParams } from '@angular/common/http';
+import { CancelOrderResponse } from 'app/business/order/views/order-cancel-dialog/interfaces/order-cancel-response';
 
 @Injectable()
 export class OrderClientService {
@@ -106,9 +107,9 @@ export class OrderClientService {
       })
     );
   }
-  cancelOrder(body:OrderCancelRequest,orderId): Observable<any> {
+  cancelOrder(body:OrderCancelRequest,orderId): Observable<CancelOrderResponse> {
     const endpoint = `${this.ORDER_CANCELATION}/${orderId}`;
-    return this.generic.genericPatch<OrderRecordsResponse>(endpoint, body);
+    return this.generic.genericPatch<CancelOrderResponse>(endpoint, body);
   }
 
 }

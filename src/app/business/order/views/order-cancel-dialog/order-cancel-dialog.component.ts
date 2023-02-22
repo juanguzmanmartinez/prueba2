@@ -58,7 +58,7 @@ export class OrderCancelDialogComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       this.orderClient.cancelOrder(({
-        action: "CANCELLED",
+        action: "CANCEL_ORDER",
         origin:"WEB-CALL",
         orderCancelCode:this.form.value.reason,
         orderCancelObservation:this.form.value.note,
@@ -67,10 +67,16 @@ export class OrderCancelDialogComponent implements OnInit {
           this.canceledFlag = false;
           this._alertService.alertError("Lo sentimos, el pedido no se ha podido cancelar, por favor intenta de nuevo.")
           return throwError(err)}),
-        tap(()=>{
-          this.canceledFlag = true;
-          this._alertService.alertSuccess("Pedido cancelado con éxito.");
-          this.router.navigate([ROUTER_PATH.orderRecords]);
+        tap((res)=>{
+          if (res?.orderStatus?.successful) {
+            this.canceledFlag = true;
+            this._alertService.alertSuccess("Pedido cancelado con éxito.");
+            this.router.navigate([ROUTER_PATH.orderRecords]);
+          }
+          else{
+            this.canceledFlag = false;
+            this._alertService.alertError("Lo sentimos, el pedido no se ha podido cancelar, por favor intenta de nuevo.")
+          }
         }),
         finalize(()=>{
           this.orderCancelDialog.close(this.canceledFlag);
