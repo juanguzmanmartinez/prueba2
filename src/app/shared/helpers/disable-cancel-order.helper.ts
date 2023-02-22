@@ -11,5 +11,6 @@ export const LStatusNotAllowed:string[] = [
   EStatusOrder.cancelled,
   EStatusOrder.onRouted,
   EStatusOrder.arrived,
-  EStatusOrder.delivered
+  EStatusOrder.delivered,
+  EStatusOrder.rejected
 ]
