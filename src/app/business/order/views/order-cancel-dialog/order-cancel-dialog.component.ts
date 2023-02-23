@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 import { AlertService } from '@molecules/alert/alert.service';
 import { throwError } from 'rxjs';
+import { UserStoreService } from '@stores/user-store.service';
 
 @Component({
   selector: 'app-order-cancel-dialog',
@@ -25,6 +26,7 @@ export class OrderCancelDialogComponent implements OnInit {
     private orderClient:OrderClientService,
     private _alertService: AlertService,
     private router:Router,
+    private userStore:UserStoreService,
     public fb:FormBuilder) {
       this.form = this.fb.group({
         "reason": new FormControl(null,[Validators.required]),
@@ -62,6 +64,7 @@ export class OrderCancelDialogComponent implements OnInit {
         origin:"WEB-CALL",
         orderCancelCode:this.form.value.reason,
         orderCancelObservation:this.form.value.note,
+        updatedBy:this.userStore?.currentUser?.uuid
       } as OrderCancelRequest),this.orderId).pipe(
         catchError((err)=>{
           this.canceledFlag = false;
