@@ -61,7 +61,7 @@ export class OrderCancelDialogComponent implements OnInit {
       this.loading = true;
       this.orderClient.cancelOrder(({
         action: "CANCEL_ORDER",
-        origin:"WEB-CALL",
+        origin:"OMS",
         orderCancelCode:this.form.value.reason,
         orderCancelObservation:this.form.value.note,
         updatedBy:this.userStore?.currentUser?.id
