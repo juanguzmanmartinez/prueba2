@@ -10,9 +10,9 @@ export class User {
     secondLastName: string;
     position: UserPosition;
     permissionList: UserPermissions[];
-    uuid:string;
+    id:string;
     constructor(iDecodeToken: IDecodeToken) {
-        this.uuid = iDecodeToken.uuid;
+        this.id = iDecodeToken.id;
         this.username = iDecodeToken.user_name;
         this.email = iDecodeToken.email;
         this.name = iDecodeToken.name;

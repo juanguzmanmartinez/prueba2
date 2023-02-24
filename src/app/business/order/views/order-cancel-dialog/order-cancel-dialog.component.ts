@@ -64,7 +64,7 @@ export class OrderCancelDialogComponent implements OnInit {
         origin:"WEB-CALL",
         orderCancelCode:this.form.value.reason,
         orderCancelObservation:this.form.value.note,
-        updatedBy:this.userStore?.currentUser?.uuid
+        updatedBy:this.userStore?.currentUser?.id
       } as OrderCancelRequest),this.orderId).pipe(
         catchError((err)=>{
           this.canceledFlag = false;
