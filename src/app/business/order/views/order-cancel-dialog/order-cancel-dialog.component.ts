@@ -74,7 +74,6 @@ export class OrderCancelDialogComponent implements OnInit {
           if (res?.orderStatus?.successful) {
             this.canceledFlag = true;
             this._alertService.alertSuccess("Pedido cancelado con éxito.");
-            this.router.navigate([ROUTER_PATH.orderRecords]);
           }
           else{
             this.canceledFlag = false;

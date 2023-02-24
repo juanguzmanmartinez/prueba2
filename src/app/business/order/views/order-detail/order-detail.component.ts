@@ -62,6 +62,8 @@ export class OrderDetailComponent implements OnInit {
     return response;
   }
   cancelOrderModal(){
-    this.orderCancelDialog.open(this.orderId.toString());
+    this.orderCancelDialog.open(this.orderId.toString()).afterClosed().subscribe((res:boolean)=>{
+      if(res) this.refreshData();
+    });;
   }
 }
