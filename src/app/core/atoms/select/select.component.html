@@ -74,7 +74,20 @@
       </ng-container>
 
       <ng-template #notSearch>
-        <mat-option
+        <ng-container *ngIf="normalSelect; else notNormal">
+          <mat-option
+          *ngFor="let option of optionList"
+          class="select-basic-option"
+          [class.select-square-option]="selectOptionSquare"
+          [value]="option.code"
+          [hidden]="option.hidden"
+          [disabled]="disableOptionsMultiple && !value.includes(option.code)"
+        >
+          {{ option.desc }}
+        </mat-option>
+        </ng-container>
+        <ng-template #notNormal>
+          <mat-option
           *ngFor="let option of optionList"
           class="select-basic-option"
           [class.select-square-option]="selectOptionSquare"
@@ -88,6 +101,7 @@
           >
           </ng-template>
         </mat-option>
+        </ng-template>
       </ng-template>
     </div>
   </mat-select>

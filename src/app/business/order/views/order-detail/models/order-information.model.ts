@@ -11,8 +11,9 @@ export class OrderInformationModel {
   localType: string;
   typeOfOffice: string;
   source: string;
+  pickup: string;
 
-  constructor(data: OrderInformation, source: string) {
+  constructor(data: OrderInformation, source: string, pickup: string) {
     this.orderId = data.ecommerceId ? data.ecommerceId.toString() : '-';
     this.purchaseId = data.purchaseId ? data.purchaseId : '-';
     this.operator = data.operator ? data.operator : '-';
@@ -29,6 +30,7 @@ export class OrderInformationModel {
       ? this.formatTypeOfOffice(data.stockType)
       : '-';
     this.source = source ? this.formatSource(source) : '-';
+    this.pickup = pickup || '-';
   }
 
   private formatZone(value: string): string {

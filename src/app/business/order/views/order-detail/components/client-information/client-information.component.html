@@ -1,4 +1,8 @@
-<app-accordion-information svgName="avatar"  title="Información del cliente" [expanded]="true">
+<app-accordion-information
+  svgName="avatar"
+  title="Información del cliente"
+  [expanded]="true"
+>
   <div class="row">
     <div class="col-6">
       <table>
@@ -12,7 +16,7 @@
         </tr>
         <tr>
           <td>RUC:</td>
-          <td>{{ dataClient.ruc | nombre}}</td>
+          <td>{{ dataClient.ruc | nombre }}</td>
         </tr>
         <tr>
           <td>Razón social:</td>
@@ -37,9 +41,12 @@
         <tr>
           <td>Coordenadas:</td>
           <td>
-            <ng-container *ngIf="dataClient.coordinates else noCoordinates">
-              <a [href]="'https://maps.google.com/?q=' + dataClient.coordinates" target="_blank"
-                 class="text-secondary text-body-2-bold">
+            <ng-container *ngIf="dataClient.coordinates; else noCoordinates">
+              <a
+                [href]="'https://maps.google.com/?q=' + dataClient.coordinates"
+                target="_blank"
+                class="text-secondary text-body-2-bold"
+              >
                 {{ dataClient.coordinates }}
               </a>
             </ng-container>
@@ -49,6 +56,32 @@
         <tr>
           <td>Referencia:</td>
           <td>{{ dataClient.reference }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="false" class="row">
+    <div class="col-6">
+      <table>
+        <tr>
+          <td>Nombre y apellido:</td>
+          <td>{{ dataClient.personToPickup.fullName }}</td>
+        </tr>
+        <tr>
+          <td>Doc. Identidad:</td>
+          <td>{{ dataClient.personToPickup.documentNumber }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-6">
+      <table>
+        <tr>
+          <td>Correo:</td>
+          <td>{{ dataClient.personToPickup.email }}</td>
+        </tr>
+        <tr>
+          <td>Teléfono:</td>
+          <td>{{ dataClient.personToPickup.phoneNumber }}</td>
         </tr>
       </table>
     </div>

@@ -36,6 +36,8 @@ export class EndpointsParameter {
   public static ORDER_DETAIL = `${API_GATEWAY_ORDER}/order/detail`;
   public static ORDER_STATUS = `${API_GATEWAY_ORDER}/order/status/groupByName`;
   public static ORDER_REPORT = `${API_GATEWAY_ORDER}/order/selected`;
+  public static ORDER_REASON_CANCELATION = `${API_GATEWAY}/order/cancellation/reason`;
+  public static ORDER_CANCELATION = `${API_GATEWAY}/order/cancel`;
 
   public static DEPARTAMENTS = `${API_GATEWAY}/ubigeo/departments`;
   public static PROVINCES = `${API_GATEWAY}/ubigeo/provinces`;
@@ -45,4 +47,5 @@ export class EndpointsParameter {
   public static CAPACITY_TEMPLATE = `${API_GATEWAY}/fulfillment/store/capacity/template`;
   public static PTACH_CAPACITIES = `${API_GATEWAY}/fulfillment/store/capacity/update`;
   public static VALIDATE_STORES = `${API_GATEWAY}/fulfillment/store/capacity/template/validate`;
+
 }

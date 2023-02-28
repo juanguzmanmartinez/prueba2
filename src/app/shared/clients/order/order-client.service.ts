@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { GenericService } from '@clients/generic/generic.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { EndpointsParameter } from '@parameters/generic/endpoints.parameter';
-import { map, take } from 'rxjs/operators';
+import { map, take, catchError } from 'rxjs/operators';
 import {
   OrderRecords,
   OrderRecordsResponse,
@@ -15,6 +15,11 @@ import { isArray } from '@helpers/objects-equal.helper';
 import { CStatusOrderName } from '@models/status-order/status-order.model';
 import { OrderDetailModel } from '../../../business/order/views/order-detail/models/order-detail.model';
 import { OrderDetailResponse } from '../../../business/order/views/order-detail/interfaces/order-detail.interface';
+import { OrderReasonCancelResponse } from 'app/business/order/views/order-cancel-dialog/interfaces/order-reason-cancel-response';
+import { OrderReasonCancelModel } from 'app/business/order/views/order-cancel-dialog/models/OrderReasonCancelModel';
+import { OrderCancelRequest } from './../../../business/order/views/order-cancel-dialog/interfaces/order-cancel-request';
+import { HttpParams } from '@angular/common/http';
+import { CancelOrderResponse } from 'app/business/order/views/order-cancel-dialog/interfaces/order-cancel-response';
 
 @Injectable()
 export class OrderClientService {
@@ -22,6 +27,8 @@ export class OrderClientService {
   private readonly ORDER_DETAIL = EndpointsParameter.ORDER_DETAIL;
   private readonly ORDER_STATUS = EndpointsParameter.ORDER_STATUS;
   private readonly ORDER_REPORT = EndpointsParameter.ORDER_REPORT;
+  private readonly ORDER_REASON_CANCELATION = EndpointsParameter.ORDER_REASON_CANCELATION;
+  private readonly ORDER_CANCELATION = EndpointsParameter.ORDER_CANCELATION;
 
   constructor(private generic: GenericService) {}
 
@@ -87,4 +94,22 @@ export class OrderClientService {
       })
     );
   }
+  getOptionListReason():Observable<Array<OrderReasonCancelModel>>{
+    const endpoint = `${this.ORDER_REASON_CANCELATION}`;
+    const params = new HttpParams()
+      .set('appType','DIGITAL,INKATRACKER_WEB,OMS')
+      .set('type','CANCELLED');
+    return this.generic.genericGet<Array<OrderReasonCancelResponse>>(endpoint,params).pipe(
+      take(1),
+      map((response: Array<OrderReasonCancelResponse>) => {
+        const list = response.map((r:OrderReasonCancelResponse)=> new OrderReasonCancelModel(r))
+        return (list);
+      })
+    );
+  }
+  cancelOrder(body:OrderCancelRequest,orderId): Observable<CancelOrderResponse> {
+    const endpoint = `${this.ORDER_CANCELATION}/${orderId}`;
+    return this.generic.genericPatch<CancelOrderResponse>(endpoint, body);
+  }
+
 }
