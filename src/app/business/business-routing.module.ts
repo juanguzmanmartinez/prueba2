@@ -12,6 +12,7 @@ import { OPERATIONS_ROUTER } from '@parameters/router/routing/operations/operati
 import { CORE_ROUTER } from '@parameters/router/routing/core/core-router.parameter';
 import { ORDER_ROUTER } from '@parameters/router/routing/order/order-router.parameter';
 import { CAPACITIES_ROUTER } from '@parameters/router/routing/capacities/capacities-router.parameters';
+import { CT_ROUTER } from '@parameters/router/routing/control-tower/control-tower-router.parameter';
 
 const ACCOUNT: Route = {
   path: ACCOUNT_ROUTER.path.valueOf(),
@@ -52,6 +53,13 @@ const CAPACITIES: Route = {
   loadChildren: () => import('./capacities/capacities.module').then(m => m.CapacitiesModule)
 };
 
+const CONTROL_TOWER: Route = {
+  path: CT_ROUTER.path.valueOf(),
+  canLoad: [PermissionsGuard],
+  data: {permissions: ROUTER_PERMISSIONS[ROUTER_PATH.controlTower.valueOf()]},
+  loadChildren: () => import('./control-tower/control-tower.module').then(m => m.ControlTowerModule)
+};
+
 const routes: Routes = [
   {
     path: '',
@@ -62,7 +70,8 @@ const routes: Routes = [
       OPERATIONS,
       ADMINISTRATOR,
       CAPACITIES,
-      ORDER
+      ORDER,
+      CONTROL_TOWER
     ]
   },
   ACCOUNT,

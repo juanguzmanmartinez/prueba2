@@ -12,6 +12,10 @@ export enum Access {
   OrderRecords = 'OR-HM',
 
   Capacities = 'CP', //CP
-  CapacitiesServiceType = 'CP-BL' //BL
+  CapacitiesServiceType = 'CP-BL', //BL
+
+  ControlTower = 'OR', //CT
+  CTControlFleet = 'OR-HM', //CT-CF
+  CTRouteMonitoring = 'OR-HM' //CT-RM
 }
 

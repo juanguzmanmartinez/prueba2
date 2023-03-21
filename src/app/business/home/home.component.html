@@ -59,6 +59,26 @@
           </app-router>
         </div>
       </div>
+
+      <div class="row mb-8" *appRouterAccess="routerPath.controlTower">
+        <h3 class="text-h3 text-black mb-5">Torre de control</h3>
+        <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.ctControlFleet">
+          <app-router [router]="routerPath.orderRecords">
+            <app-card-action cardIconSVG="dump">
+              <span card-title>Control de flota</span>
+              <span card-description>Consulta la disponibilidad e información de los transportistas</span>
+            </app-card-action>
+          </app-router>
+        </div>
+        <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.ctRouteMonitoring">
+          <app-router [router]="routerPath.orderRecords">
+            <app-card-action cardIconSVG="dump">
+              <span card-title>Seguimiento a rutas</span>
+              <span card-description>Realiza el seguimiento a rutas</span>
+            </app-card-action>
+          </app-router>
+        </div>
+      </div>
     </div>
   </div>
 </main>
