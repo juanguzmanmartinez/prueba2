@@ -338,10 +338,11 @@
             <app-select
               class="select-size"
               [(ngModel)]="pageSize"
-              [value]="10"
+              [value]="30"
               containerMaxHeight="80px"
-              [optionList]="[10, 20, 30]"
+              [optionList]="[30]"
               (ngModelChange)="filterAll()"
+              disabled="true"
             >
             </app-select>
           </div>
