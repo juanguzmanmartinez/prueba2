@@ -180,7 +180,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.add(
       this.orderFilterStore.getOrderPagination().subscribe((pagination) => {
         this.page = pagination.page;
-        this.pageSize = pagination.pageSize;
+        this.pageSize = EPageSize.DEFAULT;
       })
     );
   }
@@ -307,6 +307,7 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.orderFilterStore.setDatePromise = orderFilters.promiseDate;
     this.tableLoader = true;
     this.showPaginator = false;
+    this.page = 1;
     this.orderRecordsImplement
       .orderList(
         this.page,
@@ -322,6 +323,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       )
       .subscribe({
         next: (res: any) => {
+          this.hasNextPage = res.currentRecords === 30;
+          this.hasNextPageData = res.currentRecords > 0;
           this.selection.clear();
           this.setOrderPageData(res, false);
         },

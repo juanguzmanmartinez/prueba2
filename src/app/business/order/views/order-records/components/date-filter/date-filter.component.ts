@@ -22,13 +22,7 @@ import { OrderFormPresenter } from '../../order-form.presenter';
   styleUrls: ['./date-filter.component.scss'],
 })
 export class DateFilterComponent implements OnInit {
-  readonly typeDates = [
-    EDates.hoy,
-    EDates.ayer,
-    EDates.ultimaSemana,
-    EDates.ultimoMes,
-    EDates.otroPeriodo,
-  ];
+  readonly typeDates = [EDates.hoy, EDates.ayer, EDates.anteAyer];
 
   selectDate: string;
   selectDatePreview: string;
@@ -100,6 +94,12 @@ export class DateFilterComponent implements OnInit {
       dateInitFilter = yesterday;
       dateEndFilter = yesterday;
       notFound = 'Ayer';
+    } else if (type === 'Anteayer') {
+      const today = new Date();
+      const beforeYesterday = moment(today).subtract(2, 'day').format('DD-MM-YYYY');
+      dateInitFilter = beforeYesterday;
+      dateEndFilter = beforeYesterday;
+      notFound = 'Anteayer';
     } else if (type === 'Última semana') {
       const startWeek = moment()
         .subtract(1, 'weeks')

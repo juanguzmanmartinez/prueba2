@@ -9,6 +9,7 @@ export enum ECodeTypeSearch {
 export enum EDates {
   hoy = 'Hoy',
   ayer = 'Ayer',
+  anteAyer = 'Anteayer',
   ultimaSemana = 'Última semana',
   ultimoMes = 'Último mes',
   otroPeriodo = 'Otro periodo',
