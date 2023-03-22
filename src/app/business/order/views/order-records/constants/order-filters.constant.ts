@@ -14,6 +14,10 @@ export enum EDates {
   otroPeriodo = 'Otro periodo',
 }
 
+export enum EPageSize {
+  DEFAULT = 30,
+}
+
 export const CTypesSearch: ITypeSearch[] = [
   {
     code: ECodeTypeSearch.pedido,

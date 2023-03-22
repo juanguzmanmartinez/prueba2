@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-around align-items-center">
+  <div
+    class="previous-button me-5"
+    (click)="previousPage()"
+    [class.disabled]="!hasPreviousPage()"
+  >
+    <app-icon fontName="chevron_left" innerClass="text-gray-4"></app-icon>
+  </div>
+  <div>
+    <span class="paginator-index">
+      {{ currentPage }}
+    </span>
+  </div>
+  <div
+    class="next-button ms-5"
+    (click)="nextPage()"
+    [class.disabled]="!hasNextPage || !hasNextPageData"
+  >
+    <app-icon fontName="chevron_right" innerClass="text-gray-4"></app-icon>
+  </div>
+</div>

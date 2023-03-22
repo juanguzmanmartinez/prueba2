@@ -1,0 +1,30 @@
+@import "src/sass/variables";
+@import "src/sass/mixins/text.mixin";
+@import "src/sass/mixins/display.mixin";
+
+.previous-button,
+.next-button {
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+}
+
+.paginator-index {
+  width: 25px;
+  height: 25px;
+  margin: 0 2.5px;
+  border-radius: $border-radius-round;
+  @include text-body-2-regular;
+  @include d-flex-center;
+  display: inline-flex;
+  cursor: pointer;
+  user-select: none;
+  flex: 0 0 auto;
+  background-color: $primary;
+  color: $white;
+}

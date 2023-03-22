@@ -21,7 +21,7 @@
         [fontColor]="fontColorDownloadItem"
       >
         Descargar selección
-        {{ selected ? ": " + (selected | number: "2.0-0") : "" }}
+        {{ selected ? ": " + (selected | number : "2.0-0") : "" }}
       </app-button-icon>
     </div>
   </div>
@@ -270,19 +270,23 @@
             <td mat-cell column-actions *matCellDef="let element">
               <div class="d-inline-flex">
                 <app-tooltip
-                *ngIf="element.state !== statusError && !orderHelper.disableCancel(element.orderStatus)"
-                value="Cancelar pedido"
-                position="left"
-              >
-                <app-button-action-icon style="margin-right: 16px;"
-                  [disabled]="orderHelper.disableCancel(element.orderStatus)"
-                  iconName="close"
-                  iconStyle="edge-table"
-                  (editionAccess)="cancelOrderModal(element.ecommerceId)"
-                  [pathAccess]="uploadPathAccess"
+                  *ngIf="
+                    element.state !== statusError &&
+                    !orderHelper.disableCancel(element.orderStatus)
+                  "
+                  value="Cancelar pedido"
+                  position="left"
                 >
-                </app-button-action-icon>
-              </app-tooltip>
+                  <app-button-action-icon
+                    style="margin-right: 16px"
+                    [disabled]="orderHelper.disableCancel(element.orderStatus)"
+                    iconName="close"
+                    iconStyle="edge-table"
+                    (editionAccess)="cancelOrderModal(element.ecommerceId)"
+                    [pathAccess]="uploadPathAccess"
+                  >
+                  </app-button-action-icon>
+                </app-tooltip>
                 <app-tooltip
                   *ngIf="element.state !== statusError"
                   value="Ver Detalle"
@@ -310,28 +314,47 @@
         <app-table-loader *ngIf="tableLoader" [cells]="8"></app-table-loader>
         <app-not-search-result
           *ngIf="
-            !tableLoader && !dataSource.filteredData.length && !errorResponse
+            !tableLoader &&
+            !dataSource.filteredData.length &&
+            !errorResponse &&
+            hasNextPageData
           "
           [keyword]="notFound"
         >
         </app-not-search-result>
+        <app-not-page-search-result
+          *ngIf="
+            !tableLoader &&
+            !dataSource.filteredData.length &&
+            !errorResponse &&
+            !hasNextPageData
+          "
+        >
+        </app-not-page-search-result>
       </div>
     </div>
 
     <div class="row" [hidden]="errorResponse" *ngIf="appearTable">
       <div class="col-lg-4"></div>
 
-      <div class="col-lg-4 d-flex-center" *ngIf="showPaginator">
-        <app-paginator
+      <div class="col-lg-4 d-flex-center" *ngIf="!tableLoader">
+        <!-- <app-paginator
           [length]="totalOrder"
           [pageIndex]="page - 1"
           [pageSize]="pageSize"
           (page)="onChangePage($event)"
         >
-        </app-paginator>
+        </app-paginator> -->
+        <app-arrow-paginator
+          [currentPage]="page"
+          [hasNextPageData]="hasNextPageData"
+          [hasNextPage]="hasNextPage"
+          (changePage)="onChangePage($event)"
+        >
+        </app-arrow-paginator>
       </div>
 
-      <div class="col-lg-4" *ngIf="showPaginator">
+      <div class="col-lg-4" *ngIf="!tableLoader">
         <div class="page-size">
           <div class="d-flex align-items-center justify-content-end">
             <p class="page-size-label text-gray-6 mb-0">Items por página</p>

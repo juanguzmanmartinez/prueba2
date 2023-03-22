@@ -28,6 +28,7 @@ import { finalize } from 'rxjs/operators';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ExportTableSelection } from '../../../../shared/utils/export-table-selection.util';
 import { OrderCancelDialogService } from '../order-cancel-dialog/order-cancel-dialog.service';
+import { EPageSize } from './constants/order-filters.constant';
 import { OrderRecordsImplementService } from './implements/order-records-implement.service';
 import {
   ChannelFilterEvent,
@@ -76,6 +77,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
   notFound = '';
   appearTable = false;
   appearSection = false;
+  hasNextPage = true;
+  hasNextPageData = true;
 
   displayedColumns: string[] = [
     ColumnNameList.select,
@@ -267,15 +270,15 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onChangePage(pe: PageEvent): void {
+  onChangePage(page: number): void {
     const orderFilter = this.orderFilterStore.getOrderFilter();
     const orderFilters = this.presenter.getFilters();
     this.orderFilterStore.setDatePromise = orderFilters.promiseDate;
     this.tableLoader = true;
     this.orderRecordsImplement
       .orderList(
-        pe.pageIndex + 1,
-        pe.pageSize,
+        page,
+        EPageSize.DEFAULT,
         orderFilters,
         orderFilter.orderCriteria
       )
@@ -287,6 +290,8 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe({
         next: (res: OrderRecords) => {
           // this.page = res.page;
+          this.hasNextPage = res.currentRecords === 30;
+          this.hasNextPageData = res.currentRecords > 0;
           this.orderFilterStore.setPage(res.page);
           this.setOrderPageData(res, false);
         },
@@ -298,14 +303,14 @@ export class OrderRecordsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.appearTable = true;
     const orderFilter = this.orderFilterStore.getOrderFilter();
     const orderFilters = this.presenter.getFilters();
-    this.orderFilterStore.setPageSize(this.pageSize);
+    this.orderFilterStore.setPageSize(EPageSize.DEFAULT);
     this.orderFilterStore.setDatePromise = orderFilters.promiseDate;
     this.tableLoader = true;
     this.showPaginator = false;
     this.orderRecordsImplement
       .orderList(
         this.page,
-        this.pageSize,
+        EPageSize.DEFAULT,
         orderFilters,
         orderFilter.orderCriteria
       )

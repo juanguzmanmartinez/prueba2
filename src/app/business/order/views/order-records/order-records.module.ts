@@ -28,6 +28,8 @@ import { DirectivesModule } from '../../../../shared/directives/directives.modul
 import { PipesModule } from '@pipes/pipes.module';
 import { OrderFormPresenter } from './order-form.presenter';
 import { IconsModule } from '@atoms/icons/icons.module';
+import { ArrowPaginatorModule } from '@atoms/arrow-paginator/arrow-paginator.module';
+import { NotPageSearchResultModule } from '@pages/not-page-search-result/not-page-search-result.module';
 
 @NgModule({
   declarations: [OrderRecordsComponent],
@@ -58,6 +60,8 @@ import { IconsModule } from '@atoms/icons/icons.module';
     CardModule,
     DirectivesModule,
     PipesModule,
+    ArrowPaginatorModule,
+    NotPageSearchResultModule,
     IconsModule,
   ],
   providers: [OrderRecordsImplementService],

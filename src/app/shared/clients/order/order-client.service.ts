@@ -44,7 +44,7 @@ export class OrderClientService {
           orders,
           page: response.page,
           currentRecords: response.currentRecords,
-          totalRecords: response.totalRecords,
+          totalRecords: null,
         };
       })
     );
