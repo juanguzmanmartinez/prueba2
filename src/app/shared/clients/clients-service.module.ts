@@ -10,6 +10,7 @@ import { ResourceClientService } from '@clients/resource/resource-client.service
 import { UserClientService } from '@clients/users/user-client.service';
 import { ReportsClientService } from '@clients/reports/reports-client.service';
 import { OrderClientService } from '@clients/order/order-client.service';
+import { HereMapsService } from './here-maps/here-maps.service';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { OrderClientService } from '@clients/order/order-client.service';
     ResourceClientService,
     UserClientService,
     ReportsClientService,
-    OrderClientService
+    OrderClientService,
+    HereMapsService
   ]
 })
 export class ClientsServiceModule {
