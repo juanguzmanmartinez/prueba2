@@ -115,6 +115,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'search-store', path: `${pathIllustrations}search-store.svg` },
   { name: 'send-message', path: `${pathIllustrations}send-message.svg` },
   { name: 'sent', path: `${pathIllustrations}sent.svg` },
+  { name: 'fleet-table-action', path: `${pathIcons}fleet-table-action.svg` },
   {
     name: 'under-construction',
     path: `${pathIllustrations}under-construction.svg`,

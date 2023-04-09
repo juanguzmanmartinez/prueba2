@@ -41,6 +41,20 @@ $neutral-colors-map: (
   "black": $black,
 );
 
+$neutral-omni-colors-map: (
+  "neutral-0": $neutral-0,
+  "neutral-10": $neutral-10,
+  "neutral-20": $neutral-20,
+  "neutral-30": $neutral-30,
+  "neutral-40": $neutral-40,
+  "neutral-50": $neutral-50,
+  "neutral-60": $neutral-60,
+  "neutral-70": $neutral-70,
+  "neutral-80": $neutral-80,
+  "neutral-90": $neutral-90,
+  "neutral-100": $neutral-100
+);
+
 $semantic-colors-map: (
   "light-success": $light-success,
   "success": $success,
@@ -63,6 +77,7 @@ $colors: map-collect(
   $complementary-colors-map,
   $semantic-colors-map,
   $neutral-colors-map,
+  $neutral-omni-colors-map,
   $brand-colors-map
 );
 $theme-colors: map-collect(
@@ -70,5 +85,6 @@ $theme-colors: map-collect(
   $complementary-colors-map,
   $semantic-colors-map,
   $neutral-colors-map,
+  $neutral-omni-colors-map,
   $brand-colors-map
 );
