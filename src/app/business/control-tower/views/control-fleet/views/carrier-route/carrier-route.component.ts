@@ -53,11 +53,18 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit {
 
     this.hereMapsService.resizeMap(this.behavior, this.map);
     this.addOrderMarkers();
+    this.hereMapsService.centerOrdersMap(this.map);
   }
 
   addOrderMarkers() {
     DBOrder.forEach((order: IOrder) => {
       this.hereMapsService.orderMarker(this.map, order);
     });
+  }
+
+  toogleFullScreen() {
+    if (this.mapElement.nativeElement.requestFullscreen) {
+      this.mapElement.nativeElement.requestFullscreen();
+    }
   }
 }

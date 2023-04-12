@@ -13,7 +13,6 @@ export class TimeLeftDirective implements AfterViewInit {
 
   assignTextColor(textContent: string): void {
     if (this.isNegative(textContent)) {
-      console.log('entra aquí', textContent)
       this.renderer.addClass(this.el.nativeElement, 'text-error-60');
     } else {
       this.renderer.addClass(this.el.nativeElement, 'text-neutral-90');

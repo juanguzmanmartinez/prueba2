@@ -1,12 +1,19 @@
 import { Platform } from '@angular/cdk/platform';
 import H from '@here/maps-api-for-javascript';
 import { Injectable } from '@angular/core';
-import { OrderNameFile, OrderStatusColor } from 'app/business/control-tower/views/control-fleet/views/carrier-route/constants/order.constant';
+import {
+  OrderNameFile,
+  OrderStatusColor,
+} from 'app/business/control-tower/views/control-fleet/views/carrier-route/constants/order.constant';
 import { IOrder } from 'app/business/control-tower/views/control-fleet/views/carrier-route/interfaces/order.interface';
+import { FullScreenControl } from '@atoms/here-maps/fullscreen.control';
+import { MotorizedControl } from '@atoms/here-maps/motorized.control';
+import { CenterOrderControl } from '@atoms/here-maps/centerOrder.control';
 
 @Injectable()
 export class HereMapsService {
   private platform: any;
+  private markers: H.map.Marker[] = [];
 
   constructor() {
     this.platform = new H.service.Platform({
@@ -15,8 +22,24 @@ export class HereMapsService {
   }
 
   createMap(element: HTMLElement, options: H.Map.Options): H.Map {
-    const defaultLayers = this.platform.createDefaultLayers();
-    return new H.Map(element, defaultLayers.vector.normal.map, options);
+    const defaultLayers = this.defaultLayers();
+    const map = new H.Map(element, defaultLayers.vector.normal.map, options);
+    const ui = H.ui.UI.createDefault(map, defaultLayers);
+    const fullScreenControl = new FullScreenControl(element);
+    const centerMotorizedControl = new MotorizedControl({
+      lat: -12.074690847992702,
+      lng: -77.09414209389209,
+    });
+    const centerOrderControl = new CenterOrderControl(this.centerOrdersMap);
+    ui.addControl('full-screen', fullScreenControl);
+    ui.addControl('center-motorized', centerMotorizedControl);
+    ui.addControl('center-order', centerOrderControl);
+
+    return map;
+  }
+
+  defaultLayers() {
+    return this.platform.createDefaultLayers();
   }
 
   addMarker(map: H.Map, coordinates: H.geo.Point): H.map.Marker {
@@ -66,6 +89,7 @@ export class HereMapsService {
       console.log('Marker clicked!');
     });
 
+    this.markers = [...this.markers, marker];
     map.addObject(marker);
   }
 
@@ -85,5 +109,39 @@ export class HereMapsService {
   resizeMap(behavior: any, map: H.Map) {
     window.addEventListener('resize', () => map.getViewPort().resize());
     behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+  }
+
+  uiControl(map: H.Map, defaultLayers: any) {
+    const ui = H.ui.UI.createDefault(map, defaultLayers);
+  }
+
+  getAllMarkers() {
+    return this.markers;
+  }
+
+  centerOrdersMap(map: H.Map) {
+    const objects = map.getObjects();
+    const markers = objects.filter(
+      (obj) => obj instanceof H.map.Marker
+    ) as H.map.Marker[];
+
+    const boundingBox = new H.geo.Rect(
+      Math.max(
+        ...markers.map((marker) => (marker.getGeometry() as H.geo.Point).lat)
+      ),
+      Math.min(
+        ...markers.map((marker) => (marker.getGeometry() as H.geo.Point).lng)
+      ),
+      Math.min(
+        ...markers.map((marker) => (marker.getGeometry() as H.geo.Point).lat)
+      ),
+      Math.max(
+        ...markers.map((marker) => (marker.getGeometry() as H.geo.Point).lng)
+      )
+    );
+    map.getViewModel().setLookAtData({
+      bounds: boundingBox,
+    });
+    map.setZoom(13);
   }
 }
