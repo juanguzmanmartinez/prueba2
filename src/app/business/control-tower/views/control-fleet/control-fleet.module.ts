@@ -10,12 +10,16 @@ import { ButtonsModule } from '@atoms/buttons/buttons.module';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { CommonModule } from '@angular/common';
 import { DirectivesModule } from 'app/shared/directives/directives.module';
+import { TimeLeftDirective } from './views/carrier-route/directives/timeLeft.directive';
+import { OrderStatusDirective } from './views/carrier-route/directives/orderStatus.directive';
 
 @NgModule({
   declarations: [
     ControlFleetComponent,
     CarrierComponent,
     CarrierRouteComponent,
+    TimeLeftDirective,
+    OrderStatusDirective
   ],
   imports: [
     CommonModule,

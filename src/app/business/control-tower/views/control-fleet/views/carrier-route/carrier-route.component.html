@@ -154,11 +154,9 @@
             mat-cell
             cell-bold
             *matCellDef="let element"
-            class="text-neutral-90 text-body-4-bold"
+            class="text-body-4-bold"
           >
-            <span [style.color]="getColorStatus(element.status)">{{
-              element.status
-            }}</span>
+            <span appOrderStatus>{{ element.status }}</span>
           </td>
         </ng-container>
 
@@ -168,9 +166,9 @@
             mat-cell
             cell-bold
             *matCellDef="let element"
-            class="text-neutral-90 text-body-3-regular"
+            class="text-body-3-regular"
           >
-            {{ element.timeLeft }}
+            <span appTimeLeft>{{ element.timeLeft }}</span>
           </td>
         </ng-container>
 

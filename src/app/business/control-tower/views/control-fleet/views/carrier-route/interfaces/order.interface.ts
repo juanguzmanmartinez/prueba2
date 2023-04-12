@@ -1,3 +1,8 @@
+export interface Coordinates {
+  lat: number;
+  lng: number;
+}
+
 export interface IOrder {
   orderNumber: string;
   orderId: string;
@@ -8,4 +13,5 @@ export interface IOrder {
   address: string;
   status: string;
   timeLeft: string;
+  coordinates: Coordinates;
 }

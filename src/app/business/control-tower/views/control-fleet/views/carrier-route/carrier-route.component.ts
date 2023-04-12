@@ -52,9 +52,12 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit {
     });
 
     this.hereMapsService.resizeMap(this.behavior, this.map);
+    this.addOrderMarkers();
   }
 
-  getColorStatus(status: string) {
-    return OrderStatusColor[status];
+  addOrderMarkers() {
+    DBOrder.forEach((order: IOrder) => {
+      this.hereMapsService.orderMarker(this.map, order);
+    });
   }
 }

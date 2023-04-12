@@ -28,6 +28,13 @@ export const OrderDescription = {
   [EOrderStatus.asignado]: 'ASIGNADO',
   [EOrderStatus.cancelado]: 'CANCELADO',
 };
+export const OrderNameFile = {
+  [EOrderStatus.entregado]: 'markerDelivered',
+  [EOrderStatus.rechazado]: 'markerCancel',
+  [EOrderStatus.enRuta]: 'markerOnRoute',
+  [EOrderStatus.asignado]: 'markerAssigned',
+  [EOrderStatus.cancelado]: 'markerCancel',
+};
 
 export const OrderStatusColor = {
   [EOrderStatus.entregado]: '#38B57D',
@@ -48,6 +55,7 @@ export const DBOrder: IOrder[] = [
     address: 'Av. Ejercito, 670 - Miraflores',
     status: 'ENTREGADO',
     timeLeft: '00:00',
+    coordinates: { lat: -12.074690847992702, lng: -77.09414209389209 },
   },
   {
     orderNumber: '2',
@@ -59,6 +67,7 @@ export const DBOrder: IOrder[] = [
     address: 'Av. Ejercito, 670 - Miraflores',
     status: 'ENTREGADO',
     timeLeft: '00:00',
+    coordinates: { lat: -12.058090603870156, lng: -77.04450221443963 },
   },
   {
     orderNumber: '3',
@@ -70,6 +79,7 @@ export const DBOrder: IOrder[] = [
     address: 'Av. Ejercito, 670 - Miraflores',
     status: 'ENTREGADO',
     timeLeft: '00:00',
+    coordinates: { lat: -12.070840509867775, lng: -77.0163855247041 },
   },
   {
     orderNumber: '4',
@@ -81,6 +91,7 @@ export const DBOrder: IOrder[] = [
     address: 'Av. Ejercito, 670 - Miraflores',
     status: 'RECHAZADO',
     timeLeft: '00:00',
+    coordinates: { lat: -12.076122568833423, lng: -76.9991491494781 },
   },
   {
     orderNumber: '5',
@@ -92,6 +103,7 @@ export const DBOrder: IOrder[] = [
     address: 'Av. Ejercito, 670 - Miraflores',
     status: 'EN RUTA',
     timeLeft: '00:05',
+    coordinates: { lat: -12.066033152202444, lng: -76.9940510666648 },
   },
   {
     orderNumber: '6',
@@ -103,6 +115,7 @@ export const DBOrder: IOrder[] = [
     address: 'Av. Ejercito, 670 - Miraflores',
     status: 'ASIGNADO',
     timeLeft: '00:10',
+    coordinates: { lat: -12.090009732717025, lng: -76.97723953114895 },
   },
   {
     orderNumber: '7',
@@ -114,6 +127,7 @@ export const DBOrder: IOrder[] = [
     address: 'Av. Ejercito, 670 - Miraflores',
     status: 'ASIGNADO',
     timeLeft: '- 00:20',
+    coordinates: { lat: -12.105439068808161, lng: -76.97681469091451 },
   },
   {
     orderNumber: '8',
@@ -125,6 +139,7 @@ export const DBOrder: IOrder[] = [
     address: 'Av. Ejercito, 670 - Miraflores',
     status: 'ASIGNADO',
     timeLeft: '- 00:60',
+    coordinates: { lat: -12.110483081831664, lng: -76.98209484794612 },
   },
   {
     orderNumber: '9',
@@ -136,6 +151,7 @@ export const DBOrder: IOrder[] = [
     address: 'Av. Ejercito, 670 - Miraflores',
     status: 'ASIGNADO',
     timeLeft: '- 00:30',
+    coordinates: { lat: -12.118909337710376, lng: -76.99223032211069 },
   },
   {
     orderNumber: '10',
@@ -147,5 +163,6 @@ export const DBOrder: IOrder[] = [
     address: 'Av. Ejercito, 670 - Miraflores',
     status: 'CANCELADO',
     timeLeft: '- 00:40',
+    coordinates: { lat: -12.118137930980883, lng: -76.98816399415244 },
   },
 ];
