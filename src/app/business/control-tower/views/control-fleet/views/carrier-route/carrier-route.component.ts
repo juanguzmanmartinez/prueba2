@@ -13,6 +13,7 @@ import {
 } from './constants/order.constant';
 import { MatTableDataSource } from '@angular/material/table';
 import { IOrder } from './interfaces/order.interface';
+import { HereMapsRoutingService } from './implements/here-maps-routing.implement.service';
 
 @Component({
   selector: 'app-carrier-route',
@@ -38,33 +39,35 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit {
     ColumnNameList.actions,
   ];
 
-  constructor(private hereMapsService: HereMapsService) {}
+  constructor(
+    private hereMapsService: HereMapsService,
+    private hmRoutingService: HereMapsRoutingService
+  ) {}
 
   ngOnInit(): void {
     this.dataSource.data = DBOrder;
   }
 
   ngAfterViewInit() {
-    this.map = this.hereMapsService.createMap(this.mapElement.nativeElement, {
-      pixelRatio: window.devicePixelRatio,
-      center: { lat: -12.046374, lng: -77.042793 },
-      zoom: 13,
-    });
-
-    this.hereMapsService.resizeMap(this.behavior, this.map);
-    this.addOrderMarkers();
-    this.hereMapsService.centerOrdersMap(this.map);
-  }
-
-  addOrderMarkers() {
-    DBOrder.forEach((order: IOrder) => {
-      this.hereMapsService.orderMarker(this.map, order);
-    });
-  }
-
-  toogleFullScreen() {
-    if (this.mapElement.nativeElement.requestFullscreen) {
-      this.mapElement.nativeElement.requestFullscreen();
-    }
+    const element = this.mapElement.nativeElement;
+    this.map = this.hmRoutingService.initializeMap(element);
+    this.hmRoutingService.addOrderMarkers(DBOrder);
+    this.hereMapsService.centerMarkers(this.map);
+    this.hmRoutingService.calculateRoutes(
+      '-12.047274740451627,-77.1237202604052',
+      '-12.074690847992702,-77.09414209389209',
+      [
+        '-12.074690847992702,-77.09414209389209',
+        '-12.058090603870156,-77.04450221443963',
+        '-12.070840509867775,-77.0163855247041',
+        '-12.076122568833423,-76.9991491494781',
+        '-12.066033152202444,-76.9940510666648',
+        '-12.090009732717025,-76.97723953114895',
+        '-12.105439068808161,-76.97681469091451',
+        '-12.110483081831664,-76.98209484794612',
+        '-12.118909337710376,-76.99223032211069',
+        '-12.118137930980883,-76.98816399415244',
+      ]
+    );
   }
 }

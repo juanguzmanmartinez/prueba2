@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { DirectivesModule } from 'app/shared/directives/directives.module';
 import { TimeLeftDirective } from './views/carrier-route/directives/timeLeft.directive';
 import { OrderStatusDirective } from './views/carrier-route/directives/orderStatus.directive';
+import { HereMapsRoutingService } from './views/carrier-route/implements/here-maps-routing.implement.service';
 
 @NgModule({
   declarations: [
@@ -31,5 +32,6 @@ import { OrderStatusDirective } from './views/carrier-route/directives/orderStat
     IconsModule,
     DirectivesModule
   ],
+  providers: [HereMapsRoutingService]
 })
 export class ControlFleetModule {}
