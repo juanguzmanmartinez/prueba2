@@ -1,16 +1,239 @@
 <section class="operations-capacity-home pt-6 pt-md-8 pb-8 pb-md-15">
   <div class="row mb-7">
-    <div class="col-12">
-      <app-back-router-simple
-        backRoute="/"
-        class="back"
-      ></app-back-router-simple>
+    <div class="col-6">
+      <div class="col-12">
+        <app-back-router-simple backRoute="/" textBackRoute="Ir a inicio">
+        </app-back-router-simple>
+      </div>
+      <div class="col-12 d-flex justify-content-between">
+        <h4 class="text-h4 text-black mb-0">Control de flota</h4>
+      </div>
     </div>
-    <div class="col-12 d-flex justify-content-between">
-      <h4 class="text-h4 text-black mb-0">
-        Configuraci&oacute;n de capacidades
-      </h4>
+    <div class="col-6 d-flex justify-content-end align-items-center">
+      <span class="text-body-1-regular text-gray-7 cursor-pointer me-4"
+        >Última actualización: 3:30 p.m.
+        <app-router>
+          <span
+            class="text-decoration-underline text-secondary font-weight-bold"
+          >
+            Actualizar
+          </span>
+        </app-router>
+      </span>
+      <app-button-icon iconName="download"> Descargar </app-button-icon>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
 
+      <div >
+        <app-select
+          placeholder="Marca"
+          [multiple]="true"
+          [value]="selectedCompanies"
+          [optionList]="companies"
+          [selectOptionSquare]="true"
+          [showClearValueForButton]="true"
+          (optionChange)="selectionChange($event)"
+          (clearValueForButton)="clearValues()"
+        >
+          <ng-template let-company></ng-template>
+        </app-select>
+      </div>
+
+    </div>
+  </div>
+  <div class="row mt-2 mb-2">
+    <span class="text-body-1-regular text-gray-7 cursor-pointer me-4"
+      >Total transportistas: 120
+    </span>
+  </div>
+  <div class="row">
+    <div class="col-12 mb-8">
+      <table
+        mat-table
+        large-table
+        [dataSource]="dataSource"
+        class="order-table"
+      >
+        <ng-container matColumnDef="local">
+          <th
+            mat-header-cell
+            column-width="16%"
+            *matHeaderCellDef
+            app-sort-custom
+          >
+            Local
+          </th>
+          <td mat-cell cell-bold *matCellDef="let element">
+            {{ element.local }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="carrier">
+          <th
+            mat-header-cell
+            column-width="20%"
+            *matHeaderCellDef
+            app-sort-custom
+          >
+            Nombre de transportista
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.carrier }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="provider">
+          <th
+            mat-header-cell
+            column-width="15%"
+            *matHeaderCellDef
+            app-sort-custom
+          >
+            Proveedor
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.provider }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="vehicleType">
+          <th
+            mat-header-cell
+            column-width="13%"
+            *matHeaderCellDef
+            app-sort-custom
+          >
+            Tipo vehículo
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.vehicleType }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="startHour">
+          <th
+            mat-header-cell
+            column-width="12%"
+            *matHeaderCellDef
+            app-sort-custom
+            class="th-center"
+          >
+            Hora ingreso
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.startHour }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th
+            mat-header-cell
+            column-width="8%"
+            *matHeaderCellDef
+            app-sort-custom
+            header-cell-center
+          >
+            Estado
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="paused">
+          <th
+            mat-header-cell
+            column-width="8%"
+            *matHeaderCellDef
+            app-sort-custom
+            class="th-center"
+          >
+            Pausado
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.paused }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th
+            mat-header-cell
+            column-actions
+            column-width="8%"
+            *matHeaderCellDef
+          ></th>
+          <td mat-cell column-actions *matCellDef="let element">
+            <div class="d-inline-flex">
+              <!-- <app-tooltip
+                *ngIf="
+                  element.state !== statusError &&
+                  !orderHelper.disableCancel(element.orderStatus)
+                "
+                value="Cancelar pedido"
+                position="left"
+              >
+                <app-button-action-icon
+                  style="margin-right: 16px"
+                  [disabled]="orderHelper.disableCancel(element.orderStatus)"
+                  iconName="close"
+                  iconStyle="edge-table"
+                  (editionAccess)="cancelOrderModal(element.ecommerceId)"
+                  [pathAccess]="uploadPathAccess"
+                >
+                </app-button-action-icon>
+              </app-tooltip>
+              <app-tooltip
+                *ngIf="element.state !== statusError"
+                value="Ver Detalle"
+                position="left"
+              >
+                <app-button-action-icon
+                  iconName="launch"
+                  iconStyle="edge-table"
+                  (clicked)="viewOrderDetails(element.ecommerceId)"
+                >
+                </app-button-action-icon>
+              </app-tooltip> -->
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          row-hover
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4"></div>
+
+    <div class="col-lg-4 d-flex-center">
+      <app-paginator
+        [length]="totalOrder"
+        [pageIndex]="page - 1"
+        [pageSize]="pageSize"
+        (page)="onChangePage($event)"
+      >
+      </app-paginator>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="page-size">
+        <div class="d-flex align-items-center justify-content-end">
+          <p class="page-size-label text-gray-6 mb-0">Items por página</p>
+          <app-select
+            class="select-size"
+            [(ngModel)]="pageSize"
+            [value]="10"
+            containerMaxHeight="80px"
+            [optionList]="[10, 20, 30]"
+            (ngModelChange)="filterAll()"
+          >
+          </app-select>
+        </div>
+      </div>
     </div>
   </div>
 
