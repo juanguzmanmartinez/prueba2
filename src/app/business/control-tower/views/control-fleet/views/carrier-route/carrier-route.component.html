@@ -1,4 +1,196 @@
-<div>
-  <h1>Ruta de Transportista</h1>
-  <div #mapElement style="width: 100%; height: 500px;"></div>
-</div>
+<section>
+  <div class="row mt-5 mb-3">
+    <div class="col-12">
+      <app-back-router-simple class="back"></app-back-router-simple>
+    </div>
+  </div>
+  <h1 class="m-0 mb-6 text-neutral-100 text-h6">Ruta 12345-DB</h1>
+  <div class="row mb-5">
+    <div class="col-3 bg-neutral-0 p-5 text-body-3-regular">
+      <div class="row mb-4">
+        <div class="col-4 text-neutral-100"><span>Transportista:</span></div>
+        <div class="col-8 text-neutral-60"><span>Román Fernandez</span></div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-4 text-neutral-100"><span>Teléfono:</span></div>
+        <div class="col-8 text-neutral-60"><span>986322716</span></div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-4 text-neutral-100"><span>Local:</span></div>
+        <div class="col-8 text-neutral-60">
+          <span>IKF-061-DOS DE MAYO</span>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-4 text-neutral-100"><span>Vehículo:</span></div>
+        <div class="col-8 text-neutral-60"><span>Moto</span></div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-4 text-neutral-100"><span>Entregados:</span></div>
+        <div class="col-8 text-neutral-60"><span>3 de 10</span></div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-4 text-neutral-100">
+          <span>Tiempo restante ruta:</span>
+        </div>
+        <div class="col-8 text-neutral-60"><span>25:10</span></div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-4 text-neutral-100"><span>Estado:</span></div>
+        <div class="col-8 text-neutral-60"><span>EN RUTA</span></div>
+      </div>
+      <div class="row">
+        <div class="col-4 text-neutral-100"><span>Pedidos en ruta:</span></div>
+        <div class="col-8 text-neutral-60">
+          <span
+            >1561589012, 1561589013, 1561589014, 1561589015, 1561589016</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-9">
+      <div #mapElement style="width: 100%; height: 500px"></div>
+    </div>
+  </div>
+  <div class="row mb-6">
+    <div class="col-12">
+      <table mat-table large-table [dataSource]="dataSource">
+        <ng-container matColumnDef="orderNumber">
+          <th
+            mat-header-cell
+            column-width="2%"
+            *matHeaderCellDef
+            app-sort-custom
+          >
+            N°
+          </th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-center text-neutral-90 text-body-3-regular"
+          >
+            {{ element.orderNumber }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderId">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Pedido</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.orderId }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="local">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Local</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.local }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="channel">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Canal</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.channel }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="service">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Servicio</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.service }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="promiseDate">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>F. Promesa</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.promiseDate }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>
+            Direcci&oacute;n
+          </th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.address }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Estado</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-body-4-bold"
+          >
+            <span appOrderStatus>{{ element.status }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="timeLeft">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>T. Restante</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-body-3-regular"
+          >
+            <span appTimeLeft>{{ element.timeLeft }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell cell-bold *matCellDef="let element">
+            <app-button
+              class="d-flex justify-content-center align-items-center"
+              innerClass="d-flex align-items-center p-0"
+            >
+              <app-icon svgName="fleet-table-action" svgWidth="24px"></app-icon>
+            </app-button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          row-hover
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+    </div>
+  </div>
+</section>

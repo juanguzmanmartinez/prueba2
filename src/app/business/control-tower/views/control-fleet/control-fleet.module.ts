@@ -39,13 +39,17 @@ import { SkeletonModule } from '@molecules/skeleton/skeleton.module';
 import { FilterSearchModule } from '@molecules/filter-search/filter-search.module';
 import { LocalFilterModule } from 'app/business/order/views/order-records/components/local-filter/local-filter.module';
 import { PaginatorModule } from '@atoms/paginator/paginator.module';
+import { TimeLeftDirective } from './views/carrier-route/directives/timeLeft.directive';
+import { OrderStatusDirective } from './views/carrier-route/directives/orderStatus.directive';
+import { HereMapsRoutingService } from './views/carrier-route/implements/here-maps-routing.implement.service';
 
 @NgModule({
   declarations: [
     ControlFleetComponent,
     CarrierComponent,
     CarrierRouteComponent,
-
+    TimeLeftDirective,
+    OrderStatusDirective
   ],
   imports: [ControlFleetRoutingModule,  CommonModule,
     ReactiveFormsModule,
@@ -83,6 +87,8 @@ import { PaginatorModule } from '@atoms/paginator/paginator.module';
     LocalFilterModule,
     FilterSearchModule,
     PaginatorModule,
-    SkeletonModule],
+    SkeletonModule
+  ],
+  providers: [HereMapsRoutingService]
 })
 export class ControlFleetModule {}
