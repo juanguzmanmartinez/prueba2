@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-carrier',
   templateUrl: './carrier.component.html',
+  styleUrls: ['./carrier.component.scss']
 })
 export class CarrierComponent implements OnInit{
   displayedColumns: string[] = [
@@ -24,7 +25,7 @@ export class CarrierComponent implements OnInit{
       provider: 'CAJE FOREST',
       vehicleType: 'Moto',
       startHour: '1:02 p.m.',
-      status: 'Disponible',
+      status: 'DISPONIBLE',
       paused: 'No',
     },{
       local: 'IKF-061-DOS DE MAYO',
@@ -32,7 +33,7 @@ export class CarrierComponent implements OnInit{
       provider: 'CAJE FOREST',
       vehicleType: 'Moto',
       startHour: '1:02 p.m.',
-      status: 'Disponible',
+      status: 'EN RUTA',
       paused: 'No',
     },{
       local: 'IKF-061-DOS DE MAYO',
@@ -40,7 +41,7 @@ export class CarrierComponent implements OnInit{
       provider: 'CAJE FOREST',
       vehicleType: 'Moto',
       startHour: '1:02 p.m.',
-      status: 'Disponible',
+      status: 'NO DISPONIBLE',
       paused: 'No',
     },{
       local: 'IKF-061-DOS DE MAYO',
@@ -48,7 +49,7 @@ export class CarrierComponent implements OnInit{
       provider: 'CAJE FOREST',
       vehicleType: 'Moto',
       startHour: '1:02 p.m.',
-      status: 'Disponible',
+      status: 'DISPONIBLE',
       paused: 'No',
     },{
       local: 'IKF-061-DOS DE MAYO',
@@ -56,7 +57,7 @@ export class CarrierComponent implements OnInit{
       provider: 'CAJE FOREST',
       vehicleType: 'Moto',
       startHour: '1:02 p.m.',
-      status: 'Disponible',
+      status: 'DISPONIBLE',
       paused: 'No',
     },{
       local: 'IKF-061-DOS DE MAYO',
@@ -64,7 +65,7 @@ export class CarrierComponent implements OnInit{
       provider: 'CAJE FOREST',
       vehicleType: 'Moto',
       startHour: '1:02 p.m.',
-      status: 'Disponible',
+      status: 'DISPONIBLE',
       paused: 'No',
     },{
       local: 'IKF-061-DOS DE MAYO',
@@ -72,7 +73,7 @@ export class CarrierComponent implements OnInit{
       provider: 'CAJE FOREST',
       vehicleType: 'Moto',
       startHour: '1:02 p.m.',
-      status: 'Disponible',
+      status: 'DISPONIBLE',
       paused: 'No',
     },{
       local: 'IKF-061-DOS DE MAYO',
@@ -80,7 +81,7 @@ export class CarrierComponent implements OnInit{
       provider: 'CAJE FOREST',
       vehicleType: 'Moto',
       startHour: '1:02 p.m.',
-      status: 'Disponible',
+      status: 'DISPONIBLE',
       paused: 'No',
     },{
       local: 'IKF-061-DOS DE MAYO',
@@ -88,7 +89,7 @@ export class CarrierComponent implements OnInit{
       provider: 'CAJE FOREST',
       vehicleType: 'Moto',
       startHour: '1:02 p.m.',
-      status: 'Disponible',
+      status: 'DISPONIBLE',
       paused: 'No',
     },{
       local: 'IKF-061-DOS DE MAYO',
@@ -96,183 +97,7 @@ export class CarrierComponent implements OnInit{
       provider: 'CAJE FOREST',
       vehicleType: 'Moto',
       startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
-      paused: 'No',
-    },{
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      vehicleType: 'Moto',
-      startHour: '1:02 p.m.',
-      status: 'Disponible',
+      status: 'DISPONIBLE',
       paused: 'No',
     },
   ];
@@ -284,7 +109,7 @@ export class CarrierComponent implements OnInit{
   pageSize: number=10
   totalOrder=50
   selectedCompanies=[]
-  companies=["adas","asdasd"]
+  companies=["DISPONIBLE","EN RUTA","NO DISPONIBLE"]
   ngOnInit(): void {
     this.dataSource.data =this.dataFake
     this.dataSource.paginator =this.paginator

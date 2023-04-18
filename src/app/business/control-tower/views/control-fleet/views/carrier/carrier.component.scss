@@ -1,0 +1,26 @@
+.status-text{
+  font-size: 12px;
+  font-weight: bold;
+}
+.ml-2{
+  margin-left: 5px;
+}
+.pill-card{
+  border: 1px solid #DDE2ED;
+  padding: 8px;
+  font-size: 14px;
+  color: #304165;
+  border-radius: 8px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+
+  .btn{
+    background: none;
+    border: none;
+    height: 14px;
+    width: 14px;
+  }
+}

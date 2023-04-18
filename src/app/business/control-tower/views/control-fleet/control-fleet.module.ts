@@ -42,6 +42,7 @@ import { PaginatorModule } from '@atoms/paginator/paginator.module';
 import { TimeLeftDirective } from './views/carrier-route/directives/timeLeft.directive';
 import { OrderStatusDirective } from './views/carrier-route/directives/orderStatus.directive';
 import { HereMapsRoutingService } from './views/carrier-route/implements/here-maps-routing.implement.service';
+import { CarrierStatusDirective } from './views/carrier/directives/carrierStatus.directive';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { HereMapsRoutingService } from './views/carrier-route/implements/here-ma
     CarrierComponent,
     CarrierRouteComponent,
     TimeLeftDirective,
-    OrderStatusDirective
+    OrderStatusDirective,
+    CarrierStatusDirective
   ],
   imports: [ControlFleetRoutingModule,  CommonModule,
     ReactiveFormsModule,

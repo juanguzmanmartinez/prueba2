@@ -127,4 +127,6 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'alert-error', path: `${pathIcons}alert-error.svg` },
   { name: 'alert-message', path: `${pathIcons}alert-message.svg` },
   { name: 'bag-2', path: `${pathIcons}bag-2.svg` },
+  { name: 'donwload-blue', path: `${pathIcons}donwload-blue.svg` },
+  { name: 'close-gray', path: `${pathIcons}close-gray.svg` },
 ];
