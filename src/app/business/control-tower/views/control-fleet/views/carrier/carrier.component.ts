@@ -2,12 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { CT_ROUTER_PATH } from '@parameters/router/routing/control-tower/control-tower-path.parameter';
 @Component({
   selector: 'app-carrier',
   templateUrl: './carrier.component.html',
-  styleUrls: ['./carrier.component.scss']
+  styleUrls: ['./carrier.component.scss'],
 })
-export class CarrierComponent implements OnInit{
+export class CarrierComponent implements OnInit {
   displayedColumns: string[] = [
     'local',
     'carrier',
@@ -18,8 +20,9 @@ export class CarrierComponent implements OnInit{
     'paused',
     'actions',
   ];
-  dataFake :any[] = [
+  dataFake: any[] = [
     {
+      idCarrier: '1',
       local: 'IKF-061-DOS DE MAYO',
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
@@ -27,7 +30,9 @@ export class CarrierComponent implements OnInit{
       startHour: '1:02 p.m.',
       status: 'DISPONIBLE',
       paused: 'No',
-    },{
+    },
+    {
+      idCarrier: '2',
       local: 'IKF-061-DOS DE MAYO',
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
@@ -35,7 +40,9 @@ export class CarrierComponent implements OnInit{
       startHour: '1:02 p.m.',
       status: 'EN RUTA',
       paused: 'No',
-    },{
+    },
+    {
+      idCarrier: '3',
       local: 'IKF-061-DOS DE MAYO',
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
@@ -43,7 +50,9 @@ export class CarrierComponent implements OnInit{
       startHour: '1:02 p.m.',
       status: 'NO DISPONIBLE',
       paused: 'No',
-    },{
+    },
+    {
+      idCarrier: '4',
       local: 'IKF-061-DOS DE MAYO',
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
@@ -51,7 +60,9 @@ export class CarrierComponent implements OnInit{
       startHour: '1:02 p.m.',
       status: 'DISPONIBLE',
       paused: 'No',
-    },{
+    },
+    {
+      idCarrier: '5',
       local: 'IKF-061-DOS DE MAYO',
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
@@ -59,7 +70,9 @@ export class CarrierComponent implements OnInit{
       startHour: '1:02 p.m.',
       status: 'DISPONIBLE',
       paused: 'No',
-    },{
+    },
+    {
+      idCarrier: '6',
       local: 'IKF-061-DOS DE MAYO',
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
@@ -67,7 +80,9 @@ export class CarrierComponent implements OnInit{
       startHour: '1:02 p.m.',
       status: 'DISPONIBLE',
       paused: 'No',
-    },{
+    },
+    {
+      idCarrier: '7',
       local: 'IKF-061-DOS DE MAYO',
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
@@ -75,7 +90,9 @@ export class CarrierComponent implements OnInit{
       startHour: '1:02 p.m.',
       status: 'DISPONIBLE',
       paused: 'No',
-    },{
+    },
+    {
+      idCarrier: '8',
       local: 'IKF-061-DOS DE MAYO',
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
@@ -83,7 +100,9 @@ export class CarrierComponent implements OnInit{
       startHour: '1:02 p.m.',
       status: 'DISPONIBLE',
       paused: 'No',
-    },{
+    },
+    {
+      idCarrier: '9',
       local: 'IKF-061-DOS DE MAYO',
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
@@ -91,7 +110,9 @@ export class CarrierComponent implements OnInit{
       startHour: '1:02 p.m.',
       status: 'DISPONIBLE',
       paused: 'No',
-    },{
+    },
+    {
+      idCarrier: '10',
       local: 'IKF-061-DOS DE MAYO',
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
@@ -105,20 +126,29 @@ export class CarrierComponent implements OnInit{
   dataSource = new MatTableDataSource<any>();
   selection = new SelectionModel(true, []);
   private fixedSelectedRows: any[] = [];
-  page: number=1
-  pageSize: number=10
-  totalOrder=50
-  selectedCompanies=[]
-  companies=["DISPONIBLE","EN RUTA","NO DISPONIBLE"]
+  page: number = 1;
+  pageSize: number = 10;
+  totalOrder = 50;
+  selectedCompanies = [];
+  selectedLocals = [];
+  companies = ['DISPONIBLE', 'EN RUTA', 'NO DISPONIBLE'];
+  locals = ['DOS DE MAYO', 'SALAVERRY', 'KENNEDY'];
+
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
-    this.dataSource.data =this.dataFake
-    this.dataSource.paginator =this.paginator
+    this.dataSource.data = this.dataFake;
+    this.dataSource.paginator = this.paginator;
   }
   get selected(): number {
     return this.selection.selected.length;
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  viewCarrierRoute(idCarrier: string) {
+    this.router.navigate([CT_ROUTER_PATH.ctCarrierRoute(idCarrier)]);
+  }
 
   isAllSelected(): boolean {
     let allSelected = true;
@@ -197,6 +227,6 @@ export class CarrierComponent implements OnInit{
     //     error: (err) => (this.errorResponse = err),
     //   });
   }
-  selectionChange(e:any){}
-  clearValues(){}
+  selectionChange(e: any) {}
+  clearValues() {}
 }
