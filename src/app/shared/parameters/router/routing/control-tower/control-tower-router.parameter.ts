@@ -10,8 +10,12 @@ export const CT_ROUTER: TRouter = {
 
 export const CT_CHILDREN_PATH = {
   fleet: 'flota',
-  routes: 'rutas',
   carriers: 'transportistas',
   carrierRoute: 'ruta-del-transportista',
-  idCarrier: 'idCarrier'
+  idCarrier: 'idCarrier',
+  routes: 'rutas',
+  routeTracking: 'seguimiento-de-rutas',
+  allocationRouting: 'asignacion-y-ruteo',
+  manualRouting: 'asignacion-manual',
+  idLocal: 'idLocal',
 };

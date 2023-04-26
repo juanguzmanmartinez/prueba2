@@ -15,6 +15,12 @@ const CT_CHILDREN_PERMISSIONS: TBasePermissions = {
   [ROUTER_PATH.ctCarriers]: [[EDITOR, VIEWER], Access.CTControlFleet],
   [ROUTER_PATH.ctCarrierRoute()]: [[EDITOR, VIEWER], Access.CTControlFleet],
   [ROUTER_PATH.ctRouteMonitoring]: [[EDITOR, VIEWER], Access.CTRouteMonitoring],
+  [ROUTER_PATH.ctRouteTracking]: [[EDITOR, VIEWER], Access.CTRouteMonitoring],
+  [ROUTER_PATH.ctAllocationRouting()]: [
+    [EDITOR, VIEWER],
+    Access.CTRouteMonitoring,
+  ],
+  [ROUTER_PATH.ctManualRouting()]: [[EDITOR, VIEWER], Access.CTRouteMonitoring],
 };
 export const CT_ROUTER_PERMISSIONS = permissions(
   CT_PARENT_PERMISSIONS,
