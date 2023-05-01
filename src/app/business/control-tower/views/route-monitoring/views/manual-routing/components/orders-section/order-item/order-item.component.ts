@@ -1,4 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { IOrder } from 'app/business/control-tower/views/route-monitoring/interfaces/order.interface';
 
 @Component({
   selector: 'app-order-item',
@@ -8,4 +9,5 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 })
 export class OrderItemComponent {
   @Input() index: number = 1
+  @Input() order: IOrder;
 }

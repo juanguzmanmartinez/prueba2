@@ -4,53 +4,19 @@
       >Arrastra y ordena los pedidos:
     </span>
   </div>
-  <div cdkDropList>
-    <ng-container *ngFor="let item of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]">
-      <div class="order-item" cdkDrag>
-        <app-order-item [index]="item"></app-order-item>
-      </div>
-    </ng-container>
-  </div>
-
-  <div class="example-container">
-    <h2>To do</h2>
-
+  <div
+    cdkDropList
+    class="order-list"
+    (cdkDropListDropped)="drop($event)"
+  >
     <div
-      cdkDropList
-      #todoList="cdkDropList"
-      [cdkDropListData]="todo"
-      [cdkDropListConnectedTo]="[doneList]"
-      class="example-list"
-      (cdkDropListDropped)="drop($event)"
+      class="order-item"
+      *ngFor="let order of orderList; let i = index"
+      cdkDrag
+      [cdkDragData]="i"
     >
-      <div
-        class="example-box"
-        *ngFor="let item of todo; let i = index"
-        cdkDrag
-        [cdkDragData]="i"
-      >
-        <div class="order-item">
-          <app-order-item [index]="i">
-            <span class="text-neutral-100">{{item}}</span>  
-          </app-order-item>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="example-container">
-    <h2>Done</h2>
-
-    <div
-      cdkDropList
-      #doneList="cdkDropList"
-      [cdkDropListData]="done"
-      [cdkDropListConnectedTo]="[todoList]"
-      class="example-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <div class="example-box" *ngFor="let item of done" cdkDrag>
-        {{ item }}
+      <div>
+        <app-order-item [index]="i" [order]="order"></app-order-item>
       </div>
     </div>
   </div>
