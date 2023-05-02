@@ -14,8 +14,8 @@ export class IconComponent {
 
   @Input() svgName: string;
   @Input() svgNameHover: string;
-  @Input() svgWidth: '16px' | '24px' | '32px' | '48px' | string = '16px';
-  @Input() svgHeight: '16px' | '24px' | '32px' | '48px' | string;
+  @Input() svgWidth: '16px' | '20px' |'24px' | '32px' | '48px' | string = '16px';
+  @Input() svgHeight: '16px' | '20px' |'24px' | '32px' | '48px' | string;
 
   @Input() innerClass: string;
 

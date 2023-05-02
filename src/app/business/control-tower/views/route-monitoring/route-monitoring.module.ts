@@ -15,6 +15,9 @@ import { CarrierFilterComponent } from './views/manual-routing/components/filter
 import { LocalFilterComponent } from './views/manual-routing/components/filters-section/local-filter/local-filter.component';
 import { FilterSectionComponent } from './views/manual-routing/components/filters-section/filter-section.component';
 import { SelectVitaModule } from '@atoms/vita/select/select.module';
+import { ButtonsModule } from '@atoms/buttons/buttons.module';
+import { ButtonVitaModule } from '@atoms/vita/button/button.module';
+import { SwitchModule } from '@atoms/switch/switch.module';
 
 @NgModule({
   declarations: [
@@ -34,8 +37,11 @@ import { SelectVitaModule } from '@atoms/vita/select/select.module';
     RouteMonirotingRoutingModule,
     BackRouterSimpleModule,
     IconsModule,
+    ButtonsModule,
     DragDropModule,
-    SelectVitaModule
+    SelectVitaModule,
+    ButtonVitaModule,
+    SwitchModule
   ],
 })
 export class RouteMonitoringModule {}

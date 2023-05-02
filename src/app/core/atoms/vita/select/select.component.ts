@@ -1,4 +1,4 @@
-import { Component, ContentChild, EventEmitter, forwardRef, HostListener, Input, Output, TemplateRef } from "@angular/core";
+import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostListener, Input, Output, TemplateRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { ISelectOption } from "@interfaces/vita/select.interface";
 
@@ -31,13 +31,13 @@ export class SelectComponent implements ControlValueAccessor {
 
   @HostListener("document:click", ["$event"])
   clickOutside(event: { target: Node | null }) {
-    const selectElement = document.querySelector(".custom-select");
+    const selectElement = this.elementRef.nativeElement;
     if (!selectElement?.contains(event.target)) {
       this.showOptions = false;
     }
   }
 
-  constructor() {}
+  constructor(private elementRef: ElementRef) {}
 
   writeValue(value: any): void {
     this.selectedOption = this.options.find((option) => option.value === value);

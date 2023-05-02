@@ -1,0 +1,39 @@
+@import "src/sass/variables";
+@import "src/sass/mixins/text.mixin";
+
+.button {
+  height: 48px;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  @include text-body-2-bold;
+
+  &.button-primary {
+    background-color: $primary-60;
+    color: $neutral-0;
+
+    &:hover {
+      background-color: $primary-70;
+    }
+
+    &:active {
+      background-color: $primary-80;
+    }
+
+    &:focus {
+      background-color: $primary-60;
+      border: 2.8px solid $primary-30;
+    }
+
+    &:disabled {
+      background-color: $neutral-30;
+      color: $neutral-50;
+    }
+  }
+}
