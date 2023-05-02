@@ -9,7 +9,12 @@ import { IconsModule } from '@atoms/icons/icons.module';
 import { OrderListComponent } from './views/manual-routing/components/orders-section/order-list/order-list.component';
 import { OrderItemComponent } from './views/manual-routing/components/orders-section/order-item/order-item.component';
 import { CommonModule } from '@angular/common';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MapSectionComponent } from './views/manual-routing/components/map-section/map-section.component';
+import { CarrierFilterComponent } from './views/manual-routing/components/filters-section/carrier-filter/carrier-filter.component';
+import { LocalFilterComponent } from './views/manual-routing/components/filters-section/local-filter/local-filter.component';
+import { FilterSectionComponent } from './views/manual-routing/components/filters-section/filter-section.component';
+import { SelectVitaModule } from '@atoms/vita/select/select.module';
 
 @NgModule({
   declarations: [
@@ -19,13 +24,18 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     ManualRoutingComponent,
     OrderListComponent,
     OrderItemComponent,
+    MapSectionComponent,
+    FilterSectionComponent,
+    CarrierFilterComponent,
+    LocalFilterComponent,
   ],
   imports: [
     CommonModule,
     RouteMonirotingRoutingModule,
     BackRouterSimpleModule,
     IconsModule,
-    DragDropModule
+    DragDropModule,
+    SelectVitaModule
   ],
 })
 export class RouteMonitoringModule {}

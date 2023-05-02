@@ -13,10 +13,10 @@
       class="order-item"
       *ngFor="let order of orderList; let i = index"
       cdkDrag
-      [cdkDragData]="i"
+      [cdkDragData]="i+1"
     >
       <div>
-        <app-order-item [index]="i" [order]="order"></app-order-item>
+        <app-order-item [index]="i+1" [order]="order"></app-order-item>
       </div>
     </div>
   </div>
