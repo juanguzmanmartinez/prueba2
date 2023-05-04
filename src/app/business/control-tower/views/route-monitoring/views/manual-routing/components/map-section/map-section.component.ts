@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { HereMapsManualRoutingService } from '../../implements/here-maps-manual-routing.service';
-import { OrderManualDB } from '../../constants/orders.constant';
+import { OrderManualDB } from '../../../../constants/orders.constant';
 import { OrderStore } from '../../store/order.store';
 import { IOrder } from '../../../../interfaces/order.interface';
 import { HereMapsService } from '@clients/here-maps/here-maps.service';

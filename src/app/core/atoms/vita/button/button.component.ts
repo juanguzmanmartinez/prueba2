@@ -6,6 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
+  @Input() innerClass = '';
   @Input() color: 'primary' | 'secondary' | 'tertiary' = 'primary';
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() disabled: boolean = false;

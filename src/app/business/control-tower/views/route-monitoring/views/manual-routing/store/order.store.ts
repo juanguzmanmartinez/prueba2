@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IOrder } from '../../../interfaces/order.interface';
-import { OrderManualDB } from '../constants/orders.constant';
+import { OrderManualDB } from '../../../constants/orders.constant';
 
 @Injectable()
 export class OrderStore {

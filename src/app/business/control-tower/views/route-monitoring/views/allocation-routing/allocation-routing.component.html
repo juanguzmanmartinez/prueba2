@@ -1,1 +1,31 @@
-<h1>Allocation-routing</h1>
+<section>
+  <div class="row mt-5 mb-4">
+    <div class="col-12">
+      <app-back-router-simple class="back"></app-back-router-simple>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between mb-6">
+    <div class="d-flex align-items-center">
+      <span class="text-h6 text-neutral-100 me-3"
+        >Asignación manual de ruta
+      </span>
+      <span class="local-pill">
+        <app-icon svgName="operations" innerClass="me-2"></app-icon>
+        <span class="text-body-2-regular text-neutral-100">
+          IKF-061-DOS DE MAYO
+        </span>
+      </span>
+    </div>
+    <div>
+      <fp-button color="primary">
+        <div class="d-flex align-items-center">
+          <app-icon svgName="apply" svgWidth="20px"></app-icon>
+          <span class="ms-2">Asignar manualmente</span>
+        </div>
+      </fp-button>
+    </div>
+  </div>
+
+  <app-filter-order></app-filter-order>
+  <app-table-section></app-table-section>
+</section>

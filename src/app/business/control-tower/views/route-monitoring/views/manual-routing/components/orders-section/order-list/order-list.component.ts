@@ -4,7 +4,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { OrderManualDB } from '../../../constants/orders.constant';
+import { OrderManualDB } from '../../../../../constants/orders.constant';
 import { IOrder } from 'app/business/control-tower/views/route-monitoring/interfaces/order.interface';
 import { OrderStore } from '../../../store/order.store';
 

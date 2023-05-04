@@ -1,4 +1,4 @@
-import { ICarrier } from '../../../interfaces/carrier.interface';
+import { ICarrier } from '../interfaces/carrier.interface';
 
 export const CarrierDB: ICarrier[] = [
   {

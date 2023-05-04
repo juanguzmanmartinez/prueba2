@@ -23,6 +23,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AssignedRouteDialogService } from './views/manual-routing/components/assigned-route-dialog/assigned-route-dialog.service';
 import { AssignedRouteDialogComponent } from './views/manual-routing/components/assigned-route-dialog/assigned-route-dialog.component';
 import { DialogModule } from '@molecules/dialog/dialog.module';
+import { FilterOrderComponent } from './views/allocation-routing/components/filter-order/filter-order.component';
+import { FilterServiceComponent } from './views/allocation-routing/components/filter-order/filter-service/filter-service.component';
+import { FilterErrorComponent } from './views/allocation-routing/components/filter-order/filter-error/filter-error.component';
+import { TableSectionComponent } from './views/allocation-routing/components/table-section/table-section.component';
+import { TabModule } from '@molecules/tab/tab.module';
+import { MatTableModule } from '@angular/material/table';
+import { TableModule } from '@molecules/table/table.module';
+import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +44,11 @@ import { DialogModule } from '@molecules/dialog/dialog.module';
     FilterSectionComponent,
     CarrierFilterComponent,
     LocalFilterComponent,
-    AssignedRouteDialogComponent
+    AssignedRouteDialogComponent,
+    FilterOrderComponent,
+    FilterErrorComponent,
+    FilterServiceComponent,
+    TableSectionComponent,
   ],
   providers: [OrderStore, AssignedRouteDialogService],
   imports: [
@@ -50,6 +62,10 @@ import { DialogModule } from '@molecules/dialog/dialog.module';
     SelectVitaModule,
     ButtonVitaModule,
     SwitchModule,
+    TabModule,
+    MatTableModule,
+    TableModule,
+    CheckboxModule
   ],
 })
 export class RouteMonitoringModule {}

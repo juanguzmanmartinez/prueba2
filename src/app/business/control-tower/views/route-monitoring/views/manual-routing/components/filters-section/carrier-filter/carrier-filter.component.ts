@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CarrierDB } from '../../../constants/carrier.constant';
+import { CarrierDB } from '../../../../../constants/carrier.constant';
 
 @Component({
   selector: 'app-carrier-filter',
