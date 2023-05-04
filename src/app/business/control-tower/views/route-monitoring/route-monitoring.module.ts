@@ -18,6 +18,11 @@ import { SelectVitaModule } from '@atoms/vita/select/select.module';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
 import { ButtonVitaModule } from '@atoms/vita/button/button.module';
 import { SwitchModule } from '@atoms/switch/switch.module';
+import { OrderStore } from './views/manual-routing/store/order.store';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AssignedRouteDialogService } from './views/manual-routing/components/assigned-route-dialog/assigned-route-dialog.service';
+import { AssignedRouteDialogComponent } from './views/manual-routing/components/assigned-route-dialog/assigned-route-dialog.component';
+import { DialogModule } from '@molecules/dialog/dialog.module';
 
 @NgModule({
   declarations: [
@@ -31,9 +36,12 @@ import { SwitchModule } from '@atoms/switch/switch.module';
     FilterSectionComponent,
     CarrierFilterComponent,
     LocalFilterComponent,
+    AssignedRouteDialogComponent
   ],
+  providers: [OrderStore, AssignedRouteDialogService],
   imports: [
     CommonModule,
+    DialogModule,
     RouteMonirotingRoutingModule,
     BackRouterSimpleModule,
     IconsModule,
@@ -41,7 +49,7 @@ import { SwitchModule } from '@atoms/switch/switch.module';
     DragDropModule,
     SelectVitaModule,
     ButtonVitaModule,
-    SwitchModule
+    SwitchModule,
   ],
 })
 export class RouteMonitoringModule {}

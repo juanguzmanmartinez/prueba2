@@ -33,14 +33,16 @@ export class HereMapsService {
 
   resizeMap() {
     window.addEventListener('resize', () => this.map.getViewPort().resize());
-    this.behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
+    this.behavior = new H.mapevents.Behavior(
+      new H.mapevents.MapEvents(this.map)
+    );
   }
 
   centerMarkers(map: H.Map) {
     const objects = map.getObjects();
     const markers = objects.filter(
-      (obj) => obj instanceof H.map.Marker
-    ) as H.map.Marker[];
+      (obj) => obj instanceof H.map.Marker || H.map.DomMarker
+    ) as H.map.Marker[] | H.map.DomMarker[];
 
     const boundingBox = new H.geo.Rect(
       Math.max(

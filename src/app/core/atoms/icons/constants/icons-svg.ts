@@ -133,5 +133,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: "select-arrow-down", path: `${pathIcons}select-arrow-down.svg` },
   { name: "apply", path: `${pathIcons}apply.svg` },
   { name: "user-only", path: `${pathIcons}user-only.svg` },
+  { name: "location-neutral", path: `${pathIcons}location-neutral.svg` },
+  { name: "check-success", path: `${pathIcons}check-success.svg` },
 
 ];
