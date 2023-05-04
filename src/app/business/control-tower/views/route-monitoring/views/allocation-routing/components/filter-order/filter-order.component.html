@@ -8,8 +8,12 @@
     </div>
   </div>
   <div class="row mb-6">
-    <div class="col-5"></div>
-    <div class="col-5"></div>
+    <div class="col-5">
+      <fp-select-multiple [options]="errorTypeList"></fp-select-multiple>
+    </div>
+    <div class="col-5">
+      <fp-select-multiple [options]="serviceTypeList"></fp-select-multiple>
+    </div>
     <div class="col-2">
       <fp-button color="primary" innerClass="w-100">
         <div class="d-flex align-items-center">

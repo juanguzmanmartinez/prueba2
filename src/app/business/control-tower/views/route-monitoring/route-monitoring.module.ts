@@ -31,6 +31,7 @@ import { TabModule } from '@molecules/tab/tab.module';
 import { MatTableModule } from '@angular/material/table';
 import { TableModule } from '@molecules/table/table.module';
 import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
+import { SelectMultipleVitaModule } from '@atoms/vita/select-multiple/select-multiple.module';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
     TabModule,
     MatTableModule,
     TableModule,
-    CheckboxModule
+    CheckboxModule,
+    SelectMultipleVitaModule
   ],
 })
 export class RouteMonitoringModule {}

@@ -1,0 +1,46 @@
+<div class="custom-select">
+  <button
+    class="custom-select-selected"
+    (click)="toggleOptions()"
+    [class.selected-active]="showOptions"
+    [class.selected-error]="isError"
+    [class.selected-disabled]="isDisabled"
+    [class.selected-option]="selectedOptions"
+  >
+    <ng-template #placeholderDesc>Selecciona una o más opciones</ng-template>
+    <ng-template #defaultDesc>{{
+      selectedOptions.length > 1 ? textOthersSelected : selectedOptions[0].label
+    }}</ng-template>
+    <ng-container
+      [ngTemplateOutlet]="
+        selectedOptions.length > 0 ? defaultDesc : placeholderDesc
+      "
+      [ngTemplateOutletContext]="{ $implicit: selectedOptions }"
+    ></ng-container>
+
+    <app-icon svgName="select-arrow-down"></app-icon>
+  </button>
+  <div class="custom-select-options" *ngIf="showOptions">
+    <div *ngFor="let option of options" class="custom-select-option">
+      <label class="w-100 d-flex align-items-center">
+        <input
+          class="me-2"
+          type="checkbox"
+          [value]="option"
+          (change)="toggleOption(option, $event.target.checked)"
+          [checked]="isSelected(option)"
+        />
+        <ng-template #defaultTemplate let-option>
+          <span class="text-body-2-regular text-neutral-90">{{
+            option.label
+          }}</span></ng-template
+        >
+        <ng-container
+          [ngTemplateOutlet]="optionTemplate || defaultTemplate"
+          [ngTemplateOutletContext]="{ $implicit: option }"
+        >
+        </ng-container>
+      </label>
+    </div>
+  </div>
+</div>

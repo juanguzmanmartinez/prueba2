@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { IOrder } from '../../../../interfaces/order.interface';
 import {
@@ -17,6 +17,8 @@ export class TableSectionComponent implements OnInit {
   public dataSourceOrderPending = new MatTableDataSource<IOrder>();
   public selection = new SelectionModel(true, []);
   public selectionOrderPending = new SelectionModel(true, []);
+
+  @Output() eventEmitter = new EventEmitter();
 
   get selected(): number {
     return this.selection.selected.length;
