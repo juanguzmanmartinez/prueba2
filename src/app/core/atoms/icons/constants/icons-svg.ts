@@ -95,6 +95,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'edit-n', path: `${pathIcons}edit-n.svg` },
   { name: 'delete-n', path: `${pathIcons}delete-n.svg` },
   { name: 'alert-blue', path: `${pathIcons}alert-blue.svg` },
+  { name: 'drag', path: `${pathIcons}drag.svg` },
   { name: 'logo', path: `${pathIllustrations}logo.svg` },
   { name: 'assigned-orders', path: `${pathIllustrations}assigned-orders.svg` },
   { name: 'call-attention', path: `${pathIllustrations}call-attention.svg` },
@@ -129,4 +130,11 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'bag-2', path: `${pathIcons}bag-2.svg` },
   { name: 'donwload-blue', path: `${pathIcons}donwload-blue.svg` },
   { name: 'close-gray', path: `${pathIcons}close-gray.svg` },
+  { name: "select-arrow-down", path: `${pathIcons}select-arrow-down.svg` },
+  { name: "apply", path: `${pathIcons}apply.svg` },
+  { name: "user-only", path: `${pathIcons}user-only.svg` },
+  { name: "location-neutral", path: `${pathIcons}location-neutral.svg` },
+  { name: "check-success", path: `${pathIcons}check-success.svg` },
+  { name: "search-white", path: `${pathIcons}search-white.svg` },
+
 ];

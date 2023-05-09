@@ -1,0 +1,21 @@
+@import "src/sass/variables/colors.variable";
+
+.order-item-container {
+  border-radius: 12px;
+  background-color: $neutral-10;
+  color: $neutral-0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+}
+
+.order-item-index {
+  height: 25px;
+  width: 25px;
+  background-color: $neutral-60;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

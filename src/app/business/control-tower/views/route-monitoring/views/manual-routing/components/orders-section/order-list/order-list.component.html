@@ -1,0 +1,23 @@
+<section class="orders-section">
+  <div class="mb-4">
+    <span class="text-body-2-regular text-neutral-90"
+      >Arrastra y ordena los pedidos:
+    </span>
+  </div>
+  <div
+    cdkDropList
+    class="order-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div
+      class="order-item"
+      *ngFor="let order of orderList; let i = index"
+      cdkDrag
+      [cdkDragData]="i+1"
+    >
+      <div>
+        <app-order-item [index]="i+1" [order]="order"></app-order-item>
+      </div>
+    </div>
+  </div>
+</section>

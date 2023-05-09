@@ -1,1 +1,28 @@
-<h1>Manual-routing</h1>
+<section>
+  <div class="row mt-5 mb-4">
+    <div class="col-12 d-flex">
+      <app-back-router-simple
+        [backRoute]="allocationPath"
+        class="back"
+      ></app-back-router-simple>
+    </div>
+  </div>
+  <div class="d-flex align-items-center mb-6">
+    <span class="text-h6 text-neutral-100 me-3">Asignación manual de ruta</span>
+    <span class="local-pill">
+      <app-icon svgName="operations" innerClass="me-2"></app-icon>
+      <span class="text-body-2-regular text-neutral-100"
+        >IKF-061-DOS DE MAYO</span
+      >
+    </span>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <app-order-list></app-order-list>
+    </div>
+    <div class="col-8">
+      <app-filter-section></app-filter-section>
+      <app-map-section></app-map-section>
+    </div>
+  </div>
+</section>

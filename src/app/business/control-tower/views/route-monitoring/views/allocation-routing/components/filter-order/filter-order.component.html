@@ -1,0 +1,26 @@
+<section>
+  <div class="row text-body-2-regular text-neutral-90 mb-2">
+    <div class="col-5">
+      <span>Tipo de error</span>
+    </div>
+    <div class="col-7">
+      <span>Tipo de servicio</span>
+    </div>
+  </div>
+  <div class="row mb-6">
+    <div class="col-5">
+      <fp-select-multiple [options]="errorTypeList"></fp-select-multiple>
+    </div>
+    <div class="col-5">
+      <fp-select-multiple [options]="serviceTypeList"></fp-select-multiple>
+    </div>
+    <div class="col-2">
+      <fp-button color="primary" innerClass="w-100">
+        <div class="d-flex align-items-center">
+          <app-icon svgName="search-white" svgWidth="20px"></app-icon>
+          <span class="ms-2">Filtrar</span>
+        </div>
+      </fp-button>
+    </div>
+  </div>
+</section>
