@@ -20,4 +20,5 @@ export const CAPACITIES_CHILDREN_PATH = {
   capacityExpress: DELIVERY_SERVICE_TYPE_PATH.deliveryExpress,
   capacityRet: DELIVERY_SERVICE_TYPE_PATH.deliveryRet,
   capacityReport: 'reportes',
+  capacityUpload: 'upload'
 };
