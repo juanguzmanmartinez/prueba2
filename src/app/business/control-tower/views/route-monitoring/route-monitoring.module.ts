@@ -36,6 +36,8 @@ import { TabModule } from '@molecules/tab/tab.module';
 import { MatTableModule } from '@angular/material/table';
 import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
 import { SelectMultipleVitaModule } from '@atoms/vita/select-multiple/select-multiple.module';
+import { DetailRouteDialogComponent } from './views/route-tracking/components/detail-route-dialog/detail-route-dialog.component';
+import { DetailRouteDialogService } from './views/route-tracking/components/detail-route-dialog/detail-route-dialog.service';
 
 @NgModule({
   declarations: [
@@ -54,8 +56,9 @@ import { SelectMultipleVitaModule } from '@atoms/vita/select-multiple/select-mul
     FilterErrorComponent,
     FilterServiceComponent,
     TableSectionComponent,
+    DetailRouteDialogComponent,
   ],
-  providers: [OrderStore, AssignedRouteDialogService],
+  providers: [OrderStore, AssignedRouteDialogService, DetailRouteDialogService],
   imports: [
     CommonModule,
     DialogModule,
@@ -71,8 +74,8 @@ import { SelectMultipleVitaModule } from '@atoms/vita/select-multiple/select-mul
     MatTableModule,
     TableModule,
     CheckboxModule,
-    SelectMultipleVitaModule,SelectModule
+    SelectMultipleVitaModule,
+    SelectModule,
   ],
-
 })
 export class RouteMonitoringModule {}

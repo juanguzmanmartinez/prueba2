@@ -136,5 +136,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: "location-neutral", path: `${pathIcons}location-neutral.svg` },
   { name: "check-success", path: `${pathIcons}check-success.svg` },
   { name: "search-white", path: `${pathIcons}search-white.svg` },
+  { name: "detail-route-map", path: `${pathIcons}detail-route-map.svg` },
+  { name: "detail-route-check", path: `${pathIcons}detail-route-check.svg` },
 
 ];

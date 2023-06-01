@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { DetailRouteDialogService } from './components/detail-route-dialog/detail-route-dialog.service';
 
 @Component({
   selector: 'app-route-tracking',
   templateUrl: './route-tracking.component.html',
-  styleUrls:['./route-tracking.component.scss']
+  styleUrls: ['./route-tracking.component.scss'],
 })
 export class RouteTrackingComponent implements OnInit {
-
   selectedCompanies = [];
   selectedLocals = [];
   companies = ['DISPONIBLE', 'EN RUTA', 'NO DISPONIBLE'];
@@ -124,10 +124,17 @@ export class RouteTrackingComponent implements OnInit {
       paused: 'No',
     },
   ];
-ngOnInit(): void {
-    this.dataSource.data =this.dataFake
-}
+
+  constructor(private dialog: DetailRouteDialogService) {}
+
+  ngOnInit(): void {
+    this.dataSource.data = this.dataFake;
+  }
   selectionChange(e: any) {}
   clearValues() {}
-  viewCarrierRoute(id){}
+  viewCarrierRoute(id) {}
+
+  openDialog(): void {
+    this.dialog.open().afterClosed().subscribe();
+  }
 }
