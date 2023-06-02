@@ -2,7 +2,7 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { MatDialogConfig } from '@angular/material/dialog/dialog-config';
-import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
+import { NoopScrollStrategy } from '@angular/cdk/overlay/scroll';
 
 
 @Injectable()
@@ -11,6 +11,7 @@ export class DialogService {
     width: '526px',
     maxHeight: '100vh',
     closeOnNavigation: true,
+    autoFocus: false,
   };
 
   constructor(private matDialog: MatDialog) {}

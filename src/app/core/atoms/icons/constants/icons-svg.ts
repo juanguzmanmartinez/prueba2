@@ -138,5 +138,6 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: "search-white", path: `${pathIcons}search-white.svg` },
   { name: "detail-route-map", path: `${pathIcons}detail-route-map.svg` },
   { name: "detail-route-check", path: `${pathIcons}detail-route-check.svg` },
+  { name: "detail-route-default", path: `${pathIcons}detail-route-default.svg` },
 
 ];

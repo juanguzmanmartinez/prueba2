@@ -38,6 +38,8 @@ import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
 import { SelectMultipleVitaModule } from '@atoms/vita/select-multiple/select-multiple.module';
 import { DetailRouteDialogComponent } from './views/route-tracking/components/detail-route-dialog/detail-route-dialog.component';
 import { DetailRouteDialogService } from './views/route-tracking/components/detail-route-dialog/detail-route-dialog.service';
+import { DetailRouteStateComponent } from './views/route-tracking/components/detail-route-state/detail-route-state.component';
+import { DifferenceTimetDirective } from './directives/difference-time.directive';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { DetailRouteDialogService } from './views/route-tracking/components/deta
     FilterServiceComponent,
     TableSectionComponent,
     DetailRouteDialogComponent,
+    DetailRouteStateComponent,
+    DifferenceTimetDirective
   ],
   providers: [OrderStore, AssignedRouteDialogService, DetailRouteDialogService],
   imports: [
