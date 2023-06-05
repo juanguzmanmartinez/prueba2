@@ -1,5 +1,4 @@
 #!/bin/sh -e
-
 if [ "$environment" == "ci" ]
 then
     echo "Setting up project $app:$environment"
@@ -61,5 +60,5 @@ then
     echo "Starting Web Server"
     nginx -g 'daemon off;'
 else
-    echo "Please enter a valid environment option [ ci, ci2, qa, qa2, prod]"
+    echo "Please enter a valid environment option [ ci, ci2, qa, qa2, prd]"
 fi
