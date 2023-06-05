@@ -105,9 +105,6 @@ stages:
             displayName: Install Node.js
             inputs:
               versionSpec: 14.17.6
-          - task: WhiteSource@21
-            inputs:
-              cwd: '$(System.DefaultWorkingDirectory)'
           - task: Npm@1
             displayName: npmInstall
             name: npmInstall
