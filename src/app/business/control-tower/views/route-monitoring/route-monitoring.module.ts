@@ -40,6 +40,8 @@ import { DetailRouteDialogComponent } from './views/route-tracking/components/de
 import { DetailRouteDialogService } from './views/route-tracking/components/detail-route-dialog/detail-route-dialog.service';
 import { DetailRouteStateComponent } from './views/route-tracking/components/detail-route-state/detail-route-state.component';
 import { DifferenceTimetDirective } from './directives/difference-time.directive';
+import { ResumeRouteComponent } from './views/route-tracking/components/resume-route/resume-route.component';
+import { LinksModule } from '@atoms/links/links.module';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,7 @@ import { DifferenceTimetDirective } from './directives/difference-time.directive
     TableSectionComponent,
     DetailRouteDialogComponent,
     DetailRouteStateComponent,
+    ResumeRouteComponent,
     DifferenceTimetDirective
   ],
   providers: [OrderStore, AssignedRouteDialogService, DetailRouteDialogService],
@@ -80,6 +83,7 @@ import { DifferenceTimetDirective } from './directives/difference-time.directive
     CheckboxModule,
     SelectMultipleVitaModule,
     SelectModule,
+    LinksModule
   ],
 })
 export class RouteMonitoringModule {}

@@ -1,140 +1,47 @@
 <section>
-  <div class="row mt-5 mb-3">
-    <div class="col-12">
-      <app-back-router-simple
-        backRoute="/"
-        class="back"
-        textBackRoute="Ir a inicio"
-      ></app-back-router-simple>
-    </div>
+  <div class="d-flex mt-5 mb-3">
+    <app-router router="/">
+      <div class="cursor-pointer d-flex-center">
+        <app-icon
+          svgName="arrow-left-secondary"
+          innerClass="me-2"
+          svgWidth="12px"
+        ></app-icon>
+        <span class="text-body-3-bold text-secondary-60">Ir a inicio</span>
+      </div>
+    </app-router>
   </div>
   <div class="row mb-6">
     <div class="col-6">
       <div class="col-12 d-flex justify-content-between">
-        <h4 class="text-h4 text-neutral-100 mb-0">Seguimiento a rutas</h4>
+        <h4 class="text-h6 text-neutral-100 mb-0">Seguimiento a rutas</h4>
       </div>
     </div>
   </div>
-  <div class="row justify-content-between">
-    <div class="flex-50 d-flex ">
-      <div class="col-6 mr-2">
-        <div class="custom-card">
-          <span class="text-body-2-regular text-neutral-90 cursor-pointer">
-            Rutas en curso
-          </span>
-          <h3 class="text-h3 text-neutral-100 mb-0 mt-1">386</h3>
-          <h6 class="text-h6 text-success-60 mb-0 ">TOTAL</h6>
-        </div>
-      </div>
-      <div class="col-6 ml-2">
-        <div class="custom-card">
-          <span class="text-body-2-regular text-neutral-90 cursor-pointer">
-            Rutas en curso
-          </span>
 
-          <div class="d-flex mt-1">
-            <div class="col-4">
-              <h3 class="text-h3 text-neutral-100 mb-0">386</h3>
-              <h6 class="text-h6 text-error-60 mb-0">ERROR</h6>
-            </div>
-            <div class="col-5">
-              <h3 class="text-h3 text-neutral-100 mb-0">386</h3>
-              <h6 class="text-h6 text-warning-60 mb-0">PENDIENTES</h6>
-            </div>
-            <div class="col-3">
-              <app-button
-                class="d-flex justify-content-center align-items-center"
-                innerClass="d-flex align-items-center p-0"
-              >
-                <app-icon svgName="fleet-table-action" svgWidth="24px"></app-icon>
-              </app-button>
-            </div>
-          </div>
+  <div class="row mb-2 text-body-2-regular">
+    <div class="col-6">Nombre de local</div>
+    <div class="col-6">Estado de ruta</div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-6">
+      <fp-select-multiple [options]="locals"></fp-select-multiple>
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-9">
+          <fp-select-multiple [options]="routeStates"></fp-select-multiple>
+        </div>
+        <div class="col-3">
+          <fp-button innerClass="w-100"> Buscar </fp-button>
         </div>
       </div>
     </div>
-    <div class="flex-50 mt-1">
-      <span class="text-body-2-regular text-neutral-90 cursor-pointer"
-        >Nombre de local
-      </span>
-      <div class="d-flex">
-        <app-select
-        placeholder="Selecciona una o más opciones"
-        [multiple]="true"
-        [value]="selectedCompanies"
-        [optionList]="companies"
-        [selectOptionSquare]="true"
-        [showClearValueForButton]="true"
-        (optionChange)="selectionChange($event)"
-        (clearValueForButton)="clearValues()"
-        class="w-100"
-      >
-        <ng-template let-status>{{ status }}</ng-template>
-      </app-select>
-      <app-button-icon
-        iconName="search"
-        class="ml-3"
-      >
-        Buscar
-      </app-button-icon>
-      </div>
-    </div>
   </div>
-  <div class="row mb-2">
 
-  </div>
-  <!-- <div class="row mb-4">
-    <div class="col-5">
-      <div>
-        <app-select
-          placeholder="Selecciona una o más opciones"
-          [multiple]="true"
-          [value]="selectedCompanies"
-          [optionList]="companies"
-          [selectOptionSquare]="true"
-          [showClearValueForButton]="true"
-          (optionChange)="selectionChange($event)"
-          (clearValueForButton)="clearValues()"
-        >
-          <ng-template let-status>{{ status }}</ng-template>
-        </app-select>
-      </div>
-    </div>
-    <div class="col-5">
-      <div>
-        <app-select
-          placeholder="Selecciona una o más opciones"
-          [multiple]="true"
-          [value]="selectedLocals"
-          [optionList]="locals"
-          [selectOptionSquare]="true"
-          [showClearValueForButton]="true"
-          (optionChange)="selectionChange($event)"
-          (clearValueForButton)="clearValues()"
-        >
-          <ng-template let-local>{{ local }}</ng-template>
-        </app-select>
-      </div>
-    </div>
-    <div class="col-2">
-      <app-button-icon
-        iconName="search"
-        innerClass="w-100 d-flex justify-content-center"
-      >
-        Buscar
-      </app-button-icon>
-    </div>
-    <div class="col-12 mt-4 mb-2">
-      <div class="pill-card">
-        <span class="me-1"> En ruta </span>
-        <button class="btn p-0">
-          <app-icon svgName="close-gray"> </app-icon>
-        </button>
-      </div>
-    </div>
-  </div> -->
+  <app-resume-route (redirect)="directToAllocation()"></app-resume-route>
 
-  <div class="row mt-3">
+  <div class="row">
     <div class="col-12 mb-8">
       <table
         mat-table
@@ -161,14 +68,32 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="carrier">
+        <ng-container matColumnDef="idRoute">
           <th
             mat-header-cell
-            column-width="20%"
+            column-width="12%"
             *matHeaderCellDef
             app-sort-custom
           >
-            Nombre de transportista
+            ID ruta
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.idRoute }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="carrier">
+          <th
+            mat-header-cell
+            column-width="16%"
+            *matHeaderCellDef
+            app-sort-custom
+          >
+            Transportista
           </th>
           <td
             mat-cell
@@ -179,110 +104,74 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="provider">
+        <ng-container matColumnDef="state">
           <th
             mat-header-cell
-            column-width="15%"
+            column-width="14%"
             *matHeaderCellDef
             app-sort-custom
           >
-            Proveedor
+            Estado ruta
           </th>
           <td
             mat-cell
             *matCellDef="let element"
-            class="text-neutral-90 text-body-3-regular"
+            class="text-secondary-60 text-body-4-bold"
           >
-            {{ element.provider }}
+            {{ element.state }}
           </td>
         </ng-container>
-        <ng-container matColumnDef="vehicleType">
+
+        <ng-container matColumnDef="endHour">
           <th
             mat-header-cell
-            column-width="13%"
-            *matHeaderCellDef
-            app-sort-custom
-          >
-            Tipo vehículo
-          </th>
-          <td
-            mat-cell
-            *matCellDef="let element"
-            class="text-neutral-90 text-body-3-regular"
-          >
-            {{ element.vehicleType }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="startHour">
-          <th
-            mat-header-cell
-            column-width="12%"
+            column-width="14%"
             *matHeaderCellDef
             app-sort-custom
             class="th-center"
           >
-            Hora ingreso
+            Hora fin entregas
           </th>
           <td
             mat-cell
             *matCellDef="let element"
             class="text-neutral-90 text-body-3-regular"
           >
-            {{ element.startHour }}
+            {{ element.endHour }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="status">
+        <ng-container matColumnDef="completedOrders">
           <th
             mat-header-cell
-            column-width="8%"
-            *matHeaderCellDef
-            app-sort-custom
-            header-cell-center
-          >
-            Estado
-          </th>
-          <td
-            mat-cell
-            *matCellDef="let element"
-            class="text-neutral-90 text-body-3-regular"
-          >
-            <span class="status-text" appCarrierStatus>
-              {{ element.status }}
-            </span>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="paused">
-          <th
-            mat-header-cell
-            column-width="8%"
+            column-width="20%"
             *matHeaderCellDef
             app-sort-custom
             class="th-center"
           >
-            Pausado
+            Pedidos finalizados
           </th>
           <td
             mat-cell
             *matCellDef="let element"
             class="text-neutral-90 text-body-3-regular"
           >
-            {{ element.paused }}
+            {{ element.completedOrders }} de 10
           </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell cell-bold *matCellDef="let element">
-            <app-button
-              class="d-flex justify-content-center align-items-center"
-              innerClass="d-flex align-items-center p-0"
-             
-              (clicked)="openDialog()"
-            >
-              <app-icon svgName="fleet-table-action" svgWidth="24px"></app-icon>
-            </app-button>
+            <div class="d-flex-center">
+              <app-icon
+                innerClass="cursor-pointer me-4"
+                svgName="detail-option"
+                svgWidth="24px"
+                (click)="openDialog()"
+              ></app-icon>
+              <app-icon svgName="redirect-option" svgWidth="24px"></app-icon>
+            </div>
           </td>
         </ng-container>
 
@@ -295,113 +184,4 @@
       </table>
     </div>
   </div>
-
-  <!-- <div class="row">
-    <div class="col-lg-4"></div>
-
-    <div class="col-lg-4 d-flex-center">
-      <app-paginator
-        [length]="totalOrder"
-        [pageIndex]="page - 1"
-        [pageSize]="pageSize"
-        (page)="onChangePage($event)"
-      >
-      </app-paginator>
-    </div>
-
-    <div class="col-lg-4">
-      <div class="page-size">
-        <div class="d-flex align-items-center justify-content-end">
-          <p class="page-size-label text-gray-6 mb-0">Items por página</p>
-          <app-select
-            class="select-size"
-            [(ngModel)]="pageSize"
-            [value]="10"
-            containerMaxHeight="80px"
-            [optionList]="[10, 20, 30]"
-            (ngModelChange)="filterAll()"
-          >
-          </app-select>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- <div class="row mb-5 mb-md-10">
-    <div class="col-12 mb-4">
-      <h1 class="text-h3 text-black mb-0">Capacidades por defecto</h1>
-    </div>
-    <p class="text-body-2-regular text-gray-7 mb-4">
-      Visualiza las capacidades que se encuentran por defecto en el local que
-      desees
-    </p>
-    <div class="col-12 mb-6">
-      <app-op-capacities-drugstore-default-capacity></app-op-capacities-drugstore-default-capacity>
-    </div>
-
-    <div class="col-12" *appRouterAccess="routerPath.capacityReport">
-      <p class="text-body-1-regular text-gray-6 mb-0">
-        Puedes revisar el consumo de capacidades semanal en la
-        <app-router [router]="routerPath.capacityReport">
-          <span class="text-link-1">sección de reportes</span>
-        </app-router>
-      </p>
-    </div>
-  </div>
-
-  <div class="row mb-4">
-    <div class="col-12 mb-5">
-      <h3 class="text-h3 text-black mb-4">Edici&oacute;n de capacidades</h3>
-      <p class="text-body-2-regular text-gray-7 mb-0">
-        Realiza la asignaci&oacute;n de capacidades y servicios a un local
-      </p>
-    </div>
-
-    <div class="col-12 col-xlg-6 mb-4 mb-xlg-0">
-      <app-router [router]="routerPath.capacitiesAmPm">
-        <app-card-action cardIconSVG="ampm">
-          <span card-title>AM/PM</span>
-          <span card-description
-            >Edita las capacidades del rango de la mañana y tarde</span
-          >
-        </app-card-action>
-      </app-router>
-    </div>
-    <div class="col-12 col-xlg-6">
-      <app-router [router]="routerPath.capacitiesExpress">
-        <app-card-action cardIconSVG="moto">
-          <span card-title>Express</span>
-          <span card-description
-            >Edita la disponibilidad de recursos para este servicio en el
-            día</span
-          >
-        </app-card-action>
-      </app-router>
-    </div>
-  </div> -->
-
-  <!-- <div class="row">
-    <div class="col-12 col-xlg-6 mb-4 mb-xlg-0">
-      <app-router [router]="routerPath.capacitiesScheduled">
-        <app-card-action cardIconSVG="calendar">
-          <span card-title>Programado</span>
-          <span card-description
-            >Edita las capacidades por rangos de horas en el día</span
-          >
-        </app-card-action>
-      </app-router>
-    </div>
-
-    <div class="col-12 col-xlg-6">
-      <app-router [router]="routerPath.capacitiesRet">
-        <app-card-action cardIconSVG="stores">
-          <span card-title>Retiro en tienda</span>
-          <span card-description
-            >Edita la cantidad de pedidos que podrás atender con este
-            servicio</span
-          >
-        </app-card-action>
-      </app-router>
-    </div>
-  </div> -->
 </section>

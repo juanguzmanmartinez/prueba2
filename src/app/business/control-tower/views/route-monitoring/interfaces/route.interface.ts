@@ -14,3 +14,9 @@ export interface DetailRouteState {
   scheduledTimeOnSite?: string;
   differenceOnSite?: string;
 }
+
+export interface Local {
+  value: string;
+  idLocal: string;
+  name: string;
+}

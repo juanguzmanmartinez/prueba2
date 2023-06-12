@@ -1,0 +1,42 @@
+<section>
+  <div class="row g-0 mb-5">
+    <div class="col-6 pe-2">
+      <div class="d-flex p-5 bg-neutral-0 rounded-4">
+        <div class="me-4">
+          <app-icon svgName="map-check-green" svgWidth="40px"></app-icon>
+        </div>
+        <div class="">
+          <p class="text-neutral-100 text-body-1-regular mb-2">
+            Rutas en curso
+          </p>
+          <p class="text-neutral-100 text-h4 mb-1">386</p>
+          <p class="text-success-60 text-body-3-bold m-0">TOTAL</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 ps-2">
+      <div class="d-flex p-5 bg-neutral-0 rounded-4">
+        <div class="me-4">
+          <app-icon svgName="map-error-red" svgWidth="40px"></app-icon>
+        </div>
+        <div class="d-flex flex-column me-7">
+          <p class="text-neutral-100 text-body-1-regular mb-2">No asignados</p>
+          <p class="text-neutral-100 text-h4 mb-1">31</p>
+          <p class="text-error-60 text-body-3-bold m-0">ERROR AL ASIGNAR</p>
+        </div>
+        <div class="d-flex flex-column justify-content-end flex-grow-1">
+          <p class="text-neutral-100 text-h4 mb-1">8</p>
+          <p class="text-warning-60 text-body-3-bold m-0">PENDIENTES</p>
+        </div>
+        <div class="d-flex align-items-center">
+          <app-icon
+            innerClass="cursor-pointer"
+            svgName="fleet-table-action"
+            svgWidth="24px"
+            (click)="redirectTo()"
+          ></app-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

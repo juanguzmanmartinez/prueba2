@@ -139,5 +139,10 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: "detail-route-map", path: `${pathIcons}detail-route-map.svg` },
   { name: "detail-route-check", path: `${pathIcons}detail-route-check.svg` },
   { name: "detail-route-default", path: `${pathIcons}detail-route-default.svg` },
+  { name: "map-error-red", path: `${pathIcons}map-error-red.svg` },
+  { name: "map-check-green", path: `${pathIcons}map-check-green.svg` },
+  { name: "detail-option", path: `${pathIcons}detail-option.svg` },
+  { name: "redirect-option", path: `${pathIcons}redirect-option.svg` },
+  { name: "arrow-left-secondary", path: `${pathIcons}arrow-left-secondary.svg` },
 
 ];

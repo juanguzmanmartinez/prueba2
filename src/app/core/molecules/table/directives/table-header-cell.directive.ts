@@ -27,7 +27,7 @@ export class TableHeaderCellDirective implements AfterViewInit {
             this.renderer.setStyle(this.elementRef.nativeElement, 'border-top-right-radius', borderRadius);
         }
 
-        this.renderer.addClass(this.elementRef.nativeElement, 'text-body-1-regular');
+        this.renderer.addClass(this.elementRef.nativeElement, 'text-body-3-regular');
         this.renderer.addClass(this.elementRef.nativeElement, 'text-white');
         this.renderer.addClass(this.elementRef.nativeElement, 'border-0');
         this.renderer.setStyle(this.elementRef.nativeElement, 'paddingLeft', headerCellPadding);
