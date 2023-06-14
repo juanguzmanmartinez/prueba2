@@ -5,7 +5,7 @@ import { AfterViewInit, Directive, ElementRef, Input, Renderer2 } from '@angular
 })
 export class TableHeaderRowDirective implements AfterViewInit {
 
-  private color = 'bg-gray-5';
+  private color = 'bg-neutral-90';
 
   @Input('class-color')
   set classColor(color: string) {

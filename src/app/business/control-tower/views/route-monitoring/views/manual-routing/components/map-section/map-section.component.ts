@@ -6,8 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { HereMapsManualRoutingService } from '../../implements/here-maps-manual-routing.service';
-import { OrderManualDB } from '../../../../constants/orders.constant';
-import { OrderStore } from '../../store/order.store';
+import { OrderRouteStore } from '../../store/order.store';
 import { IOrder } from '../../../../interfaces/order.interface';
 import { HereMapsService } from '@clients/here-maps/here-maps.service';
 import { AssignedRouteDialogService } from '../assigned-route-dialog/assigned-route-dialog.service';
@@ -25,7 +24,7 @@ export class MapSectionComponent implements OnInit, AfterViewInit {
   constructor(
     private hmService: HereMapsService,
     private hmOrderService: HereMapsManualRoutingService,
-    private orderStore: OrderStore,
+    private orderStore: OrderRouteStore,
     private dialog: AssignedRouteDialogService
   ) {}
 

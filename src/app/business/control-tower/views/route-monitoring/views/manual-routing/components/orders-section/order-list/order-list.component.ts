@@ -6,7 +6,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { OrderManualDB } from '../../../../../constants/orders.constant';
 import { IOrder } from 'app/business/control-tower/views/route-monitoring/interfaces/order.interface';
-import { OrderStore } from '../../../store/order.store';
+import { OrderRouteStore } from '../../../store/order.store';
 
 @Component({
   selector: 'app-order-list',
@@ -16,7 +16,7 @@ import { OrderStore } from '../../../store/order.store';
 export class OrderListComponent implements OnInit {
   orderList: IOrder[];
 
-  constructor(private orderStore: OrderStore) {}
+  constructor(private orderStore: OrderRouteStore) {}
 
   ngOnInit(): void {
     this.orderStore.getOrderList().subscribe((orderList) => {

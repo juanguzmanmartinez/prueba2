@@ -1,31 +1,47 @@
 <section>
-  <div class="row mt-5 mb-4">
-    <div class="col-12 d-flex">
-      <app-back-router-simple class="back"></app-back-router-simple>
-    </div>
+  <div class="d-flex mt-5 mb-4">
+    <app-router [router]="routerPath.ctRouteTracking">
+      <div class="cursor-pointer d-flex-center">
+        <app-icon
+          svgName="arrow-left-secondary"
+          innerClass="me-2"
+          svgWidth="12px"
+        ></app-icon>
+        <span class="text-body-3-bold text-secondary-60">Volver</span>
+      </div>
+    </app-router>
   </div>
   <div class="d-flex justify-content-between mb-6">
     <div class="d-flex align-items-center">
       <span class="text-h6 text-neutral-100 me-3"
         >Asignación manual de ruta
       </span>
-      <span class="local-pill">
+      <!-- <span class="local-pill">
         <app-icon svgName="operations" innerClass="me-2"></app-icon>
         <span class="text-body-2-regular text-neutral-100">
           IKF-061-DOS DE MAYO
         </span>
-      </span>
+      </span> -->
     </div>
     <div>
-      <fp-button color="primary" (clicked)="directToManualrouting('1')">
+      <fp-button
+        color="primary"
+        (clicked)="directToManualrouting('1')"
+        [disabled]="!hasSelected"
+      >
         <div class="d-flex align-items-center">
-          <app-icon svgName="apply" svgWidth="20px"></app-icon>
+          <app-icon
+            svgName="checklist"
+            svgNameDisabled="checklist-disabled"
+            svgWidth="20px"
+            [disabled]="!hasSelected"
+          ></app-icon>
           <span class="ms-2">Asignar manualmente</span>
         </div>
       </fp-button>
     </div>
   </div>
 
-  <app-filter-order></app-filter-order>
-  <app-table-section></app-table-section>
+  <app-filter-order [isErrorTab]="isErrorTab"></app-filter-order>
+  <app-table-section (changeTab)="changeTab($event)"></app-table-section>
 </section>

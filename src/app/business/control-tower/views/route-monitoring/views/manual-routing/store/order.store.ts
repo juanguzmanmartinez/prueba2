@@ -4,7 +4,7 @@ import { IOrder } from '../../../interfaces/order.interface';
 import { OrderManualDB } from '../../../constants/orders.constant';
 
 @Injectable()
-export class OrderStore {
+export class OrderRouteStore {
   orderList = new BehaviorSubject<IOrder[]>(OrderManualDB);
 
   getOrderListValue() {

@@ -2,8 +2,9 @@
   <ng-template let-option>
     <span class="text-body-2-regular text-neutral-90">
       {{ option.name }} -
-      <span class="text-body-4-bold text-success-60 text-uppercase">{{ option.state }}</span>
-      <span *ngIf="option.timeLeft"> - T.restante: {{ option?.timeLeft }}</span>
+      <span class="text-body-4-bold text-secondary-60 text-uppercase">
+        {{ option.state }}
+      </span>
     </span>
   </ng-template>
 </fp-select>

@@ -31,7 +31,7 @@ export class RouteTrackingComponent implements OnInit {
       carrier: 'Renato Fernandez',
       state: 'EN PREPARACIÓN',
       endHour: '1:02 p.m.',
-      completedOrders: '1',
+      completedOrders: '0',
     },
     {
       idCarrier: '2',
@@ -49,7 +49,7 @@ export class RouteTrackingComponent implements OnInit {
       carrier: 'Renato Fernandez',
       state: 'EN RUTA',
       endHour: '1:02 p.m.',
-      completedOrders: '1',
+      completedOrders: '4',
     },
     {
       idCarrier: '4',
@@ -76,7 +76,7 @@ export class RouteTrackingComponent implements OnInit {
       carrier: 'Renato Fernandez',
       state: 'EN RUTA',
       endHour: '1:02 p.m.',
-      completedOrders: '1',
+      completedOrders: '9',
     },
     {
       idCarrier: '7',
@@ -85,7 +85,7 @@ export class RouteTrackingComponent implements OnInit {
       carrier: 'Renato Fernandez',
       state: 'EN RUTA',
       endHour: '1:02 p.m.',
-      completedOrders: '1',
+      completedOrders: '3',
     },
     {
       idCarrier: '8',
@@ -103,7 +103,7 @@ export class RouteTrackingComponent implements OnInit {
       carrier: 'Renato Fernandez',
       state: 'EN RUTA',
       endHour: '1:02 p.m.',
-      completedOrders: '1',
+      completedOrders: '5',
     },
     {
       idCarrier: '10',
@@ -112,7 +112,7 @@ export class RouteTrackingComponent implements OnInit {
       carrier: 'Renato Fernandez',
       state: 'EN RUTA',
       endHour: '1:02 p.m.',
-      completedOrders: '1',
+      completedOrders: '10',
     },
   ];
 

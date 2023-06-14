@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-filter-order',
   templateUrl: './filter-order.component.html',
 })
 export class FilterOrderComponent {
+  @Input() isErrorTab: boolean = true;
+
   errorTypeList = [
     {
       value: '1',
@@ -24,6 +26,17 @@ export class FilterOrderComponent {
     },
   ];
 
+  locals = [
+    {
+      value: 'IFK-609',
+      label: 'Gerardo Unger 3',
+    },
+    {
+      value: 'IFK-610',
+      label: 'Javier prado 4',
+    },
+  ];
+
   serviceTypeList = [
     {
       value: 'EXP',
@@ -38,4 +51,8 @@ export class FilterOrderComponent {
       label: 'AM / PM',
     },
   ];
+
+  get secondOptionLabel() {
+    return this.isErrorTab ? 'Tipo de error' : 'Tipo de pedido';
+  }
 }

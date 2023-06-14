@@ -7,6 +7,7 @@ import {
   OrderPendingDB,
 } from '../../../../constants/orders.constant';
 import { SelectionModel } from '@angular/cdk/collections';
+import { OrderStore } from '../../../../store/order.store';
 
 @Component({
   selector: 'app-table-section',
@@ -19,6 +20,7 @@ export class TableSectionComponent implements OnInit {
   public selectionOrderPending = new SelectionModel(true, []);
 
   @Output() eventEmitter = new EventEmitter();
+  @Output() changeTab = new EventEmitter();
 
   get selected(): number {
     return this.selection.selected.length;
@@ -35,6 +37,8 @@ export class TableSectionComponent implements OnInit {
     ColumnNameList.detail,
     ColumnNameList.actions,
   ];
+
+  constructor(private orderStore: OrderStore) {}
 
   ngOnInit(): void {
     this.dataSource.data = OrderManualDB;
@@ -57,11 +61,21 @@ export class TableSectionComponent implements OnInit {
       ? this.selection.clear()
       : this.dataSource.data.forEach((row) => this.selection.select(row));
   }
+
   masterToggleOrderPending(): void {
     this.isAllOrderPendingSelected()
       ? this.selectionOrderPending.clear()
       : this.dataSourceOrderPending.data.forEach((row) =>
           this.selectionOrderPending.select(row)
         );
+  }
+
+  setTabSettingsSelectionIndex(index: number) {
+    this.changeTab.emit(!!!index);
+  }
+
+  toggle(row: IOrder) {
+    this.selection.toggle(row);
+    this.orderStore.set('selectedErrorOrders', this.selection.selected);
   }
 }

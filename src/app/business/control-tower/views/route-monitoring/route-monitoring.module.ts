@@ -23,14 +23,12 @@ import { SelectVitaModule } from '@atoms/vita/select/select.module';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
 import { ButtonVitaModule } from '@atoms/vita/button/button.module';
 import { SwitchModule } from '@atoms/switch/switch.module';
-import { OrderStore } from './views/manual-routing/store/order.store';
+import { OrderRouteStore } from './views/manual-routing/store/order.store';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AssignedRouteDialogService } from './views/manual-routing/components/assigned-route-dialog/assigned-route-dialog.service';
 import { AssignedRouteDialogComponent } from './views/manual-routing/components/assigned-route-dialog/assigned-route-dialog.component';
 import { DialogModule } from '@molecules/dialog/dialog.module';
 import { FilterOrderComponent } from './views/allocation-routing/components/filter-order/filter-order.component';
-import { FilterServiceComponent } from './views/allocation-routing/components/filter-order/filter-service/filter-service.component';
-import { FilterErrorComponent } from './views/allocation-routing/components/filter-order/filter-error/filter-error.component';
 import { TableSectionComponent } from './views/allocation-routing/components/table-section/table-section.component';
 import { TabModule } from '@molecules/tab/tab.module';
 import { MatTableModule } from '@angular/material/table';
@@ -42,6 +40,10 @@ import { DetailRouteStateComponent } from './views/route-tracking/components/det
 import { DifferenceTimetDirective } from './directives/difference-time.directive';
 import { ResumeRouteComponent } from './views/route-tracking/components/resume-route/resume-route.component';
 import { LinksModule } from '@atoms/links/links.module';
+import { OrderStore } from './store/order.store';
+import { SameLocalDialogComponent } from './views/allocation-routing/components/same-local-dialog/same-local-dialog.component';
+import { SameLocalDialogService } from './views/allocation-routing/components/same-local-dialog/same-local-dialog.service';
+import { OrderCompletedBarComponent } from './views/route-tracking/components/order-completed-bar/order-completed-bar.component';
 
 @NgModule({
   declarations: [
@@ -57,15 +59,21 @@ import { LinksModule } from '@atoms/links/links.module';
     LocalFilterComponent,
     AssignedRouteDialogComponent,
     FilterOrderComponent,
-    FilterErrorComponent,
-    FilterServiceComponent,
     TableSectionComponent,
     DetailRouteDialogComponent,
     DetailRouteStateComponent,
     ResumeRouteComponent,
-    DifferenceTimetDirective
+    DifferenceTimetDirective,
+    SameLocalDialogComponent,
+    OrderCompletedBarComponent
   ],
-  providers: [OrderStore, AssignedRouteDialogService, DetailRouteDialogService],
+  providers: [
+    OrderRouteStore,
+    AssignedRouteDialogService,
+    DetailRouteDialogService,
+    OrderStore,
+    SameLocalDialogService
+  ],
   imports: [
     CommonModule,
     DialogModule,
@@ -83,7 +91,7 @@ import { LinksModule } from '@atoms/links/links.module';
     CheckboxModule,
     SelectMultipleVitaModule,
     SelectModule,
-    LinksModule
+    LinksModule,
   ],
 })
 export class RouteMonitoringModule {}

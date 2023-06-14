@@ -1,26 +1,32 @@
 <section>
   <div class="row text-body-2-regular text-neutral-90 mb-2">
     <div class="col-5">
-      <span>Tipo de error</span>
+      <span>Nombre de local</span>
     </div>
     <div class="col-7">
-      <span>Tipo de servicio</span>
+      <span>{{ secondOptionLabel }}</span>
     </div>
   </div>
   <div class="row mb-6">
     <div class="col-5">
-      <fp-select-multiple [options]="errorTypeList"></fp-select-multiple>
+      <fp-select-multiple [options]="locals"></fp-select-multiple>
     </div>
     <div class="col-5">
-      <fp-select-multiple [options]="serviceTypeList"></fp-select-multiple>
+      <ng-container *ngIf="isErrorTab; else serviceTypeSelect">
+        <fp-select-multiple [options]="errorTypeList"></fp-select-multiple>
+      </ng-container>
     </div>
     <div class="col-2">
       <fp-button color="primary" innerClass="w-100">
         <div class="d-flex align-items-center">
           <app-icon svgName="search-white" svgWidth="20px"></app-icon>
-          <span class="ms-2">Filtrar</span>
+          <span class="ms-2">Buscar</span>
         </div>
       </fp-button>
     </div>
   </div>
 </section>
+
+<ng-template #serviceTypeSelect>
+  <fp-select-multiple [options]="serviceTypeList"></fp-select-multiple>
+</ng-template>

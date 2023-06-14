@@ -131,7 +131,8 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'donwload-blue', path: `${pathIcons}donwload-blue.svg` },
   { name: 'close-gray', path: `${pathIcons}close-gray.svg` },
   { name: "select-arrow-down", path: `${pathIcons}select-arrow-down.svg` },
-  { name: "apply", path: `${pathIcons}apply.svg` },
+  { name: "checklist", path: `${pathIcons}checklist.svg` },
+  { name: "checklist-disabled", path: `${pathIcons}checklist-disabled.svg` },
   { name: "user-only", path: `${pathIcons}user-only.svg` },
   { name: "location-neutral", path: `${pathIcons}location-neutral.svg` },
   { name: "check-success", path: `${pathIcons}check-success.svg` },
@@ -144,5 +145,6 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: "detail-option", path: `${pathIcons}detail-option.svg` },
   { name: "redirect-option", path: `${pathIcons}redirect-option.svg` },
   { name: "arrow-left-secondary", path: `${pathIcons}arrow-left-secondary.svg` },
+  { name: "face-sad", path: `${pathIcons}face-sad.svg` },
 
 ];

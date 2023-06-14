@@ -5,6 +5,7 @@ interface ILocal {
   idLocal: string;
   name: string;
   value: string;
+  numCarriers: number;
 }
 
 @Component({
@@ -17,11 +18,13 @@ export class LocalFilterComponent {
       value: '1',
       idLocal: 'IFK-609',
       name: 'Gerardo Unger 3',
+      numCarriers: 10
     },
     {
       value: '2',
       idLocal: 'IFK-610',
       name: 'Javier prado 4',
+      numCarriers: 2
     },
   ];
 }

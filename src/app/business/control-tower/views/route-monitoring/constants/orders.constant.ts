@@ -26,7 +26,7 @@ export const OrderManualDB: IOrder[] = [
   },
   {
     idOrder: '1561589013',
-    local: 'IKF-029-EJERCITO',
+    local: 'IKF-060-EJERCITO',
     address: 'Av. Tomás Marsano 1255, Miraflores',
     channel: 'Call Center',
     service: 'AM / PM',

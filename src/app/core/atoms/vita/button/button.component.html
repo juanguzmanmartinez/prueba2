@@ -1,5 +1,6 @@
 <button
   [class]="'button button-' + color"
+  [class.button-disabled]="disabled"
   [ngClass]="innerClass"
   [type]="type"
   [disabled]="disabled"
