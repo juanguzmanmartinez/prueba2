@@ -78,4 +78,12 @@ export class TableSectionComponent implements OnInit {
     this.selection.toggle(row);
     this.orderStore.set('selectedErrorOrders', this.selection.selected);
   }
+
+  toggleOrderPending(row: IOrder) {
+    this.selectionOrderPending.toggle(row);
+    this.orderStore.set(
+      'selectedPendingOrders',
+      this.selectionOrderPending.selected
+    );
+  }
 }

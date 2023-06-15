@@ -148,7 +148,7 @@
           <td mat-cell *matCellDef="let row">
             <app-checkbox
               (click)="$event.stopPropagation()"
-              (change)="$event ? selectionOrderPending.toggle(row) : null"
+              (change)="$event ? toggleOrderPending(row) : null"
               [checked]="selectionOrderPending.isSelected(row)"
             >
             </app-checkbox>

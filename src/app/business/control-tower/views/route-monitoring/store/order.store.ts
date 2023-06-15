@@ -30,4 +30,11 @@ export class OrderStore {
   select(name: string) {
     return this.store.pipe(pluck(name));
   }
+
+  hasSameLocal(name: string){
+    const orders = this.value[name];
+    const firstLocal = orders[0].local;
+    const otherLocal = orders.find((order) => order.local !== firstLocal);
+    return !!otherLocal;
+  }
 }

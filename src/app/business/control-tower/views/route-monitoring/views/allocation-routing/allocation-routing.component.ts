@@ -21,18 +21,15 @@ export class AllocationRoutingComponent {
   ) {}
 
   directToManualrouting(idLocal: string) {
-    if (this.hasSameLocal()) {
+    const orderTypeSelected = this.isErrorTab
+      ? 'selectedErrorOrders'
+      : 'selectedPendingOrders';
+
+    if (this.orderStore.hasSameLocal(orderTypeSelected)) {
       this.openDialog();
     } else {
       this.router.navigate([CT_ROUTER_PATH.ctManualRouting(idLocal)]);
     }
-  }
-
-  hasSameLocal() {
-    const errorOrders = this.orderStore.value['selectedErrorOrders'];
-    const firstLocal = errorOrders[0].local;
-    const otherLocal = errorOrders.find((order) => order.local !== firstLocal);
-    return !!otherLocal;
   }
 
   changeTab(isErrorTab: boolean) {
@@ -44,6 +41,9 @@ export class AllocationRoutingComponent {
   }
 
   get hasSelected(): boolean {
-    return !!this.orderStore.value['selectedErrorOrders']?.length;
+    if (this.isErrorTab) {
+      return !!this.orderStore.value['selectedErrorOrders']?.length;
+    }
+    return !!this.orderStore.value['selectedPendingOrders']?.length;
   }
 }
