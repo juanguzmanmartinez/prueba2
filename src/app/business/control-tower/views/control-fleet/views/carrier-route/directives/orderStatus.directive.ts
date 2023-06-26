@@ -20,6 +20,8 @@ export class OrderStatusDirective implements AfterViewInit {
         classSelected = 'text-success-60';
         break;
       case EOrderStatus.rechazado:
+        classSelected = 'text-warning-60';
+        break;
       case EOrderStatus.cancelado:
         classSelected = 'text-error-60';
         break;
