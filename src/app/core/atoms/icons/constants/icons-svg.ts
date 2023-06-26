@@ -147,4 +147,6 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: "arrow-left-secondary", path: `${pathIcons}arrow-left-secondary.svg` },
   { name: "face-sad", path: `${pathIcons}face-sad.svg` },
 
+  { name: "detail-icon", path: `${pathIcons}detail-icon.svg` },
+  { name: "info-square", path: `${pathIcons}info-square.svg` },
 ];
