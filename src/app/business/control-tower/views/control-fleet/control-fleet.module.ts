@@ -43,6 +43,9 @@ import { TimeLeftDirective } from './views/carrier-route/directives/timeLeft.dir
 import { OrderStatusDirective } from './views/carrier-route/directives/orderStatus.directive';
 import { HereMapsRoutingService } from './views/carrier-route/implements/here-maps-routing.implement.service';
 import { CarrierStatusDirective } from './views/carrier/directives/carrierStatus.directive';
+import { ButtonVitaModule } from '@atoms/vita/button/button.module';
+import { SelectMultipleVitaModule } from '@atoms/vita/select-multiple/select-multiple.module';
+import { ControlTowerImplementService } from '../../implements/control-tower.implement.service';
 
 @NgModule({
   declarations: [
@@ -51,9 +54,11 @@ import { CarrierStatusDirective } from './views/carrier/directives/carrierStatus
     CarrierRouteComponent,
     TimeLeftDirective,
     OrderStatusDirective,
-    CarrierStatusDirective
+    CarrierStatusDirective,
   ],
-  imports: [ControlFleetRoutingModule,  CommonModule,
+  imports: [
+    ControlFleetRoutingModule,
+    CommonModule,
     ReactiveFormsModule,
     MatExpansionModule,
     LinksModule,
@@ -89,8 +94,10 @@ import { CarrierStatusDirective } from './views/carrier/directives/carrierStatus
     LocalFilterModule,
     FilterSearchModule,
     PaginatorModule,
-    SkeletonModule
+    SkeletonModule,
+    ButtonVitaModule,
+    SelectMultipleVitaModule,
   ],
-  providers: [HereMapsRoutingService]
+  providers: [HereMapsRoutingService],
 })
 export class ControlFleetModule {}

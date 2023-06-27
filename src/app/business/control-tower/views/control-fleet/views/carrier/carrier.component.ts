@@ -4,6 +4,9 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CT_ROUTER_PATH } from '@parameters/router/routing/control-tower/control-tower-path.parameter';
+import { ControlTowerImplementService } from 'app/business/control-tower/implements/control-tower.implement.service';
+import { ISelectOption } from '@interfaces/vita/select.interface';
+import { Observable, Subscription } from 'rxjs';
 @Component({
   selector: 'app-carrier',
   templateUrl: './carrier.component.html',
@@ -123,11 +126,22 @@ export class CarrierComponent implements OnInit {
   companies = ['DISPONIBLE', 'EN RUTA', 'NO DISPONIBLE'];
   locals = ['DOS DE MAYO', 'SALAVERRY', 'KENNEDY'];
 
-  constructor(private router: Router) {}
+  public localList$: Observable<ISelectOption[]>;
+  public carrierStateList$: Observable<ISelectOption[]>;
+  public subscription = new Subscription();
+
+  constructor(
+    private router: Router,
+    private controlTowerImplService: ControlTowerImplementService
+  ) {}
 
   ngOnInit(): void {
     this.dataSource.data = this.dataFake;
     this.dataSource.paginator = this.paginator;
+    this.localList$ = this.controlTowerImplService.getLocalList();
+    this.carrierStateList$ = this.controlTowerImplService.getCarrierStateList();
+    this.subscription.add(this.localList$.subscribe());
+    this.subscription.add(this.carrierStateList$.subscribe());
   }
   get selected(): number {
     return this.selection.selected.length;

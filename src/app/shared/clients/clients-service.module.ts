@@ -11,6 +11,7 @@ import { UserClientService } from '@clients/users/user-client.service';
 import { ReportsClientService } from '@clients/reports/reports-client.service';
 import { OrderClientService } from '@clients/order/order-client.service';
 import { HereMapsService } from './here-maps/here-maps.service';
+import { ControlTowerClientService } from './control-tower/control-tower.service';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { HereMapsService } from './here-maps/here-maps.service';
     UserClientService,
     ReportsClientService,
     OrderClientService,
+    ControlTowerClientService,
     HereMapsService
   ]
 })
