@@ -1,0 +1,25 @@
+@import "src/sass/variables/colors.variable";
+@import "src/sass/mixins/text.mixin";
+@import "src/sass/mixins/display.mixin";
+
+.filter-pill__container {
+  border: 1.2px solid #c8d0e1;
+  border-radius: 8px;
+  background-color: $neutral-0;
+  padding: 8px 8px 8px 16px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.filter-pill__label {
+  @include text-body-2-regular;
+  color: $neutral-100;
+  margin-right: 4px;
+  user-select: none;
+}
+
+.filter-pill__icon {
+  cursor: pointer;
+  padding: 4px;
+  @include d-flex-center;
+}

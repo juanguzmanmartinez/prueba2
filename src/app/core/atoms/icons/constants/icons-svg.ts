@@ -130,6 +130,7 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: 'bag-2', path: `${pathIcons}bag-2.svg` },
   { name: 'donwload-blue', path: `${pathIcons}donwload-blue.svg` },
   { name: 'close-gray', path: `${pathIcons}close-gray.svg` },
+  { name: 'close-base', path: `${pathIcons}close-base.svg` },
   { name: "select-arrow-down", path: `${pathIcons}select-arrow-down.svg` },
   { name: "checklist", path: `${pathIcons}checklist.svg` },
   { name: "checklist-disabled", path: `${pathIcons}checklist-disabled.svg` },
@@ -145,6 +146,8 @@ export const ICONS_SVG: IconsSvgModel[] = [
   { name: "detail-option", path: `${pathIcons}detail-option.svg` },
   { name: "redirect-option", path: `${pathIcons}redirect-option.svg` },
   { name: "arrow-left-secondary", path: `${pathIcons}arrow-left-secondary.svg` },
+  { name: "arrow-left", path: `${pathIcons}arrow-left.svg` },
+  { name: "arrow-right", path: `${pathIcons}arrow-right.svg` },
   { name: "face-sad", path: `${pathIcons}face-sad.svg` },
 
   { name: "detail-icon", path: `${pathIcons}detail-icon.svg` },

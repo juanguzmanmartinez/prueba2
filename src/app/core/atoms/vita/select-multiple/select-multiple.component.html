@@ -21,15 +21,15 @@
     <app-icon svgName="select-arrow-down"></app-icon>
   </button>
   <div class="custom-select-options" *ngIf="showOptions">
-    <div *ngFor="let option of options" class="custom-select-option">
-      <label class="w-100 d-flex align-items-center">
-        <input
+    <label *ngFor="let option of options" class="custom-select-option">
+      <div class="w-100 d-flex align-items-center">
+        <fp-checkbox
           class="me-2"
           type="checkbox"
           [value]="option"
-          (change)="toggleOption(option, $event.target.checked)"
+          (onChange)="toggleOption(option, $event.target.checked)"
           [checked]="isSelected(option)"
-        />
+        ></fp-checkbox>
         <ng-template #defaultTemplate let-option>
           <span class="text-body-2-regular text-neutral-90">{{
             option.label
@@ -40,7 +40,7 @@
           [ngTemplateOutletContext]="{ $implicit: option }"
         >
         </ng-container>
-      </label>
-    </div>
+      </div>
+    </label>
   </div>
 </div>

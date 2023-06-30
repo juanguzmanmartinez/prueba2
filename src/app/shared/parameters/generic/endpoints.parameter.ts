@@ -49,7 +49,7 @@ export class EndpointsParameter {
   public static VALIDATE_STORES = `${API_GATEWAY}/fulfillment/store/capacity/template/validate`;
 
   public static CT_CARRIER_STATE_LIST =
-    'https://dev-omnichannel-fps-bus-ms-order-router-ws.solucionesdigitalfps.com/v0.1/router/statesMotorizeds';
+    'https://w4s60k5oa2.execute-api.us-east-1.amazonaws.com/DEV/v0.1/router/statesMotorizeds';
   public static CT_LOCAL_LIST =
     'https://fduetuxpf0.execute-api.us-east-1.amazonaws.com/DEV/fulfillment/routing-store';
 }

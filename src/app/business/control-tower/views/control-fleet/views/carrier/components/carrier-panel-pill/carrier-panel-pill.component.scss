@@ -1,0 +1,25 @@
+app-carrier-filter-pill {
+  margin-right: 8px;
+  &:last-child {
+    margin: 0;
+  }
+}
+
+.panel-pill__container {
+}
+
+.panel-pill__list {
+  white-space: nowrap;
+  overflow-x: scroll;
+  padding-bottom: 8px;
+}
+
+.panel-pill__list::-webkit-scrollbar {
+  height: 3px;
+  padding-top: 5px;
+  cursor: pointer;
+}
+
+.panel-pill__list::-webkit-scrollbar:vertical {
+  display: none;
+}

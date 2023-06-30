@@ -1,0 +1,23 @@
+<div class="mb-4">
+  <div
+    class="d-flex align-items-center justify-content-end mb-3"
+    *ngIf="filterList?.length > 0"
+  >
+    <div class="p-1 cursor-pointer me-2" (click)="scrollContainer(-100)">
+      <app-icon svgName="arrow-left"></app-icon>
+    </div>
+    <div class="p-1 cursor-pointer" (click)="scrollContainer(100)">
+      <app-icon svgName="arrow-right"></app-icon>
+    </div>
+  </div>
+
+  <div
+    #containerElement
+    class="panel-pill__list"
+    [style.transform]="'translateX(' + translation + 'px)'"
+  >
+    <ng-container *ngFor="let filter of filterList">
+      <app-carrier-filter-pill [label]="filter.label"></app-carrier-filter-pill>
+    </ng-container>
+  </div>
+</div>

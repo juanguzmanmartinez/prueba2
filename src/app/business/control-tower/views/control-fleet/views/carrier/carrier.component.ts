@@ -7,6 +7,8 @@ import { CT_ROUTER_PATH } from '@parameters/router/routing/control-tower/control
 import { ControlTowerImplementService } from 'app/business/control-tower/implements/control-tower.implement.service';
 import { ISelectOption } from '@interfaces/vita/select.interface';
 import { Observable, Subscription } from 'rxjs';
+import { CarrierFilterFormService } from './services/carrier-filter-form.service';
+import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-carrier',
   templateUrl: './carrier.component.html',
@@ -126,18 +128,22 @@ export class CarrierComponent implements OnInit {
   companies = ['DISPONIBLE', 'EN RUTA', 'NO DISPONIBLE'];
   locals = ['DOS DE MAYO', 'SALAVERRY', 'KENNEDY'];
 
+  public subscription = new Subscription();
   public localList$: Observable<ISelectOption[]>;
   public carrierStateList$: Observable<ISelectOption[]>;
-  public subscription = new Subscription();
+  public filterForm: FormGroup;
+  public filterList: ISelectOption[];
 
   constructor(
     private router: Router,
-    private controlTowerImplService: ControlTowerImplementService
+    private controlTowerImplService: ControlTowerImplementService,
+    private carrierFilterForm: CarrierFilterFormService
   ) {}
 
   ngOnInit(): void {
     this.dataSource.data = this.dataFake;
     this.dataSource.paginator = this.paginator;
+    this.filterForm = this.carrierFilterForm.filterForm;
     this.localList$ = this.controlTowerImplService.getLocalList();
     this.carrierStateList$ = this.controlTowerImplService.getCarrierStateList();
     this.subscription.add(this.localList$.subscribe());
@@ -151,6 +157,10 @@ export class CarrierComponent implements OnInit {
 
   viewCarrierRoute(idCarrier: string) {
     this.router.navigate([CT_ROUTER_PATH.ctCarrierRoute(idCarrier)]);
+  }
+
+  executeSearch() {
+    this.filterList = this.carrierFilterForm.getFilterList();
   }
 
   isAllSelected(): boolean {

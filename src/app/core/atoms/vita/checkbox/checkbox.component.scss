@@ -1,0 +1,29 @@
+@import "src/sass/variables/colors.variable";
+
+input[type="checkbox"] {
+  /* Hide the default checkbox appearance */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Define the size and position */
+  width: 20px;
+  height: 20px;
+  background-color: $neutral-0;
+  border: 1.2px solid #dde2ed;
+  border-radius: 4px;
+
+  &:checked {
+    background: $secondary-60;
+    border-color: $secondary-60;
+  }
+}
+
+.checkbox-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // top: 50%;
+  // left: 50%;
+  // transform: translateX(-30%);
+}

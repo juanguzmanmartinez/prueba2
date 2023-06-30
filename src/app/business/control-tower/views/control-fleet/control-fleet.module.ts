@@ -46,6 +46,10 @@ import { CarrierStatusDirective } from './views/carrier/directives/carrierStatus
 import { ButtonVitaModule } from '@atoms/vita/button/button.module';
 import { SelectMultipleVitaModule } from '@atoms/vita/select-multiple/select-multiple.module';
 import { ControlTowerImplementService } from '../../implements/control-tower.implement.service';
+import { CarrierFilterMenuComponent } from './views/carrier/components/carrier-filter-menu/carrier-filter-menu.component';
+import { CarrierFilterPillComponent } from './views/carrier/components/carrier-filter-pill/carrier-filter-pill.component';
+import { CarrierFilterFormService } from './views/carrier/services/carrier-filter-form.service';
+import { CarrierPanelPillComponent } from './views/carrier/components/carrier-panel-pill/carrier-panel-pill.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +59,9 @@ import { ControlTowerImplementService } from '../../implements/control-tower.imp
     TimeLeftDirective,
     OrderStatusDirective,
     CarrierStatusDirective,
+    CarrierFilterMenuComponent,
+    CarrierFilterPillComponent,
+    CarrierPanelPillComponent
   ],
   imports: [
     ControlFleetRoutingModule,
@@ -98,6 +105,6 @@ import { ControlTowerImplementService } from '../../implements/control-tower.imp
     ButtonVitaModule,
     SelectMultipleVitaModule,
   ],
-  providers: [HereMapsRoutingService],
+  providers: [HereMapsRoutingService, CarrierFilterFormService],
 })
 export class ControlFleetModule {}

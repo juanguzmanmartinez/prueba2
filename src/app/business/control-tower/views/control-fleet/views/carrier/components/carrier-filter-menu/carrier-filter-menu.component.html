@@ -1,0 +1,26 @@
+<div class="row mb-2 text-body-2-regular">
+  <div class="col-5">Estado de transportista</div>
+  <div class="col-5">Nombre de local</div>
+</div>
+<div class="row mb-4" [formGroup]="form.filterForm">
+  <div class="col-5">
+    <fp-select-multiple
+      [options]="carrierStateList"
+      formControlName="carrierStates"
+    ></fp-select-multiple>
+  </div>
+  <div class="col-5">
+    <fp-select-multiple
+      [options]="localList"
+      formControlName="locals"
+    ></fp-select-multiple>
+  </div>
+  <div class="col-2">
+    <fp-button innerClass="w-100" (clicked)="searchCarriers()">
+      <div class="d-flex align-items-center">
+        <app-icon svgName="search-white" svgWidth="20px"></app-icon>
+        <span class="ms-2">Buscar</span>
+      </div>
+    </fp-button>
+  </div>
+</div>
