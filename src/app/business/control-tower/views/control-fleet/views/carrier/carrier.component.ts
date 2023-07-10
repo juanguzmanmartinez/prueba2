@@ -9,6 +9,7 @@ import { ISelectOption } from '@interfaces/vita/select.interface';
 import { Observable, Subscription } from 'rxjs';
 import { CarrierFilterFormService } from './services/carrier-filter-form.service';
 import { FormGroup } from '@angular/forms';
+import { Carrier } from 'app/business/control-tower/models/carrier.model';
 @Component({
   selector: 'app-carrier',
   templateUrl: './carrier.component.html',
@@ -20,7 +21,7 @@ export class CarrierComponent implements OnInit {
     'carrier',
     'provider',
     'startHour',
-    'status',
+    'state',
     'paused',
     'actions',
   ];
@@ -31,7 +32,7 @@ export class CarrierComponent implements OnInit {
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
       startHour: '1:02 p.m.',
-      status: 'DISPONIBLE',
+      state: 'DISPONIBLE',
       paused: 'No',
     },
     {
@@ -40,7 +41,7 @@ export class CarrierComponent implements OnInit {
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
       startHour: '1:02 p.m.',
-      status: 'EN RUTA',
+      state: 'EN RUTA',
       paused: 'No',
     },
     {
@@ -49,7 +50,7 @@ export class CarrierComponent implements OnInit {
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
       startHour: '1:02 p.m.',
-      status: 'NO DISPONIBLE',
+      state: 'NO DISPONIBLE',
       paused: 'No',
     },
     {
@@ -58,7 +59,7 @@ export class CarrierComponent implements OnInit {
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
       startHour: '1:02 p.m.',
-      status: 'DISPONIBLE',
+      state: 'DISPONIBLE',
       paused: 'No',
     },
     {
@@ -67,7 +68,7 @@ export class CarrierComponent implements OnInit {
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
       startHour: '1:02 p.m.',
-      status: 'DISPONIBLE',
+      state: 'DISPONIBLE',
       paused: 'No',
     },
     {
@@ -76,7 +77,7 @@ export class CarrierComponent implements OnInit {
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
       startHour: '1:02 p.m.',
-      status: 'DISPONIBLE',
+      state: 'DISPONIBLE',
       paused: 'No',
     },
     {
@@ -85,7 +86,7 @@ export class CarrierComponent implements OnInit {
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
       startHour: '1:02 p.m.',
-      status: 'DISPONIBLE',
+      state: 'DISPONIBLE',
       paused: 'No',
     },
     {
@@ -94,7 +95,7 @@ export class CarrierComponent implements OnInit {
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
       startHour: '1:02 p.m.',
-      status: 'DISPONIBLE',
+      state: 'DISPONIBLE',
       paused: 'No',
     },
     {
@@ -103,7 +104,7 @@ export class CarrierComponent implements OnInit {
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
       startHour: '1:02 p.m.',
-      status: 'DISPONIBLE',
+      state: 'DISPONIBLE',
       paused: 'No',
     },
     {
@@ -112,7 +113,7 @@ export class CarrierComponent implements OnInit {
       carrier: 'Renato Fernandez',
       provider: 'CAJE FOREST',
       startHour: '1:02 p.m.',
-      status: 'DISPONIBLE',
+      state: 'DISPONIBLE',
       paused: 'No',
     },
   ];
@@ -131,6 +132,7 @@ export class CarrierComponent implements OnInit {
   public subscription = new Subscription();
   public localList$: Observable<ISelectOption[]>;
   public carrierStateList$: Observable<ISelectOption[]>;
+  public carrierList$: Observable<Carrier[]>;
   public filterForm: FormGroup;
   public filterList: ISelectOption[];
 
@@ -146,8 +148,12 @@ export class CarrierComponent implements OnInit {
     this.filterForm = this.carrierFilterForm.filterForm;
     this.localList$ = this.controlTowerImplService.getLocalList();
     this.carrierStateList$ = this.controlTowerImplService.getCarrierStateList();
+    this.carrierList$ = this.controlTowerImplService.getCarrierList();
     this.subscription.add(this.localList$.subscribe());
     this.subscription.add(this.carrierStateList$.subscribe());
+    this.subscription.add(
+      this.carrierList$.subscribe((data) => console.log(data))
+    );
   }
   get selected(): number {
     return this.selection.selected.length;

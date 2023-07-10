@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GenericService } from '@clients/generic/generic.service';
 import {
+  ICarrierResponse,
   ICarrierStateResponse,
   ILocalResponse,
 } from '@interfaces/control-tower/control-tower.interface';
@@ -12,6 +13,7 @@ export class ControlTowerClientService {
   private readonly CT_CARRIER_STATE_LIST =
     EndpointsParameter.CT_CARRIER_STATE_LIST;
   private readonly CT_LOCAL_LIST = EndpointsParameter.CT_LOCAL_LIST;
+  private readonly CT_CARRIER_LIST = EndpointsParameter.CT_CARRIER_LIST;
 
   constructor(private genericService: GenericService) {}
 
@@ -23,5 +25,10 @@ export class ControlTowerClientService {
   getLocalList(): Observable<ILocalResponse[]> {
     const endpoint = this.CT_LOCAL_LIST;
     return this.genericService.genericGet<ILocalResponse[]>(endpoint);
+  }
+
+  getCarrierList(): Observable<ICarrierResponse[]> {
+    const endpoint = this.CT_CARRIER_LIST;
+    return this.genericService.genericGet<ICarrierResponse[]>(endpoint);
   }
 }

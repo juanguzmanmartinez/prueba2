@@ -3,6 +3,7 @@ import { ControlTowerClientService } from '@clients/control-tower/control-tower.
 import { ISelectOption } from '@interfaces/vita/select.interface';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Carrier } from '../models/carrier.model';
 
 @Injectable()
 export class ControlTowerImplementService {
@@ -32,5 +33,13 @@ export class ControlTowerImplementService {
         })
       )
     );
+  }
+
+  getCarrierList(): Observable<Carrier[]> {
+    return this.ctClientService
+      .getCarrierList()
+      .pipe(
+        map((carrierList) => carrierList.map((carrier) => new Carrier(carrier)))
+      );
   }
 }
