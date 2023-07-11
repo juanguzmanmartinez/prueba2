@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,12 +16,15 @@ import { Observable, Subscription } from 'rxjs';
 import { CarrierFilterFormService } from './services/carrier-filter-form.service';
 import { FormGroup } from '@angular/forms';
 import { Carrier } from 'app/business/control-tower/models/carrier.model';
+import { CarrierListDBDummy } from 'app/business/control-tower/db-example/carrier-list.db';
+import { CarrierService } from './services/carrier.service';
+import { CarrierStore } from './store/carrier.store';
 @Component({
   selector: 'app-carrier',
   templateUrl: './carrier.component.html',
   styleUrls: ['./carrier.component.scss'],
 })
-export class CarrierComponent implements OnInit {
+export class CarrierComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
     'local',
     'carrier',
@@ -25,98 +34,7 @@ export class CarrierComponent implements OnInit {
     'paused',
     'actions',
   ];
-  dataFake: any[] = [
-    {
-      idCarrier: '1',
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      startHour: '1:02 p.m.',
-      state: 'DISPONIBLE',
-      paused: 'No',
-    },
-    {
-      idCarrier: '2',
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      startHour: '1:02 p.m.',
-      state: 'EN RUTA',
-      paused: 'No',
-    },
-    {
-      idCarrier: '3',
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      startHour: '1:02 p.m.',
-      state: 'NO DISPONIBLE',
-      paused: 'No',
-    },
-    {
-      idCarrier: '4',
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      startHour: '1:02 p.m.',
-      state: 'DISPONIBLE',
-      paused: 'No',
-    },
-    {
-      idCarrier: '5',
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      startHour: '1:02 p.m.',
-      state: 'DISPONIBLE',
-      paused: 'No',
-    },
-    {
-      idCarrier: '6',
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      startHour: '1:02 p.m.',
-      state: 'DISPONIBLE',
-      paused: 'No',
-    },
-    {
-      idCarrier: '7',
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      startHour: '1:02 p.m.',
-      state: 'DISPONIBLE',
-      paused: 'No',
-    },
-    {
-      idCarrier: '8',
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      startHour: '1:02 p.m.',
-      state: 'DISPONIBLE',
-      paused: 'No',
-    },
-    {
-      idCarrier: '9',
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      startHour: '1:02 p.m.',
-      state: 'DISPONIBLE',
-      paused: 'No',
-    },
-    {
-      idCarrier: '10',
-      local: 'IKF-061-DOS DE MAYO',
-      carrier: 'Renato Fernandez',
-      provider: 'CAJE FOREST',
-      startHour: '1:02 p.m.',
-      state: 'DISPONIBLE',
-      paused: 'No',
-    },
-  ];
+  dataFake: any[] = CarrierListDBDummy;
 
   dataSource = new MatTableDataSource<any>();
   selection = new SelectionModel(true, []);
@@ -126,37 +44,44 @@ export class CarrierComponent implements OnInit {
   totalOrder = 50;
   selectedCompanies = [];
   selectedLocals = [];
-  companies = ['DISPONIBLE', 'EN RUTA', 'NO DISPONIBLE'];
-  locals = ['DOS DE MAYO', 'SALAVERRY', 'KENNEDY'];
 
   public subscription = new Subscription();
   public localList$: Observable<ISelectOption[]>;
   public carrierStateList$: Observable<ISelectOption[]>;
   public carrierList$: Observable<Carrier[]>;
+  public carrierList: Carrier[];
   public filterForm: FormGroup;
   public filterList: ISelectOption[];
 
   constructor(
     private router: Router,
-    private controlTowerImplService: ControlTowerImplementService,
-    private carrierFilterForm: CarrierFilterFormService
+    private carrierFilterForm: CarrierFilterFormService,
+    private carrierService: CarrierService
   ) {}
 
   ngOnInit(): void {
-    this.dataSource.data = this.dataFake;
     this.dataSource.paginator = this.paginator;
     this.filterForm = this.carrierFilterForm.filterForm;
-    this.localList$ = this.controlTowerImplService.getLocalList();
-    this.carrierStateList$ = this.controlTowerImplService.getCarrierStateList();
-    this.carrierList$ = this.controlTowerImplService.getCarrierList();
-    this.subscription.add(this.localList$.subscribe());
-    this.subscription.add(this.carrierStateList$.subscribe());
-    this.subscription.add(
-      this.carrierList$.subscribe((data) => console.log(data))
-    );
+    this.localList$ = this.carrierService.getLocalList();
+    this.carrierStateList$ = this.carrierService.getCarrierStateList();
+    this.loadCarrierSettings();
   }
+
   get selected(): number {
     return this.selection.selected.length;
+  }
+
+  loadCarrierSettings() {
+    this.subscription.add(this.carrierService.loadCarrierList().subscribe());
+    this.subscription.add(this.carrierService.loadLocalList().subscribe());
+    this.subscription.add(
+      this.carrierService.loadCarrierStateList().subscribe()
+    );
+  }
+
+  filterCarrierList() {
+    const carrierFilters = this.carrierFilterForm.filterForm.value;
+    this.carrierService.filterCarrierList(carrierFilters);
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -166,7 +91,14 @@ export class CarrierComponent implements OnInit {
   }
 
   executeSearch() {
-    this.filterList = this.carrierFilterForm.getFilterList();
+    this.filterList = this.carrierFilterForm.getfilterPillList();
+    this.filterCarrierList();
+  }
+
+  deleteOptionFilter(filter: ISelectOption) {
+    console.log(filter)
+    this.carrierFilterForm.deleteOptionFilter(filter);
+    this.executeSearch();
   }
 
   isAllSelected(): boolean {
@@ -248,4 +180,8 @@ export class CarrierComponent implements OnInit {
   }
   selectionChange(e: any) {}
   clearValues() {}
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

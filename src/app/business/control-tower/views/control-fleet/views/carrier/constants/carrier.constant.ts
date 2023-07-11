@@ -12,6 +12,16 @@ export const ColumnNameList = {
   actions: 'actions',
 };
 
+export const displayedColumns: string[] = [
+  'local',
+  'carrier',
+  'provider',
+  'startHour',
+  'state',
+  'paused',
+  'actions',
+];
+
 export enum ECarrierStatus {
   disponible = 'DISPONIBLE',
   enRuta = 'EN RUTA',

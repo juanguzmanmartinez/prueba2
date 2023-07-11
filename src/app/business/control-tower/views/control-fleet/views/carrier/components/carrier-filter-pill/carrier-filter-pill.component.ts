@@ -6,6 +6,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { ISelectOption } from '@interfaces/vita/select.interface';
 
 @Component({
   selector: 'app-carrier-filter-pill',
@@ -15,16 +16,15 @@ import {
 export class CarrierFilterPillComponent {
   private childElement: ElementRef;
 
-  @Input() label: string;
-  @Input() value: string;
-  @Output() close = new EventEmitter();
+  @Input() filter: ISelectOption;
+  @Output() delete = new EventEmitter();
 
   constructor(private elementRef: ElementRef) {
     this.childElement = this.elementRef;
   }
 
   deletePill() {
-    this.close.emit();
+    this.delete.emit();
   }
 
   getNativeElement(): HTMLElement {

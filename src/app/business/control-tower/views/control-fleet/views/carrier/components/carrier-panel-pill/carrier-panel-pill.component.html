@@ -11,13 +11,12 @@
     </div>
   </div>
 
-  <div
-    #containerElement
-    class="panel-pill__list"
-    [style.transform]="'translateX(' + translation + 'px)'"
-  >
+  <div #containerElement class="panel-pill__list">
     <ng-container *ngFor="let filter of filterList">
-      <app-carrier-filter-pill [label]="filter.label"></app-carrier-filter-pill>
+      <app-carrier-filter-pill
+        [filter]="filter"
+        (delete)="deleteFilter(filter)"
+      ></app-carrier-filter-pill>
     </ng-container>
   </div>
 </div>

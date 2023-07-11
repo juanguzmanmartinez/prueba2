@@ -10,26 +10,16 @@ import { CarrierFilterFormService } from '../../services/carrier-filter-form.ser
   templateUrl: './carrier-filter-menu.component.html',
 })
 export class CarrierFilterMenuComponent {
-  @Input() localList = LocalDBDummy.map((local) => {
-    return {
-      value: local.localCode,
-      label: local.name,
-    } as ISelectOption;
-  });
-  @Input() carrierStateList = CarrierStateDBDummy.map((state) => {
-    return {
-      value: state.stateType,
-      label: state.description,
-    } as ISelectOption;
-  });
-
+  @Input() localList: ISelectOption[];
+  @Input() carrierStateList: ISelectOption[];
   @Input() filterForm: FormGroup;
+  
   @Output() search = new EventEmitter();
 
-  constructor(public form: CarrierFilterFormService) {}
+  constructor() {}
 
   searchCarriers() {
-    console.log('que fe');
+    console.log(this.filterForm.value);
     this.search.emit(123);
   }
 }

@@ -50,6 +50,9 @@ import { CarrierFilterMenuComponent } from './views/carrier/components/carrier-f
 import { CarrierFilterPillComponent } from './views/carrier/components/carrier-filter-pill/carrier-filter-pill.component';
 import { CarrierFilterFormService } from './views/carrier/services/carrier-filter-form.service';
 import { CarrierPanelPillComponent } from './views/carrier/components/carrier-panel-pill/carrier-panel-pill.component';
+import { CarrierService } from './views/carrier/services/carrier.service';
+import { CarrierStore } from './views/carrier/store/carrier.store';
+import { CarrierTableComponent } from './views/carrier/components/carrier-table/carrier-table.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,8 @@ import { CarrierPanelPillComponent } from './views/carrier/components/carrier-pa
     CarrierStatusDirective,
     CarrierFilterMenuComponent,
     CarrierFilterPillComponent,
-    CarrierPanelPillComponent
+    CarrierPanelPillComponent,
+    CarrierTableComponent
   ],
   imports: [
     ControlFleetRoutingModule,
@@ -105,6 +109,11 @@ import { CarrierPanelPillComponent } from './views/carrier/components/carrier-pa
     ButtonVitaModule,
     SelectMultipleVitaModule,
   ],
-  providers: [HereMapsRoutingService, CarrierFilterFormService],
+  providers: [
+    HereMapsRoutingService,
+    CarrierFilterFormService,
+    CarrierService,
+    CarrierStore,
+  ],
 })
 export class ControlFleetModule {}

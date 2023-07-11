@@ -3,8 +3,10 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   QueryList,
   ViewChild,
   ViewChildren,
@@ -18,58 +20,20 @@ import { CarrierFilterPillComponent } from '../carrier-filter-pill/carrier-filte
   templateUrl: './carrier-panel-pill.component.html',
   styleUrls: ['./carrier-panel-pill.component.scss'],
 })
-export class CarrierPanelPillComponent implements OnInit, AfterViewInit {
-
-  @ViewChildren(CarrierFilterPillComponent)
-  filterPills: QueryList<CarrierFilterPillComponent>;
+export class CarrierPanelPillComponent {
   @Input() filterList: ISelectOption[];
-  public translation: number = 0;
-  public translationSlide: number = 150;
-
+  @Output() delete = new EventEmitter();
   @ViewChild('containerElement') containerElement: ElementRef;
+
+  constructor() {}
 
   scrollContainer(scrollValue: number) {
     const container = this.containerElement.nativeElement;
     container.scrollLeft += scrollValue;
   }
 
-  constructor(
-    private form: CarrierFilterFormService,
-    private elementRef: ElementRef
-  ) {}
-
-  ngOnInit(): void {
-    this.formChanges();
+  deleteFilter(filter: ISelectOption) {
+    console.log(filter)
+    this.delete.emit(filter);
   }
-
-  formChanges(): void {
-    this.form.filterForm.valueChanges.subscribe((formValue) => {
-      console.log(formValue);
-    });
-  }
-
-  ngAfterViewInit(): void {
-    this.filterPills.changes.subscribe(() => {
-      this.getChildWidths();
-    });
-  }
-
-  getChildWidths() {
-    this.filterPills.forEach(childComponent => {
-      const childWidth = childComponent.getNativeElement().offsetWidth;
-      console.log('Child width:', childWidth);
-    });
-  }
-
-  moveLeft() {
-    if (this.translation !== 0) {
-      this.translation += this.translationSlide;
-    }
-  }
-
-  moveRight() {
-    this.translation -= this.translationSlide;
-  }
-
- 
 }

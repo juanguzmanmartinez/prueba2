@@ -13,10 +13,33 @@ export class CarrierFilterFormService {
     });
   }
 
-  getFilterList() {
-    const carrierStates = this.carrierStateControl().value;
-    const locals = this.localsControl().value;
-    return [...carrierStates, ...locals];
+  getfilterPillList() {
+    const stateControlValue = this.carrierStateControl().value;
+    const localControlValue = this.localsControl().value;
+    const states = this.addFilterName(stateControlValue, 'carrierStates');
+    const locals = this.addFilterName(localControlValue, 'locals');
+    return [...states, ...locals];
+  }
+
+  addFilterName(filterList: ISelectOption[], name: string) {
+    return filterList.map((option) => {
+      return {
+        label: option.label,
+        value: { id: option.value, filter: name },
+      } as ISelectOption;
+    });
+  }
+
+  deleteOptionFilter(option: ISelectOption) {
+    const {
+      value: { id, filter },
+    } = option;
+    const filterSelected = this.filterForm.get(filter).value;
+    const filterAfterRemove = filterSelected.filter(
+      (optionFilter) => optionFilter.value !== id
+    );
+
+    this.filterForm.get(filter).setValue(filterAfterRemove);
   }
 
   carrierStateControl() {
