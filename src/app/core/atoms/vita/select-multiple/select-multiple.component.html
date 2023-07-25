@@ -20,7 +20,7 @@
 
     <app-icon svgName="select-arrow-down"></app-icon>
   </button>
-  <div class="custom-select-options" *ngIf="showOptions">
+  <div #containerElement class="custom-select-options" *ngIf="showOptions">
     <label *ngFor="let option of options" class="custom-select-option">
       <div class="w-100 d-flex align-items-center">
         <fp-checkbox

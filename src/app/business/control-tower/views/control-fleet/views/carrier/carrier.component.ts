@@ -6,11 +6,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CT_ROUTER_PATH } from '@parameters/router/routing/control-tower/control-tower-path.parameter';
-import { ControlTowerImplementService } from 'app/business/control-tower/implements/control-tower.implement.service';
 import { ISelectOption } from '@interfaces/vita/select.interface';
 import { Observable, Subscription } from 'rxjs';
 import { CarrierFilterFormService } from './services/carrier-filter-form.service';
@@ -77,7 +75,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
     this.carrierService.filterCarrierList(carrierFilters);
   }
 
-  viewCarrierRoute(idCarrier: string) {
+  navigateToCarrierRoute(idCarrier: string) {
     this.router.navigate([CT_ROUTER_PATH.ctCarrierRoute(idCarrier)]);
   }
 
@@ -93,7 +91,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
 
   downloadMotorized() {
     this.carrierService.downloadMotorized();
-  }  
+  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

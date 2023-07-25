@@ -1,19 +1,12 @@
 import {
-  AfterContentInit,
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
   Input,
-  OnInit,
   Output,
-  QueryList,
   ViewChild,
-  ViewChildren,
 } from '@angular/core';
-import { CarrierFilterFormService } from '../../services/carrier-filter-form.service';
 import { ISelectOption } from '@interfaces/vita/select.interface';
-import { CarrierFilterPillComponent } from '../carrier-filter-pill/carrier-filter-pill.component';
 
 @Component({
   selector: 'app-carrier-panel-pill',
@@ -33,7 +26,7 @@ export class CarrierPanelPillComponent {
   }
 
   deleteFilter(filter: ISelectOption) {
-    console.log(filter)
+    console.log(filter);
     this.delete.emit(filter);
   }
 }

@@ -23,6 +23,7 @@ export class CarrierTableComponent implements OnInit, OnDestroy {
   public dataSource = new MatTableDataSource<any>();
   public displayedColumns = displayedColumns;
   public carrierList: Carrier[];
+  public loader = true;
   private subscription = new Subscription();
 
   constructor(private carrierStore: CarrierStore) {}
@@ -36,6 +37,7 @@ export class CarrierTableComponent implements OnInit, OnDestroy {
       (carrierList) => {
         this.carrierList = carrierList;
         this.dataSource.data = carrierList;
+        this.loader = !!this.carrierList;
       }
     );
   }

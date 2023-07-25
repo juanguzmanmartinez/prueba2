@@ -16,7 +16,11 @@
     ></fp-select-multiple>
   </div>
   <div class="col-2">
-    <fp-button innerClass="w-100" (clicked)="searchCarriers()">
+    <fp-button
+      innerClass="w-100"
+      (clicked)="searchCarriers()"
+      [disabled]="!hasFilters"
+    >
       <div class="d-flex align-items-center">
         <app-icon svgName="search-white" svgWidth="20px"></app-icon>
         <span class="ms-2">Buscar</span>

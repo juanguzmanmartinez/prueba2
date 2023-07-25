@@ -35,7 +35,6 @@ import { StepTabsModule } from '@molecules/step-tabs/step-tabs.module';
 import { BackRouterSimpleModule } from '@molecules/back-router-simple/back-router-simple.module';
 import { FormFieldModule } from '@molecules/form-field/form-field.module';
 import { TagModule } from '@atoms/tag/tag.module';
-import { SkeletonModule } from '@molecules/skeleton/skeleton.module';
 import { FilterSearchModule } from '@molecules/filter-search/filter-search.module';
 import { LocalFilterModule } from 'app/business/order/views/order-records/components/local-filter/local-filter.module';
 import { PaginatorModule } from '@atoms/paginator/paginator.module';
@@ -45,7 +44,6 @@ import { HereMapsRoutingService } from './views/carrier-route/implements/here-ma
 import { CarrierStatusDirective } from './views/carrier/directives/carrierStatus.directive';
 import { ButtonVitaModule } from '@atoms/vita/button/button.module';
 import { SelectMultipleVitaModule } from '@atoms/vita/select-multiple/select-multiple.module';
-import { ControlTowerImplementService } from '../../implements/control-tower.implement.service';
 import { CarrierFilterMenuComponent } from './views/carrier/components/carrier-filter-menu/carrier-filter-menu.component';
 import { CarrierFilterPillComponent } from './views/carrier/components/carrier-filter-pill/carrier-filter-pill.component';
 import { CarrierFilterFormService } from './views/carrier/services/carrier-filter-form.service';
@@ -53,6 +51,7 @@ import { CarrierPanelPillComponent } from './views/carrier/components/carrier-pa
 import { CarrierService } from './views/carrier/services/carrier.service';
 import { CarrierStore } from './views/carrier/store/carrier.store';
 import { CarrierTableComponent } from './views/carrier/components/carrier-table/carrier-table.component';
+import { SkeletonModule } from '@atoms/vita/skeleton/skeleton.module';
 
 @NgModule({
   declarations: [
@@ -105,9 +104,9 @@ import { CarrierTableComponent } from './views/carrier/components/carrier-table/
     LocalFilterModule,
     FilterSearchModule,
     PaginatorModule,
-    SkeletonModule,
     ButtonVitaModule,
     SelectMultipleVitaModule,
+    SkeletonModule
   ],
   providers: [
     HereMapsRoutingService,

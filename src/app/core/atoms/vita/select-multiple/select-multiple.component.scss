@@ -27,8 +27,8 @@
   color: #97a5c3;
 }
 
-.selected-option{
-  color: #2F3A51 !important;
+.selected-option {
+  color: #2f3a51 !important;
 }
 
 .selected-active {
@@ -47,6 +47,8 @@
 }
 
 .custom-select-options {
+  height: 240px;
+  overflow-y: scroll;
   background-color: white;
   border-radius: 12px;
   box-sizing: border-box;
@@ -55,6 +57,29 @@
   width: 100%;
   z-index: 1000;
   filter: drop-shadow(0px 4px 16px rgba(67, 83, 117, 0.08));
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: $neutral-20;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: $neutral-40;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: $neutral-50;
+  }
 }
 
 .custom-select-option {
@@ -79,4 +104,3 @@
     background: #fafbfc;
   }
 }
-
