@@ -14,7 +14,7 @@ export interface ICarrierResponse {
   localCode: string;
   localFullName: string;
   nameMotorized: string;
-  pendigRoute: string;
+  pendingRoute: string;
   supplier: string;
   entryTime: string;
   state: string;

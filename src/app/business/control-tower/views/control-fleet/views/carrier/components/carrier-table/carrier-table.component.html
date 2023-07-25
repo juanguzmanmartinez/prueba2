@@ -50,6 +50,7 @@
               <app-tag
                 [tagColor]="danger"
                 appearance="pill-colored-full-purple-blue"
+                *ngIf="element.isPendingRoute"
               >
                 Ruta pendiente
               </app-tag>
@@ -106,11 +107,9 @@
           <td
             mat-cell
             *matCellDef="let element"
-            class="text-neutral-90 text-body-3-regular text-center"
+            class="text-body-4-bold text-secondary-60"
           >
-            <span class="status-text text-secondary-60">
-              {{ element.state }}
-            </span>
+            {{ element.state }}
           </td>
         </ng-container>
 
@@ -127,9 +126,9 @@
           <td
             mat-cell
             *matCellDef="let element"
-            class="text-neutral-90 text-body-3-regular"
+            class="text-neutral-100 text-body-3-regular"
           >
-            {{ element.paused }}
+            {{ element.paused | titlecase}}
           </td>
         </ng-container>
 

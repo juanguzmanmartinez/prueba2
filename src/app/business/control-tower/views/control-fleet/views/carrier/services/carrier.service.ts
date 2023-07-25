@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 import { ICarrierFilter } from '../interfaces/carrier.interface';
 import { LocalFilter } from 'app/business/control-tower/models/local-filter.model';
 import { CarrierStateFilter } from 'app/business/control-tower/models/carrier-state-filter.model';
+import { ExportTableSelection } from 'app/shared/utils/export-table-selection.util';
 
 @Injectable()
 export class CarrierService {
@@ -58,6 +59,25 @@ export class CarrierService {
       this.carrierStore.loadInitialCarrierList();
     } else {
       this.carrierStore.filterCarrierList(carrierFilter);
+    }
+  }
+
+  downloadMotorized(): void {
+    const carrierList = this.carrierStore.carrierListValue();
+    try {
+      const data = carrierList.map((carrier) => {
+        return {
+          ['Local']: carrier.local,
+          ['Nombre transportista']: carrier.carrier,
+          ['Proveedor']: carrier.provider,
+          ['Hora ingreso']: carrier.startHour,
+          ['Estado']: carrier.state,
+          ['Pausado']: carrier.paused,
+        };
+      });
+      ExportTableSelection.exportArrayToExcel(data, 'Motorizados');
+    } catch (error) {
+      throw new Error(error);
     }
   }
 }

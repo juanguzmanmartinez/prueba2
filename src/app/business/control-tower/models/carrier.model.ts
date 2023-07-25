@@ -8,6 +8,7 @@ export class Carrier {
   startHour: string;
   state: string;
   paused: string;
+  isPendingRoute: boolean;
   constructor(res: ICarrierResponse) {
     this.idCarrier = res.motorizedId;
     this.local = res.localFullName;
@@ -16,5 +17,6 @@ export class Carrier {
     this.startHour = res.entryTime;
     this.state = res.state;
     this.paused = res.slow;
+    this.isPendingRoute = !!res.pendingRoute;
   }
 }

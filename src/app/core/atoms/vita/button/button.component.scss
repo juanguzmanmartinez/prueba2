@@ -14,14 +14,15 @@
   border-radius: 12px;
   @include text-body-2-bold;
 
-  &.button-disabled {
-    color: $neutral-50 !important;
-    background-color: $neutral-30 !important;
-  }
-
+  
   &.button-primary {
     background-color: $primary-60;
     color: $neutral-0;
+    
+    &.button-disabled {
+      color: $neutral-50 !important;
+      background-color: $neutral-30 !important;
+    }
 
     &:hover {
       background-color: $primary-70;
@@ -40,5 +41,22 @@
       background-color: $neutral-30;
       color: $neutral-50;
     }
+  }
+
+  &.button-secondary {
+    background-color: $neutral-0;
+    color: $primary-60;
+    border: 2px solid $primary-60;
+
+    &:hover {
+      border-color: $primary-70;
+      color: $primary-70;
+    }
+
+    &:active {
+      border-color: $primary-80;
+      color: $primary-80;
+    }
+
   }
 }

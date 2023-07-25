@@ -48,9 +48,7 @@ export class EndpointsParameter {
   public static PTACH_CAPACITIES = `${API_GATEWAY}/fulfillment/store/capacity/update`;
   public static VALIDATE_STORES = `${API_GATEWAY}/fulfillment/store/capacity/template/validate`;
 
-  public static CT_CARRIER_STATE_LIST =
-    'https://w4s60k5oa2.execute-api.us-east-1.amazonaws.com/DEV/v0.1/router/statesMotorizeds';
-  public static CT_CARRIER_LIST =
-    'https://w4s60k5oa2.execute-api.us-east-1.amazonaws.com/DEV/v0.1/router/all-motorized';
-  public static CT_LOCAL_LIST = `https://fduetuxpf0.execute-api.us-east-1.amazonaws.com/DEV/fulfillment/routing-store`;
+  public static CT_CARRIER_STATE_LIST = `${API_GATEWAY}/v0.1/router/statesMotorizeds`;
+  public static CT_CARRIER_LIST = `${API_GATEWAY}/v0.1/router/all-motorized`;
+  public static CT_LOCAL_LIST = `${API_GATEWAY}/fulfillment/routing-store`;
 }

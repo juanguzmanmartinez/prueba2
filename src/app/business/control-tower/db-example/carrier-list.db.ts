@@ -7,6 +7,7 @@ export const CarrierListDBDummy = [
     startHour: '1:02 p.m.',
     state: 'DISPONIBLE',
     paused: 'No',
+    isPendingRoute: false,
   },
   {
     idCarrier: '2',
@@ -16,6 +17,7 @@ export const CarrierListDBDummy = [
     startHour: '1:02 p.m.',
     state: 'EN RUTA',
     paused: 'No',
+    isPendingRoute: false,
   },
   {
     idCarrier: '3',
@@ -25,6 +27,7 @@ export const CarrierListDBDummy = [
     startHour: '1:02 p.m.',
     state: 'NO DISPONIBLE',
     paused: 'No',
+    isPendingRoute: false,
   },
   {
     idCarrier: '4',
@@ -34,6 +37,7 @@ export const CarrierListDBDummy = [
     startHour: '1:02 p.m.',
     state: 'DISPONIBLE',
     paused: 'No',
+    isPendingRoute: false,
   },
   {
     idCarrier: '5',
@@ -43,6 +47,7 @@ export const CarrierListDBDummy = [
     startHour: '1:02 p.m.',
     state: 'DISPONIBLE',
     paused: 'No',
+    isPendingRoute: false,
   },
   {
     idCarrier: '6',
@@ -52,6 +57,7 @@ export const CarrierListDBDummy = [
     startHour: '1:02 p.m.',
     state: 'DISPONIBLE',
     paused: 'No',
+    isPendingRoute: false,
   },
   {
     idCarrier: '7',
@@ -61,6 +67,7 @@ export const CarrierListDBDummy = [
     startHour: '1:02 p.m.',
     state: 'DISPONIBLE',
     paused: 'No',
+    isPendingRoute: false,
   },
   {
     idCarrier: '8',
@@ -70,6 +77,7 @@ export const CarrierListDBDummy = [
     startHour: '1:02 p.m.',
     state: 'DISPONIBLE',
     paused: 'No',
+    isPendingRoute: false,
   },
   {
     idCarrier: '9',
@@ -79,6 +87,7 @@ export const CarrierListDBDummy = [
     startHour: '1:02 p.m.',
     state: 'DISPONIBLE',
     paused: 'No',
+    isPendingRoute: false,
   },
   {
     idCarrier: '10',
@@ -88,5 +97,6 @@ export const CarrierListDBDummy = [
     startHour: '1:02 p.m.',
     state: 'DISPONIBLE',
     paused: 'No',
+    isPendingRoute: false,
   },
 ];
