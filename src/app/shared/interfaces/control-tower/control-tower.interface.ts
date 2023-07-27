@@ -21,3 +21,33 @@ export interface ICarrierResponse {
   stateDescripcion: string;
   slow: string;
 }
+
+export interface ICoordinate {
+  lat: number;
+  lng: number;
+}
+
+export interface IOrderRouteResponse {
+  orderNumber: string;
+  orderId: string;
+  local: string;
+  channel: string;
+  service: string;
+  promiseDate: string;
+  address: string;
+  state: string;
+  timeLeft: string;
+  coordinates: ICoordinate;
+}
+
+export interface IDetailRouteResponse {
+  routeId: string;
+  motorized: string;
+  telephone: string;
+  local: string;
+  completedOrderCount: number;
+  totalOrderCount: number;
+  motorizedState: string;
+  motorizedCoordinates: ICoordinate;
+  orders: IOrderRouteResponse[];
+}

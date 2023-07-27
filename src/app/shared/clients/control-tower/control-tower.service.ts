@@ -3,6 +3,7 @@ import { GenericService } from '@clients/generic/generic.service';
 import {
   ICarrierResponse,
   ICarrierStateResponse,
+  IDetailRouteResponse,
   ILocalResponse,
 } from '@interfaces/control-tower/control-tower.interface';
 import { EndpointsParameter } from '@parameters/generic/endpoints.parameter';
@@ -14,6 +15,7 @@ export class ControlTowerClientService {
     EndpointsParameter.CT_CARRIER_STATE_LIST;
   private readonly CT_LOCAL_LIST = EndpointsParameter.CT_LOCAL_LIST;
   private readonly CT_CARRIER_LIST = EndpointsParameter.CT_CARRIER_LIST;
+  private readonly CT_DETAIL_ROUTE = EndpointsParameter.CT_DETAIL_ROUTE;
 
   constructor(private genericService: GenericService) {}
 
@@ -30,5 +32,10 @@ export class ControlTowerClientService {
   getCarrierList(): Observable<ICarrierResponse[]> {
     const endpoint = this.CT_CARRIER_LIST;
     return this.genericService.genericGet<ICarrierResponse[]>(endpoint);
+  }
+
+  getDetailRoute(id: string): Observable<IDetailRouteResponse> {
+    const endpoint = `${this.CT_DETAIL_ROUTE}/${id}`;
+    return this.genericService.genericGet<IDetailRouteResponse>(endpoint);
   }
 }

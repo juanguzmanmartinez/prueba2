@@ -38,4 +38,8 @@ export class ControlTowerImplementService {
       catchError((error) => of(CarrierListDBDummy))
     );
   }
+
+  getDetailRoute(id: string) {
+    return this.ctClientService.getDetailRoute(id);
+  }
 }
