@@ -41,6 +41,7 @@ const CAPACITIES_CHILDREN_PERMISSIONS: TBasePermissions = {
     Access.CapacitiesServiceType,
   ],
   [ROUTER_PATH.capacitiesRet]: [[EDITOR, VIEWER], Access.CapacitiesServiceType],
+  [ROUTER_PATH.capacityUpload]: [[EDITOR, VIEWER], Access.CapacitiesServiceType],
   [ROUTER_PATH.capacityReport]: [
     [EDITOR, VIEWER],
     Access.CapacitiesServiceType,

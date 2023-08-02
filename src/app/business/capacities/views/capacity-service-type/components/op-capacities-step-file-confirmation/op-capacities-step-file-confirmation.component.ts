@@ -53,7 +53,7 @@ export class OpCapacitiesStepFileConfirmationComponent
     private _storageClientService: StorageClientService,
     private _opCapacitiesUploadBackDialogService: OpCapacitiesUploadBackDialogService
   ) {
-    this.uploadPathAccess = `${ROUTER_PATH.capacitiesServiceType}/upload`;
+    this.uploadPathAccess = `${ROUTER_PATH.capacityUpload}`;
   }
 
   ngOnInit(): void {
