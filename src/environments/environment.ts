@@ -6,9 +6,9 @@ export const environment = {
   production: false,
   show_logs: false,
   envName: 'dev2',
-  api_gateway: 'https://fduetuxpf0.execute-api.us-east-1.amazonaws.com/DEV',
+  api_gateway: 'https://4kz2r4t838.execute-api.us-east-1.amazonaws.com/CI02',
   api_gateway_order:
-    'https://fduetuxpf0.execute-api.us-east-1.amazonaws.com/DEV',
+    'https://4kz2r4t838.execute-api.us-east-1.amazonaws.com/CI02',
   api_gateway_auth:
     'https://28c9y4dvs8.execute-api.us-east-1.amazonaws.com/CI02',
   authUsername: 'adm-operations',
