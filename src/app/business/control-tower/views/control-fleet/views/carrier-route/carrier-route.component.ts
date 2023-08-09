@@ -14,6 +14,7 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { IOrder } from './interfaces/order.interface';
 import { HereMapsRoutingService } from './implements/here-maps-routing.implement.service';
+import { ControlTowerImplementService } from 'app/business/control-tower/implements/control-tower.implement.service';
 
 @Component({
   selector: 'app-carrier-route',
@@ -41,11 +42,13 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit {
 
   constructor(
     private hereMapsService: HereMapsService,
-    private hmRoutingService: HereMapsRoutingService
+    private hmRoutingService: HereMapsRoutingService,
+    private ctImplService: ControlTowerImplementService
   ) {}
 
   ngOnInit(): void {
     this.dataSource.data = DBOrder;
+    this.ctImplService.getDetailRoute('221').subscribe();
   }
 
   ngAfterViewInit() {

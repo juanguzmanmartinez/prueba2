@@ -1,4 +1,4 @@
-@import "src/sass/variables/colors.variable";
+@import 'src/sass/variables/colors.variable';
 
 :host {
   display: contents;
@@ -9,6 +9,10 @@
   width: fit-content;
   height: fit-content;
   color: inherit;
+}
+
+:host ::ng-deep mat-icon.icon-disabled svg path{
+  fill: $neutral-50 !important;
 }
 
 .icon-svg {

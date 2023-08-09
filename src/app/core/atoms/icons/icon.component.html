@@ -13,8 +13,10 @@
   <mat-icon
     class="icon-svg"
     [ngClass]="innerClass"
-    [svgIcon]="disabled ? svgNameDisabled : toogleSvgIconOrHover()"
+    [class.icon-disabled]="disabled"
+    [svgIcon]="toogleSvgIconOrHover()"
     [style.width]="svgWidth"
+    [style.color]="fontColor"
     [style.height]="svgHeight || svgWidth"
     (mouseenter)="onMouseEnter()"
     (mouseleave)="onMouseLeave()"
