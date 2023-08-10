@@ -48,6 +48,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
   public carrierList: Carrier[];
   public filterForm: FormGroup;
   public filterList: ISelectOption[];
+  public loadingTable$: Observable<boolean>;
 
   constructor(
     private router: Router,
@@ -57,6 +58,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.filterForm = this.carrierFilterForm.filterForm;
+    this.loadingTable$ = this.carrierService.getLoadingCarrierList();
     this.localList$ = this.carrierService.getLocalList();
     this.carrierStateList$ = this.carrierService.getCarrierStateList();
     this.loadCarrierSettings();

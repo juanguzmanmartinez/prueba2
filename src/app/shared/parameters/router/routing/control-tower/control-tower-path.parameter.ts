@@ -5,7 +5,7 @@ export const CT_ROUTER_PATH = {
   ctControlFleet: `/${CT_ROUTER.path}/${CT_CHILDREN_PATH.fleet}`,
   ctCarriers: `/${CT_ROUTER.path}/${CT_CHILDREN_PATH.fleet}/${CT_CHILDREN_PATH.carriers}`,
   ctCarrierRoute: (idCarrier: string = 'idCarrier') =>
-    `/${CT_ROUTER.path}/${CT_CHILDREN_PATH.fleet}/${CT_CHILDREN_PATH.carrierRoute}/${idCarrier}`,
+    `/${CT_ROUTER.path}/${CT_CHILDREN_PATH.fleet}/${CT_CHILDREN_PATH.carriers}/${CT_CHILDREN_PATH.carrierRoute}/${idCarrier}`,
   ctRouteMonitoring: `/${CT_ROUTER.path}/${CT_CHILDREN_PATH.routes}`,
   ctRouteTracking: `/${CT_ROUTER.path}/${CT_CHILDREN_PATH.routes}/${CT_CHILDREN_PATH.routeTracking}`,
   ctAllocationRouting: (idLocal: string = 'idLocal') =>

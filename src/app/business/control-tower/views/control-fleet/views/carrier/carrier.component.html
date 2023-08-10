@@ -1,27 +1,8 @@
 <section>
-  <div class="d-flex mt-5 mb-3">
-    <app-router router="/">
-      <div class="cursor-pointer d-flex-center">
-        <app-icon
-          svgName="arrow-left-secondary"
-          innerClass="me-2"
-          svgWidth="12px"
-        ></app-icon>
-        <span class="text-body-3-bold text-secondary-60">Ir a inicio</span>
-      </div>
-    </app-router>
-  </div>
-  <div class="d-flex justify-content-between align-items-center mb-6">
-    <div>
-      <h4 class="text-h6 text-neutral-100 mb-0">Control de flota</h4>
-    </div>
-    <div>
-      <fp-button color="secondary" (clicked)="downloadMotorized()">
-        <app-icon svgName="donwload-blue"></app-icon>
-        <span class="ms-2">Descargar</span>
-      </fp-button>
-    </div>
-  </div>
+  <app-carrier-header
+    (download)="downloadMotorized()"
+    [loadingTable]="loadingTable$ | async"
+  ></app-carrier-header>
 
   <app-carrier-filter-menu
     [localList]="localList$ | async"

@@ -22,7 +22,7 @@
       [disabled]="!hasFilters"
     >
       <div class="d-flex align-items-center">
-        <app-icon svgName="search-white" svgWidth="20px"></app-icon>
+        <app-icon svgName="search-white" svgWidth="20px" [disabled]="!hasFilters"></app-icon>
         <span class="ms-2">Buscar</span>
       </div>
     </fp-button>

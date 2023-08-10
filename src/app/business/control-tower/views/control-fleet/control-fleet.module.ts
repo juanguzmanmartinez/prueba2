@@ -52,6 +52,8 @@ import { CarrierService } from './views/carrier/services/carrier.service';
 import { CarrierStore } from './views/carrier/store/carrier.store';
 import { CarrierTableComponent } from './views/carrier/components/carrier-table/carrier-table.component';
 import { SkeletonModule } from '@atoms/vita/skeleton/skeleton.module';
+import { CarrierHeaderComponent } from './views/carrier/components/carrier-header/carrier-header.component';
+import { CarrierRouteHeaderComponent } from './views/carrier-route/components/carrier-route-header/carrier-route-header.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { SkeletonModule } from '@atoms/vita/skeleton/skeleton.module';
     CarrierFilterMenuComponent,
     CarrierFilterPillComponent,
     CarrierPanelPillComponent,
-    CarrierTableComponent
+    CarrierTableComponent,
+    CarrierHeaderComponent,
+    CarrierRouteHeaderComponent
   ],
   imports: [
     ControlFleetRoutingModule,

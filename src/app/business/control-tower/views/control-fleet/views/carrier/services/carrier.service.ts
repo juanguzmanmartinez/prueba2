@@ -28,12 +28,17 @@ export class CarrierService {
     return this.carrierStore.carrierStateList$;
   }
 
+  getLoadingCarrierList(): Observable<boolean> {
+    return this.carrierStore.loadingCarrierList$;
+  }
+
   loadCarrierList(): Observable<Carrier[]> {
-    return this.ctImplService
-      .getCarrierList()
-      .pipe(
-        tap((carrierList) => this.carrierStore.loadCarrierList(carrierList))
-      );
+    return this.ctImplService.getCarrierList().pipe(
+      tap((carrierList) => {
+        this.carrierStore.loadCarrierList(carrierList);
+        this.carrierStore.setloadingCarrierList(false);
+      })
+    );
   }
 
   loadLocalList(): Observable<LocalFilter[]> {

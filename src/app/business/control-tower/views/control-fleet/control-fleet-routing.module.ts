@@ -29,7 +29,7 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: `${CT_CHILDREN_PATH.carrierRoute.valueOf()}/:${CT_CHILDREN_PATH.idCarrier.valueOf()}`,
+        path: `${CT_CHILDREN_PATH.carriers.valueOf()}/${CT_CHILDREN_PATH.carrierRoute.valueOf()}/:${CT_CHILDREN_PATH.idCarrier.valueOf()}`,
         canActivate: [PermissionsGuard],
         data: {
           permissions:

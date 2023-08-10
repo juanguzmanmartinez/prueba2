@@ -16,7 +16,6 @@ export class CarrierFilterMenuComponent {
   constructor() {}
 
   searchCarriers() {
-    console.log(this.filterForm.value);
     this.search.emit(123);
   }
 
