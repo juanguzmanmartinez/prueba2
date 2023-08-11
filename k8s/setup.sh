@@ -35,6 +35,17 @@ then
     echo "Starting Web Server ..."
     nginx -g 'daemon off;'
 
+elif [ "$environment" == "qas-audit" ]
+then
+    echo "Setting up project $app:$environment"
+
+    sed -i -e 's/https:\/\/4kz2r4t838.execute-api.us-east-1.amazonaws.com\/CI02/https:\/\/4kz2r4t838.execute-api.us-east-1.amazonaws.com\/QA02/g' /usr/share/nginx/html/main*.js
+    sed -i -e 's/https:\/\/28c9y4dvs8.execute-api.us-east-1.amazonaws.com\/CI02/https:\/\/28c9y4dvs8.execute-api.us-east-1.amazonaws.com\/QA02/g' /usr/share/nginx/html/main*.js
+    sed -i -e 's/authPassword:"12345"/authPassword:"ypej47Qm14QhjB93Sf"/g' /usr/share/nginx/html/main*.js
+
+    echo "Starting Web Server ..."
+    nginx -g 'daemon off;'
+
 elif [ "$environment" == "uat" ]
 then
     echo "Setting up project $app:$environment"
