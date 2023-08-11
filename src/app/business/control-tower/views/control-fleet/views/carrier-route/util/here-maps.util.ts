@@ -1,6 +1,7 @@
 import H from '@here/maps-api-for-javascript';
 import { OrderNameFile, OrderStatusColor } from "../constants/order.constant";
 import { IOrder } from "../interfaces/order.interface";
+import { OrderRoute } from '../models/order-route.model';
 
 export function svgOrderIcon(text: string, fill: string): string {
   return (
@@ -21,14 +22,14 @@ export function divOrderIcon(text: string, nameFile: string): string {
   );
 }
 
-export function orderIcon(order: IOrder) {
+export function orderIcon(order: OrderRoute) {
   const text = order.orderNumber;
-  const fill = OrderStatusColor[order.status];
+  const fill = OrderStatusColor[order.state];
   return new H.map.Icon(svgOrderIcon(text, fill));
 }
 
-export function orderDomIcon(order: IOrder) {
+export function orderDomIcon(order: OrderRoute) {
   const text = order.orderNumber;
-  const nameFile = OrderNameFile[order.status];
+  const nameFile = OrderNameFile[order.state];
   return new H.map.DomIcon(divOrderIcon(text, nameFile));
 }

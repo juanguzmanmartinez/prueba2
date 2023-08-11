@@ -28,8 +28,8 @@ export interface ICoordinate {
 }
 
 export interface IOrderRouteResponse {
-  orderNumber: string;
-  orderId: string;
+  orderNumber: number;
+  orderId: number;
   local: string;
   channel: string;
   service: string;
@@ -37,7 +37,8 @@ export interface IOrderRouteResponse {
   address: string;
   state: string;
   timeLeft: string;
-  coordinates: ICoordinate;
+  lat: number;
+  lng: number;
 }
 
 export interface IDetailRouteResponse {
@@ -48,6 +49,7 @@ export interface IDetailRouteResponse {
   completedOrderCount: number;
   totalOrderCount: number;
   motorizedState: string;
-  motorizedCoordinates: ICoordinate;
+  lat: number;
+  lng: number;
   orders: IOrderRouteResponse[];
 }

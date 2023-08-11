@@ -54,6 +54,9 @@ import { CarrierTableComponent } from './views/carrier/components/carrier-table/
 import { SkeletonModule } from '@atoms/vita/skeleton/skeleton.module';
 import { CarrierHeaderComponent } from './views/carrier/components/carrier-header/carrier-header.component';
 import { CarrierRouteHeaderComponent } from './views/carrier-route/components/carrier-route-header/carrier-route-header.component';
+import { CarrierRouteStore } from './views/carrier-route/store/carrier-route.store';
+import { CarrierRouteService } from './views/carrier-route/service/carrier-route.service';
+import { DetailRoute } from './views/carrier-route/components/detail-route/detail-route.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,8 @@ import { CarrierRouteHeaderComponent } from './views/carrier-route/components/ca
     CarrierPanelPillComponent,
     CarrierTableComponent,
     CarrierHeaderComponent,
-    CarrierRouteHeaderComponent
+    CarrierRouteHeaderComponent,
+    DetailRoute,
   ],
   imports: [
     ControlFleetRoutingModule,
@@ -110,13 +114,15 @@ import { CarrierRouteHeaderComponent } from './views/carrier-route/components/ca
     PaginatorModule,
     ButtonVitaModule,
     SelectMultipleVitaModule,
-    SkeletonModule
+    SkeletonModule,
   ],
   providers: [
     HereMapsRoutingService,
     CarrierFilterFormService,
     CarrierService,
     CarrierStore,
+    CarrierRouteService,
+    CarrierRouteStore,
   ],
 })
 export class ControlFleetModule {}

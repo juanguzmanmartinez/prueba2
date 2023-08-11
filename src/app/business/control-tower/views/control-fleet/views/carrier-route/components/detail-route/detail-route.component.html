@@ -1,0 +1,51 @@
+<ng-container *ngIf="detailRoute">
+  <div class="row mb-4">
+    <div class="col-4 text-neutral-100"><span>Transportista:</span></div>
+    <div class="col-8 text-neutral-60">
+      <span>{{ detailRoute.motorized }}</span>
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col-4 text-neutral-100"><span>Teléfono:</span></div>
+    <div class="col-8 text-neutral-60">
+      <span>{{ detailRoute.telephone }}</span>
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col-4 text-neutral-100"><span>Local:</span></div>
+    <div class="col-8 text-neutral-60">
+      <span>{{ detailRoute.local }}</span>
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col-4 text-neutral-100">
+      <span>Pedidos finalizados:</span>
+    </div>
+    <div class="col-8 text-neutral-60 d-flex align-items-center">
+      <span
+        >{{ detailRoute.completedOrderCount }} de
+        {{ detailRoute.totalOrderCount }}
+      </span>
+      <app-tooltip
+        class="ml-x mt-1"
+        value="Incluye todos los pedidos finalizados"
+        position="below"
+      >
+        <app-icon
+          svgName="info-square"
+          svgHeight="16px"
+          svgWidth="16px"
+          class="icon"
+          innerClass = "ms-2"
+        >
+        </app-icon>
+      </app-tooltip>
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col-4 text-neutral-100"><span>Estado:</span></div>
+    <div class="col-8 text-neutral-60">
+      <span>{{ detailRoute.motorizedState }}</span>
+    </div>
+  </div>
+</ng-container>

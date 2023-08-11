@@ -9,6 +9,7 @@ import { CarrierStateDBDummy } from '../db-example/carrier-state.db';
 import { LocalDBDummy } from '../db-example/local.db';
 import { LocalFilter } from '../models/local-filter.model';
 import { CarrierStateFilter } from '../models/carrier-state-filter.model';
+import { CarrierRoute } from '../views/control-fleet/views/carrier-route/models/carrier-route.model';
 
 @Injectable()
 export class ControlTowerImplementService {
@@ -40,6 +41,8 @@ export class ControlTowerImplementService {
   }
 
   getDetailRoute(id: string) {
-    return this.ctClientService.getDetailRoute(id);
+    return this.ctClientService
+      .getDetailRoute(id)
+      .pipe(map((carrierRoute) => new CarrierRoute(carrierRoute)));
   }
 }

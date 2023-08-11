@@ -6,6 +6,7 @@ import { HereMapsService } from '@clients/here-maps/here-maps.service';
 import { IOrder } from '../interfaces/order.interface';
 import { orderDomIcon, orderIcon } from '../util/here-maps.util';
 import H from '@here/maps-api-for-javascript';
+import { OrderRoute } from '../models/order-route.model';
 
 @Injectable()
 export class HereMapsRoutingService {
@@ -48,7 +49,7 @@ export class HereMapsRoutingService {
     ui.addControl('center-order', centerOrderControl);
   }
 
-  orderMarker(order: IOrder) {
+  orderMarker(order: OrderRoute) {
     const map = this.hmService.getMap();
     const icon = orderIcon(order);
     const marker = new H.map.Marker(
@@ -62,7 +63,7 @@ export class HereMapsRoutingService {
     map.addObject(marker);
   }
 
-  orderDomMarker(order: IOrder) {
+  orderDomMarker(order: OrderRoute) {
     const map = this.hmService.getMap();
     const icon = orderDomIcon(order);
     const marker = new H.map.DomMarker(
@@ -76,8 +77,9 @@ export class HereMapsRoutingService {
     map.addObject(marker);
   }
 
-  addOrderMarkers(orders: IOrder[]) {
-    orders.forEach((order: IOrder) => {
+  addOrderMarkers(orders: OrderRoute[]) {
+    console.log(orders)
+    orders.forEach((order: OrderRoute) => {
       this.orderMarker(order);
     });
   }

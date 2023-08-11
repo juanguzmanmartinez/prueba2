@@ -1,4 +1,5 @@
 import { IOrder } from '../interfaces/order.interface';
+import { OrderRoute } from '../models/order-route.model';
 
 export const ColumnNameList = {
   orderNumber: 'orderNumber',
@@ -8,7 +9,7 @@ export const ColumnNameList = {
   service: 'service',
   promiseDate: 'promiseDate',
   address: 'address',
-  status: 'status',
+  state: 'state',
   timeLeft: 'timeLeft',
   actions: 'actions',
 };
@@ -44,7 +45,7 @@ export const OrderStatusColor = {
   [EOrderStatus.cancelado]: '#D35530',
 };
 
-export const DBOrder: IOrder[] = [
+export const DBOrder: OrderRoute[] = [
   {
     orderNumber: '1',
     orderId: '1561589012',
@@ -53,7 +54,7 @@ export const DBOrder: IOrder[] = [
     service: 'AM / PM',
     promiseDate: '30/09/21 10:00 p.m. - 01:00 p.m.',
     address: 'Av. Ejercito, 670 - Miraflores',
-    status: 'ENTREGADO',
+    state: 'ENTREGADO',
     timeLeft: '1',
     coordinates: { lat: -12.074690847992702, lng: -77.09414209389209 },
   },
@@ -65,7 +66,7 @@ export const DBOrder: IOrder[] = [
     service: 'Programado',
     promiseDate: '30/09/21 10:00 p.m. - 01:00 p.m.',
     address: 'Av. Ejercito, 670 - Miraflores',
-    status: 'ENTREGADO',
+    state: 'ENTREGADO',
     timeLeft: '1',
     coordinates: { lat: -12.058090603870156, lng: -77.04450221443963 },
   },
@@ -77,7 +78,7 @@ export const DBOrder: IOrder[] = [
     service: 'AM / PM',
     promiseDate: '30/09/21 10:00 p.m. - 01:00 p.m.',
     address: 'Av. Ejercito, 670 - Miraflores',
-    status: 'ENTREGADO',
+    state: 'ENTREGADO',
     timeLeft: '1',
     coordinates: { lat: -12.070840509867775, lng: -77.0163855247041 },
   },
@@ -89,7 +90,7 @@ export const DBOrder: IOrder[] = [
     service: 'AM / PM',
     promiseDate: '30/09/21 10:00 p.m. - 01:00 p.m.',
     address: 'Av. Ejercito, 670 - Miraflores',
-    status: 'RECHAZADO',
+    state: 'RECHAZADO',
     timeLeft: '1',
     coordinates: { lat: -12.076122568833423, lng: -76.9991491494781 },
   },
@@ -101,7 +102,7 @@ export const DBOrder: IOrder[] = [
     service: 'Express',
     promiseDate: '30/09/21 10:00 p.m. - 01:00 p.m.',
     address: 'Av. Ejercito, 670 - Miraflores',
-    status: 'EN RUTA',
+    state: 'EN RUTA',
     timeLeft: '3',
     coordinates: { lat: -12.066033152202444, lng: -76.9940510666648 },
   },
@@ -113,7 +114,7 @@ export const DBOrder: IOrder[] = [
     service: 'Programado',
     promiseDate: '30/09/21 10:00 p.m. - 01:00 p.m.',
     address: 'Av. Ejercito, 670 - Miraflores',
-    status: 'ASIGNADO',
+    state: 'ASIGNADO',
     timeLeft: '1',
     coordinates: { lat: -12.090009732717025, lng: -76.97723953114895 },
   },
@@ -125,7 +126,7 @@ export const DBOrder: IOrder[] = [
     service: 'AM / PM',
     promiseDate: '30/09/21 10:00 p.m. - 01:00 p.m.',
     address: 'Av. Ejercito, 670 - Miraflores',
-    status: 'ASIGNADO',
+    state: 'ASIGNADO',
     timeLeft: '0',
     coordinates: { lat: -12.105439068808161, lng: -76.97681469091451 },
   },
@@ -137,7 +138,7 @@ export const DBOrder: IOrder[] = [
     service: 'Programado',
     promiseDate: '30/09/21 10:00 p.m. - 01:00 p.m.',
     address: 'Av. Ejercito, 670 - Miraflores',
-    status: 'ASIGNADO',
+    state: 'ASIGNADO',
     timeLeft: '0',
     coordinates: { lat: -12.110483081831664, lng: -76.98209484794612 },
   },
@@ -149,7 +150,7 @@ export const DBOrder: IOrder[] = [
     service: 'AM / PM',
     promiseDate: '30/09/21 10:00 p.m. - 01:00 p.m.',
     address: 'Av. Ejercito, 670 - Miraflores',
-    status: 'ASIGNADO',
+    state: 'ASIGNADO',
     timeLeft: '-1',
     coordinates: { lat: -12.118909337710376, lng: -76.99223032211069 },
   },
@@ -161,7 +162,7 @@ export const DBOrder: IOrder[] = [
     service: 'Programado',
     promiseDate: '30/09/21 10:00 p.m. - 01:00 p.m.',
     address: 'Av. Ejercito, 670 - Miraflores',
-    status: 'CANCELADO',
+    state: 'CANCELADO',
     timeLeft: '-2',
     coordinates: { lat: -12.118137930980883, lng: -76.98816399415244 },
   },

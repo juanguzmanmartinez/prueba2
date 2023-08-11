@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -14,18 +15,25 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { IOrder } from './interfaces/order.interface';
 import { HereMapsRoutingService } from './implements/here-maps-routing.implement.service';
-import { ControlTowerImplementService } from 'app/business/control-tower/implements/control-tower.implement.service';
+import { CarrierRouteService } from './service/carrier-route.service';
+import { Observable, Subscription } from 'rxjs';
+import { CarrierRoute } from './models/carrier-route.model';
+import { OrderRoute } from './models/order-route.model';
 
 @Component({
   selector: 'app-carrier-route',
   templateUrl: './carrier-route.component.html',
   styleUrls: ['./carrier-route.component.scss'],
 })
-export class CarrierRouteComponent implements OnInit, AfterViewInit {
+export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mapElement') mapElement: ElementRef;
   private map!: H.Map;
   private behavior: any;
-  public dataSource = new MatTableDataSource<IOrder>();
+  public dataSource = new MatTableDataSource<OrderRoute>();
+  public detailRoute$: Observable<Partial<CarrierRoute>>;
+  public orderRouteList$: Observable<OrderRoute[]>;
+  public orderList: OrderRoute[];
+  private subscription: Subscription;
 
   public displayedColumns: string[] = [
     ColumnNameList.orderNumber,
@@ -35,7 +43,7 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit {
     ColumnNameList.service,
     ColumnNameList.promiseDate,
     ColumnNameList.address,
-    ColumnNameList.status,
+    ColumnNameList.state,
     ColumnNameList.timeLeft,
     ColumnNameList.actions,
   ];
@@ -43,19 +51,27 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit {
   constructor(
     private hereMapsService: HereMapsService,
     private hmRoutingService: HereMapsRoutingService,
-    private ctImplService: ControlTowerImplementService
+    private crService: CarrierRouteService
   ) {}
 
   ngOnInit(): void {
-    this.dataSource.data = DBOrder;
-    this.ctImplService.getDetailRoute('221').subscribe();
+    // this.dataSource.data = DBOrder;
+    this.detailRoute$ = this.crService.getDetailRoute();
+    this.orderRouteList$ = this.crService.getOrderRouteList();
+    this.subscription = this.crService
+      .loadDetailRoute('221')
+      .subscribe((data) => {
+        this.orderList = data.orders;
+        this.hmRoutingService.addOrderMarkers(this.orderList);
+        this.hereMapsService.centerMarkers(this.map);
+      });
   }
 
   ngAfterViewInit() {
     const element = this.mapElement.nativeElement;
     this.map = this.hmRoutingService.initializeMap(element);
-    this.hmRoutingService.addOrderMarkers(DBOrder);
-    this.hereMapsService.centerMarkers(this.map);
+    // this.hmRoutingService.addOrderMarkers(DBOrder); // data dummy
+
     this.hmRoutingService.calculateRoutes(
       '-12.047274740451627,-77.1237202604052',
       '-12.074690847992702,-77.09414209389209',
@@ -72,5 +88,9 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit {
         '-12.118137930980883,-76.98816399415244',
       ]
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
