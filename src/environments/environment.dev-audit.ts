@@ -8,9 +8,9 @@ export const environment = {
   envName: 'dev2',
   api_gateway: 'https://fduetuxpf0.execute-api.us-east-1.amazonaws.com/DEV',
   api_gateway_order:
-    'https://fduetuxpf0.execute-api.us-east-1.amazonaws.com/DEV',
+    'https://fduetuxpf0.execute-api.us-east-1.amazonaws.com/DEV-audit',
   api_gateway_auth:
-    'https://vsfpgmkkvf.execute-api.us-east-1.amazonaws.com/DEV-audit',
+    'https://vsfpgmkkvf.execute-api.us-east-1.amazonaws.com/DEV',
   authUsername: 'adm-operations',
   authPassword: '12345',
   dataStudio:
