@@ -3,7 +3,7 @@ export const environment = {
   show_logs: false,
   envName: 'uat',
   api_gateway: 'https://4kz2r4t838.execute-api.us-east-1.amazonaws.com/UAT',
-  api_gateway_order: 'https://4kz2r4t838.execute-api.us-east-1.amazonaws.com/UAT',
+  api_gateway_order: 'https://4kz2r4t838.execute-api.us-east-1.amazonaws.com/UAT-audit',
   api_gateway_auth: 'https://28c9y4dvs8.execute-api.us-east-1.amazonaws.com/UAT',
   authUsername: 'adm-operations',
   authPassword: 'sgrg75498485kojjk54547jjkl',
