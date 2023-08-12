@@ -10,7 +10,7 @@ export const environment = {
   api_gateway_order:
     'https://fduetuxpf0.execute-api.us-east-1.amazonaws.com/DEV',
   api_gateway_auth:
-    'https://vsfpgmkkvf.execute-api.us-east-1.amazonaws.com/DEV',
+    'https://vsfpgmkkvf.execute-api.us-east-1.amazonaws.com/DEV-audit',
   authUsername: 'adm-operations',
   authPassword: '12345',
   dataStudio:

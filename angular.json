@@ -84,6 +84,27 @@
               ],
               "outputHashing": "all"
             },
+            "dev-audit": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev-audit.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "qas": {
               "budgets": [
                 {
@@ -230,6 +251,9 @@
             },
             "dev-ecommerce": {
               "browserTarget": "WEB-admin-operaciones:build:dev-ecommerce"
+            },
+            "dev-audit": {
+              "browserTarget": "WEB-admin-operaciones:build:dev-audit"
             },
             "qas": {
               "browserTarget": "WEB-admin-operaciones:build:qas"
