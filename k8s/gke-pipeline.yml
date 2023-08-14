@@ -436,12 +436,12 @@ stages:
                   displayName: setvariables
                   name: setvariables
                 - bash: |
-                    sed -i 's/#{AWS_REGION}/$(AWS_REGION)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
-                    sed -i 's/#{TAG}/$(tag)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
-                    sed -i 's/#{PORT}/$(PORT)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
-                    sed -i 's/#{TARGET_PORT}/$(TARGET_PORT)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
-                    sed -i 's/#{PROFILE}/$(PROFILE_UAT)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
-                    sed -i 's/#{NAMESPACE}/$(NAMESPACE)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
+                    sed -i 's/#{AWS_REGION}/$(AWS_REGION)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
+                    sed -i 's/#{TAG}/$(tag)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
+                    sed -i 's/#{PORT}/$(PORT)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
+                    sed -i 's/#{TARGET_PORT}/$(TARGET_PORT)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
+                    sed -i 's/#{PROFILE}/$(PROFILE_UAT)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
+                    sed -i 's/#{NAMESPACE}/$(NAMESPACE)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
                   displayName: replaceParameters
                   name: replaceParameters
                 - task: enkelwill.aws-iam-authenticator.custom-build-release-task.aws-eks-authenticator@0
@@ -456,7 +456,7 @@ stages:
                     connectionType: Kubernetes Service Connection
                     kubernetesServiceEndpoint: $(AWS_EKS_UAT)
                     command: apply
-                    arguments: -f $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
+                    arguments: -f $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
                     versionOrLocation: version
                     versionSpec: $(KUBECTL_VERSION)
   - stage: uatDeploy
