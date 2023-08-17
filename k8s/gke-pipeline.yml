@@ -49,7 +49,7 @@ parameters:
 variables:
   domain: pe.farmaciasperuanas
   projectname: ommni
-  nameapp: web-admin-operaciones-audit
+  nameapp: web-admin-operaciones
   typeapp: bus
   owner: fps
   vmImageName: ubuntu-20.04
