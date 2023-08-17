@@ -755,7 +755,7 @@ stages:
                 - task: AzureCLI@2
                   displayName: AutoRecordDNS
                   inputs:
-                    azureSubscription: 'SP-LOWENVIRONMENTS-GCP'
+                    azureSubscription: 'SP-HIGHENVIRONMENTS-GCP'
                     scriptType: 'bash'
                     scriptLocation: 'inlineScript'
                     inlineScript: 'az network dns record-set a add-record -g rg_certificates -z fapedigital.com -n $(namespace)-$(owner)-$(typeapp)-$(nameapp) -a 34.110.190.6'
