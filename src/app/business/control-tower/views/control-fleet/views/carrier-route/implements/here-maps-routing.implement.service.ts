@@ -3,10 +3,9 @@ import { CenterOrderControl } from '@atoms/here-maps/centerOrder.control';
 import { FullScreenControl } from '@atoms/here-maps/fullscreen.control';
 import { MotorizedControl } from '@atoms/here-maps/motorized.control';
 import { HereMapsService } from '@clients/here-maps/here-maps.service';
-import { IOrder } from '../interfaces/order.interface';
-import { orderDomIcon, orderIcon } from '../util/here-maps.util';
 import H from '@here/maps-api-for-javascript';
-import { OrderRoute } from '../models/order-route.model';
+import { PointRoute } from '../models/point-route.model';
+import { pointDomIcon, pointIcon, storeIcon } from '../util/here-maps.util';
 
 @Injectable()
 export class HereMapsRoutingService {
@@ -49,11 +48,11 @@ export class HereMapsRoutingService {
     ui.addControl('center-order', centerOrderControl);
   }
 
-  orderMarker(order: OrderRoute) {
+  pointMarker(point: PointRoute) {
     const map = this.hmService.getMap();
-    const icon = orderIcon(order);
+    const icon = point.type === 'ORDER' ? pointIcon(point) : storeIcon();
     const marker = new H.map.Marker(
-      order.coordinates as H.geo.Point,
+      point.coordinates as H.geo.Point,
       { icon } as H.map.Marker.Options
     );
     marker.addEventListener('tap', function (evt) {
@@ -63,11 +62,11 @@ export class HereMapsRoutingService {
     map.addObject(marker);
   }
 
-  orderDomMarker(order: OrderRoute) {
+  orderDomMarker(point: PointRoute) {
     const map = this.hmService.getMap();
-    const icon = orderDomIcon(order);
+    const icon = pointDomIcon(point);
     const marker = new H.map.DomMarker(
-      order.coordinates as H.geo.Point,
+      point.coordinates as H.geo.Point,
       { icon } as H.map.DomMarker.Options
     );
     marker.addEventListener('tap', function (evt) {
@@ -77,10 +76,9 @@ export class HereMapsRoutingService {
     map.addObject(marker);
   }
 
-  addOrderMarkers(orders: OrderRoute[]) {
-    console.log(orders)
-    orders.forEach((order: OrderRoute) => {
-      this.orderMarker(order);
+  addPointMarkers(points: PointRoute[]) {
+    points.forEach((point: PointRoute) => {
+      this.pointMarker(point);
     });
   }
 

@@ -1,9 +1,10 @@
 import H from '@here/maps-api-for-javascript';
-import { OrderNameFile, OrderStatusColor } from "../constants/order.constant";
-import { IOrder } from "../interfaces/order.interface";
+import { OrderNameFile, OrderStatusColor } from '../constants/order.constant';
+import { IOrder } from '../interfaces/order.interface';
 import { OrderRoute } from '../models/order-route.model';
+import { PointRoute } from '../models/point-route.model';
 
-export function svgOrderIcon(text: string, fill: string): string {
+export function svgPointIcon(text: string, fill: string): string {
   return (
     '<svg width="28" height="34" viewBox="0 0 28 34" fill="none" xmlns="http://www.w3.org/2000/svg">' +
     '<style>.small {font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; font-size: 12px; font-weight: 600; line-height: 18px; font-style: normal;} .cursor-pointer {cursor: pointer;}</style>' +
@@ -13,7 +14,7 @@ export function svgOrderIcon(text: string, fill: string): string {
   );
 }
 
-export function divOrderIcon(text: string, nameFile: string): string {
+export function divPointIcon(text: string, nameFile: string): string {
   return (
     '<div style="position:relative; cursor:pointer;">' +
     `<img src="/assets/icons/${nameFile}.svg" style="width:100%; height:auto;"/>` +
@@ -22,14 +23,18 @@ export function divOrderIcon(text: string, nameFile: string): string {
   );
 }
 
-export function orderIcon(order: OrderRoute) {
-  const text = order.orderNumber;
-  const fill = OrderStatusColor[order.state];
-  return new H.map.Icon(svgOrderIcon(text, fill));
+export function pointIcon(point: PointRoute) {
+  const text = point.data?.orderNumber;
+  const fill = OrderStatusColor[point.data?.state] || '#304165';
+  return new H.map.Icon(svgPointIcon(text, fill));
 }
 
-export function orderDomIcon(order: OrderRoute) {
-  const text = order.orderNumber;
-  const nameFile = OrderNameFile[order.state];
-  return new H.map.DomIcon(divOrderIcon(text, nameFile));
+export function pointDomIcon(point: PointRoute) {
+  const text = point.data.orderNumber;
+  const nameFile = OrderNameFile[point.data.state];
+  return new H.map.DomIcon(divPointIcon(text, nameFile));
+}
+
+export function storeIcon() {
+  return new H.map.Icon('/assets/icons/store-inkafarma.svg');
 }

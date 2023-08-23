@@ -1,8 +1,11 @@
 import {
   ICoordinate,
   IDetailRouteResponse,
+  IPointRouteResponse,
 } from '@interfaces/control-tower/control-tower.interface';
 import { OrderRoute } from './order-route.model';
+import { PointRoute } from './point-route.model';
+import { LineRoute } from './line-route.model';
 
 export class CarrierRoute {
   routeId: string;
@@ -11,9 +14,11 @@ export class CarrierRoute {
   local: string;
   completedOrderCount: number;
   totalOrderCount: number;
-  motorizedState: string;
+  routeState: string;
   motorizedCoordinates: ICoordinate;
   orders: OrderRoute[];
+  points: PointRoute[];
+  routes: LineRoute;
 
   constructor(res: IDetailRouteResponse) {
     this.routeId = res.routeId;
@@ -22,8 +27,19 @@ export class CarrierRoute {
     this.local = res.local;
     this.completedOrderCount = res.completedOrderCount;
     this.totalOrderCount = res.totalOrderCount;
-    this.motorizedState = res.motorizedState;
+    this.routeState = res.routeState;
     this.motorizedCoordinates = { lat: res.lat, lng: res.lng };
     this.orders = res.orders.map((order) => new OrderRoute(order));
+    this.points = this.pointListRoute(res.points);
+    this.routes = new LineRoute(this.points);
+  }
+
+  pointListRoute(points: IPointRouteResponse[]) {
+    return points.map((point) => {
+      const orderFounded = this.orders.find(
+        (order) => order.orderId === point.code
+      );
+      return new PointRoute(point, orderFounded);
+    });
   }
 }

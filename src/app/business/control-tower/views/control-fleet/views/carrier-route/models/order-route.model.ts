@@ -16,7 +16,7 @@ export class OrderRoute {
   coordinates: ICoordinate;
 
   constructor(order: IOrderRouteResponse) {
-    this.orderNumber = (order.orderNumber + 1).toString();
+    this.orderNumber = order.orderNumber.toString();
     this.orderId = order.orderId.toString();
     this.local = order.local;
     this.channel = order.channel;

@@ -37,8 +37,15 @@ export interface IOrderRouteResponse {
   address: string;
   state: string;
   timeLeft: string;
+  lat?: number;
+  lng?: number;
+}
+
+export interface IPointRouteResponse {
+  typePoint: string;
   lat: number;
   lng: number;
+  code: string;
 }
 
 export interface IDetailRouteResponse {
@@ -48,8 +55,9 @@ export interface IDetailRouteResponse {
   local: string;
   completedOrderCount: number;
   totalOrderCount: number;
-  motorizedState: string;
+  routeState: string;
   lat: number;
   lng: number;
   orders: IOrderRouteResponse[];
+  points: IPointRouteResponse[];
 }

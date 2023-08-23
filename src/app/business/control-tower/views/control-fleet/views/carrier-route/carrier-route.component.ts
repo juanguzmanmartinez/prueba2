@@ -19,6 +19,7 @@ import { CarrierRouteService } from './service/carrier-route.service';
 import { Observable, Subscription } from 'rxjs';
 import { CarrierRoute } from './models/carrier-route.model';
 import { OrderRoute } from './models/order-route.model';
+import { PointRoute } from './models/point-route.model';
 
 @Component({
   selector: 'app-carrier-route',
@@ -32,7 +33,7 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
   public dataSource = new MatTableDataSource<OrderRoute>();
   public detailRoute$: Observable<Partial<CarrierRoute>>;
   public orderRouteList$: Observable<OrderRoute[]>;
-  public orderList: OrderRoute[];
+  public points: PointRoute[];
   private subscription: Subscription;
 
   public displayedColumns: string[] = [
@@ -59,11 +60,17 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
     this.detailRoute$ = this.crService.getDetailRoute();
     this.orderRouteList$ = this.crService.getOrderRouteList();
     this.subscription = this.crService
-      .loadDetailRoute('221')
+      .loadDetailRoute('550DVP4QQV8362S2HC8C1XQI5RN9UV')
       .subscribe((data) => {
-        this.orderList = data.orders;
-        this.hmRoutingService.addOrderMarkers(this.orderList);
+        console.log(data)
+        this.points = data.points;
+        this.hmRoutingService.addPointMarkers(this.points);
         this.hereMapsService.centerMarkers(this.map);
+        this.hmRoutingService.calculateRoutes(
+          data.routes.origin,
+          data.routes.destination,
+          data.routes.vias
+        );
       });
   }
 
@@ -72,22 +79,22 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
     this.map = this.hmRoutingService.initializeMap(element);
     // this.hmRoutingService.addOrderMarkers(DBOrder); // data dummy
 
-    this.hmRoutingService.calculateRoutes(
-      '-12.047274740451627,-77.1237202604052',
-      '-12.074690847992702,-77.09414209389209',
-      [
-        '-12.074690847992702,-77.09414209389209',
-        '-12.058090603870156,-77.04450221443963',
-        '-12.070840509867775,-77.0163855247041',
-        '-12.076122568833423,-76.9991491494781',
-        '-12.066033152202444,-76.9940510666648',
-        '-12.090009732717025,-76.97723953114895',
-        '-12.105439068808161,-76.97681469091451',
-        '-12.110483081831664,-76.98209484794612',
-        '-12.118909337710376,-76.99223032211069',
-        '-12.118137930980883,-76.98816399415244',
-      ]
-    );
+    // this.hmRoutingService.calculateRoutes(
+    //   '-12.047274740451627,-77.1237202604052',
+    //   '-12.074690847992702,-77.09414209389209',
+    //   [
+    //     '-12.074690847992702,-77.09414209389209',
+    //     '-12.058090603870156,-77.04450221443963',
+    //     '-12.070840509867775,-77.0163855247041',
+    //     '-12.076122568833423,-76.9991491494781',
+    //     '-12.066033152202444,-76.9940510666648',
+    //     '-12.090009732717025,-76.97723953114895',
+    //     '-12.105439068808161,-76.97681469091451',
+    //     '-12.110483081831664,-76.98209484794612',
+    //     '-12.118909337710376,-76.99223032211069',
+    //     '-12.118137930980883,-76.98816399415244',
+    //   ]
+    // );
   }
 
   ngOnDestroy(): void {

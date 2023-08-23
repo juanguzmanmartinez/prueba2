@@ -14,7 +14,7 @@ export class OrderStatusDirective implements AfterViewInit {
   }
 
   evaluateClass(textContent: string) {
-    let classSelected = '';
+    let classSelected = 'text-neutral-60';
     switch (textContent) {
       case EOrderStatus.entregado:
         classSelected = 'text-success-60';
