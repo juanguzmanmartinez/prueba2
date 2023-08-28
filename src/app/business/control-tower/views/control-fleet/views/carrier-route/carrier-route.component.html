@@ -1,5 +1,5 @@
 <section>
-  <app-carrier-route-header></app-carrier-route-header>
+  <app-carrier-route-header [detailRoute]="detailRoute$ | async"></app-carrier-route-header>
   <div class="row mb-5">
     <div class="col-3 bg-neutral-0 p-5 text-body-3-regular">
       <app-detail-route [detailRoute]="detailRoute$ | async"></app-detail-route>
@@ -117,7 +117,7 @@
         </ng-container>
 
         <ng-container matColumnDef="timeLeft">
-          <th mat-header-cell *matHeaderCellDef app-sort-custom>Timepo</th>
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Tiempo</th>
           <td
             mat-cell
             cell-bold

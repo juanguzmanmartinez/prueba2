@@ -58,7 +58,7 @@ export class HereMapsRoutingService {
     marker.addEventListener('tap', function (evt) {
       console.log('Marker clicked!');
     });
-
+    marker.setData({ marker: true });
     map.addObject(marker);
   }
 

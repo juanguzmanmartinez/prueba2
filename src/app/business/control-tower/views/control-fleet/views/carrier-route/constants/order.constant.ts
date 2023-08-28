@@ -57,7 +57,7 @@ export const DBOrder: OrderRoute[] = [
     state: 'ENTREGADO',
     timeLeft: '1',
     coordinates: { lat: -12.074690847992702, lng: -77.09414209389209 },
-  },
+  } as OrderRoute,
   {
     orderNumber: '2',
     orderId: '1561589012',
@@ -69,7 +69,7 @@ export const DBOrder: OrderRoute[] = [
     state: 'ENTREGADO',
     timeLeft: '1',
     coordinates: { lat: -12.058090603870156, lng: -77.04450221443963 },
-  },
+  } as OrderRoute,
   {
     orderNumber: '3',
     orderId: '1561589012',
@@ -81,7 +81,7 @@ export const DBOrder: OrderRoute[] = [
     state: 'ENTREGADO',
     timeLeft: '1',
     coordinates: { lat: -12.070840509867775, lng: -77.0163855247041 },
-  },
+  } as OrderRoute,
   {
     orderNumber: '4',
     orderId: '1561589012',
@@ -93,7 +93,7 @@ export const DBOrder: OrderRoute[] = [
     state: 'RECHAZADO',
     timeLeft: '1',
     coordinates: { lat: -12.076122568833423, lng: -76.9991491494781 },
-  },
+  } as OrderRoute,
   {
     orderNumber: '5',
     orderId: '1561589012',
@@ -105,7 +105,7 @@ export const DBOrder: OrderRoute[] = [
     state: 'EN RUTA',
     timeLeft: '3',
     coordinates: { lat: -12.066033152202444, lng: -76.9940510666648 },
-  },
+  } as OrderRoute,
   {
     orderNumber: '6',
     orderId: '1561589012',
@@ -117,7 +117,7 @@ export const DBOrder: OrderRoute[] = [
     state: 'ASIGNADO',
     timeLeft: '1',
     coordinates: { lat: -12.090009732717025, lng: -76.97723953114895 },
-  },
+  } as OrderRoute,
   {
     orderNumber: '7',
     orderId: '1561589012',
@@ -129,7 +129,7 @@ export const DBOrder: OrderRoute[] = [
     state: 'ASIGNADO',
     timeLeft: '0',
     coordinates: { lat: -12.105439068808161, lng: -76.97681469091451 },
-  },
+  } as OrderRoute,
   {
     orderNumber: '8',
     orderId: '1561589012',
@@ -141,7 +141,7 @@ export const DBOrder: OrderRoute[] = [
     state: 'ASIGNADO',
     timeLeft: '0',
     coordinates: { lat: -12.110483081831664, lng: -76.98209484794612 },
-  },
+  } as OrderRoute,
   {
     orderNumber: '9',
     orderId: '1561589012',
@@ -153,7 +153,7 @@ export const DBOrder: OrderRoute[] = [
     state: 'ASIGNADO',
     timeLeft: '-1',
     coordinates: { lat: -12.118909337710376, lng: -76.99223032211069 },
-  },
+  } as OrderRoute,
   {
     orderNumber: '10',
     orderId: '1561589012',
@@ -165,5 +165,5 @@ export const DBOrder: OrderRoute[] = [
     state: 'CANCELADO',
     timeLeft: '-2',
     coordinates: { lat: -12.118137930980883, lng: -76.98816399415244 },
-  },
+  } as OrderRoute,
 ];

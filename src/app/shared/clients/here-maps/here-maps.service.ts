@@ -41,9 +41,10 @@ export class HereMapsService {
   centerMarkers(map: H.Map) {
     const objects = map.getObjects();
     const markers = objects.filter(
-      (obj) => obj instanceof H.map.Marker || H.map.DomMarker
+      (obj) =>
+        (obj instanceof H.map.Marker || H.map.DomMarker) &&
+        obj.getData()?.marker
     ) as H.map.Marker[] | H.map.DomMarker[];
-
     const boundingBox = new H.geo.Rect(
       Math.max(
         ...markers.map((marker) => (marker.getGeometry() as H.geo.Point).lat)
