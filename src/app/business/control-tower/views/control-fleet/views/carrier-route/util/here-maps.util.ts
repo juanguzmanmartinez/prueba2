@@ -38,3 +38,7 @@ export function pointDomIcon(point: PointRoute) {
 export function storeIcon() {
   return new H.map.Icon('/assets/icons/store-inkafarma.svg');
 }
+
+export function motorizedIcon(){
+  return new H.map.Icon('/assets/icons/motorized.svg');
+}

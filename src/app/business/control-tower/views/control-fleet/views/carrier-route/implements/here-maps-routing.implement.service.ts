@@ -5,7 +5,8 @@ import { MotorizedControl } from '@atoms/here-maps/motorized.control';
 import { HereMapsService } from '@clients/here-maps/here-maps.service';
 import H from '@here/maps-api-for-javascript';
 import { PointRoute } from '../models/point-route.model';
-import { pointDomIcon, pointIcon, storeIcon } from '../util/here-maps.util';
+import { motorizedIcon, pointDomIcon, pointIcon, storeIcon } from '../util/here-maps.util';
+import { ICoordinate } from '@interfaces/control-tower/control-tower.interface';
 
 @Injectable()
 export class HereMapsRoutingService {
@@ -15,10 +16,10 @@ export class HereMapsRoutingService {
     this.router = this.hmService.getPlatform().getRoutingService(null, 8);
   }
 
-  initializeMap(element: HTMLElement): H.Map {
+  initializeMap(element: HTMLElement, motorizedCoordinates: ICoordinate): H.Map {
     const map = this.createMap(element);
     this.hmService.resizeMap();
-    this.addControls(element);
+    this.addControls(element, motorizedCoordinates);
     return map;
   }
 
@@ -30,16 +31,13 @@ export class HereMapsRoutingService {
     });
   }
 
-  addControls(element: HTMLElement) {
+  addControls(element: HTMLElement, motorizedCoordinates: ICoordinate) {
     const ui = H.ui.UI.createDefault(
       this.hmService.getMap(),
       this.hmService.defaultLayers()
     );
     const fullScreenControl = new FullScreenControl(element);
-    const centerMotorizedControl = new MotorizedControl({
-      lat: -12.074690847992702,
-      lng: -77.09414209389209,
-    });
+    const centerMotorizedControl = new MotorizedControl(motorizedCoordinates);
     const centerOrderControl = new CenterOrderControl(
       this.hmService.centerMarkers
     );
@@ -59,6 +57,19 @@ export class HereMapsRoutingService {
       console.log('Marker clicked!');
     });
     marker.setData({ marker: true });
+    map.addObject(marker);
+  }
+
+  pointMotorized(coordinates: ICoordinate) {
+    const map = this.hmService.getMap();
+    const icon = motorizedIcon();
+    const marker = new H.map.Marker(
+      coordinates as H.geo.Point,
+      { icon } as H.map.Marker.Options
+    );
+    marker.addEventListener('tap', function (evt) {
+      console.log('Marker clicked!');
+    });
     map.addObject(marker);
   }
 

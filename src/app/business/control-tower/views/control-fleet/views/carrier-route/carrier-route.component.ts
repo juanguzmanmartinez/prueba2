@@ -20,6 +20,7 @@ import { Observable, Subscription } from 'rxjs';
 import { CarrierRoute } from './models/carrier-route.model';
 import { OrderRoute } from './models/order-route.model';
 import { PointRoute } from './models/point-route.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-carrier-route',
@@ -34,6 +35,7 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
   public detailRoute$: Observable<Partial<CarrierRoute>>;
   public orderRouteList$: Observable<OrderRoute[]>;
   public points: PointRoute[];
+  public idCarrier: string;
   private subscription: Subscription;
 
   public displayedColumns: string[] = [
@@ -52,19 +54,28 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private hereMapsService: HereMapsService,
     private hmRoutingService: HereMapsRoutingService,
-    private crService: CarrierRouteService
+    private crService: CarrierRouteService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     // this.dataSource.data = DBOrder;
+    // 550DVP4QQV8362S2HC8C1XQI5RN9UV
+    this.idCarrier = this.route.snapshot.params['idCarrier'];
     this.detailRoute$ = this.crService.getDetailRoute();
     this.orderRouteList$ = this.crService.getOrderRouteList();
     this.subscription = this.crService
-      .loadDetailRoute('550DVP4QQV8362S2HC8C1XQI5RN9UV')
-      .subscribe((data) => {
-        console.log(data)
+      .loadDetailRoute(this.idCarrier)
+      .subscribe((data: CarrierRoute) => {
+        console.log(data);
+        const element = this.mapElement.nativeElement;
+        this.map = this.hmRoutingService.initializeMap(
+          element,
+          data.motorizedCoordinates
+        );
         this.points = data.points;
         this.hmRoutingService.addPointMarkers(this.points);
+        this.hmRoutingService.pointMotorized(data.motorizedCoordinates);
         this.hereMapsService.centerMarkers(this.map);
         this.hmRoutingService.calculateRoutes(
           data.routes.origin,
@@ -75,10 +86,9 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    const element = this.mapElement.nativeElement;
-    this.map = this.hmRoutingService.initializeMap(element);
+    // const element = this.mapElement.nativeElement;
+    // this.map = this.hmRoutingService.initializeMap(element);
     // this.hmRoutingService.addOrderMarkers(DBOrder); // data dummy
-
     // this.hmRoutingService.calculateRoutes(
     //   '-12.047274740451627,-77.1237202604052',
     //   '-12.074690847992702,-77.09414209389209',

@@ -18,7 +18,7 @@ export interface ICarrierResponse {
   supplier: string;
   entryTime: string;
   state: string;
-  stateDescripcion: string;
+  stateDescription: string;
   slow: string;
 }
 

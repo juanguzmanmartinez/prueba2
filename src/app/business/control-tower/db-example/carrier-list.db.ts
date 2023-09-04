@@ -1,4 +1,6 @@
-export const CarrierListDBDummy = [
+import { Carrier } from "../models/carrier.model";
+
+export const CarrierListDBDummy: Carrier[] = [
   {
     idCarrier: '1',
     local: 'IKF-061-DOS DE MAYO',
@@ -8,7 +10,7 @@ export const CarrierListDBDummy = [
     state: 'DISPONIBLE',
     paused: 'No',
     isPendingRoute: false,
-  },
+  } as Carrier,
   {
     idCarrier: '2',
     local: 'IKF-061-DOS DE MAYO',
@@ -18,7 +20,7 @@ export const CarrierListDBDummy = [
     state: 'EN RUTA',
     paused: 'No',
     isPendingRoute: false,
-  },
+  } as Carrier,
   {
     idCarrier: '3',
     local: 'IKF-061-DOS DE MAYO',
@@ -28,7 +30,7 @@ export const CarrierListDBDummy = [
     state: 'NO DISPONIBLE',
     paused: 'No',
     isPendingRoute: false,
-  },
+  } as Carrier,
   {
     idCarrier: '4',
     local: 'IKF-061-DOS DE MAYO',
@@ -38,7 +40,7 @@ export const CarrierListDBDummy = [
     state: 'DISPONIBLE',
     paused: 'No',
     isPendingRoute: false,
-  },
+  } as Carrier,
   {
     idCarrier: '5',
     local: 'IKF-061-DOS DE MAYO',
@@ -48,7 +50,7 @@ export const CarrierListDBDummy = [
     state: 'DISPONIBLE',
     paused: 'No',
     isPendingRoute: false,
-  },
+  } as Carrier,
   {
     idCarrier: '6',
     local: 'IKF-061-DOS DE MAYO',
@@ -58,7 +60,7 @@ export const CarrierListDBDummy = [
     state: 'DISPONIBLE',
     paused: 'No',
     isPendingRoute: false,
-  },
+  } as Carrier,
   {
     idCarrier: '7',
     local: 'IKF-061-DOS DE MAYO',
@@ -68,7 +70,7 @@ export const CarrierListDBDummy = [
     state: 'DISPONIBLE',
     paused: 'No',
     isPendingRoute: false,
-  },
+  } as Carrier,
   {
     idCarrier: '8',
     local: 'IKF-061-DOS DE MAYO',
@@ -78,7 +80,7 @@ export const CarrierListDBDummy = [
     state: 'DISPONIBLE',
     paused: 'No',
     isPendingRoute: false,
-  },
+  } as Carrier,
   {
     idCarrier: '9',
     local: 'IKF-061-DOS DE MAYO',
@@ -88,7 +90,7 @@ export const CarrierListDBDummy = [
     state: 'DISPONIBLE',
     paused: 'No',
     isPendingRoute: false,
-  },
+  } as Carrier,
   {
     idCarrier: '10',
     local: 'IKF-061-DOS DE MAYO',
@@ -98,5 +100,5 @@ export const CarrierListDBDummy = [
     state: 'DISPONIBLE',
     paused: 'No',
     isPendingRoute: false,
-  },
+  } as Carrier,
 ];
