@@ -57,6 +57,7 @@ import { CarrierRouteHeaderComponent } from './views/carrier-route/components/ca
 import { CarrierRouteStore } from './views/carrier-route/store/carrier-route.store';
 import { CarrierRouteService } from './views/carrier-route/service/carrier-route.service';
 import { DetailRoute } from './views/carrier-route/components/detail-route/detail-route.component';
+import { PaginatorVitaModule } from '@atoms/vita/paginator/paginator.module';
 
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { DetailRoute } from './views/carrier-route/components/detail-route/detai
     ButtonVitaModule,
     SelectMultipleVitaModule,
     SkeletonModule,
+    PaginatorVitaModule
   ],
   providers: [
     HereMapsRoutingService,

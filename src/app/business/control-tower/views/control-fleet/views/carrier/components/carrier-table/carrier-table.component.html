@@ -157,3 +157,10 @@
   </div>
 </div>
 <app-table-loader *ngIf="!carrierList" [cells]="6"></app-table-loader>
+<div class="d-flex justify-content-center">
+  <fp-paginator
+    *ngIf="carrierList"
+    [length]="carrierList.length"
+    [pageSize]="pageSize"
+  ></fp-paginator>
+</div>

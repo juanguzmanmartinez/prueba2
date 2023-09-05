@@ -1,0 +1,24 @@
+<div class="paginator-container">
+  <app-icon
+    svgName="arrow-left-nav"
+    innerClass="user-select-none cursor-pointer"
+    [disabled]="pageIndex === 1"
+    (click)="previousPage()"
+  ></app-icon>
+  <div class="paginator-particle-container">
+    <div
+      class="paginator-particle"
+      (click)="goToPage(option)"
+      [class.selected]="option === pageIndex"
+      *ngFor="let option of optionList"
+    >
+      <span>{{ option }}</span>
+    </div>
+  </div>
+  <app-icon
+    svgName="arrow-right-nav"
+    innerClass="user-select-none cursor-pointer"
+    [disabled]="pageIndex === getNumberOfPages()"
+    (click)="nextPage()"
+  ></app-icon>
+</div>

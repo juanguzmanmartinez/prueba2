@@ -24,6 +24,7 @@ export class CarrierTableComponent implements OnInit, OnDestroy {
   public displayedColumns = displayedColumns;
   public carrierList: Carrier[];
   public loader = true;
+  public pageSize = 30;
   private subscription = new Subscription();
 
   constructor(private carrierStore: CarrierStore) {}
@@ -34,7 +35,7 @@ export class CarrierTableComponent implements OnInit, OnDestroy {
 
   loadCarrierList() {
     this.subscription = this.carrierStore.carrierList$.subscribe(
-      (carrierList) => {
+      (carrierList: Carrier[]) => {
         this.carrierList = carrierList;
         this.dataSource.data = carrierList;
         this.loader = !!this.carrierList;
