@@ -10,6 +10,8 @@ export class Carrier {
   state: string;
   paused: string;
   isPendingRoute: boolean;
+  numberOfRoutes: number;
+
   constructor(res: ICarrierResponse) {
     this.idCarrier = res.motorizedId;
     this.local = res.localFullName;
@@ -17,8 +19,9 @@ export class Carrier {
     this.provider = res.supplier;
     this.startHour = this.formatDate(res.entryTime);
     this.state = res?.stateDescription || '-';
-    this.paused = res.slow;
-    this.isPendingRoute = !!res.pendingRoute;
+    this.paused = this.formatPausedDate(res.slow);
+    this.isPendingRoute = res.pendingRoute;
+    this.numberOfRoutes = res.counterRouter;
   }
 
   formatDate(orderDate: string) {
@@ -26,5 +29,13 @@ export class Carrier {
     const dateFormat = formatDay(splitted[0]);
     const hourFormat = formatHour(splitted[1]);
     return `${dateFormat} ${hourFormat}`;
+  }
+
+  formatPausedDate(paused: string) {
+    if(paused.toLowerCase() === 'no') return;
+    const splitted = paused.split(' ');
+    const dateFormat = formatDay(splitted[0]);
+    const hourFormat = formatHour(splitted[1]);
+    return `Desde ${dateFormat} ${hourFormat}`;
   }
 }

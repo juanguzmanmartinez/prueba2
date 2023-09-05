@@ -14,12 +14,13 @@ export interface ICarrierResponse {
   localCode: string;
   localFullName: string;
   nameMotorized: string;
-  pendingRoute: string;
+  pendingRoute: boolean;
   supplier: string;
   entryTime: string;
   state: string;
   stateDescription: string;
   slow: string;
+  counterRouter: number;
 }
 
 export interface ICoordinate {

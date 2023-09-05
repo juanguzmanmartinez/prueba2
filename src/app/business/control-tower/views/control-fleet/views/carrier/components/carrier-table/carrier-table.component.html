@@ -128,7 +128,7 @@
             *matCellDef="let element"
             class="text-neutral-100 text-body-3-regular"
           >
-            {{ element.paused | titlecase}}
+            {{ element.paused }}
           </td>
         </ng-container>
 
@@ -139,6 +139,7 @@
               class="d-flex justify-content-center align-items-center"
               innerClass="d-flex align-items-center p-0"
               (clicked)="navigateCarrierRoute(element.idCarrier)"
+              *ngIf="element.numberOfRoutes > 0"
             >
               <app-icon svgName="detail-icon" svgWidth="24px"></app-icon>
             </app-button>
