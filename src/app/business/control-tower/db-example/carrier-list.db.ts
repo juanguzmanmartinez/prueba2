@@ -84,7 +84,7 @@ export const CarrierListDBDummy: Carrier[] = [
   {
     idCarrier: '9',
     local: 'IKF-061-DOS DE MAYO',
-    carrier: 'Renato Fernandez',
+    carrier: 'Alejandro Fernandez',
     provider: 'CAJE FOREST',
     startHour: '1:02 p.m.',
     state: 'DISPONIBLE',
@@ -94,7 +94,7 @@ export const CarrierListDBDummy: Carrier[] = [
   {
     idCarrier: '10',
     local: 'IKF-061-DOS DE MAYO',
-    carrier: 'Renato Fernandez',
+    carrier: 'Renato diaz',
     provider: 'CAJE FOREST',
     startHour: '1:02 p.m.',
     state: 'DISPONIBLE',

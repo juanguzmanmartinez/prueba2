@@ -18,6 +18,9 @@
             column-width="16%"
             *matHeaderCellDef
             app-sort-custom
+            [column]="sortColumns.local.column"
+            [reload]="sortColumns.local.reload"
+            (currentOrder)="sortData($event)"
           >
             Local
           </th>
@@ -37,6 +40,9 @@
             column-width="20%"
             *matHeaderCellDef
             app-sort-custom
+            [column]="sortColumns.carrier.column"
+            [reload]="sortColumns.carrier.reload"
+            (currentOrder)="sortData($event)"
           >
             Nombre de transportista
           </th>
@@ -64,6 +70,9 @@
             column-width="15%"
             *matHeaderCellDef
             app-sort-custom
+            [column]="sortColumns.provider.column"
+            [reload]="sortColumns.provider.reload"
+            (currentOrder)="sortData($event)"
           >
             Proveedor
           </th>
@@ -82,6 +91,9 @@
             *matHeaderCellDef
             app-sort-custom
             class="th-center"
+            [column]="sortColumns.startHour.column"
+            [reload]="sortColumns.startHour.reload"
+            (currentOrder)="sortData($event)"
           >
             Hora ingreso
           </th>
@@ -101,6 +113,9 @@
             *matHeaderCellDef
             app-sort-custom
             header-cell-center
+            [column]="sortColumns.state.column"
+            [reload]="sortColumns.state.reload"
+            (currentOrder)="sortData($event)"
           >
             Estado
           </th>
@@ -119,6 +134,9 @@
             column-width="8%"
             *matHeaderCellDef
             app-sort-custom
+            [column]="sortColumns.paused.column"
+            [reload]="sortColumns.paused.reload"
+            (currentOrder)="sortData($event)"
             class="th-center"
           >
             Pausado

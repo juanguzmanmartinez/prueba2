@@ -8,6 +8,7 @@ import { ICarrierFilter } from '../interfaces/carrier.interface';
 import { LocalFilter } from 'app/business/control-tower/models/local-filter.model';
 import { CarrierStateFilter } from 'app/business/control-tower/models/carrier-state-filter.model';
 import { ExportTableSelection } from 'app/shared/utils/export-table-selection.util';
+import { SortEvent } from '@interfaces/vita/table.interface';
 
 @Injectable()
 export class CarrierService {
@@ -83,6 +84,17 @@ export class CarrierService {
       ExportTableSelection.exportArrayToExcel(data, 'Motorizados');
     } catch (error) {
       throw new Error(error);
+    }
+  }
+
+  sortColumn(event: SortEvent) {
+    const { column } = event;
+    if (
+      column === 'carrier' ||
+      column === 'provider' ||
+      column === 'startHour'
+    ) {
+      this.carrierStore.sortCarrierList(event);
     }
   }
 }

@@ -7,10 +7,14 @@ import {
   Output,
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { displayedColumns } from '../../constants/carrier.constant';
+import {
+  displayedColumns,
+  sortColumns,
+} from '../../constants/carrier.constant';
 import { Carrier } from 'app/business/control-tower/models/carrier.model';
 import { CarrierStore } from '../../store/carrier.store';
 import { Subscription } from 'rxjs';
+import { SortEvent } from '@interfaces/vita/table.interface';
 
 @Component({
   selector: 'app-carrier-table',
@@ -18,10 +22,12 @@ import { Subscription } from 'rxjs';
 })
 export class CarrierTableComponent implements OnInit, OnDestroy {
   @Output() navigate = new EventEmitter<string>();
+  @Output() sort = new EventEmitter<SortEvent>();
 
   public totalCarrier: number;
   public dataSource = new MatTableDataSource<any>();
   public displayedColumns = displayedColumns;
+  public sortColumns = sortColumns;
   public carrierList: Carrier[];
   public loader = true;
   public pageSize = 30;
@@ -36,6 +42,7 @@ export class CarrierTableComponent implements OnInit, OnDestroy {
   loadCarrierList() {
     this.subscription = this.carrierStore.carrierList$.subscribe(
       (carrierList: Carrier[]) => {
+        console.log(carrierList)
         this.carrierList = carrierList;
         this.dataSource.data = carrierList;
         this.loader = !!this.carrierList;
@@ -45,6 +52,11 @@ export class CarrierTableComponent implements OnInit, OnDestroy {
 
   navigateCarrierRoute(idCarrier: string): void {
     this.navigate.emit(idCarrier);
+  }
+
+  sortData(event: SortEvent): void {
+    console.log(event);
+    this.sort.emit(event);
   }
 
   ngOnDestroy(): void {

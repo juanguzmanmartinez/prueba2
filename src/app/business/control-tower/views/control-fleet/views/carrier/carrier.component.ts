@@ -16,6 +16,7 @@ import { FormGroup } from '@angular/forms';
 import { Carrier } from 'app/business/control-tower/models/carrier.model';
 import { CarrierListDBDummy } from 'app/business/control-tower/db-example/carrier-list.db';
 import { CarrierService } from './services/carrier.service';
+import { SortEvent } from '@interfaces/vita/table.interface';
 @Component({
   selector: 'app-carrier',
   templateUrl: './carrier.component.html',
@@ -93,6 +94,10 @@ export class CarrierComponent implements OnInit, OnDestroy {
 
   downloadMotorized() {
     this.carrierService.downloadMotorized();
+  }
+
+  sortColumn(event: SortEvent) {
+    this.carrierService.sortColumn(event);
   }
 
   ngOnDestroy(): void {

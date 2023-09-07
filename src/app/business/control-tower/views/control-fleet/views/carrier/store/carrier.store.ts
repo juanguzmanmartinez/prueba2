@@ -4,6 +4,11 @@ import { BehaviorSubject } from 'rxjs';
 import { ICarrierFilter } from '../interfaces/carrier.interface';
 import { LocalFilter } from 'app/business/control-tower/models/local-filter.model';
 import { CarrierStateFilter } from 'app/business/control-tower/models/carrier-state-filter.model';
+import { SortEvent } from '@interfaces/vita/table.interface';
+import {
+  ascendingSortString,
+  descendingSortString,
+} from 'app/business/control-tower/util/order-table.function';
 
 @Injectable()
 export class CarrierStore {
@@ -59,5 +64,19 @@ export class CarrierStore {
 
   carrierListInitialValue() {
     return this.carrierListInitial.getValue();
+  }
+
+  sortCarrierList(event: SortEvent) {
+    const { column, order } = event;
+    if (order === 'N') {
+      this.loadInitialCarrierList();
+      return;
+    }
+
+    const carrierList = this.carrierListValue();
+    const sortFn = order === 'A' ? ascendingSortString : descendingSortString;
+    const carrierSorted = carrierList.sort((a, b) => sortFn(a, b, column));
+
+    this.setCarrierList(carrierSorted);
   }
 }
