@@ -68,12 +68,12 @@ export class CarrierStore {
 
   sortCarrierList(event: SortEvent) {
     const { column, order } = event;
+    const initialvalue = this.carrierListInitialValue();
     if (order === 'N') {
       this.loadInitialCarrierList();
       return;
     }
-
-    const carrierList = this.carrierListValue();
+    const carrierList = [...this.carrierListValue()];
     const sortFn = order === 'A' ? ascendingSortString : descendingSortString;
     const carrierSorted = carrierList.sort((a, b) => sortFn(a, b, column));
 

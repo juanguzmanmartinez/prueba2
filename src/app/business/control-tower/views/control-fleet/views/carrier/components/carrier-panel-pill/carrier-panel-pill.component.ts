@@ -26,7 +26,6 @@ export class CarrierPanelPillComponent {
   }
 
   deleteFilter(filter: ISelectOption) {
-    console.log(filter);
     this.delete.emit(filter);
   }
 }

@@ -67,7 +67,6 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription = this.crService
       .loadDetailRoute(this.idCarrier)
       .subscribe((data: CarrierRoute) => {
-        console.log(data);
         const element = this.mapElement.nativeElement;
         this.map = this.hmRoutingService.initializeMap(
           element,

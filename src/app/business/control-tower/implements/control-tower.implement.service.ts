@@ -37,7 +37,6 @@ export class ControlTowerImplementService {
     return this.ctClientService.getCarrierList().pipe(
       map((carrierList) => carrierList.map((carrier) => new Carrier(carrier))),
       catchError((error) => {
-        console.log(error)
        return of(CarrierListDBDummy);
       })
     );

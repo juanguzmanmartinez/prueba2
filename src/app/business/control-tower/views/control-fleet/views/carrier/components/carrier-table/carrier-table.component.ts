@@ -42,7 +42,6 @@ export class CarrierTableComponent implements OnInit, OnDestroy {
   loadCarrierList() {
     this.subscription = this.carrierStore.carrierList$.subscribe(
       (carrierList: Carrier[]) => {
-        console.log(carrierList)
         this.carrierList = carrierList;
         this.dataSource.data = carrierList;
         this.loader = !!this.carrierList;
@@ -55,7 +54,6 @@ export class CarrierTableComponent implements OnInit, OnDestroy {
   }
 
   sortData(event: SortEvent): void {
-    console.log(event);
     this.sort.emit(event);
   }
 
