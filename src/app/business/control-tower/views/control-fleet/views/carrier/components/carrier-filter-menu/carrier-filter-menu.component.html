@@ -6,12 +6,14 @@
   <div class="col-5">
     <fp-select-multiple
       [options]="carrierStateList"
+      (onChangeOption)="onChangeStates($event)"
       formControlName="carrierStates"
     ></fp-select-multiple>
   </div>
   <div class="col-5">
     <fp-select-multiple
       [options]="localList"
+      (onChangeOption)="onChangeLocals($event)"
       formControlName="locals"
     ></fp-select-multiple>
   </div>
@@ -22,7 +24,11 @@
       [disabled]="!hasFilters"
     >
       <div class="d-flex align-items-center">
-        <app-icon svgName="search-white" svgWidth="20px" [disabled]="!hasFilters"></app-icon>
+        <app-icon
+          svgName="search-white"
+          svgWidth="20px"
+          [disabled]="!hasFilters"
+        ></app-icon>
         <span class="ms-2">Buscar</span>
       </div>
     </fp-button>

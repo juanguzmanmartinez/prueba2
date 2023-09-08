@@ -65,3 +65,8 @@ export const OrderStatusColor = {
   [ECarrierStatus.enRuta]: '#6C6FF2',
   [ECarrierStatus.noDisponible]: '#7083AF',
 };
+
+export const ControlFleetStorageByForm = {
+  locals: 'cfLocalFilter',
+  carrierStates: 'cfStateFilter',
+};

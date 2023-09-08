@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CT_ROUTER_PATH } from '@parameters/router/routing/control-tower/control-tower-path.parameter';
 import { ISelectOption } from '@interfaces/vita/select.interface';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, forkJoin } from 'rxjs';
 import { CarrierFilterFormService } from './services/carrier-filter-form.service';
 import { FormGroup } from '@angular/forms';
 import { Carrier } from 'app/business/control-tower/models/carrier.model';
@@ -23,25 +23,7 @@ import { SortEvent } from '@interfaces/vita/table.interface';
   styleUrls: ['./carrier.component.scss'],
 })
 export class CarrierComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = [
-    'local',
-    'carrier',
-    'provider',
-    'startHour',
-    'state',
-    'paused',
-    'actions',
-  ];
-  dataFake: any[] = CarrierListDBDummy;
-
-  dataSource = new MatTableDataSource<any>();
-  selection = new SelectionModel(true, []);
-  page: number = 1;
-  pageSize: number = 10;
-  totalOrder = 50;
-  selectedCompanies = [];
-  selectedLocals = [];
-
+  
   public subscription = new Subscription();
   public localList$: Observable<ISelectOption[]>;
   public carrierStateList$: Observable<ISelectOption[]>;
@@ -66,10 +48,15 @@ export class CarrierComponent implements OnInit, OnDestroy {
   }
 
   loadCarrierSettings() {
-    this.subscription.add(this.carrierService.loadCarrierList().subscribe());
-    this.subscription.add(this.carrierService.loadLocalList().subscribe());
     this.subscription.add(
-      this.carrierService.loadCarrierStateList().subscribe()
+      forkJoin([
+        this.carrierService.loadCarrierList(),
+        this.carrierService.loadLocalList(),
+        this.carrierService.loadCarrierStateList(),
+      ]).subscribe(() => {
+        if (this.carrierService.hasFilterStorage()) this.executeSearch();
+        this.carrierService.setLoadingCarrierList(false);
+      })
     );
   }
 

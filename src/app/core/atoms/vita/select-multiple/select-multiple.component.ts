@@ -26,7 +26,7 @@ import { ISelectOption } from '@interfaces/vita/select.interface';
 })
 export class SelectMultipleComponent implements ControlValueAccessor {
   @Input() options: ISelectOption[];
-  @Output() onChangeOption = new EventEmitter<ISelectOption>();
+  @Output() onChangeOption = new EventEmitter<ISelectOption[]>();
   @ContentChild(TemplateRef) optionTemplate: TemplateRef<any>;
   selectedOptionTemplate: TemplateRef<any>;
 
@@ -97,6 +97,7 @@ export class SelectMultipleComponent implements ControlValueAccessor {
         this.selectedOptions.splice(index, 1);
       }
     }
+    this.onChangeOption.emit(this.selectedOptions);
     this.onChange(this.selectedOptions);
     this.onTouched();
   }

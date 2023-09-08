@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { ISelectOption } from '@interfaces/vita/select.interface';
+import { ControlFleetStorageByForm } from '../constants/carrier.constant';
 
 @Injectable()
 export class CarrierFilterFormService {
@@ -39,6 +40,7 @@ export class CarrierFilterFormService {
       (optionFilter) => optionFilter.value !== id
     );
 
+    this.setFilterToLocalStorage(filter, filterAfterRemove);
     this.filterForm.get(filter).setValue(filterAfterRemove);
   }
 
@@ -48,5 +50,10 @@ export class CarrierFilterFormService {
 
   localsControl() {
     return this.filterForm.get('locals') as AbstractControl;
+  }
+
+  setFilterToLocalStorage(filter: string, value: ISelectOption[]) {
+    const storageKey = ControlFleetStorageByForm[filter];
+    localStorage.setItem(storageKey, JSON.stringify(value));
   }
 }

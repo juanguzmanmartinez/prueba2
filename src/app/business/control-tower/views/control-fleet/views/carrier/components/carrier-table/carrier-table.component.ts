@@ -29,7 +29,7 @@ export class CarrierTableComponent implements OnInit, OnDestroy {
   public displayedColumns = displayedColumns;
   public sortColumns = sortColumns;
   public carrierList: Carrier[];
-  public loader = true;
+  public loading = true;
   public pageSize = 30;
   private subscription = new Subscription();
 
@@ -37,15 +37,23 @@ export class CarrierTableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadCarrierList();
+    this.loadingCarrierList();
   }
 
   loadCarrierList() {
-    this.subscription = this.carrierStore.carrierList$.subscribe(
-      (carrierList: Carrier[]) => {
+    this.subscription.add(
+      this.carrierStore.carrierList$.subscribe((carrierList: Carrier[]) => {
         this.carrierList = carrierList;
         this.dataSource.data = carrierList;
-        this.loader = !!this.carrierList;
-      }
+      })
+    );
+  }
+
+  loadingCarrierList() {
+    this.subscription.add(
+      this.carrierStore.loadingCarrierList$.subscribe(
+        (loading) => (this.loading = loading)
+      )
     );
   }
 

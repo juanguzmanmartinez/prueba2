@@ -1,4 +1,4 @@
-<div *ngIf="carrierList">
+<div *ngIf="!loading">
   <div class="row mb-4">
     <span class="text-body-1-regular text-neutral-90 user-select-none">
       Total transportistas: {{ carrierList.length }}
@@ -174,10 +174,10 @@
     </div>
   </div>
 </div>
-<app-table-loader *ngIf="!carrierList" [cells]="6"></app-table-loader>
+<app-table-loader *ngIf="loading" [cells]="6"></app-table-loader>
 <div class="d-flex justify-content-center">
   <fp-paginator
-    *ngIf="carrierList"
+    *ngIf="!loading"
     [length]="carrierList.length"
     [pageSize]="pageSize"
   ></fp-paginator>

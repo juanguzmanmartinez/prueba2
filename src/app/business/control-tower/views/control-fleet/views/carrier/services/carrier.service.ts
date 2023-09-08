@@ -9,12 +9,14 @@ import { LocalFilter } from 'app/business/control-tower/models/local-filter.mode
 import { CarrierStateFilter } from 'app/business/control-tower/models/carrier-state-filter.model';
 import { ExportTableSelection } from 'app/shared/utils/export-table-selection.util';
 import { SortEvent } from '@interfaces/vita/table.interface';
+import { CarrierFilterFormService } from './carrier-filter-form.service';
 
 @Injectable()
 export class CarrierService {
   constructor(
     private carrierStore: CarrierStore,
-    private ctImplService: ControlTowerImplementService
+    private ctImplService: ControlTowerImplementService,
+    private carrierFilterForm: CarrierFilterFormService
   ) {}
 
   getCarrierList(): Observable<Carrier[]> {
@@ -29,6 +31,10 @@ export class CarrierService {
     return this.carrierStore.carrierStateList$;
   }
 
+  setLoadingCarrierList(loading: boolean): void {
+    this.carrierStore.setloadingCarrierList(loading);
+  }
+
   getLoadingCarrierList(): Observable<boolean> {
     return this.carrierStore.loadingCarrierList$;
   }
@@ -37,25 +43,39 @@ export class CarrierService {
     return this.ctImplService.getCarrierList().pipe(
       tap((carrierList) => {
         this.carrierStore.loadCarrierList(carrierList);
-        this.carrierStore.setloadingCarrierList(false);
+        const storedSortEvent = localStorage.getItem('sortEvent');
+        if (storedSortEvent) {
+          const sortEvent = JSON.parse(storedSortEvent);
+          this.sortColumn(sortEvent);
+        }
       })
     );
   }
 
   loadLocalList(): Observable<LocalFilter[]> {
-    return this.ctImplService
-      .getLocalList()
-      .pipe(tap((localList) => this.carrierStore.setLocalList(localList)));
+    return this.ctImplService.getLocalList().pipe(
+      tap((localList) => {
+        this.carrierStore.setLocalList(localList);
+        const storedLocalFilter = localStorage.getItem('cfLocalFilter');
+        if (storedLocalFilter) {
+          const localFilter = JSON.parse(storedLocalFilter);
+          this.carrierFilterForm.localsControl().setValue(localFilter);
+        }
+      })
+    );
   }
 
   loadCarrierStateList(): Observable<CarrierStateFilter[]> {
-    return this.ctImplService
-      .getCarrierStateList()
-      .pipe(
-        tap((carrierStateList) =>
-          this.carrierStore.setCarrierStateList(carrierStateList)
-        )
-      );
+    return this.ctImplService.getCarrierStateList().pipe(
+      tap((carrierStateList) => {
+        this.carrierStore.setCarrierStateList(carrierStateList);
+        const storedStateFilter = localStorage.getItem('cfStateFilter');
+        if (storedStateFilter) {
+          const stateFilter = JSON.parse(storedStateFilter);
+          this.carrierFilterForm.carrierStateControl().setValue(stateFilter);
+        }
+      })
+    );
   }
 
   filterCarrierList(carrierFilter: ICarrierFilter): void {
@@ -66,6 +86,19 @@ export class CarrierService {
     } else {
       this.carrierStore.filterCarrierList(carrierFilter);
     }
+  }
+
+  hasFilterStorage(): boolean {
+    const storedLocalFilter = localStorage.getItem('cfLocalFilter');
+    const storedStateFilter = localStorage.getItem('cfStateFilter');
+    if (storedLocalFilter || storedStateFilter) {
+      const localFilter = JSON.parse(storedLocalFilter);
+      const stateFilter = JSON.parse(storedStateFilter);
+      if (localFilter.length > 0 || stateFilter.length > 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
   downloadMotorized(): void {
@@ -92,8 +125,10 @@ export class CarrierService {
     if (
       column === 'carrier' ||
       column === 'provider' ||
-      column === 'startHour'
+      column === 'startHour' ||
+      column === 'state'
     ) {
+      localStorage.setItem('sortEvent', JSON.stringify(event));
       this.carrierStore.sortCarrierList(event);
     }
   }

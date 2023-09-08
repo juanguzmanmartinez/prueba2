@@ -23,4 +23,11 @@ export class CarrierFilterMenuComponent {
     const { carrierStates, locals } = this.filterForm.value;
     return carrierStates.length > 0 || locals.length > 0;
   }
+
+  onChangeStates(event: ISelectOption[]) {
+    localStorage.setItem('cfStateFilter', JSON.stringify(event));
+  }
+  onChangeLocals(event: ISelectOption[]) {
+    localStorage.setItem('cfLocalFilter', JSON.stringify(event));
+  }
 }
