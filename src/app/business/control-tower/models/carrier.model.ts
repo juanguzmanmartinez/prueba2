@@ -32,7 +32,7 @@ export class Carrier {
   }
 
   formatPausedDate(paused: string) {
-    if (paused.toLowerCase() === 'no') return;
+    if (paused.toLowerCase() === 'no') return 'No';
     const splitted = paused.split(' ');
     const dateFormat = formatDay(splitted[0]);
     const hourFormat = formatHour(splitted[1]);

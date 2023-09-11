@@ -68,7 +68,6 @@ export class CarrierStore {
 
   sortCarrierList(event: SortEvent) {
     const { column, order } = event;
-    const initialvalue = this.carrierListInitialValue();
     if (order === 'N') {
       this.loadInitialCarrierList();
       return;
@@ -78,5 +77,20 @@ export class CarrierStore {
     const carrierSorted = carrierList.sort((a, b) => sortFn(a, b, column));
 
     this.setCarrierList(carrierSorted);
+  }
+
+  sortTableByPaused(event: SortEvent) {
+    const { column, order } = event;
+    const pausedNoList = [];
+    const pausedDateList = [];
+    this.carrierListValue().forEach((carrier) => {
+      if (carrier.paused.toLowerCase() === 'no') pausedNoList.push(carrier);
+      else pausedDateList.push(carrier);
+    });
+
+    const sortFn = order === 'A' ? ascendingSortString : descendingSortString;
+    const carrierSorted = pausedDateList.sort((a, b) => sortFn(a, b, column));
+
+    this.setCarrierList([...carrierSorted, ...pausedNoList]);
   }
 }

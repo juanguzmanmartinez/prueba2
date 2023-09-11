@@ -121,15 +121,23 @@ export class CarrierService {
   }
 
   sortColumn(event: SortEvent) {
-    const { column } = event;
-    if (
-      column === 'carrier' ||
-      column === 'provider' ||
-      column === 'startHour' ||
-      column === 'state'
-    ) {
-      localStorage.setItem('sortEvent', JSON.stringify(event));
-      this.carrierStore.sortCarrierList(event);
+    const { column, order } = event;
+
+    if (order === 'N') {
+      this.carrierStore.loadInitialCarrierList();
+    } else {
+      if (column === 'paused') {
+        this.carrierStore.sortTableByPaused(event);
+      } else if (
+        column === 'carrier' ||
+        column === 'provider' ||
+        column === 'startHour' ||
+        column === 'state'
+      ) {
+        this.carrierStore.sortCarrierList(event);
+      }
     }
+
+    localStorage.setItem('sortEvent', JSON.stringify(event));
   }
 }
