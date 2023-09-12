@@ -4,6 +4,7 @@ import { formatDay, formatHour } from '../util/format-dates.function';
 export class Carrier {
   idCarrier: string;
   local: string;
+  localName: string;
   carrier: string;
   provider: string;
   startHour: string;
@@ -15,6 +16,7 @@ export class Carrier {
   constructor(res: ICarrierResponse) {
     this.idCarrier = res.motorizedId || '-';
     this.local = res.localFullName || '-';
+    this.localName = this.getlocalName(res.localFullName);
     this.carrier = res.nameMotorized || '-';
     this.provider = res.supplier || '-';
     this.startHour = res.entryTime ? this.formatDate(res.entryTime) : '-';
@@ -37,5 +39,10 @@ export class Carrier {
     const dateFormat = formatDay(splitted[0]);
     const hourFormat = formatHour(splitted[1]);
     return `Desde ${dateFormat} ${hourFormat}`;
+  }
+
+  getlocalName(fullLocalName: string) {
+    if (!fullLocalName) return '-';
+    return fullLocalName.split('-')[1];
   }
 }

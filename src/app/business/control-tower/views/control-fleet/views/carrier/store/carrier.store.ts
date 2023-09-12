@@ -72,9 +72,10 @@ export class CarrierStore {
       this.loadInitialCarrierList();
       return;
     }
+    const sortBy = column === 'local' ? 'localName' : column;
     const carrierList = [...this.carrierListValue()];
     const sortFn = order === 'A' ? ascendingSortString : descendingSortString;
-    const carrierSorted = carrierList.sort((a, b) => sortFn(a, b, column));
+    const carrierSorted = carrierList.sort((a, b) => sortFn(a, b, sortBy));
 
     this.setCarrierList(carrierSorted);
   }

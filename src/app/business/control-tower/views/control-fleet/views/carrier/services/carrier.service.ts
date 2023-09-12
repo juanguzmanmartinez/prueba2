@@ -128,12 +128,7 @@ export class CarrierService {
     } else {
       if (column === 'paused') {
         this.carrierStore.sortTableByPaused(event);
-      } else if (
-        column === 'carrier' ||
-        column === 'provider' ||
-        column === 'startHour' ||
-        column === 'state'
-      ) {
+      } else {
         this.carrierStore.sortCarrierList(event);
       }
     }
