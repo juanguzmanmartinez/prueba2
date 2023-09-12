@@ -19,9 +19,9 @@ export class Carrier {
     this.localName = this.getlocalName(res.localFullName);
     this.carrier = res.nameMotorized || '-';
     this.provider = res.supplier || '-';
-    this.startHour = res.entryTime ? this.formatDate(res.entryTime) : '-';
+    this.startHour = res.entryTime || '-';
     this.state = res?.stateDescription || '-';
-    this.paused = res.slow ? this.formatPausedDate(res.slow) : '-';
+    this.paused = res.slow || '-';
     this.isPendingRoute = !!res.pendingRoute;
     this.numberOfRoutes = res.counterRouter;
   }

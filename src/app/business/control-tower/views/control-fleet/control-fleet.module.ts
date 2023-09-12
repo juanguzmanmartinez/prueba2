@@ -58,6 +58,8 @@ import { CarrierRouteStore } from './views/carrier-route/store/carrier-route.sto
 import { CarrierRouteService } from './views/carrier-route/service/carrier-route.service';
 import { DetailRoute } from './views/carrier-route/components/detail-route/detail-route.component';
 import { PaginatorVitaModule } from '@atoms/vita/paginator/paginator.module';
+import { FormatEntryTimePipe } from '../../pipes/format-entry-time.pipe';
+import { FormatPausedPipe } from '../../pipes/format-paused.pipe';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { PaginatorVitaModule } from '@atoms/vita/paginator/paginator.module';
     CarrierHeaderComponent,
     CarrierRouteHeaderComponent,
     DetailRoute,
+    FormatEntryTimePipe,
+    FormatPausedPipe
   ],
   imports: [
     ControlFleetRoutingModule,
