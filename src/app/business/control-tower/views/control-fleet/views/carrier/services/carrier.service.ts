@@ -69,6 +69,7 @@ export class CarrierService {
   loadCarrierStateList(): Observable<CarrierStateFilter[]> {
     return this.ctImplService.getCarrierStateList().pipe(
       tap((carrierStateList) => {
+        console.log(carrierStateList)
         this.carrierStore.setCarrierStateList(carrierStateList);
         const storedStateFilter = localStorage.getItem('cfStateFilter');
         if (storedStateFilter) {

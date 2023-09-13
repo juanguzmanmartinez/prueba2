@@ -46,7 +46,5 @@ export class Carrier {
   getlocalName(code: string, name: string) {
     if (!code && !name) return '-';
     return `${code} - ${name}`;
-    // if (!fullLocalName) return '-';
-    // return fullLocalName.split('-')[1];
   }
 }

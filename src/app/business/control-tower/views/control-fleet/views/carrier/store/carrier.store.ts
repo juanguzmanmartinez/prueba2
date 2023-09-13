@@ -51,11 +51,18 @@ export class CarrierStore {
 
   filterCarrierList(carrierFilter: ICarrierFilter) {
     const { locals, carrierStates } = carrierFilter;
-    const carrierListFilterd = this.carrierListInitialValue()
-      .filter((carrier) => locals?.includes(carrier.local))
-      .filter((carrier) => carrierStates?.includes(carrier.state));
-
-    this.setCarrierList(carrierListFilterd);
+    let carrierList = [...this.carrierListInitialValue()];
+    if (carrierStates && carrierStates.length > 0) {
+      carrierList = carrierList.filter((carrier) =>
+        carrierStates?.includes(carrier.state)
+      );
+    }
+    if (locals && locals.length > 0) {
+      carrierList = carrierList.filter((carrier) =>
+        locals?.includes(carrier.local)
+      );
+    }
+    this.setCarrierList(carrierList);
   }
 
   carrierListValue() {

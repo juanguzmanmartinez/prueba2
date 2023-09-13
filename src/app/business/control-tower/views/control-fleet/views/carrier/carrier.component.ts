@@ -18,6 +18,7 @@ import { Carrier } from 'app/business/control-tower/models/carrier.model';
 import { CarrierListDBDummy } from 'app/business/control-tower/db-example/carrier-list.db';
 import { CarrierService } from './services/carrier.service';
 import { SortEvent } from '@interfaces/vita/table.interface';
+import { ICarrierFilter } from './interfaces/carrier.interface';
 @Component({
   selector: 'app-carrier',
   templateUrl: './carrier.component.html',
@@ -46,7 +47,6 @@ export class CarrierComponent implements OnInit, OnDestroy {
   @HostListener('document:click', ['$event'])
   clickout(event) {
     this.resetTimer();
-    console.log('clear timer', event);
   }
 
   ngOnInit(): void {
@@ -73,7 +73,10 @@ export class CarrierComponent implements OnInit, OnDestroy {
   }
 
   filterCarrierList() {
-    const carrierFilters = this.carrierFilterForm.filterForm.value;
+    const formValue = this.carrierFilterForm.filterForm.value;
+    const carrierStates = formValue.carrierStates.map((state) => state.label);
+    const locals = formValue.locals.map((local) => local.label);
+    const carrierFilters = { locals, carrierStates } as ICarrierFilter;
     this.carrierService.filterCarrierList(carrierFilters);
   }
 
@@ -113,9 +116,9 @@ export class CarrierComponent implements OnInit, OnDestroy {
         this.timer--;
         this.formatTime(this.timer);
       } else {
-        this.executeSomething();
         this.stopTimer();
         this.carrierService.loadCarrierList().subscribe(() => {
+          if (this.carrierService.hasFilterStorage()) this.executeSearch();
           this.carrierService.setLoadingCarrierList(false);
           this.resetTimer();
           this.startTimer();
@@ -135,14 +138,9 @@ export class CarrierComponent implements OnInit, OnDestroy {
     this.formatTime(this.timer);
   }
 
-  executeSomething() {
-    console.log('Time is up! Executing something...');
-  }
-
   formatTime(time: number) {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-    console.log(minutes, seconds);
     this.displayTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   }
 }
