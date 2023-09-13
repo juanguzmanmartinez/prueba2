@@ -15,19 +15,19 @@ export const ColumnNameList = {
 };
 
 export enum EOrderStatus {
-  entregado = 'ENTREGADO',
-  rechazado = 'RECHAZADO',
+  entregado = 'Entregado',
+  rechazado = 'Rechazado',
   enRuta = 'EN RUTA',
   asignado = 'ASIGNADO',
-  cancelado = 'CANCELADO',
+  cancelado = 'Cancelado',
 }
 
 export const OrderDescription = {
-  [EOrderStatus.entregado]: 'ENTREGADO',
-  [EOrderStatus.rechazado]: 'RECHAZADO',
+  [EOrderStatus.entregado]: 'Entregado',
+  [EOrderStatus.rechazado]: 'Rechazado',
   [EOrderStatus.enRuta]: 'EN RUTA',
   [EOrderStatus.asignado]: 'ASIGNADO',
-  [EOrderStatus.cancelado]: 'CANCELADO',
+  [EOrderStatus.cancelado]: 'Cancelado',
 };
 export const OrderNameFile = {
   [EOrderStatus.entregado]: 'markerDelivered',

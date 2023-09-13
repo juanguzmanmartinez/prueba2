@@ -21,6 +21,8 @@ import { SortEvent } from '@interfaces/vita/table.interface';
   templateUrl: './carrier-table.component.html',
 })
 export class CarrierTableComponent implements OnInit, OnDestroy {
+
+  @Input() displayTime: string;
   @Output() navigate = new EventEmitter<string>();
   @Output() sort = new EventEmitter<SortEvent>();
 

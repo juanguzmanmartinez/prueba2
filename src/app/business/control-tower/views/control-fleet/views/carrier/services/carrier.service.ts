@@ -40,6 +40,7 @@ export class CarrierService {
   }
 
   loadCarrierList(): Observable<Carrier[]> {
+    this.setLoadingCarrierList(true);
     return this.ctImplService.getCarrierList().pipe(
       tap((carrierList) => {
         this.carrierStore.loadCarrierList(carrierList);

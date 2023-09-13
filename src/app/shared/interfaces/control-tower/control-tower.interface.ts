@@ -21,6 +21,7 @@ export interface ICarrierResponse {
   stateDescription: string;
   slow: string;
   counterRouter: number;
+  typeRoute: string;
 }
 
 export interface ICoordinate {

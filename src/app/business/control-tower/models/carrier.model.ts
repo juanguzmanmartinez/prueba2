@@ -12,11 +12,12 @@ export class Carrier {
   paused: string;
   isPendingRoute: boolean;
   numberOfRoutes: number;
+  typeRoute: string;
 
   constructor(res: ICarrierResponse) {
     this.idCarrier = res.motorizedId || '-';
-    this.local = res.localFullName || '-';
-    this.localName = this.getlocalName(res.localFullName);
+    this.local = this.getlocalName(res.localCode, res.localFullName);
+    this.localName = res.localFullName || '-';
     this.carrier = res.nameMotorized || '-';
     this.provider = res.supplier || '-';
     this.startHour = res.entryTime || '-';
@@ -24,6 +25,7 @@ export class Carrier {
     this.paused = res.slow || '-';
     this.isPendingRoute = !!res.pendingRoute;
     this.numberOfRoutes = res.counterRouter;
+    this.typeRoute = res.typeRoute;
   }
 
   formatDate(orderDate: string) {
@@ -41,8 +43,10 @@ export class Carrier {
     return `Desde ${dateFormat} ${hourFormat}`;
   }
 
-  getlocalName(fullLocalName: string) {
-    if (!fullLocalName) return '-';
-    return fullLocalName.split('-')[1];
+  getlocalName(code: string, name: string) {
+    if (!code && !name) return '-';
+    return `${code} - ${name}`;
+    // if (!fullLocalName) return '-';
+    // return fullLocalName.split('-')[1];
   }
 }

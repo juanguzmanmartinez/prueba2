@@ -17,6 +17,7 @@
   ></app-carrier-panel-pill>
 
   <app-carrier-table
+    [displayTime]="displayTime"
     (navigate)="navigateToCarrierRoute($event)"
     (sort)="sortColumn($event)"
   ></app-carrier-table>

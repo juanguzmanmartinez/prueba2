@@ -1,7 +1,11 @@
 <div *ngIf="!loading">
-  <div class="row mb-4">
-    <span class="text-body-1-regular text-neutral-90 user-select-none">
-      Total transportistas: {{ carrierList.length }}
+  <div
+    class="d-flex justify-content-between align-items-center mb-4 text-body-1-regular text-neutral-90 user-select-none"
+  >
+    <span class=""> Total transportistas: {{ carrierList.length }} </span>
+    <span>
+      Tiempo para actualizar
+      <span class="text-body-1-bold">{{ displayTime }}</span>
     </span>
   </div>
   <div class="row">
@@ -157,7 +161,7 @@
               class="d-flex justify-content-center align-items-center"
               innerClass="d-flex align-items-center p-0"
               (clicked)="navigateCarrierRoute(element.idCarrier)"
-              *ngIf="element.numberOfRoutes > 0"
+              *ngIf="element.typeRoute === '1' && element.numberOfRoutes > 0"
             >
               <app-icon svgName="detail-icon" svgWidth="24px"></app-icon>
             </app-button>
