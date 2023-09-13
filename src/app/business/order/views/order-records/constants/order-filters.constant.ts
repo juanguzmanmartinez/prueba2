@@ -9,9 +9,14 @@ export enum ECodeTypeSearch {
 export enum EDates {
   hoy = 'Hoy',
   ayer = 'Ayer',
+  anteAyer = 'Anteayer',
   ultimaSemana = 'Última semana',
   ultimoMes = 'Último mes',
   otroPeriodo = 'Otro periodo',
+}
+
+export enum EPageSize {
+  DEFAULT = 30,
 }
 
 export const CTypesSearch: ITypeSearch[] = [

@@ -20,7 +20,8 @@ import { Observable, Subscription } from 'rxjs';
 import { CarrierRoute } from './models/carrier-route.model';
 import { OrderRoute } from './models/order-route.model';
 import { PointRoute } from './models/point-route.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ORDER_ROUTER_PATH } from '@parameters/router/routing/order/order-router-path.parameter';
 
 @Component({
   selector: 'app-carrier-route',
@@ -55,7 +56,8 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
     private hereMapsService: HereMapsService,
     private hmRoutingService: HereMapsRoutingService,
     private crService: CarrierRouteService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -104,6 +106,10 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
     //     '-12.118137930980883,-76.98816399415244',
     //   ]
     // );
+  }
+
+  navigateToOrder(id: string){
+    this.router.navigate([ORDER_ROUTER_PATH.orderDetail(id)]);
   }
 
   ngOnDestroy(): void {

@@ -134,6 +134,7 @@
             <app-button
               class="d-flex justify-content-center align-items-center"
               innerClass="d-flex align-items-center p-0"
+              (clicked)="navigateToOrder(element.orderId)"
             >
               <app-icon svgName="fleet-table-action" svgWidth="24px"></app-icon>
             </app-button>

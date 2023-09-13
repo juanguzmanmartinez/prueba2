@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": false
+    "analytics": "cd3d41f8-13ad-4779-bb4f-8234c89b9f10"
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -21,7 +21,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/WEB-admin-operaciones",
+            "outputPath": "dist/app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -42,153 +42,173 @@
             "namedChunks": true
           },
           "configurations": {
-            "production": {
+            "dev": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.ts"
+                  "with": "src/environments/environment.dev.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
+              "outputHashing": "all"
+            },
+            "dev-ecommerce": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
+                  "maximumWarning": "500kb",
                   "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
                 }
-              ]
-            },
-            "prd": {
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.dev-ecommerce.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
+              "outputHashing": "all"
+            },
+            "qas": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
                 }
-              ]
-            },
-            "qa": {
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.qa.ts"
+                  "with": "src/environments/environment.qas.ts"
                 }
               ],
-              "outputHashing": "all",
+              "outputHashing": "all"
+            },
+            "qas-ecommerce": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
+                  "maximumWarning": "500kb",
                   "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
                 }
-              ]
-            },
-            "qa2": {
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.qa2.ts"
+                  "with": "src/environments/environment.qas-ecommerce.ts"
                 }
               ],
-              "outputHashing": "all",
+              "outputHashing": "all"
+            },
+            "qas-audit": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
                 }
-              ]
-            },
-            "ci": {
-              "outputHashing": "all",
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ]
-            },
-            "ci2": {
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.ci2.ts"
+                  "with": "src/environments/environment.qas-audit.ts"
                 }
               ],
-              "outputHashing": "all",
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ]
+              "outputHashing": "all"
             },
             "uat": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.uat.ts"
                 }
               ],
-              "outputHashing": "all",
+              "outputHashing": "all"
+            },
+            "uat-audit": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
                 }
-              ]
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.uat-audit.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "prd": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prd.ts"
+                }
+              ],
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": ""
@@ -204,9 +224,27 @@
             },
             "qa2": {
               "browserTarget": "WEB-admin-operaciones:build:qa2"
+            },            
+            "dev": {
+              "browserTarget": "WEB-admin-operaciones:build:dev"
+            },
+            "dev-ecommerce": {
+              "browserTarget": "WEB-admin-operaciones:build:dev-ecommerce"
+            },
+            "qas": {
+              "browserTarget": "WEB-admin-operaciones:build:qas"
+            },
+            "qas-ecommerce": {
+              "browserTarget": "WEB-admin-operaciones:build:qas-ecommerce"
+            },
+            "qas-audit": {
+              "browserTarget": "WEB-admin-operaciones:build:qas-audit"
             },
             "uat": {
               "browserTarget": "WEB-admin-operaciones:build:uat"
+            },
+            "uat-audit": {
+              "browserTarget": "WEB-admin-operaciones:build:uat-audit"
             },
             "prd": {
               "browserTarget": "WEB-admin-operaciones:build:prd"

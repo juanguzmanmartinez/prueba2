@@ -14,5 +14,5 @@ export const CAPACITIES_MODULE_ROUTER_PATH = {
   capacitiesExpress: `/${CAPACITIES_ROUTER.path}/${CAPACITIES_CHILDREN_PATH.serviceType}/${CAPACITIES_CHILDREN_PATH.capacityExpress}`,
   capacitiesRet: `/${CAPACITIES_ROUTER.path}/${CAPACITIES_CHILDREN_PATH.serviceType}/${CAPACITIES_CHILDREN_PATH.capacityRet}`,
   capacityReport: `/${CAPACITIES_ROUTER.path}/${CAPACITIES_CHILDREN_PATH.serviceType}/${CAPACITIES_CHILDREN_PATH.capacityReport}`,
-  
+  capacityUpload: `/${CAPACITIES_ROUTER.path}/${CAPACITIES_CHILDREN_PATH.serviceType}/${CAPACITIES_CHILDREN_PATH.capacityUpload}`,
 };
