@@ -39,7 +39,7 @@ export const OrderNameFile = {
 
 export const OrderStatusColor = {
   [EOrderStatus.entregado]: '#38B57D',
-  [EOrderStatus.rechazado]: '#D35530',
+  [EOrderStatus.rechazado]: '#EBB11A',
   [EOrderStatus.enRuta]: '#6C6FF2',
   [EOrderStatus.asignado]: '#7083AF',
   [EOrderStatus.cancelado]: '#D35530',

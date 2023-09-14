@@ -37,6 +37,7 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
   public orderRouteList$: Observable<OrderRoute[]>;
   public points: PointRoute[];
   public idCarrier: string;
+  public hasRoute: boolean;
   private subscription: Subscription;
 
   public displayedColumns: string[] = [
@@ -57,7 +58,7 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
     private hmRoutingService: HereMapsRoutingService,
     private crService: CarrierRouteService,
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -69,20 +70,23 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription = this.crService
       .loadDetailRoute(this.idCarrier)
       .subscribe((data: CarrierRoute) => {
-        const element = this.mapElement.nativeElement;
-        this.map = this.hmRoutingService.initializeMap(
-          element,
-          data.motorizedCoordinates
-        );
-        this.points = data.points;
-        this.hmRoutingService.addPointMarkers(this.points);
-        this.hmRoutingService.pointMotorized(data.motorizedCoordinates);
-        this.hereMapsService.centerMarkers(this.map);
-        this.hmRoutingService.calculateRoutes(
-          data.routes.origin,
-          data.routes.destination,
-          data.routes.vias
-        );
+        this.hasRoute = data.hasRoute;
+        if (this.hasRoute) {
+          const element = this.mapElement.nativeElement;
+          this.map = this.hmRoutingService.initializeMap(
+            element,
+            data.motorizedCoordinates
+          );
+          this.points = data.points;
+          this.hmRoutingService.addPointMarkers(this.points);
+          this.hmRoutingService.pointMotorized(data.motorizedCoordinates);
+          this.hereMapsService.centerMarkers(this.map);
+          this.hmRoutingService.calculateRoutes(
+            data.routes.origin,
+            data.routes.destination,
+            data.routes.vias
+          );
+        }
       });
   }
 
@@ -108,7 +112,7 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
     // );
   }
 
-  navigateToOrder(id: string){
+  navigateToOrder(id: string) {
     this.router.navigate([ORDER_ROUTER_PATH.orderDetail(id)]);
   }
 

@@ -1,4 +1,4 @@
-<section>
+<section *ngIf="hasRoute; else noRoute">
   <app-carrier-route-header [detailRoute]="detailRoute$ | async"></app-carrier-route-header>
   <div class="row mb-5">
     <div class="col-3 bg-neutral-0 p-5 text-body-3-regular">
@@ -110,7 +110,7 @@
             mat-cell
             cell-bold
             *matCellDef="let element"
-            class="text-body-4-bold"
+            class="text-body-3-bold"
           >
             <span appOrderStatus>{{ element.state }}</span>
           </td>
@@ -151,3 +151,7 @@
     </div>
   </div>
 </section>
+
+<ng-template #noRoute>
+  <app-no-route></app-no-route>
+</ng-template>

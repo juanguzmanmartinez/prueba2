@@ -19,6 +19,7 @@ export class CarrierRoute {
   orders: OrderRoute[];
   points: PointRoute[];
   routes: LineRoute;
+  hasRoute: boolean;
 
   constructor(res: IDetailRouteResponse) {
     this.routeId = res.routeId;
@@ -32,6 +33,7 @@ export class CarrierRoute {
     this.orders = res.orders.map((order) => new OrderRoute(order));
     this.points = this.pointListRoute(res.points);
     this.routes = new LineRoute(this.points);
+    this.hasRoute = this.hasData(res);
   }
 
   pointListRoute(points: IPointRouteResponse[]) {
@@ -41,5 +43,10 @@ export class CarrierRoute {
       );
       return new PointRoute(point, orderFounded);
     });
+  }
+
+  hasData(res: IDetailRouteResponse): boolean {
+    const hasData = Object.values(res).some((val) => val !== null);
+    return !!hasData;
   }
 }

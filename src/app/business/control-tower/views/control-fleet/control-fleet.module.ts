@@ -60,6 +60,7 @@ import { DetailRoute } from './views/carrier-route/components/detail-route/detai
 import { PaginatorVitaModule } from '@atoms/vita/paginator/paginator.module';
 import { FormatEntryTimePipe } from '../../pipes/format-entry-time.pipe';
 import { FormatPausedPipe } from '../../pipes/format-paused.pipe';
+import { NoRouteComponent } from '../../error-pages/no-route/no-route.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { FormatPausedPipe } from '../../pipes/format-paused.pipe';
     CarrierRouteHeaderComponent,
     DetailRoute,
     FormatEntryTimePipe,
-    FormatPausedPipe
+    FormatPausedPipe,
+    NoRouteComponent
   ],
   imports: [
     ControlFleetRoutingModule,

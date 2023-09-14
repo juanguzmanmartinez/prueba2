@@ -5,18 +5,28 @@ import { MotorizedControl } from '@atoms/here-maps/motorized.control';
 import { HereMapsService } from '@clients/here-maps/here-maps.service';
 import H from '@here/maps-api-for-javascript';
 import { PointRoute } from '../models/point-route.model';
-import { motorizedIcon, pointDomIcon, pointIcon, storeIcon } from '../util/here-maps.util';
+import {
+  motorizedIcon,
+  pointDomIcon,
+  pointIcon,
+  storeIcon,
+} from '../util/here-maps.util';
 import { ICoordinate } from '@interfaces/control-tower/control-tower.interface';
+import { OrderRoute } from '../models/order-route.model';
 
 @Injectable()
 export class HereMapsRoutingService {
   private router: any;
+  private ui: any;
 
   constructor(private hmService: HereMapsService) {
     this.router = this.hmService.getPlatform().getRoutingService(null, 8);
   }
 
-  initializeMap(element: HTMLElement, motorizedCoordinates: ICoordinate): H.Map {
+  initializeMap(
+    element: HTMLElement,
+    motorizedCoordinates: ICoordinate
+  ): H.Map {
     const map = this.createMap(element);
     this.hmService.resizeMap();
     this.addControls(element, motorizedCoordinates);
@@ -41,6 +51,7 @@ export class HereMapsRoutingService {
     const centerOrderControl = new CenterOrderControl(
       this.hmService.centerMarkers
     );
+    this.bubbleOpenListener(ui);
     ui.addControl('full-screen', fullScreenControl);
     ui.addControl('center-motorized', centerMotorizedControl);
     ui.addControl('center-order', centerOrderControl);
@@ -48,16 +59,55 @@ export class HereMapsRoutingService {
 
   pointMarker(point: PointRoute) {
     const map = this.hmService.getMap();
+    const ui = H.ui.UI.createDefault(
+      this.hmService.getMap(),
+      this.hmService.defaultLayers()
+    );
     const icon = point.type === 'ORDER' ? pointIcon(point) : storeIcon();
     const marker = new H.map.Marker(
       point.coordinates as H.geo.Point,
       { icon } as H.map.Marker.Options
     );
-    marker.addEventListener('tap', function (evt) {
-      console.log('Marker clicked!');
-    });
-    marker.setData({ marker: true });
+    marker.setData({ marker: true, html: this.bubbleInfo(point.data) });
+    if (point.type === 'ORDER') {
+      marker.addEventListener('tap', function (evt) {
+        this.showBubbleInfo(evt, ui);
+        // // Add a callback to change the close button color
+        // setTimeout(() => {
+        //   const closeButton = document.querySelector('.H_ib_close');
+        //   if (closeButton) {
+        //     closeButton.querySelector('svg').style.fill = 'white'; // Change SVG fill color
+        //   }
+        // }, 0);
+      });
+    }
     map.addObject(marker);
+  }
+
+  bubbleOpenListener(ui: any) {
+    ui.addEventListener('bubbleopen', () => {
+      setTimeout(() => {
+        const closeButton = document.querySelector('.H_ib_close');
+        if (closeButton) {
+          closeButton.querySelector('svg').style.fill = 'white';
+        }
+      }, 0);
+    });
+  }
+
+  showBubbleInfo(evt: any, ui: any) {
+    const bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
+      content: evt.target.getData().html,
+    });
+    ui.addBubble(bubble);
+  }
+
+  bubbleInfo(order: OrderRoute) {
+    return (
+      `<div style="color:white;">Pedido: ${order?.orderId}</div>` +
+      `<div style="color:white;">Estado: ${order?.state}</div>` +
+      `<div style="color:white;">Ver Pedido</div>`
+    );
   }
 
   pointMotorized(coordinates: ICoordinate) {
