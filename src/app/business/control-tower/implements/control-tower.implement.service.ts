@@ -34,12 +34,11 @@ export class ControlTowerImplementService {
   }
 
   getCarrierList(): Observable<Carrier[]> {
-    return this.ctClientService.getCarrierList().pipe(
-      map((carrierList) => carrierList.map((carrier) => new Carrier(carrier))),
-      catchError((error) => {
-       return of(CarrierListDBDummy);
-      })
-    );
+    return this.ctClientService
+      .getCarrierList()
+      .pipe(
+        map((carrierList) => carrierList.map((carrier) => new Carrier(carrier)))
+      );
   }
 
   getDetailRoute(id: string) {

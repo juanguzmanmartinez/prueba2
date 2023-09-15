@@ -29,10 +29,12 @@ export class CarrierComponent implements OnInit, OnDestroy {
   public localList$: Observable<ISelectOption[]>;
   public carrierStateList$: Observable<ISelectOption[]>;
   public carrierList$: Observable<Carrier[]>;
+  public errorCarrierList$: Observable<boolean>;
   public carrierList: Carrier[];
   public filterForm: FormGroup;
   public filterList: ISelectOption[];
   public loadingTable$: Observable<boolean>;
+  public hasError: boolean;
 
   public timer: number = 60; // Start at 60 seconds (1 minute)
   public displayTime: string;
@@ -52,10 +54,12 @@ export class CarrierComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.filterForm = this.carrierFilterForm.filterForm;
     this.loadingTable$ = this.carrierService.getLoadingCarrierList();
+    this.errorCarrierList$ = this.carrierService.getErrorCarrierList();
     this.localList$ = this.carrierService.getLocalList();
     this.carrierStateList$ = this.carrierService.getCarrierStateList();
     this.formatTime(this.timer);
     this.loadCarrierSettings();
+    this.loadErrorCarrierList();
   }
 
   loadCarrierSettings() {
@@ -68,6 +72,15 @@ export class CarrierComponent implements OnInit, OnDestroy {
         if (this.carrierService.hasFilterStorage()) this.executeSearch();
         this.carrierService.setLoadingCarrierList(false);
         this.startTimer();
+      })
+    );
+  }
+
+  loadErrorCarrierList() {
+    this.subscription.add(
+      this.carrierService.getErrorCarrierList().subscribe((hasError) => {
+        console.log('tiene error?', hasError);
+        this.hasError = hasError;
       })
     );
   }

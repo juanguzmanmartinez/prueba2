@@ -61,6 +61,7 @@ import { PaginatorVitaModule } from '@atoms/vita/paginator/paginator.module';
 import { FormatEntryTimePipe } from '../../pipes/format-entry-time.pipe';
 import { FormatPausedPipe } from '../../pipes/format-paused.pipe';
 import { NoRouteComponent } from '../../error-pages/no-route/no-route.component';
+import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { NoRouteComponent } from '../../error-pages/no-route/no-route.component'
     ButtonVitaModule,
     SelectMultipleVitaModule,
     SkeletonModule,
-    PaginatorVitaModule
+    PaginatorVitaModule,
+    HttpErrorViewerModule,
   ],
   providers: [
     HereMapsRoutingService,

@@ -1,9 +1,9 @@
 import { Injectable, LOCALE_ID } from '@angular/core';
 import { CarrierStore } from '../store/carrier.store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Carrier } from 'app/business/control-tower/models/carrier.model';
 import { ControlTowerImplementService } from 'app/business/control-tower/implements/control-tower.implement.service';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { ICarrierFilter } from '../interfaces/carrier.interface';
 import { LocalFilter } from 'app/business/control-tower/models/local-filter.model';
 import { CarrierStateFilter } from 'app/business/control-tower/models/carrier-state-filter.model';
@@ -38,17 +38,26 @@ export class CarrierService {
   getLoadingCarrierList(): Observable<boolean> {
     return this.carrierStore.loadingCarrierList$;
   }
+  
+  getErrorCarrierList(): Observable<boolean> {
+    return this.carrierStore.errorLoadCarrierList$;
+  }
 
   loadCarrierList(): Observable<Carrier[]> {
     this.setLoadingCarrierList(true);
     return this.ctImplService.getCarrierList().pipe(
       tap((carrierList) => {
+        this.carrierStore.setErrorLoadCarrierList(false);
         this.carrierStore.loadCarrierList(carrierList);
         const storedSortEvent = localStorage.getItem('sortEvent');
         if (storedSortEvent) {
           const sortEvent = JSON.parse(storedSortEvent);
           this.sortColumn(sortEvent);
         }
+      }),
+      catchError(() => {
+        this.carrierStore.setErrorLoadCarrierList(true);
+        return of([]);
       })
     );
   }
@@ -69,7 +78,7 @@ export class CarrierService {
   loadCarrierStateList(): Observable<CarrierStateFilter[]> {
     return this.ctImplService.getCarrierStateList().pipe(
       tap((carrierStateList) => {
-        console.log(carrierStateList)
+        console.log(carrierStateList);
         this.carrierStore.setCarrierStateList(carrierStateList);
         const storedStateFilter = localStorage.getItem('cfStateFilter');
         if (storedStateFilter) {

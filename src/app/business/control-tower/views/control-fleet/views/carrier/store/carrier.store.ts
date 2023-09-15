@@ -17,12 +17,14 @@ export class CarrierStore {
   private localList = new BehaviorSubject<LocalFilter[]>(null);
   private carrierStateList = new BehaviorSubject<CarrierStateFilter[]>(null);
   private loadingCarrierList = new BehaviorSubject<boolean>(true);
+  private errorLoadCarrierList = new BehaviorSubject<boolean>(false);
 
   public carrierListInitial$ = this.carrierListInitial.asObservable();
   public carrierList$ = this.carrierList.asObservable();
   public localList$ = this.localList.asObservable();
   public carrierStateList$ = this.carrierStateList.asObservable();
   public loadingCarrierList$ = this.loadingCarrierList.asObservable();
+  public errorLoadCarrierList$ = this.errorLoadCarrierList.asObservable();
 
   setCarrierList(carrierList) {
     this.carrierList.next(carrierList);
@@ -38,6 +40,10 @@ export class CarrierStore {
 
   setloadingCarrierList(loading: boolean) {
     this.loadingCarrierList.next(loading);
+  }
+  
+  setErrorLoadCarrierList(hasError: boolean) {
+    this.errorLoadCarrierList.next(hasError);
   }
 
   loadCarrierList(carrierList: Carrier[]) {
