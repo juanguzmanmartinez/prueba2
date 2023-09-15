@@ -6,7 +6,7 @@
   [textButtonCancel]="textButton"
   [disableNext]="disableNext"
 >
-  <h3 class="text-h4 text-black mt-4">
+  <h3 class="text-h6 text-black mt-4">
     Adjunta o arrastra la plantilla con la información de las capacidades:
   </h3>
   <ng-container
@@ -45,7 +45,7 @@
   <ng-template #zeroFiles>
     <div class="input-file-content mb-4">
       <app-icon svgName="excel" svgWidth="36px" innerClass="fp-mr-8"></app-icon>
-      <span class="text-file text-h5 mt-4">{{ fileName }}</span>
+      <span class="text-file text-body-1-bold mt-4">{{ fileName }}</span>
       <a class="container-upload-file__text--link" (click)="deleteFile()">
         Eliminar y subir otro documento
       </a>
