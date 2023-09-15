@@ -29,7 +29,7 @@ import { ORDER_ROUTER_PATH } from '@parameters/router/routing/order/order-router
   styleUrls: ['./carrier-route.component.scss'],
 })
 export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('mapElement') mapElement: ElementRef;
+  @ViewChild('mapElement', { static: false }) mapElement: ElementRef;
   private map!: H.Map;
   private behavior: any;
   public dataSource = new MatTableDataSource<OrderRoute>();
@@ -38,6 +38,7 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
   public points: PointRoute[];
   public idCarrier: string;
   public hasRoute: boolean;
+  public loading: boolean = true;
   private subscription: Subscription;
 
   public displayedColumns: string[] = [
@@ -71,7 +72,8 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
       .loadDetailRoute(this.idCarrier)
       .subscribe((data: CarrierRoute) => {
         this.hasRoute = data.hasRoute;
-        if (this.hasRoute) {
+        this.loading = false;
+        if (this.hasRoute && this.mapElement && this.mapElement.nativeElement) {
           const element = this.mapElement.nativeElement;
           this.map = this.hmRoutingService.initializeMap(
             element,
@@ -87,33 +89,17 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
             data.routes.vias
           );
         }
+
+        if (!this.hasRoute) {
+          this.mapElement.nativeElement.style.height = '100px';
+        }
       });
   }
 
-  ngAfterViewInit() {
-    // const element = this.mapElement.nativeElement;
-    // this.map = this.hmRoutingService.initializeMap(element);
-    // this.hmRoutingService.addOrderMarkers(DBOrder); // data dummy
-    // this.hmRoutingService.calculateRoutes(
-    //   '-12.047274740451627,-77.1237202604052',
-    //   '-12.074690847992702,-77.09414209389209',
-    //   [
-    //     '-12.074690847992702,-77.09414209389209',
-    //     '-12.058090603870156,-77.04450221443963',
-    //     '-12.070840509867775,-77.0163855247041',
-    //     '-12.076122568833423,-76.9991491494781',
-    //     '-12.066033152202444,-76.9940510666648',
-    //     '-12.090009732717025,-76.97723953114895',
-    //     '-12.105439068808161,-76.97681469091451',
-    //     '-12.110483081831664,-76.98209484794612',
-    //     '-12.118909337710376,-76.99223032211069',
-    //     '-12.118137930980883,-76.98816399415244',
-    //   ]
-    // );
-  }
+  ngAfterViewInit() {}
 
   navigateToOrder(id: string) {
-    this.router.navigate([ORDER_ROUTER_PATH.orderDetail(id)]);
+    this.hmRoutingService.navigateToOrder(id);
   }
 
   ngOnDestroy(): void {

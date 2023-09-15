@@ -30,14 +30,14 @@ export class CarrierRoute {
     this.totalOrderCount = res.totalOrderCount;
     this.routeState = res.routeState;
     this.motorizedCoordinates = { lat: res.lat, lng: res.lng };
-    this.orders = res.orders.map((order) => new OrderRoute(order));
-    this.points = this.pointListRoute(res.points);
-    this.routes = new LineRoute(this.points);
+    this.orders = res.orders?.map((order) => new OrderRoute(order));
+    this.points = res.points && this.pointListRoute(res.points);
+    this.routes = this.points && new LineRoute(this.points);
     this.hasRoute = this.hasData(res);
   }
 
   pointListRoute(points: IPointRouteResponse[]) {
-    return points.map((point) => {
+    return points?.map((point) => {
       const orderFounded = this.orders.find(
         (order) => order.orderId === point.code
       );

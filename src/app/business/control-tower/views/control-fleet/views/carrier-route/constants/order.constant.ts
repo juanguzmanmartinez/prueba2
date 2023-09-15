@@ -20,6 +20,7 @@ export enum EOrderStatus {
   enRuta = 'EN RUTA',
   asignado = 'ASIGNADO',
   cancelado = 'Cancelado',
+  enTienda = 'En tienda',
 }
 
 export const OrderDescription = {
@@ -43,6 +44,7 @@ export const OrderStatusColor = {
   [EOrderStatus.enRuta]: '#6C6FF2',
   [EOrderStatus.asignado]: '#7083AF',
   [EOrderStatus.cancelado]: '#D35530',
+  [EOrderStatus.enTienda]: '#6678a1',
 };
 
 export const DBOrder: OrderRoute[] = [

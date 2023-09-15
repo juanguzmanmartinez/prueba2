@@ -13,13 +13,16 @@ import {
 } from '../util/here-maps.util';
 import { ICoordinate } from '@interfaces/control-tower/control-tower.interface';
 import { OrderRoute } from '../models/order-route.model';
+import { OrderStatusColor } from '../constants/order.constant';
+import { ORDER_ROUTER_PATH } from '@parameters/router/routing/order/order-router-path.parameter';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HereMapsRoutingService {
   private router: any;
   private ui: any;
 
-  constructor(private hmService: HereMapsService) {
+  constructor(private hmService: HereMapsService, private routerNav: Router) {
     this.router = this.hmService.getPlatform().getRoutingService(null, 8);
   }
 
@@ -51,7 +54,6 @@ export class HereMapsRoutingService {
     const centerOrderControl = new CenterOrderControl(
       this.hmService.centerMarkers
     );
-    this.bubbleOpenListener(ui);
     ui.addControl('full-screen', fullScreenControl);
     ui.addControl('center-motorized', centerMotorizedControl);
     ui.addControl('center-order', centerOrderControl);
@@ -70,44 +72,42 @@ export class HereMapsRoutingService {
     );
     marker.setData({ marker: true, html: this.bubbleInfo(point.data) });
     if (point.type === 'ORDER') {
-      marker.addEventListener('tap', function (evt) {
-        this.showBubbleInfo(evt, ui);
-        // // Add a callback to change the close button color
-        // setTimeout(() => {
-        //   const closeButton = document.querySelector('.H_ib_close');
-        //   if (closeButton) {
-        //     closeButton.querySelector('svg').style.fill = 'white'; // Change SVG fill color
-        //   }
-        // }, 0);
+      marker.addEventListener('tap', (evt) => {
+        const adjustedPosition = {
+          lat: evt.target.getGeometry().lat + 0.005, // Adjust latitude
+          lng: evt.target.getGeometry().lng + 0.0015, // Adjust longitude
+        };
+        const bubble = new H.ui.InfoBubble(adjustedPosition, {
+          content: evt.target.getData().html,
+        });
+        ui.addBubble(bubble);
+
+        setTimeout(() => {
+          const viewDetailButton = document.getElementById('viewDetailButton');
+          if (viewDetailButton) {
+            viewDetailButton.addEventListener('click', () => {
+              this.navigateToOrder(point?.data?.orderId);
+            });
+          }
+        }, 0);
       });
     }
     map.addObject(marker);
   }
 
-  bubbleOpenListener(ui: any) {
-    ui.addEventListener('bubbleopen', () => {
-      setTimeout(() => {
-        const closeButton = document.querySelector('.H_ib_close');
-        if (closeButton) {
-          closeButton.querySelector('svg').style.fill = 'white';
-        }
-      }, 0);
-    });
-  }
-
-  showBubbleInfo(evt: any, ui: any) {
-    const bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
-      content: evt.target.getData().html,
-    });
-    ui.addBubble(bubble);
-  }
-
   bubbleInfo(order: OrderRoute) {
+    const stateColor = OrderStatusColor[order?.state] || '#304165';
     return (
-      `<div style="color:white;">Pedido: ${order?.orderId}</div>` +
-      `<div style="color:white;">Estado: ${order?.state}</div>` +
-      `<div style="color:white;">Ver Pedido</div>`
+      `<div class="text-body-3-regular">` +
+      `<div>Pedido: ${order?.orderId}</div>` +
+      `<div>Estado: <span style="color:${stateColor};" class="text-body-4-bold text-uppercase">${order?.state}</span></div>` +
+      `<div id="viewDetailButton" class="d-inline-flex text-decoration-underline cursor-pointer mt-2">Ver Pedido</div>` +
+      `</div>`
     );
+  }
+
+  navigateToOrder(id: string) {
+    this.routerNav.navigate([ORDER_ROUTER_PATH.orderDetail(id)]);
   }
 
   pointMotorized(coordinates: ICoordinate) {
