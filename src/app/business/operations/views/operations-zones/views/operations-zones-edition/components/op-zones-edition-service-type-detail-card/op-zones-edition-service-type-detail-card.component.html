@@ -1,7 +1,7 @@
 <app-card innerClass="px-4 py-4" *ngIf="zoneDetail">
   <div class="row mb-4">
     <div class="col-12">
-      <h5 class="text-h4 mb-0">
+      <h5 class="text-h6 mb-0">
         <span class="text-gray-7 mx-3">Zona principal</span>
       </h5>
     </div>
@@ -13,7 +13,7 @@
         class="me-5"
         [svgName]="zoneState ? 'ellipse-success' : 'ellipse-danger'"
       ></app-icon>
-      <h5 class="text-h5 text-black mb-0 ms-3">
+      <h5 class="text-body-1-bold text-black mb-0 ms-3">
         {{ zoneDetail.name }}
         <span class="text-gray-5"> - </span>
         <span class="text-gray-5 text-nowrap">COD {{ zoneDetail.code }}</span>
