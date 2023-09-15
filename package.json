@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
-    "start:qa2": "ng serve --configuration=qa2 --open",
+    "start:qas": "ng serve --configuration=qas --open",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

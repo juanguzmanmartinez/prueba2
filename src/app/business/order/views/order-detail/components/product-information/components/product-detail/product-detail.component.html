@@ -18,19 +18,19 @@
     </app-icon>
   </div>
   <div class="col-6">
-    <p class="text-body-2-bold text-gray-5 m-0 title">
+    <p class="text-body-3-bold text-gray-5 m-0 title">
       {{ product.presentationDescription }}
     </p>
     <div class="name">
-      <p class="text-body-2-regular text-gray-6 m-0">{{ product.name }}</p>
+      <p class="text-body-3-regular text-gray-6 m-0">{{ product.name }}</p>
     </div>
     <div class="d-inline-flex gap-1 mt-1 w-100">
-      <p class="text-body-2-regular text-gray-5 m-0">SKU</p>
-      <p class="text-body-2-bold text-gray-5 m-0">{{ product.sku }}</p>
+      <p class="text-body-3-regular text-gray-5 m-0">SKU</p>
+      <p class="text-body-3-bold text-gray-5 m-0">{{ product.sku }}</p>
     </div>
     <div class="d-inline-flex gap-1 mt-1 w-100">
-      <p class="text-body-2-regular text-gray-5 m-0">Cantidad:</p>
-      <p class="text-body-2-bold text-gray-6 m-0">{{ product.quantity }}</p>
+      <p class="text-body-3-regular text-gray-5 m-0">Cantidad:</p>
+      <p class="text-body-3-bold text-gray-6 m-0">{{ product.quantity }}</p>
     </div>
   </div>
   <div class="col-3 text-end">
@@ -44,20 +44,20 @@
           svgHeight="17px"
           innerClass="mt-1 me-2"
         ></app-icon>
-        <p class="text-body-2-bold m-0">
+        <p class="text-body-3-bold m-0">
           {{ product.totalPriceTOH | currency: "S/ " }}
         </p>
       </div>
     </ng-container>
     <ng-template #empty>
       <div>
-        <p class="text-body-2-bold m-0 text-hidden">
+        <p class="text-body-3-bold m-0 text-hidden">
           {{ product.totalPriceTOH | currency: "S/ " }}
         </p>
       </div>
     </ng-template>
     <p
-      class="text-body-2-regular text-gray-6 m-0"
+      class="text-body-3-regular text-gray-6 m-0"
       *ngIf="
         product.totalPriceAllPaymentMethod &&
         product.totalPriceAllPaymentMethod !== 0
@@ -66,7 +66,7 @@
       {{ product.totalPriceAllPaymentMethod | currency: "S/ " }}
     </p>
     <p
-      class="text-body-2-bold text-gray-4 text-decoration-line m-0"
+      class="text-body-3-bold text-gray-4 text-decoration-line m-0"
       [ngClass]="{
         'text-decoration-line':
           product.totalPriceAllPaymentMethod || product.totalPriceTOH,
