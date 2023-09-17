@@ -80,6 +80,11 @@ export class CarrierComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.carrierService.getErrorCarrierList().subscribe((hasError) => {
         this.hasError = hasError;
+        if (hasError) {
+          this.subscription.unsubscribe();
+          this.resetTimer();
+          this.stopTimer();
+        }
       })
     );
   }
@@ -117,6 +122,8 @@ export class CarrierComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.resetTimer();
+    this.stopTimer();
   }
 
   // timer
@@ -129,12 +136,14 @@ export class CarrierComponent implements OnInit, OnDestroy {
         this.formatTime(this.timer);
       } else {
         this.stopTimer();
-        this.carrierService.loadCarrierList().subscribe(() => {
-          if (this.carrierService.hasFilterStorage()) this.executeSearch();
-          this.carrierService.setLoadingCarrierList(false);
-          this.resetTimer();
-          this.startTimer();
-        });
+        this.subscription.add(
+          this.carrierService.loadCarrierList().subscribe(() => {
+            if (this.carrierService.hasFilterStorage()) this.executeSearch();
+            this.carrierService.setLoadingCarrierList(false);
+            this.resetTimer();
+            this.startTimer();
+          })
+        );
       }
     });
   }
