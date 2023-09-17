@@ -3,7 +3,7 @@
     class="custom-select-selected"
     (click)="toggleOptions()"
     [class.selected-active]="showOptions"
-    [class.selected-error]="isError"
+    [class.selected-error]="error"
     [class.selected-disabled]="isDisabled"
     [class.selected-option]="selectedOptions"
   >
@@ -43,4 +43,12 @@
       </div>
     </label>
   </div>
+</div>
+<div class="mt-2 text-error-50 text-body-3-regular d-flex-vertical-center" *ngIf="error && errorMessage">
+  <app-icon
+    svgName="alert-info-bold"
+    innerClass="text-error-50 me-1"
+    svgWidth="16px"
+  ></app-icon>
+  {{ errorMessage }}
 </div>

@@ -79,7 +79,6 @@ export class CarrierComponent implements OnInit, OnDestroy {
   loadErrorCarrierList() {
     this.subscription.add(
       this.carrierService.getErrorCarrierList().subscribe((hasError) => {
-        console.log('tiene error?', hasError);
         this.hasError = hasError;
       })
     );

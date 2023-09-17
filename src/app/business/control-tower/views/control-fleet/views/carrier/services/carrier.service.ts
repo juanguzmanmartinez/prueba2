@@ -38,7 +38,7 @@ export class CarrierService {
   getLoadingCarrierList(): Observable<boolean> {
     return this.carrierStore.loadingCarrierList$;
   }
-  
+
   getErrorCarrierList(): Observable<boolean> {
     return this.carrierStore.errorLoadCarrierList$;
   }
@@ -71,6 +71,10 @@ export class CarrierService {
           const localFilter = JSON.parse(storedLocalFilter);
           this.carrierFilterForm.localsControl().setValue(localFilter);
         }
+      }),
+      catchError(() => {
+        this.carrierStore.setErrorLoadLocalList(true);
+        return of([]);
       })
     );
   }
@@ -85,6 +89,10 @@ export class CarrierService {
           const stateFilter = JSON.parse(storedStateFilter);
           this.carrierFilterForm.carrierStateControl().setValue(stateFilter);
         }
+      }),
+      catchError(() => {
+        this.carrierStore.setErrorLoadStateList(true);
+        return of([]);
       })
     );
   }

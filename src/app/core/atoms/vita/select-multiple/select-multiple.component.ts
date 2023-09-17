@@ -26,13 +26,14 @@ import { ISelectOption } from '@interfaces/vita/select.interface';
 })
 export class SelectMultipleComponent implements ControlValueAccessor {
   @Input() options: ISelectOption[];
+  @Input() error: boolean = false;
+  @Input() errorMessage: string;
   @Output() onChangeOption = new EventEmitter<ISelectOption[]>();
   @ContentChild(TemplateRef) optionTemplate: TemplateRef<any>;
   selectedOptionTemplate: TemplateRef<any>;
 
   selectedOptions: ISelectOption[] | undefined;
   showOptions = false;
-  isError = false;
   isDisabled = false;
   value: any;
 

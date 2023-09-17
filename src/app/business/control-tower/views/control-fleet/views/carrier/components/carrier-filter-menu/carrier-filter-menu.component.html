@@ -7,6 +7,8 @@
     <fp-select-multiple
       [options]="carrierStateList"
       (onChangeOption)="onChangeStates($event)"
+      [error]="errorLoadStateList"
+      [errorMessage]="errorMessageState"
       formControlName="carrierStates"
     ></fp-select-multiple>
   </div>
@@ -14,6 +16,8 @@
     <fp-select-multiple
       [options]="localList"
       (onChangeOption)="onChangeLocals($event)"
+      [error]="errorLoadLocalList"
+      [errorMessage]="errorMessageLocal"
       formControlName="locals"
     ></fp-select-multiple>
   </div>

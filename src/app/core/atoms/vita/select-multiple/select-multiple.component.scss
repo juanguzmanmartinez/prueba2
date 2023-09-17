@@ -36,7 +36,7 @@
 }
 
 .selected-error {
-  border-color: #d35530 !important;
+  border-color: $semantic-error-50 !important;
 }
 
 .selected-disabled {
@@ -47,7 +47,7 @@
 }
 
 .custom-select-options {
-  height: 240px;
+  max-height: 240px;
   overflow-y: scroll;
   background-color: white;
   border-radius: 12px;

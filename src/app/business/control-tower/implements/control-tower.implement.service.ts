@@ -16,21 +16,21 @@ export class ControlTowerImplementService {
   constructor(private ctClientService: ControlTowerClientService) {}
 
   getCarrierStateList(): Observable<ISelectOption[]> {
-    return this.ctClientService.getCarrierStateList().pipe(
-      map((stateList) =>
-        stateList.map((state) => new CarrierStateFilter(state))
-      ),
-      catchError(() =>
-        of(CarrierStateDBDummy.map((state) => new CarrierStateFilter(state)))
-      )
-    );
+    return this.ctClientService
+      .getCarrierStateList()
+      .pipe(
+        map((stateList) =>
+          stateList.map((state) => new CarrierStateFilter(state))
+        )
+      );
   }
 
   getLocalList(): Observable<LocalFilter[]> {
-    return this.ctClientService.getLocalList().pipe(
-      map((localList) => localList.map((local) => new LocalFilter(local))),
-      catchError(() => of(LocalDBDummy.map((local) => new LocalFilter(local))))
-    );
+    return this.ctClientService
+      .getLocalList()
+      .pipe(
+        map((localList) => localList.map((local) => new LocalFilter(local)))
+      );
   }
 
   getCarrierList(): Observable<Carrier[]> {
