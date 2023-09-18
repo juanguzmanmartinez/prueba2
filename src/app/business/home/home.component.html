@@ -3,13 +3,13 @@
     <div class="col-12">
       <div class="row mb-7">
         <div class="col text-center">
-          <h1 class="text-h3 text-black mb-4">👋 Hola, {{user?.name}}</h1>
-          <p class="text-body-2-regular text-gray-6 mb-0">¿Qué módulo quieres gestionar?</p>
+          <h1 class="text-h5 text-black mb-4">👋 Hola, {{user?.name}}</h1>
+          <p class="text-body-3-regular text-gray-6 mb-0">¿Qué módulo quieres gestionar?</p>
         </div>
       </div>
 
       <div class="row mb-8" *appRouterAccess="routerPath.operations">
-        <h3 class="text-h3 text-black mb-5">Operaciones</h3>
+        <h3 class="text-h5 text-black mb-5">Operaciones</h3>
         <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.operationZones">
           <app-router [router]="routerPath.operationZones">
             <app-card-action cardIconSVG="navigation">
@@ -37,7 +37,7 @@
       </div>
 
       <div class="row mb-8" *appRouterAccess="routerPath.capacities">
-        <h3 class="text-h3 text-black mb-5">Capacidades</h3>
+        <h3 class="text-h5 text-black mb-5">Capacidades</h3>
         <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.capacitiesServiceType">
           <app-router [router]="routerPath.capacitiesServiceType">
             <app-card-action cardIconSVG="navigation">
@@ -49,7 +49,7 @@
       </div>
 
       <div class="row mb-8" *appRouterAccess="routerPath.order">
-        <h3 class="text-h3 text-black mb-5">Pedidos</h3>
+        <h3 class="text-h5 text-black mb-5">Pedidos</h3>
         <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.orderRecords">
           <app-router [router]="routerPath.orderRecords">
             <app-card-action cardIconSVG="dump">
@@ -61,7 +61,7 @@
       </div>
 
       <div class="row mb-8" *appRouterAccess="routerPath.controlTower">
-        <h3 class="text-h3 text-black mb-5">Torre de control</h3>
+        <h3 class="text-h5 text-black mb-5">Torre de control</h3>
         <div class="col-6 col-xl-6 mb-4" *appRouterAccess="routerPath.ctControlFleet">
           <app-router [router]="routerPath.ctControlFleet">
             <app-card-action cardIconSVG="motorcycle">
