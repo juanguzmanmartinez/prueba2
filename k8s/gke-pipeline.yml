@@ -105,10 +105,8 @@ stages:
             displayName: Install Node.js
             inputs:
               versionSpec: 14.17.6
-          - script: npm config set @here:registry https://repo.platform.here.com/artifactory/api/npm/maps-api-for-javascript/
-            displayName: 'Set npm registry for @here scope'
-          - script: npm install @here/maps-api-for-javascript --registry=https://repo.platform.here.com/artifactory/api/npm/maps-api-for-javascript/
-            displayName: 'Install @here/maps-api-for-javascript from custom registry'
+          - script: npm cache clean -f
+            displayName: 'Clear npm cache'
           - task: Npm@1
             displayName: npmInstall
             name: npmInstall
