@@ -2,7 +2,7 @@ import { TRouter } from '@models/auth/router.model';
 
 export const CT_ROUTER: TRouter = {
   path: 'torre-de-control',
-  name: 'Torre',
+  name: 'Torre de control',
   iconCard: 'dump',
   iconMenu: 'local_mall',
   description: 'Torre de control',

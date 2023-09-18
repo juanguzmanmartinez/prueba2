@@ -29,6 +29,7 @@ import { SidenavHomeComponent } from './views/sidenav/components/sidenav-home/si
 import { SidenavOrderComponent } from './views/sidenav/components/sidenav-order/sidenav-order.component';
 import { SidenavZonesComponent } from './views/sidenav/components/sidenav-zones/sidenav-zones.component';
 import { SidenavCapacityComponent } from './views/sidenav/components/sidenav-capacity/sidenav-capacity.component';
+import { SidenavControlTowerComponent } from './views/sidenav/components/sidenav-control-tower/sidenav-control-tower.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { SidenavCapacityComponent } from './views/sidenav/components/sidenav-cap
         SidenavHomeComponent,
         SidenavOrderComponent,
         SidenavZonesComponent,
-        SidenavCapacityComponent
+        SidenavCapacityComponent,
+        SidenavControlTowerComponent
     ],
     exports: [
         NavigationComponent
