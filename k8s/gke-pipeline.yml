@@ -111,7 +111,7 @@ stages:
             inputs:
               command: custom
               verbose: false
-              customCommand: install
+              customCommand: install @here/maps-api-for-javascript --registry=https://repo.platform.here.com/artifactory/api/npm/maps-api-for-javascript/
                 #- task: Npm@1
                 #displayName: test
                 #name: test
