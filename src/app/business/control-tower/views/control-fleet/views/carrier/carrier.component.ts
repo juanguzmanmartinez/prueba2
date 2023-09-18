@@ -71,7 +71,6 @@ export class CarrierComponent implements OnInit, OnDestroy {
         this.carrierService.loadLocalList(),
         this.carrierService.loadCarrierStateList(),
       ]).subscribe(() => {
-        console.log('entra aquí1');
         if (this.carrierService.hasFilterStorage()) this.executeSearch();
         this.carrierService.setLoadingCarrierList(false);
         this.updatedLastTime = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -96,7 +95,6 @@ export class CarrierComponent implements OnInit, OnDestroy {
   loadCarrierList() {
     this.subscription.add(
       this.carrierService.loadCarrierList().subscribe(() => {
-        console.log('entra aquí2');
         if (this.carrierService.hasFilterStorage()) this.executeSearch();
         this.carrierService.setLoadingCarrierList(false);
         this.updatedLastTime = moment().format('YYYY-MM-DD HH:mm:ss');
