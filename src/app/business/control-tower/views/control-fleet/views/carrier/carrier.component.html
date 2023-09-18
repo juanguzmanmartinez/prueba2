@@ -1,7 +1,9 @@
 <section>
   <ng-container *ngIf="!hasError; else errorView">
     <app-carrier-header
+      [updatedLastTime]="updatedLastTime"
       (download)="downloadMotorized()"
+      (update)="updateCarrierList()"
       [loadingTable]="loadingTable$ | async"
     ></app-carrier-header>
 

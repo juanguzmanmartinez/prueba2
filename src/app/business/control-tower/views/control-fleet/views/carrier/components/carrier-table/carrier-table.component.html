@@ -157,14 +157,16 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef column-width="5%"></th>
           <td mat-cell cell-bold *matCellDef="let element">
-            <app-button
-              class="d-flex justify-content-center align-items-center"
-              innerClass="d-flex align-items-center p-0"
-              (clicked)="navigateCarrierRoute(element.idCarrier)"
-              *ngIf="element.typeRoute === '1' && element.numberOfRoutes > 0"
-            >
-              <app-icon svgName="detail-icon" svgWidth="24px"></app-icon>
-            </app-button>
+            <app-tooltip value="Ver detalle de ruta">
+              <app-button
+                class="d-flex justify-content-center align-items-center"
+                innerClass="d-flex align-items-center p-0"
+                (clicked)="navigateCarrierRoute(element.idCarrier)"
+                *ngIf="element.typeRoute === '1' && element.numberOfRoutes > 0"
+              >
+                <app-icon svgName="detail-icon" svgWidth="24px"></app-icon>
+              </app-button>
+            </app-tooltip>
           </td>
         </ng-container>
 

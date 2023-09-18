@@ -19,6 +19,7 @@ import { CarrierListDBDummy } from 'app/business/control-tower/db-example/carrie
 import { CarrierService } from './services/carrier.service';
 import { SortEvent } from '@interfaces/vita/table.interface';
 import { ICarrierFilter } from './interfaces/carrier.interface';
+import moment from 'moment';
 @Component({
   selector: 'app-carrier',
   templateUrl: './carrier.component.html',
@@ -35,6 +36,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
   public filterList: ISelectOption[];
   public loadingTable$: Observable<boolean>;
   public hasError: boolean;
+  public updatedLastTime: string;
 
   public timer: number = 60; // Start at 60 seconds (1 minute)
   public displayTime: string;
@@ -69,8 +71,10 @@ export class CarrierComponent implements OnInit, OnDestroy {
         this.carrierService.loadLocalList(),
         this.carrierService.loadCarrierStateList(),
       ]).subscribe(() => {
+        console.log('entra aquí1');
         if (this.carrierService.hasFilterStorage()) this.executeSearch();
         this.carrierService.setLoadingCarrierList(false);
+        this.updatedLastTime = moment().format('YYYY-MM-DD HH:mm:ss');
         this.startTimer();
       })
     );
@@ -87,6 +91,24 @@ export class CarrierComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  loadCarrierList() {
+    this.subscription.add(
+      this.carrierService.loadCarrierList().subscribe(() => {
+        console.log('entra aquí2');
+        if (this.carrierService.hasFilterStorage()) this.executeSearch();
+        this.carrierService.setLoadingCarrierList(false);
+        this.updatedLastTime = moment().format('YYYY-MM-DD HH:mm:ss');
+        this.resetTimer();
+        this.startTimer();
+      })
+    );
+  }
+
+  updateCarrierList() {
+    this.stopTimer();
+    this.loadCarrierList();
   }
 
   filterCarrierList() {
@@ -135,15 +157,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
         this.timer--;
         this.formatTime(this.timer);
       } else {
-        this.stopTimer();
-        this.subscription.add(
-          this.carrierService.loadCarrierList().subscribe(() => {
-            if (this.carrierService.hasFilterStorage()) this.executeSearch();
-            this.carrierService.setLoadingCarrierList(false);
-            this.resetTimer();
-            this.startTimer();
-          })
-        );
+        this.updateCarrierList();
       }
     });
   }

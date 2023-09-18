@@ -6,5 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class CarrierHeaderComponent {
   @Output() download = new EventEmitter();
+  @Output() update = new EventEmitter();
+  @Input() updatedLastTime: string;
   @Input() loadingTable: boolean;
 }
