@@ -6,11 +6,17 @@ import {
   forwardRef,
   HostListener,
   Input,
+  OnInit,
   Output,
   TemplateRef,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { ISelectOption } from '@interfaces/vita/select.interface';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'fp-select-multiple',
@@ -24,10 +30,12 @@ import { ISelectOption } from '@interfaces/vita/select.interface';
     },
   ],
 })
-export class SelectMultipleComponent implements ControlValueAccessor {
+export class SelectMultipleComponent implements ControlValueAccessor, OnInit {
   @Input() options: ISelectOption[];
   @Input() error: boolean = false;
   @Input() errorMessage: string;
+  @Input() searchPlaceholder: string;
+  @Input() search: boolean = false;
   @Output() onChangeOption = new EventEmitter<ISelectOption[]>();
   @ContentChild(TemplateRef) optionTemplate: TemplateRef<any>;
   selectedOptionTemplate: TemplateRef<any>;
@@ -36,6 +44,7 @@ export class SelectMultipleComponent implements ControlValueAccessor {
   showOptions = false;
   isDisabled = false;
   value: any;
+  public searchControl = new FormControl();
 
   private onChange = (_: any) => {};
   private onTouched = () => {};
@@ -60,6 +69,10 @@ export class SelectMultipleComponent implements ControlValueAccessor {
 
   constructor(private elementRef: ElementRef) {
     this.selectedOptions = [];
+  }
+
+  ngOnInit(): void {
+    this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe();
   }
 
   writeValue(value: any[]): void {

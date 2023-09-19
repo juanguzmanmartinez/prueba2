@@ -21,7 +21,8 @@
     <app-icon svgName="select-arrow-down"></app-icon>
   </button>
   <div #containerElement class="custom-select-options" *ngIf="showOptions">
-    <label *ngFor="let option of options" class="custom-select-option">
+    <input [formControl]="searchControl" placeholder="Indica el nombre del local">
+    <label *ngFor="let option of options | search:searchControl.value" class="custom-select-option">
       <div class="w-100 d-flex align-items-center">
         <fp-checkbox
           class="me-2"
