@@ -21,8 +21,17 @@
     <app-icon svgName="select-arrow-down"></app-icon>
   </button>
   <div #containerElement class="custom-select-options" *ngIf="showOptions">
-    <input [formControl]="searchControl" placeholder="Indica el nombre del local">
-    <label *ngFor="let option of options | search:searchControl.value" class="custom-select-option">
+    <div class="custom-search-option" *ngIf="!error && search">
+      <fp-input
+        [formControl]="searchControl"
+        [placeholder]="searchPlaceholder"
+        [isSearch]="search"
+      ></fp-input>
+    </div>
+    <label
+      *ngFor="let option of options | search : searchControl.value"
+      class="custom-select-option"
+    >
       <div class="w-100 d-flex align-items-center">
         <fp-checkbox
           class="me-2"
@@ -45,7 +54,10 @@
     </label>
   </div>
 </div>
-<div class="mt-2 text-error-50 text-body-3-regular d-flex-vertical-center" *ngIf="error && errorMessage">
+<div
+  class="mt-2 text-error-50 text-body-3-regular d-flex-vertical-center"
+  *ngIf="error && errorMessage"
+>
   <app-icon
     svgName="alert-info-bold"
     innerClass="text-error-50 me-1"

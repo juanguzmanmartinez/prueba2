@@ -6,6 +6,7 @@ import { DirectivesModule } from 'app/shared/directives/directives.module';
 import { SelectMultipleComponent } from './select-multiple.component';
 import { CheckboxVitaModule } from '../checkbox/checkbox.module';
 import { SearchPipe } from './pipes/search.pipe';
+import { InputVitaModule } from '../input/input.module';
 // import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
 
 const COMPONENTS = [SelectMultipleComponent, SearchPipe];
@@ -19,6 +20,7 @@ const COMPONENTS = [SelectMultipleComponent, SearchPipe];
     IconsModule,
     DirectivesModule,
     CheckboxVitaModule,
+    InputVitaModule
   ],
 })
 export class SelectMultipleVitaModule {}

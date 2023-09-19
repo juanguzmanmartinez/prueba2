@@ -1,4 +1,4 @@
-@import "src/sass/variables";
+@import 'src/sass/variables';
 
 .custom-select {
   position: relative;
@@ -18,7 +18,7 @@
   justify-content: space-between;
   align-items: center;
 
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
@@ -82,6 +82,11 @@
   }
 }
 
+.custom-search-option {
+  position: relative;
+  padding: 14px 12px;
+}
+
 .custom-select-option {
   appearance: unset;
   background-color: white;
@@ -93,7 +98,7 @@
   border-radius: 8px;
   cursor: pointer;
 
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;

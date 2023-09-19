@@ -34,7 +34,7 @@ export class SelectMultipleComponent implements ControlValueAccessor, OnInit {
   @Input() options: ISelectOption[];
   @Input() error: boolean = false;
   @Input() errorMessage: string;
-  @Input() searchPlaceholder: string;
+  @Input() searchPlaceholder: string = 'Buscar';
   @Input() search: boolean = false;
   @Output() onChangeOption = new EventEmitter<ISelectOption[]>();
   @ContentChild(TemplateRef) optionTemplate: TemplateRef<any>;
