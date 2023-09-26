@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { ISelectOption } from '@interfaces/vita/select.interface';
 import { ControlFleetStorageByForm } from '../constants/carrier.constant';
+import { ICarrierFilter } from '../interfaces/carrier.interface';
 
 @Injectable()
 export class CarrierFilterFormService {
@@ -20,6 +21,13 @@ export class CarrierFilterFormService {
     const states = this.addFilterName(stateControlValue, 'carrierStates');
     const locals = this.addFilterName(localControlValue, 'locals');
     return [...states, ...locals];
+  }
+
+  getFilterLabel() {
+    const formValue = this.filterForm.value;
+    const carrierStates = formValue.carrierStates.map((state) => state.label);
+    const locals = formValue.locals.map((local) => local.label);
+    return { locals, carrierStates } as ICarrierFilter;
   }
 
   addFilterName(filterList: ISelectOption[], name: string) {

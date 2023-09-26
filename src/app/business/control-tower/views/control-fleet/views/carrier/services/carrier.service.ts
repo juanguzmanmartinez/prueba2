@@ -3,7 +3,7 @@ import { CarrierStore } from '../store/carrier.store';
 import { Observable, of } from 'rxjs';
 import { Carrier } from 'app/business/control-tower/models/carrier.model';
 import { ControlTowerImplementService } from 'app/business/control-tower/implements/control-tower.implement.service';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, retry, tap } from 'rxjs/operators';
 import { ICarrierFilter } from '../interfaces/carrier.interface';
 import { LocalFilter } from 'app/business/control-tower/models/local-filter.model';
 import { CarrierStateFilter } from 'app/business/control-tower/models/carrier-state-filter.model';
@@ -64,6 +64,7 @@ export class CarrierService {
 
   loadLocalList(): Observable<LocalFilter[]> {
     return this.ctImplService.getLocalList().pipe(
+      retry(2),
       tap((localList) => {
         this.carrierStore.setLocalList(localList);
         const storedLocalFilter = localStorage.getItem('cfLocalFilter');
@@ -81,8 +82,8 @@ export class CarrierService {
 
   loadCarrierStateList(): Observable<CarrierStateFilter[]> {
     return this.ctImplService.getCarrierStateList().pipe(
+      retry(2),
       tap((carrierStateList) => {
-        console.log(carrierStateList);
         this.carrierStore.setCarrierStateList(carrierStateList);
         const storedStateFilter = localStorage.getItem('cfStateFilter');
         if (storedStateFilter) {

@@ -71,10 +71,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
         this.carrierService.loadLocalList(),
         this.carrierService.loadCarrierStateList(),
       ]).subscribe(() => {
-        if (this.carrierService.hasFilterStorage()) this.executeSearch();
-        this.carrierService.setLoadingCarrierList(false);
-        this.updatedLastTime = moment().format('YYYY-MM-DD HH:mm:ss');
-        this.startTimer();
+        this.afterLoadExecuteSearch();
       })
     );
   }
@@ -95,11 +92,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
   loadCarrierList() {
     this.subscription.add(
       this.carrierService.loadCarrierList().subscribe(() => {
-        if (this.carrierService.hasFilterStorage()) this.executeSearch();
-        this.carrierService.setLoadingCarrierList(false);
-        this.updatedLastTime = moment().format('YYYY-MM-DD HH:mm:ss');
-        this.resetTimer();
-        this.startTimer();
+        this.afterLoadExecuteSearch();
       })
     );
   }
@@ -109,16 +102,20 @@ export class CarrierComponent implements OnInit, OnDestroy {
     this.loadCarrierList();
   }
 
+  afterLoadExecuteSearch() {
+    if (this.carrierService.hasFilterStorage()) this.executeSearch();
+    this.carrierService.setLoadingCarrierList(false);
+    this.updatedLastTime = moment().format('YYYY-MM-DD HH:mm:ss');
+    this.resetTimer();
+    this.startTimer();
+  }
+
   filterCarrierList() {
-    const formValue = this.carrierFilterForm.filterForm.value;
-    const carrierStates = formValue.carrierStates.map((state) => state.label);
-    const locals = formValue.locals.map((local) => local.label);
-    const carrierFilters = { locals, carrierStates } as ICarrierFilter;
+    const carrierFilters = this.carrierFilterForm.getFilterLabel();
     this.carrierService.filterCarrierList(carrierFilters);
   }
 
   navigateToCarrierRoute(idCarrier: string) {
-    // this.router.navigate([CT_ROUTER_PATH.ctCarrierRoute(idCarrier)]);
     window.open(CT_ROUTER_PATH.ctCarrierRoute(idCarrier), '_blank');
   }
 
