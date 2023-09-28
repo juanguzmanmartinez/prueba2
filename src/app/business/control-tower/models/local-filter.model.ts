@@ -7,6 +7,6 @@ export class LocalFilter implements ISelectOption {
 
   constructor(res: ILocalResponse) {
     this.value = res.localCode;
-    this.label = res.name;
+    this.label = `${res.localCode} - ${res.name}`;
   }
 }

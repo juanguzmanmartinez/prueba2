@@ -42,7 +42,7 @@ export class CarrierFilterMenuComponent implements OnInit {
 
   get hasFilters() {
     const { carrierStates, locals } = this.filterForm.value;
-    return carrierStates.length > 0 || locals.length > 0;
+    return carrierStates?.length > 0 || locals?.length > 0;
   }
 
   searchCarriers() {
