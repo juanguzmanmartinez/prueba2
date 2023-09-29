@@ -54,20 +54,10 @@ export class CarrierComponent implements OnInit, OnDestroy {
     this.localList$ = this.carrierService.getLocalList();
     this.carrierStateList$ = this.carrierService.getCarrierStateList();
     this.formatTime(this.timer);
-    this.loadCarrierSettings();
+    this.loadLocalList();
+    this.loadCarrierStateList();
+    this.loadCarrierList();
     this.loadErrorCarrierList();
-  }
-
-  loadCarrierSettings() {
-    this.subscription.add(
-      forkJoin([
-        this.carrierService.loadCarrierList(),
-        this.carrierService.loadLocalList(),
-        this.carrierService.loadCarrierStateList(),
-      ]).subscribe(() => {
-        this.afterLoadExecuteSearch();
-      })
-    );
   }
 
   loadErrorCarrierList() {
@@ -80,6 +70,16 @@ export class CarrierComponent implements OnInit, OnDestroy {
           this.stopTimer();
         }
       })
+    );
+  }
+
+  loadLocalList() {
+    this.subscription.add(this.carrierService.loadLocalList().subscribe());
+  }
+
+  loadCarrierStateList() {
+    this.subscription.add(
+      this.carrierService.loadCarrierStateList().subscribe()
     );
   }
 
