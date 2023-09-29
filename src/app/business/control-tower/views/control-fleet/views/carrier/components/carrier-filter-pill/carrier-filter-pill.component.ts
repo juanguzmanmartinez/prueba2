@@ -4,9 +4,8 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewChild,
 } from '@angular/core';
-import { ISelectOption } from '@interfaces/vita/select.interface';
+import { IPillFilter } from '@interfaces/control-tower/control-tower.filter.interface';
 
 @Component({
   selector: 'app-carrier-filter-pill',
@@ -16,7 +15,7 @@ import { ISelectOption } from '@interfaces/vita/select.interface';
 export class CarrierFilterPillComponent {
   private childElement: ElementRef;
 
-  @Input() filter: ISelectOption;
+  @Input() filter: IPillFilter;
   @Output() delete = new EventEmitter();
 
   constructor(private elementRef: ElementRef) {

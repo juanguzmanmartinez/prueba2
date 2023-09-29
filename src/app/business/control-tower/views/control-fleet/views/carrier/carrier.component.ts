@@ -4,22 +4,17 @@ import {
   HostListener,
   OnDestroy,
   OnInit,
-  ViewChild,
 } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { CT_ROUTER_PATH } from '@parameters/router/routing/control-tower/control-tower-path.parameter';
 import { ISelectOption } from '@interfaces/vita/select.interface';
 import { Observable, Subscription, forkJoin, interval } from 'rxjs';
 import { CarrierFilterFormService } from './services/carrier-filter-form.service';
 import { FormGroup } from '@angular/forms';
 import { Carrier } from 'app/business/control-tower/models/carrier.model';
-import { CarrierListDBDummy } from 'app/business/control-tower/db-example/carrier-list.db';
 import { CarrierService } from './services/carrier.service';
 import { SortEvent } from '@interfaces/vita/table.interface';
-import { ICarrierFilter } from './interfaces/carrier.interface';
 import moment from 'moment';
+import { IPillFilter } from '@interfaces/control-tower/control-tower.filter.interface';
 @Component({
   selector: 'app-carrier',
   templateUrl: './carrier.component.html',
@@ -33,7 +28,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
   public errorCarrierList$: Observable<boolean>;
   public carrierList: Carrier[];
   public filterForm: FormGroup;
-  public filterList: ISelectOption[];
+  public filterList: IPillFilter[];
   public loadingTable$: Observable<boolean>;
   public hasError: boolean;
   public updatedLastTime: string;
@@ -43,7 +38,6 @@ export class CarrierComponent implements OnInit, OnDestroy {
   private timerSubscription: Subscription;
 
   constructor(
-    private router: Router,
     private carrierFilterForm: CarrierFilterFormService,
     private carrierService: CarrierService
   ) {}
@@ -103,7 +97,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
   }
 
   afterLoadExecuteSearch() {
-    if (this.carrierService.hasFilterStorage()) this.executeSearch();
+    this.executeSearch();
     this.carrierService.setLoadingCarrierList(false);
     this.updatedLastTime = moment().format('YYYY-MM-DD HH:mm:ss');
     this.resetTimer();
@@ -111,8 +105,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
   }
 
   filterCarrierList() {
-    const carrierFilters = this.carrierFilterForm.getFilterLabel();
-    this.carrierService.filterCarrierList(carrierFilters);
+    this.carrierService.filterCarrierList();
   }
 
   navigateToCarrierRoute(idCarrier: string) {
@@ -120,11 +113,11 @@ export class CarrierComponent implements OnInit, OnDestroy {
   }
 
   executeSearch() {
-    this.filterList = this.carrierFilterForm.getfilterPillList();
+    this.filterList = this.carrierService.getFilterSelectedList();
     this.filterCarrierList();
   }
 
-  deleteOptionFilter(filter: ISelectOption) {
+  deleteOptionFilter(filter: IPillFilter) {
     this.carrierFilterForm.deleteOptionFilter(filter);
     this.executeSearch();
   }

@@ -1,6 +1,6 @@
 import { Injectable, LOCALE_ID } from '@angular/core';
 import { CarrierStore } from '../store/carrier.store';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Carrier } from 'app/business/control-tower/models/carrier.model';
 import { ControlTowerImplementService } from 'app/business/control-tower/implements/control-tower.implement.service';
 import { catchError, retry, tap } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { CarrierStateFilter } from 'app/business/control-tower/models/carrier-st
 import { ExportTableSelection } from 'app/shared/utils/export-table-selection.util';
 import { SortEvent } from '@interfaces/vita/table.interface';
 import { CarrierFilterFormService } from './carrier-filter-form.service';
+import { IPillFilter } from '@interfaces/control-tower/control-tower.filter.interface';
 
 @Injectable()
 export class CarrierService {
@@ -49,15 +50,10 @@ export class CarrierService {
       tap((carrierList) => {
         this.carrierStore.setErrorLoadCarrierList(false);
         this.carrierStore.loadCarrierList(carrierList);
-        const storedSortEvent = localStorage.getItem('sortEvent');
-        if (storedSortEvent) {
-          const sortEvent = JSON.parse(storedSortEvent);
-          this.sortColumn(sortEvent);
-        }
       }),
-      catchError(() => {
+      catchError((error) => {
         this.carrierStore.setErrorLoadCarrierList(true);
-        return of([]);
+        return throwError(error);
       })
     );
   }
@@ -67,15 +63,10 @@ export class CarrierService {
       retry(2),
       tap((localList) => {
         this.carrierStore.setLocalList(localList);
-        const storedLocalFilter = localStorage.getItem('cfLocalFilter');
-        if (storedLocalFilter) {
-          const localFilter = JSON.parse(storedLocalFilter);
-          this.carrierFilterForm.localsControl().setValue(localFilter);
-        }
       }),
-      catchError(() => {
+      catchError((error) => {
         this.carrierStore.setErrorLoadLocalList(true);
-        return of([]);
+        return throwError(error);
       })
     );
   }
@@ -85,40 +76,29 @@ export class CarrierService {
       retry(2),
       tap((carrierStateList) => {
         this.carrierStore.setCarrierStateList(carrierStateList);
-        const storedStateFilter = localStorage.getItem('cfStateFilter');
-        if (storedStateFilter) {
-          const stateFilter = JSON.parse(storedStateFilter);
-          this.carrierFilterForm.carrierStateControl().setValue(stateFilter);
-        }
       }),
-      catchError(() => {
+      catchError((error) => {
         this.carrierStore.setErrorLoadStateList(true);
-        return of([]);
+        return throwError(error);
       })
     );
   }
 
-  filterCarrierList(carrierFilter: ICarrierFilter): void {
-    const { locals, carrierStates } = carrierFilter;
+  filterCarrierList(): void {
+    const locals = this.carrierStore.localSelectedListValue();
+    const carrierStates = this.carrierStore.stateSelectedListValue();
 
     if (locals?.length === 0 && carrierStates?.length === 0) {
       this.carrierStore.loadInitialCarrierList();
     } else {
-      this.carrierStore.filterCarrierList(carrierFilter);
+      this.carrierStore.filterCarrierList();
     }
   }
 
-  hasFilterStorage(): boolean {
-    const storedLocalFilter = localStorage.getItem('cfLocalFilter');
-    const storedStateFilter = localStorage.getItem('cfStateFilter');
-    if (storedLocalFilter || storedStateFilter) {
-      const localFilter = JSON.parse(storedLocalFilter);
-      const stateFilter = JSON.parse(storedStateFilter);
-      if (localFilter.length > 0 || stateFilter.length > 0) {
-        return true;
-      }
-    }
-    return false;
+  getFilterSelectedList() {
+    const states = this.carrierStore.stateSelectedListPillValue();
+    const locals = this.carrierStore.localSelectedListPillValue();
+    return [...states, ...locals];
   }
 
   downloadMotorized(): void {
@@ -152,7 +132,5 @@ export class CarrierService {
         this.carrierStore.sortCarrierList(event);
       }
     }
-
-    localStorage.setItem('sortEvent', JSON.stringify(event));
   }
 }

@@ -76,7 +76,8 @@ export class SelectMultipleComponent implements ControlValueAccessor, OnInit {
   }
 
   writeValue(value: any[]): void {
-    this.selectedOptions = value || [];
+    this.selectedOptions =
+      this.options?.filter((option) => value.includes(option.value)) || [];
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -92,16 +93,6 @@ export class SelectMultipleComponent implements ControlValueAccessor, OnInit {
     this.showOptions = !this.showOptions;
   }
 
-  // selectOption(option: ISelectOption, optionTemplate: TemplateRef<any>) {
-  //   this.selectedOption = option;
-  //   this.selectedOptionTemplate = optionTemplate;
-  //   this.value = option.value;
-  //   this.showOptions = false;
-  //   this.onChange(this.value);
-  //   this.onTouched();
-  //   this.onChangeOption.emit(option);
-  // }
-
   toggleOption(option: any, isChecked: boolean) {
     if (isChecked) {
       this.selectedOptions.push(option);
@@ -112,7 +103,7 @@ export class SelectMultipleComponent implements ControlValueAccessor, OnInit {
       }
     }
     this.onChangeOption.emit(this.selectedOptions);
-    this.onChange(this.selectedOptions);
+    this.onChange(this.selectedOptions.map((opt) => opt.value));
     this.onTouched();
   }
 

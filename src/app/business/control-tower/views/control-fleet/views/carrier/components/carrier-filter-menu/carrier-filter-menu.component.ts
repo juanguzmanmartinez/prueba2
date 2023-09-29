@@ -46,13 +46,14 @@ export class CarrierFilterMenuComponent implements OnInit {
   }
 
   searchCarriers() {
-    this.search.emit(123);
+    this.search.emit();
   }
 
-  onChangeStates(event: ISelectOption[]) {
-    localStorage.setItem('cfStateFilter', JSON.stringify(event));
+  onChangeStates(selectedOptions: ISelectOption[]) {
+    this.carrierStore.setStateSelectedList(selectedOptions);
   }
-  onChangeLocals(event: ISelectOption[]) {
-    localStorage.setItem('cfLocalFilter', JSON.stringify(event));
+  
+  onChangeLocals(selectedOptions: ISelectOption[]) {
+    this.carrierStore.setLocalSelectedList(selectedOptions);
   }
 }

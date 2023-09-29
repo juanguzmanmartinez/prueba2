@@ -3,12 +3,14 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { ISelectOption } from '@interfaces/vita/select.interface';
 import { ControlFleetStorageByForm } from '../constants/carrier.constant';
 import { ICarrierFilter } from '../interfaces/carrier.interface';
+import { IPillFilter } from '@interfaces/control-tower/control-tower.filter.interface';
+import { CarrierStore } from '../store/carrier.store';
 
 @Injectable()
 export class CarrierFilterFormService {
   public filterForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private carrierStore: CarrierStore) {
     this.filterForm = this.fb.group({
       carrierStates: [[]],
       locals: [[]],
@@ -39,17 +41,14 @@ export class CarrierFilterFormService {
     });
   }
 
-  deleteOptionFilter(option: ISelectOption) {
-    const {
-      value: { id, filter },
-    } = option;
-    const filterSelected = this.filterForm.get(filter).value;
+  deleteOptionFilter(optionSelected: IPillFilter) {
+    const { name, option } = optionSelected;
+    const filterSelected = this.filterForm.get(name).value;
     const filterAfterRemove = filterSelected.filter(
-      (optionFilter) => optionFilter.value !== id
+      (optionFilter) => optionFilter !== option.value
     );
-
-    this.setFilterToLocalStorage(filter, filterAfterRemove);
-    this.filterForm.get(filter).setValue(filterAfterRemove);
+    this.carrierStore.deleteOptionSelected(optionSelected);
+    this.filterForm.get(name).setValue(filterAfterRemove);
   }
 
   carrierStateControl() {
@@ -58,10 +57,5 @@ export class CarrierFilterFormService {
 
   localsControl() {
     return this.filterForm.get('locals') as AbstractControl;
-  }
-
-  setFilterToLocalStorage(filter: string, value: ISelectOption[]) {
-    const storageKey = ControlFleetStorageByForm[filter];
-    localStorage.setItem(storageKey, JSON.stringify(value));
   }
 }

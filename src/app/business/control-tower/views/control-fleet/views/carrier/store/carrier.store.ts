@@ -9,6 +9,7 @@ import {
   ascendingSortString,
   descendingSortString,
 } from 'app/business/control-tower/util/order-table.function';
+import { IPillFilter } from '@interfaces/control-tower/control-tower.filter.interface';
 
 @Injectable()
 export class CarrierStore {
@@ -16,6 +17,8 @@ export class CarrierStore {
   private carrierList = new BehaviorSubject<Carrier[]>(null);
   private localList = new BehaviorSubject<LocalFilter[]>(null);
   private carrierStateList = new BehaviorSubject<CarrierStateFilter[]>(null);
+  private localSelectedList = new BehaviorSubject<LocalFilter[]>([]);
+  private stateSelectedList = new BehaviorSubject<CarrierStateFilter[]>([]);
   private loadingCarrierList = new BehaviorSubject<boolean>(true);
   private errorLoadCarrierList = new BehaviorSubject<boolean>(false);
   private errorLoadLocalList = new BehaviorSubject<boolean>(false);
@@ -29,6 +32,8 @@ export class CarrierStore {
   public errorLoadCarrierList$ = this.errorLoadCarrierList.asObservable();
   public errorLoadLocalList$ = this.errorLoadLocalList.asObservable();
   public errorLoadStateList$ = this.errorLoadStateList.asObservable();
+  public localSelectedList$ = this.localSelectedList.asObservable();
+  public stateSelectedList$ = this.stateSelectedList.asObservable();
 
   setCarrierList(carrierList) {
     this.carrierList.next(carrierList);
@@ -42,10 +47,18 @@ export class CarrierStore {
     this.carrierStateList.next(carrierStateList);
   }
 
+  setLocalSelectedList(selectedOptions: LocalFilter[]) {
+    this.localSelectedList.next(selectedOptions);
+  }
+
+  setStateSelectedList(selectedOptions: CarrierStateFilter[]) {
+    this.stateSelectedList.next(selectedOptions);
+  }
+
   setloadingCarrierList(loading: boolean) {
     this.loadingCarrierList.next(loading);
   }
-  
+
   setErrorLoadCarrierList(hasError: boolean) {
     this.errorLoadCarrierList.next(hasError);
   }
@@ -66,9 +79,11 @@ export class CarrierStore {
     this.setCarrierList(this.carrierListInitialValue());
   }
 
-  filterCarrierList(carrierFilter: ICarrierFilter) {
-    const { locals, carrierStates } = carrierFilter;
+  filterCarrierList() {
+    const locals = this.localSelectedLabelList();
+    const carrierStates = this.stateSelectedLabelList();
     let carrierList = [...this.carrierListInitialValue()];
+    
     if (carrierStates && carrierStates.length > 0) {
       carrierList = carrierList.filter((carrier) =>
         carrierStates?.includes(carrier.state)
@@ -88,6 +103,54 @@ export class CarrierStore {
 
   carrierListInitialValue() {
     return this.carrierListInitial.getValue();
+  }
+
+  localSelectedListValue() {
+    return this.localSelectedList.getValue();
+  }
+
+  stateSelectedListValue() {
+    return this.stateSelectedList.getValue();
+  }
+
+  localSelectedLabelList() {
+    return this.localSelectedListValue().map((local) => local.label);
+  }
+
+  stateSelectedLabelList() {
+    return this.stateSelectedListValue().map((state) => state.label);
+  }
+
+  deleteOptionSelected(optionSelected: IPillFilter) {
+    const { name, option } = optionSelected;
+    if (name === 'locals') this.deleteLocalOptionSelected(option.value);
+    if (name === 'carrierStates') this.deleteStateOptionSelected(option.value);
+  }
+
+  deleteLocalOptionSelected(value: string) {
+    const locals = [...this.localSelectedListValue()];
+    const localsAfterRemove = locals.filter((local) => local.value !== value);
+    this.setLocalSelectedList(localsAfterRemove);
+  }
+
+  deleteStateOptionSelected(value: string) {
+    const states = [...this.stateSelectedListValue()];
+    const statesAfterRemove = states.filter((state) => state.value !== value);
+    this.setStateSelectedList(statesAfterRemove);
+  }
+
+  localSelectedListPillValue(): IPillFilter[] {
+    const locals = [...this.localSelectedListValue()];
+    return locals.map((local) => {
+      return { name: 'locals', option: local } as IPillFilter;
+    });
+  }
+
+  stateSelectedListPillValue(): IPillFilter[] {
+    const states = [...this.stateSelectedListValue()];
+    return states.map((state) => {
+      return { name: 'carrierStates', option: state } as IPillFilter;
+    });
   }
 
   sortCarrierList(event: SortEvent) {
