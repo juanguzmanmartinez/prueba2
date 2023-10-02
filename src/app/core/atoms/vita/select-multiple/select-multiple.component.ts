@@ -77,7 +77,7 @@ export class SelectMultipleComponent implements ControlValueAccessor, OnInit {
 
   writeValue(value: any[]): void {
     this.selectedOptions =
-      this.options?.filter((option) => value.includes(option.value)) || [];
+      this.options?.filter((option) => value?.includes(option.value)) || [];
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

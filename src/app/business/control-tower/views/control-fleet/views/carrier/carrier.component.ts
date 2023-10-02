@@ -132,6 +132,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.carrierService.resetFilterSelected();
     this.resetTimer();
     this.stopTimer();
   }

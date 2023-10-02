@@ -101,6 +101,13 @@ export class CarrierService {
     return [...states, ...locals];
   }
 
+  resetFilterSelected(): void {
+    this.carrierStore.setLocalSelectedList([]);
+    this.carrierStore.setStateSelectedList([]);
+    this.carrierFilterForm.localsControl().reset();
+    this.carrierFilterForm.carrierStateControl().reset();
+  }
+
   downloadMotorized(): void {
     const carrierList = this.carrierStore.carrierListValue();
     try {
