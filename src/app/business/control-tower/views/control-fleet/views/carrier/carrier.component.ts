@@ -47,6 +47,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
   @HostListener('document:click', ['$event'])
   clickout(event) {
     this.resetTimer();
+    this.startTimer();
   }
 
   ngOnInit(): void {
@@ -60,7 +61,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
     this.loadCarrierStateList();
     this.loadCarrierList();
     this.loadErrorCarrierList();
-    document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
+    this.addVisibilityListener();
   }
 
   loadErrorCarrierList() {
@@ -138,10 +139,24 @@ export class CarrierComponent implements OnInit, OnDestroy {
     this.carrierService.resetFilterSelected();
     this.resetTimer();
     this.stopTimer();
-    document.removeEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
+    this.removeVisibilityListener();
   }
 
   // timer
+
+  addVisibilityListener() {
+    document.addEventListener(
+      'visibilitychange',
+      this.handleVisibilityChange.bind(this)
+    );
+  }
+
+  removeVisibilityListener() {
+    document.removeEventListener(
+      'visibilitychange',
+      this.handleVisibilityChange.bind(this)
+    );
+  }
 
   handleVisibilityChange() {
     if (document.hidden) {
