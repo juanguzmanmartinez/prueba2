@@ -1,3 +1,4 @@
+export const UPDATE_TIME = 60 as const;
 export const ColumnNameList = {
   orderNumber: 'orderNumber',
   orderId: 'orderId',

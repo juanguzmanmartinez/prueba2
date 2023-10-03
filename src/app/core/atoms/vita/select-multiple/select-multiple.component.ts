@@ -91,6 +91,7 @@ export class SelectMultipleComponent implements ControlValueAccessor, OnInit {
 
   toggleOptions() {
     this.showOptions = !this.showOptions;
+    this.searchControl.reset();
   }
 
   toggleOption(option: any, isChecked: boolean) {

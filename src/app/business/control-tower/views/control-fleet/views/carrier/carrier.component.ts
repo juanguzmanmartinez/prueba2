@@ -15,6 +15,7 @@ import { CarrierService } from './services/carrier.service';
 import { SortEvent } from '@interfaces/vita/table.interface';
 import moment from 'moment';
 import { IPillFilter } from '@interfaces/control-tower/control-tower.filter.interface';
+import { UPDATE_TIME } from './constants/carrier.constant';
 @Component({
   selector: 'app-carrier',
   templateUrl: './carrier.component.html',
@@ -33,9 +34,10 @@ export class CarrierComponent implements OnInit, OnDestroy {
   public hasError: boolean;
   public updatedLastTime: string;
 
-  public timer: number = 60; // Start at 60 seconds (1 minute)
+  public timer: number = UPDATE_TIME;
   public displayTime: string;
   private timerSubscription: Subscription;
+  public hiddenTime: number;
 
   constructor(
     private carrierFilterForm: CarrierFilterFormService,
@@ -58,6 +60,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
     this.loadCarrierStateList();
     this.loadCarrierList();
     this.loadErrorCarrierList();
+    document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
   }
 
   loadErrorCarrierList() {
@@ -92,7 +95,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
   }
 
   updateCarrierList() {
-    this.stopTimer();
+    // this.stopTimer();
     this.loadCarrierList();
   }
 
@@ -135,9 +138,20 @@ export class CarrierComponent implements OnInit, OnDestroy {
     this.carrierService.resetFilterSelected();
     this.resetTimer();
     this.stopTimer();
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
   }
 
   // timer
+
+  handleVisibilityChange() {
+    if (document.hidden) {
+      this.hiddenTime = Date.now();
+    } else {
+      const timeDifference = Math.floor((Date.now() - this.hiddenTime) / 1000);
+      this.timer -= timeDifference;
+      this.formatTime(this.timer);
+    }
+  }
 
   startTimer() {
     const timerObservable = interval(1000); // 1 second interval
@@ -158,7 +172,8 @@ export class CarrierComponent implements OnInit, OnDestroy {
   }
 
   resetTimer() {
-    this.timer = 60; // Reset to 60 seconds (1 minute)
+    this.stopTimer();
+    this.timer = UPDATE_TIME; // Reset to 60 seconds (1 minute)
     this.formatTime(this.timer);
   }
 
