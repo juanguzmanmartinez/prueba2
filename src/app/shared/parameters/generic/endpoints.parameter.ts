@@ -48,7 +48,7 @@ export class EndpointsParameter {
   public static PTACH_CAPACITIES = `${API_GATEWAY}/fulfillment/store/capacity/update`;
   public static VALIDATE_STORES = `${API_GATEWAY}/fulfillment/store/capacity/template/validate`;
 
-  public static CT_CARRIER_STATE_LIST = `${API_GATEWAY}/v0.1/router/statesMotorizeds`;
+  public static CT_CARRIER_STATE_LIST = `${API_GATEWAY}/v0.1/router/states-motorized`;
   public static CT_CARRIER_LIST = `${API_GATEWAY}/v0.1/router/all-motorized`;
   public static CT_LOCAL_LIST = `${API_GATEWAY}/fulfillment/routing-store`;
   public static CT_DETAIL_ROUTE = `${API_GATEWAY}/v0.1/router/route-detail`;
