@@ -39,6 +39,7 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
   public idCarrier: string;
   public hasRoute: boolean;
   public loading: boolean = true;
+  public isPendingFinalized: boolean;
   private subscription: Subscription;
 
   public displayedColumns: string[] = [
@@ -71,9 +72,16 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription = this.crService
       .loadDetailRoute(this.idCarrier)
       .subscribe((data: CarrierRoute) => {
+        this.isPendingFinalized = data.pendingFinalized;
         this.hasRoute = data.hasRoute;
         this.loading = false;
-        if (this.hasRoute && this.mapElement && this.mapElement.nativeElement) {
+        if (!this.hasRoute || this.isPendingFinalized) {
+          this.mapElement.nativeElement.style.height = '100px';
+        } else if (
+          this.hasRoute &&
+          this.mapElement &&
+          this.mapElement.nativeElement
+        ) {
           const element = this.mapElement.nativeElement;
           this.map = this.hmRoutingService.initializeMap(
             element,
@@ -88,10 +96,6 @@ export class CarrierRouteComponent implements OnInit, AfterViewInit, OnDestroy {
             data.routes.destination,
             data.routes.vias
           );
-        }
-
-        if (!this.hasRoute) {
-          this.mapElement.nativeElement.style.height = '100px';
         }
       });
   }

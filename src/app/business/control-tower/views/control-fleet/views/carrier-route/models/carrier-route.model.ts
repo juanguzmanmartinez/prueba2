@@ -20,6 +20,7 @@ export class CarrierRoute {
   points: PointRoute[];
   routes: LineRoute;
   hasRoute: boolean;
+  pendingFinalized: boolean;
 
   constructor(res: IDetailRouteResponse) {
     this.routeId = res.routeId;
@@ -34,6 +35,7 @@ export class CarrierRoute {
     this.points = res.points && this.pointListRoute(res.points);
     this.routes = this.points && new LineRoute(this.points);
     this.hasRoute = this.hasData(res);
+    this.pendingFinalized = res.pendingFinalized;
   }
 
   pointListRoute(points: IPointRouteResponse[]) {

@@ -6,6 +6,7 @@ import { formatHour } from '../util/format-dates.function';
 })
 export class FormatPausedPipe implements PipeTransform {
   transform(value: string): string {
+    if (value === '-') return value;
     if (value.toLowerCase() === 'no') return 'No';
     const splitted = value.split(' ');
     const hourFormat = formatHour(splitted[1]);

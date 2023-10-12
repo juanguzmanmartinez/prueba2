@@ -62,4 +62,5 @@ export interface IDetailRouteResponse {
   lng: number;
   orders: IOrderRouteResponse[];
   points: IPointRouteResponse[];
+  pendingFinalized: boolean;
 }

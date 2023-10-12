@@ -62,6 +62,7 @@ import { FormatEntryTimePipe } from '../../pipes/format-entry-time.pipe';
 import { FormatPausedPipe } from '../../pipes/format-paused.pipe';
 import { NoRouteComponent } from '../../error-pages/no-route/no-route.component';
 import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewer.module';
+import { PendingFinalizedComponent } from '../../error-pages/pending-finalized/pending-finalized.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { HttpErrorViewerModule } from '@pages/http-error-viewer/http-error-viewe
     DetailRoute,
     FormatEntryTimePipe,
     FormatPausedPipe,
-    NoRouteComponent
+    NoRouteComponent,
+    PendingFinalizedComponent
   ],
   imports: [
     ControlFleetRoutingModule,
