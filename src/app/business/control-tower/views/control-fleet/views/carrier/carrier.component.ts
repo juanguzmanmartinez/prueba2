@@ -15,7 +15,9 @@ import { CarrierService } from './services/carrier.service';
 import { SortEvent } from '@interfaces/vita/table.interface';
 import moment from 'moment';
 import { IPillFilter } from '@interfaces/control-tower/control-tower.filter.interface';
-import { UPDATE_TIME } from './constants/carrier.constant';
+import { UPDATE_TIME, sortColumns } from './constants/carrier.constant';
+import { ICarrierListRequest } from '@interfaces/control-tower/control-tower.interface';
+import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-carrier',
   templateUrl: './carrier.component.html',
@@ -38,6 +40,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
   public displayTime: string;
   private timerSubscription: Subscription;
   public hiddenTime: number;
+  public sortColumns = sortColumns;
 
   constructor(
     private carrierFilterForm: CarrierFilterFormService,
@@ -87,16 +90,18 @@ export class CarrierComponent implements OnInit, OnDestroy {
     );
   }
 
-  loadCarrierList() {
+  loadCarrierList(req?: ICarrierListRequest) {
     this.subscription.add(
-      this.carrierService.loadCarrierList().subscribe(() => {
-        this.afterLoadExecuteSearch();
+      this.carrierService.loadCarrierList(req).subscribe(() => {
+        this.carrierService.setLoadingCarrierList(false);
+        this.updatedLastTime = moment().format('YYYY-MM-DD HH:mm:ss');
+        this.resetTimer();
+        this.startTimer();
       })
     );
   }
 
   updateCarrierList() {
-    // this.stopTimer();
     this.loadCarrierList();
   }
 
@@ -118,7 +123,12 @@ export class CarrierComponent implements OnInit, OnDestroy {
 
   executeSearch() {
     this.filterList = this.carrierService.getFilterSelectedList();
-    this.filterCarrierList();
+    const { locals, carrierStates } = this.carrierFilterForm.filterForm.value;
+    const request = {
+      locals: locals.toString(),
+      states: carrierStates.toString(),
+    } as ICarrierListRequest;
+    this.loadCarrierList(request);
   }
 
   deleteOptionFilter(filter: IPillFilter) {
@@ -131,7 +141,19 @@ export class CarrierComponent implements OnInit, OnDestroy {
   }
 
   sortColumn(event: SortEvent) {
-    this.carrierService.sortColumn(event);
+    const { column, order } = event;
+    const request = {
+      orderBy: column,
+      orderType: order,
+    } as ICarrierListRequest;
+    this.carrierService.reloadTable(this.sortColumns, event);
+    this.loadCarrierList(request);
+  }
+
+  page(event: PageEvent) {
+    const { pageIndex } = event;
+    const request = { page: pageIndex } as ICarrierListRequest;
+    this.loadCarrierList(request);
   }
 
   ngOnDestroy(): void {

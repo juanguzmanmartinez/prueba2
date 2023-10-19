@@ -13,25 +13,27 @@ import {
 } from '../../constants/carrier.constant';
 import { Carrier } from 'app/business/control-tower/models/carrier.model';
 import { CarrierStore } from '../../store/carrier.store';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { SortEvent } from '@interfaces/vita/table.interface';
+import { IPagination } from '@interfaces/control-tower/control-tower.interface';
 
 @Component({
   selector: 'app-carrier-table',
   templateUrl: './carrier-table.component.html',
 })
 export class CarrierTableComponent implements OnInit, OnDestroy {
-
   @Input() displayTime: string;
   @Output() navigate = new EventEmitter<string>();
   @Output() sort = new EventEmitter<SortEvent>();
+  @Output() page = new EventEmitter();
 
   public totalCarrier: number;
   public dataSource = new MatTableDataSource<any>();
   public displayedColumns = displayedColumns;
   public sortColumns = sortColumns;
   public carrierList: Carrier[];
-  public loading = true;
+  public loading$: Observable<boolean>;
+  public pagination$: Observable<IPagination>;
   public pageSize = 30;
   private subscription = new Subscription();
 
@@ -39,7 +41,8 @@ export class CarrierTableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadCarrierList();
-    this.loadingCarrierList();
+    this.loading$ = this.carrierStore.loadingCarrierList$;
+    this.pagination$ = this.carrierStore.pagination$;
   }
 
   loadCarrierList() {
@@ -48,14 +51,6 @@ export class CarrierTableComponent implements OnInit, OnDestroy {
         this.carrierList = carrierList;
         this.dataSource.data = carrierList;
       })
-    );
-  }
-
-  loadingCarrierList() {
-    this.subscription.add(
-      this.carrierStore.loadingCarrierList$.subscribe(
-        (loading) => (this.loading = loading)
-      )
     );
   }
 

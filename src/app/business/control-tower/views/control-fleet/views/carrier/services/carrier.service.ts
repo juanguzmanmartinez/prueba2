@@ -3,7 +3,7 @@ import { CarrierStore } from '../store/carrier.store';
 import { Observable, of, throwError } from 'rxjs';
 import { Carrier } from 'app/business/control-tower/models/carrier.model';
 import { ControlTowerImplementService } from 'app/business/control-tower/implements/control-tower.implement.service';
-import { catchError, retry, tap } from 'rxjs/operators';
+import { catchError, finalize, retry, tap } from 'rxjs/operators';
 import { ICarrierFilter } from '../interfaces/carrier.interface';
 import { LocalFilter } from 'app/business/control-tower/models/local-filter.model';
 import { CarrierStateFilter } from 'app/business/control-tower/models/carrier-state-filter.model';
@@ -11,6 +11,8 @@ import { ExportTableSelection } from 'app/shared/utils/export-table-selection.ut
 import { SortEvent } from '@interfaces/vita/table.interface';
 import { CarrierFilterFormService } from './carrier-filter-form.service';
 import { IPillFilter } from '@interfaces/control-tower/control-tower.filter.interface';
+import { CarrierList } from 'app/business/control-tower/models/carrier-list.model';
+import { ICarrierListRequest } from '@interfaces/control-tower/control-tower.interface';
 
 @Injectable()
 export class CarrierService {
@@ -44,17 +46,23 @@ export class CarrierService {
     return this.carrierStore.errorLoadCarrierList$;
   }
 
-  loadCarrierList(): Observable<Carrier[]> {
+  loadCarrierList(req?: ICarrierListRequest): Observable<CarrierList> {
     this.setLoadingCarrierList(true);
-    return this.ctImplService.getCarrierList().pipe(
+    const currentReq = this.carrierStore.getRequest();
+    const request = { ...currentReq, ...req };
+    return this.ctImplService.getCarrierList(request).pipe(
       tap((carrierList) => {
+        const { carriers, pagination } = carrierList;
+        this.carrierStore.setRequest(request);
         this.carrierStore.setErrorLoadCarrierList(false);
-        this.carrierStore.loadCarrierList(carrierList);
+        this.carrierStore.loadCarrierList(carriers);
+        this.carrierStore.setPagination(pagination);
       }),
       catchError((error) => {
         this.carrierStore.setErrorLoadCarrierList(true);
         return throwError(error);
-      })
+      }),
+      finalize(() => this.setLoadingCarrierList(false))
     );
   }
 
@@ -139,5 +147,19 @@ export class CarrierService {
         this.carrierStore.sortCarrierList(event);
       }
     }
+  }
+
+  reloadTable(sortColumns: any, event: SortEvent) {
+    for (const sortColumnsKey in sortColumns) {
+      if (sortColumns[sortColumnsKey].column !== event.column) {
+        sortColumns[sortColumnsKey].reload = true;
+      }
+    }
+
+    setTimeout(() => {
+      for (const sortColumnsKey of Object.keys(sortColumns)) {
+        sortColumns[sortColumnsKey].reload = false;
+      }
+    }, 200);
   }
 }

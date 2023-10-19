@@ -1,4 +1,4 @@
-<div *ngIf="!loading">
+<div *ngIf="!(loading$ | async)">
   <div
     class="d-flex justify-content-between align-items-center mb-4 text-body-1-regular text-neutral-90 user-select-none"
   >
@@ -8,183 +8,188 @@
       <span class="text-body-1-bold">{{ displayTime }}</span>
     </span>
   </div>
-  <div class="row">
-    <div class="col-12 mb-8">
-      <table
-        mat-table
-        large-table
-        [dataSource]="dataSource"
-        class="order-table"
-      >
-        <ng-container matColumnDef="local">
-          <th
-            mat-header-cell
-            column-width="16%"
-            *matHeaderCellDef
-            app-sort-custom
-            [column]="sortColumns.local.column"
-            [reload]="sortColumns.local.reload"
-            (currentOrder)="sortData($event)"
-          >
-            Local
-          </th>
-          <td
-            mat-cell
-            cell-bold
-            *matCellDef="let element"
-            class="text-neutral-90 text-body-3-regular"
-          >
-            {{ element.local }}
-          </td>
-        </ng-container>
+</div>
+<div class="row">
+  <div class="col-12 mb-8">
+    <table
+      mat-table
+      large-table
+      [dataSource]="dataSource"
+      class="order-table"
+      [hidden]="loading$ | async"
+    >
+      <ng-container matColumnDef="local">
+        <th
+          mat-header-cell
+          column-width="16%"
+          *matHeaderCellDef
+          app-sort-custom
+          [column]="sortColumns.local.column"
+          [reload]="sortColumns.local.reload"
+          (currentOrder)="sortData($event)"
+        >
+          Local
+        </th>
+        <td
+          mat-cell
+          cell-bold
+          *matCellDef="let element"
+          class="text-neutral-90 text-body-3-regular"
+        >
+          {{ element.local }}
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="carrier">
-          <th
-            mat-header-cell
-            column-width="20%"
-            *matHeaderCellDef
-            app-sort-custom
-            [column]="sortColumns.carrier.column"
-            [reload]="sortColumns.carrier.reload"
-            (currentOrder)="sortData($event)"
-          >
-            Nombre de transportista
-          </th>
-          <td
-            mat-cell
-            *matCellDef="let element"
-            class="text-neutral-90 text-body-3-regular"
-          >
-            <span class="d-block">{{ element.carrier }}</span>
-            <span class="d-block mt-1">
-              <app-tag
-                [tagColor]="danger"
-                appearance="pill-colored-full-purple-blue"
-                *ngIf="element.isPendingRoute"
-              >
-                Ruta pendiente
-              </app-tag>
-            </span>
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="carrier">
+        <th
+          mat-header-cell
+          column-width="20%"
+          *matHeaderCellDef
+          app-sort-custom
+          [column]="sortColumns.carrier.column"
+          [reload]="sortColumns.carrier.reload"
+          (currentOrder)="sortData($event)"
+        >
+          Nombre de transportista
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="text-neutral-90 text-body-3-regular"
+        >
+          <span class="d-block">{{ element.carrier }}</span>
+          <span class="d-block mt-1">
+            <app-tag
+              [tagColor]="danger"
+              appearance="pill-colored-full-purple-blue"
+              *ngIf="element.isPendingRoute"
+            >
+              Ruta pendiente
+            </app-tag>
+          </span>
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="provider">
-          <th
-            mat-header-cell
-            column-width="15%"
-            *matHeaderCellDef
-            app-sort-custom
-            [column]="sortColumns.provider.column"
-            [reload]="sortColumns.provider.reload"
-            (currentOrder)="sortData($event)"
-          >
-            Proveedor
-          </th>
-          <td
-            mat-cell
-            *matCellDef="let element"
-            class="text-neutral-90 text-body-3-regular"
-          >
-            {{ element.provider }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="startHour">
-          <th
-            mat-header-cell
-            column-width="12%"
-            *matHeaderCellDef
-            app-sort-custom
-            class="th-center"
-            [column]="sortColumns.startHour.column"
-            [reload]="sortColumns.startHour.reload"
-            (currentOrder)="sortData($event)"
-          >
-            Hora ingreso
-          </th>
-          <td
-            mat-cell
-            *matCellDef="let element"
-            class="text-neutral-90 text-body-3-regular"
-          >
-            {{ element.startHour | formatEntryTime }}
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="provider">
+        <th
+          mat-header-cell
+          column-width="15%"
+          *matHeaderCellDef
+          app-sort-custom
+          [column]="sortColumns.provider.column"
+          [reload]="sortColumns.provider.reload"
+          (currentOrder)="sortData($event)"
+        >
+          Proveedor
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="text-neutral-90 text-body-3-regular"
+        >
+          {{ element.provider }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="startHour">
+        <th
+          mat-header-cell
+          column-width="12%"
+          *matHeaderCellDef
+          app-sort-custom
+          class="th-center"
+          [column]="sortColumns.startHour.column"
+          [reload]="sortColumns.startHour.reload"
+          (currentOrder)="sortData($event)"
+        >
+          Hora ingreso
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="text-neutral-90 text-body-3-regular"
+        >
+          {{ element.startHour | formatEntryTime }}
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="state">
-          <th
-            mat-header-cell
-            column-width="8%"
-            *matHeaderCellDef
-            app-sort-custom
-            header-cell-center
-            [column]="sortColumns.state.column"
-            [reload]="sortColumns.state.reload"
-            (currentOrder)="sortData($event)"
-          >
-            Estado
-          </th>
-          <td
-            mat-cell
-            *matCellDef="let element"
-            class="text-body-4-bold text-secondary-60"
-          >
-            {{ element.state }}
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="state">
+        <th
+          mat-header-cell
+          column-width="8%"
+          *matHeaderCellDef
+          app-sort-custom
+          header-cell-center
+          [column]="sortColumns.state.column"
+          [reload]="sortColumns.state.reload"
+          (currentOrder)="sortData($event)"
+        >
+          Estado
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="text-body-4-bold text-secondary-60"
+        >
+          {{ element.state }}
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="paused">
-          <th
-            mat-header-cell
-            column-width="8%"
-            *matHeaderCellDef
-            app-sort-custom
-            [column]="sortColumns.paused.column"
-            [reload]="sortColumns.paused.reload"
-            (currentOrder)="sortData($event)"
-            class="th-center"
-          >
-            Pausado
-          </th>
-          <td
-            mat-cell
-            *matCellDef="let element"
-            class="text-neutral-100 text-body-3-regular"
-          >
-            {{ element.paused | formatPaused }}
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="paused">
+        <th
+          mat-header-cell
+          column-width="8%"
+          *matHeaderCellDef
+          app-sort-custom
+          [column]="sortColumns.paused.column"
+          [reload]="sortColumns.paused.reload"
+          (currentOrder)="sortData($event)"
+          class="th-center"
+        >
+          Pausado
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="text-neutral-100 text-body-3-regular"
+        >
+          {{ element.paused | formatPaused }}
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef column-width="5%"></th>
-          <td mat-cell cell-bold *matCellDef="let element">
-            <app-tooltip value="Ver detalle de ruta" position="above">
-              <app-button
-                class="d-flex justify-content-center align-items-center"
-                innerClass="d-flex align-items-center p-0"
-                (clicked)="navigateCarrierRoute(element.idCarrier)"
-                *ngIf="element.typeRoute === '1' && element.numberOfRoutes > 0"
-              >
-                <app-icon svgName="detail-icon" svgWidth="24px"></app-icon>
-              </app-button>
-            </app-tooltip>
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef column-width="5%"></th>
+        <td mat-cell cell-bold *matCellDef="let element">
+          <app-tooltip value="Ver detalle de ruta" position="above">
+            <app-button
+              class="d-flex justify-content-center align-items-center"
+              innerClass="d-flex align-items-center p-0"
+              (clicked)="navigateCarrierRoute(element.idCarrier)"
+              *ngIf="element.typeRoute === '1' && element.numberOfRoutes > 0"
+            >
+              <app-icon svgName="detail-icon" svgWidth="24px"></app-icon>
+            </app-button>
+          </app-tooltip>
+        </td>
+      </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr
-          mat-row
-          row-hover
-          *matRowDef="let row; columns: displayedColumns"
-        ></tr>
-      </table>
-    </div>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        row-hover
+        *matRowDef="let row; columns: displayedColumns"
+      ></tr>
+    </table>
   </div>
 </div>
-<app-table-loader *ngIf="loading" [cells]="6"></app-table-loader>
-<div class="d-flex justify-content-center">
+<app-table-loader *ngIf="loading$ | async" [cells]="6"></app-table-loader>
+<div
+  class="d-flex justify-content-center"
+  *ngIf="!(loading$ | async) && carrierList.length > 0"
+>
   <fp-paginator
-    *ngIf="!loading"
-    [length]="carrierList.length"
+    [length]="(pagination$ | async)?.totalElements"
     [pageSize]="pageSize"
+    [pageIndex]="(pagination$ | async)?.page"
+    (page)="page.emit($event)"
   ></fp-paginator>
 </div>

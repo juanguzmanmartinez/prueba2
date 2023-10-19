@@ -1,6 +1,9 @@
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GenericService } from '@clients/generic/generic.service';
 import {
+  ICarrierListRequest,
+  ICarrierListResponse,
   ICarrierResponse,
   ICarrierStateResponse,
   IDetailRouteResponse,
@@ -29,9 +32,23 @@ export class ControlTowerClientService {
     return this.genericService.genericGet<ILocalResponse[]>(endpoint);
   }
 
-  getCarrierList(): Observable<ICarrierResponse[]> {
+  getCarrierList(
+    request?: ICarrierListRequest
+  ): Observable<ICarrierListResponse> {
     const endpoint = this.CT_CARRIER_LIST;
-    return this.genericService.genericGet<ICarrierResponse[]>(endpoint);
+    let params = new HttpParams();
+    if (request) {
+      const { locals, states, page, orderBy, orderType } = request;
+      if (locals) params = params.set('locals', locals);
+      if (states) params = params.set('states', states);
+      if (page) params = params.set('page', String(page));
+      if (orderBy) params = params.set('orderBy', orderBy);
+      if (orderType) params = params.set('orderType', orderType);
+    }
+    return this.genericService.genericGet<ICarrierListResponse>(
+      endpoint,
+      params
+    );
   }
 
   getDetailRoute(id: string): Observable<IDetailRouteResponse> {

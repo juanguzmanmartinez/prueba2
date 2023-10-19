@@ -64,3 +64,23 @@ export interface IDetailRouteResponse {
   points: IPointRouteResponse[];
   pendingFinalized: boolean;
 }
+
+export interface ICarrierListRequest {
+  locals: string;
+  states: string;
+  page: number;
+  orderBy: string;
+  orderType: string;
+}
+
+export interface IPagination {
+  totalElements: number;
+  page: number;
+  pageSize?: number;
+  pageElements?: number;
+}
+
+export interface ICarrierListResponse {
+  motorizeds: ICarrierResponse[];
+  pagination: IPagination;
+}

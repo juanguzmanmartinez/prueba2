@@ -10,6 +10,10 @@ import {
   descendingSortString,
 } from 'app/business/control-tower/util/order-table.function';
 import { IPillFilter } from '@interfaces/control-tower/control-tower.filter.interface';
+import {
+  ICarrierListRequest,
+  IPagination,
+} from '@interfaces/control-tower/control-tower.interface';
 
 @Injectable()
 export class CarrierStore {
@@ -23,6 +27,8 @@ export class CarrierStore {
   private errorLoadCarrierList = new BehaviorSubject<boolean>(false);
   private errorLoadLocalList = new BehaviorSubject<boolean>(false);
   private errorLoadStateList = new BehaviorSubject<boolean>(false);
+  private request = new BehaviorSubject<ICarrierListRequest>(null);
+  private pagination = new BehaviorSubject<IPagination>(null);
 
   public carrierListInitial$ = this.carrierListInitial.asObservable();
   public carrierList$ = this.carrierList.asObservable();
@@ -34,6 +40,20 @@ export class CarrierStore {
   public errorLoadStateList$ = this.errorLoadStateList.asObservable();
   public localSelectedList$ = this.localSelectedList.asObservable();
   public stateSelectedList$ = this.stateSelectedList.asObservable();
+  public request$ = this.request.asObservable();
+  public pagination$ = this.pagination.asObservable();
+
+  setPagination(pagination: IPagination) {
+    this.pagination.next(pagination);
+  }
+
+  setRequest(req: ICarrierListRequest) {
+    this.request.next(req);
+  }
+
+  getRequest() {
+    return this.request.value;
+  }
 
   setCarrierList(carrierList) {
     this.carrierList.next(carrierList);
@@ -83,7 +103,7 @@ export class CarrierStore {
     const locals = this.localSelectedLabelList();
     const carrierStates = this.stateSelectedLabelList();
     let carrierList = [...this.carrierListInitialValue()];
-    
+
     if (carrierStates && carrierStates.length > 0) {
       carrierList = carrierList.filter((carrier) =>
         carrierStates?.includes(carrier.state)

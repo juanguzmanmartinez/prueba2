@@ -10,6 +10,8 @@ import { LocalDBDummy } from '../db-example/local.db';
 import { LocalFilter } from '../models/local-filter.model';
 import { CarrierStateFilter } from '../models/carrier-state-filter.model';
 import { CarrierRoute } from '../views/control-fleet/views/carrier-route/models/carrier-route.model';
+import { CarrierList } from '../models/carrier-list.model';
+import { ICarrierListRequest } from '@interfaces/control-tower/control-tower.interface';
 
 @Injectable()
 export class ControlTowerImplementService {
@@ -33,12 +35,10 @@ export class ControlTowerImplementService {
       );
   }
 
-  getCarrierList(): Observable<Carrier[]> {
+  getCarrierList(req?: ICarrierListRequest): Observable<CarrierList> {
     return this.ctClientService
-      .getCarrierList()
-      .pipe(
-        map((carrierList) => carrierList.map((carrier) => new Carrier(carrier)))
-      );
+      .getCarrierList(req)
+      .pipe(map((carrierList) => new CarrierList(carrierList)));
   }
 
   getDetailRoute(id: string) {
