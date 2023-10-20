@@ -22,6 +22,15 @@ export const displayedColumns: string[] = [
   'actions',
 ];
 
+export const CParamOrderCarrier = {
+  local: 'localFullName',
+  carrier: 'nameMotorized',
+  provider: 'supplier',
+  startHour: 'entryTime',
+  state: 'stateDescription',
+  paused: 'slow',
+};
+
 export const sortColumns = {
   local: {
     column: 'local',

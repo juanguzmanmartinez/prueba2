@@ -15,7 +15,7 @@ import { CarrierService } from './services/carrier.service';
 import { SortEvent } from '@interfaces/vita/table.interface';
 import moment from 'moment';
 import { IPillFilter } from '@interfaces/control-tower/control-tower.filter.interface';
-import { UPDATE_TIME, sortColumns } from './constants/carrier.constant';
+import { CParamOrderCarrier, UPDATE_TIME, sortColumns } from './constants/carrier.constant';
 import { ICarrierListRequest } from '@interfaces/control-tower/control-tower.interface';
 import { PageEvent } from '@angular/material/paginator';
 @Component({
@@ -143,7 +143,7 @@ export class CarrierComponent implements OnInit, OnDestroy {
   sortColumn(event: SortEvent) {
     const { column, order } = event;
     const request = {
-      orderBy: column,
+      orderBy: CParamOrderCarrier[column],
       orderType: order,
     } as ICarrierListRequest;
     this.carrierService.reloadTable(this.sortColumns, event);
