@@ -13,7 +13,6 @@ then
   echo "Starting Web Server Inkafarma UAT"
   nginx -g 'daemon off;'
 else
-  echo "Setting up project $app:$environment"
   echo "Starting Web Server"
   nginx -g 'daemon off;'
 fi

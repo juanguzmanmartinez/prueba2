@@ -3,7 +3,7 @@ export const environment = {
   show_logs: false,
   envName: 'qas-omnichannel',
   api_gateway: 'https://fduetuxpf0.execute-api.us-east-1.amazonaws.com/QAS',
-  api_gateway_order: 'https://fduetuxpf0.execute-api.us-east-1.amazonaws.com/QAS',
+  api_gateway_order: 'https://fduetuxpf0.execute-api.us-east-1.amazonaws.com/QAS-audit',
   api_gateway_auth: 'https://vsfpgmkkvf.execute-api.us-east-1.amazonaws.com/QAS',
   authUsername: 'adm-operations',
   authPassword: 'ypej47Qm14QhjB93Sf',

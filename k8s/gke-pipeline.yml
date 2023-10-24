@@ -438,12 +438,12 @@ stages:
                   displayName: setvariables
                   name: setvariables
                 - bash: |
-                    sed -i 's/#{AWS_REGION}/$(AWS_REGION)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
-                    sed -i 's/#{TAG}/$(tag)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
-                    sed -i 's/#{PORT}/$(PORT)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
-                    sed -i 's/#{TARGET_PORT}/$(TARGET_PORT)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
-                    sed -i 's/#{PROFILE}/$(PROFILE_UAT)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
-                    sed -i 's/#{NAMESPACE}/$(NAMESPACE)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
+                    sed -i 's/#{AWS_REGION}/$(AWS_REGION)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
+                    sed -i 's/#{TAG}/$(tag)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
+                    sed -i 's/#{PORT}/$(PORT)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
+                    sed -i 's/#{TARGET_PORT}/$(TARGET_PORT)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
+                    sed -i 's/#{PROFILE}/$(PROFILE_UAT)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
+                    sed -i 's/#{NAMESPACE}/$(NAMESPACE)/g' $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
                   displayName: replaceParameters
                   name: replaceParameters
                 - task: enkelwill.aws-iam-authenticator.custom-build-release-task.aws-eks-authenticator@0
@@ -458,7 +458,7 @@ stages:
                     connectionType: Kubernetes Service Connection
                     kubernetesServiceEndpoint: $(AWS_EKS_UAT)
                     command: apply
-                    arguments: -f $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat.yml
+                    arguments: -f $(Pipeline.Workspace)/k8s/eks/eks-deployment-uat-r1.yml
                     versionOrLocation: version
                     versionSpec: $(KUBECTL_VERSION)
   - stage: uatDeploy
@@ -714,7 +714,7 @@ stages:
           vmImage: $(vmImageName)
         variables:
           subdomain: $(namespace)-$(owner)-$(typeapp)-$(nameapp)
-          domain: fapedigital.com
+          domain: fapeti.com
           secret: fapedigital-com
         strategy:
           runOnce:
@@ -757,7 +757,7 @@ stages:
                 - task: AzureCLI@2
                   displayName: AutoRecordDNS
                   inputs:
-                    azureSubscription: 'SP-LOWENVIRONMENTS-GCP'
+                    azureSubscription: 'SP-HIGHENVIRONMENTS-GCP'
                     scriptType: 'bash'
                     scriptLocation: 'inlineScript'
-                    inlineScript: 'az network dns record-set a add-record -g rg_certificates -z fapedigital.com -n $(namespace)-$(owner)-$(typeapp)-$(nameapp) -a 34.110.190.6'
+                    inlineScript: 'az network dns record-set a add-record -g rg_certificates -z fapeti.com -n $(namespace)-$(owner)-$(typeapp)-$(nameapp) -a 34.110.190.6'
