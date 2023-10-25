@@ -1,0 +1,33 @@
+<div *appRouterAccess="routerPath.capacities">
+  <app-sidenav-route-expansion
+    [disableChildren]="!sidenav?.opened"
+    [routePathOptions]="{ exact: sidenav?.opened }"
+    [routePath]="routerPath.capacities"
+    [routeText]="sidenavRouting.name"
+    [svgName]="sidenavRouting.svgMenu"
+  
+    (sidenavOpen)="onSidenavOpen()"
+  >
+    <app-sidenav-route
+      *appRouterAccess="routerPath.capacitiesServiceType"
+      [routePathOptions]="{ exact: false }"
+      [routePath]="[routerPath.capacitiesServiceType]"
+      routeText="Configurar capacidades base"
+    >
+    </app-sidenav-route>
+    <!-- <app-sidenav-route
+      *appRouterAccess="routerPath.intervalPath"
+      [routePathOptions]="{ exact: false }"
+      [routePath]="[routerPath.intervalPath]"
+      routeText="Editar interval time flexible"
+    >
+    </app-sidenav-route>
+    <app-sidenav-route
+      *appRouterAccess="routerPath.reportPath"
+      [routePathOptions]="{ exact: false }"
+      [routePath]="[routerPath.reportPath]"
+      routeText="Reporte de capacidades"
+    >
+    </app-sidenav-route> -->
+  </app-sidenav-route-expansion>
+</div>

@@ -1,35 +1,63 @@
 <div class="input-datepicker-range-container datepicker-container">
-    <label class="datepicker-label"
-           [class.disabled]="disabled">
-
-        <mat-date-range-input [rangePicker]="pickerRange"
-                              [min]="minDate"
-                              [max]="maxDate"
-                              [formGroup]="formGroup"
-                              [disabled]="disabled"
-                              separator="-">
-            <input matStartDate
-                   class="datepicker-input"
-                   formControlName="startDate"
-                   [name]="name"
-                   [placeholder]="placeholder">
-            <input matEndDate
-                   class="datepicker-input"
-                   formControlName="endDate"
-                   [name]="name"
-                   [placeholder]="placeholder">
-        </mat-date-range-input>
-        <mat-datepicker-toggle class="datepicker-icon"
-                               [for]="pickerRange"
-                               [disabled]="disabled"
-                               [disableRipple]="true">
-            <app-icon svgName="datepicker"
-                      svgWidth="12px"
-                      matDatepickerToggleIcon></app-icon>
-        </mat-datepicker-toggle>
-    </label>
-    <mat-date-range-picker #pickerRange
-                           [calendarHeaderComponent]="pickerHeaderComponent"
-                           [disabled]="disabled">
-    </mat-date-range-picker>
+  <label class="datepicker-label" [class.disabled]="disabled" [class.error-datepicker]="error">
+    <mat-date-range-input
+      [rangePicker]="pickerRange"
+      [min]="minDate"
+      [max]="maxDate"
+      [formGroup]="formGroup"
+      [disabled]="disabled"
+      separator="-"
+    >
+      <input
+        matStartDate
+        disabled
+        class="datepicker-input"
+        formControlName="startDate"
+        [name]="name"
+        [placeholder]="placeholder"
+      />
+      <input
+        matEndDate
+        disabled
+        class="datepicker-input"
+        formControlName="endDate"
+        [name]="name"
+        [placeholder]="placeholder"
+      />
+    </mat-date-range-input>
+    <mat-datepicker-toggle
+      class="datepicker-icon"
+      [for]="pickerRange"
+      [disabled]="disabled"
+      [disableRipple]="true"
+    >
+      <app-icon
+        svgName="datepicker"
+        svgWidth="12px"
+        matDatepickerToggleIcon
+      ></app-icon>
+    </mat-datepicker-toggle>
+  </label>
+  <mat-date-range-picker
+    #pickerRange
+    [calendarHeaderComponent]="pickerHeaderComponent"
+    [disabled]="disabled"
+  >
+    <mat-date-range-picker-actions>
+      <app-button
+        matDateRangePickerCancel
+        [inlineStyle]="{ 'margin-right': '30px' }"
+        (click)="cancel.emit(true)"
+      >
+        Regresar
+      </app-button>
+      <app-button
+        appearance="primary"
+        [inlineStyle]="{ width: '107px' }"
+        matDateRangePickerApply
+      >
+        Aplicar
+      </app-button>
+    </mat-date-range-picker-actions>
+  </mat-date-range-picker>
 </div>

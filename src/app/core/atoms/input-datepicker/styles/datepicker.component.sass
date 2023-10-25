@@ -1,11 +1,12 @@
 @import "src/sass/variables/colors.variable"
+@import "src/sass/variables/utilities.variable"
 @import "src/sass/mixins/utilities.mixin"
 @import "src/sass/mixins/text.mixin"
 
 mat-datepicker-content.mat-datepicker-content
-  box-shadow: 0 20px 40px rgba(9, 39, 85, 0.08)
+  box-shadow: $box-shadow
   border: 0.5px solid $gray-1
-  border-radius: 4px
+  border-radius: $border-radius
   color: $black
   background-color: $white
 
@@ -21,7 +22,7 @@ mat-datepicker-content.mat-datepicker-content
 
   .mat-calendar-table-header th
     color: $gray-5
-    @include text-label
+    @include text-body-1-regular
 
 
   .mat-calendar-body-label:not(:last-of-type)
@@ -38,7 +39,7 @@ mat-datepicker-content.mat-datepicker-content
   .mat-calendar-body-selected
     background-color: $primary
     color: $white
-    @include text-subtitle-2
+    @include text-h5
 
   .mat-calendar-body-in-range::before
     background-color: $light-primary
@@ -57,7 +58,7 @@ mat-datepicker-content.mat-datepicker-content
 
   .mat-date-range-input-start-wrapper,
   .mat-date-range-input-end-wrapper
-    height: 38px
+    height: 40px
     min-width: 80px
 
 
@@ -78,12 +79,12 @@ mat-datepicker-content.mat-datepicker-content
 
   .datepicker-input
     color: $black
-    height: 38px
-    @include text-label
+    height: 40px
+    @include text-body-1-regular
 
     @include placeholder
       color: $gray-4
-      @include text-label
+      @include text-body-1-regular
 
   .datepicker-icon
     position: absolute
@@ -91,7 +92,7 @@ mat-datepicker-content.mat-datepicker-content
     top: 0
 
     .mat-icon-button
-      height: 38px
+      height: 40px
       width: auto
       padding-right: 16px
       padding-left: 12px

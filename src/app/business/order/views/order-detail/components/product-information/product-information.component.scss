@@ -1,0 +1,44 @@
+@import "src/sass/variables/colors.variable";
+@import "src/sass/variables/fonts.variable";
+
+.show-removed-products {
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.show-products {
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.rotate {
+  transform: rotate(180deg) !important
+}
+
+.detail {
+  p {
+    margin: 0 0 24px 0;
+    font-size: 12px;
+    letter-spacing: $letter-spacing-regular;
+
+    &:nth-child(odd) {
+      font-weight: 400;
+      color: $gray-5;
+    }
+
+    &:nth-child(even) {
+      font-weight: 500;
+      color: $gray-6;
+    }
+  }
+}
+
+.productText {
+  font-weight: 600 !important;
+}

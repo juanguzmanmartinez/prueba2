@@ -1,0 +1,37 @@
+<div class="d-flex align-items-center justify-content-between py-5">
+  <div class="d-flex flex-column align-items-start">
+    <div class="d-flex mb-3">
+      <app-router router="/">
+        <div class="cursor-pointer d-flex-center">
+          <app-icon
+            svgName="arrow-left-secondary"
+            innerClass="me-2"
+            svgWidth="12px"
+          ></app-icon>
+          <span class="text-body-3-bold text-secondary-60">Ir a inicio</span>
+        </div>
+      </app-router>
+    </div>
+    <h6 class="text-h6 text-neutral-100 m-0">Control de flota</h6>
+  </div>
+  <div class="d-flex align-items-center">
+    <p class="text-body-2-regular text-neutral-100 my-0 me-4">
+      Última actualización: {{ updatedLastTime | formatEntryTime }}
+      <span class="text-link-2 cursor-pointer" (click)="update.emit()">Actualizar</span>
+    </p>
+    <fp-button
+      color="secondary"
+      innerClass="ms-1"
+      (clicked)="download.emit()"
+      [disabled]="loadingTable"
+    >
+      <app-icon
+        svgName="download-blue"
+        svgWidth="20px"
+        innerClass="me-2"
+        [disabled]="loadingTable"
+      ></app-icon>
+      Descargar
+    </fp-button>
+  </div>
+</div>

@@ -1,47 +1,52 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ZoneDetail } from '../../../../models/operations-zones.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
-    selector: 'app-op-zones-edition-home-backup-stock-backup-card',
-    templateUrl: './op-zones-edition-home-backup-stock-backup-card.component.html',
-    styleUrls: ['./op-zones-edition-home-backup-stock-backup-card.component.sass']
+  selector: 'app-op-zones-edition-home-backup-stock-backup-card',
+  templateUrl:
+    './op-zones-edition-home-backup-stock-backup-card.component.html',
+  styleUrls: [
+    './op-zones-edition-home-backup-stock-backup-card.component.sass',
+  ],
 })
-export class OpZonesEditionHomeBackupStockBackupCardComponent implements OnInit {
+export class OpZonesEditionHomeBackupStockBackupCardComponent {
+  @Input() zoneBackupDetail: ZoneDetail;
+  @Input() disabled: boolean;
 
-    @Input() zoneBackupDetail: ZoneDetail;
-    @Input() disabled: boolean;
+  @Output() edit = new EventEmitter();
 
-    @Output() edit = new EventEmitter();
+  get zoneEditionZoneBackup(): string {
+    return !this.zoneBackupDetail
+      ? 'Sin zona backup'
+      : `${this.zoneBackupDetail.name} - ${this.zoneBackupDetail.code}`;
+  }
 
-    constructor() {
-    }
+  get zoneEditionDrugstoreBackup(): string {
+    return !this.zoneBackupDetail?.assignedStore
+      ? 'Sin local backup'
+      : `${this.zoneBackupDetail.assignedStore.code} - ${this.zoneBackupDetail.assignedStore.name}`;
+  }
 
-    ngOnInit(): void {
-    }
+  get stockBackupDisabled(): boolean {
+    return !this.zoneBackupDetail || this.disabled;
+  }
 
+  get stockBackupIcon(): string {
+    return !this.zoneBackupDetail
+      ? 'ellipse-disabled'
+      : !this.disabled
+      ? 'ellipse-success'
+      : 'ellipse-danger';
+  }
 
-    get zoneEditionZoneBackup() {
-        return !this.zoneBackupDetail ?
-            'Sin zona backup' : `${this.zoneBackupDetail.name} - ${this.zoneBackupDetail.code}`;
-    }
+  get backupEditionPath(): string {
+    return ROUTER_PATH.opZones_ZoneBackupEdition();
+  }
 
-    get zoneEditionDrugstoreBackup() {
-        return !this.zoneBackupDetail?.assignedStore ?
-            'Sin local backup' : `${this.zoneBackupDetail.assignedStore.code} - ${this.zoneBackupDetail.assignedStore.name}`;
-    }
+  constructor() {}
 
-
-    get stockBackupDisabled() {
-        return !this.zoneBackupDetail || this.disabled;
-    }
-
-
-    get backupEditionPath() {
-        return ROUTER_PATH.opZones_ZoneBackupEdition();
-    }
-
-    editEvent() {
-        this.edit.emit();
-    }
+  editEvent(): void {
+    this.edit.emit();
+  }
 }

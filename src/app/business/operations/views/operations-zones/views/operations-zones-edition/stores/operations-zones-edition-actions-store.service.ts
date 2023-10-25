@@ -1,36 +1,42 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { EChannel } from '@models/channel/channel.model';
+import { ECompany } from '@models/company/company.model';
 
 @Injectable()
 export class OperationsZonesEditionActionsStoreService implements OnDestroy {
-    private serviceTypeChannelSelected: EChannel = EChannel.digital;
-    private tabSettingSelected = 0;
 
-    constructor() {
-    }
+  private serviceTypeChannelSelected: EChannel = EChannel.digital;
+  private serviceTypeCompanySelected: ECompany = ECompany.inkafarma;
+  private tabSettingSelected = 0;
 
-    get serviceTypeChannelSelection(): EChannel {
-        return this.serviceTypeChannelSelected;
-    }
+  get serviceTypeChannelSelection(): EChannel {
+    return this.serviceTypeChannelSelected;
+  }
 
-    set serviceTypeChannelSelection(selection: EChannel) {
-        this.serviceTypeChannelSelected = selection;
-    }
+  set serviceTypeChannelSelection(selection: EChannel) {
+    this.serviceTypeChannelSelected = selection;
+  }
 
-    get tabSettingSelection(): number {
-        return this.tabSettingSelected;
-    }
+  set serviceTypeCompanySelection(selection: ECompany) {
+    this.serviceTypeCompanySelected = selection;
+  }
 
-    set tabSettingSelection(selection: number) {
-        this.tabSettingSelected = selection;
-    }
+  get tabSettingSelection(): number {
+    return this.tabSettingSelected;
+  }
 
-    resetStore() {
-        this.serviceTypeChannelSelection = EChannel.digital;
-        this.tabSettingSelection = 0;
-    }
+  set tabSettingSelection(selection: number) {
+    this.tabSettingSelected = selection;
+  }
 
-    ngOnDestroy() {
-        this.resetStore();
-    }
+  constructor() { }
+
+  resetStore(): void {
+    this.serviceTypeChannelSelection = EChannel.digital;
+    this.tabSettingSelection = 0;
+  }
+
+  ngOnDestroy(): void {
+    this.resetStore();
+  }
 }

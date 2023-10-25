@@ -1,0 +1,35 @@
+<div class="custom-select">
+  <button
+    class="custom-select-selected"
+    (click)="toggleOptions()"
+    [class.selected-active]="showOptions"
+    [class.selected-error]="isError"
+    [class.selected-disabled]="isDisabled"
+    [class.selected-option]="selectedOption"
+  >
+    <ng-template #placeholderDesc>Selecciona una opción</ng-template>
+    <ng-template #defaultDesc>{{ selectedOption?.label }}</ng-template>
+    <ng-container
+      [ngTemplateOutlet]="
+        selectedOption ? selectedOptionTemplate || defaultDesc : placeholderDesc
+      "
+      [ngTemplateOutletContext]="{ $implicit: selectedOption }"
+    ></ng-container>
+
+    <app-icon svgName="select-arrow-down"></app-icon>
+  </button>
+  <div class="custom-select-options" *ngIf="showOptions">
+    <button
+      class="custom-select-option"
+      *ngFor="let option of options"
+      (click)="selectOption(option, optionTemplate)"
+    >
+      <ng-template #defaultTemplate let-option>{{ option.label }}</ng-template>
+      <ng-container
+        [ngTemplateOutlet]="optionTemplate || defaultTemplate"
+        [ngTemplateOutletContext]="{ $implicit: option }"
+      >
+      </ng-container>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,265 @@
+<section class="bg-neutral-0 w-100">
+  <app-tab-group
+    dialog-tab-group
+    (selectIndexChange)="setTabSettingsSelectionIndex($event)"
+  >
+    <app-tab label="Pedidos con error al asignar (10)">
+      <table mat-table large-table [dataSource]="dataSource">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef column-width="5%">
+            <app-checkbox
+              (change)="$event ? masterToggle() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+            >
+            </app-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <app-checkbox
+              (click)="$event.stopPropagation()"
+              (change)="$event ? toggle(row) : null"
+              [checked]="selection.isSelected(row)"
+            >
+            </app-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderId">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>N° Pedido</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.idOrder }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="local">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Local</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.local }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>
+            Direcci&oacute;n
+          </th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.address }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="channel">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Canal</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.channel }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="service">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Servicio</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.service }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="promiseDate">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>H. Promesa</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.promiseDate }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="detail">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Detalle</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-60 text-body-4-bold"
+          >
+            <span appOrderStatus>{{ element.detail }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell cell-bold *matCellDef="let element">
+            <app-button
+              class="d-flex justify-content-center align-items-center"
+              innerClass="d-flex align-items-center p-0"
+            >
+              <app-icon svgName="fleet-table-action" svgWidth="24px"></app-icon>
+            </app-button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          row-hover
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+    </app-tab>
+    <app-tab label="Pedidos pendientes (5)">
+      <table mat-table large-table [dataSource]="dataSourceOrderPending">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef column-width="5%">
+            <app-checkbox
+              (change)="$event ? masterToggleOrderPending() : null"
+              [checked]="
+                selectionOrderPending.hasValue() && isAllOrderPendingSelected()
+              "
+              [indeterminate]="
+                selectionOrderPending.hasValue() && !isAllOrderPendingSelected()
+              "
+            >
+            </app-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <app-checkbox
+              (click)="$event.stopPropagation()"
+              (change)="$event ? toggleOrderPending(row) : null"
+              [checked]="selectionOrderPending.isSelected(row)"
+            >
+            </app-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderId">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>N° Pedido</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.idOrder }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="local">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Local</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.local }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>
+            Direcci&oacute;n
+          </th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.address }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="channel">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Canal</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.channel }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="service">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Servicio</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.service }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="promiseDate">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>H. Promesa</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.promiseDate }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="detail">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Detalle</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-body-4-bold"
+          >
+            <span appOrderStatus>{{ element.detail }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell cell-bold *matCellDef="let element">
+            <app-button
+              class="d-flex justify-content-center align-items-center"
+              innerClass="d-flex align-items-center p-0"
+            >
+              <app-icon svgName="fleet-table-action" svgWidth="24px"></app-icon>
+            </app-button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          row-hover
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+    </app-tab>
+  </app-tab-group>
+</section>

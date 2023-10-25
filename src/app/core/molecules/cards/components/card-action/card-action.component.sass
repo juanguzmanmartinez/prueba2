@@ -1,0 +1,37 @@
+@import "src/sass/variables/colors.variable"
+@import "src/sass/variables/utilities.variable"
+@import "src/sass/variables/spacing.variable"
+@import "src/sass/mixins/display.mixin"
+
+.card-action
+  background-color: $white
+  padding: $spacer-5
+  border: 1px solid $gray-2
+  border-radius: $border-radius-xl
+  cursor: pointer
+  box-shadow: none
+  height: 100%
+
+  .card-action-container
+    @include d-flex-vertical-center
+
+
+  &:hover
+    box-shadow: $box-shadow
+
+
+  .card-action-icon
+    display: inline-flex
+    margin-right: 16px
+
+
+  .card-action-content
+    flex-basis: 0
+    flex-grow: 1
+    max-width: 100%
+
+
+  .card-action-arrow
+    display: inline-flex
+    margin-left: 16px
+

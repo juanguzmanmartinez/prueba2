@@ -1,0 +1,10 @@
+<button
+  class="button {{'button-' + color}} {{'button-' + size}}"
+  [class.button-disabled]="disabled"
+  [ngClass]="innerClass"
+  [type]="type"
+  [disabled]="disabled"
+  (click)="clicked.emit($event)"
+>
+  <ng-content></ng-content>
+</button>

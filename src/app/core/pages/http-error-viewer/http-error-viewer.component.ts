@@ -1,28 +1,28 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HTTP_ERROR } from '@parameters/error/error-code.parameter';
 
 @Component({
-    selector: 'app-http-error-viewer',
-    templateUrl: './http-error-viewer.component.html',
-    styleUrls: ['./http-error-viewer.component.scss']
+  selector: 'app-http-error-viewer',
+  templateUrl: './http-error-viewer.component.html',
+  styleUrls: ['./http-error-viewer.component.scss']
 })
-export class HttpErrorViewerComponent implements OnInit {
-    public httpError = HTTP_ERROR;
+export class HttpErrorViewerComponent {
 
-    @Input() errorResponse: HttpErrorResponse;
+  httpError = HTTP_ERROR;
 
-    @Input() reloadPage: boolean;
-    @Input() reloadView = true;
-    @Output() customReload = new EventEmitter();
+  @Input() errorResponse: HttpErrorResponse;
 
-    constructor() {
-    }
+  @Input() reloadPage: boolean;
+  @Input() reloadView = true;
 
-    ngOnInit(): void {
-    }
+  @Output() customReload = new EventEmitter();
 
-    get errorStatus(): number {
-        return this.errorResponse ? this.errorResponse.status : HTTP_ERROR.genericError.status;
-    }
+  get errorStatus(): number {
+    return this.errorResponse ? this.errorResponse.status : HTTP_ERROR.genericError.status;
+  }
+
+  constructor() {
+  }
+
 }

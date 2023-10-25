@@ -36,7 +36,7 @@ export class RecoverPasswordUserComponent implements OnInit {
     validUsername() {
         this.recoveryPasswordStore.username = this.recoverPasswordUserForm.usernameControl.value;
         this._router.navigate(
-            [ROUTER_PATH.recoverPasswordCode],
+            [ROUTER_PATH.acctRecoverPasswordCode],
             {skipLocationChange: true});
     }
 
@@ -54,6 +54,6 @@ export class RecoverPasswordUserComponent implements OnInit {
     }
 
     formCancel() {
-        this._router.navigate([ROUTER_PATH.login]);
+        this._router.navigate([ROUTER_PATH.accountLogin]);
     }
 }

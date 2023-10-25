@@ -5,15 +5,14 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 @Injectable()
 export class OpZonesEditionServiceTypeDetailDialogService {
-    constructor(
-        private _dialog: DialogService,
-    ) {
-    }
 
-    open(splitSegmentList: string[]): MatDialogRef<OpZonesEditionServiceTypeDetailDialogComponent> {
-        const dialogRef = this._dialog.open(OpZonesEditionServiceTypeDetailDialogComponent);
-        dialogRef.componentInstance.splitSegmentList = splitSegmentList;
+  constructor(
+    private dialog: DialogService,
+  ) { }
 
-        return dialogRef;
-    }
+  open(splitSegmentList: string[]): MatDialogRef<OpZonesEditionServiceTypeDetailDialogComponent> {
+    const dialogRef = this.dialog.open(OpZonesEditionServiceTypeDetailDialogComponent);
+    dialogRef.componentInstance.splitSegmentList = splitSegmentList;
+    return dialogRef;
+  }
 }

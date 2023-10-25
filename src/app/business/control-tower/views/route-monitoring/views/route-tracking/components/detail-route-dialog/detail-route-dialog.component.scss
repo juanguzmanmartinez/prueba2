@@ -1,0 +1,11 @@
+@import "src/sass/variables/colors.variable";
+
+.head-border {
+  border-bottom: 1.2px solid $neutral-30;
+}
+
+.custom-dialog-container {
+  overflow: hidden !important;
+  max-height: calc(100vh - 20px) !important;
+}
+

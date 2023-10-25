@@ -1,62 +1,125 @@
 // Colors
-$light-blue: #DBE9FF;
-$blue: #1265E5;
-$dark-blue: #082D63;
-$light-turquoise: #E5FFFF;
-$turquoise: #5CE2E2;
-$dark-turquoise: #296363;
-$light-orange: #FFE9DC;
-$orange: #FF764A;
-$dark-orange: #803C25;
-$light-purple: #CDC0FF;
-$purple: #856CE8;
-$dark-purple: #3C3169;
-$light-fuchsia: #FFE0FC;
-$fuchsia: #D761CB;
-$dark-fuchsia: #572752;
-$light-sky-blue: #D4F2FB;
-$sky-blue: #5CCEF2;
-$dark-sky-blue: #2C6273;
-$light-green: #BBE5B3;
-$green: #50B83C;
-$dark-green: #108043;
-$light-yellow: #FFEA8A;
-$yellow: #EEC200;
-$dark-yellow: #C68B20;
-$light-red: #FEAD9A;
-$red: #DE3618;
-$dark-red: #BF0711;
-// Neutrals
-$white: #FFFFFF;
-$gray-1: #F1F3F5;
-$gray-2: #E5E9EC;
-$gray-3: #D5DCE1;
-$gray-4: #A5B2BD;
-$gray-5: #748494;
-$gray-6: #405261;
-$black: #1D2B36;
+$light-blue: #f1fbff;
+$blue: #2697ff;
+$dark-blue: #305787;
+$light-purple: #e9eaff;
+$purple: #888bff;
+$dark-purple: #696ce1;
+$light-orange: #ffefdc;
+$orange: #ff804a;
+$dark-orange: #e26742;
+$light-turquoise: #e6fdf3;
+$turquoise: #16ded2;
+$dark-turquoise: #4ab4b7;
+$light-sky-blue: #e3fffd;
+$sky-blue: #2fcdff;
+$dark-sky-blue: #49a7d0;
+$light-fuchsia: #ffe5e1;
+$fuchsia: #ff698b;
+$dark-fuchsia: #b7346b;
+$light-green: #f0fcd3;
+$green: #79cc26;
+$dark-green: #4e9f0b;
+$light-yellow: #fff8dc;
+$yellow: #ffc452;
+$dark-yellow: #ce9440;
+$light-red: #feeee2;
+$red: #fe604c;
+$dark-red: #d93b36;
+$light-lilac: #fff4ff;
+$lilac: #fcd9ff;
+$dark-lilac: #c454d7;
 
+// Neutrals
+$white: #ffffff;
+$gray-0: #f9fafb;
+$gray-1: #f4f6f7;
+$gray-2: #e9ecee;
+$gray-3: #cbd2d9;
+$gray-4: #7e8fa0;
+$gray-5: #576775;
+$gray-50: #c4cdd4;
+$gray-6: #3f4c58;
+$gray-7: #3d4852;
+$gray-90: #435375;
+$black: #1d2b36;
+
+// Neutrals Omni Vita
+$neutral-0: #ffffff;
+$neutral-10: #fbfcfd;
+$neutral-20: #f8f9fb;
+$neutral-30: #f0f2f6;
+$neutral-40: #e4e8f0;
+$neutral-50: #9dabc9;
+$neutral-60: #6678a1;
+$neutral-70: #52658e;
+$neutral-80: #42547b;
+$neutral-90: #304269;
+$neutral-100: #2f3a51;
+
+// Semantic Omni vita
+$semantic-success-20: #f8fff9;
+$semantic-success-30: #e6f8ee;
+$semantic-success-40: #f0f2f6;
+$semantic-success-50: #38b57d;
+$semantic-success-60: #289b73;
+$semantic-success-70: #1c8268;
+$semantic-success-80: #11685c;
+$semantic-warning-20: #fffcef;
+$semantic-warning-30: #fdf4dc;
+$semantic-warning-40: #fbedc3;
+$semantic-warning-50: #ebb11a;
+$semantic-warning-60: #ca9213;
+$semantic-warning-70: #a9740d;
+$semantic-warning-80: #885908;
+$semantic-error-20: #fff6ed;
+$semantic-error-30: #fde8e2;
+$semantic-error-40: #fbd1c5;
+$semantic-error-50: #d35530;
+$semantic-error-60: #b53923;
+$semantic-error-70: #972218;
+$semantic-error-80: #7a100f;
+
+// Primary Omni vita
+$primary-20: #eefaff;
+$primary-30: #daf3ff;
+$primary-40: #bdeaff;
+$primary-50: #1a8ff1;
+$primary-60: #1779de;
+$primary-70: #1962b4;
+$primary-80: #1b528d;
+
+// Secondary Omni vita
+$secondary-20: #eef2ff;
+$secondary-30: #e0e7ff;
+$secondary-40: #c7d2fe;
+$secondary-50: #6c6ff2;
+$secondary-60: #4f46e5;
+$secondary-70: #4338ca;
+$secondary-80: #3730a3;
 
 // Primary Colors
 $light-primary: $light-blue;
 $primary: $blue;
 $dark-primary: $dark-blue;
-// Secondary Colors
-$light-secondary-one: $light-turquoise;
-$secondary-one: $turquoise;
-$dark-secondary-one: $dark-turquoise;
-$light-secondary-two: $light-orange;
-$secondary-two: $orange;
-$dark-secondary-two: $dark-orange;
-$light-secondary-three: $light-purple;
-$secondary-three: $purple;
-$dark-secondary-three: $dark-purple;
-$light-secondary-four: $light-fuchsia;
-$secondary-four: $fuchsia;
-$dark-secondary-four: $dark-fuchsia;
-$light-secondary-five: $light-sky-blue;
-$secondary-five: $sky-blue;
-$dark-secondary-five: $dark-sky-blue;
+$light-secondary: $light-purple;
+$secondary: $purple;
+$dark-secondary: $dark-purple;
+
+// Complementary Colors
+$light-complementary-one: $light-orange; // Light Quintary
+$complementary-one: $orange; // Quintary
+$dark-complementary-one: $dark-orange; // Dark Quintary
+$light-complementary-two: $light-turquoise; // Light Quaternary
+$complementary-two: $turquoise; // Quaternary
+$dark-complementary-two: $dark-turquoise; // Dark Quaternary
+$light-complementary-three: $light-sky-blue; // Light Tertiary
+$complementary-three: $sky-blue; // Tertiary
+$dark-complementary-three: $dark-sky-blue; // Dark Tertiary
+$light-complementary-four: $light-lilac; // Light Tertiary
+$complementary-four: $lilac; // Tertiary
+$dark-complementary-four: $dark-lilac; // Dark Tertiary
+
 // Semantics
 $light-success: $light-green;
 $success: $green;
@@ -67,3 +130,7 @@ $dark-warning: $dark-yellow;
 $light-danger: $light-red;
 $danger: $red;
 $dark-danger: $dark-red;
+
+// Brand
+$inkafarma: #00a651;
+$mifarma: #ff7929;

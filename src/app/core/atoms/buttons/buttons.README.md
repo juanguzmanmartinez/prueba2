@@ -21,7 +21,7 @@ export class YourModule {
 > ###Inputs 
 > - **innerClass**: string  
 > - **inlineStyle**: object  
-> - **type**: 'primary' | 'secondary' | 'outline' | 'ghost' | 'default'  
+> - **type**: 'primary' | 'secondary' | 'outline' | 'default'  
 > - **behavior**: 'button' | 'submit' | 'reset'  
 > - **disabled**: boolean
 
@@ -42,7 +42,7 @@ export class YourModule {
 > - **innerName**: string
 > - **innerClass**: string
 > - **inlineStyle**: object
-> - **type**: 'primary' | 'secondary' | 'outline' | 'ghost' | 'default'
+> - **type**: 'primary' | 'secondary' | 'outline' | 'default'
 > - **behavior**: 'button' | 'submit' | 'reset'
 > - **disabled**: boolean
   ```html  

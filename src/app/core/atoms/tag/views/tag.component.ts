@@ -1,22 +1,29 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ETag, ETagAppearance, TTagAppearance } from '@models/tag/tag.model';
+import { Component, Input } from '@angular/core';
+import {
+  ETag,
+  ETagAppearance,
+  ETypeTagBrand,
+  ETypeTagInformative,
+  ETypeTagSemantic,
+  TTagAppearance,
+} from '@models/tag/tag.model';
 
 @Component({
-    selector: 'app-tag',
-    templateUrl: './tag.component.html',
-    styleUrls: ['./tag.component.scss']
+  selector: 'app-tag',
+  templateUrl: './tag.component.html',
+  styleUrls: ['./tag.component.scss'],
 })
-export class TagComponent implements OnInit {
+export class TagComponent {
+  public tagAppearance = ETagAppearance;
 
-    public tagAppearance = ETagAppearance;
+  @Input() tagColor: ETag | string;
+  @Input() type: ETypeTagSemantic | string;
+  @Input() typeInformative: ETypeTagInformative;
+  @Input() typeBrand: ETypeTagBrand;
+  @Input() appearance: TTagAppearance = ETagAppearance.transparentPill;
+  @Input() innerClass: string = '';
+  @Input() disabled: boolean;
+  @Input() textTagColor: string;
 
-    @Input() tagColor: ETag | string;
-    @Input() appearance: TTagAppearance = ETagAppearance.transparentPill;
-
-    constructor() {
-    }
-
-    ngOnInit(): void {
-    }
-
+  constructor() {}
 }

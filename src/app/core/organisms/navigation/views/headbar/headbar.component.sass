@@ -1,0 +1,38 @@
+@import "src/sass/variables/colors.variable"
+@import "src/sass/variables/fonts.variable"
+@import "src/sass/variables/spacing.variable"
+@import "src/sass/mixins/display.mixin"
+@import "../../navigation.component"
+
+.navigation-headbar-container
+  padding-bottom: $headbar-height
+
+  .navigation-headbar
+    background-color: $dark-primary
+    height: $headbar-height
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    z-index: 5
+    padding: 0 $spacer-5
+    justify-content: space-between
+    @include d-flex-vertical-center
+
+  .navigation-headbar-left,
+  .navigation-headbar-right
+    @include d-flex-vertical-center
+
+  .navigation-headbar-panel
+    margin-right: $spacer-6
+
+    & > *
+      margin: 0 $spacer-4
+      display: inline-flex
+
+      &:first-child
+        margin-left: 0
+
+      &:last-child
+        margin-right: 0
+

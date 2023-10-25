@@ -1,0 +1,16 @@
+@import "src/sass/variables/colors.variable";
+
+.detail-route-state::after {
+  content: "";
+  display: block;
+  width: 1.8px;
+  height: calc(100% - 28px);
+  background-color: var(--bgColor);
+  position: absolute;
+  top: 28px;
+  left: calc(50% - 0.9px);
+}
+
+.route-state-content:last-child {
+  margin-bottom: 0;
+}

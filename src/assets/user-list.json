@@ -1,0 +1,578 @@
+[
+  {
+    "id": 16266861,
+    "enabled": true,
+    "name": "Wiley",
+    "lastname": "Hawkins",
+    "position": "Administrador",
+    "email": "wiley.hawkins@inkafarma.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_ADMINISTRATOR"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_ADMINISTRATOR",
+          "ACCESS_OPERATIONS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 45412739,
+    "enabled": true,
+    "name": "Carrie",
+    "lastname": "Lawson",
+    "position": "Administrador",
+    "email": "carrie.lawson@farmaciasperuanas.pe",
+    "permissions": [
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_ADMINISTRATOR"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_OPERATIONS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 89195916,
+    "enabled": true,
+    "name": "Pugh",
+    "lastname": "Snider",
+    "position": "Coordinador",
+    "email": "pugh.snider@inkafarma.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_ADMINISTRATOR_USERS",
+          "ACCESS_OPERATIONS_CAPACITY"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS",
+          "ACCESS_ADMINISTRATOR_USERS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 55885370,
+    "enabled": true,
+    "name": "Elvia",
+    "lastname": "Blair",
+    "position": "Analista",
+    "email": "elvia.blair@farmaciasperuanas.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_ADMINISTRATOR_USERS",
+          "ACCESS_OPERATIONS"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_ADMINISTRATOR",
+          "ACCESS_OPERATIONS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 28706931,
+    "enabled": true,
+    "name": "York",
+    "lastname": "Dillon",
+    "position": "Administrador",
+    "email": "york.dillon@farmaciasperuanas.pe",
+    "permissions": [
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_OPERATIONS_STORE"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_OPERATIONS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 90590846,
+    "enabled": false,
+    "name": "Weiss",
+    "lastname": "Good",
+    "position": "Analista",
+    "email": "weiss.good@inkafarma.pe",
+    "permissions": [
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_ADMINISTRATOR"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_ADMINISTRATOR",
+          "ACCESS_ADMINISTRATOR_USERS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3179303,
+    "enabled": true,
+    "name": "Bender",
+    "lastname": "Gallagher",
+    "position": "Administrador",
+    "email": "bender.gallagher@farmaciasperuanas.pe",
+    "permissions": [
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_OPERATIONS_ZONE"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_ADMINISTRATOR",
+          "ACCESS_OPERATIONS_CAPACITY"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 63053329,
+    "enabled": true,
+    "name": "Evangelina",
+    "lastname": "Bullock",
+    "position": "Analista",
+    "email": "evangelina.bullock@farmaciasperuanas.pe",
+    "permissions": [
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS",
+          "ACCESS_ADMINISTRATOR_USERS"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS",
+          "ACCESS_OPERATIONS_CAPACITY"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 90358564,
+    "enabled": false,
+    "name": "Randi",
+    "lastname": "Stephenson",
+    "position": "Administrador",
+    "email": "randi.stephenson@farmaciasperuanas.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_OPERATIONS_ZONE"
+        ]
+      },
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS_STORE",
+          "ACCESS_ADMINISTRATOR_USERS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 35488251,
+    "enabled": false,
+    "name": "Bethany",
+    "lastname": "Matthews",
+    "position": "Coordinador",
+    "email": "bethany.matthews@farmaciasperuanas.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_ADMINISTRATOR"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS",
+          "ACCESS_OPERATIONS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 99065637,
+    "enabled": false,
+    "name": "Gentry",
+    "lastname": "Shepard",
+    "position": "Analista",
+    "email": "gentry.shepard@farmaciasperuanas.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_ADMINISTRATOR",
+          "ACCESS_OPERATIONS_STORE"
+        ]
+      },
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS",
+          "ACCESS_OPERATIONS_CAPACITY"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 83015508,
+    "enabled": true,
+    "name": "Aileen",
+    "lastname": "Vaughan",
+    "position": "Analista",
+    "email": "aileen.vaughan@inkafarma.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_OPERATIONS_CAPACITY"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_ADMINISTRATOR_USERS",
+          "ACCESS_OPERATIONS_ZONE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 91627688,
+    "enabled": false,
+    "name": "Barbra",
+    "lastname": "Terrell",
+    "position": "Analista",
+    "email": "barbra.terrell@inkafarma.pe",
+    "permissions": [
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS_STORE",
+          "ACCESS_ADMINISTRATOR_USERS"
+        ]
+      },
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS",
+          "ACCESS_OPERATIONS_ZONE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 52897823,
+    "enabled": false,
+    "name": "Lorene",
+    "lastname": "Carter",
+    "position": "Administrador",
+    "email": "lorene.carter@farmaciasperuanas.pe",
+    "permissions": [
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_ADMINISTRATOR_USERS"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS",
+          "ACCESS_ADMINISTRATOR"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 35028653,
+    "enabled": true,
+    "name": "Estela",
+    "lastname": "Pate",
+    "position": "Analista",
+    "email": "estela.pate@farmaciasperuanas.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS",
+          "ACCESS_OPERATIONS"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_STORE",
+          "ACCESS_OPERATIONS_ZONE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 41145506,
+    "enabled": false,
+    "name": "Short",
+    "lastname": "Hogan",
+    "position": "Administrador",
+    "email": "short.hogan@inkafarma.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_ZONE",
+          "ACCESS_OPERATIONS_CAPACITY"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_ADMINISTRATOR",
+          "ACCESS_ADMINISTRATOR"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 72593305,
+    "enabled": false,
+    "name": "Joyce",
+    "lastname": "Lee",
+    "position": "Coordinador",
+    "email": "joyce.lee@inkafarma.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_ADMINISTRATOR_USERS",
+          "ACCESS_ADMINISTRATOR_USERS"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_OPERATIONS_ZONE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 49102412,
+    "enabled": true,
+    "name": "Callie",
+    "lastname": "Hodge",
+    "position": "Coordinador",
+    "email": "callie.hodge@inkafarma.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_ADMINISTRATOR",
+          "ACCESS_OPERATIONS"
+        ]
+      },
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_ADMINISTRATOR_USERS",
+          "ACCESS_OPERATIONS_STORE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 51687253,
+    "enabled": true,
+    "name": "Lou",
+    "lastname": "Pratt",
+    "position": "Coordinador",
+    "email": "lou.pratt@farmaciasperuanas.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_ZONE",
+          "ACCESS_OPERATIONS_CAPACITY"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_ZONE",
+          "ACCESS_OPERATIONS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 71162829,
+    "enabled": false,
+    "name": "Corinne",
+    "lastname": "Farrell",
+    "position": "Administrador",
+    "email": "corinne.farrell@inkafarma.pe",
+    "permissions": [
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS_ZONE",
+          "ACCESS_OPERATIONS_CAPACITY"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_ADMINISTRATOR_USERS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 91443381,
+    "enabled": false,
+    "name": "Hawkins",
+    "lastname": "Meadows",
+    "position": "Coordinador",
+    "email": "hawkins.meadows@inkafarma.pe",
+    "permissions": [
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS_STORE",
+          "ACCESS_ADMINISTRATOR_USERS"
+        ]
+      },
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS_STORE",
+          "ACCESS_ADMINISTRATOR"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 16720520,
+    "enabled": false,
+    "name": "Louise",
+    "lastname": "Mcneil",
+    "position": "Coordinador",
+    "email": "louise.mcneil@inkafarma.pe",
+    "permissions": [
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_ADMINISTRATOR_USERS",
+          "ACCESS_OPERATIONS_ZONE"
+        ]
+      },
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_ADMINISTRATOR_USERS",
+          "ACCESS_OPERATIONS_CAPACITY"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 19535084,
+    "enabled": false,
+    "name": "Aguilar",
+    "lastname": "Levine",
+    "position": "Coordinador",
+    "email": "aguilar.levine@inkafarma.pe",
+    "permissions": [
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_CAPACITY",
+          "ACCESS_OPERATIONS"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_OPERATIONS_ZONE",
+          "ACCESS_OPERATIONS_CAPACITY"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 94669762,
+    "enabled": false,
+    "name": "Santiago",
+    "lastname": "Whitehead",
+    "position": "Analista",
+    "email": "santiago.whitehead@farmaciasperuanas.pe",
+    "permissions": [
+      {
+        "role": "ROLE_VIEWER",
+        "access": [
+          "ACCESS_OPERATIONS_ZONE",
+          "ACCESS_ADMINISTRATOR_USERS"
+        ]
+      },
+      {
+        "role": "ROLE_EDITOR",
+        "access": [
+          "ACCESS_ADMINISTRATOR",
+          "ACCESS_OPERATIONS_CAPACITY"
+        ]
+      }
+    ]
+  }
+]

@@ -539,7 +539,8 @@ $utilities: map-merge(
                                         0: 0,
                                         1: $border-radius-sm,
                                         2: $border-radius,
-                                        3: $border-radius-lg,
+                                        3: $border-radius-md,
+                                        4: $border-radius-xl,
                                         circle: 50%,
                                         pill: $border-radius-pill
                                 )
@@ -597,6 +598,19 @@ $utilities: map-merge(
                                         180: rotate(180deg),
                                         270: rotate(270deg),
                                         360: rotate(360deg),
+                                )
+                        ),
+                        "z-index": (
+                                property: z-index,
+                                class: z-index,
+                                values: (
+                                        0: 0,
+                                        1: 1,
+                                        2: 2,
+                                        3: 3,
+                                        4: 4,
+                                        5: 5,
+                                        10: 10
                                 )
                         ),
                 )

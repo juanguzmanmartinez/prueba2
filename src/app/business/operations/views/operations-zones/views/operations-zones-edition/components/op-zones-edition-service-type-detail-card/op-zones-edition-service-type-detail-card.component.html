@@ -1,31 +1,53 @@
-<app-card innerClass="px-6 pt-6 pb-15" *ngIf="zoneDetail">
-    <div class="row mb-6">
-        <div class="col-12">
-            <h5 class="text-h5 mb-2">
-                {{zoneDetail.name}}
-                <span class="text-gray-5 mx-3">-</span>
-                <span class="text-gray-5 text-nowrap">
-                    COD {{zoneDetail.code}}
-                </span>
-            </h5>
-        </div>
+<app-card innerClass="px-4 py-4" *ngIf="zoneDetail">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h5 class="text-h6 mb-0">
+        <span class="text-gray-7 mx-3">Zona principal</span>
+      </h5>
     </div>
-
-    <div class="row">
-        <div class="col-12">
-
-            <app-card-static-information class="d-block mb-5"
-                                         iconName="location_searching">
-                <ng-container information-title>Local de atención</ng-container>
-                <ng-container information-caption>{{zoneDetail.assignedStore.code}} {{zoneDetail.assignedStore.name}}</ng-container>
-            </app-card-static-information>
-
-            <app-card-static-information class="d-block mb-5"
-                                         iconName="location_searching">
-                <ng-container information-title>Horario de atención {{serviceTypeName[zonesStoreServiceType.code]}} del local principal</ng-container>
-                <ng-container information-caption>{{serviceTypeDateRange}}</ng-container>
-            </app-card-static-information>
-
-        </div>
+  </div>
+  <hr class="m-0 bg-gray-3" />
+  <div class="row mt-4 mb-4">
+    <div class="col-12 d-flex align-items-center">
+      <app-icon
+        class="me-5"
+        [svgName]="zoneState ? 'ellipse-success' : 'ellipse-danger'"
+      ></app-icon>
+      <h5 class="text-body-1-bold text-black mb-0 ms-3">
+        {{ zoneDetail.name }}
+        <span class="text-gray-5"> - </span>
+        <span class="text-gray-5 text-nowrap">COD {{ zoneDetail.code }}</span>
+      </h5>
     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <app-card-static-information
+        class="d-block mb-4"
+        svgName="store"
+        svgWidth="24px"
+      >
+        <ng-container information-title>Local de atención</ng-container>
+        <ng-container information-caption>
+          {{ zoneDetail.assignedStore.code }}
+          {{ zoneDetail.assignedStore.name }}
+        </ng-container>
+      </app-card-static-information>
+
+      <app-card-static-information
+        class="d-block"
+        svgName="time-circle"
+        svgWidth="24px"
+      >
+        <ng-container information-title>
+          Horario de atención
+          {{ serviceTypeName[zonesStoreServiceType.code] }} del local principal
+        </ng-container>
+        <ng-container information-caption>{{
+          serviceTypeDateRange
+        }}</ng-container>
+      </app-card-static-information>
+    </div>
+  </div>
 </app-card>

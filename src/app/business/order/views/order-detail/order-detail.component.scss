@@ -1,0 +1,40 @@
+@import "src/sass/variables/utilities.variable";
+@import "src/sass/variables/fonts.variable";
+@import "src/sass/variables/colors.variable";
+@import "src/sass/animations/rotating.animation";
+
+.order-detail-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background-color: $gray-0;
+
+}
+
+.refresh-icon {
+  display: inline-flex;
+  animation: rotating 1s linear infinite;
+}
+
+:host {
+  letter-spacing: $letter-spacing-regular;
+
+  .back {
+    margin-left: -4px;
+  }
+
+  .tags {
+    margin-left: 12px;
+  }
+
+  .tag-promise {
+    border-radius: $border-radius-xl;
+    padding: 6px 12px;
+    font-size: 12px;
+
+    .range {
+      font-weight: 500;
+    }
+  }
+}

@@ -1,0 +1,123 @@
+@import "src/sass/variables/colors.variable";
+@import "src/sass/variables/fonts.variable";
+@import "src/sass/variables/utilities.variable";
+
+:host {
+  display: block;
+  letter-spacing: $letter-spacing-regular;
+
+  .flow {
+    display: flex;
+    align-items: center;
+
+    .previous-step {
+      margin-right: 24px;
+    }
+
+    .next-step {
+      margin-left: 24px;
+    }
+
+    .content {
+      padding: 0;
+      overflow: hidden;
+      scroll-behavior: smooth;
+
+      .steps {
+        display: flex;
+
+        .step {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          min-width: 190px;
+          width: 100%;
+
+          .status {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+
+            .line {
+              border: 2px solid;
+              min-width: 78px;
+              width: 100%;
+
+              &-hide {
+                border-color: transparent !important;
+              }
+
+              &-done {
+                border-color: $success;
+              }
+
+              &-cancel {
+                border-color: $danger;
+              }
+
+              &-pending {
+                border-color: $gray-2;
+              }
+
+              &-left {
+                margin-right: 4px;
+              }
+
+              &-right {
+                margin-left: 4px;
+              }
+            }
+
+            .icon {
+              width: 28px;
+              height: 28px;
+            }
+          }
+
+          .info {
+            width: 16px;
+            height: 16px;
+          }
+
+          p {
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  .circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $primary;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    app-icon {
+      &::ng-deep mat-icon {
+        color: $primary;
+      }
+    }
+  }
+
+  .disabled {
+    cursor: not-allowed;
+    border: 1px solid $gray-4;
+
+    app-icon {
+      &::ng-deep mat-icon {
+        color: $gray-4;
+      }
+    }
+  }
+
+}

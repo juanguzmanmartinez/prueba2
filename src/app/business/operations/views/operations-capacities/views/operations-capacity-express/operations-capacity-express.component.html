@@ -5,31 +5,28 @@
     </div>
   </div>
 
-  <div class="row  mb-5 mb-md-9">
+  <div class="row mb-5 mb-md-9">
     <div class="col">
       <h1 class="text-h3 text-black mb-5">Editar capacidad Express</h1>
     </div>
   </div>
 
   <mat-accordion>
-    <div class="row">
-      <div class="col-12 col-xl-6 mb-4 mb-xl-0">
+    <div class="row" [ngClass]="{ 'justify-content-center': mode }">
+      <div [hidden]="mode" class="col-12 col-xlg-6 mb-4 mb-xlg-0">
         <div class="row">
           <div class="col-12 mb-4">
-            <app-op-capacities-step-group-or-local>
-            </app-op-capacities-step-group-or-local>
+            <app-op-capacities-step-group-or-drugstore></app-op-capacities-step-group-or-drugstore>
           </div>
 
           <div class="col-12">
-            <app-op-capacities-step-edition-mode>
-            </app-op-capacities-step-edition-mode>
+            <app-op-capacities-step-edition-mode></app-op-capacities-step-edition-mode>
           </div>
         </div>
       </div>
 
-      <div class="col-12 col-xl-6">
-        <app-operations-capacities-step-express-resources>
-        </app-operations-capacities-step-express-resources>
+      <div class="col-12 col-xlg-6">
+        <app-operations-capacities-step-express-resources></app-operations-capacities-step-express-resources>
       </div>
     </div>
   </mat-accordion>

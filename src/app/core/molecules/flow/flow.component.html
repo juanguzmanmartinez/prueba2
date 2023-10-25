@@ -1,0 +1,70 @@
+<section class="flow">
+  <div class="previous-step" (click)="previousStep()">
+    <div class="circle" [class.disabled]="disablePrevious">
+      <app-icon fontName="chevron_left" fontSize="16px"></app-icon>
+    </div>
+  </div>
+
+  <div class="content" #steps>
+    <div class="steps">
+      <div class="step" *ngFor="let step of data; let first = first">
+        <div class="status">
+          <div
+            class="line line-left"
+            [ngClass]="{
+              'line-done': step.flow == 'done',
+              'line-pending': step.flow == 'pending',
+              'line-cancel': step.flow == 'cancel',
+              'line-hide': first
+            }"
+          ></div>
+          <div class="icon">
+            <app-icon
+              [svgName]="step.flow + '-flow'"
+              svgHeight="28px"
+              svgWidth="28px"
+              class="icon"
+            >
+            </app-icon>
+          </div>
+          <div
+            class="line line-right"
+            [ngClass]="{
+              'line-done': step.flow == 'done',
+              'line-pending': step.flow == 'pending' || step.flow == 'cancel'
+            }"
+          ></div>
+        </div>
+        <div class="d-inline-flex align-items-center gap-1 mt-3">
+          <p class="m-0 text-gray-7">{{ step.status }}</p>
+          <app-tooltip
+            *ngIf="
+              step.isCall &&
+              (step.info || step.infoDetail) &&
+              step.flow !== 'pending' &&
+              step.showInfo
+            "
+            class="info"
+            innerClass="multiline"
+            position="below"
+            value="{{ step.info }} &#13; {{ step.infoDetail }}"
+          >
+            <app-icon
+              fontName="info"
+              innerClass="text-gray-4"
+              fontSize="16px"
+            ></app-icon>
+          </app-tooltip>
+        </div>
+        <p class="text-gray-5 text-body-2-regular m-0 mt-3">{{ step.date }}</p>
+        <p class="text-gray-5 text-body-2-regular m-0 mt-2">{{ step.name }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="next-step" (click)="nextStep()">
+    <div class="circle" [class.disabled]="disableNext">
+      <app-icon fontName="chevron_right" fontSize="16px"></app-icon>
+    </div>
+  </div>
+</section>

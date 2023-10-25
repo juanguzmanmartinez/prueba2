@@ -1,0 +1,86 @@
+<div
+  [class.capacity-card-disabled]="disabled"
+  class="drugstore-default-capacity-card"
+>
+  <div
+    class="d-flex mb-2"
+    [ngClass]="isHighDemand ? 'justify-content-between' : 'justify-content-end'"
+  >
+    <app-tag
+      *ngIf="isHighDemand"
+      [appearance]="tagAppearance.coloredFullBluePill"
+      [tagColor]="segmentChannelColor"
+      [innerClass]="channelInnerClass"
+    >
+      Incremento de interval time flexible
+    </app-tag>
+    <app-drop-options [showOptions]="showOptions">
+      <div class="m-0 p-0">
+        <div
+          (mousedown)="editEvent()"
+          class="text-body-3-regular capacity-card-text mb-0 drop-option-service"
+        >
+          Configurar capacidad base
+        </div>
+
+        <div
+          *ngIf="hasDetail"
+          (mousedown)="viewMoreEvent()"
+          class="text-body-3-regular capacity-card-text mb-0 drop-option-service"
+        >
+          Ver ventanas horarias
+        </div>
+
+        <div
+          *ngIf="isExpress"
+          (mousedown)="setInterval()"
+          class="text-body-3-regular capacity-card-text mb-0 drop-option-service"
+        >
+          Editar interval time/capacidad flexible
+        </div>
+      </div>
+    </app-drop-options>
+  </div>
+  <div class="d-flex flex-column justify-content-end align-items-start">
+    <div class="mb-2">
+      <h3 class="text-h5 capacity-card-name mb-0">{{ serviceName }}</h3>
+    </div>
+
+    <div class="mb-2">
+      <ng-container *ngIf="!disabled">
+        <h1 class="text-h2 capacity-card-quantity mb-0">
+          {{ capacityQuantity }}
+        </h1>
+      </ng-container>
+      <ng-container *ngIf="disabled">
+        <h4 class="text-h4 capacity-card-quantity mb-0">--</h4>
+      </ng-container>
+    </div>
+
+    <div class="">
+      <p class="text-body-1-regular capacity-card-text mb-0">pedidos por día</p>
+    </div>
+
+    <!-- <div class="col-12">
+      <ng-container *ngIf="hasDetail">
+        <app-tooltip class="d-inline-block me-4" value="Más detalles">
+          <app-button-action-icon
+            (clicked)="viewMoreEvent()"
+            [disabled]="disabled"
+            iconName="launch"
+          >
+          </app-button-action-icon>
+        </app-tooltip>
+      </ng-container>
+
+      <app-tooltip value="Editar">
+        <app-button-action-icon
+          (clicked)="editEvent()"
+          [disabled]="disabled"
+          iconName="edit"
+        >
+        </app-button-action-icon>
+      </app-tooltip>
+    </div> -->
+  </div>
+</div>

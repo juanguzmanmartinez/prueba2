@@ -1,18 +1,47 @@
-<label class="input-label"
-       [ngClass]="labelClass">
-  <input
-    class="input-basic"
-    [class.input-error]="error"
-    [ngClass]="innerClass"
-    [id]="id"
-    [name]="name"
-    [type]="behavior"
-    [placeholder]="placeholder"
-    [disabled]="disabled"
-    [(ngModel)]="inputValue"
-    [readonly]="readOnly"
-    (ngModelChange)="changeInputValue()"
+<label class="input-label" [ngClass]="labelClass">
+  <div class="container-input" [ngClass]="containerClass">
+    <input
+      class="input-basic"
+      [style.padding-right]="buttonClear ? '35px' : ''"
+      [class.input-error]="error"
+      [ngClass]="innerClass"
+      [id]="id"
+      [name]="name"
+      [type]="behavior"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [(ngModel)]="inputValue"
+      [readonly]="readOnly"
+      [maxlength]="maxLength"
+      (ngModelChange)="changeInputValue()"
+      (blur)="onBlur($event)"
+      (focus)="onFocus($event)"
+    />
 
-    (blur)="onBlur($event)"
-    (focus)="onFocus($event)"/>
+    <app-icon
+      *ngIf="buttonClear && inputValue"
+      (click)="clearValue()"
+      class="close"
+      fontName="close"
+      fontSize="16px"
+    >
+    </app-icon>
+
+    <app-tooltip
+      position="above"
+      [value]="tooltipDescription"
+      innerClass="bottom-12-right-24"
+    >
+      <app-icon
+        *ngIf="svgName"
+        class="close"
+        [svgName]="svgName"
+        svgHeight="16px"
+      >
+      </app-icon>
+    </app-tooltip>
+  </div>
+  <p *ngIf="error" class="text-danger mt-1 pe-1">
+    {{ messageError }}
+  </p>
 </label>

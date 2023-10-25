@@ -1,0 +1,33 @@
+<div [formGroup]="fg">
+  <app-select
+    formControlName="code"
+    [placeholder]="placeholder"
+    [multiple]="true"
+    [customValue]="true"
+    [value]="selectedLocals"
+    [optionList]="locals"
+    [selectOptionSquare]="true"
+    [showClearValueForButton]="true"
+    [enableSearch]="true"
+    [enableNoSpace]="true"
+    (optionChange)="selectionChange($event)"
+    (filterList)="filterOptionList($event)"
+    (clearValueForButton)="clearValues()"
+    containerMaxHeight="200px"
+    maxLimit="200"
+    containerSearchClass="custom-container"
+    inputSearchClass="custom-input"
+    [error]="isError"
+  >
+    <ng-container trigger>
+      <app-tooltip
+        [value]="othersSelects"
+        innerClass="multiline"
+        class="content-text"
+      >
+        {{ valueSelect }}
+      </app-tooltip>
+    </ng-container>
+  </app-select>
+  <p *ngIf="isError" class="text-danger mt-1 ms-4">Selecciona un distrito</p>
+</div>

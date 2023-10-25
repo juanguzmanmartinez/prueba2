@@ -1,0 +1,29 @@
+<div
+  class="mt-4"
+  [formGroup]="_opCapacitiesStepFileEditForm.capacityTableForm$"
+>
+  <p *ngIf="onlyOne" class="d-block text-h5 text-black mt-6 mb-5">
+    Serivicio express
+  </p>
+  <p class="d-block text-body-1-bold text-black mt-0 mb-3">
+    Ingresa la cantidad de capacidad
+  </p>
+  <div formArrayName="expressList">
+    <p>Nro. de motorizados</p>
+    <div
+      class="d-flex justify-content-lg-start"
+      *ngFor="let item of express; let i = index"
+    >
+      <div [formGroupName]="i">
+        <app-input-number
+          placeholder="10"
+          labelClass="ml-4"
+          class="input-num"
+          #inputAmpm
+          formControlName="capacity"
+        >
+        </app-input-number>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+@import 'src/sass/variables';
+@import 'src/sass/mixins/text.mixin';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+
+  &.button-primary {
+    background-color: $primary-50;
+    color: $neutral-0;
+
+    &.button-disabled {
+      color: $neutral-50 !important;
+      background-color: $neutral-30 !important;
+    }
+
+    &:hover {
+      background-color: $primary-60;
+    }
+
+    &:active {
+      background-color: $primary-70;
+    }
+  }
+
+  &.button-secondary {
+    background-color: $neutral-0;
+    color: $primary-50;
+    border: 2px solid $primary-50;
+
+    &.button-disabled {
+      color: $neutral-50 !important;
+      border-color: $neutral-30 !important;
+    }
+
+    &:hover {
+      border-color: $primary-60;
+      color: $primary-60;
+    }
+
+    &:active {
+      border-color: $primary-70;
+      color: $primary-70;
+    }
+  }
+
+  &.button-tertiary {
+    background-color: $neutral-0;
+    color: $secondary-50;
+
+    &.button-disabled {
+      color: $neutral-50 !important;
+    }
+
+    &:hover {
+      color: $secondary-60;
+    }
+
+    &:active {
+      color: $secondary-70;
+    }
+  }
+
+  &.button-sm {
+    height: 40px;
+    padding: 0 1.25rem;
+    border-radius: 0.5rem;
+    @include text-body-3-bold;
+  }
+
+  &.button-md {
+    height: 48px;
+    padding: 0 1.5rem;
+    border-radius: 12px;
+    @include text-body-2-bold;
+  }
+}

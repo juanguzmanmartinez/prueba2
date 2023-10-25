@@ -1,0 +1,199 @@
+<section>
+  <div class="d-flex mt-5 mb-3">
+    <app-router router="/">
+      <div class="cursor-pointer d-flex-center">
+        <app-icon
+          svgName="arrow-left-secondary"
+          innerClass="me-2"
+          svgWidth="12px"
+        ></app-icon>
+        <span class="text-body-3-bold text-secondary-60">Ir a inicio</span>
+      </div>
+    </app-router>
+  </div>
+  <div class="row mb-6">
+    <div class="col-6">
+      <div class="col-12 d-flex justify-content-between">
+        <h4 class="text-h6 text-neutral-100 mb-0">Seguimiento a rutas</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2 text-body-2-regular">
+    <div class="col-6">Nombre de local</div>
+    <div class="col-6">Estado de ruta</div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-6">
+      <fp-select-multiple [options]="locals"></fp-select-multiple>
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-9">
+          <fp-select-multiple [options]="routeStates"></fp-select-multiple>
+        </div>
+        <div class="col-3">
+          <fp-button innerClass="w-100">
+            <div class="d-flex align-items-center">
+              <app-icon svgName="search-white" svgWidth="20px"></app-icon>
+              <span class="ms-2">Buscar</span>
+            </div>
+          </fp-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-resume-route (redirect)="directToAllocation()"></app-resume-route>
+
+  <div class="row">
+    <div class="col-12 mb-8">
+      <table
+        mat-table
+        large-table
+        [dataSource]="dataSource"
+        class="order-table"
+      >
+        <ng-container matColumnDef="local">
+          <th
+            mat-header-cell
+            column-width="16%"
+            *matHeaderCellDef
+            app-sort-custom
+          >
+            Local
+          </th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.local }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="idRoute">
+          <th
+            mat-header-cell
+            column-width="12%"
+            *matHeaderCellDef
+            app-sort-custom
+          >
+            ID ruta
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.idRoute }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="carrier">
+          <th
+            mat-header-cell
+            column-width="16%"
+            *matHeaderCellDef
+            app-sort-custom
+          >
+            Transportista
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.carrier }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="state">
+          <th
+            mat-header-cell
+            column-width="14%"
+            *matHeaderCellDef
+            app-sort-custom
+          >
+            Estado ruta
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="text-secondary-60 text-body-4-bold"
+          >
+            {{ element.state }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endHour">
+          <th
+            mat-header-cell
+            column-width="14%"
+            *matHeaderCellDef
+            app-sort-custom
+            class="th-center"
+          >
+            Hora fin entregas
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.endHour }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="completedOrders">
+          <th
+            mat-header-cell
+            column-width="20%"
+            *matHeaderCellDef
+            app-sort-custom
+            class="th-center"
+          >
+            Pedidos finalizados
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1">
+                <app-order-completed-bar
+                  [completedOrders]="element.completedOrders"
+                ></app-order-completed-bar>
+              </div>
+              <div class="ms-4"> {{ element.completedOrders }} de 10 </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell cell-bold *matCellDef="let element">
+            <div class="d-flex-center">
+              <app-icon
+                innerClass="cursor-pointer me-4"
+                svgName="detail-option"
+                svgWidth="24px"
+                (click)="openDialog()"
+              ></app-icon>
+              <app-icon svgName="redirect-option" svgWidth="24px"></app-icon>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          row-hover
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+    </div>
+  </div>
+</section>

@@ -18,7 +18,7 @@ import { SelectTabModule } from '@atoms/select-tab/select-tab.module';
 import { InputDatepickerModule } from '@atoms/input-datepicker/input-datepicker.module';
 import { InputsModule } from '@atoms/inputs/inputs.module';
 import { ButtonsModule } from '@atoms/buttons/buttons.module';
-import { OpCapacitiesStepGroupOrLocalComponent } from './components/op-capacities-step-group-or-local/op-capacities-step-group-or-local.component';
+import { OpCapacitiesStepGroupOrDrugstoreComponent } from './components/op-capacities-step-group-or-drugstore/op-capacities-step-group-or-drugstore.component';
 import { OpCapacitiesStepEditionModeComponent } from './components/op-capacities-step-edition-mode/op-capacities-step-edition-mode.component';
 import { OpCapacitiesStepCapacityTableComponent } from './components/op-capacities-step-capacity-table/op-capacities-step-capacity-table.component';
 import { OpCapacitiesStepExpressResourceComponent } from './components/op-capacities-step-express-resource/op-capacities-step-express-resource.component';
@@ -26,12 +26,12 @@ import { AlertModule } from '@molecules/alert/alert.module';
 import { OpCapacitiesStepCapacityTableFormComponent } from './components/op-capacities-step-capacity-table-form/op-capacities-step-capacity-table-form.component';
 import { MatTableModule } from '@angular/material/table';
 import { CheckboxModule } from '@atoms/checkbox/checkbox.module';
-import { OpCapacitiesLocalDefaultCapacityComponent } from './components/op-capacities-local-default-capacity/op-capacities-local-default-capacity.component';
+import { OpCapacitiesDrugstoreDefaultCapacityComponent } from './components/op-capacities-drugstore-default-capacity/op-capacities-drugstore-default-capacity.component';
 import { TooltipModule } from '@atoms/tooltip/tooltip.module';
-import { OpCapacitiesLocalDefaultCapacityCardComponent } from './components/op-capacities-local-default-capacity-card/op-capacities-local-default-capacity-card.component';
+import { OpCapacitiesDrugstoreDefaultCapacityCardComponent } from './components/op-capacities-drugstore-default-capacity-card/op-capacities-drugstore-default-capacity-card.component';
 import { OperationsCapacitiesImplementService } from './implements/operations-capacities-implement.service';
 import { OperationsCapacityRetComponent } from './views/operations-capacity-ret/operations-capacity-ret.component';
-import { OpCapacitiesLocalDefaultCapacityDialogComponent } from './components/op-capacities-local-default-capacity-dialog/op-capacities-local-default-capacity-dialog.component';
+import { OpCapacitiesDrugstoreDefaultCapacityDialogComponent } from './components/op-capacities-drugstore-default-capacity-dialog/op-capacities-drugstore-default-capacity-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { IconsModule } from '@atoms/icons/icons.module';
 import { TabModule } from '@molecules/tab/tab.module';
@@ -41,56 +41,125 @@ import { TableModule } from '@molecules/table/table.module';
 import { DialogModule } from '@molecules/dialog/dialog.module';
 import { OperationsCapacityReportComponent } from './views/operations-capacity-report/operations-capacity-report.component';
 import { PipesModule } from '@pipes/pipes.module';
+import { DropOptionsModule } from '@molecules/drop-options/drop-options.module';
+import { OperationsIntervalExpressComponent } from './views/operations-interval-express/operations-interval-express.component';
+import { OpIntervalsStepSetExpressComponent } from './components/op-intervals-step-set-express/op-intervals-step-set-express.component';
+import { CardStepModule } from '@molecules/card-step/card-step.module';
+import { SwitchModule } from '@atoms/switch/switch.module';
+
+import { OperationsCapacityIntervalComponent } from './views/operations-capacity-interval/operations-capacity-interval.component';
+import { SelectModule } from '@atoms/select/select.module';
+import { OperationsCapacityIntervalUploadComponent } from './views/operations-capacity-interval-upload/operations-capacity-interval-upload.component';
+import { StepTabsModule } from '@molecules/step-tabs/step-tabs.module';
+import { OpCapacitiesIntervalStepUploadComponent } from './components/op-capacities-interval-step-upload/op-capacities-interval-step-upload.component';
+import { OpCapacitiesIntervalStepConfirmationComponent } from './components/op-capacities-interval-step-confirmation/op-capacities-interval-step-confirmation.component';
+import { OperationsCapacityUploadComponent } from './views/operations-capacity-upload/operations-capacity-upload.component';
+
+import { OpCapacitiesStepFileConfirmationComponent } from './components/op-capacities-step-file-confirmation/op-capacities-step-file-confirmation.component';
+import { OpCapacitiesStepFileDownloadComponent } from './components/op-capacities-step-file-download/op-capacities-step-file-download.component';
+import { OpCapacitiesStepFileUploadComponent } from './components/op-capacities-step-file-upload/op-capacities-step-file-upload.component';
+import { OpCapacitiesStepFileEditCapacityComponent } from './components/op-capacities-step-file-edit-capacity/op-capacities-step-file-edit-capacity.component';
+import { LocalFilterModule } from 'app/business/order/views/order-records/components/local-filter/local-filter.module';
+import { OpCapacitiesUploadEditAmpmComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-ampm/op-capacities-upload-edit-ampm.component';
+import { OpCapacitiesUploadEditRetComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-ret/op-capacities-upload-edit-ret.component';
+import { OpCapacitiesUploadEditExpressComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-express/op-capacities-upload-edit-express.component';
+import { OpCapacitiesUploadEditScheduledComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-scheduled/op-capacities-upload-edit-scheduled.component';
+import { OpCapacitiesUploadDeleteDialogComponent } from './components/op-capacities-step-file-confirmation/components/op-capacities-upload-delete-dialog/op-capacities-upload-delete-dialog.component';
+import { FormFieldModule } from '@molecules/form-field/form-field.module';
+import { FilterSearchModule } from '@molecules/filter-search/filter-search.module';
+import { FilterDepartamentsComponent } from './components/op-capacities-step-file-download/components/filter-departaments/filter-departaments.component';
+import { FilterProvincesComponent } from './components/op-capacities-step-file-download/components/filter-provinces/filter-provinces.component';
+import { FilterDistrictsComponent } from './components/op-capacities-step-file-download/components/filter-districts/filter-districts.component';
+import { FilterStoresComponent } from './components/op-capacities-step-file-download/components/filter-stores/filter-stores.component';
+import { PaginatorModule } from '@atoms/paginator/paginator.module';
+import { BackRouterSimpleModule } from '@molecules/back-router-simple/back-router-simple.module';
+import { OpCapacitiesUploadEditTableComponent } from './components/op-capacities-step-file-edit-capacity/components/op-capacities-upload-edit-table/op-capacities-upload-edit-table.component';
+import { DndDirective } from './components/op-capacities-step-file-upload/directiva/dnd.directive';
+import { OpCapacitiesUploadBackDialogComponent } from './components/op-capacities-upload-back-dialog/op-capacities-upload-back-dialog.component';
+import { OpCapacitiesStepFileEditFormService } from './components/op-capacities-step-file-edit-capacity/form/op-capacities-step-file-edit-form.service';
 
 @NgModule({
-    declarations: [
-        OperationsCapacitiesComponent,
-        OperationsCapacityHomeComponent,
-        OperationsCapacityAmPmComponent,
-        OperationsCapacityScheduledComponent,
-        OperationsCapacityExpressComponent,
-        OperationsCapacityRetComponent,
-        OpCapacitiesStepGroupOrLocalComponent,
-        OpCapacitiesStepEditionModeComponent,
-        OpCapacitiesStepCapacityTableComponent,
-        OpCapacitiesStepExpressResourceComponent,
-        OpCapacitiesStepCapacityTableFormComponent,
-        OpCapacitiesLocalDefaultCapacityComponent,
-        OpCapacitiesLocalDefaultCapacityCardComponent,
-        OpCapacitiesLocalDefaultCapacityDialogComponent,
-        OperationsCapacityReportComponent
-    ],
-    imports: [
-        CommonModule,
-        OperationsCapacitiesRoutingModule,
-        ReactiveFormsModule,
-        MatExpansionModule,
-        LinksModule,
-        RadioModule,
-        CardModule,
-        BackRouterModule,
-        StepperModule,
-        SelectTabModule,
-        FormsModule,
-        InputDatepickerModule,
-        InputsModule,
-        ButtonsModule,
-        AlertModule,
-        MatTableModule,
-        CheckboxModule,
-        TooltipModule,
-        MatDialogModule,
-        IconsModule,
-        TabModule,
-        SelectSearchModule,
-        DirectivesModule,
-        TableModule,
-        DialogModule,
-        PipesModule
-    ],
-    providers: [
-        OperationsCapacitiesImplementService
-    ]
+  declarations: [
+    OperationsCapacitiesComponent,
+    OperationsCapacityHomeComponent,
+    OperationsCapacityAmPmComponent,
+    OperationsCapacityScheduledComponent,
+    OperationsCapacityExpressComponent,
+    OperationsCapacityRetComponent,
+    OperationsCapacityReportComponent,
+    OpCapacitiesStepGroupOrDrugstoreComponent,
+    OpCapacitiesStepEditionModeComponent,
+    OpCapacitiesStepCapacityTableComponent,
+    OpCapacitiesStepExpressResourceComponent,
+    OpCapacitiesStepCapacityTableFormComponent,
+    OpCapacitiesDrugstoreDefaultCapacityComponent,
+    OpCapacitiesDrugstoreDefaultCapacityCardComponent,
+    OpCapacitiesDrugstoreDefaultCapacityDialogComponent,
+    OperationsIntervalExpressComponent,
+    OpIntervalsStepSetExpressComponent,
+    OperationsCapacityIntervalComponent,
+    OperationsCapacityIntervalUploadComponent,
+    OpCapacitiesIntervalStepUploadComponent,
+    OpCapacitiesIntervalStepConfirmationComponent,
+    OperationsCapacityUploadComponent,
+    OpCapacitiesStepFileConfirmationComponent,
+    OpCapacitiesStepFileDownloadComponent,
+    OpCapacitiesStepFileUploadComponent,
+    OpCapacitiesStepFileEditCapacityComponent,
+    OpCapacitiesUploadEditAmpmComponent,
+    OpCapacitiesUploadEditRetComponent,
+    OpCapacitiesUploadEditExpressComponent,
+    OpCapacitiesUploadEditScheduledComponent,
+    OpCapacitiesUploadDeleteDialogComponent,
+    FilterDepartamentsComponent,
+    FilterProvincesComponent,
+    FilterDistrictsComponent,
+    FilterStoresComponent,
+    OpCapacitiesUploadEditTableComponent,
+    DndDirective,
+    OpCapacitiesUploadBackDialogComponent,
+  ],
+  imports: [
+    CommonModule,
+    OperationsCapacitiesRoutingModule,
+    ReactiveFormsModule,
+    MatExpansionModule,
+    LinksModule,
+    RadioModule,
+    CardModule,
+    BackRouterModule,
+    StepperModule,
+    SelectTabModule,
+    FormsModule,
+    InputDatepickerModule,
+    InputsModule,
+    ButtonsModule,
+    AlertModule,
+    MatTableModule,
+    CheckboxModule,
+    TooltipModule,
+    MatDialogModule,
+    IconsModule,
+    TabModule,
+    SelectSearchModule,
+    DirectivesModule,
+    TableModule,
+    DialogModule,
+    PipesModule,
+    DropOptionsModule,
+    SwitchModule,
+    SelectModule,
+    CardStepModule,
+    StepTabsModule,
+    LocalFilterModule,
+    FormFieldModule,
+    FilterSearchModule,
+    PaginatorModule,
+    BackRouterSimpleModule,
+  ],
+  providers: [
+    OperationsCapacitiesImplementService,
+    OpCapacitiesStepFileEditFormService,
+  ],
 })
-export class OperationsCapacitiesModule {
-}
+export class OperationsCapacitiesModule {}

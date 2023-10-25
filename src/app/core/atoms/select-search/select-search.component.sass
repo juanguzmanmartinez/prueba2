@@ -1,0 +1,90 @@
+@import "src/sass/variables/colors.variable"
+@import "src/sass/variables/utilities.variable"
+@import "src/sass/mixins/position.mixin"
+@import "src/sass/mixins/text.mixin"
+
+$select-input-height: 40px
+
+.select-search
+  background-color: $white
+  border: 1px solid $gray-2
+  border-radius: $border-radius
+  height: $select-input-height
+  display: block
+  margin: 0
+  position: relative
+  cursor: pointer
+
+  .select-search-input,
+  .select-search-span
+    padding: 0 34px 0 40px
+    height: 40px
+    display: flex
+    align-items: center
+
+  .select-search-input
+    border: 0
+    height: $select-input-height
+    width: 100%
+    background-color: transparent
+    @include text-body-1-regular
+    z-index: 2
+
+  .select-search-span
+    position: absolute
+    @include text-body-1-regular
+    z-index: 1
+    width: 100%
+
+  .select-search-icon
+    pointer-events: none
+    right: 16px
+    display: inline-flex
+    @include position-vertical-center
+
+  &.select-search-disabled
+    pointer-events: none
+    background-color: $gray-2
+    border-color: $gray-3
+
+    .select-search-span
+      color: $gray-4
+
+.mat-autocomplete-panel.select-search-component
+  background-color: transparent
+  border: 0
+  box-shadow: none
+  position: absolute
+  overflow: initial
+
+  .option-container
+    border-radius: $border-radius
+    background-color: $white
+    box-shadow: $box-shadow
+    box-sizing: border-box
+    overflow: auto
+    max-height: 300px
+
+  mat-option.select-basic-option,
+  mat-option.select-basic-option.mat-option.mat-active
+    color: $black
+    background-color: transparent
+    height: $select-input-height
+    @include text-body-1-regular
+
+    &:hover
+      background-color: $gray-1
+
+    &.mat-selected
+      background-color: $light-primary
+
+  mat-option.select-basic-option.select-basic-option-clear,
+  mat-option.select-basic-option.select-basic-option-clear.mat-active
+      color: $gray-4
+
+.search-icon
+  position: absolute
+  left: 16px
+  bottom: 0
+  top: 0
+  margin: auto 0

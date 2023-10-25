@@ -1,9 +1,13 @@
 @import "src/sass/variables/colors.variable"
 
-app-table table.mat-table
+app-table table.mat-table,
+table.mat-table.table
 
   .mat-row:nth-child(even)
-    background-color: $gray-1
+    background-color: $gray-0
+
+  .mat-row:nth-child(odd)
+    background-color: $white
 
   .mat-row:last-child:not(:nth-child(even))
     border-bottom-width: 1px

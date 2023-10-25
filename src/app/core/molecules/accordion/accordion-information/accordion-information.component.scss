@@ -1,0 +1,48 @@
+@import "src/sass/variables/colors.variable";
+@import "src/sass/variables/utilities.variable";
+
+mat-accordion::ng-deep {
+  border-radius: $border-radius-md;
+
+  .mat-expansion-panel {
+    border: none;
+    border-radius: $border-radius-md!important;
+    box-shadow: none;
+
+    &:not(.mat-expanded) {
+      .mat-expansion-panel-header:hover {
+        background: $white !important;
+        cursor: default !important;
+      }
+    }
+
+    mat-expansion-panel-header {
+      background: $white;
+      box-sizing: border-box;
+      border-radius: $border-radius-md!important;
+      padding: 24px;
+      height: 72px;
+
+      &:not([aria-disabled=true]) {
+        cursor: default!important;
+      }
+
+      .mat-expansion-panel-header-title {
+        margin-right: 0;
+
+        .icon-rotate {
+          transition-duration: 225ms;
+        }
+
+        .rotate {
+          transform: rotate(180deg) !important
+        }
+      }
+
+      .mat-expansion-indicator {
+        display: none;
+      }
+    }
+  }
+
+}

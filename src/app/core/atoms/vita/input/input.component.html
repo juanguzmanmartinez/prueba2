@@ -1,0 +1,38 @@
+<label class="input-label" [ngClass]="labelClass">
+  <input
+    class="input-basic"
+    [style.padding-right]="buttonClear ? '48px' : ''"
+    [style.padding-left]="isSearch ? '48px' : ''"
+    [class.input-error]="error"
+    [ngClass]="innerClass"
+    [id]="id"
+    [name]="name"
+    [type]="behavior"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [readonly]="readOnly"
+    [value]="value"
+    [attr.maxlength]="maxLength"
+    [(ngModel)]="value"
+    (ngModelChange)="onInputChange($event)"
+    (blur)="onBlur.emit()"
+    (focus)="emitOnFocus()"
+    autocomplete="off"
+  />
+
+  <app-icon
+    *ngIf="isSearch"
+    innerClass="text-neutral-60"
+    class="input-search-icon"
+    svgName="search-int"
+    svgWidth="20px"
+  ></app-icon>
+
+  <app-icon
+    *ngIf="buttonClear && value"
+    class="input-close-icon"
+    (click)="clearValue()"
+    iconName="close-input"
+  >
+  </app-icon>
+</label>

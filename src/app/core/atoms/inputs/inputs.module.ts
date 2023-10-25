@@ -6,6 +6,7 @@ import { InputSearchComponent } from './input-search/input-search.component';
 import { IconsModule } from '../icons/icons.module';
 import { InputNumberComponent } from './input-number/input-number.component';
 import { DirectivesModule } from '../../../shared/directives/directives.module';
+import { TooltipModule } from '@atoms/tooltip/tooltip.module';
 
 const COMPONENTS = [
     InputComponent,
@@ -24,6 +25,7 @@ const COMPONENTS = [
         CommonModule,
         FormsModule,
         IconsModule,
+        TooltipModule,
         DirectivesModule,
     ]
 })

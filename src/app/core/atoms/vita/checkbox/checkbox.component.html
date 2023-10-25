@@ -1,0 +1,12 @@
+<div class="d-flex-center position-relative">
+  <input
+    [ngClass]="innerClass"
+    type="checkbox"
+    [value]="value"
+    (change)="onChange.emit($event)"
+    [checked]="checked"
+  />
+  <div class="checkbox-icon">
+    <app-icon *ngIf="checked" svgName="done-white" svgWidth="12px"></app-icon>
+  </div>
+</div>

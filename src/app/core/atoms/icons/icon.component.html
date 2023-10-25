@@ -1,15 +1,24 @@
 <ng-container *ngIf="fontName">
-  <mat-icon aria-hidden="false"
-            class="icon-font"
-            [ngClass]="innerClass"
-            [style.color]="fontColor"
-            [style.font-size]="fontSize">{{fontName}}</mat-icon>
+  <mat-icon
+    aria-hidden="false"
+    class="icon-font {{ fontStyleClass }}"
+    [ngClass]="innerClass"
+    [style.color]="fontColor"
+    [style.font-size]="fontSize"
+    >{{ fontName }}</mat-icon
+  >
 </ng-container>
 
 <ng-container *ngIf="svgName">
-  <mat-icon class="icon-svg"
-            [ngClass]="innerClass"
-            [svgIcon]="svgName"
-            [style.width]="svgWidth"
-            [style.height]="(svgHeight || svgWidth)"></mat-icon>
+  <mat-icon
+    class="icon-svg"
+    [ngClass]="innerClass"
+    [class.icon-disabled]="disabled"
+    [svgIcon]="toogleSvgIconOrHover()"
+    [style.width]="svgWidth"
+    [style.color]="fontColor"
+    [style.height]="svgHeight || svgWidth"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseLeave()"
+  ></mat-icon>
 </ng-container>

@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 @Component({
     selector: 'app-select-tab',
     templateUrl: './select-tab.component.html',
-    styleUrls: ['./select-tab.component.scss']
+    styleUrls: ['./select-tab.component.sass']
 })
 export class SelectTabComponent implements OnInit {
 

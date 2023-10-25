@@ -1,0 +1,30 @@
+<div [formGroup]="presenter.filterForm">
+  <div [ngClass]="{ 'd-block': !isRange, 'd-none': isRange }">
+    <app-select
+      #appSelect
+      formControlName="promiseDateSelect"
+      placeholder="Fecha promesa"
+      customFontName="calendar_today"
+      [optionList]="typeDates"
+      [showClearValueForButton]="true"
+      (clearValueForButton)="clearValues()"
+      (optionChange)="selectionChange($event)"
+      [error]="presenter.isPromiseDateInvalid()"
+    >
+    </app-select>
+  </div>
+
+  <div [ngClass]="{ 'd-block': isRange, 'd-none': !isRange }">
+    <app-input-datepicker-range
+      formControlName="promiseRangeDate"
+      #inputDatepickerRange
+      [minDate]="minDateSearch"
+      (cancel)="cancelDateRange()"
+      [error]="presenter.isPromiseDateInvalid()"
+    >
+    </app-input-datepicker-range>
+  </div>
+  <p *ngIf="presenter.isPromiseDateInvalid()" class="text-danger mt-1 ms-4">
+    Este campo es requerido
+  </p>
+</div>

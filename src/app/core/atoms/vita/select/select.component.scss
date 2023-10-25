@@ -1,0 +1,79 @@
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select-selected {
+  background-color: white;
+  height: 48px;
+  border: 1.2px solid #cbd2e1;
+  border-radius: 12px;
+  padding: 14px 16px;
+  width: 100%;
+  box-sizing: border-box;
+  appearance: unset;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  color: #97a5c3;
+}
+
+.selected-option{
+  color: #2F3A51 !important;
+}
+
+.selected-active {
+  border-color: #b368ff !important;
+}
+
+.selected-error {
+  border-color: #d35530 !important;
+}
+
+.selected-disabled {
+  background-color: #eef0f5 !important;
+  color: #97a5c3 !important;
+  border: 1.2px solid #cbd2e1 !important;
+  pointer-events: none;
+}
+
+.custom-select-options {
+  background-color: white;
+  border-radius: 12px;
+  box-sizing: border-box;
+  position: absolute;
+  top: calc(100% + 4px);
+  width: 100%;
+  z-index: 1;
+  filter: drop-shadow(0px 4px 16px rgba(67, 83, 117, 0.08));
+}
+
+.custom-select-option {
+  appearance: unset;
+  background-color: white;
+  border: 0;
+  text-align: left;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  width: 100%;
+  border-radius: 8px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: #435375;
+
+  &:hover {
+    background: #fafbfc;
+  }
+}
+

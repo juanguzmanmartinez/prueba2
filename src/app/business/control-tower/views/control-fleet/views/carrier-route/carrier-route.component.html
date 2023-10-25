@@ -1,0 +1,167 @@
+<section>
+  <app-carrier-route-header
+    *ngIf="!loading && hasRoute && !isPendingFinalized"
+    [detailRoute]="detailRoute$ | async"
+  ></app-carrier-route-header>
+  <div class="row mb-5">
+    <div
+      class="col-3 bg-neutral-0 p-5 text-body-3-regular"
+      *ngIf="!loading && hasRoute && !isPendingFinalized"
+    >
+      <app-detail-route [detailRoute]="detailRoute$ | async"></app-detail-route>
+    </div>
+    <div class="col-9">
+      <div #mapElement style="width: 100%; height: 500px"></div>
+    </div>
+  </div>
+  <div class="row mb-6" *ngIf="!loading && hasRoute && !isPendingFinalized">
+    <div class="col-12">
+      <table mat-table large-table [dataSource]="orderRouteList$ | async">
+        <ng-container matColumnDef="orderNumber">
+          <th
+            mat-header-cell
+            column-width="2%"
+            *matHeaderCellDef
+            app-sort-custom
+          >
+            N°
+          </th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-center text-neutral-90 text-body-3-regular"
+          >
+            {{ element.orderNumber }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderId">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Pedido</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.orderId }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="local">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Local</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.local }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="channel">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Canal</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.channel }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="service">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Servicio</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.service }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="promiseDate">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>F. Promesa</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.promiseDate }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>
+            Direcci&oacute;n
+          </th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-neutral-90 text-body-3-regular"
+          >
+            {{ element.address }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Estado</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-body-3-bold"
+          >
+            <span appOrderStatus>{{ element.state }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="timeLeft">
+          <th mat-header-cell *matHeaderCellDef app-sort-custom>Tiempo</th>
+          <td
+            mat-cell
+            cell-bold
+            *matCellDef="let element"
+            class="text-body-3-bold"
+          >
+            <span appTimeLeft>{{ element.timeLeft }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell cell-bold *matCellDef="let element">
+            <app-button
+              class="d-flex justify-content-center align-items-center"
+              innerClass="d-flex align-items-center p-0"
+              (clicked)="navigateToOrder(element.orderId)"
+            >
+              <app-icon svgName="fleet-table-action" svgWidth="24px"></app-icon>
+            </app-button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          row-hover
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<ng-container *ngIf="!loading && !hasRoute">
+  <app-no-route></app-no-route>
+</ng-container>
+
+<ng-container *ngIf="!loading && isPendingFinalized">
+  <app-pending-finalized></app-pending-finalized>
+</ng-container>

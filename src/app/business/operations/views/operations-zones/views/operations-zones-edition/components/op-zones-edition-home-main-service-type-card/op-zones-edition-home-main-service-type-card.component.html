@@ -1,49 +1,146 @@
-<app-card innerClass="pb-12">
-    <div class="row mb-6">
-        <div class="col-12 d-flex-vertical-center justify-content-between">
-            <h5 class="text-h5 mb-0"
-                [class.text-gray-4]="serviceTypeDisabled">
-                <app-icon class="d-inline-block me-5"
-                          [svgName]="serviceTypeDisabled ? 'ellipse-disabled' : 'ellipse-success'"></app-icon>
-                <span>{{segmentName}}</span>
-            </h5>
-
-            <app-tag [appearance]="tagAppearance.coloredWhitePill"
-                    [tagColor]="segmentChannelColor">
-                {{segmentChannelName}}
-            </app-tag>
-        </div>
+<app-card innerClass="pb-6">
+  <div class="row mb-4">
+    <div class="col-12 d-flex-vertical-center justify-content-between">
+      <h4 class="text-h6 mb-0" [class.text-gray-4]="serviceTypeDisabled">
+        <app-icon
+          class="d-inline-block me-5"
+          [svgName]="
+            serviceTypeDisabled
+              ? 'ellipse-disabled'
+              : serviceType?.enabled
+              ? 'ellipse-success'
+              : 'ellipse-danger'
+          "
+        ></app-icon>
+        <span class="text-gray-7">{{ segmentName }}</span>
+      </h4>
     </div>
-
-    <app-card-static-information class="d-block mb-5"
-                                 iconName="access_time"
-                                 [disabled]="serviceTypeDisabled">
-        <ng-container information-title>Horario de atención {{segmentName}}</ng-container>
-        <ng-container information-caption>{{startAndEndHour}}</ng-container>
-    </app-card-static-information>
-
-    <app-card-static-information class="d-block "
-                                 iconName="hourglass_empty"
-                                 [disabled]="serviceTypeDisabled">
-        <ng-container information-title>Lapso de cierre de ventana - GAP</ng-container>
-        <ng-container information-caption>{{segmentGap}}</ng-container>
-    </app-card-static-information>
-
-<ng-container
-        *appRouterAccess="serviceTypePath">
-    <ng-container *ngIf="serviceType.available">
-        <div *ngIf="serviceType.registered"
-             app-card-edit-button
-             [editMessage]="segmentName"
-             (click)="editEvent()"></div>
-
-        <div *ngIf="!serviceType.registered"
-             app-card-add-button
-             appEditionAccess
-             [addMessage]="segmentName"
-             (access)="addEvent()">
+  </div>
+  <!-- <app-divider></app-divider> -->
+  <hr class="my-4 bg-gray-3" />
+  <div class="row mb-4">
+    <div
+      class="col-12 d-flex-vertical-center justify-content-start align-items-center"
+    >
+      <app-tag
+        *ngIf="serviceType?.channel"
+        [appearance]="appearanceChannel"
+        [tagColor]="segmentChannelColor"
+        [innerClass]="channelInnerClass"
+        [disabled]="!!serviceTypeDisabled"
+      >
+        {{ segmentChannelName }}
+      </app-tag>
+      <app-tag
+        [appearance]="tagAppearance.coloredFullLilacPill"
+        [tagColor]="'dark-complementary-four'"
+        class="ml-10"
+        *ngIf="flagServiceType === 'P'"
+        innerClass="py-3 px-2 border border-complementary-four"
+        [disabled]="!!serviceTypeDisabled"
+      >
+        Precio personalizado
+      </app-tag>
+      <app-tag
+        [appearance]="tagAppearance.coloredFullGreasePill"
+        [textTagColor]="segmentCompanyColor"
+        class="ml-10"
+        innerClass="py-3 px-2 border border-gray-1"
+      >
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="me-2 d-flex align-items-center">
+            <app-icon [svgName]="segmentCompanyIcon" svgWidth="16px"></app-icon>
+          </span>
+          {{ segmentCompanyName }}
         </div>
-    </ng-container>
-</ng-container>
+      </app-tag>
+    </div>
+  </div>
 
+  <app-card-static-information
+    class="d-block mb-5"
+    svgName="time-circle"
+    svgWidth="16px"
+    [disabled]="serviceTypeDisabled"
+  >
+    <ng-container information-title
+      >Horario de atención {{ segmentName }}</ng-container
+    >
+    <ng-container information-caption
+      ><span
+        [ngClass]="{
+          'text-black': !serviceTypeDisabled,
+          'text-gray-3': serviceTypeDisabled
+        }"
+        >{{ startAndEndHour }}</span
+      ></ng-container
+    >
+  </app-card-static-information>
+
+  <app-card-static-information
+    class="d-block mb-5"
+    svgName="hourglass"
+    svgWidth="16px"
+    [disabled]="serviceTypeDisabled"
+  >
+    <ng-container information-title
+      >Lapso de cierre de ventana - GAP</ng-container
+    >
+    <ng-container information-caption
+      ><span
+        [ngClass]="{
+          'text-black': !serviceTypeDisabled,
+          'text-gray-3': serviceTypeDisabled
+        }"
+        >{{ segmentGap }}</span
+      ></ng-container
+    >
+  </app-card-static-information>
+
+  <app-card-static-information
+    class="d-block"
+    svgName="money-circle"
+    svgWidth="16px"
+    [disabled]="serviceTypeDisabled"
+  >
+    <ng-container information-title>{{ textFlagServiceType }}</ng-container>
+    <ng-container information-caption
+      ><span
+        [ngClass]="{
+          'text-black': !serviceTypeDisabled,
+          'text-gray-3': serviceTypeDisabled
+        }"
+        >{{ priceServideType }}</span
+      ></ng-container
+    >
+  </app-card-static-information>
+
+  <ng-container *appRouterAccess="serviceTypePath">
+    <ng-container *ngIf="serviceType?.available">
+      <div
+        *ngIf="serviceType?.registered"
+        class="card-edit-button"
+        (click)="editEvent()"
+      >
+        <app-tooltip
+          [value]="tooltipDescription"
+          position="left"
+          innerClass="bottom-7-right-3"
+        >
+          <app-icon
+            svgName="edit-tertiary"
+            svgNameHover="edit-tertiary-hover"
+            svgWidth="24px"
+          ></app-icon>
+        </app-tooltip>
+      </div>
+      <div
+        *ngIf="!serviceType?.registered"
+        app-card-add-button
+        [addMessage]="segmentName"
+        (editionAccess)="addEvent()"
+        [pathAccess]="serviceTypePath"
+      ></div>
+    </ng-container>
+  </ng-container>
 </app-card>

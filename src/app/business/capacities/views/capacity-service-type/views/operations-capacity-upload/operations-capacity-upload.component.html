@@ -1,0 +1,26 @@
+<section class="operations-capacity-express pt-6 pt-md-8 pb-8 pb-md-15">
+  <div class="row mb-4">
+    <div class="col">
+      <app-back-router-simple class="back"></app-back-router-simple>
+    </div>
+  </div>
+
+  <div class="row mb-5 mb-md-5">
+    <div class="col">
+      <h1 class="text-h5 text-black mb-5">Cargar capacidades</h1>
+    </div>
+  </div>
+  <app-step-tabs [tabs]="stepTabs"></app-step-tabs>
+  <ng-container *ngIf="currentStep == '1'">
+    <app-op-capacities-step-file-download></app-op-capacities-step-file-download>
+  </ng-container>
+  <ng-container *ngIf="currentStep == '2'">
+    <app-op-capacities-step-file-upload></app-op-capacities-step-file-upload>
+  </ng-container>
+  <ng-container *ngIf="currentStep == '3'">
+    <app-op-capacities-step-file-confirmation></app-op-capacities-step-file-confirmation>
+  </ng-container>
+  <ng-container *ngIf="currentStep == '0'">
+    <app-op-capacities-step-file-edit-capacity></app-op-capacities-step-file-edit-capacity>
+  </ng-container>
+</section>

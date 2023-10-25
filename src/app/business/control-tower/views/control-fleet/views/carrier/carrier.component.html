@@ -1,0 +1,36 @@
+<section>
+  <ng-container *ngIf="!hasError; else errorView">
+    <app-carrier-header
+      [updatedLastTime]="updatedLastTime"
+      (download)="downloadMotorized()"
+      (update)="updateCarrierList()"
+      [loadingTable]="loadingTable$ | async"
+    ></app-carrier-header>
+
+    <app-carrier-filter-menu
+      [localList]="localList$ | async"
+      [carrierStateList]="carrierStateList$ | async"
+      [filterForm]="filterForm"
+      (search)="executeSearch()"
+    ></app-carrier-filter-menu>
+
+    <app-carrier-panel-pill
+      [filterList]="filterList"
+      (delete)="deleteOptionFilter($event)"
+    ></app-carrier-panel-pill>
+
+    <app-carrier-table
+      [displayTime]="displayTime"
+      (navigate)="navigateToCarrierRoute($event)"
+      (sort)="sortColumn($event)"
+      (page)="page($event)"
+    ></app-carrier-table>
+  </ng-container>
+  <ng-template #errorView>
+    <div class="mt-12">
+      <app-http-error-viewer
+        [errorResponse]="errorResponse"
+      ></app-http-error-viewer>
+    </div>
+  </ng-template>
+</section>

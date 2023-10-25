@@ -1,0 +1,45 @@
+@import "src/sass/variables";
+
+.drugstore-default-capacity-card {
+  padding: 24px;
+  background-color: $white;
+  border: 1px solid $gray-1;
+  border-radius: $border-radius;
+  text-align: center;
+  position: relative;
+  &:hover {
+    box-shadow: $box-shadow;
+  }
+
+  .capacity-card-name {
+    color: $gray-5;
+  }
+
+  .capacity-card-quantity,
+  .capacity-card-text {
+    color: $black;
+  }
+
+  &.capacity-card-disabled {
+    background-color: $gray-1;
+    border-color: $gray-2;
+    pointer-events: none;
+
+    .capacity-card-name,
+    .capacity-card-quantity,
+    .capacity-card-text {
+      color: $gray-4;
+    }
+  }
+}
+
+.drop-option-service {
+  padding: 0.5rem 1rem;
+  text-align: left;
+  text-decoration: none;
+  font-weight: 500;
+  &:hover {
+    background-color: #fafbfc;
+    cursor: pointer;
+  }
+}

@@ -1,31 +1,126 @@
-<div class="select">
+<div class="select" #selectContainer (resized)="resized($event)">
   <mat-select
+    #select
+    appNoSpace
     disableRipple
     disableOptionCentering
     panelClass="select-component"
+    [enableNoSpace]="enableNoSpace"
+    [class.error-select]="error"
+    [multiple]="multiple"
     [disabled]="disabled"
     [placeholder]="placeholder"
     [value]="value"
-    (valueChange)="selectionChange($event)">
+    (valueChange)="selectionChange($event)"
+    (openedChange)="listenToggleSelect($event)"
+  >
+    <mat-select-trigger class="trigger" *ngIf="customValue">
+      <div class="trigger-content">
+        <ng-content select="[trigger]"></ng-content>
+      </div>
+    </mat-select-trigger>
 
-    <div class="option-container">
-      <mat-option class="select-basic-option select-basic-option-clear"
-                  *ngIf="clearValue">{{clearValue}}</mat-option>
+    <div
+      [ngClass]="containerSearchClass"
+      class="option-container"
+      [style.max-height]="containerMaxHeight"
+      [style.width]="optionContainerWidth"
+      [style.transform]="multiple ? 'translate(23px)' : ''"
+    >
       <mat-option
-        class="select-basic-option"
-        *ngFor="let option of optionList"
-        [value]="option">
-        <ng-container *ngIf="!templateRef">{{option}}</ng-container>
-        <ng-template [ngTemplateOutlet]="templateRef"
-                     [ngTemplateOutletContext]="{$implicit: option}">
-        </ng-template>
+        class="select-basic-option select-basic-option-clear"
+        *ngIf="clearValue"
+        [class.select-square-option]="selectOptionSquare"
+      >
+        {{ clearValue }}
       </mat-option>
-    </div>
 
+      <mat-option
+        [ngClass]="inputSearchClass"
+        class="option-search"
+        disabled="true"
+        *ngIf="enableSearch"
+      >
+        <div style="display: block">
+          <input
+            id="input"
+            class="search"
+            maxlength="20"
+            placeholder="Buscar"
+            (keyup)="onKey($event)"
+            (keyup.space)="addSpace()"
+            #input
+            (focus)="onFocus($event)"
+          />
+          <app-icon
+            class="icon-search"
+            fontName="search"
+            fontSize="16px"
+          ></app-icon>
+        </div>
+      </mat-option>
+
+      <ng-container *ngIf="enableSearch; else notSearch">
+        <mat-option
+          *ngFor="let option of optionList"
+          class="select-basic-option"
+          [class.select-square-option]="selectOptionSquare"
+          [value]="option.code"
+          [hidden]="option.hidden"
+          [disabled]="disableOptionsMultiple && !value.includes(option.code)"
+        >
+          {{ option.desc }}
+        </mat-option>
+      </ng-container>
+
+      <ng-template #notSearch>
+        <ng-container *ngIf="normalSelect; else notNormal">
+          <mat-option
+          *ngFor="let option of optionList"
+          class="select-basic-option"
+          [class.select-square-option]="selectOptionSquare"
+          [value]="option.code"
+          [hidden]="option.hidden"
+          [disabled]="disableOptionsMultiple && !value.includes(option.code)"
+        >
+          {{ option.desc }}
+        </mat-option>
+        </ng-container>
+        <ng-template #notNormal>
+          <mat-option
+          *ngFor="let option of optionList"
+          class="select-basic-option"
+          [class.select-square-option]="selectOptionSquare"
+          [value]="option"
+          [disabled]="disableOptionsMultiple && !value.includes(option)"
+        >
+          <ng-container *ngIf="!templateRef">{{ option }}</ng-container>
+          <ng-template
+            [ngTemplateOutlet]="templateRef"
+            [ngTemplateOutletContext]="{ $implicit: option }"
+          >
+          </ng-template>
+        </mat-option>
+        </ng-template>
+      </ng-template>
+    </div>
   </mat-select>
 
-  <app-icon class="select-icon"
-            fontName="keyboard_arrow_down"
-            innerClass="text-gray-5"
-            fontSize="14px"></app-icon>
+  <app-icon
+    *ngIf="value && value?.length && showClearValueForButton"
+    (click)="clearValues()"
+    class="close-icon"
+    fontName="close"
+    innerClass="text-gray-5"
+    fontSize="14px"
+  >
+  </app-icon>
+
+  <app-icon
+    class="select-icon"
+    [fontName]="customFontName ?? 'keyboard_arrow_down'"
+    innerClass="text-gray-5"
+    fontSize="14px"
+  >
+  </app-icon>
 </div>

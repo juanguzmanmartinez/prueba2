@@ -27,7 +27,7 @@ export class DialogTabDirective implements AfterViewInit {
 
         const tabBodyContentElementList = this.elementRef.nativeElement.querySelectorAll('.mat-tab-body-content') as NodeList;
         tabBodyContentElementList.forEach((tabBodyContentElement: Node) => {
-            this.renderer.setStyle(tabBodyContentElement, 'padding', '28px 40px');
+            this.renderer.setStyle(tabBodyContentElement, 'padding', '28px');
             if (this.elementRef.nativeElement.hasAttribute('dialog-table-tab-group')) {
                 this.renderer.setStyle(tabBodyContentElement, 'padding-right', '100px');
                 this.renderer.setStyle(tabBodyContentElement, 'max-height', '260px');

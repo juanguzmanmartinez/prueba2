@@ -1,0 +1,59 @@
+<div class="d-flex">
+  <div class="me-5 position-relative">
+    <app-icon [svgName]="routeState[route.checked]" svgWidth="28px"></app-icon>
+    <div
+      *ngIf="route.name !== 'Liquidación'"
+      class="detail-route-state"
+      [style.--bgColor]="colorRouteTimeline[route.checked]"
+    ></div>
+  </div>
+  <div
+    [ngClass]="route.name === 'Liquidación' ? 'mb-0' : 'mb-4'"
+    class="p-4 bg-neutral-10 rounded-3 flex-grow-1"
+  >
+    <div *ngIf="!route.idDelivery">
+      <div class="d-flex mb-3 justify-content-between">
+        <span class="text-body-3-bold text-neutral-100">{{ route.name }}</span>
+        <span appDifferenceTime>{{ route.difference }}</span>
+      </div>
+      <div>
+        <span class="text-body-3-regular text-neutral-60">
+          H.P: {{ route.scheduledTime }} > H.R: {{ route.realTime }}
+        </span>
+      </div>
+    </div>
+    <div *ngIf="route.idDelivery">
+      <div class="mb-3">
+        <span class="text-body-3-bold text-neutral-100">
+          {{ route.name }} (N° {{ route.idDelivery }})
+        </span>
+      </div>
+      <div class="row">
+        <div class="p-4 bg-neutral-0 rounded-3 col me-3">
+          <div class="d-flex mb-2 justify-content-between">
+            <span class="text-body-3-bold text-neutral-100">En ruta</span>
+            <span appDifferenceTime>{{ route.differenceOnRoute }}</span>
+          </div>
+          <div>
+            <span class="text-body-3-regular text-neutral-60">
+              H.P: {{ route.scheduledTimeOnRoute }} > H.R:
+              {{ route.realTimeOnRoute }}
+            </span>
+          </div>
+        </div>
+        <div class="p-4 bg-neutral-0 rounded-3 col">
+          <div class="d-flex mb-2 justify-content-between">
+            <span class="text-body-3-bold text-neutral-100">En sitio</span>
+            <span appDifferenceTime>{{ route.differenceOnSite }}</span>
+          </div>
+          <div>
+            <span class="text-body-3-regular text-neutral-60">
+              H.P: {{ route.scheduledTimeOnSite }} > H.R:
+              {{ route.realTimeOnSite }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

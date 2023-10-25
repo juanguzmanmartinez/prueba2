@@ -1,0 +1,21 @@
+<section>
+  <div class="d-flex align-items-center pb-4 border-bottom head-border">
+    <app-icon svgName="detail-route-map" svgWidth="32px"></app-icon>
+    <h6 class="text-h4 text-neutral-100 ms-4 my-0">Detalle de ruta</h6>
+  </div>
+  <div class="d-flex py-5 text-body-3-regular text-neutral-100">
+    <p class="my-0 me-3">
+      <span class="text-body-3-bold">H.P:</span> Hora planificada
+    </p>
+    <p class="my-0"><span class="text-body-3-bold">H.R:</span> Hora real</p>
+  </div>
+  <ng-container *ngFor="let route of detailRouteDB">
+    <app-detail-route-state [route]="route"></app-detail-route-state>
+  </ng-container>
+  <div class="d-flex justify-content-end mt-5">
+    <fp-button color="secondary" innerClass="me-3">
+      <span class="text-secondary-60">Volver</span>
+    </fp-button>
+    <fp-button>Ver detalle</fp-button>
+  </div>
+</section>

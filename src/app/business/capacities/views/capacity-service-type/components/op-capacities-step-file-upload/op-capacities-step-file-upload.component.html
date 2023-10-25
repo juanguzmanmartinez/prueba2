@@ -1,0 +1,54 @@
+<app-card-step
+  titleCard="Carga de documento"
+  icon="file"
+  (next)="nextStep($event)"
+  (cancel)="cancelStep($event)"
+  [textButtonCancel]="textButton"
+  [disableNext]="disableNext"
+>
+  <h3 class="text-h6 text-black mt-4">
+    Adjunta o arrastra la plantilla con la información de las capacidades:
+  </h3>
+  <ng-container
+    *ngIf="files.length == 0 || passValidations == false; else zeroFiles"
+  >
+    <div
+      class="inpunt-content mb-4"
+      appDnd
+      (fileDropped)="onFileDropped($event)"
+    >
+      <input
+        class="file-chose"
+        type="file"
+        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        multiple="false"
+        #fileDropRef
+        id="fileDropRef"
+        (change)="fileBrowseHandler1($event.target.files)"
+      />
+      <div class="container-upload-file">
+        <app-button
+          innerClass="d-flex align-items-center "
+          appearance="primary"
+          (clicked)="onChangeInput()"
+          class="z-11"
+        >
+          <app-icon innerClass="mx-1" svgName="upload"></app-icon> Subir excel
+        </app-button>
+        <span class="container-upload-file__text">O arrastra el documento</span>
+      </div>
+      <div class="d-none upload-hover">
+        <span class="container-upload-file__text1">Suelta el archivo aquí</span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #zeroFiles>
+    <div class="input-file-content mb-4">
+      <app-icon svgName="excel" svgWidth="36px" innerClass="fp-mr-8"></app-icon>
+      <span class="text-file text-body-1-bold mt-4">{{ fileName }}</span>
+      <a class="container-upload-file__text--link" (click)="deleteFile()">
+        Eliminar y subir otro documento
+      </a>
+    </div>
+  </ng-template>
+</app-card-step>

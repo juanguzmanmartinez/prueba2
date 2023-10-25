@@ -1,40 +1,46 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ZoneBackup, ZoneDetail } from '../../../../models/operations-zones.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ZoneBackup,
+  ZoneDetail,
+} from '../../../../models/operations-zones.model';
 import { ZoneBackupServiceTypeList } from '../../../../models/operations-zones-service-type.model';
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { CStateValue } from '@models/state/state.model';
 import { ROUTER_PATH } from '@parameters/router/router-path.parameter';
 
 @Component({
-    selector: 'app-op-zones-edition-home-backup-setting-tab',
-    templateUrl: './op-zones-edition-home-backup-setting-tab.component.html',
-    styleUrls: ['./op-zones-edition-home-backup-setting-tab.component.sass']
+  selector: 'app-op-zones-edition-home-backup-setting-tab',
+  templateUrl: './op-zones-edition-home-backup-setting-tab.component.html',
+  styleUrls: ['./op-zones-edition-home-backup-setting-tab.component.sass'],
 })
-export class OpZonesEditionHomeBackupSettingTabComponent implements OnInit {
-    public stateValue = CStateValue;
+export class OpZonesEditionHomeBackupSettingTabComponent {
+  public stateValue = CStateValue;
+  public showAlert: boolean;
 
-    @Input() zoneBackup: ZoneBackup;
-    @Input() zoneBackupDetail: ZoneDetail;
-    @Input() zoneBackupServiceTypeList: ZoneBackupServiceTypeList;
+  @Input() zoneBackup: ZoneBackup;
+  @Input() zoneBackupDetail: ZoneDetail;
+  @Input() zoneBackupServiceTypeList: ZoneBackupServiceTypeList;
 
-    @Output() editBackupZone = new EventEmitter();
-    @Output() editServiceType = new EventEmitter<EDeliveryServiceType>();
+  @Output() editBackupZone = new EventEmitter();
+  @Output() editServiceType = new EventEmitter<EDeliveryServiceType>();
 
-    constructor() {
-    }
+  constructor() {
+    this.showAlert = true;
+  }
 
-    ngOnInit(): void {
-    }
+  editBackupZonEvent(): void {
+    this.editBackupZone.emit();
+  }
 
-    editBackupZonEvent() {
-        this.editBackupZone.emit();
-    }
+  editServiceTypeEvent(serviceType: EDeliveryServiceType): void {
+    this.editServiceType.emit(serviceType);
+  }
 
-    editServiceTypeEvent(serviceType: EDeliveryServiceType) {
-        this.editServiceType.emit(serviceType);
-    }
+  get zoneBackupPath(): string {
+    return ROUTER_PATH.opZones_Zone(this.zoneBackupDetail.id);
+  }
 
-    get zoneBackupPath() {
-        return ROUTER_PATH.opZones_Zone(this.zoneBackupDetail.id);
-    }
+  hiddenAlert(): void {
+    this.showAlert = false;
+  }
 }

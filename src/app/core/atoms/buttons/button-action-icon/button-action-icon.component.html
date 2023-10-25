@@ -1,12 +1,20 @@
 <app-button
-        [innerClass]="'button-action-icon ' + innerClass"
-        [inlineStyle]="inlineStyle"
-        [disabled]="disabled"
-        (clicked)="clicked.emit($event)">
+  [innerClass]="'button-action-icon ' + innerClass"
+  [inlineStyle]="inlineStyle"
+  [disabled]="disabled"
+  [class.whole]="iconStyle === 'whole'"
+  [class.edge]="iconStyle === 'edge'"
+  [class.edge-table]="iconStyle === 'edge-table'"
+  (clicked)="clicked.emit($event)"
+>
   <span class="d-inline-flex">
-    <app-icon class="button-action-icon"
-              [fontName]="iconName"
-              fontSize="16px"
-              fontColor="white"></app-icon>
+    <app-icon
+      class="button-action-icon"
+      [fontName]="iconName"
+      [svgName]="svgName"
+      fontSize="16px"
+      [svgWidth]="svgWidth"
+      fontColor="white"
+    ></app-icon>
   </span>
 </app-button>

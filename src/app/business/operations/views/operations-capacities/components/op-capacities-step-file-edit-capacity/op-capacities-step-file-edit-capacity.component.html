@@ -1,0 +1,79 @@
+<app-card-step
+  [titleCard]="getTitle"
+  icon="papers"
+  (next)="nextStep($event)"
+  (cancel)="cancelStep($event)"
+  innerClass="w-90"
+  textButtonNext="Guardar cambios"
+  textButtonCancel="Regresar"
+  [disableNext]="!_opCapacitiesStepFileEditForm.capacityTableForm$.valid"
+>
+  <div
+    [formGroup]="_opCapacitiesStepFileEditForm.capacityTableForm$"
+    *ngIf="count > 1; else onlyOne"
+    class="mt-5 mb-5"
+  >
+    <app-tab-group>
+      <app-tab *ngIf="ampm && ampm.length > 0" label="AM/PM">
+        <app-op-capacities-upload-edit-ampm
+          [fromParent]="eventsSubject.asObservable()"
+          [form]="_opCapacitiesStepFileEditForm.capacityTableForm$"
+        ></app-op-capacities-upload-edit-ampm>
+      </app-tab>
+
+      <app-tab *ngIf="scheduled && scheduled.length > 0" label="Programado">
+        <app-op-capacities-upload-edit-scheduled
+          [fromParent]="eventsSubject.asObservable()"
+          [form]="_opCapacitiesStepFileEditForm.capacityTableForm$"
+        ></app-op-capacities-upload-edit-scheduled>
+      </app-tab>
+      <app-tab *ngIf="express && express.length > 0" label="Express">
+        <app-op-capacities-upload-edit-express
+          [fromParent]="eventsSubject.asObservable()"
+          [form]="_opCapacitiesStepFileEditForm.capacityTableForm$"
+        ></app-op-capacities-upload-edit-express>
+      </app-tab>
+      <app-tab *ngIf="ret && ret.length > 0" label="RET">
+        <app-op-capacities-upload-edit-ret
+          [fromParent]="eventsSubject.asObservable()"
+          [form]="_opCapacitiesStepFileEditForm.capacityTableForm$"
+        ></app-op-capacities-upload-edit-ret>
+      </app-tab>
+    </app-tab-group>
+  </div>
+  <ng-template #onlyOne>
+    <div [formGroup]="_opCapacitiesStepFileEditForm.capacityTableForm$">
+      <div class="mt-5 mb-5">
+        <app-op-capacities-upload-edit-ampm
+          [fromParent]="eventsSubject.asObservable()"
+          [form]="_opCapacitiesStepFileEditForm.capacityTableForm$"
+          *ngIf="ampm && ampm.length > 0"
+          type="ampm"
+          onlyOne="true"
+        ></app-op-capacities-upload-edit-ampm>
+        <app-op-capacities-upload-edit-ret
+          [fromParent]="eventsSubject.asObservable()"
+          [form]="_opCapacitiesStepFileEditForm.capacityTableForm$"
+          *ngIf="ret && ret.length > 0"
+          type="ampm"
+          onlyOne="true"
+        ></app-op-capacities-upload-edit-ret>
+        <app-op-capacities-upload-edit-scheduled
+          [fromParent]="eventsSubject.asObservable()"
+          [form]="_opCapacitiesStepFileEditForm.capacityTableForm$"
+          *ngIf="scheduled && scheduled.length > 0"
+          type="ampm"
+          onlyOne="true"
+        ></app-op-capacities-upload-edit-scheduled>
+
+        <app-op-capacities-upload-edit-express
+          [fromParent]="eventsSubject.asObservable()"
+          [form]="_opCapacitiesStepFileEditForm.capacityTableForm$"
+          *ngIf="express && express.length > 0"
+          type="ampm"
+          onlyOne="true"
+        ></app-op-capacities-upload-edit-express>
+      </div>
+    </div>
+  </ng-template>
+</app-card-step>

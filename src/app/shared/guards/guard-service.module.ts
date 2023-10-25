@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RoleGuard } from '@guards/role-guard.service';
+import { PermissionsGuard } from '@guards/permissions-guard.service';
 import { ImplementsServiceModule } from '@implements/implements-service.module';
 import { AccountGuard } from '@guards/account.guard';
 import { AuthGuard } from '@guards/auth.guard';
 
 const SERVICES = [
-    RoleGuard,
+    PermissionsGuard,
     AccountGuard,
     AuthGuard
 ];

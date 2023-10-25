@@ -1,0 +1,26 @@
+<div *appRouterAccess="routerPath.controlTower">
+  <app-sidenav-route-expansion
+    [disableChildren]="!sidenav?.opened"
+    [routePathOptions]="{ exact: sidenav?.opened }"
+    [routePath]="routerPath.controlTower"
+    [routeText]="sidenavRouting.name"
+    svgName="tower-int"
+    svgWidth="16px"
+    (sidenavOpen)="onSidenavOpen()"
+  >
+    <app-sidenav-route
+      *appRouterAccess="routerPath.ctControlFleet"
+      [routePathOptions]="{ exact: false }"
+      [routePath]="[routerPath.ctControlFleet]"
+      routeText="Control de flota"
+    >
+    </app-sidenav-route>
+    <app-sidenav-route
+      *appRouterAccess="routerPath.ctRouteMonitoring"
+      [routePathOptions]="{ exact: false }"
+      [routePath]="[routerPath.ctRouteMonitoring]"
+      routeText="Seguimiento de rutas"
+    >
+    </app-sidenav-route>
+  </app-sidenav-route-expansion>
+</div>

@@ -1,126 +1,204 @@
 import { Injectable } from '@angular/core';
 import { ICustomSelectOption } from '@interfaces/custom-controls.interface';
-import { StoresClientService } from '@clients/stores/stores-client.service';
-import { CalendarClientService } from '@clients/capacities/calendar-client.service';
-import { ICalendarUpdateRequestParams } from '@models/calendar/capacity.model';
+import { DrugstoresClientService } from '@clients/drugstores/drugstores-client.service';
+import { CapacityClientService } from '@clients/capacities/capacity-client.service';
+import {
+  Capacity,
+  ICalendarUpdateRequestParams,
+} from '@models/calendar/capacity.model';
 import { map } from 'rxjs/operators';
-import { CapacitiesLocalServiceDefaultCapacity, CapacitiesServiceType, CapacitiesStore } from '../models/operations-capacities-responses.model';
+import {
+  CapacitiesDrugstore,
+  CapacitiesDrugstoreServiceDefaultCapacity,
+  CapacitiesServiceType,
+} from '../models/operations-capacities-responses.model';
 import { Observable } from 'rxjs';
 import { EDeliveryServiceType } from '@models/service-type/delivery-service-type.model';
 import { ICalendarParams } from '@models/calendar/calendar-params.model';
-import { ILocalParams } from '@interfaces/stores/stores.interface';
+import { IDrugstoreParams } from '@interfaces/drugstores/drugstores.interface';
 import { ReportsClientService } from '@clients/reports/reports-client.service';
+import { Blocked } from '@interfaces/capacities/calendar.interface';
 
 @Injectable()
 export class OperationsCapacitiesImplementService {
+  get drugstoreListReport(): string {
+    return this.reportsClient.drugstoreListReport();
+  }
 
-    constructor(
-        private storesClient: StoresClientService,
-        private calendarClient: CalendarClientService,
-        private reportsClient: ReportsClientService,
-    ) {
-    }
+  get drugstoreDetailReport(): string {
+    return this.reportsClient.drugstoreDetailReport();
+  }
 
-    public getLocalImplement$(): Observable<CapacitiesStore[]> {
-        return this.storesClient.getStoreList()
-            .pipe(
-                map((locals) => {
-                    return locals ? locals.map(store => new CapacitiesStore(store)) : [];
-                }));
-    }
+  constructor(
+    private storesClient: DrugstoresClientService,
+    private calendarClient: CapacityClientService,
+    private reportsClient: ReportsClientService
+  ) {}
 
-    public getLocalByServiceTypeImplement$(serviceType: EDeliveryServiceType) {
-        return this.storesClient.getLocalByServiceTypeClient$(serviceType)
-            .pipe(
-                map((locals) => {
-                    return locals ? locals.map(store => {
-                        return {
-                            text: store.description,
-                            value: store.localCode,
-                            code: store.localCode,
-                            fulfillmentCenterCode: store.localCode,
-                        } as ICustomSelectOption;
-                    }) : [];
-                }));
-    }
+  getDrugstoreImplement$(): Observable<CapacitiesDrugstore[]> {
+    return this.storesClient.getDrugstoreList().pipe(
+      map((drugstoreList) => {
+        return drugstoreList
+          ? drugstoreList.map((drugstore) => new CapacitiesDrugstore(drugstore))
+          : [];
+      })
+    );
+  }
 
-    public getLocalGroupImplements$(serviceType: EDeliveryServiceType) {
-        return this.storesClient.getLocalGroupByServiceTypeClient$(serviceType)
-            .pipe(
-                map((locals) => {
-                    return locals ? locals.map(store => {
-                        return {
-                            text: store.description,
-                            value: store.localCode,
-                            code: store.localCode,
-                            fulfillmentCenterCode: store.localCode,
-                        } as ICustomSelectOption;
-                    }) : [];
-                }));
-    }
+  getDrugstoreByServiceTypeImplement$(serviceType: EDeliveryServiceType) {
+    return this.storesClient.getDrugstoreByServiceTypeClient$(serviceType).pipe(
+      map((iDrugstoreList) => {
+        return iDrugstoreList
+          ? iDrugstoreList.map((iDrugstore) => {
+              return {
+                text: iDrugstore.description,
+                value: iDrugstore.localCode,
+                code: iDrugstore.localCode,
+                fulfillmentCenterCode: iDrugstore.localCode,
+              } as ICustomSelectOption;
+            })
+          : [];
+      })
+    );
+  }
 
-    public getTypeOperationImplements$(
-        detailType: string,
-        selectedLocal: ICustomSelectOption,
-        serviceType: EDeliveryServiceType
-    ): Observable<CapacitiesServiceType> {
-        const params = {
-            fulfillmentCenter: selectedLocal.fulfillmentCenterCode,
-            detailType,
-            serviceType
-        } as ILocalParams;
-        return this.storesClient.getTypeOperationClient$(params)
-            .pipe(
-                map((iServiceType) => {
-                    return iServiceType ? new CapacitiesServiceType(iServiceType) : null;
-                }));
-    }
+  getDrugstoreGroupImplements$(serviceType: EDeliveryServiceType) {
+    return this.storesClient
+      .getDrugstoreGroupByServiceTypeClient$(serviceType)
+      .pipe(
+        map((iDrugstoreGroupList) => {
+          return iDrugstoreGroupList
+            ? iDrugstoreGroupList.map((iDrugstore) => {
+                return {
+                  text: iDrugstore.description,
+                  value: iDrugstore.localCode,
+                  code: iDrugstore.localCode,
+                  fulfillmentCenterCode: iDrugstore.localCode,
+                } as ICustomSelectOption;
+              })
+            : [];
+        })
+      );
+  }
 
-    public getTypeOperationGroupImplements$(
-        detailType: string,
-        selectedLocal: ICustomSelectOption,
-        serviceType: EDeliveryServiceType
-    ): Observable<CapacitiesServiceType> {
-        const params = {
-            fulfillmentCenter: selectedLocal.fulfillmentCenterCode,
-            detailType,
-            serviceType
-        } as ILocalParams;
-        return this.storesClient.getTypeOperationGroupClient$(params)
-            .pipe(
-                map((iServiceType) => {
-                    return iServiceType ? new CapacitiesServiceType(iServiceType) : null;
-                }));
-    }
+  getTypeOperationImplements$(
+    detailType: string,
+    selectedDrugstore: ICustomSelectOption,
+    serviceType: EDeliveryServiceType
+  ): Observable<CapacitiesServiceType> {
+    const params = {
+      fulfillmentCenter: selectedDrugstore.fulfillmentCenterCode,
+      detailType,
+      serviceType,
+    } as IDrugstoreParams;
+    return this.storesClient.getTypeOperationClient$(params).pipe(
+      map((iServiceType) => {
+        return iServiceType ? new CapacitiesServiceType(iServiceType) : null;
+      })
+    );
+  }
 
-    public getCalendarDefaultCapacitiesImplement$(
-        capacitiesLocal: CapacitiesStore
-    ): Observable<CapacitiesLocalServiceDefaultCapacity[]> {
-        const params = {
-            fulfillmentCenter: capacitiesLocal.localCode
-        } as ICalendarParams;
-        return this.calendarClient.getCalendarDefaultCapacities$(params)
-            .pipe(
-                map((serviceDefaultCapacities) => {
-                    return serviceDefaultCapacities ? serviceDefaultCapacities
-                        .map(store => new CapacitiesLocalServiceDefaultCapacity(store)) : [];
-                })
-            );
-    }
+  getTypeOperationGroupImplements$(
+    detailType: string,
+    selectedDrugstore: ICustomSelectOption,
+    serviceType: EDeliveryServiceType
+  ): Observable<CapacitiesServiceType> {
+    const params = {
+      fulfillmentCenter: selectedDrugstore.fulfillmentCenterCode,
+      detailType,
+      serviceType,
+    } as IDrugstoreParams;
+    return this.storesClient.getTypeOperationGroupClient$(params).pipe(
+      map((iServiceType) => {
+        return iServiceType ? new CapacitiesServiceType(iServiceType) : null;
+      })
+    );
+  }
 
-    public patchCalendarUpdateClient$(request: ICalendarUpdateRequestParams) {
-        return this.calendarClient.patchCalendarUpdateClient$(request);
-    }
+  getCalendarDefaultCapacitiesImplement$(
+    capacitiesDrugstore: CapacitiesDrugstore
+  ): Observable<CapacitiesDrugstoreServiceDefaultCapacity[]> {
+    const params = {
+      fulfillmentCenter: capacitiesDrugstore.drugstoreCode,
+    } as ICalendarParams;
+    return this.calendarClient.getCalendarDefaultCapacities$(params).pipe(
+      map((serviceDefaultCapacities) => {
+        return serviceDefaultCapacities
+          ? serviceDefaultCapacities.map(
+              (drugstore) =>
+                new CapacitiesDrugstoreServiceDefaultCapacity(drugstore)
+            )
+          : [];
+      })
+    );
+  }
 
-    public patchCalendarRangeUpdateClient$(request: ICalendarUpdateRequestParams) {
-        return this.calendarClient.patchCalendarRangeUpdateClient$(request);
-    }
+  patchCalendarUpdateClient$(
+    request: ICalendarUpdateRequestParams
+  ): Observable<Blocked[]> {
+    return this.calendarClient.patchCalendarUpdateClient$(request);
+  }
 
-    public get drugstoreListReport(): string {
-        return this.reportsClient.drugstoreListReport();
-    }
+  patchCalendarRangeUpdateClient$(
+    request: ICalendarUpdateRequestParams
+  ): Observable<Capacity[]> {
+    return this.calendarClient.patchCalendarRangeUpdateClient$(request);
+  }
 
-    public get drugstoreDetailReport(): string {
-        return this.reportsClient.drugstoreDetailReport();
-    }
+  getDepartamentClient$(): Observable<any[]> {
+    return this.calendarClient.getDepartamentsList$().pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+
+  getProvincesClient$(params: any): Observable<any[]> {
+    return this.calendarClient.getProvincesList$(params).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+
+  getDistrictsClient$(params: any): Observable<any[]> {
+    return this.calendarClient.getDistricsList$(params).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+
+  getStoresClient$(params: any): Observable<any[]> {
+    return this.calendarClient.getStoresList$(params).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+
+  getCapcitiesTemplateClient$(codes: any, services: any): Observable<any[]> {
+    const params = {
+      serviceTypes: services,
+    };
+    return this.calendarClient.getCapacityFromStores$(codes, params).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+  updateCapacitiesStores$(codes: any): Observable<any[]> {
+    return this.calendarClient.patchCapacitiesStores$(codes).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
+  validateStores$(codes: any): Observable<any[]> {
+    return this.calendarClient.validateDataStores$(codes).pipe(
+      map((drugstoreList) => {
+        return drugstoreList;
+      })
+    );
+  }
 }

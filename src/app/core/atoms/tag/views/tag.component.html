@@ -1,32 +1,144 @@
 <ng-container *ngIf="appearance === tagAppearance.uppercase">
-    <span class="text-tag text-{{tagColor}}">
-        <ng-container *ngTemplateOutlet="ngContent"></ng-container>
-    </span>
+  <span class="text-tag text-{{ tagColor }}">
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
 </ng-container>
 
 <ng-container *ngIf="appearance === tagAppearance.transparentPill">
-    <span class="text-tag tag-pill text-uppercase text-{{tagColor}}">
-              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
-    </span>
+  <span class="text-tag tag-pill text-uppercase text-{{ tagColor }}">
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
 </ng-container>
+
 <ng-container *ngIf="appearance === tagAppearance.coloredWhitePill">
-    <span class="text-tag tag-pill text-uppercase text-white bg-{{tagColor}}">
-              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
-    </span>
+  <span
+    class="text-tag tag-pill text-uppercase text-white bg-{{ tagColor }} {{
+      innerClass
+    }}"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
 </ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.coloredLilacPill">
+  <span
+    class="text-tag tag-pill text-uppercase text-white bg-{{ tagColor }} {{
+      innerClass
+    }}"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.coloredFullGreasePill">
+  <span
+    class="text-tag tag-pill text-capitalize text-{{
+      textTagColor
+    }} bg-gray-0 {{ innerClass }}"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.coloredFullBluePill">
+  <span
+    class="text-tag tag-pill text-dark-complementary-three bg-light-complementary-three {{
+      innerClass
+    }}"
+    [class.pill-disable]="disabled"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.coloredFullLilacPill">
+  <span
+    class="text-tag tag-pill text-capitalize text-dark-complementary-four bg-light-complementary-four {{
+      innerClass
+    }}"
+    [class.pill-disable]="disabled"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.coloredFullPurplePill">
+  <span
+    class="text-tag tag-pill text-capitalize text-dark-secondary bg-light-secondary {{
+      innerClass
+    }}"
+    [class.pill-disable]="disabled"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
 <ng-container *ngIf="appearance === tagAppearance.coloredDarkPill">
-    <span class="text-tag tag-pill text-uppercase text-dark-{{tagColor}} bg-light-{{tagColor}}">
-              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
-    </span>
+  <span
+    class="text-tag tag-pill text-uppercase text-dark-{{ tagColor }} bg-light-{{
+      tagColor
+    }} {{ innerClass }}"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
 </ng-container>
 
 <ng-container *ngIf="appearance === tagAppearance.default">
-    <span class="text-subtitle-2 tag-default  text-{{tagColor}}">
-              <ng-container *ngTemplateOutlet="ngContent"></ng-container>
-    </span>
+  <span class="text-h5 tag-default  text-{{ tagColor }}">
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
 </ng-container>
 
+<ng-container *ngIf="appearance === tagAppearance.semantic">
+  <span
+    class="text-tag tag-pill-semantic text-uppercase text-dark-{{
+      type
+    }} bg-light-{{ type }}"
+  >
+    <app-icon
+      [fontName]="
+        type === 'success'
+          ? 'check_circle'
+          : type === 'danger'
+          ? 'cancel'
+          : 'warning'
+      "
+      innerClass="text-dark-{{ type }}"
+    >
+    </app-icon>
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.informativeWhite">
+  <span
+    class="text-tag tag-pill-informative text-dark-{{
+      typeInformative
+    }} bg-white"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.brandWhite">
+  <span
+    class="text-tag tag-pill-brand text-uppercase text-{{ typeBrand }} bg-white"
+  >
+    <app-icon [svgName]="typeBrand" svgWidth="16px" svgHeight="16px"></app-icon>
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
+
+<ng-container *ngIf="appearance === tagAppearance.zoneTypeWhite">
+  <span
+    class="text-body-2-regular tag-pill-zone text-black bg-white {{
+      innerClass
+    }}"
+  >
+    <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+  </span>
+</ng-container>
 
 <ng-template #ngContent>
-    <ng-content></ng-content>
+  <ng-content></ng-content>
 </ng-template>

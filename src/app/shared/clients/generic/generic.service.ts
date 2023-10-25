@@ -5,20 +5,27 @@ import { environment } from '@environments/environment';
 
 @Injectable()
 export class GenericService {
-
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   public genericGet<T>(
     endpoint: string,
     params: HttpParams = null,
-    headers: HttpHeaders = new HttpHeaders()
+    headers: HttpHeaders = new HttpHeaders(),
+    // tslint:disable-next-line:ban-types
+    body: Object = null
   ) {
-    const options = {headers};
+    const options = { headers };
     // tslint:disable-next-line:no-string-literal
-    if (params) { options['params'] = params; }
-    return this.http.get<T>(endpoint, options)
-        .pipe(tap(() => this.log(`Get ` + endpoint)));
+    if (body) {
+      options['body'] = body;
+    }
+    // tslint:disable-next-line:no-string-literal
+    if (params) {
+      options['params'] = params;
+    }
+    return this.http
+      .get<T>(endpoint, options)
+      .pipe(tap(() => this.log(`Get ` + endpoint)));
   }
 
   public genericPost<T>(
@@ -28,13 +35,15 @@ export class GenericService {
     params: HttpParams = null,
     headers: HttpHeaders = new HttpHeaders()
   ) {
-    const options = {headers};
+    const options = { headers };
     // tslint:disable-next-line:no-string-literal
-    if (params) { options['params'] = params; }
-    return this.http.post<T>(endpoint, body, options)
+    if (params) {
+      options['params'] = params;
+    }
+    return this.http
+      .post<T>(endpoint, body, options)
       .pipe(tap(() => this.log(`Post ` + endpoint)));
   }
-
 
   public genericPut<T>(
     endpoint: string,
@@ -42,7 +51,8 @@ export class GenericService {
     body: Object,
     headers: HttpHeaders = new HttpHeaders()
   ) {
-    return this.http.put<T>(endpoint, body, {headers})
+    return this.http
+      .put<T>(endpoint, body, { headers })
       .pipe(tap(() => this.log(`Put ` + endpoint)));
   }
 
@@ -50,7 +60,8 @@ export class GenericService {
     endpoint: string,
     headers: HttpHeaders = new HttpHeaders()
   ) {
-    return this.http.delete<T>(endpoint, {headers})
+    return this.http
+      .delete<T>(endpoint, { headers })
       .pipe(tap(() => this.log(`Delete ` + endpoint)));
   }
 
@@ -61,10 +72,13 @@ export class GenericService {
     params: HttpParams = null,
     headers: HttpHeaders = new HttpHeaders()
   ) {
-    const options = {headers};
+    const options = { headers };
     // tslint:disable-next-line:no-string-literal
-    if (params) { options['params'] = params; }
-    return this.http.patch<T>(endpoint, body, options)
+    if (params) {
+      options['params'] = params;
+    }
+    return this.http
+      .patch<T>(endpoint, body, options)
       .pipe(tap(() => this.log(`Patch ` + endpoint)));
   }
 
@@ -73,12 +87,14 @@ export class GenericService {
     params: HttpParams = null,
     headers: HttpHeaders = new HttpHeaders()
   ) {
-    const options = {headers};
+    const options = { headers };
     // tslint:disable-next-line:no-string-literal
-    if (params) { options['params'] = params; }
-    return this.http.patch<T>(endpoint, {}, options)
+    if (params) {
+      options['params'] = params;
+    }
+    return this.http
+      .patch<T>(endpoint, {}, options)
       .pipe(tap(() => this.log(`Patch without body ` + endpoint)));
-
   }
 
   /** Log a HeroService message with the MessageService */

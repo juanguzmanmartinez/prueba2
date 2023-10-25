@@ -1,23 +1,35 @@
-@import 'src/sass/variables/colors.variable';
-@import 'src/sass/mixins/text.mixin';
-@import 'src/sass/mixins/display.mixin';
+@import "src/sass/variables";
+@import "src/sass/mixins/text.mixin";
+@import "src/sass/mixins/display.mixin";
 
 ::ng-deep .mat-snack-bar-container.alert {
   padding: 0;
   box-shadow: none;
   background-color: transparent;
-  max-width: 609px;
+  max-width: 831px;
   margin-bottom: 40px;
 }
 
 .alert-container {
   padding: 18px 24px;
-  border-radius: 8px;
+  border-radius: $border-radius;
+  box-shadow: 0px 8px 24px -4px rgba(24, 39, 75, 0.08);
   @include d-flex-vertical-center;
 
   .alert-text {
     color: $white;
-    margin-left: 12px;
-    @include text-label;
+    @include text-body-1-regular;
   }
+}
+
+.background-danger {
+  background-color: $light-danger;
+}
+
+.background-warning {
+  background-color: $light-warning;
+}
+
+.background-success {
+  background-color: $light-success;
 }

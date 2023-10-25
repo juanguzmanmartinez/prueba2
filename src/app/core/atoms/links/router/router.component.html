@@ -4,11 +4,11 @@
    [routerLinkActive]="routerActive"
    [routerLinkActiveOptions]="routerActiveOptions"
    [target]="routerTarget"
+   [style.cursor]="'default'"
    #routerActiveVariable="routerLinkActive">
-    <ng-container *ngIf="!routerActiveTemplate">
-        <ng-content></ng-content>
-    </ng-container>
-    <ng-template [ngTemplateOutlet]="routerActiveTemplate"
-                 [ngTemplateOutletContext]="{$implicit: routerActiveVariable}">
-    </ng-template>
+  <ng-container *ngIf="!routerActiveTemplate">
+    <ng-content></ng-content>
+  </ng-container>
+  <ng-template [ngTemplateOutlet]="routerActiveTemplate" [ngTemplateOutletContext]="{$implicit: routerActiveVariable}">
+  </ng-template>
 </a>

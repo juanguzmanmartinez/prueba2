@@ -1,12 +1,29 @@
-<div class="alert-container"
-     [class.bg-danger]="data?.status === eAlertStatus.error"
-     [class.bg-warning]="data?.status === eAlertStatus.warning"
-     [class.bg-success]="data?.status === eAlertStatus.success">
-  <app-icon [fontName]="data?.status === eAlertStatus.error ? 'cancel' :
-                            data?.status === eAlertStatus.warning ? 'warning': 'check_circle'"
-            fontSize="24px"
-            innerClass="text-white"></app-icon>
-
-  <span class="alert-text"
-        [innerHTML]="data?.message"></span>
+<div
+  class="alert-container"
+  [class.background-danger]="data?.status === eAlertStatus.error"
+  [class.background-warning]="data?.status === eAlertStatus.warning"
+  [class.background-success]="data?.status === eAlertStatus.success"
+  [class.bg-white]="
+    data?.status === eAlertStatus.lightSuccess ||
+    data?.status === eAlertStatus.lightError
+  "
+>
+  <div>
+    <app-icon
+      [fontName]="fontNameIcon"
+      [svgName]="svgLightIcon"
+      svgWidth="32px"
+      [innerClass]="innerClassIcon"
+      fontSize="24px"
+    >
+    </app-icon>
+  </div>
+  <div class="ms-3">
+    <span
+      class="alert-text"
+      [class]="classAlertText"
+      [innerHTML]="data?.message"
+    >
+    </span>
+  </div>
 </div>

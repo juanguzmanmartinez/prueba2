@@ -6,15 +6,11 @@ import { Zone } from '../../../../models/operations-zones.model';
 
 @Injectable()
 export class OpZonesHomeZoneDetailDialogService {
+  constructor(private dialog: DialogService) {}
 
-    constructor(
-        private _dialog: DialogService,
-    ) {
-    }
-
-    open(zone: Zone): MatDialogRef<OpZonesHomeZoneDetailDialogComponent> {
-        const dialogRef = this._dialog.open(OpZonesHomeZoneDetailDialogComponent);
-        dialogRef.componentInstance.zone = zone;
-        return dialogRef;
-    }
+  open(zone: Zone): MatDialogRef<OpZonesHomeZoneDetailDialogComponent> {
+    const dialogRef = this.dialog.open(OpZonesHomeZoneDetailDialogComponent);
+    dialogRef.componentInstance.zone = zone;
+    return dialogRef;
+  }
 }

@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
     public capsLock: boolean;
     public submitLogin: boolean;
 
-    public resetPasswordPath = ROUTER_PATH.recoverPassword;
+    public resetPasswordPath = ROUTER_PATH.acctRecoverPassword;
 
     constructor(
         public _loginForm: LoginForm,
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
             this._loginForm.passwordControl.value,
         )
             .subscribe(() => {
-                this._router.navigate([ROUTER_PATH.operations]);
+                this._router.navigate([ROUTER_PATH.base]);
             }, () => {
                 this.errorFormRequest();
             });

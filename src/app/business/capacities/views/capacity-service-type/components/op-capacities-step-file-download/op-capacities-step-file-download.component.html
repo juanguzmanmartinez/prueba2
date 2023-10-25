@@ -1,0 +1,104 @@
+<app-card-step
+  titleCard="Descargar plantilla"
+  (next)="nextStep($event)"
+  (cancel)="cancelStep($event)"
+  [disableNext]="disabled"
+>
+  <div class="disclaimer">
+    <app-icon
+      svgName="info-purple"
+      svgHeight="36px"
+      svgWidth="36px"
+      class="icon"
+    >
+    </app-icon>
+    <p class="mb-0">
+      La carga masiva de capacidades
+      <b>solo aplica para las capacidades por defecto</b>, si deseas realizar la
+      edición de capacidades en calendario deberás realizarla desde la opción
+      edición de capacidades.
+    </p>
+  </div>
+  <div class="row">
+    <form [formGroup]="fg">
+      <p class="d-block text-body-1-bold text-black mt-6 mb-5">
+        Selecciona los servicios para cargar las capacidades:
+      </p>
+      <div class="row d-flex justify-content-between">
+        <div class="col-3">
+          <app-checkbox formControlName="ampm" spanClass="cmt-4">
+            <span>AM/PM</span>
+          </app-checkbox>
+        </div>
+        <div class="col-3">
+          <app-checkbox formControlName="scheduled" spanClass="cmt-4">
+            <span>Programado</span>
+          </app-checkbox>
+        </div>
+        <div class="col-3">
+          <app-checkbox formControlName="express" spanClass="cmt-4">
+            <span>Express</span>
+          </app-checkbox>
+        </div>
+        <div class="col-3">
+          <app-checkbox formControlName="ret" spanClass="cmt-4">
+            <span>RET</span>
+          </app-checkbox>
+        </div>
+        <div *ngIf="errorSelects" class="col-12 mt-4">
+          <p class="mb-0 text-danger">
+            Debes seleccionar al menos un servicio para continuar
+          </p>
+        </div>
+      </div>
+      <p class="d-block text-body-1-bold text-black mt-3">
+        Selecciona la ubicación de los locales:
+      </p>
+      <div class="row">
+        <div class="col-6">
+          <app-form-field-label>Departamento</app-form-field-label>
+          <app-filter-departaments
+            (filter)="getlistDepartaments($event)"
+            placeholder="Selecciona un departamento"
+            (click)="changeStatus('services')"
+            [isError]="errorDepartaments"
+          ></app-filter-departaments>
+        </div>
+        <div class="col-6">
+          <app-form-field-label>Provincia</app-form-field-label>
+          <app-filter-provinces
+            (filter)="getlistProvinces($event)"
+            placeholder="Selecciona una provincia"
+            (click)="changeStatus('departaments')"
+            [isError]="errorProvinces"
+          ></app-filter-provinces>
+        </div>
+        <div class="col-6 mt-4">
+          <app-form-field-label>Distrito</app-form-field-label>
+          <app-filter-districts
+            (filter)="getlistDistricts($event)"
+            placeholder="Selecciona un distrito"
+            (click)="changeStatus('provinces')"
+            [isError]="errorDistricts"
+          ></app-filter-districts>
+        </div>
+        <div class="col-6 mt-4">
+          <app-form-field-label>Local</app-form-field-label>
+          <app-filter-stores
+            (filter)="getlistStores($event)"
+            placeholder="Selecciona un local"
+            (click)="changeStatus('districts')"
+          ></app-filter-stores>
+        </div>
+      </div>
+      <div class="row mt-6">
+        <app-button
+          [disabled]="validations"
+          (clicked)="downloadData()"
+          appearance="primary"
+          >Descargar</app-button
+        >
+      </div>
+    </form>
+  </div>
+</app-card-step>

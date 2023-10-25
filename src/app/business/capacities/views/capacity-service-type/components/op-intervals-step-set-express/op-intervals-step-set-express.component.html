@@ -1,0 +1,151 @@
+<app-card innerClass="p-5" [formGroup]="intervalTimeForm">
+  <div class="row mb-5">
+    <div class="col-12 d-flex justify-content-start align-items-center">
+      <app-icon svgName="stores" svgWidth="32px"></app-icon>
+      <h4 class="text-h6 text-black ms-3 mb-0">{{ drugStoreCardTitle }}</h4>
+    </div>
+  </div>
+  <hr class="m-0 bg-gray-3" />
+  <div class="d-flex justify-content-between mt-5 mb-5">
+    <p class="d-block text-h6 text-black">Configurar parámetros flexibles</p>
+    <div class="d-flex align-items-center">
+      <span class="text-body-3-regular text-gray-5 me-2">
+        {{ stateOptionDesc }}
+      </span>
+      <app-switch
+        formControlName="enabled"
+        backgroundClass="bg-secondary"
+        class="d-flex align-items-center"
+      >
+      </app-switch>
+    </div>
+    <!-- <app-switch formControlName="enabled"></app-switch> -->
+  </div>
+  <div class="disclaimer">
+    <app-icon
+      svgName="info-purple"
+      svgHeight="36px"
+      svgWidth="36px"
+      class="icon"
+    >
+    </app-icon>
+    <p class="mb-0">
+      El incremento de interval time y la capacidad flexible será en automático
+      para este local
+    </p>
+  </div>
+  <div class="row mb-5">
+    <p class="d-block text-h6 text-black mt-4 mb-5">
+      Capacidad e interval time base:
+    </p>
+    <div class="row mb-5">
+      <div class="col-6">
+        <p class="text-body-1-regular text-gray-7 mb-3">Capacidad</p>
+        <app-input
+          placeholder=""
+          formControlName="baseLineCapacity"
+        ></app-input>
+      </div>
+      <div class="col-6">
+        <p class="text-body-1-regular text-gray-7">Interval time</p>
+        <app-input
+          placeholder=""
+          formControlName="baseLineIntervalTime"
+        ></app-input>
+      </div>
+    </div>
+    <p class="d-block text-h6 text-black mb-5">
+      Capacidad e interval time flexible:
+    </p>
+    <div class="row mb-5">
+      <div class="col-12">
+        <p class="text-body-1-regular text-gray-7 mb-3">
+          Consumo de capacidad mayor a (%):
+        </p>
+      </div>
+      <div class="col-6">
+        <app-input
+          [appMaxDigits]="3"
+          appDigitsOnly
+          placeholder="Ingresa el porcentaje"
+          formControlName="consumptionMax"
+          [error]="consumptionMaxHasError"
+          [messageError]="messageError(consumptionMaxControl, intervalControlName.consumptionMax)"
+        ></app-input>
+      </div>
+      <div class="col-6 d-flex align-items-center">
+        <div>
+          <app-icon svgName="info-purple" svgWidth="24px" innerClass="d-block">
+          </app-icon>
+        </div>
+        <div>
+          <p class="text-body-3-regular text-black mb-0 ms-3">
+            Si la capacidad llega al % indicando, se tomará el incremento de
+            capacidad e interval time flexible
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col-6">
+        <p class="text-body-1-regular text-gray-7 mb-3">
+          Incremento de capacidad (transportistas)
+        </p>
+        <app-input
+          [appMaxDigits]="5"
+          appDigitsOnly
+          placeholder="Ingresa la capacidad"
+          formControlName="addCapacity"
+          [error]="capacityAddedHasError"
+          [messageError]="messageError(capacityAddedControl, intervalControlName.addCapacity)"
+        ></app-input>
+      </div>
+      <div class="col-6">
+        <p class="text-body-1-regular text-gray-7">
+          Incremento de Interval time (minutos)
+        </p>
+        <app-input
+          [appMaxDigits]="5"
+          appDigitsOnly
+          placeholder="Ingresa los minutos"
+          formControlName="addIntervalTime"
+          [error]="intervalTimeHasError"
+          [messageError]="messageError(intervalTimeControl, intervalControlName.addIntervalTime)"
+        ></app-input>
+      </div>
+    </div>
+    <p class="text-h6 text-black mb-5">Nº de veces a incrementar:</p>
+    <div class="row">
+      <div class="col-6">
+        <p class="text-body-1-regular text-gray-7 mb-3">Cantidad de vueltas</p>
+        <app-input
+          [appMaxDigits]="5"
+          appDigitsOnly
+          placeholder="Ingresa en n° de vueltas"
+          formControlName="laps"
+          [error]="lapsHasError"
+          [messageError]="messageError(lapsControl, intervalControlName.laps)"
+        ></app-input>
+      </div>
+    </div>
+  </div>
+  <div class="card-actions d-flex-horizontal-end pt-7">
+    <app-button
+      appearance="secondary"
+      innerClass="btnServiceEditionStyle"
+      class="me-4"
+      (clicked)="cancelEdition()"
+    >
+      Cancelar edición
+    </app-button>
+    <app-button
+      appearance="primary"
+      innerClass="btnServiceEditionStyle"
+      (editionAccess)="saveEdition()"
+      [disabled]="intervalTimeForm.invalid"
+      [pathAccess]="uploadPathAccess"
+    >
+      Guardar cambios
+    </app-button>
+  </div>
+</app-card>

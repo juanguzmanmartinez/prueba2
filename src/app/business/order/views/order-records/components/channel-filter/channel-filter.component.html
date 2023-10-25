@@ -1,0 +1,15 @@
+<div [formGroup]="presenter.filterForm">
+  <app-select
+    formControlName="serviceChannel"
+    placeholder="Canal de venta"
+    [multiple]="true"
+    [value]="selectedChannels"
+    [optionList]="channels"
+    [selectOptionSquare]="true"
+    [showClearValueForButton]="true"
+    (optionChange)="selectionChange($event)"
+    (clearValueForButton)="clearValues()"
+  >
+    <ng-template let-channel>{{ getChannelName(channel) }}</ng-template>
+  </app-select>
+</div>

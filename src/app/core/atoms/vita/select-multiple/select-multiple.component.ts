@@ -1,0 +1,116 @@
+import {
+  Component,
+  ContentChild,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import { ISelectOption } from '@interfaces/vita/select.interface';
+import { debounceTime } from 'rxjs/operators';
+
+@Component({
+  selector: 'fp-select-multiple',
+  templateUrl: './select-multiple.component.html',
+  styleUrls: ['./select-multiple.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectMultipleComponent),
+      multi: true,
+    },
+  ],
+})
+export class SelectMultipleComponent implements ControlValueAccessor, OnInit {
+  @Input() options: ISelectOption[];
+  @Input() error: boolean = false;
+  @Input() errorMessage: string;
+  @Input() searchPlaceholder: string = 'Buscar';
+  @Input() search: boolean = false;
+  @Output() onChangeOption = new EventEmitter<ISelectOption[]>();
+  @ContentChild(TemplateRef) optionTemplate: TemplateRef<any>;
+  selectedOptionTemplate: TemplateRef<any>;
+
+  selectedOptions: ISelectOption[] | undefined;
+  showOptions = false;
+  isDisabled = false;
+  value: any;
+  public searchControl = new FormControl();
+
+  private onChange = (_: any) => {};
+  private onTouched = () => {};
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: { target: Node | null }) {
+    const selectElement = this.elementRef.nativeElement;
+    if (!selectElement?.contains(event.target)) {
+      this.showOptions = false;
+    }
+  }
+
+  get textOthersSelected() {
+    if (this.selectedOptions.length === 2) {
+      return `${this.selectedOptions[0].label} (Otro más)`;
+    }
+
+    return `${this.selectedOptions[0].label} (Otros ${
+      this.selectedOptions.length - 1
+    } más)`;
+  }
+
+  constructor(private elementRef: ElementRef) {
+    this.selectedOptions = [];
+  }
+
+  ngOnInit(): void {
+    this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe();
+  }
+
+  writeValue(value: any[]): void {
+    this.selectedOptions =
+      this.options?.filter((option) => value?.includes(option.value)) || [];
+  }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+  }
+
+  toggleOptions() {
+    this.showOptions = !this.showOptions;
+    this.searchControl.reset();
+  }
+
+  toggleOption(option: any, isChecked: boolean) {
+    if (isChecked) {
+      this.selectedOptions.push(option);
+    } else {
+      const index = this.selectedOptions.indexOf(option);
+      if (index >= 0) {
+        this.selectedOptions.splice(index, 1);
+      }
+    }
+    this.onChangeOption.emit(this.selectedOptions);
+    this.onChange(this.selectedOptions.map((opt) => opt.value));
+    this.onTouched();
+  }
+
+  isSelected(option: any) {
+    return this.selectedOptions.find(
+      (optionOfList) => optionOfList.value === option.value
+    );
+  }
+}

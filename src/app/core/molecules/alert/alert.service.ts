@@ -24,12 +24,20 @@ export class AlertService {
         return this.alert(message, EAlertStatus.success, config);
     }
 
+    public alertLightSuccess(message: string, config: MatSnackBarConfig = {}) {
+        return this.alert(message, EAlertStatus.lightSuccess, config);
+    }
+
     public alertWarning(message: string, config: MatSnackBarConfig = {}) {
         return this.alert(message, EAlertStatus.warning, config);
     }
 
     public alertError(message: string, config: MatSnackBarConfig = {}) {
         return this.alert(message, EAlertStatus.error, config);
+    }
+
+    public alertLightError(message: string, config: MatSnackBarConfig = {}) {
+        return this.alert(message, EAlertStatus.lightError, config);
     }
 
 }

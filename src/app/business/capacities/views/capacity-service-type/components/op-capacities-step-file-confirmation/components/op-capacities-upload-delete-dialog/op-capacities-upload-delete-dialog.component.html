@@ -1,0 +1,45 @@
+<section
+  class="operations-capacities-local-default-capacity-dialog"
+  app-dialog-container
+>
+  <div app-dialog-close mat-dialog-close></div>
+  <div class="px-5 pt-3">
+    <div class="mb-7">
+      <app-dialog-header containerClass="align-items-center" svgName="place">
+        <ng-container dialog-header-title>
+          <span class="text-h6 text-wrap text-gray-6 font-weight-bold"
+            >¿Deseas eliminar el local {{ local?.code }} -
+            {{ local?.local }}?</span
+          >
+        </ng-container>
+      </app-dialog-header>
+    </div>
+
+    <div class="mb-9">
+      <p class="text-body-1-regular text-gray-6 mb-0">
+        El local {{ local?.code }} - {{ local?.local }} se eliminará de la
+        previsualización y no se cargarán las configuraciones en las
+        capacidades.
+      </p>
+    </div>
+
+    <div class="d-flex-horizontal-end">
+      <app-button
+        appearance="secondary"
+        class="me-md-4"
+        innerClass="w-100 w-md-auto"
+        [mat-dialog-close]="false"
+      >
+        Cancelar
+      </app-button>
+      <app-button
+        appearance="primary"
+        class="mb-4 mb-md-0"
+        innerClass="w-100 w-md-auto"
+        [mat-dialog-close]="true"
+      >
+        Eliminar
+      </app-button>
+    </div>
+  </div>
+</section>

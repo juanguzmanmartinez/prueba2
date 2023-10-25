@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-admin-operaciones
+  labels:
+    app: web-admin-operaciones
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-admin-operaciones
+  template:
+    metadata:
+      labels:
+        app: web-admin-operaciones
+    spec:
+      containers:
+      - name: web-admin-operaciones
+        image: 519901771307.dkr.ecr.us-west-2.amazonaws.com/web-admin-operaciones:#{TAG}
+        env:
+        - name: environment
+          value: #{PROFILE}
+        - name: app
+          value: "inkafarma"
+        - name: firebase_key
+          value: "AIzaSyBqkYwbccBpIf8X3f3zMRcwLaL7PGnmI1g"
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 150m
+            memory: 400Mi
+          requests:
+            cpu: 150m
+            memory: 400Mi
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: web-admin-operaciones
+  name: web-admin-operaciones
+spec:
+  type: NodePort
+  ports:
+  - name: "80"
+    port: 80
+    targetPort: 8080
+  selector:
+    app: web-admin-operaciones
+status:
+  loadBalancer: {}
