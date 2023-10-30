@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve --open",
     "start:qas": "ng serve --configuration=qas --open",
+    "start:uat": "ng serve --configuration=uat --open",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
